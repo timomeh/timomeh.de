@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import Link from 'next/link'
 import { Layout } from '../components/Layout'
 import { Prose } from '../components/Prose'
@@ -5,6 +6,9 @@ import { Prose } from '../components/Prose'
 export default function NotFound() {
   return (
     <Layout>
+      <Head>
+        <title>Not Found :( | Timo Mämecke</title>
+      </Head>
       <Prose>
         <h1>Not found :(</h1>
         <p>

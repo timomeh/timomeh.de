@@ -1,10 +1,9 @@
 import type { GetStaticProps, GetStaticPaths } from 'next'
-import { ArrowLeftIcon } from '@heroicons/react/20/solid'
+import Head from 'next/head'
 import { Layout } from '../../components/Layout'
 import { PostTitle } from '../../components/PostTitle'
 import { Prose } from '../../components/Prose'
 import { FullPost, getBlogPost } from '../../lib/blog'
-import Link from 'next/link'
 
 type Props = {
   post: FullPost
@@ -13,6 +12,9 @@ type Props = {
 export default function Post({ post }: Props) {
   return (
     <Layout>
+      <Head>
+        <title>{post.rawTitle} | Timo Mämecke</title>
+      </Head>
       <Prose>
         <h1 className="!mb-0">
           <PostTitle title={post.title} />

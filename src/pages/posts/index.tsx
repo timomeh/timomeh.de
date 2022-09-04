@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { getBlogPosts, ShortPost } from '../../lib/blog'
 import { PostTitle } from '../../components/PostTitle'
 import { Prose } from '../../components/Prose'
+import Head from 'next/head'
 
 type Props = {
   posts: ShortPost[]
@@ -13,6 +14,13 @@ type Props = {
 export default function Posts({ posts }: Props) {
   return (
     <Layout>
+      <Head>
+        <title>Posts | Timo Mämecke</title>
+        <meta
+          name="description"
+          content="Collection of things and thoughts I felt like writing about. A mixture of software development, JavaScript, React, or just random stuff."
+        />
+      </Head>
       <Prose>
         <h1>Posts</h1>
         <p>

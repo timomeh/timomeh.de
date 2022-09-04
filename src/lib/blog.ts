@@ -25,6 +25,7 @@ export type ShortPost = {
 
 export type FullPost = {
   title: string
+  rawTitle: string
   slug: string
   postedAt: string
   body: string
@@ -178,6 +179,7 @@ export async function getBlogPost(slug: string) {
     slug,
     postedAt: formatPostedAt(postedAt),
     title,
+    rawTitle: extractRawPostTitle(discussion.body) || slug,
     body: await postBodyToHtml(discussion.body),
   }
 }
@@ -191,6 +193,13 @@ export function parseDiscussionTitle(title: string) {
     slug: title.replace(dateInTitleExp, '').trim(),
     postedAt: dateMatches?.[1].trim(),
   }
+}
+
+function extractRawPostTitle(body: string) {
+  const titleExp = /^# (.*$)/gim
+  const matches = titleExp.exec(body)
+
+  return matches?.[0]
 }
 
 async function extractPostTitle(body: string) {

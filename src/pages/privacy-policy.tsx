@@ -1,9 +1,13 @@
+import Head from 'next/head'
 import { Layout } from '../components/Layout'
 import { Prose } from '../components/Prose'
 
 export default function PrivacyPolicy() {
   return (
     <Layout>
+      <Head>
+        <title>Privacy Policy | Timo Mämecke</title>
+      </Head>
       <Prose>
         <h1>Privacy Policy – Datenschutzerklärung</h1>
         <h2>1. Datenschutz auf einen Blick</h2>
