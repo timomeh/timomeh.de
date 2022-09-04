@@ -9,7 +9,7 @@ export default function Home() {
         <h1>Hi 👋</h1>
         <p>
           I’m Timo Mämecke, online sometimes known as{' '}
-          <a href="https://gigs.com" rel="noopener noreferrer">
+          <a href="https://twitter.com/timomeh" rel="noopener noreferrer">
             @timomeh
           </a>
           . I am a Software Engineer from Germany, and Frontend Engineering Lead
