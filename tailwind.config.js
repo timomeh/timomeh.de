@@ -20,26 +20,17 @@ module.exports = {
       '9xl': ['8rem', { lineHeight: '1' }],
     },
     extend: {
+      backgroundImage: {
+        'gradient-radial':
+          'radial-gradient(ellipse at top, var(--tw-gradient-stops))',
+      },
       fontFamily: {
-        sans: ['InterVariable', ...defaultTheme.fontFamily.sans],
-        display: ['OutfitVariable', ...defaultTheme.fontFamily.sans],
+        sans: ['Inter', ...defaultTheme.fontFamily.sans],
+        display: ['Outfit', ...defaultTheme.fontFamily.sans],
+        mono: ['IBM Plex Mono', ...defaultTheme.fontFamily.mono],
       },
       maxWidth: {
         '8xl': '88rem',
-      },
-      colors: {
-        night: {
-          900: '#131226',
-          800: '#22203E',
-          700: '#343056',
-          600: '#48436E',
-          500: '#615A87',
-          400: '#7C749F',
-          300: '#9992B7',
-          200: '#B9B2CF',
-          100: '#D8D3E7',
-          50: '#F6F2FF',
-        },
       },
     },
   },

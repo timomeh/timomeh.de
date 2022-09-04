@@ -1,3 +1,42 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .prose :where(iframe):not(:where([class~='not-prose'] *)) {
+    @apply aspect-video w-full h-auto;
+  }
+}
+
+.data-footnote-backref {
+  @apply text-xs;
+  font-family: sans-serif;
+}
+
+h2[id],
+h3[id],
+h4[id],
+h5[id],
+h6[id] {
+  a[href^='#'] {
+    @apply invisible text-slate-400 text-[0.75em] ml-2 no-underline;
+  }
+
+  &:hover > a[href^='#'] {
+    @apply visible;
+  }
+
+  a > .icon-link {
+    &::after {
+      content: '#';
+    }
+  }
+}
+
+.footnotes {
+  @apply border-t border-slate-200 mt-12 text-sm;
+
+  h2 {
+    @apply mt-4 mb-0 text-base leading-tight;
+  }
+}
