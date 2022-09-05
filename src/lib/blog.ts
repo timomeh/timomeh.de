@@ -29,6 +29,7 @@ export type FullPost = {
   slug: string
   postedAt: string
   body: string
+  discussionNumber: number
 }
 
 export const categoryId = 'DIC_kwDOH6oEFs4CROow'
@@ -126,6 +127,7 @@ type SearchDiscussion = {
         title: string
         createdAt: string
         body: string
+        number: number
         category: {
           id: string
         }
@@ -149,6 +151,7 @@ export async function getBlogPost(slug: string) {
               title
               createdAt
               body
+              number
               category {
                 id
               }
@@ -179,6 +182,7 @@ export async function getBlogPost(slug: string) {
     slug,
     postedAt: formatPostedAt(postedAt),
     title,
+    discussionNumber: discussion.number,
     rawTitle: extractRawPostTitle(discussion.body) || slug,
     body: await postBodyToHtml(discussion.body),
   }

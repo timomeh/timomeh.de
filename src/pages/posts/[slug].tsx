@@ -11,9 +11,19 @@ type Props = {
 
 export default function Post({ post }: Props) {
   return (
-    <Layout>
+    <Layout
+      footerLinks={
+        <a
+          href={`https://github.com/timomeh/timomeh.de/discussions/${post.discussionNumber}`}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          View this Post on GitHub
+        </a>
+      }
+    >
       <Head>
-        <title>{post.rawTitle} | Timo Mämecke</title>
+        <title>{`${post.rawTitle} | Timo Mämecke`}</title>
       </Head>
       <Prose>
         <h1 className="!mb-0">
@@ -22,7 +32,7 @@ export default function Post({ post }: Props) {
         <span className="text-slate-500 text-sm">
           posted on {post.postedAt}
         </span>
-        <div className="h-6 lg:h-8" />
+        <div className="h-6 md:h-8" />
         <div dangerouslySetInnerHTML={{ __html: post.body }} />
       </Prose>
     </Layout>

@@ -4,9 +4,10 @@ import { useRouter } from 'next/router'
 
 type Props = {
   children: React.ReactNode
+  footerLinks?: React.ReactNode
 }
 
-export function Layout({ children }: Props) {
+export function Layout({ children, footerLinks }: Props) {
   const router = useRouter()
 
   return (
@@ -74,7 +75,8 @@ export function Layout({ children }: Props) {
         {children}
       </div>
       <footer className="min-w-0 max-w-2xl flex-auto px-4 mx-auto py-6 opacity-30 hover:opacity-100 transition-opacity">
-        <div className="flex justify-end space-x-3 text-xs font-medium text-slate-500">
+        <div className="flex justify-end space-x-3 text-xs font-medium text-slate-500 prose-base hover:prose-a:underline">
+          {footerLinks}
           <Link href="/imprint">
             <a className="hover:underline">Imprint</a>
           </Link>
