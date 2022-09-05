@@ -8,12 +8,6 @@ import '../styles/globals.css'
 import '../styles/prism.css'
 import Head from 'next/head'
 
-if (typeof window !== 'undefined') {
-  navigator.serviceWorker.getRegistrations().then((registrations) => {
-    registrations.forEach((registration) => registration.unregister())
-  })
-}
-
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
