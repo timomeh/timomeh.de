@@ -199,7 +199,7 @@ function extractRawPostTitle(body: string) {
   const titleExp = /^# (.*$)/gim
   const matches = titleExp.exec(body)
 
-  return matches?.[0]
+  return matches?.[1].trim()
 }
 
 async function extractPostTitle(body: string) {
