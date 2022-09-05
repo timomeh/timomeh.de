@@ -19,23 +19,29 @@ export default async function handler(
   const verified = await webhooks.verify(data, signatureSha256)
 
   if (!verified) {
-    res.status(401).json({ result: 'Unverified' })
+    res.status(401).json({ ok: false, hint: 'Unverified' })
   }
 
   if (!data.discussion) {
-    res.status(401).json({ result: 'Not a discussion event' })
+    res.status(401).json({ ok: false, hint: 'Not a discussion event' })
   }
 
   // @ts-expect-error
   const receivedCategoryId: string = data.discussion.category.node_id
 
   if (receivedCategoryId !== categoryId) {
-    res.status(400).json({ result: 'Only Blog Post Category allowed' })
+    res.status(200).json({
+      ok: true,
+      revalidated: [],
+      hint: `Only Blog Post Category ${categoryId} allowed. Received discussion had Category ${receivedCategoryId}`,
+    })
   }
 
   if (data.action === 'created') {
     await res.revalidate('/posts')
-    res.status(200).json({ revalidated: ['/posts'] })
+    res
+      .status(200)
+      .json({ ok: true, hint: 'Revalidated pages', revalidated: ['/posts'] })
     return
   }
 
@@ -43,7 +49,13 @@ export default async function handler(
     const { slug } = parseDiscussionTitle(data.discussion.title)
     await res.revalidate('/posts')
     await res.revalidate(`/posts/${slug}`)
-    res.status(200).json({ revalidated: ['/posts', `/posts/${slug}`] })
+    res
+      .status(200)
+      .json({
+        ok: true,
+        hint: 'Revalidated pages',
+        revalidated: ['/posts', `/posts/${slug}`],
+      })
     return
   }
 }
