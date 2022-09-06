@@ -1,18 +1,26 @@
-import { chromium } from 'playwright-core'
-import lambdaChromium from 'chrome-aws-lambda'
+import chromium from 'chrome-aws-lambda'
 
 export async function screenshot(url: string) {
-  const browser = await chromium.launch({
-    executablePath: await lambdaChromium.executablePath,
-    args: lambdaChromium.args,
-  })
-  const context = await browser.newContext()
-  const page = await context.newPage()
-  await page.setViewportSize({ width: 1200, height: 630 })
-  await page.goto(url)
-  await page.waitForLoadState('networkidle')
-  const image = await page.screenshot({ type: 'png' })
+  let browser = null
 
-  await browser.close()
-  return image
+  try {
+    browser = await chromium.puppeteer.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath,
+      headless: chromium.headless,
+      ignoreHTTPSErrors: true,
+    })
+    const page = await browser.newPage()
+    await page.setViewport({ width: 1200, height: 630 })
+    await page.goto(url)
+    await page.waitForNetworkIdle()
+    const image = await page.screenshot({ type: 'png', encoding: 'binary' })
+
+    await browser.close()
+    return image
+  } catch (error) {
+    await browser?.close()
+    throw error
+  }
 }
