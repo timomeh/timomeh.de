@@ -27,6 +27,7 @@ export default function Post({ post }: Props) {
         <meta
           property="og:image"
           content={`https://timomeh.de/assets/og-image/posts/${post.slug}.png`}
+          key="og-image"
         />
       </Head>
       <Prose>
