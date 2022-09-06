@@ -1,12 +1,16 @@
 import playwrightLamdba from 'playwright-aws-lambda'
 import playwrightDev from 'playwright'
 
-const playwright = (
-  process.env.NODE_ENV === 'production' ? playwrightLamdba : playwrightDev
-) as typeof playwrightDev
+async function launchPlaywright() {
+  if (process.env.NODE_ENV === 'production') {
+    return playwrightLamdba.launchChromium()
+  } else {
+    return playwrightDev.chromium.launch()
+  }
+}
 
 export async function screenshot(url: string) {
-  const browser = await playwright.chromium.launch()
+  const browser = await launchPlaywright()
   const context = await browser.newContext()
   const page = await context.newPage()
   await page.setViewportSize({ width: 1200, height: 630 })
