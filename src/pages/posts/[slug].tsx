@@ -24,6 +24,10 @@ export default function Post({ post }: Props) {
     >
       <Head>
         <title>{`${post.rawTitle} | Timo Mämecke`}</title>
+        <meta
+          property="og:image"
+          content={`https://timomeh.de/assets/og-image/posts/${post.slug}.png`}
+        />
       </Head>
       <Prose>
         <h1 className="!mb-0">
