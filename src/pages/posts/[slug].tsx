@@ -1,5 +1,6 @@
 import type { GetStaticProps, GetStaticPaths } from 'next'
 import Head from 'next/head'
+import { GithubLogo } from '../../components/GithubLogo'
 import { Layout } from '../../components/Layout'
 import { PostTitle } from '../../components/PostTitle'
 import { Prose } from '../../components/Prose'
@@ -11,9 +12,7 @@ type Props = {
 
 export default function Post({ post }: Props) {
   return (
-    <Layout
-      githubUrl={`https://github.com/timomeh/timomeh.de/discussions/${post.discussionNumber}`}
-    >
+    <Layout githubUrl="https://github.com/timomeh/timomeh.de/discussions">
       <Head>
         <title>{`${post.rawTitle} | Timo Mämecke`}</title>
         <meta
@@ -35,9 +34,19 @@ export default function Post({ post }: Props) {
         <h1 className="!mb-0">
           <PostTitle title={post.title} />
         </h1>
-        <span className="text-slate-500 text-sm">
-          posted on {post.postedAt}
-        </span>
+        <div className="flex items-center space-x-2">
+          <div className="text-slate-500 text-sm">
+            posted on {post.postedAt}
+          </div>
+          <a
+            href={`https://github.com/timomeh/timomeh.de/discussions/${post.discussionNumber}`}
+            rel="noopener noreferrer"
+            target="_blank"
+            className="fill-slate-500 hover:fill-slate-700 transition-colors"
+          >
+            <GithubLogo className="w-[26px] h-[26px] -m-1 p-1" />
+          </a>
+        </div>
         <div className="h-6 md:h-8" />
         <div dangerouslySetInnerHTML={{ __html: post.body }} />
       </Prose>
