@@ -29,6 +29,15 @@ export default function Post({ post }: Props) {
           content={`https://timomeh.de/assets/og-image/posts/${post.slug}.png`}
           key="og-image"
         />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content={`${post.rawTitle} | Timo Mämecke`}
+        />
+        <meta
+          name="twitter:image"
+          content={`https://timomeh.de/assets/og-image/posts/${post.slug}.png`}
+        />
       </Head>
       <Prose>
         <h1 className="!mb-0">
