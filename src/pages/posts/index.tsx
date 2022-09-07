@@ -13,17 +13,7 @@ type Props = {
 
 export default function Posts({ posts }: Props) {
   return (
-    <Layout
-      footerLinks={
-        <a
-          href="https://github.com/timomeh/timomeh.de/discussions"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          Posts on GitHub
-        </a>
-      }
-    >
+    <Layout githubUrl="https://github.com/timomeh/timomeh.de/discussions">
       <Head>
         <title>Posts | Timo Mämecke</title>
         <meta

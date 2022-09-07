@@ -1,14 +1,16 @@
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { GithubLogo } from './GithubLogo'
 import { Logo } from './Logo'
+import { TwitterLogo } from './TwitterLogo'
 
 type Props = {
   children: React.ReactNode
-  footerLinks?: React.ReactNode
+  githubUrl?: string
 }
 
-export function Layout({ children, footerLinks }: Props) {
+export function Layout({ children, githubUrl }: Props) {
   const router = useRouter()
 
   return (
@@ -29,10 +31,11 @@ export function Layout({ children, footerLinks }: Props) {
 
             <div className="flex-1" />
 
-            <div className="text-sm flex font-medium text-black/60 space-x-4">
+            <div className="text-sm flex font-medium text-black/60 space-x-6 items-center">
               <Link href="/">
                 <a
                   className={clsx(
+                    'hover:text-black/90 transition-colors',
                     router.pathname === '/' ? 'text-black/90' : 'text-black/60'
                   )}
                 >
@@ -43,6 +46,7 @@ export function Layout({ children, footerLinks }: Props) {
               <Link href="/posts">
                 <a
                   className={clsx(
+                    'hover:text-black/90 transition-colors',
                     router.pathname.startsWith('/posts')
                       ? 'text-black/90'
                       : 'text-black/60'
@@ -56,8 +60,18 @@ export function Layout({ children, footerLinks }: Props) {
                 href="https://twitter.com/timomeh"
                 rel="noopener noreferrer"
                 target="_blank"
+                className=" fill-black/60 hover:fill-black/90 transition-colors"
               >
-                Twitter
+                <TwitterLogo className="w-6 h-6 -m-1 p-1" />
+              </a>
+
+              <a
+                href={githubUrl || 'https://github.com/timomeh/timomeh.de'}
+                rel="noopener noreferrer"
+                target="_blank"
+                className=" fill-black/60 hover:fill-black/90 transition-colors"
+              >
+                <GithubLogo className="w-[26px] h-[26px] -m-1 p-1" />
               </a>
             </div>
           </nav>
@@ -68,7 +82,6 @@ export function Layout({ children, footerLinks }: Props) {
       </div>
       <footer className="min-w-0 max-w-2xl flex-auto px-4 mx-auto py-6 opacity-30 hover:opacity-100 transition-opacity">
         <div className="flex justify-end space-x-3 text-xs font-medium text-slate-500 prose-base hover:prose-a:underline">
-          {footerLinks}
           <Link href="/imprint">
             <a className="hover:underline">Imprint</a>
           </Link>
