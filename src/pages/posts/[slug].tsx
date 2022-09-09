@@ -1,7 +1,8 @@
 import type { GetStaticProps, GetStaticPaths } from 'next'
 import Head from 'next/head'
 import Image from 'next/future/image'
-import parse, { Element } from 'html-react-parser'
+import parse, { Element, domToReact } from 'html-react-parser'
+
 import { GithubLogo } from '../../components/GithubLogo'
 import { Layout } from '../../components/Layout'
 import { PostTitle } from '../../components/PostTitle'
@@ -16,20 +17,27 @@ export default function Post({ post }: Props) {
   return (
     <Layout githubUrl="https://github.com/timomeh/timomeh.de/discussions">
       <Head>
-        <title>{`${post.rawTitle} | Timo Mämecke`}</title>
+        <title key="title">{`${post.rawTitle} | Timo Mämecke`}</title>
         <meta
           property="og:image"
           content={`https://timomeh.de/assets/og-image/posts/${post.slug}.png`}
           key="og-image"
         />
+        <meta
+          name="description"
+          content={`${post.rawTitle}, posted on ${post.postedAt} by Timo Mämecke`}
+          key="description"
+        />
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
           content={`${post.rawTitle} | Timo Mämecke`}
+          key="twitter-title"
         />
         <meta
           name="twitter:image"
           content={`https://timomeh.de/assets/og-image/posts/${post.slug}.png`}
+          key="twitter-image"
         />
       </Head>
       <Prose>
@@ -68,6 +76,14 @@ export default function Post({ post }: Props) {
                   height={domNode.attribs['height']}
                   quality={100}
                 />
+              )
+            }
+
+            if (domNode instanceof Element && domNode.name === 'pre') {
+              return (
+                <pre className={`not-prose ${domNode.attribs['class']}`}>
+                  {domToReact(domNode.children)}
+                </pre>
               )
             }
           },

@@ -1,17 +1,21 @@
+import { useId } from 'react'
+
 type Props = {
   className: string
 }
 
 export function GithubLogo({ className }: Props) {
+  const id = useId()
+
   return (
     <svg
       role="img"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      aria-labelledby="github-logo-title"
+      aria-labelledby={id}
       className={className}
     >
-      <title id="github-logo-title">View on GitHub</title>
+      <title id={id}>View on GitHub</title>
       <path
         fillRule="evenodd"
         clipRule="evenodd"

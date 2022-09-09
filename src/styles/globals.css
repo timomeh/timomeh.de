@@ -40,3 +40,113 @@ h6[id] {
     @apply mt-4 mb-0 text-base leading-tight;
   }
 }
+
+pre[class*='language-'] {
+  @apply overflow-x-auto bg-slate-50;
+}
+
+code[class*='language-'] {
+  @apply font-mono font-medium lg:text-sm text-[13px] bg-slate-50;
+}
+
+code[class*='language-'] {
+  @apply font-mono font-medium;
+
+  .token.selector,
+  .token.string,
+  .token.char,
+  .token.builtin,
+  .token.inserted,
+  .token.regex,
+  .token.attr-value,
+  .token.attr-value > .token.punctuation {
+    @apply text-green-700;
+  }
+
+  &.language-css .token.url > .token.string.url {
+    @apply text-green-700;
+  }
+
+  &.language-markdown .token.code-snippet {
+    @apply text-green-700;
+  }
+
+  .rainbow-braces .token.token.punctuation.brace-level-2,
+  .rainbow-braces .token.token.punctuation.brace-level-6,
+  .rainbow-braces .token.token.punctuation.brace-level-10 {
+    @apply text-green-700;
+  }
+
+  .token.variable,
+  .token.operator,
+  .token.function {
+    @apply text-blue-600;
+  }
+
+  .token.url {
+    @apply text-teal-600;
+  }
+
+  &.language-css .token.function,
+  &.language-css .token.url > .token.function {
+    @apply text-blue-600;
+  }
+
+  &.language-markdown .token.url > .token.content {
+    @apply text-blue-600;
+  }
+
+  .rainbow-braces .token.token.punctuation.brace-level-3,
+  .rainbow-braces .token.token.punctuation.brace-level-7,
+  .rainbow-braces .token.token.punctuation.brace-level-11 {
+    @apply text-blue-600;
+  }
+
+  .token.attr-name,
+  .token.class-name,
+  .token.boolean,
+  .token.constant,
+  .token.number,
+  .token.atrule {
+    @apply text-amber-700;
+  }
+
+  .token.property,
+  .token.tag,
+  .token.symbol,
+  .token.deleted,
+  .token.important {
+    @apply text-orange-700;
+  }
+
+  &.language-css .token.selector {
+    @apply text-orange-700;
+  }
+
+  &.language-json .token.null.keyword {
+    @apply text-amber-700;
+  }
+
+  &.language-markdown .token.bold .token.content {
+    @apply text-amber-700;
+  }
+
+  &.language-markdown .token.strike .token.content,
+  &.language-markdown .token.strike .token.punctuation,
+  &.language-markdown .token.list.punctuation,
+  &.language-markdown .token.title.important > .token.punctuation {
+    @apply text-orange-700;
+  }
+
+  .rainbow-braces .token.token.punctuation.brace-level-1,
+  .rainbow-braces .token.token.punctuation.brace-level-5,
+  .rainbow-braces .token.token.punctuation.brace-level-9 {
+    @apply text-orange-700;
+  }
+
+  .token.comment,
+  .token.prolog,
+  .token.cdata {
+    @apply text-slate-500;
+  }
+}

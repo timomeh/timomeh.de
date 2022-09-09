@@ -1,18 +1,17 @@
 import type { AppProps } from 'next/app'
+import Head from 'next/head'
 
 import '@fontsource/inter/latin.css'
 import '@fontsource/outfit/latin.css'
 import '@fontsource/ibm-plex-mono/500.css'
 import 'prism-themes/themes/prism-one-light.css'
 import '../styles/globals.css'
-import '../styles/prism.css'
-import Head from 'next/head'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Timo Mämecke</title>
+        <title key="title">Timo Mämecke</title>
         <link
           rel="apple-touch-icon"
           sizes="180x180"

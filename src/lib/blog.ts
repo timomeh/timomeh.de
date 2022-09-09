@@ -4,7 +4,7 @@ import remarkParse from 'remark-parse'
 import rehypeGfm from 'remark-gfm'
 import remarkBreaks from 'remark-breaks'
 import remarkUnwrapImages from 'remark-unwrap-images'
-import rehypePrism from 'rehype-prism-plus'
+import remarkPrism from 'remark-prism'
 import remarkRehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'
 import rehypeRaw from 'rehype-raw'
@@ -236,12 +236,12 @@ async function postBodyToHtml(body: string) {
     .use(remarkParse)
     .use(remarkBreaks)
     .use(remarkUnwrapImages)
+    .use(remarkPrism)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
     .use(rehypeExternalImgSize)
     .use(rehypeGfm)
     .use(rehypeSlug)
-    .use(rehypePrism)
     .use(rehypeAutolinkHeadings, {
       behavior: 'append',
     })

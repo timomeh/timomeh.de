@@ -15,10 +15,11 @@ export default function Posts({ posts }: Props) {
   return (
     <Layout githubUrl="https://github.com/timomeh/timomeh.de/discussions">
       <Head>
-        <title>Posts | Timo Mämecke</title>
+        <title key="title">Posts | Timo Mämecke</title>
         <meta
           name="description"
           content="Collection of things and thoughts I felt like writing about. A mixture of software development, JavaScript, React, or just random stuff."
+          key="description"
         />
       </Head>
       <Prose>

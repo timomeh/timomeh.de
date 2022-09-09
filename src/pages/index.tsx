@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import Link from 'next/link'
 import { Layout } from '../components/Layout'
 import { Prose } from '../components/Prose'
@@ -5,6 +6,13 @@ import { Prose } from '../components/Prose'
 export default function Home() {
   return (
     <Layout>
+      <Head>
+        <meta
+          name="description"
+          content="Hi, I’m Timo Mämecke, Software Engineer from Germany, and this is the place where I write stuff."
+          key="description"
+        />
+      </Head>
       <Prose>
         <h1>Hi 👋</h1>
         <p>
