@@ -75,6 +75,7 @@ export default function Post({ post }: Props) {
                   width={domNode.attribs['width']}
                   height={domNode.attribs['height']}
                   quality={100}
+                  sizes="(min-width: 672px) 640px, 100vw"
                 />
               )
             }
