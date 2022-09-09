@@ -1,5 +1,7 @@
 import type { GetStaticProps, GetStaticPaths } from 'next'
 import Head from 'next/head'
+import Image from 'next/future/image'
+import parse, { Element } from 'html-react-parser'
 import { GithubLogo } from '../../components/GithubLogo'
 import { Layout } from '../../components/Layout'
 import { PostTitle } from '../../components/PostTitle'
@@ -48,7 +50,28 @@ export default function Post({ post }: Props) {
           </a>
         </div>
         <div className="h-6 md:h-8" />
-        <div dangerouslySetInnerHTML={{ __html: post.body }} />
+
+        {parse(post.body, {
+          replace: (domNode) => {
+            if (
+              domNode instanceof Element &&
+              domNode.name === 'img' &&
+              domNode.attribs['src'].startsWith(
+                'https://user-images.githubusercontent.com/4227520/'
+              )
+            ) {
+              return (
+                <Image
+                  src={domNode.attribs['src']}
+                  alt={domNode.attribs['alt']}
+                  width={domNode.attribs['width']}
+                  height={domNode.attribs['height']}
+                  quality={100}
+                />
+              )
+            }
+          },
+        })}
       </Prose>
     </Layout>
   )

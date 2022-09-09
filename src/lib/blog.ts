@@ -9,6 +9,7 @@ import remarkRehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'
 import rehypeRaw from 'rehype-raw'
 import rehypeSlug from 'rehype-slug'
+import rehypeExternalImgSize from 'rehype-external-img-size'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 
 const api = graphql.defaults({
@@ -237,6 +238,7 @@ async function postBodyToHtml(body: string) {
     .use(remarkUnwrapImages)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
+    .use(rehypeExternalImgSize)
     .use(rehypeGfm)
     .use(rehypeSlug)
     .use(rehypePrism)

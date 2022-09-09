@@ -3,7 +3,18 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['timomeh.de'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'timomeh.de',
+        pathname: '/api/og-image',
+      },
+      {
+        protocol: 'https',
+        hostname: 'user-images.githubusercontent.com',
+        pathname: '/4227520/**',
+      },
+    ],
   },
   async rewrites() {
     return {
