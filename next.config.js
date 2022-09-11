@@ -39,6 +39,20 @@ const nextConfig = {
       ],
     }
   },
+  async redirects() {
+    return [
+      {
+        source: '/posts/feed',
+        destination: '/posts/feed.atom',
+        permanent: true,
+      },
+      {
+        source: '/feed',
+        destination: '/posts/feed.atom',
+        permanent: false,
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig
