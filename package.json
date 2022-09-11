@@ -17,6 +17,7 @@
     "@octokit/webhooks": "10.1.5",
     "chrome-aws-lambda": "6.0.0",
     "clsx": "1.2.1",
+    "feed": "^4.2.2",
     "hastscript": "7.0.2",
     "html-react-parser": "^3.0.4",
     "next": "^12.3.0",

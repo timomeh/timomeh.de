@@ -39,6 +39,21 @@ export default function Post({ post }: Props) {
           content={`https://timomeh.de/assets/og-image/posts/${post.slug}.png`}
           key="twitter-image"
         />
+        <link
+          rel="alternate"
+          type="application/atom+xml"
+          href="https://timomeh.de/posts/feed.atom"
+        />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          href="https://timomeh.de/posts/feed.rss"
+        />
+        <link
+          rel="alternate"
+          type="application/feed+json"
+          href="https://timomeh.de/posts/feed.json"
+        />
       </Head>
       <Prose>
         <h1 className="!mb-0">

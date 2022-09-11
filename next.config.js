@@ -24,6 +24,18 @@ const nextConfig = {
           destination:
             '/_next/image?url=https://timomeh.de/api/og-image?slug=:slug&w=1200&q=100',
         },
+        {
+          source: '/posts/feed.atom',
+          destination: '/api/feed?format=atom',
+        },
+        {
+          source: '/posts/feed.rss',
+          destination: '/api/feed?format=rss',
+        },
+        {
+          source: '/posts/feed.json',
+          destination: '/api/feed?format=json',
+        },
       ],
     }
   },

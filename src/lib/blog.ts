@@ -33,9 +33,74 @@ export type FullPost = {
   discussionNumber: number
 }
 
+export type FeedPost = {
+  title: string
+  slug: string
+  postedAt: Date
+  updatedAt: Date
+  body: string
+}
+
 export const categoryId = 'DIC_kwDOH6oEFs4CROow'
 const owner = 'timomeh'
 const repo = 'timomeh.de'
+
+export async function getBlogPosts() {
+  const discussions = await fetchAllDiscussions()
+
+  const posts = await Promise.all(
+    discussions.map(async (discussion) => {
+      const defaultPostedAt = discussion.createdAt.split('T')[0]
+      const { slug, postedAt = defaultPostedAt } = parseDiscussionTitle(
+        discussion.title
+      )
+      const title = (await extractPostTitle(discussion.body)) || slug
+
+      return {
+        slug,
+        postedAt: formatPostedAt(postedAt),
+        title,
+      }
+    })
+  )
+
+  const sortedPosts = posts.sort((postA, postB) => {
+    return (
+      new Date(postB.postedAt).getTime() - new Date(postA.postedAt).getTime()
+    )
+  })
+
+  return sortedPosts
+}
+
+export async function getFeedPosts() {
+  const discussions = await fetchAllDiscussions()
+
+  const posts = await Promise.all(
+    discussions.map(async (discussion) => {
+      const defaultPostedAt = discussion.createdAt.split('T')[0]
+      const { slug, postedAt = defaultPostedAt } = parseDiscussionTitle(
+        discussion.title
+      )
+
+      return {
+        slug,
+        postedAt: new Date(formatPostedAt(postedAt)),
+        updatedAt: new Date(discussion.updatedAt),
+        title: extractRawPostTitle(discussion.body) || slug,
+        body: await postBodyToHtml(discussion.body),
+      }
+    })
+  )
+
+  const sortedPosts = posts.sort((postA, postB) => {
+    return (
+      new Date(postB.postedAt).getTime() - new Date(postA.postedAt).getTime()
+    )
+  })
+
+  return sortedPosts
+}
 
 type ListDiscussion = {
   repository: {
@@ -44,21 +109,20 @@ type ListDiscussion = {
         endCursor: string
         hasNextPage: boolean
       }
-      edges: {
-        node: {
-          title: string
-          createdAt: string
-          body: string
-        }
+      nodes: {
+        title: string
+        createdAt: string
+        updatedAt: string
+        body: string
       }[]
     }
   }
 }
 
-export async function getBlogPosts() {
+async function fetchAllDiscussions() {
   let hasNextPage = true
   let after: string | null = null
-  let posts: ShortPost[] = []
+  let discussions: ListDiscussion['repository']['discussions']['nodes'] = []
 
   do {
     const result: ListDiscussion = await api(
@@ -75,12 +139,11 @@ export async function getBlogPosts() {
               hasNextPage
               endCursor
             }
-            edges {
-              node {
-                title
-                createdAt
-                body
-              }
+            nodes {
+              title
+              createdAt
+              updatedAt
+              body
             }
           }
         }
@@ -89,36 +152,14 @@ export async function getBlogPosts() {
       { owner, repo, categoryId, after }
     )
 
-    const { pageInfo, edges } = result.repository.discussions
+    const { pageInfo, nodes } = result.repository.discussions
 
-    const postsInPage = await Promise.all(
-      edges.map(async (edge) => {
-        const defaultPostedAt = edge.node.createdAt.split('T')[0]
-        const { slug, postedAt = defaultPostedAt } = parseDiscussionTitle(
-          edge.node.title
-        )
-        const title = (await extractPostTitle(edge.node.body)) || slug
-
-        return {
-          slug,
-          postedAt: formatPostedAt(postedAt),
-          title,
-        }
-      })
-    )
-
-    posts.push(...postsInPage)
+    discussions.push(...nodes)
     hasNextPage = pageInfo.hasNextPage
     after = pageInfo.endCursor
   } while (hasNextPage)
 
-  const sortedPosts = posts.sort((postA, postB) => {
-    return (
-      new Date(postB.postedAt).getTime() - new Date(postA.postedAt).getTime()
-    )
-  })
-
-  return sortedPosts
+  return discussions
 }
 
 type SearchDiscussion = {
