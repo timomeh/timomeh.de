@@ -12,6 +12,7 @@
     "@fontsource/ibm-plex-mono": "4.5.11",
     "@fontsource/inter": "4.5.12",
     "@fontsource/outfit": "4.5.9",
+    "@giscus/react": "^2.2.0",
     "@heroicons/react": "2.0.10",
     "@octokit/graphql": "5.0.1",
     "@octokit/webhooks": "10.1.5",

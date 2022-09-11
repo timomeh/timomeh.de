@@ -2,6 +2,7 @@ import type { GetStaticProps, GetStaticPaths } from 'next'
 import Head from 'next/head'
 import Image from 'next/future/image'
 import parse, { Element, domToReact } from 'html-react-parser'
+import Giscus from '@giscus/react'
 
 import { GithubLogo } from '../../components/GithubLogo'
 import { Layout } from '../../components/Layout'
@@ -123,6 +124,20 @@ export default function Post({ post }: Props) {
           },
         })}
       </Prose>
+      <hr className="h-px bg-slate-200 mt-12 md:mt-20 mb-12" />
+      <Giscus
+        id="comments"
+        repo="timomeh/timomeh.de"
+        repoId="R_kgDOH6oEFg="
+        mapping="number"
+        term={post.discussionNumber.toString()}
+        reactionsEnabled="1"
+        emitMetadata="0"
+        inputPosition="bottom"
+        theme="light"
+        lang="en"
+        loading="lazy"
+      />
     </Layout>
   )
 }
