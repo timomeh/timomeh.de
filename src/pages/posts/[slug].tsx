@@ -8,6 +8,7 @@ import { Layout } from '../../components/Layout'
 import { PostTitle } from '../../components/PostTitle'
 import { Prose } from '../../components/Prose'
 import { FullPost, getBlogPost } from '../../lib/blog'
+import Link from 'next/link'
 
 type Props = {
   post: FullPost
@@ -92,6 +93,23 @@ export default function Post({ post }: Props) {
                   quality={100}
                   sizes="(min-width: 672px) 640px, 100vw"
                 />
+              )
+            }
+
+            if (
+              domNode instanceof Element &&
+              domNode.name === 'a' &&
+              domNode.attribs['href']?.startsWith('https://timomeh.de/')
+            ) {
+              return (
+                <Link
+                  href={domNode.attribs['href'].replace(
+                    'https://timomeh.de',
+                    ''
+                  )}
+                >
+                  <a>{domToReact(domNode.children)}</a>
+                </Link>
               )
             }
 
