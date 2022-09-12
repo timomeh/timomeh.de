@@ -19,3 +19,4 @@ All posts are located in the Discussion's
 - Next.js
 - Tailwind
 - GitHub Discussions
+- Dynamic Open Graph Images using Puppeteer
