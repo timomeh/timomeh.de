@@ -4,9 +4,9 @@ import remarkParse from 'remark-parse'
 import rehypeGfm from 'remark-gfm'
 import remarkBreaks from 'remark-breaks'
 import remarkUnwrapImages from 'remark-unwrap-images'
-import remarkPrism from 'remark-prism'
 import remarkRehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'
+import rehypePrismPlus from 'rehype-prism-plus'
 import rehypeRaw from 'rehype-raw'
 import rehypeSlug from 'rehype-slug'
 import rehypeExternalImgSize from 'rehype-external-img-size'
@@ -88,7 +88,7 @@ export async function getFeedPosts() {
         postedAt: new Date(formatPostedAt(postedAt)),
         updatedAt: new Date(discussion.updatedAt),
         title: extractRawPostTitle(discussion.body) || slug,
-        body: await postBodyToHtml(discussion.body),
+        body: discussion.bodyHTML,
       }
     })
   )
@@ -114,6 +114,7 @@ type ListDiscussion = {
         createdAt: string
         updatedAt: string
         body: string
+        bodyHTML: string
       }[]
     }
   }
@@ -144,6 +145,7 @@ async function fetchAllDiscussions() {
               createdAt
               updatedAt
               body
+              bodyHTML
             }
           }
         }
@@ -277,10 +279,10 @@ async function postBodyToHtml(body: string) {
     .use(remarkParse)
     .use(remarkBreaks)
     .use(remarkUnwrapImages)
-    .use(remarkPrism)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
     .use(rehypeExternalImgSize)
+    .use(rehypePrismPlus)
     .use(rehypeGfm)
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings, {

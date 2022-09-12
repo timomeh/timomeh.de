@@ -52,12 +52,6 @@ export default async function handler(
     })
   })
 
-  const generateResponseBody = {
-    rss: () => feed.rss2(),
-    atom: () => feed.atom1(),
-    json: () => feed.json1(),
-  }
-
   res.setHeader(
     'Content-Type',
     format === 'json' ? 'application/json' : 'text/xml'
@@ -67,6 +61,13 @@ export default async function handler(
     'public, s-maxage=120, stale-while-revalidate=1800' // 2 minute cache, 30 minute swr
   )
 
-  res.write(generateResponseBody[format]())
+  const generateResponseBody = {
+    rss: () => feed.rss2(),
+    atom: () => feed.atom1(),
+    json: () => feed.json1(),
+  }
+
+  const body = generateResponseBody[format]()
+  res.write(body)
   res.end()
 }
