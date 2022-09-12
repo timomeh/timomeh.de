@@ -64,7 +64,7 @@ export default async function handler(
   )
   res.setHeader(
     'Cache-Control',
-    'public, s-maxage=120, stale-while-revalidate=2592000' // 2 minute cache, 1 month swr
+    'public, s-maxage=120, stale-while-revalidate=1800' // 2 minute cache, 30 minute swr
   )
 
   res.write(generateResponseBody[format]())
