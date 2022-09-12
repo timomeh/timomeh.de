@@ -10,5 +10,5 @@ jobs:
       matrix:
         feed: ['posts/feed.rss', 'posts/feed.atom', 'posts/feed.json']
     steps:
-      - run: 'curl -o /dev/null -s https://timomeh.de/${{ matrix.feed }}'
-      - run: "curl -o /dev/null -s -H 'Accept-encoding: gzip' https://timomeh.de/${{ matrix.feed }}"
+      - run: 'curl -sI https://timomeh.de/${{ matrix.feed }}'
+      - run: "curl -sI -H 'Accept-encoding: gzip' https://timomeh.de/${{ matrix.feed }}"
