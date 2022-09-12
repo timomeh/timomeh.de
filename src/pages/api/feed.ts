@@ -42,7 +42,7 @@ export default async function handler(
 
   posts.forEach((post) => {
     feed.addItem({
-      id: post.slug,
+      id: `https://timomeh.de/posts/${post.slug}`,
       published: post.postedAt,
       date: post.updatedAt,
       link: `https://timomeh.de/posts/${post.slug}`,
