@@ -52,22 +52,27 @@ export default async function handler(
     })
   })
 
-  res.setHeader(
-    'Content-Type',
-    format === 'json' ? 'application/json' : 'text/xml'
-  )
+  const byFormat = {
+    rss: {
+      type: 'text/xml',
+      body: () => feed.rss2(),
+    },
+    atom: {
+      type: 'application/atom+xml',
+      body: () => feed.atom1(),
+    },
+    json: {
+      type: 'application/json',
+      body: () => feed.json1(),
+    },
+  }
+
+  res.setHeader('Content-Type', byFormat[format].type.concat('; charset=utf-8'))
   res.setHeader(
     'Cache-Control',
     'public, s-maxage=120, stale-while-revalidate=1800' // 2 minute cache, 30 minute swr
   )
 
-  const generateResponseBody = {
-    rss: () => feed.rss2(),
-    atom: () => feed.atom1(),
-    json: () => feed.json1(),
-  }
-
-  const body = generateResponseBody[format]()
-  res.write(body)
+  res.write(byFormat[format].body())
   res.end()
 }
