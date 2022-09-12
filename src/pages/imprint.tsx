@@ -24,7 +24,7 @@ export default function Imprint() {
 
         <h2>Contact</h2>
         <p>
-          E-Mail: <a href="mailto:kontakt@maemecke.com">kontakt@maemecke.com</a>
+          E-Mail: <a href="mailto:hello@timomeh.de">hello@timomeh.de</a>
         </p>
       </Prose>
     </Layout>

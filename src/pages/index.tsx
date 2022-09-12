@@ -47,6 +47,20 @@ export default function Home() {
           .
         </p>
         <p>
+          If you want to reach out to me, you can do so via{' '}
+          <a href="https://twitter.com/timomeh" rel="noopener noreferrer">
+            Twitter
+          </a>
+          ,{' '}
+          <a
+            href="https://github.com/timomeh/timomeh.de/discussions/new?category=ask-me"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>{' '}
+          or <a href="mailto:hello@timomeh.de">Email</a>.
+        </p>
+        <p>
           You should also check out{' '}
           <a href="https://christianpoplawski.de/" rel="noopener noreferrer">
             Chris’
