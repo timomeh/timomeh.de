@@ -39,9 +39,12 @@ export default async function handler(
 
   if (data.action === 'created') {
     await res.revalidate('/posts')
-    res
-      .status(200)
-      .json({ ok: true, hint: 'Revalidated pages', revalidated: ['/posts'] })
+    await revalidateFeed()
+    res.status(200).json({
+      ok: true,
+      hint: 'Revalidated pages',
+      revalidated: ['/posts', '/posts/feed'],
+    })
     return
   }
 
@@ -49,13 +52,21 @@ export default async function handler(
     const { slug } = parseDiscussionTitle(data.discussion.title)
     await res.revalidate('/posts')
     await res.revalidate(`/posts/${slug}`)
-    res
-      .status(200)
-      .json({
-        ok: true,
-        hint: 'Revalidated pages',
-        revalidated: ['/posts', `/posts/${slug}`],
-      })
+    await revalidateFeed()
+    res.status(200).json({
+      ok: true,
+      hint: 'Revalidated pages',
+      revalidated: ['/posts', '/posts/feed', `/posts/${slug}`],
+    })
     return
   }
+}
+
+async function revalidateFeed() {
+  // pinging those routes will cause a revalidate while response is stale
+  Promise.allSettled([
+    fetch('https://timomeh.de/posts/feed.rss'),
+    fetch('https://timomeh.de/posts/feed.atom'),
+    fetch('https://timomeh.de/posts/feed.json'),
+  ])
 }
