@@ -1,0 +1,13 @@
+name: ping feeds
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        feed: ['posts/feed.rss', 'posts/feed.atom', 'posts/feed.json']
+    steps:
+      - run: curl -o /dev/null -s https://timomeh.de/${{ matrix.feed }}
