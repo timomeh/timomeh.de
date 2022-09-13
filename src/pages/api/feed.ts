@@ -70,7 +70,7 @@ export default async function handler(
   res.setHeader('Content-Type', byFormat[format].type.concat('; charset=utf-8'))
   res.setHeader(
     'Cache-Control',
-    'public, s-maxage=120, stale-while-revalidate=1800' // 2 minute cache, 30 minute swr
+    'public, s-maxage=600, stale-while-revalidate=1800' // 10 minute cache, 30 minute swr
   )
 
   res.write(byFormat[format].body())
