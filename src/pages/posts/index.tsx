@@ -52,7 +52,7 @@ export default function Posts({ posts }: Props) {
               <a className="font-semibold">
                 <PostTitle
                   title={post.title}
-                  className="hover:underline decoration-pink-600/80 decoration-2"
+                  className="decoration-fuchsia-400/40 decoration-2 hover:decoration-fuchsia-400/100 underline-offset-2 underline"
                 />
               </a>
             </Link>
