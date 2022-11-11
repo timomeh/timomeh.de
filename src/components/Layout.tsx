@@ -67,7 +67,7 @@ export function Layout({ children, githubUrl }: Props) {
 
               <a
                 href="https://mastodon.social/@timomeh"
-                rel="noopener noreferrer"
+                rel="noopener noreferrer me"
                 target="_blank"
                 className=" fill-black/60 hover:fill-black/90 transition-colors"
               >
