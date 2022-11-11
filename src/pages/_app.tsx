@@ -30,6 +30,11 @@ function MyApp({ Component, pageProps }: AppProps) {
           href="/favicon-16x16.png"
         />
         <meta name="theme-color" content="#ffffff" />
+        <link
+          rel="me"
+          href="https://mastodon.social/@timomeh"
+          title="Mastodon"
+        />
       </Head>
       <Component {...pageProps} />
     </>

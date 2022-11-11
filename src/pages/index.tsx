@@ -17,7 +17,7 @@ export default function Home() {
         <h1>Hi 👋</h1>
         <p>
           I’m Timo Mämecke, online sometimes known as{' '}
-          <a href="https://twitter.com/timomeh" rel="noopener noreferrer">
+          <a href="https://mastodon.social/@timomeh" rel="noopener noreferrer">
             @timomeh
           </a>
           . I am a Software Engineer from Germany, and Frontend Engineering Lead
@@ -48,8 +48,8 @@ export default function Home() {
         </p>
         <p>
           If you want to reach out to me, you can do so via{' '}
-          <a href="https://twitter.com/timomeh" rel="noopener noreferrer">
-            Twitter
+          <a href="https://mastodon.social/@timomeh" rel="noopener noreferrer">
+            Mastodon
           </a>
           ,{' '}
           <a

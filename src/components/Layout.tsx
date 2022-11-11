@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { GithubLogo } from './GithubLogo'
 import { Logo } from './Logo'
-import { TwitterLogo } from './TwitterLogo'
+import { MastodonLogo } from './MastodonLogo'
 
 type Props = {
   children: React.ReactNode
@@ -56,13 +56,22 @@ export function Layout({ children, githubUrl }: Props) {
                 </a>
               </Link>
 
-              <a
+              {/* <a
                 href="https://twitter.com/timomeh"
                 rel="noopener noreferrer"
                 target="_blank"
                 className=" fill-black/60 hover:fill-black/90 transition-colors"
               >
                 <TwitterLogo className="w-6 h-6 -m-1 p-1" />
+              </a> */}
+
+              <a
+                href="https://mastodon.social/@timomeh"
+                rel="noopener noreferrer"
+                target="_blank"
+                className=" fill-black/60 hover:fill-black/90 transition-colors"
+              >
+                <MastodonLogo className="w-6 h-6 -m-1 p-1" />
               </a>
 
               <a
