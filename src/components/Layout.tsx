@@ -23,37 +23,33 @@ export function Layout({ children, githubUrl }: Props) {
       <div>
         <div className="min-w-0 max-w-2xl flex-auto px-4 mx-auto pt-6 pb-4">
           <nav className="flex items-center">
-            <Link href="/">
-              <a className="block p-2 -m-2">
-                <Logo className="h-8 w-auto fill-black/80" />
-              </a>
+            <Link href="/" className="block p-2 -m-2">
+              <Logo className="h-8 w-auto fill-black/80" />
             </Link>
 
             <div className="flex-1" />
 
             <div className="text-sm flex font-medium text-black/60 space-x-6 items-center">
-              <Link href="/">
-                <a
-                  className={clsx(
-                    'hover:text-black/90 transition-colors',
-                    router.pathname === '/' ? 'text-black/90' : 'text-black/60'
-                  )}
-                >
-                  Hello
-                </a>
+              <Link
+                href="/"
+                className={clsx(
+                  'hover:text-black/90 transition-colors',
+                  router.pathname === '/' ? 'text-black/90' : 'text-black/60'
+                )}
+              >
+                Hello
               </Link>
 
-              <Link href="/posts">
-                <a
-                  className={clsx(
-                    'hover:text-black/90 transition-colors',
-                    router.pathname.startsWith('/posts')
-                      ? 'text-black/90'
-                      : 'text-black/60'
-                  )}
-                >
-                  Posts
-                </a>
+              <Link
+                href="/posts"
+                className={clsx(
+                  'hover:text-black/90 transition-colors',
+                  router.pathname.startsWith('/posts')
+                    ? 'text-black/90'
+                    : 'text-black/60'
+                )}
+              >
+                Posts
               </Link>
 
               {/* <a
@@ -91,11 +87,11 @@ export function Layout({ children, githubUrl }: Props) {
       </div>
       <footer className="min-w-0 max-w-2xl flex-auto px-4 mx-auto py-6">
         <div className="flex justify-end space-x-3 text-xs text-slate-500 prose-base hover:prose-a:underline">
-          <Link href="/imprint">
-            <a className="hover:underline">Imprint</a>
+          <Link href="/imprint" className="hover:underline">
+            Imprint
           </Link>
-          <Link href="/privacy-policy">
-            <a className="hover:underline">Privacy Policy</a>
+          <Link href="/privacy-policy" className="hover:underline">
+            Privacy Policy
           </Link>
         </div>
       </footer>

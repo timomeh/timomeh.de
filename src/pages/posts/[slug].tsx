@@ -1,6 +1,6 @@
 import type { GetStaticProps, GetStaticPaths } from 'next'
 import Head from 'next/head'
-import Image from 'next/future/image'
+import Image from 'next/image'
 import parse, { Element, domToReact } from 'html-react-parser'
 import Giscus from '@giscus/react'
 
@@ -89,8 +89,8 @@ export default function Post({ post }: Props) {
                 <Image
                   src={domNode.attribs['src']}
                   alt={domNode.attribs['alt']}
-                  width={domNode.attribs['width']}
-                  height={domNode.attribs['height']}
+                  width={+domNode.attribs['width']}
+                  height={+domNode.attribs['height']}
                   quality={100}
                   sizes="(min-width: 672px) 640px, 100vw"
                 />
@@ -109,7 +109,7 @@ export default function Post({ post }: Props) {
                     ''
                   )}
                 >
-                  <a>{domToReact(domNode.children)}</a>
+                  {domToReact(domNode.children)}
                 </Link>
               )
             }

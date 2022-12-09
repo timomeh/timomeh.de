@@ -28,23 +28,14 @@ export default function Home() {
           .
         </p>
         <p>
-          You can read my{' '}
-          <Link href="/posts">
-            <a>Posts</a>
-          </Link>{' '}
-          about code and other random things I felt like writing about.
+          You can read my <Link href="/posts">Posts</Link> about code and other
+          random things I felt like writing about.
         </p>
         <p>
           I have a past of building Blogs and wanting to publish content, but
           barely writing anything.{' '}
-          <Link href="/posts/how-to-build-a-blog/">
-            <a>I found the issue</a>
-          </Link>{' '}
-          and{' '}
-          <Link href="/posts/how-i-built-this-blog/">
-            <a>implemented a fix</a>
-          </Link>
-          .
+          <Link href="/posts/how-to-build-a-blog/">I found the issue</Link> and{' '}
+          <Link href="/posts/how-i-built-this-blog/">implemented a fix</Link>.
         </p>
         <p>
           If you want to reach out to me, you can do so via{' '}

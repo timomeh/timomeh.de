@@ -48,13 +48,11 @@ export default function Posts({ posts }: Props) {
       <ul className="space-y-4">
         {posts.map((post) => (
           <li key={post.slug}>
-            <Link href={`/posts/${post.slug}`}>
-              <a className="font-semibold">
-                <PostTitle
-                  title={post.title}
-                  className="decoration-fuchsia-400/40 decoration-2 hover:decoration-fuchsia-400/100 underline-offset-2 underline"
-                />
-              </a>
+            <Link href={`/posts/${post.slug}`} className="font-semibold">
+              <PostTitle
+                title={post.title}
+                className="decoration-fuchsia-400/40 decoration-2 hover:decoration-fuchsia-400/100 underline-offset-2 underline"
+              />
             </Link>
             <span className="block leading-tight text-slate-500 text-sm">
               posted on {post.postedAt}
