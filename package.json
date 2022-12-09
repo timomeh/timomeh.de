@@ -39,6 +39,7 @@
     "remark-rehype": "10.1.0",
     "remark-stringify": "10.0.2",
     "remark-unwrap-images": "3.0.1",
+    "server-only": "0.0.1",
     "unified": "10.1.2"
   },
   "devDependencies": {

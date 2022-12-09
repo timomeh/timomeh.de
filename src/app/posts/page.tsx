@@ -3,6 +3,8 @@ import { getBlogPosts } from '../../lib/blog'
 import { PostTitle } from '../../components/PostTitle'
 import { Prose } from '../../components/Prose'
 
+export const revalidate = Infinity
+
 export default async function Posts() {
   const posts = await getBlogPosts()
 

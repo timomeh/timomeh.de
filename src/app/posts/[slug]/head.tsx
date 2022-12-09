@@ -1,5 +1,3 @@
-import { notFound } from 'next/navigation'
-
 import { getBlogPost } from '../../../lib/blog'
 import { CommonHead } from '../../CommonHead'
 
@@ -9,11 +7,13 @@ type Props = {
   }
 }
 
+export const revalidate = Infinity
+
 export default async function Head({ params }: Props) {
   const post = await getBlogPost(params.slug)
 
   if (!post) {
-    return notFound()
+    return null
   }
 
   return (

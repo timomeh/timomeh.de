@@ -1,5 +1,7 @@
 import { CommonHead } from '../CommonHead'
 
+export const revalidate = Infinity
+
 export default function Head() {
   return (
     <>

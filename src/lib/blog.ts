@@ -1,4 +1,5 @@
-import { graphql } from '@octokit/graphql'
+import { withCustomRequest } from '@octokit/graphql'
+import { request } from '@octokit/request'
 import { unified } from 'unified'
 import remarkParse from 'remark-parse'
 import rehypeGfm from 'remark-gfm'
@@ -12,11 +13,20 @@ import rehypeSlug from 'rehype-slug'
 import rehypeExternalImgSize from 'rehype-external-img-size'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 
-const api = graphql.defaults({
+import { cache } from 'react'
+
+const myRequest = request.defaults({
   headers: {
     authorization: 'token '.concat(process.env.GITHUB_ACCESS_TOKEN!),
   },
+  request: {
+    fetch(url: RequestInfo | URL, opts?: RequestInit) {
+      return fetch(url, { ...opts, next: { revalidate: Infinity } })
+    },
+  },
 })
+
+const api = withCustomRequest(myRequest)
 
 export type ShortPost = {
   title: string
@@ -45,7 +55,7 @@ export const categoryId = 'DIC_kwDOH6oEFs4CROow'
 const owner = 'timomeh'
 const repo = 'timomeh.de'
 
-export async function getBlogPosts() {
+export const getBlogPosts = cache(async () => {
   const discussions = await fetchAllDiscussions()
 
   const posts = await Promise.all(
@@ -71,7 +81,7 @@ export async function getBlogPosts() {
   })
 
   return sortedPosts
-}
+})
 
 export async function getFeedPosts() {
   const discussions = await fetchAllDiscussions()
@@ -180,7 +190,7 @@ type SearchDiscussion = {
   }
 }
 
-export async function getBlogPost(slug: string) {
+export const getBlogPost = cache(async (slug: string) => {
   const result: SearchDiscussion = await api(
     `
     query postBySlug($search: String!) {
@@ -221,6 +231,7 @@ export async function getBlogPost(slug: string) {
   const defaultPostedAt = discussion.createdAt.split('T')[0]
   const { postedAt = defaultPostedAt } = parseDiscussionTitle(discussion.title)
   const title = (await extractPostTitle(discussion.body)) || slug
+  const body = await postBodyToHtml(discussion.body)
 
   return {
     slug,
@@ -228,9 +239,9 @@ export async function getBlogPost(slug: string) {
     title,
     discussionNumber: discussion.number,
     rawTitle: extractRawPostTitle(discussion.body) || slug,
-    body: await postBodyToHtml(discussion.body),
+    body,
   }
-}
+})
 
 export function parseDiscussionTitle(title: string) {
   // Turn the discussion title into slug + optional postedAt date override
