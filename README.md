@@ -16,7 +16,10 @@ All posts are located in the Discussion's
 
 ## Stack
 
-- Next.js
-- Tailwind
+- Next.js 13
+  - with new `app` directory
+  - static rendering with revalidation
 - GitHub Discussions
-- Dynamic Open Graph Images using Puppeteer
+- Dynamic Open Graph Images using `@vercel/og`
+- Markdown to HTML using remark & rehype
+- Tailwind CSS
