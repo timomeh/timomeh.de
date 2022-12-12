@@ -12,17 +12,11 @@ import rehypeRaw from 'rehype-raw'
 import rehypeSlug from 'rehype-slug'
 import rehypeExternalImgSize from 'rehype-external-img-size'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-
 import { cache } from 'react'
 
 const myRequest = request.defaults({
   headers: {
     authorization: 'token '.concat(process.env.GITHUB_ACCESS_TOKEN!),
-  },
-  request: {
-    fetch(url: RequestInfo | URL, opts?: RequestInit) {
-      return fetch(url, { ...opts, next: { revalidate: Infinity } })
-    },
   },
 })
 

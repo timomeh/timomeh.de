@@ -16,7 +16,13 @@ type Props = {
   }
 }
 
-export const revalidate = Infinity
+// this is the default and not necessary
+export const revalidate = false
+
+// caching won't work otherwise
+export async function generateStaticParams() {
+  return []
+}
 
 export default async function Post({ params }: Props) {
   const post = await getBlogPost(params.slug)
@@ -34,6 +40,9 @@ export default async function Post({ params }: Props) {
         <div className="flex items-center space-x-2">
           <div className="text-slate-500 text-sm">
             posted on {post.postedAt}
+            <div className="hidden">
+              and generated at {new Date().toUTCString()}
+            </div>
           </div>
           <a
             href={`https://github.com/timomeh/timomeh.de/discussions/${post.discussionNumber}`}

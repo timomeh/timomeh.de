@@ -20,10 +20,12 @@ export default async function handler(
 
   if (!verified) {
     res.status(401).json({ ok: false, hint: 'Unverified' })
+    return
   }
 
   if (!data.discussion) {
     res.status(401).json({ ok: false, hint: 'Not a discussion event' })
+    return
   }
 
   // @ts-expect-error
@@ -35,11 +37,11 @@ export default async function handler(
       revalidated: [],
       hint: `Only Blog Post Category ${categoryId} allowed. Received discussion had Category ${receivedCategoryId}`,
     })
+    return
   }
 
   if (data.action === 'created') {
-    await res.revalidate('/posts')
-    await revalidateFeed()
+    await Promise.allSettled([res.revalidate('/posts'), revalidateFeed()])
     res.status(200).json({
       ok: true,
       hint: 'Revalidated pages',
@@ -50,9 +52,12 @@ export default async function handler(
 
   if (data.action === 'edited') {
     const { slug } = parseDiscussionTitle(data.discussion.title)
-    await res.revalidate('/posts')
-    await res.revalidate(`/posts/${slug}`)
-    await revalidateFeed()
+    await Promise.allSettled([
+      res.revalidate('/posts'),
+      res.revalidate(`/posts/${slug}`),
+      revalidateFeed(),
+    ])
+
     res.status(200).json({
       ok: true,
       hint: 'Revalidated pages',
