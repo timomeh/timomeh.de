@@ -1,14 +1,11 @@
-import Image from 'next/image'
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
-
-import parse, { Element, domToReact } from 'html-react-parser'
 
 import { getBlogPost } from '../../../lib/blog'
 import { GithubLogo } from '../../../components/GithubLogo'
 import { PostTitle } from '../../../components/PostTitle'
 import { Prose } from '../../../components/Prose'
 import { PostComments } from './PostComments'
+import { PostBody } from '../../../components/PostBody'
 
 type Props = {
   params: {
@@ -35,7 +32,8 @@ export default async function Post({ params }: Props) {
     <>
       <Prose>
         <h1 className="!mb-0">
-          <PostTitle title={post.title} />
+          {/* @ts-expect-error Server Component */}
+          <PostTitle title={post.rawTitle} />
         </h1>
         <div className="flex items-center space-x-2">
           <div className="text-slate-500 text-sm">
@@ -55,53 +53,8 @@ export default async function Post({ params }: Props) {
         </div>
         <div className="h-6 md:h-8" />
 
-        {parse(post.body, {
-          replace: (domNode) => {
-            if (
-              domNode instanceof Element &&
-              domNode.name === 'img' &&
-              domNode.attribs['src'].startsWith(
-                'https://user-images.githubusercontent.com/4227520/'
-              )
-            ) {
-              return (
-                <Image
-                  src={domNode.attribs['src']}
-                  alt={domNode.attribs['alt']}
-                  width={+domNode.attribs['width']}
-                  height={+domNode.attribs['height']}
-                  quality={100}
-                  sizes="(min-width: 672px) 640px, 100vw"
-                />
-              )
-            }
-
-            if (
-              domNode instanceof Element &&
-              domNode.name === 'a' &&
-              domNode.attribs['href']?.startsWith('https://timomeh.de/')
-            ) {
-              return (
-                <Link
-                  href={domNode.attribs['href'].replace(
-                    'https://timomeh.de',
-                    ''
-                  )}
-                >
-                  {domToReact(domNode.children)}
-                </Link>
-              )
-            }
-
-            if (domNode instanceof Element && domNode.name === 'pre') {
-              return (
-                <pre className={`not-prose ${domNode.attribs['class']}`}>
-                  {domToReact(domNode.children)}
-                </pre>
-              )
-            }
-          },
-        })}
+        {/* @ts-expect-error Server Component */}
+        <PostBody body={post.rawBody} />
       </Prose>
       <hr className="h-px bg-slate-200 mt-12 md:mt-20 mb-12" />
 

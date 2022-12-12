@@ -1,26 +1,11 @@
-import { withCustomRequest } from '@octokit/graphql'
-import { request } from '@octokit/request'
-import { unified } from 'unified'
-import remarkParse from 'remark-parse'
-import rehypeGfm from 'remark-gfm'
-import remarkBreaks from 'remark-breaks'
-import remarkUnwrapImages from 'remark-unwrap-images'
-import remarkRehype from 'remark-rehype'
-import rehypeStringify from 'rehype-stringify'
-import rehypePrismPlus from 'rehype-prism-plus'
-import rehypeRaw from 'rehype-raw'
-import rehypeSlug from 'rehype-slug'
-import rehypeExternalImgSize from 'rehype-external-img-size'
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import { graphql } from '@octokit/graphql'
 import { cache } from 'react'
 
-const myRequest = request.defaults({
+const api = graphql.defaults({
   headers: {
     authorization: 'token '.concat(process.env.GITHUB_ACCESS_TOKEN!),
   },
 })
-
-const api = withCustomRequest(myRequest)
 
 export type ShortPost = {
   title: string
@@ -58,12 +43,11 @@ export const getBlogPosts = cache(async () => {
       const { slug, postedAt = defaultPostedAt } = parseDiscussionTitle(
         discussion.title
       )
-      const title = (await extractPostTitle(discussion.body)) || slug
 
       return {
         slug,
         postedAt: formatPostedAt(postedAt),
-        title,
+        rawTitle: extractRawPostTitle(discussion.body) || slug,
       }
     })
   )
@@ -224,16 +208,13 @@ export const getBlogPost = cache(async (slug: string) => {
 
   const defaultPostedAt = discussion.createdAt.split('T')[0]
   const { postedAt = defaultPostedAt } = parseDiscussionTitle(discussion.title)
-  const title = (await extractPostTitle(discussion.body)) || slug
-  const body = await postBodyToHtml(discussion.body)
 
   return {
     slug,
     postedAt: formatPostedAt(postedAt),
-    title,
     discussionNumber: discussion.number,
     rawTitle: extractRawPostTitle(discussion.body) || slug,
-    body,
+    rawBody: discussion.body,
   }
 })
 
@@ -253,50 +234,6 @@ function extractRawPostTitle(body: string) {
   const matches = titleExp.exec(body)
 
   return matches?.[1].trim()
-}
-
-async function extractPostTitle(body: string) {
-  // Get first heading (h1), turn into HTML, return as string without h1 tag
-  const titleExp = /^# (.*$)/gim
-  const h1Exp = /(<h1>|<\/h1>)/gim
-
-  const matches = titleExp.exec(body)
-
-  const title = matches?.[0]
-  if (!title) {
-    return undefined
-  }
-
-  const vfile = await unified()
-    .use(remarkParse)
-    .use(remarkRehype)
-    .use(rehypeStringify)
-    .process(title)
-
-  return vfile.value.toString().replace(h1Exp, '')
-}
-
-async function postBodyToHtml(body: string) {
-  const titleExp = /^# (.*$)/gim
-  const bodyWithoutTitle = body.replace(titleExp, '').trim()
-
-  const vfile = await unified()
-    .use(remarkParse)
-    .use(remarkBreaks)
-    .use(remarkUnwrapImages)
-    .use(remarkRehype, { allowDangerousHtml: true })
-    .use(rehypeRaw)
-    .use(rehypeExternalImgSize)
-    .use(rehypePrismPlus)
-    .use(rehypeGfm)
-    .use(rehypeSlug)
-    .use(rehypeAutolinkHeadings, {
-      behavior: 'append',
-    })
-    .use(rehypeStringify)
-    .process(bodyWithoutTitle)
-
-  return vfile.value.toString()
 }
 
 function formatPostedAt(postedAt: string) {

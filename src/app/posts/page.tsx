@@ -22,8 +22,9 @@ export default async function Posts() {
         {posts.map((post) => (
           <li key={post.slug}>
             <Link href={`/posts/${post.slug}`} className="font-semibold">
+              {/* @ts-expect-error Server Component */}
               <PostTitle
-                title={post.title}
+                title={post.rawTitle}
                 className="decoration-fuchsia-400/40 decoration-2 hover:decoration-fuchsia-400/100 underline-offset-2 underline"
               />
             </Link>
