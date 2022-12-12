@@ -7,8 +7,6 @@ type Props = {
   }
 }
 
-export const revalidate = Infinity
-
 export default async function Head({ params }: Props) {
   const post = await getBlogPost(params.slug)
 

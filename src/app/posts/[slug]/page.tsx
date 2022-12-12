@@ -13,10 +13,10 @@ type Props = {
   }
 }
 
-// this is the default and not necessary
+// false is the default and not necessary, but I wanted to be explicit
 export const revalidate = false
 
-// caching won't work otherwise
+// this needs to be defined for dynamic routes, otherwise caching won't work
 export async function generateStaticParams() {
   return []
 }

@@ -3,6 +3,7 @@ import { getBlogPosts } from '../../lib/blog'
 import { PostTitle } from '../../components/PostTitle'
 import { Prose } from '../../components/Prose'
 
+// false is the default and not necessary, but I wanted to be explicit
 export const revalidate = false
 
 export default async function Posts() {
