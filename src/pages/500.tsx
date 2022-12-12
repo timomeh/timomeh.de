@@ -4,19 +4,14 @@ import { Navigation } from '../app/Navigation'
 import { Logo } from '../components/Logo'
 import { Prose } from '../components/Prose'
 
-// `app/not-found.tsx` only works when `notFound()` was called, but not
-// globally. For global 404 pages, the old `pages/404.tsx` is still necessary.
-// But this won't be rendered when `notFound()` was called, so you need both.
-// Yayyyyyyyy
-
-export default function NotFound() {
+export default function ServerError() {
   return (
     <OldLayout>
       <Prose>
-        <h1>Not found :(</h1>
+        <h1>Oh oh...</h1>
         <p>
-          Sorry, you either found a broken link, or clicked an old link. If you
-          think I did something wrong, feel free to reach out.
+          Sorry, something bad happened and on the server. Try to go back to the{' '}
+          <a href="https://timomeh.de">home page</a>.
         </p>
       </Prose>
     </OldLayout>

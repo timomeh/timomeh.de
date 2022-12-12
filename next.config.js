@@ -2,12 +2,15 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  experimental: {
+    appDir: true,
+  },
   images: {
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'timomeh.de',
-        pathname: '/api/og-image',
+        pathname: '/api/og',
       },
       {
         protocol: 'https',
@@ -22,7 +25,7 @@ const nextConfig = {
         {
           source: '/assets/og-image/posts/:slug.png',
           destination:
-            '/_next/image?url=https://timomeh.de/api/og-image?slug=:slug&w=1200&q=100',
+            '/_next/image?url=https://timomeh.de/api/og?slug=:slug&w=1200&q=100',
         },
         {
           source: '/posts/feed.atom',
