@@ -36,11 +36,11 @@ export default async function Post({ params }: Props) {
           <PostTitle title={post.rawTitle} />
         </h1>
         <div className="flex items-center space-x-2">
-          <div className="text-slate-500 text-sm">
+          <div
+            className="text-slate-500 text-sm"
+            data-generatedAt={new Date().toISOString()}
+          >
             posted on {post.postedAt}
-            <div className="hidden">
-              and generated at {new Date().toUTCString()}
-            </div>
           </div>
           <a
             href={`https://github.com/timomeh/timomeh.de/discussions/${post.discussionNumber}`}
