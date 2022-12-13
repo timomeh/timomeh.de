@@ -24,6 +24,12 @@ module.exports = {
         'gradient-radial':
           'radial-gradient(ellipse at top, var(--tw-gradient-stops))',
       },
+      keyframes: {
+        flame: {
+          '0%, 100%': { transform: 'translate(0.3px,-0.3px)' },
+          '50%': { transform: 'translate(-0.8px,0.8px)' },
+        },
+      },
       fontFamily: {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
         display: ['Outfit', ...defaultTheme.fontFamily.sans],
