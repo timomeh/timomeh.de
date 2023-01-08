@@ -66,14 +66,14 @@ export async function getFeedPosts() {
 
   const posts = await Promise.all(
     discussions.map(async (discussion) => {
-      const defaultPostedAt = discussion.createdAt.split('T')[0]
+      const defaultPostedAt = discussion.createdAt
       const { slug, postedAt = defaultPostedAt } = parseDiscussionTitle(
         discussion.title
       )
 
       return {
         slug,
-        postedAt: new Date(formatPostedAt(postedAt)),
+        postedAt: new Date(postedAt),
         updatedAt: new Date(discussion.updatedAt),
         title: extractRawPostTitle(discussion.body) || slug,
         body: discussion.bodyHTML,

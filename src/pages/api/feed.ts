@@ -55,7 +55,14 @@ export default async function handler(
   const byFormat = {
     rss: {
       type: 'text/xml',
-      body: () => feed.rss2(),
+      body: () =>
+        feed
+          .rss2()
+          .replace(
+            '<?xml version="1.0" encoding="utf-8"?>',
+            (s) =>
+              s + '<?xml-stylesheet href="/pretty-feed.xsl" type="text/xsl"?>'
+          ),
     },
     atom: {
       type: 'application/atom+xml',
