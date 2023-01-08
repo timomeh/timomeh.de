@@ -38,7 +38,7 @@ export default async function Post({ params }: Props) {
         <div className="flex items-center space-x-2">
           <div
             className="text-slate-500 text-sm"
-            data-generatedAt={new Date().toISOString()}
+            data-generatedat={new Date().toISOString()}
           >
             posted on {post.postedAt}
           </div>

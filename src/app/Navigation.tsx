@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import { GithubLogo } from '../components/GithubLogo'
 import { MastodonLogo } from '../components/MastodonLogo'
 import { usePathname } from 'next/navigation'
+import { RssIcon } from '@heroicons/react/20/solid'
 
 export function Navigation() {
   const pathname = usePathname()
@@ -41,6 +42,7 @@ export function Navigation() {
       </a> */}
 
       <a
+        title="@timomeh@mastodon.social"
         href="https://mastodon.social/@timomeh"
         rel="noopener noreferrer me"
         target="_blank"
@@ -50,12 +52,22 @@ export function Navigation() {
       </a>
 
       <a
-        href="https://github.com/timomeh/timomeh.de"
+        title="View on GitHub"
+        href="https://github.com/timomeh/timomeh.de/discussions"
         rel="noopener noreferrer"
         target="_blank"
         className=" fill-black/60 hover:fill-black/90 transition-colors"
       >
         <GithubLogo className="w-[26px] h-[26px] -m-1 p-1" />
+      </a>
+
+      <a
+        title="RSS Feed"
+        href="/posts/feed.rss"
+        target="_blank"
+        className=" fill-black/60 hover:fill-black/90 transition-colors"
+      >
+        <RssIcon className="w-[26px] h-[26px] -m-1 p-1" />
       </a>
     </div>
   )
