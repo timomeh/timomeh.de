@@ -48,7 +48,7 @@ export default async function handler(
       link: `https://timomeh.de/posts/${post.slug}`,
       title: post.title,
       image: `https://timomeh.de/assets/og-image/posts/${post.slug}.png`,
-      content: post.body,
+      content: post.body.replace(/\<h1(.*)\>(.*)\<\/h1\>/, ''),
     })
   })
 
