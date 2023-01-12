@@ -42,15 +42,15 @@ h6[id] {
 }
 
 pre[class*='language-'] {
-  @apply overflow-x-auto bg-slate-50 !font-mono !font-medium;
+  @apply overflow-x-auto bg-slate-50;
 }
 
 code[class*='language-'] {
-  @apply !font-mono !font-medium lg:text-sm text-[13px] bg-slate-50;
+  @apply font-mono font-medium lg:text-sm text-[13px] bg-slate-50;
 }
 
 code[class*='language-'] {
-  @apply !font-mono !font-medium;
+  @apply font-mono font-medium;
 
   .token.selector,
   .token.string,

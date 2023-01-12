@@ -11,10 +11,12 @@
   "dependencies": {
     "@giscus/react": "2.2.6",
     "@heroicons/react": "2.0.13",
-    "@next/font": "13.1.1",
     "@octokit/graphql": "5.0.4",
     "@octokit/webhooks": "10.5.0",
     "@vercel/og": "0.0.22",
+    "@fontsource/ibm-plex-mono": "4.5.11",
+    "@fontsource/inter": "4.5.12",
+    "@fontsource/outfit": "4.5.9",
     "clsx": "1.2.1",
     "feed": "4.2.2",
     "hastscript": "7.0.2",

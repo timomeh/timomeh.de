@@ -1,8 +1,9 @@
 import Link from 'next/link'
-import { Inter, Outfit, IBM_Plex_Mono } from '@next/font/google'
-
 import { Logo } from '../components/Logo'
 
+import '@fontsource/inter/latin.css'
+import '@fontsource/outfit/latin.css'
+import '@fontsource/ibm-plex-mono/500.css'
 import 'prism-themes/themes/prism-one-light.css'
 import '../styles/globals.css'
 import { Navigation } from './Navigation'
@@ -11,20 +12,9 @@ type Props = {
   children: React.ReactNode
 }
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
-const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' })
-const ibm = IBM_Plex_Mono({
-  weight: ['500'],
-  subsets: ['latin', 'latin-ext'],
-  variable: '--font-ibm',
-})
-
 export default function RootLayout({ children }: Props) {
   return (
-    <html
-      className={`antialiased [font-feature-settings:'ss01'] ${inter.variable} ${outfit.variable} ${ibm.variable}`}
-      lang="en"
-    >
+    <html className="antialiased [font-feature-settings:'ss01']" lang="en">
       <body>
         <div>
           <div className="absolute flex justify-center h-80 w-full z-[-1] pointer-events-none overflow-hidden">
