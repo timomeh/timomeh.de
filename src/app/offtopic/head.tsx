@@ -4,10 +4,10 @@ export default function Head() {
   return (
     <>
       <CommonHead />
-      <title>Posts | Timo Mämecke</title>
+      <title>Offtopic | Timo Mämecke</title>
       <meta
         name="description"
-        content="About software development and other thoughts I wanted to elaborate on."
+        content="Collection of random thoughts and things I wanted to share."
         key="description"
       />
     </>

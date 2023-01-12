@@ -1,4 +1,4 @@
-import { getBlogPost } from '../../../lib/blog'
+import { getPost } from '../../../lib/blog'
 import { CommonHead } from '../../CommonHead'
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
 }
 
 export default async function Head({ params }: Props) {
-  const post = await getBlogPost(params.slug)
+  const post = await getPost(params.slug)
 
   if (!post) {
     return null
@@ -17,7 +17,7 @@ export default async function Head({ params }: Props) {
   return (
     <>
       <CommonHead />
-      <title>{`${post.rawTitle} | Timo Mämecke`}</title>
+      <title>{`${post.title} | Timo Mämecke`}</title>
       <meta
         property="og:image"
         content={`https://timomeh.de/assets/og-image/posts/${post.slug}.png`}
@@ -25,13 +25,13 @@ export default async function Head({ params }: Props) {
       />
       <meta
         name="description"
-        content={`${post.rawTitle}, posted on ${post.postedAt} by Timo Mämecke`}
+        content={`${post.title}, posted on ${post.postedAt} by Timo Mämecke`}
         key="description"
       />
       <meta name="twitter:card" content="summary_large_image" />
       <meta
         name="twitter:title"
-        content={`${post.rawTitle} | Timo Mämecke`}
+        content={`${post.title} | Timo Mämecke`}
         key="twitter-title"
       />
       <meta

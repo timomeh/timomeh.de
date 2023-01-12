@@ -1,242 +1,66 @@
-import { graphql } from '@octokit/graphql'
 import { cache } from 'react'
+import { listDiscussions, getDiscussion, Discussion } from './github'
 
-const api = graphql.defaults({
-  headers: {
-    authorization: 'token '.concat(process.env.GITHUB_ACCESS_TOKEN!),
-  },
+export const listPosts = cache(async () => {
+  const discussions = await listDiscussions({ category: 'posts' })
+  return discussions.map((discussion) => toPost(discussion))
 })
 
-export type ShortPost = {
-  title: string
-  slug: string
-  postedAt: string
-}
-
-export type FullPost = {
-  title: string
-  rawTitle: string
-  slug: string
-  postedAt: string
-  body: string
-  discussionNumber: number
-}
-
-export type FeedPost = {
-  title: string
-  slug: string
-  postedAt: Date
-  updatedAt: Date
-  body: string
-}
-
-export const categoryId = 'DIC_kwDOH6oEFs4CROow'
-const owner = 'timomeh'
-const repo = 'timomeh.de'
-
-export const getBlogPosts = cache(async () => {
-  const discussions = await fetchAllDiscussions()
-
-  const posts = await Promise.all(
-    discussions.map(async (discussion) => {
-      const defaultPostedAt = discussion.createdAt.split('T')[0]
-      const { slug, postedAt = defaultPostedAt } = parseDiscussionTitle(
-        discussion.title
-      )
-
-      return {
-        slug,
-        postedAt: formatPostedAt(postedAt),
-        rawTitle: extractRawPostTitle(discussion.body) || slug,
-      }
-    })
-  )
-
-  const sortedPosts = posts.sort((postA, postB) => {
-    return (
-      new Date(postB.postedAt).getTime() - new Date(postA.postedAt).getTime()
-    )
-  })
-
-  return sortedPosts
+export const getPost = cache(async (slug: string) => {
+  const discussion = await getDiscussion({ slug, category: 'posts' })
+  return discussion && toPost(discussion)
 })
 
-export async function getFeedPosts() {
-  const discussions = await fetchAllDiscussions()
+export const listOfftopics = cache(async () => {
+  const discussions = await listDiscussions({ category: 'offtopic' })
+  return discussions.map((discussion) => toOfftopic(discussion))
+})
 
-  const posts = await Promise.all(
-    discussions.map(async (discussion) => {
-      const defaultPostedAt = discussion.createdAt
-      const { slug, postedAt = defaultPostedAt } = parseDiscussionTitle(
-        discussion.title
-      )
+export const listOfftopicPaginated = cache(async (page = 0) => {
+  const limit = 2
+  const start = page * limit
+  const end = start + limit
 
-      return {
-        slug,
-        postedAt: new Date(postedAt),
-        updatedAt: new Date(discussion.updatedAt),
-        title: extractRawPostTitle(discussion.body) || slug,
-        body: discussion.bodyHTML,
-      }
-    })
-  )
+  const offtopics = await listOfftopics()
+  return offtopics.slice(start, end)
+})
 
-  const sortedPosts = posts.sort((postA, postB) => {
-    return (
-      new Date(postB.postedAt).getTime() - new Date(postA.postedAt).getTime()
-    )
-  })
+export const getOfftopic = cache(async (slug: string) => {
+  const discussion = await getDiscussion({ slug, category: 'offtopic' })
+  return discussion && toOfftopic(discussion)
+})
 
-  return sortedPosts
-}
-
-type ListDiscussion = {
-  repository: {
-    discussions: {
-      pageInfo: {
-        endCursor: string
-        hasNextPage: boolean
-      }
-      nodes: {
-        title: string
-        createdAt: string
-        updatedAt: string
-        body: string
-        bodyHTML: string
-      }[]
-    }
-  }
-}
-
-async function fetchAllDiscussions() {
-  let hasNextPage = true
-  let after: string | null = null
-  let discussions: ListDiscussion['repository']['discussions']['nodes'] = []
-
-  do {
-    const result: ListDiscussion = await api(
-      `
-      query list($owner: String!, $repo: String!, $categoryId: ID! $after: String) {
-        repository(owner: $owner, name: $repo) {
-          discussions(
-            first: 100,
-            after: $after,
-            categoryId: $categoryId,
-            orderBy: { field: CREATED_AT, direction: DESC }
-          ) {
-            pageInfo {
-              hasNextPage
-              endCursor
-            }
-            nodes {
-              title
-              createdAt
-              updatedAt
-              body
-              bodyHTML
-            }
-          }
-        }
-      }
-    `,
-      { owner, repo, categoryId, after }
-    )
-
-    const { pageInfo, nodes } = result.repository.discussions
-
-    discussions.push(...nodes)
-    hasNextPage = pageInfo.hasNextPage
-    after = pageInfo.endCursor
-  } while (hasNextPage)
-
-  return discussions
-}
-
-type SearchDiscussion = {
-  search: {
-    edges: {
-      node: {
-        title: string
-        createdAt: string
-        body: string
-        number: number
-        category: {
-          id: string
-        }
-      }
-    }[]
-  }
-}
-
-export const getBlogPost = cache(async (slug: string) => {
-  const result: SearchDiscussion = await api(
-    `
-    query postBySlug($search: String!) {
-      search(
-        query: $search
-        type: DISCUSSION
-        first: 100
-      ) {
-        edges {
-          node {
-            ... on Discussion {
-              title
-              createdAt
-              body
-              number
-              category {
-                id
-              }
-            }
-          }
-        }
-      }
-    }
-  `,
-    { search: `"${slug}" in:title repo:${owner}/${repo}` }
-  )
-
-  // In case we find discussions with similar titles, find the exact one
-  const discussion = result.search.edges.find((result) => {
-    const { slug: resultSlug } = parseDiscussionTitle(result.node.title)
-    return resultSlug === slug && result.node.category.id === categoryId
-  })?.node
-
-  if (!discussion) {
-    return undefined
-  }
-
-  const defaultPostedAt = discussion.createdAt.split('T')[0]
-  const { postedAt = defaultPostedAt } = parseDiscussionTitle(discussion.title)
-
+function toPost(discussion: Discussion) {
   return {
-    slug,
-    postedAt: formatPostedAt(postedAt),
-    discussionNumber: discussion.number,
-    rawTitle: extractRawPostTitle(discussion.body) || slug,
-    rawBody: discussion.body,
-  }
-})
-
-export function parseDiscussionTitle(title: string) {
-  // Turn the discussion title into slug + optional postedAt date override
-  const dateInTitleExp = /\(([^)]+)\)$/
-  const dateMatches = dateInTitleExp.exec(title)
-
-  return {
-    slug: title.replace(dateInTitleExp, '').trim(),
-    postedAt: dateMatches?.[1].trim(),
+    slug: discussion.title,
+    number: discussion.number,
+    title: extractPostTitle(discussion.body) || discussion.title,
+    postedAt: new Date(discussion.createdAt),
+    updatedAt: new Date(discussion.updatedAt),
+    markdown: discussion.body,
+    html: discussion.bodyHTML,
   }
 }
 
-function extractRawPostTitle(body: string) {
+function toOfftopic(discussion: Discussion) {
+  return {
+    slug: discussion.title,
+    number: discussion.number,
+    title: extractPostTitle(discussion.body) || discussion.title,
+    postedAt: new Date(discussion.createdAt),
+    updatedAt: new Date(discussion.updatedAt),
+    markdown: discussion.body,
+    html: discussion.bodyHTML,
+  }
+}
+
+function extractPostTitle(body: string) {
   const titleExp = /^# (.*$)/gim
   const matches = titleExp.exec(body)
-
   return matches?.[1].trim()
 }
 
-function formatPostedAt(postedAt: string) {
+export function formatPostedAt(postedAt: Date) {
   return new Intl.DateTimeFormat('en-US', {
     month: 'long',
     day: 'numeric',

@@ -23,6 +23,16 @@ export function Navigation() {
       </Link>
 
       <Link
+        href="/offtopic"
+        className={clsx(
+          'hover:text-black/90 transition-colors',
+          pathname?.startsWith('/offtopic') ? 'text-black/90' : 'text-black/60'
+        )}
+      >
+        Offtopic
+      </Link>
+
+      <Link
         href="/posts"
         className={clsx(
           'hover:text-black/90 transition-colors',
