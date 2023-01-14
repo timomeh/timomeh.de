@@ -1,4 +1,4 @@
-import { CommonHead } from './CommonHead'
+import { CommonHead } from '@/app/CommonHead'
 
 export default function Head() {
   return (

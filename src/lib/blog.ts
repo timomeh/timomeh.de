@@ -1,5 +1,6 @@
 import { cache } from 'react'
-import { listDiscussions, getDiscussion, Discussion } from './github'
+
+import { Discussion, getDiscussion, listDiscussions } from './github'
 
 export const listPosts = cache(async () => {
   const discussions = await listDiscussions({ category: 'posts' })

@@ -1,15 +1,13 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { listOfftopicPaginated, listOfftopics } from '../../../../lib/blog'
-import { PostTitle } from '../../../../components/PostTitle'
+
+import { listOfftopicPaginated } from '@/lib/blog'
 
 export const revalidate = false
 export const generateStaticParams = () => []
 
 type Props = {
-  params: {
-    page: string
-  }
+  params: { page: string }
 }
 
 export default async function Offtopics({ params }: Props) {

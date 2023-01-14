@@ -1,5 +1,6 @@
 import clsx from 'clsx'
-import { markdownTitleToHtml } from '../lib/markdown'
+
+import { markdownTitleToHtml } from '@/lib/markdown'
 
 type Props = {
   title: string

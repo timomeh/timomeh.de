@@ -1,11 +1,12 @@
 import { notFound } from 'next/navigation'
 
-import { getPost, formatPostedAt } from '../../../lib/blog'
-import { GithubLogo } from '../../../components/GithubLogo'
-import { PostTitle } from '../../../components/PostTitle'
-import { Prose } from '../../../components/Prose'
+import { GithubLogo } from '@/components/GithubLogo'
+import { PostBody } from '@/components/PostBody'
+import { PostTitle } from '@/components/PostTitle'
+import { Prose } from '@/components/Prose'
+import { formatPostedAt, getPost } from '@/lib/blog'
+
 import { PostComments } from './PostComments'
-import { PostBody } from '../../../components/PostBody'
 
 export const revalidate = false
 export const generateStaticParams = () => []

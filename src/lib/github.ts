@@ -5,7 +5,7 @@ const repo = 'timomeh.de'
 
 const categoryIds = {
   posts: 'DIC_kwDOH6oEFs4CROow',
-  offtopic: 'DIC_kwDOH6oEFs4CROow',
+  offtopic: 'DIC_kwDOH6oEFs4CTj4l',
 } as const
 
 export type Discussion = {

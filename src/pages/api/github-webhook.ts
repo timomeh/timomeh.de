@@ -1,10 +1,11 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
 import { Webhooks } from '@octokit/webhooks'
 import {
   DiscussionCreatedEvent,
   DiscussionEditedEvent,
 } from '@octokit/webhooks-types'
-import { categoryId, parseDiscussionTitle } from '../../lib/blog'
+import type { NextApiRequest, NextApiResponse } from 'next'
+
+import { categoryId, parseDiscussionTitle } from '@/lib/blog'
 
 export default async function handler(
   req: NextApiRequest,

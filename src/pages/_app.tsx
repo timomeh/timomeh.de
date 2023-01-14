@@ -1,11 +1,11 @@
-import type { AppProps } from 'next/app'
-import Head from 'next/head'
-
+import '@fontsource/ibm-plex-mono/500.css'
 import '@fontsource/inter/latin.css'
 import '@fontsource/outfit/latin.css'
-import '@fontsource/ibm-plex-mono/500.css'
+import type { AppProps } from 'next/app'
+import Head from 'next/head'
 import 'prism-themes/themes/prism-one-light.css'
-import '../styles/globals.css'
+
+import '@/styles/globals.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

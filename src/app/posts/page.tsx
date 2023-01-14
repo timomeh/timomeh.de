@@ -1,7 +1,8 @@
 import Link from 'next/link'
-import { listPosts, formatPostedAt } from '../../lib/blog'
-import { PostTitle } from '../../components/PostTitle'
-import { Prose } from '../../components/Prose'
+
+import { PostTitle } from '@/components/PostTitle'
+import { Prose } from '@/components/Prose'
+import { formatPostedAt, listPosts } from '@/lib/blog'
 
 export const revalidate = false
 

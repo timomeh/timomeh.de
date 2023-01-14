@@ -1,8 +1,9 @@
 import Link from 'next/link'
 import React from 'react'
-import { Navigation } from '../app/Navigation'
-import { Logo } from '../components/Logo'
-import { Prose } from '../components/Prose'
+
+import { Navigation } from '@/app/Navigation'
+import { Logo } from '@/components/Logo'
+import { Prose } from '@/components/Prose'
 
 export default function ServerError() {
   return (

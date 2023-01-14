@@ -1,8 +1,9 @@
 import Link from 'next/link'
 import React from 'react'
-import { Navigation } from '../app/Navigation'
-import { Logo } from '../components/Logo'
-import { Prose } from '../components/Prose'
+
+import { Navigation } from '@/app/Navigation'
+import { Logo } from '@/components/Logo'
+import { Prose } from '@/components/Prose'
 
 // `app/not-found.tsx` only works when `notFound()` was called, but not
 // globally. For global 404 pages, the old `pages/404.tsx` is still necessary.

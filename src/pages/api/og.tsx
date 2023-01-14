@@ -6,7 +6,7 @@ export const config = {
   runtime: 'experimental-edge',
 }
 
-const font = fetch(new URL('../../styles/outfit-og.ttf', import.meta.url)).then(
+const font = fetch(new URL('@/styles/outfit-og.ttf', import.meta.url)).then(
   (res) => res.arrayBuffer()
 )
 
@@ -21,7 +21,7 @@ export default async function handler(req: NextRequest) {
     // @ts-expect-error
     process.version = 'v420.69'
 
-    const { getBlogPost } = await import('../../lib/blog')
+    const { getBlogPost } = await import('@/lib/blog')
     const post = await getBlogPost(slug)
     if (!post) {
       return new Response('No post with the requested slug', { status: 404 })

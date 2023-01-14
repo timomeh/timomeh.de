@@ -1,12 +1,12 @@
-import Link from 'next/link'
-import { Logo } from '../components/Logo'
-
+import '@fontsource/ibm-plex-mono/500.css'
 import '@fontsource/inter/latin.css'
 import '@fontsource/outfit/latin.css'
-import '@fontsource/ibm-plex-mono/500.css'
+import Link from 'next/link'
 import 'prism-themes/themes/prism-one-light.css'
-import '../styles/globals.css'
-import { Navigation } from './Navigation'
+
+import { Navigation } from '@/app/Navigation'
+import { Logo } from '@/components/Logo'
+import '@/styles/globals.css'
 
 type Props = {
   children: React.ReactNode

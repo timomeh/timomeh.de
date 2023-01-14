@@ -1,6 +1,7 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
 import { Feed } from 'feed'
-import { getFeedPosts } from '../../lib/blog'
+import type { NextApiRequest, NextApiResponse } from 'next'
+
+import { getFeedPosts } from '@/lib/blog'
 
 export default async function handler(
   req: NextApiRequest,

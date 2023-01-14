@@ -9,14 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fontsource/ibm-plex-mono": "4.5.11",
+    "@fontsource/inter": "4.5.12",
+    "@fontsource/outfit": "4.5.9",
     "@giscus/react": "2.2.6",
     "@heroicons/react": "2.0.13",
     "@octokit/graphql": "5.0.4",
     "@octokit/webhooks": "10.5.0",
     "@vercel/og": "0.0.22",
-    "@fontsource/ibm-plex-mono": "4.5.11",
-    "@fontsource/inter": "4.5.12",
-    "@fontsource/outfit": "4.5.9",
     "clsx": "1.2.1",
     "feed": "4.2.2",
     "hastscript": "7.0.2",
@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "0.5.8",
+    "@trivago/prettier-plugin-sort-imports": "4.0.0",
     "@types/node": "18.11.18",
     "@types/react": "18.0.26",
     "@types/react-dom": "18.0.10",
@@ -57,6 +58,12 @@
   },
   "prettier": {
     "semi": false,
-    "singleQuote": true
+    "singleQuote": true,
+    "importOrder": [
+      "^@/(.*)$",
+      "^[./]"
+    ],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true
   }
 }

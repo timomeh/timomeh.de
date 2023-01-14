@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { Prose } from '../components/Prose'
+
+import { Prose } from '@/components/Prose'
 
 export default function Home() {
   return (

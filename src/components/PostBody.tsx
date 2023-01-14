@@ -1,7 +1,8 @@
+import parse, { Element, domToReact } from 'html-react-parser'
 import Image from 'next/image'
 import Link from 'next/link'
-import parse, { Element, domToReact } from 'html-react-parser'
-import { markdownToHtml } from '../lib/markdown'
+
+import { markdownToHtml } from '@/lib/markdown'
 
 type Props = {
   body: string

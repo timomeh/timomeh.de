@@ -2,9 +2,7 @@ import { getPost } from '../../../lib/blog'
 import { CommonHead } from '../../CommonHead'
 
 type Props = {
-  params: {
-    slug: string
-  }
+  params: { slug: string }
 }
 
 export default async function Head({ params }: Props) {

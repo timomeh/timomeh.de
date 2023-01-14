@@ -1,11 +1,12 @@
 'use client'
 
-import Link from 'next/link'
-import clsx from 'clsx'
-import { GithubLogo } from '../components/GithubLogo'
-import { MastodonLogo } from '../components/MastodonLogo'
-import { usePathname } from 'next/navigation'
 import { RssIcon } from '@heroicons/react/20/solid'
+import clsx from 'clsx'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+
+import { GithubLogo } from '@/components/GithubLogo'
+import { MastodonLogo } from '@/components/MastodonLogo'
 
 export function Navigation() {
   const pathname = usePathname()
