@@ -1,7 +1,7 @@
 import { torchlight, Block } from '@torchlight-api/torchlight-cli'
 
 torchlight.init({
-  token: process.env.TORCHLIGHT_TOKEN,
+  token: process.env.TORCHLIGHT_TOKEN!,
   theme: 'moonlight-ii',
 })
 
@@ -18,12 +18,13 @@ export async function highlight({ lang, code }: Highlight) {
 
   const results = await torchlight.highlight([block])
 
-  const result = results?.[0]
+  const result = results[0]
 
   if (!result) {
     return {
       code,
       style: {},
+      className: '',
     }
   }
 
@@ -36,11 +37,13 @@ export async function highlight({ lang, code }: Highlight) {
 
   return {
     code: highlighted,
-    style: toStyleObject(result.styles || '') || undefined,
+    style: toStyleObject(result.styles) || undefined,
+    className: result.classes,
   }
 }
 
 // taken from: https://stackoverflow.com/a/68853314
+// and slightly modified for css variables
 function toStyleObject(string: string) {
   if (!string) return {}
 
@@ -52,7 +55,9 @@ function toStyleObject(string: string) {
   const obj = JSON.parse(css_json)
 
   const keyValues = Object.keys(obj).map((key) => {
-    var camelCased = key.replace(/-[a-z]/g, (g) => g[1].toUpperCase())
+    var camelCased = key.startsWith('--')
+      ? key
+      : key.replace(/-[a-z]/g, (g) => g[1].toUpperCase())
     return { [camelCased]: obj[key] }
   })
   return Object.assign({}, ...keyValues)

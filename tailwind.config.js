@@ -27,7 +27,7 @@ module.exports = {
       fontFamily: {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
         display: ['Outfit', ...defaultTheme.fontFamily.sans],
-        // mono: ['IBM Plex Mono', ...defaultTheme.fontFamily.mono],
+        mono: ['IBM Plex Mono', ...defaultTheme.fontFamily.mono],
       },
       maxWidth: {
         '8xl': '88rem',

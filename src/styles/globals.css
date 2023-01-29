@@ -14,36 +14,47 @@
 
 @layer components {
   .meh-grid {
-    @apply grid max-w-6xl mx-auto px-4;
+    overflow-x: hidden;
+    @apply grid;
 
     grid-template-areas:
       'header'
-      'aside'
-      'main';
-
-    @media (min-width: 768px) {
-      grid-gap: 20px;
-      grid-template-areas:
-        'header main'
-        'aside main'
-        '. footer';
-      grid-template-columns: minmax(160px, 1fr) minmax(0, 690px);
-      grid-template-rows: minmax(0, auto) auto minmax(0, auto);
-    }
+      'main'
+      'footer';
+    grid-template-columns: minmax(0, auto);
 
     @media (min-width: 1024px) {
       grid-gap: 40px;
       grid-template-areas:
-        'header main main'
-        'aside main main'
-        '. footer .';
-      grid-template-columns: 1fr 650px 1fr;
-      grid-template-rows: minmax(0, auto) auto minmax(0, auto);
+        'header .      .'
+        'nav    main   main'
+        'aside  main   main'
+        '.      footer .';
+      grid-template-columns: 1fr 682px 1fr;
+      grid-template-rows: minmax(0, auto) minmax(0, auto) 1fr minmax(0, auto);
     }
   }
 
   .meh-header {
+    @apply w-[682px] max-w-full mx-auto lg:max-w-none lg:w-full lg:mx-0;
     grid-area: header;
+  }
+
+  .meh-fulltop {
+    grid-area: header;
+
+    @media (min-width: 1024px) {
+      grid-area: 1 / 1 / 2 / 4;
+    }
+  }
+
+  .meh-nav {
+    @apply w-[682px] max-w-full mx-auto lg:max-w-none lg:w-full lg:mx-0 lg:min-w-[240px];
+    grid-area: header;
+
+    @media (min-width: 1024px) {
+      grid-area: nav;
+    }
   }
 
   .meh-aside {
@@ -51,40 +62,30 @@
   }
 
   .meh-footer {
+    @apply pb-4 pt-20 pr-4 lg:pr-0;
     grid-area: footer;
   }
 
   .meh-main {
+    @apply w-[682px] max-w-full mx-auto lg:max-w-none lg:w-full lg:mx-0;
     grid-area: main;
   }
 }
 
 @layer base {
-  pre {
-    @apply my-4 rounded overflow-x-auto;
-  }
-
-  /*
- Add some vertical padding and expand the width
- to fill its container. The horizontal padding
- comes at the line level so that background
- colors extend edge to edge.
-*/
   pre code.torchlight {
-    @apply block py-4 min-w-max;
+    @apply block py-4 min-w-max font-normal;
   }
 
-  /*
- Horizontal line padding.
-*/
+  /* Horizontal line padding. */
   pre code.torchlight .line {
     @apply px-4;
   }
 
   /*
- Push the code away from the line numbers and
- summary caret indicators.
-*/
+    Push the code away from the line numbers and
+    summary caret indicators.
+  */
   pre code.torchlight .line-number,
   pre code.torchlight .summary-caret {
     @apply mr-4;

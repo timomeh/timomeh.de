@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { listOfftopicsPaginated, listPosts } from '@/lib/blog'
 import { GreenAurora, VioletAurora } from '@/components/Aurora'
 import { ListedOfftopic } from '../../ListedOfftopic'
+import { NorthernLights } from '@/components/NorthernLights'
 
 export const revalidate = false
 export const generateStaticParams = () => []
@@ -19,29 +20,24 @@ export default async function Offtopics({ params }: Props) {
     notFound()
   }
 
-  const offtopics = await listPosts()
+  const offtopics = await listOfftopicsPaginated(page)
+
+  if (offtopics.length < 1) {
+    notFound()
+  }
 
   return (
     <>
-      <div className="meh-main relative">
-        <div className="absolute top-0">
-          <div className="absolute -left-2 -top-32">
-            <GreenAurora />
-          </div>
-          <div className="absolute left-60 -top-24">
-            <VioletAurora />
-          </div>
+      <NorthernLights />
+      <main className="meh-main">
+        <div className="space-y-10">
+          {offtopics.map((offtopic) => (
+            <article key={offtopic.number}>
+              <ListedOfftopic offtopic={offtopic} />
+            </article>
+          ))}
         </div>
-        <main className="mt-40">
-          <div className="space-y-10">
-            {offtopics.slice(-2, -1).map((offtopic) => (
-              <article key={offtopic.number}>
-                <ListedOfftopic offtopic={offtopic} />
-              </article>
-            ))}
-          </div>
-        </main>
-      </div>
+      </main>
     </>
   )
 }

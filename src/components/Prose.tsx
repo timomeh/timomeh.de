@@ -9,11 +9,11 @@ export function Prose({ children, big }: Props) {
   return (
     <div
       className={clsx(
-        'prose prose-purple prose-invert',
+        'prose prose-purple prose-invert mx-4',
         'prose-headings:font-display',
         big && 'prose-lg leading-relaxed max-w-[650px]',
-        'prose-a:text-white prose-a:glow prose-a:font-semibold prose-a:underline prose-a:underline-offset-2 prose-a:decoration-violet-400',
-        'prose-pre:p-0'
+        'prose-a:text-inherit prose-a:glow prose-a:font-semibold prose-a:underline prose-a:underline-offset-2 prose-a:decoration-violet-400',
+        'prose-code:before:content-none prose-code:after:content-none'
       )}
     >
       {children}
