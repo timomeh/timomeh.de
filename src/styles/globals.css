@@ -2,151 +2,91 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --grainy: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' /%3E%3C/svg%3E");
+}
+
 @layer utilities {
-  .prose :where(iframe):not(:where([class~='not-prose'] *)) {
-    @apply aspect-video w-full h-auto;
+  .glow {
+    @apply transition-all bg-gradient-to-t from-violet-500/30 to-transparent duration-500 [background-position:bottom_left] [background-size:100%_0] bg-no-repeat hover:[background-size:100%_100%];
   }
 }
 
-.data-footnote-backref {
-  @apply text-xs;
-  font-family: sans-serif;
-}
+@layer components {
+  .meh-grid {
+    @apply grid max-w-6xl mx-auto px-4;
 
-h2[id],
-h3[id],
-h4[id],
-h5[id],
-h6[id] {
-  a[href^='#'] {
-    @apply invisible text-slate-400 text-[0.75em] ml-2 no-underline;
-  }
+    grid-template-areas:
+      'header'
+      'aside'
+      'main';
 
-  &:hover > a[href^='#'] {
-    @apply visible;
-  }
+    @media (min-width: 768px) {
+      grid-gap: 20px;
+      grid-template-areas:
+        'header main'
+        'aside main'
+        '. footer';
+      grid-template-columns: minmax(160px, 1fr) minmax(0, 690px);
+      grid-template-rows: minmax(0, auto) auto minmax(0, auto);
+    }
 
-  a > .icon-link {
-    &::after {
-      content: '#';
+    @media (min-width: 1024px) {
+      grid-gap: 40px;
+      grid-template-areas:
+        'header main main'
+        'aside main main'
+        '. footer .';
+      grid-template-columns: 1fr 650px 1fr;
+      grid-template-rows: minmax(0, auto) auto minmax(0, auto);
     }
   }
-}
 
-.footnotes {
-  @apply border-t border-slate-200 mt-12 text-sm;
+  .meh-header {
+    grid-area: header;
+  }
 
-  h2 {
-    @apply mt-4 mb-0 text-base leading-tight;
+  .meh-aside {
+    grid-area: aside;
+  }
+
+  .meh-footer {
+    grid-area: footer;
+  }
+
+  .meh-main {
+    grid-area: main;
   }
 }
 
-pre[class*='language-'] {
-  @apply overflow-x-auto bg-slate-50 !font-mono !font-medium;
-}
-
-code[class*='language-'] {
-  @apply !font-mono !font-medium lg:text-sm text-[13px] bg-slate-50;
-}
-
-code[class*='language-'] {
-  @apply !font-mono !font-medium;
-
-  .token.selector,
-  .token.string,
-  .token.char,
-  .token.builtin,
-  .token.inserted,
-  .token.regex,
-  .token.attr-value,
-  .token.attr-value > .token.punctuation {
-    @apply text-green-700;
+@layer base {
+  pre {
+    @apply my-4 rounded overflow-x-auto;
   }
 
-  &.language-css .token.url > .token.string.url {
-    @apply text-green-700;
+  /*
+ Add some vertical padding and expand the width
+ to fill its container. The horizontal padding
+ comes at the line level so that background
+ colors extend edge to edge.
+*/
+  pre code.torchlight {
+    @apply block py-4 min-w-max;
   }
 
-  &.language-markdown .token.code-snippet {
-    @apply text-green-700;
+  /*
+ Horizontal line padding.
+*/
+  pre code.torchlight .line {
+    @apply px-4;
   }
 
-  .rainbow-braces .token.token.punctuation.brace-level-2,
-  .rainbow-braces .token.token.punctuation.brace-level-6,
-  .rainbow-braces .token.token.punctuation.brace-level-10 {
-    @apply text-green-700;
-  }
-
-  .token.variable,
-  .token.operator,
-  .token.function {
-    @apply text-blue-600;
-  }
-
-  .token.url {
-    @apply text-teal-600;
-  }
-
-  &.language-css .token.function,
-  &.language-css .token.url > .token.function {
-    @apply text-blue-600;
-  }
-
-  &.language-markdown .token.url > .token.content {
-    @apply text-blue-600;
-  }
-
-  .rainbow-braces .token.token.punctuation.brace-level-3,
-  .rainbow-braces .token.token.punctuation.brace-level-7,
-  .rainbow-braces .token.token.punctuation.brace-level-11 {
-    @apply text-blue-600;
-  }
-
-  .token.attr-name,
-  .token.class-name,
-  .token.boolean,
-  .token.constant,
-  .token.number,
-  .token.atrule {
-    @apply text-amber-700;
-  }
-
-  .token.property,
-  .token.tag,
-  .token.symbol,
-  .token.deleted,
-  .token.important {
-    @apply text-orange-700;
-  }
-
-  &.language-css .token.selector {
-    @apply text-orange-700;
-  }
-
-  &.language-json .token.null.keyword {
-    @apply text-amber-700;
-  }
-
-  &.language-markdown .token.bold .token.content {
-    @apply text-amber-700;
-  }
-
-  &.language-markdown .token.strike .token.content,
-  &.language-markdown .token.strike .token.punctuation,
-  &.language-markdown .token.list.punctuation,
-  &.language-markdown .token.title.important > .token.punctuation {
-    @apply text-orange-700;
-  }
-
-  .rainbow-braces .token.token.punctuation.brace-level-1,
-  .rainbow-braces .token.token.punctuation.brace-level-5,
-  .rainbow-braces .token.token.punctuation.brace-level-9 {
-    @apply text-orange-700;
-  }
-
-  .token.comment,
-  .token.prolog,
-  .token.cdata {
-    @apply text-slate-500;
+  /*
+ Push the code away from the line numbers and
+ summary caret indicators.
+*/
+  pre code.torchlight .line-number,
+  pre code.torchlight .summary-caret {
+    @apply mr-4;
   }
 }

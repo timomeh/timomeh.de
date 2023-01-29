@@ -43,6 +43,10 @@ const nextConfig = {
           source: '/offtopic',
           destination: '/offtopic/page/1',
         },
+        {
+          source: '/',
+          destination: '/offtopic/page/1',
+        },
       ],
     }
   },

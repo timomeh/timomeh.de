@@ -2,17 +2,18 @@ import clsx from 'clsx'
 
 type Props = {
   children: React.ReactNode
+  big?: boolean
 }
 
-export function Prose({ children }: Props) {
+export function Prose({ children, big }: Props) {
   return (
     <div
       className={clsx(
-        'prose prose-slate',
-        'prose-pre:bg-slate-50',
-        'prose-code:bg-fuchsia-100 prose-code:text-fuchsia-900 prose-code:py-0.5 prose-code:px-1 prose-code:rounded-md prose-code:mx-0.5 prose-code:before:content-none prose-code:after:content-none prose-code:font-medium prose-code:font-mono',
-        'prose-a:decoration-fuchsia-400/40 prose-a:decoration-2 hover:prose-a:decoration-fuchsia-400/100 prose-a:underline-offset-2 prose-a:no-underline [&:not([data-footnote-ref])]:prose-a:underline prose-a:transition-colors',
-        'prose-headings:font-display'
+        'prose prose-purple prose-invert',
+        'prose-headings:font-display',
+        big && 'prose-lg leading-relaxed max-w-[650px]',
+        'prose-a:text-white prose-a:glow prose-a:font-semibold prose-a:underline prose-a:underline-offset-2 prose-a:decoration-violet-400',
+        'prose-pre:p-0'
       )}
     >
       {children}

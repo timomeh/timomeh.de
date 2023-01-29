@@ -17,17 +17,9 @@ export function Navigation() {
         href="/"
         className={clsx(
           'hover:text-black/90 transition-colors',
-          pathname === '/' ? 'text-black/90' : 'text-black/60'
-        )}
-      >
-        Hello
-      </Link>
-
-      <Link
-        href="/offtopic"
-        className={clsx(
-          'hover:text-black/90 transition-colors',
-          pathname?.startsWith('/offtopic') ? 'text-black/90' : 'text-black/60'
+          pathname === '/' || pathname?.startsWith('/offtopic')
+            ? 'text-black/90'
+            : 'text-black/60'
         )}
       >
         Offtopic
@@ -42,15 +34,6 @@ export function Navigation() {
       >
         Posts
       </Link>
-
-      {/* <a
-        href="https://twitter.com/timomeh"
-        rel="noopener noreferrer"
-        target="_blank"
-        className=" fill-black/60 hover:fill-black/90 transition-colors"
-      >
-        <TwitterLogo className="w-6 h-6 -m-1 p-1" />
-      </a> */}
 
       <a
         title="@timomeh@mastodon.social"

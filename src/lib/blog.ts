@@ -1,4 +1,5 @@
 import { cache } from 'react'
+import matter from 'gray-matter'
 
 import { Discussion, getDiscussion, listDiscussions } from './github'
 
@@ -17,7 +18,7 @@ export const listOfftopics = cache(async () => {
   return discussions.map((discussion) => toOfftopic(discussion))
 })
 
-export const listOfftopicPaginated = cache(async (page = 0) => {
+export const listOfftopicsPaginated = cache(async (page = 0) => {
   const limit = 2
   const start = page * limit
   const end = start + limit
@@ -32,40 +33,59 @@ export const getOfftopic = cache(async (slug: string) => {
 })
 
 function toPost(discussion: Discussion) {
+  const { excerpt, meta, title, body } = parseDocument(discussion.body)
+
   return {
     slug: discussion.title,
     number: discussion.number,
-    title: extractPostTitle(discussion.body) || discussion.title,
     postedAt: new Date(discussion.createdAt),
     updatedAt: new Date(discussion.updatedAt),
-    markdown: discussion.body,
-    html: discussion.bodyHTML,
+    title: title || discussion.title,
+    meta,
+    excerpt,
+    body,
   }
 }
+
+export type Post = ReturnType<typeof toPost>
 
 function toOfftopic(discussion: Discussion) {
+  const { excerpt, meta, title, body } = parseDocument(discussion.body)
+
   return {
     slug: discussion.title,
     number: discussion.number,
-    title: extractPostTitle(discussion.body) || discussion.title,
     postedAt: new Date(discussion.createdAt),
     updatedAt: new Date(discussion.updatedAt),
-    markdown: discussion.body,
-    html: discussion.bodyHTML,
+    title,
+    meta,
+    excerpt,
+    body,
   }
 }
 
-function extractPostTitle(body: string) {
-  const titleExp = /^# (.*$)/gim
-  const matches = titleExp.exec(body)
-  return matches?.[1].trim()
+export type Offtopic = ReturnType<typeof toOfftopic>
+
+type MetaData = {
+  description?: string
 }
 
-export function formatPostedAt(postedAt: Date) {
-  return new Intl.DateTimeFormat('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-    timeZone: 'Europe/Berlin',
-  }).format(new Date(postedAt))
+function parseDocument(document: string) {
+  const excerptSeparator = '<!-- intro -->'
+  const parsed = matter(document, {
+    excerpt: true,
+    excerpt_separator: excerptSeparator,
+    delimiters: '~~~',
+  })
+
+  const content = parsed.content.split(excerptSeparator).at(-1) || ''
+  const title = /^# (.*$)/gim.exec(content)?.[1].trim()
+  const body = content.replace(/^# .*$/gim, '')
+
+  return {
+    excerpt: parsed.excerpt,
+    meta: parsed.data as MetaData,
+    title,
+    body,
+  }
 }
