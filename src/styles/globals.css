@@ -77,7 +77,7 @@
 .footnotes {
   position: absolute;
   top: 0;
-  height: calc(100% + 80px);
+  height: calc(100% + 140px);
   left: calc(100% + 16px);
   overflow: hidden;
   width: 200px;
