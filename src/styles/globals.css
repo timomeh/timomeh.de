@@ -10,12 +10,15 @@
   .glow {
     @apply transition-all bg-gradient-to-t from-violet-500/30 to-transparent duration-500 [background-position:bottom_left] [background-size:100%_0] bg-no-repeat hover:[background-size:100%_100%];
   }
+
+  .not-glow {
+    @apply !bg-none;
+  }
 }
 
 @layer components {
   .meh-grid {
-    overflow-x: hidden;
-    @apply grid;
+    @apply grid lg:gap-5 xl:gap-10;
 
     grid-template-areas:
       'header'
@@ -24,7 +27,6 @@
     grid-template-columns: minmax(0, auto);
 
     @media (min-width: 1024px) {
-      grid-gap: 40px;
       grid-template-areas:
         'header .      .'
         'nav    main   main'
@@ -49,7 +51,7 @@
   }
 
   .meh-nav {
-    @apply w-[682px] max-w-full mx-auto lg:max-w-none lg:w-full lg:mx-0 lg:min-w-[240px];
+    @apply w-[682px] max-w-full mx-auto lg:max-w-none lg:w-full lg:mx-0 lg:min-w-[200px];
     grid-area: header;
 
     @media (min-width: 1024px) {
@@ -72,22 +74,27 @@
   }
 }
 
-@layer base {
-  pre code.torchlight {
-    @apply block py-4 min-w-max font-normal;
+.footnotes {
+  position: absolute;
+  top: 0;
+  height: calc(100% + 80px);
+  left: calc(100% + 16px);
+  overflow: hidden;
+  width: 200px;
+
+  > h2,
+  > h3 {
+    display: none;
   }
 
-  /* Horizontal line padding. */
-  pre code.torchlight .line {
-    @apply px-4;
+  > ol {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
   }
 
-  /*
-    Push the code away from the line numbers and
-    summary caret indicators.
-  */
-  pre code.torchlight .line-number,
-  pre code.torchlight .summary-caret {
-    @apply mr-4;
+  li p {
+    margin-top: 4px;
+    margin-bottom: 4px;
   }
 }

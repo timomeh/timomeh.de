@@ -41,6 +41,10 @@ const nextConfig = {
           destination: '/api/feed?format=json',
         },
         {
+          source: '/posts',
+          destination: '/posts/page/1',
+        },
+        {
           source: '/offtopic',
           destination: '/offtopic/page/1',
         },
@@ -62,6 +66,11 @@ const nextConfig = {
         source: '/feed',
         destination: '/posts/feed.atom',
         permanent: false,
+      },
+      {
+        source: '/posts/page/1',
+        destination: '/posts',
+        permanent: true,
       },
       {
         source: '/offtopic/page/1',

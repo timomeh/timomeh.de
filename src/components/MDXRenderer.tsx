@@ -2,21 +2,25 @@ import * as React from 'react'
 import { MDXRemote, MDXRemoteProps, compileMDX } from 'next-mdx-remote/rsc'
 import remarkGfm from 'remark-gfm'
 import remarkUnwrapImages from 'remark-unwrap-images'
-import * as torchlight from '@/lib/torchlight'
-import clsx from 'clsx'
 import Image from 'next/image'
 import probeImageSize from 'probe-image-size'
-import Link from 'next/link'
+import { motion } from 'framer-motion'
+
+import * as syntax from '@/lib/syntax'
 import { slugify } from '@/lib/slugify'
+import { FloatingFootnote } from './FloatingFootnote'
+import { FootnoteRef } from './FootnoteRef'
 
 type Props = {
   content: string
   shiftHeadings?: boolean
+  inline?: boolean
+  scope?: string | number
 }
 
 type MDXComponents = MDXRemoteProps['components']
 
-export function MDXRenderer({ content, shiftHeadings }: Props) {
+export function MDXRenderer({ content, shiftHeadings, inline, scope }: Props) {
   return (
     <>
       {/* @ts-expect-error Server Component */}
@@ -24,12 +28,16 @@ export function MDXRenderer({ content, shiftHeadings }: Props) {
         source={content}
         compiledSource=""
         components={{
-          ...components,
+          ...components({ scope }),
           ...(shiftHeadings ? shiftedHeadings : headings),
+          ...(inline && inlineComponents),
         }}
         options={{
           mdxOptions: {
             remarkPlugins: [remarkGfm, remarkUnwrapImages],
+            remarkRehypeOptions: {
+              clobberPrefix: `content-footnote${scope || ''}-`,
+            },
           },
         }}
       />
@@ -37,82 +45,103 @@ export function MDXRenderer({ content, shiftHeadings }: Props) {
   )
 }
 
-const components: MDXComponents = {
-  // @ts-expect-error Server Component
-  img: async (props) => {
-    const result = await probeImageSize(props.src!)
-    let figcaption: JSX.Element | undefined
+const components = (baseProps: Pick<Props, 'scope'>): MDXComponents => {
+  return {
+    // @ts-expect-error Server Component
+    img: async (props) => {
+      const result = await probeImageSize(props.src!)
+      let figcaption: JSX.Element | undefined
 
-    if (props.title) {
-      const result = await compileMDX({
-        source: props.title,
-        components: {
-          ...components,
-          p: ({ children }) => <>{children}</>,
-        },
-        compiledSource: '',
-      })
-      figcaption = result.content
-    }
-    return (
-      <figure className="md:-mx-4">
-        <div className="relative">
-          <Image
-            src={props.src!}
-            width={result.width}
-            height={result.height}
-            alt={props.alt || ''}
-            className="m-0 rounded-lg"
-          />
-          <Image
-            src={props.src!}
-            width={result.width}
-            height={result.height}
-            alt=""
-            className="absolute inset-0 m-0 filter blur-lg z-[-1] opacity-50"
-            aria-hidden={true}
-          />
-        </div>
-        {figcaption && (
-          <figcaption className="px-8 text-center">{figcaption}</figcaption>
-        )}
-      </figure>
-    )
-  },
-
-  // @ts-expect-error Server Component
-  code: async (props) => {
-    if (!props.className || typeof props.children !== 'string') {
+      if (props.title) {
+        const result = await compileMDX({
+          source: props.title,
+          components: {
+            ...components,
+            p: ({ children }) => <>{children}</>,
+          },
+          compiledSource: '',
+        })
+        figcaption = result.content
+      }
       return (
-        <code
-          {...props}
-          className="bg-emerald-400/10 text-emerald-50 font-medium px-[5px] py-[3px] -mx-[3px]"
+        <figure className="md:-mx-4">
+          <div className="relative">
+            <Image
+              src={props.src!}
+              width={result.width}
+              height={result.height}
+              alt={props.alt || ''}
+              className="m-0 rounded-lg"
+            />
+            <Image
+              src={props.src!}
+              width={result.width}
+              height={result.height}
+              alt=""
+              className="absolute inset-0 m-0 filter blur-lg z-[-1] opacity-50"
+              aria-hidden={true}
+            />
+          </div>
+          {figcaption && (
+            <figcaption className="px-8 text-center">{figcaption}</figcaption>
+          )}
+        </figure>
+      )
+    },
+
+    // @ts-expect-error Server Component
+    code: async (props) => {
+      if (!props.className || typeof props.children !== 'string') {
+        return (
+          <code
+            {...props}
+            className="bg-emerald-400/10 text-emerald-50 font-medium px-[5px] py-[3px] -mx-[3px]"
+          />
+        )
+      }
+
+      const lang = props.className.replace('language-', '')
+      const html = await syntax.highlight(props.children, lang)
+
+      return (
+        <pre
+          className="bg-[#1a1b26] border border-violet-400/10 bg-opacity-60 not-prose p-4 md:-mx-4 shadow-violet-300/10 [box-shadow:0_0_24px_var(--tw-shadow-color)] rounded-lg"
+          dangerouslySetInnerHTML={{ __html: html }}
         />
       )
-    }
+    },
+    pre: (props) => {
+      return <>{props.children}</>
+    },
+    li: (props) => {
+      if (props.id?.startsWith('content-footnote')) {
+        return (
+          <FloatingFootnote id={props.id!} scope={baseProps.scope}>
+            {props.children}
+          </FloatingFootnote>
+        )
+      }
+      return <li {...props} />
+    },
+    a: (props) => {
+      if ('data-footnote-backref' in props) {
+        return <a {...props} className="sr-only focus-visible:not-sr-only" />
+      }
 
-    const lang = props.className.replace('language-', '')
-    const highlighted = await torchlight.highlight({
-      lang,
-      code: props.children,
-    })
+      if ('data-footnote-ref' in props) {
+        return <FootnoteRef {...props} id={props.id!} scope={baseProps.scope} />
+      }
 
-    return (
-      <code
-        className={clsx(highlighted.className)}
-        style={highlighted.style}
-        dangerouslySetInnerHTML={{ __html: highlighted.code }}
-      />
-    )
-  },
-  pre: (props) => {
-    return (
-      <pre
-        className="box-shadow:0_0_10px_0_rgba(167,139,250,0.15) border border-violet-400/25 md:-mx-4 rounded-lg p-0 mix-blend-difference"
-        {...props}
-      />
-    )
-  },
+      return <a {...props} />
+    },
+    section: (props) => {
+      if ('data-footnotes' in props) {
+        return <section {...props} />
+      }
+
+      return <section {...props} />
+    },
+  }
 }
 
 const shiftedHeadings: MDXComponents = {
@@ -131,6 +160,10 @@ const headings: MDXComponents = {
   h4: (props) => slugifiedHeading('h4', props),
   h5: (props) => slugifiedHeading('h5', props),
   h6: (props) => slugifiedHeading('h6', props),
+}
+
+const inlineComponents: MDXComponents = {
+  p: (props) => <>{props.children}</>,
 }
 
 function slugifiedHeading(

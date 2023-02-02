@@ -3,7 +3,6 @@ import '@fontsource/inter/latin.css'
 import '@fontsource/outfit/latin.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import 'prism-themes/themes/prism-one-light.css'
 
 import '@/styles/globals.css'
 

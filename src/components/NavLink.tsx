@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useSelectedLayoutSegments } from 'next/navigation'
 import clsx from 'clsx'
+import { motion } from 'framer-motion'
 
 type Props = {
   children: React.ReactNode
@@ -28,9 +29,12 @@ export default function NavLink({ children, segment, href }: Props) {
         {children}
       </div>
       {isActive && (
-        <div className="hidden absolute lg:flex items-center justify-center w-[6px] h-[6px] rounded-full bg-violet-600 right-full mr-3">
+        <motion.div
+          layoutId="activedot"
+          className="hidden absolute lg:flex items-center justify-center w-[6px] h-[6px] rounded-full bg-violet-600 right-full mr-3"
+        >
           <div className="absolute w-[18px] h-[18px] [background-image:radial-gradient(ellipse_closest-side,var(--tw-gradient-stops));] from-violet-600/50 to-transparent" />
-        </div>
+        </motion.div>
       )}
     </Link>
   )

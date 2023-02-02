@@ -11,8 +11,8 @@ export function ListedOfftopic({ offtopic }: Props) {
   const hasTitle = !!offtopic.title
 
   return (
-    <div>
-      <Prose big={!hasTitle}>
+    <article className="mx-4">
+      <Prose size={hasTitle ? 'yes' : 'big'}>
         <div className="not-prose">
           <time className="text-xs uppercase font-bold flex -mb-1">
             <Link
@@ -25,15 +25,19 @@ export function ListedOfftopic({ offtopic }: Props) {
             </Link>
           </time>
           {hasTitle && (
-            <h2 className="mt-0 text-2xl transition-all underline underline-offset-4 decoration-violet-400 font-bold mb-5 font-display">
+            <h2 className="mt-0 text-2xl leading-snug transition-all underline underline-offset-4 decoration-violet-400 font-bold mb-5 font-display">
               <Link href={`/offtopic/${offtopic.slug}`} className="glow">
                 {offtopic.title}
               </Link>
             </h2>
           )}
         </div>
-        <MDXRenderer content={offtopic.body} shiftHeadings />
+        <MDXRenderer
+          content={offtopic.body}
+          shiftHeadings
+          scope={offtopic.number}
+        />
       </Prose>
-    </div>
+    </article>
   )
 }

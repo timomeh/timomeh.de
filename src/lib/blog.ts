@@ -3,6 +3,19 @@ import matter from 'gray-matter'
 
 import { Discussion, getDiscussion, listDiscussions } from './github'
 
+export const listPostsPaginated = cache(async (page = 1) => {
+  const limit = 10
+  const start = (page - 1) * limit
+  const end = start + limit
+
+  const allPosts = await listPosts()
+  const posts = allPosts.slice(start, end)
+  const prev = page > 1 ? page - 1 : undefined
+  const next = allPosts.length > end ? page + 1 : undefined
+
+  return { posts, next, prev }
+})
+
 export const listPosts = cache(async () => {
   const discussions = await listDiscussions({ category: 'posts' })
   return discussions.map((discussion) => toPost(discussion))
@@ -18,13 +31,17 @@ export const listOfftopics = cache(async () => {
   return discussions.map((discussion) => toOfftopic(discussion))
 })
 
-export const listOfftopicsPaginated = cache(async (page = 0) => {
+export const listOfftopicsPaginated = cache(async (page = 1) => {
   const limit = 2
-  const start = page * limit
+  const start = (page - 1) * limit
   const end = start + limit
 
-  const offtopics = await listOfftopics()
-  return offtopics.slice(start, end)
+  const allOfftopics = await listOfftopics()
+  const offtopics = allOfftopics.slice(start, end)
+  const prev = page > 1 ? page - 1 : undefined
+  const next = allOfftopics.length > end ? page + 1 : undefined
+
+  return { offtopics, next, prev }
 })
 
 export const getOfftopic = cache(async (slug: string) => {
@@ -83,7 +100,8 @@ function parseDocument(document: string) {
   const body = content.replace(/^# .*$/gim, '')
 
   return {
-    excerpt: parsed.excerpt,
+    // TODO delete fallback excerpt when properly supported
+    excerpt: parsed.excerpt || body.split('\r\n').filter(Boolean)[0],
     meta: parsed.data as MetaData,
     title,
     body,

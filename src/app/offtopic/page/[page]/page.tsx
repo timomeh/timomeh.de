@@ -14,17 +14,11 @@ type Props = {
 }
 
 export default async function Offtopics({ params }: Props) {
-  const page = +params.page - 1
+  const page = +params.page
+  if (!Number.isInteger(page)) notFound()
 
-  if (!Number.isInteger(page)) {
-    notFound()
-  }
-
-  const offtopics = await listOfftopicsPaginated(page)
-
-  if (offtopics.length < 1) {
-    notFound()
-  }
+  const { offtopics } = await listOfftopicsPaginated(page)
+  if (offtopics.length < 1) notFound()
 
   return (
     <>
@@ -32,9 +26,7 @@ export default async function Offtopics({ params }: Props) {
       <main className="meh-main">
         <div className="space-y-10">
           {offtopics.map((offtopic) => (
-            <article key={offtopic.number}>
-              <ListedOfftopic offtopic={offtopic} />
-            </article>
+            <ListedOfftopic offtopic={offtopic} key={offtopic.number} />
           ))}
         </div>
       </main>

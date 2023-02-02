@@ -32,6 +32,9 @@ module.exports = {
       maxWidth: {
         '8xl': '88rem',
       },
+      screens: {
+        alaaf: '1111px',
+      },
     },
   },
   plugins: [require('@tailwindcss/typography')],
