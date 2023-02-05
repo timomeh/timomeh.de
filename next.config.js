@@ -24,21 +24,13 @@ const nextConfig = {
     return {
       beforeFiles: [
         {
-          source: '/assets/og-image/posts/:slug.png',
+          source: '/assets/og-image/:type/:slug.png',
           destination:
-            '/_next/image?url=https://timomeh.de/api/og?slug=:slug&w=1200&q=100',
+            '/_next/image?url=https://timomeh.de/api/og?slug=:slug&type=:type&w=1200&q=100',
         },
         {
-          source: '/posts/feed.atom',
-          destination: '/api/feed?format=atom',
-        },
-        {
-          source: '/posts/feed.rss',
-          destination: '/api/feed?format=rss',
-        },
-        {
-          source: '/posts/feed.json',
-          destination: '/api/feed?format=json',
+          source: '/:type(posts|offtopic)/feed.:format(rss|atom|json)',
+          destination: '/api/feed?format=:format&type=:type',
         },
         {
           source: '/posts',

@@ -61,6 +61,7 @@ function toPost(discussion: Discussion) {
     meta,
     excerpt,
     body,
+    bodyHTML: discussion.bodyHTML,
   }
 }
 
@@ -78,6 +79,7 @@ function toOfftopic(discussion: Discussion) {
     meta,
     excerpt,
     body,
+    bodyHTML: discussion.bodyHTML,
   }
 }
 

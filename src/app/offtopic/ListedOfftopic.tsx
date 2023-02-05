@@ -29,7 +29,7 @@ export function ListedOfftopic({ offtopic }: Props) {
             {hasTitle && (
               <h2 className="mt-0 text-2xl leading-snug transition-all underline underline-offset-4 decoration-violet-400 font-bold mb-5 font-display">
                 <Link href={`/offtopic/${offtopic.slug}`} className="glow">
-                  {offtopic.title}
+                  <MDXRenderer content={offtopic.title!} inline />
                 </Link>
               </h2>
             )}
