@@ -4,23 +4,31 @@ import remarkGfm from 'remark-gfm'
 import remarkUnwrapImages from 'remark-unwrap-images'
 import Image from 'next/image'
 import probeImageSize from 'probe-image-size'
-import { motion } from 'framer-motion'
 
 import * as syntax from '@/lib/syntax'
 import { slugify } from '@/lib/slugify'
 import { FloatingFootnote } from './FloatingFootnote'
 import { FootnoteRef } from './FootnoteRef'
+import { TocMarker } from './Toc'
+import { getInnerText } from '@/lib/jsx'
 
 type Props = {
   content: string
   shiftHeadings?: boolean
   inline?: boolean
   scope?: string | number
+  hasToc?: boolean
 }
 
 type MDXComponents = MDXRemoteProps['components']
 
-export function MDXRenderer({ content, shiftHeadings, inline, scope }: Props) {
+export function MDXRenderer({
+  content,
+  shiftHeadings,
+  inline,
+  hasToc,
+  scope,
+}: Props) {
   return (
     <>
       {/* @ts-expect-error Server Component */}
@@ -30,6 +38,7 @@ export function MDXRenderer({ content, shiftHeadings, inline, scope }: Props) {
         components={{
           ...components({ scope }),
           ...(shiftHeadings ? shiftedHeadings : headings),
+          ...(hasToc && tocHeadings),
           ...(inline && inlineComponents),
         }}
         options={{
@@ -162,6 +171,10 @@ const headings: MDXComponents = {
   h6: (props) => slugifiedHeading('h6', props),
 }
 
+const tocHeadings: MDXComponents = {
+  h2: (props) => slugifiedHeading('h2', props, { hasToc: true }),
+}
+
 const inlineComponents: MDXComponents = {
   p: (props) => <>{props.children}</>,
 }
@@ -171,13 +184,15 @@ function slugifiedHeading(
   props: React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLHeadingElement>,
     HTMLHeadingElement
-  >
+  >,
+  { hasToc = false } = {}
 ) {
   const HeadingComponent = element
   const { children } = props
   const text = getInnerText(children)
   const slug = slugify(text)
-  return (
+
+  const heading = (
     <HeadingComponent>
       <a
         href={`#${slug}`}
@@ -188,28 +203,10 @@ function slugifiedHeading(
       </a>
     </HeadingComponent>
   )
-}
 
-function getInnerText(node: React.ReactNode): string {
-  if (typeof node === 'string') {
-    return node
+  if (hasToc && children !== 'Footnotes') {
+    return <TocMarker name={slug}>{heading}</TocMarker>
   }
 
-  if (Array.isArray(node)) {
-    return node.reduce<string>((previous: string, current: JSX.Element) => {
-      return `${previous}${getInnerText(current)}`
-    }, '')
-  }
-
-  if (
-    Object.prototype.hasOwnProperty.call(node, 'props') &&
-    Object.prototype.hasOwnProperty.call(
-      (node as JSX.Element).props,
-      'children'
-    )
-  ) {
-    return getInnerText((node as JSX.Element).props.children)
-  }
-
-  return ''
+  return heading
 }

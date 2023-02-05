@@ -1,29 +1,97 @@
 'use client'
 
+import { atom, useAtom, useSetAtom } from 'jotai'
 import * as React from 'react'
-import { atom, useAtomValue, useSetAtom } from 'jotai'
-import { useMeasure } from 'react-use'
-import { motion } from 'framer-motion'
-import { inViewAtom } from './InViewMarker'
+import { orderBy } from 'lodash'
+import { useInView, motion } from 'framer-motion'
 import clsx from 'clsx'
-import Link from 'next/link'
+import { MDXRenderer } from './MDXRenderer'
+import { getInnerText } from '@/lib/jsx'
 
-type Bounds = { top: number; bottom: number }
-const boundsAtom = atom<{ [name: string]: Bounds }>({})
+const tocMarkerAtom = atom<[string, DOMRect][]>([])
+const inViewAtom = atom<Record<string, boolean>>({})
 
-type Props = {
+type MarkerProps = {
+  name: string
   children: React.ReactNode
 }
 
-export function Toc({ children }: Props) {
+export function TocMarker({ name, children }: MarkerProps) {
+  const ref = React.useRef<HTMLDivElement>(null!)
+  const inViewRef = React.useRef<HTMLDivElement>(null!)
+  const [markers, setMarkers] = useAtom(tocMarkerAtom)
+  const [dimens, setDimens] = React.useState<{ top: number; height: number }>({
+    top: 0,
+    height: 0,
+  })
+
+  React.useEffect(() => {
+    function calc() {
+      const rect = ref.current.getBoundingClientRect()
+      setMarkers((markers) => {
+        const others = markers.filter((marker) => marker[0] !== name)
+        const newMarkers = orderBy([...others, [name, rect]], [1, 'y']) as [
+          string,
+          DOMRect
+        ][]
+        return newMarkers
+      })
+    }
+
+    calc()
+    window.addEventListener('resize', calc)
+
+    return () => {
+      window.removeEventListener('resize', calc)
+      setMarkers((markers) => markers.filter((marker) => marker[0] !== name))
+    }
+  }, [name, setMarkers])
+
+  const i = markers.findIndex((marker) => marker[0] === name)
+
+  React.useEffect(() => {
+    const thisMarker = markers[i]
+    const nextMarker = markers[i + 1]
+
+    if (!thisMarker) return
+
+    const top = thisMarker[1].y + window.scrollY
+    const nextTop = nextMarker
+      ? nextMarker[1].y + window.scrollY
+      : document.body.clientHeight
+
+    const height = nextTop - top
+    setDimens({ top, height })
+  }, [i, markers])
+
+  const isInView = useInView(inViewRef)
+  const setInView = useSetAtom(inViewAtom)
+  React.useEffect(() => {
+    setInView((cur) => ({ ...cur, [name]: isInView }))
+
+    return () => {
+      setInView(({ [name]: _, ...rest }) => ({ ...rest }))
+    }
+  }, [name, setInView, isInView])
+
   return (
-    <div className="flex justify-end sticky top-0 pt-2 pl-2 max-h-screen overflow-scroll">
-      <div className="max-w-[240px] ml-2 relative">
-        {children}
-        <Highlighter />
-      </div>
+    <div ref={ref} className="relative" id={name}>
+      <div
+        ref={inViewRef}
+        className="absolute w-0 top-[10px]"
+        style={{ height: dimens.height - 40 }}
+      />
+      {children}
     </div>
   )
+}
+
+type TocProps = {
+  children: React.ReactNode
+}
+
+export function Toc({ children }: TocProps) {
+  return <Highlighted>{children}</Highlighted>
 }
 
 type EntryProps = {
@@ -32,82 +100,82 @@ type EntryProps = {
 }
 
 export function TocEntry({ children, name }: EntryProps) {
-  const [ref, { top, bottom }] = useMeasure<HTMLDivElement>()
-  const setBounds = useSetAtom(boundsAtom)
-  const highlighted = useHighlighted()
-
-  React.useEffect(() => {
-    setBounds((cur) => ({ ...cur, [name]: { top, bottom } }))
-  }, [top, bottom, name, setBounds])
+  const [inViews] = useAtom(inViewAtom)
+  const inView = inViews[name]
 
   return (
-    <div ref={ref} className="not-prose">
-      <div className="py-1 px-2">
-        <a
-          href={`#${name}`}
-          className={clsx(
-            'transition-colors text-[13px] leading-snug block',
-            highlighted.includes(name) ? 'text-white' : 'text-white/70'
-          )}
-        >
-          {children}
-        </a>
-      </div>
+    <div
+      className={clsx(
+        'transition-colors text-white text-[13px] p-1 hover:text-opacity-70',
+        'font-medium',
+        inView ? 'text-opacity-80' : 'text-opacity-50'
+      )}
+      data-toc-entry={name}
+    >
+      <a href={`#${name}`}>{children}</a>
     </div>
   )
 }
 
-function Highlighter() {
-  const inView = useAtomValue(inViewAtom)
-  const bounds = useAtomValue(boundsAtom)
-  const highlighted = useHighlighted()
-
-  const firstIndex = inView.findIndex((view) => view.name === highlighted[0])
-  const before = inView
-    .filter((view, i) => !view.inView && i < firstIndex)
-    .map(({ name }) => name)
-
-  if (
-    highlighted.length < 1 &&
-    inView.at(-1) &&
-    typeof window !== 'undefined'
-  ) {
-    highlighted.push(inView.at(-1)!.name)
-  }
-
-  const top = before.reduce((acc, name) => {
-    return acc + (bounds[name] ? bounds[name].bottom - bounds[name].top : 0)
-  }, 0)
-  const height = highlighted.reduce((acc, name) => {
-    return acc + (bounds[name] ? bounds[name].bottom - bounds[name].top : 0)
-  }, 0)
-
-  return (
-    <>
-      {height > 0 && (
-        <motion.div
-          className="absolute left-0 right-0 bg-white/5 rounded-md pointer-events-none z-[-1]"
-          layout
-          transition={{ ease: 'linear' }}
-          initial={{ opacity: 0, height, top }}
-          animate={{ opacity: 1, height, top }}
-          style={{ top, height }}
-        />
-      )}
-    </>
-  )
+type HighlightedProps = {
+  children: React.ReactNode
 }
 
-function useHighlighted() {
-  const inView = useAtomValue(inViewAtom)
+function Highlighted({ children }: HighlightedProps) {
+  const [markers] = useAtom(tocMarkerAtom)
+  const [inViews] = useAtom(inViewAtom)
+  const ref = React.useRef<HTMLDivElement>(null!)
+  const [dimens, setDimens] = React.useState<{
+    top: number
+    height: number
+    calced: boolean
+  }>({
+    top: 0,
+    height: 0,
+    calced: false,
+  })
 
-  const highlighted = inView
-    .filter((view, i) => {
-      const isCurrentInView = view.inView
-      const isNextInView = i < inView.length && inView[i + 1]?.inView
-      return isCurrentInView || isNextInView
-    })
-    .map(({ name }) => name)
+  const markersInView = React.useMemo(
+    () => markers.map(([name]) => [name, inViews[name]]),
+    [markers, inViews]
+  )
 
-  return highlighted
+  React.useEffect(() => {
+    const firstMarker = markersInView.find((marker) => marker[1] === true)?.[0]
+    const lastMarker = markersInView
+      .reverse()
+      .find((marker) => marker[1] === true)?.[0]
+
+    if (firstMarker && lastMarker) {
+      const firstEl = ref.current.querySelector(
+        `[data-toc-entry="${firstMarker}"]`
+      )
+      const lastEl = ref.current.querySelector(
+        `[data-toc-entry="${lastMarker}"]`
+      )
+
+      if (!firstEl || !lastEl) return
+
+      const refTop = ref.current.getBoundingClientRect().top
+      const top = firstEl.getBoundingClientRect().top - refTop
+      const height = lastEl.getBoundingClientRect().bottom - refTop - top
+
+      setDimens({ top, height, calced: true })
+    }
+  }, [markersInView])
+
+  return (
+    <div ref={ref} className="sticky top-1 max-w-[240px]">
+      {children}
+      {dimens.calced && (
+        <motion.div
+          className="absolute z-[-1] bg-[#29292a] bg-opacity-30 left-0 right-0 rounded -mx-0.5"
+          initial={{ opacity: 0, top: dimens.top, height: dimens.height }}
+          animate={{ opacity: 1, top: dimens.top, height: dimens.height }}
+          transition={{ ease: 'linear' }}
+          layout
+        />
+      )}
+    </div>
+  )
 }

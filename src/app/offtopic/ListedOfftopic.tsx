@@ -1,6 +1,6 @@
-import { InViewMarker } from '@/components/InViewMarker'
 import { MDXRenderer } from '@/components/MDXRenderer'
 import { Prose } from '@/components/Prose'
+import { TocMarker } from '@/components/Toc'
 import { Offtopic } from '@/lib/blog'
 import Link from 'next/link'
 
@@ -14,7 +14,7 @@ export function ListedOfftopic({ offtopic }: Props) {
   return (
     <article className="mx-4">
       <Prose size={hasTitle ? 'yes' : 'big'}>
-        <InViewMarker name={offtopic.slug}>
+        <TocMarker name={offtopic.slug}>
           <div className="not-prose" id={offtopic.slug}>
             <time className="text-xs uppercase font-bold flex -mb-1">
               <Link
@@ -34,7 +34,7 @@ export function ListedOfftopic({ offtopic }: Props) {
               </h2>
             )}
           </div>
-        </InViewMarker>
+        </TocMarker>
         <MDXRenderer
           content={offtopic.body}
           shiftHeadings

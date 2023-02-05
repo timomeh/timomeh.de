@@ -26,6 +26,7 @@
     "hastscript": "7.2.0",
     "html-react-parser": "3.0.8",
     "jotai": "2.0.0",
+    "lodash": "4.17.21",
     "next": "13.1.4",
     "next-mdx-remote": "4.3.0",
     "prando": "6.0.1",
@@ -42,6 +43,7 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "0.5.9",
+    "@types/lodash": "4.14.191",
     "@types/node": "18.11.18",
     "@types/probe-image-size": "7.2.0",
     "@types/react": "18.0.26",

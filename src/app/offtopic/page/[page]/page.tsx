@@ -1,13 +1,10 @@
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-import { listOfftopicsPaginated, listPosts } from '@/lib/blog'
-import { GreenAurora, VioletAurora } from '@/components/Aurora'
+import { listOfftopicsPaginated } from '@/lib/blog'
 import { ListedOfftopic } from '../../ListedOfftopic'
 import { NorthernLights } from '@/components/NorthernLights'
-import { StoreProvider } from '@/lib/store'
-import { MarkerProvider } from '@/components/InViewMarker'
 import { Toc, TocEntry } from '@/components/Toc'
+import { MDXRenderer } from '@/components/MDXRenderer'
 
 export const revalidate = false
 export const generateStaticParams = () => []
@@ -24,7 +21,7 @@ export default async function Offtopics({ params }: Props) {
   if (offtopics.length < 1) notFound()
 
   return (
-    <MarkerProvider names={offtopics.map(({ slug }) => slug)}>
+    <>
       <NorthernLights />
       <main className="meh-main">
         <div className="space-y-10">
@@ -36,12 +33,12 @@ export default async function Offtopics({ params }: Props) {
       <aside className="meh-aside">
         <Toc>
           {offtopics.map((offtopic) => (
-            <TocEntry key={offtopic.slug} name={offtopic.slug}>
-              {offtopic.title || offtopic.slug}
+            <TocEntry name={offtopic.slug} key={offtopic.slug}>
+              <MDXRenderer content={offtopic.title || offtopic.slug} inline />
             </TocEntry>
           ))}
         </Toc>
       </aside>
-    </MarkerProvider>
+    </>
   )
 }

@@ -1,6 +1,6 @@
-import { InViewMarker } from '@/components/InViewMarker'
 import { MDXRenderer } from '@/components/MDXRenderer'
 import { Prose } from '@/components/Prose'
+import { TocMarker } from '@/components/Toc'
 import { Post } from '@/lib/blog'
 import Link from 'next/link'
 
@@ -10,9 +10,9 @@ type Props = {
 
 export function ListedPost({ post }: Props) {
   return (
-    <div>
+    <article className="mx-4">
       <Prose>
-        <InViewMarker name={post.slug}>
+        <TocMarker name={post.slug}>
           <div className="not-prose">
             <time className="text-xs uppercase font-bold flex -mb-1">
               <Link
@@ -30,7 +30,7 @@ export function ListedPost({ post }: Props) {
               </Link>
             </h2>
           </div>
-        </InViewMarker>
+        </TocMarker>
         {post.excerpt && (
           <MDXRenderer
             content={post.excerpt}
@@ -39,6 +39,6 @@ export function ListedPost({ post }: Props) {
           />
         )}
       </Prose>
-    </div>
+    </article>
   )
 }
