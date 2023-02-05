@@ -3,7 +3,6 @@
 import clsx from 'clsx'
 import * as React from 'react'
 import Prando from 'prando'
-import { useMediaQuery } from '@/lib/useMediaQuery'
 
 type Props = {
   id: string
@@ -28,6 +27,8 @@ export function FloatingFootnote({ id, children, scope }: Props) {
     if (!ref) setRef(getRef(id))
   }, [ref, id])
 
+  React.useEffect(() => () => setRef(undefined), [])
+
   React.useEffect(() => {
     // only handle footnotes in articles
     const article = self.current.closest('article')
@@ -47,11 +48,16 @@ export function FloatingFootnote({ id, children, scope }: Props) {
       const prevNote = self.current.previousElementSibling as
         | HTMLLIElement
         | undefined
+      console.log(ref)
       const refTop = relativePos(ref.getBoundingClientRect().top)
 
-      if (!prevNote) {
+      if (!prevNote && refTop > 0) {
         setTop(refTop)
         setPositioned(true)
+        return
+      }
+
+      if (!prevNote) {
         return
       }
 
@@ -63,10 +69,12 @@ export function FloatingFootnote({ id, children, scope }: Props) {
       setPositioned(true)
     }
 
-    calc()
     const resizeObserver = new ResizeObserver(() => calc())
     resizeObserver.observe(article)
-    return () => resizeObserver.unobserve(article)
+
+    return () => {
+      resizeObserver.unobserve(article)
+    }
   }, [ref])
 
   React.useEffect(() => {
