@@ -2,8 +2,6 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { listPostsPaginated } from '@/lib/blog'
 import { ListedPost } from '../../ListedPost'
-import { Toc, TocEntry } from '@/components/Toc'
-import { MDXRenderer } from '@/components/MDXRenderer'
 
 export const revalidate = false
 export const generateStaticParams = () => []

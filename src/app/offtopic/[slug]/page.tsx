@@ -4,8 +4,6 @@ import { Prose } from '@/components/Prose'
 import { getOfftopic } from '@/lib/blog'
 
 import { MDXRenderer } from '@/components/MDXRenderer'
-import { Toc, TocEntry, TocMarker } from '@/components/Toc'
-import { slugify } from '@/lib/slugify'
 
 export const revalidate = false
 export const generateStaticParams = () => []
