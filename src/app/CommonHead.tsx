@@ -1,3 +1,5 @@
+import { NextSeo } from 'next-seo'
+
 export function CommonHead() {
   return (
     <>
@@ -20,22 +22,14 @@ export function CommonHead() {
         sizes="16x16"
         href="/favicon-16x16.png"
       />
-      <link
-        rel="alternate"
-        type="application/atom+xml"
-        href="https://timomeh.de/posts/feed.atom"
+      <NextSeo
+        useAppDir={true}
+        themeColor="#16161d"
+        openGraph={{
+          siteName: 'Timo Mämecke',
+        }}
       />
-      <link
-        rel="alternate"
-        type="application/rss+xml"
-        href="https://timomeh.de/posts/feed.rss"
-      />
-      <link
-        rel="alternate"
-        type="application/feed+json"
-        href="https://timomeh.de/posts/feed.json"
-      />
-      <meta name="theme-color" content="#ffffff" />
+      <meta name="author" content="Timo Mämecke" />
     </>
   )
 }

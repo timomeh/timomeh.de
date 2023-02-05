@@ -1,14 +1,13 @@
 import { CommonHead } from '@/app/CommonHead'
+import { Seo } from '@/components/Seo'
 
 export default function Head() {
   return (
     <>
       <CommonHead />
-      <title>Timo Mämecke</title>
-      <meta
-        name="description"
-        content="Hi, I’m Timo Mämecke, Software Engineer from Germany, and this is the place where I write stuff."
-        key="description"
+      <Seo
+        defaultTitle="Timo Mämecke"
+        description="Hi, I’m Timo Mämecke, Software Engineer from Germany, and this is the place where I write stuff."
       />
     </>
   )

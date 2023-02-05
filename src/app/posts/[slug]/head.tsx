@@ -1,5 +1,8 @@
+import mime from 'mime-types'
+import { Seo } from '@/components/Seo'
 import { getPost } from '../../../lib/blog'
 import { CommonHead } from '../../CommonHead'
+import { Feeds } from '@/components/Feeds'
 
 type Props = {
   params: { slug: string }
@@ -7,35 +10,46 @@ type Props = {
 
 export default async function Head({ params }: Props) {
   const post = await getPost(params.slug)
+  if (!post) return null
 
-  if (!post) {
-    return null
-  }
+  const image =
+    post.meta.og_image ||
+    `https://timomeh.de/assets/og-image/posts/${post.slug}.png`
 
   return (
     <>
       <CommonHead />
-      <title>{`${post.title} | Timo Mämecke`}</title>
-      <meta
-        property="og:image"
-        content={`https://timomeh.de/assets/og-image/posts/${post.slug}.png`}
-        key="og-image"
-      />
-      <meta
-        name="description"
-        content={`${post.title}, posted on ${post.postedAt} by Timo Mämecke`}
-        key="description"
-      />
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta
-        name="twitter:title"
-        content={`${post.title} | Timo Mämecke`}
-        key="twitter-title"
-      />
-      <meta
-        name="twitter:image"
-        content={`https://timomeh.de/assets/og-image/posts/${post.slug}.png`}
-        key="twitter-image"
+      <Feeds type="posts" />
+      <Seo
+        description={
+          post.meta.description ||
+          `${post.title}, posted on ${post.postedAt.toLocaleDateString(
+            'en-US',
+            { dateStyle: 'medium' }
+          )} by Timo Mämecke`
+        }
+        title={post.title}
+        twitter={{
+          cardType: 'summary_large_image',
+        }}
+        openGraph={{
+          type: 'article',
+          images: [
+            {
+              url: image,
+              type: mime.lookup(image) || undefined,
+            },
+          ],
+          article: {
+            publishedTime: post.postedAt.toISOString(),
+            modifiedTime: post.updatedAt.toISOString(),
+            authors: ['Timo Mämecke'],
+          },
+          profile: {
+            username: 'timomeh',
+          },
+          locale: post.meta.lang || 'en_US',
+        }}
       />
     </>
   )
