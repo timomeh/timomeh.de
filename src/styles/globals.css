@@ -6,6 +6,12 @@
   --grainy: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' /%3E%3C/svg%3E");
 }
 
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+}
+
 @layer utilities {
   .glow {
     @apply transition-all bg-gradient-to-t from-violet-500/30 to-transparent duration-500 [background-position:bottom_left] [background-size:100%_0] bg-no-repeat hover:[background-size:100%_100%];
@@ -60,7 +66,9 @@
   }
 
   .meh-aside {
+    @apply hidden lg:block;
     grid-area: aside;
+    position: relative;
   }
 
   .meh-footer {
@@ -81,6 +89,12 @@
   left: calc(100% + 16px);
   overflow: hidden;
   width: 200px;
+
+  display: none;
+
+  @media (min-width: 1111px) {
+    display: block;
+  }
 
   > h2,
   > h3 {
