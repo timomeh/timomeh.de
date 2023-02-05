@@ -85,6 +85,9 @@ export type Offtopic = ReturnType<typeof toOfftopic>
 
 type MetaData = {
   description?: string
+  toc?: boolean
+  lang?: string
+  og_image?: string
 }
 
 function parseDocument(document: string) {

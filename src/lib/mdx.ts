@@ -1,5 +1,5 @@
 export function getChapters(markdown: string) {
-  const heading = /(?<flag>#{2})\s+(?<content>.+)/g
+  const heading = /^##\s+(?<content>.+)/gm
 
   const matches = Array.from(markdown.matchAll(heading))
   return matches

@@ -44,7 +44,7 @@
   }
 
   .meh-header {
-    @apply w-[682px] max-w-full mx-auto lg:max-w-none lg:w-full lg:mx-0;
+    @apply w-[682px] max-w-full min-h-[160px] mx-auto lg:min-h-0 lg:max-w-none lg:w-full lg:mx-0;
     grid-area: header;
   }
 
@@ -66,7 +66,7 @@
   }
 
   .meh-aside {
-    @apply hidden lg:flex justify-end items-start;
+    @apply hidden lg:flex justify-end items-start pl-2;
     grid-area: aside;
     position: relative;
   }

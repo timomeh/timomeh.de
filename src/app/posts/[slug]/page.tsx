@@ -41,11 +41,15 @@ export default async function Post({ params }: Props) {
                 </h1>
               </header>
             </TocMarker>
-            <MDXRenderer content={post.body} scope={post.number} hasToc />
+            <MDXRenderer
+              content={post.body}
+              scope={post.number}
+              hasToc={!!post.meta.toc}
+            />
           </Prose>
         </article>
       </main>
-      {chapters.length > 1 && (
+      {post.meta.toc && (
         <aside className="meh-aside">
           <Toc>
             <TocEntry name="top">

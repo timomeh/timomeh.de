@@ -11,6 +11,7 @@ import { FloatingFootnote } from './FloatingFootnote'
 import { FootnoteRef } from './FootnoteRef'
 import { TocMarker } from './Toc'
 import { getInnerText } from '@/lib/jsx'
+import clsx from 'clsx'
 
 type Props = {
   content: string
@@ -72,6 +73,9 @@ const components = (baseProps: Pick<Props, 'scope'>): MDXComponents => {
         })
         figcaption = result.content
       }
+
+      const isFancy = !props.className?.includes('simple')
+
       return (
         <figure className="md:-mx-4">
           <div className="relative">
@@ -80,16 +84,18 @@ const components = (baseProps: Pick<Props, 'scope'>): MDXComponents => {
               width={result.width}
               height={result.height}
               alt={props.alt || ''}
-              className="m-0 rounded-lg"
+              className={clsx('m-0', isFancy && 'rounded-lg')}
             />
-            <Image
-              src={props.src!}
-              width={result.width}
-              height={result.height}
-              alt=""
-              className="absolute inset-0 m-0 filter blur-lg z-[-1] opacity-50"
-              aria-hidden={true}
-            />
+            {isFancy && (
+              <Image
+                src={props.src!}
+                width={result.width}
+                height={result.height}
+                alt=""
+                className="absolute inset-0 m-0 filter blur-lg z-[-1] opacity-50"
+                aria-hidden={true}
+              />
+            )}
           </div>
           {figcaption && (
             <figcaption className="px-8 text-center">{figcaption}</figcaption>
@@ -141,7 +147,7 @@ const components = (baseProps: Pick<Props, 'scope'>): MDXComponents => {
         return <FootnoteRef {...props} id={props.id!} scope={baseProps.scope} />
       }
 
-      return <a {...props} />
+      return <a {...props} className="break-words" />
     },
     section: (props) => {
       if ('data-footnotes' in props) {

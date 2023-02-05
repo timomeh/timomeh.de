@@ -5,8 +5,6 @@ import * as React from 'react'
 import { orderBy } from 'lodash'
 import { useInView, motion } from 'framer-motion'
 import clsx from 'clsx'
-import { MDXRenderer } from './MDXRenderer'
-import { getInnerText } from '@/lib/jsx'
 
 const tocMarkerAtom = atom<[string, DOMRect][]>([])
 const inViewAtom = atom<Record<string, boolean>>({})
@@ -165,7 +163,7 @@ function Highlighted({ children }: HighlightedProps) {
   }, [markersInView])
 
   return (
-    <div ref={ref} className="sticky top-1 max-w-[240px]">
+    <div ref={ref} className="sticky top-2 max-w-[240px]">
       {children}
       {dimens.calced && (
         <motion.div
