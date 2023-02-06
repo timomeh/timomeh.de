@@ -1,7 +1,7 @@
 import { NextSeoProps } from 'next-seo'
 
 export const body = `
-# Imprint
+# Impressum
 
 Timo Mämecke  
 Karl-Korn-Straße 18  

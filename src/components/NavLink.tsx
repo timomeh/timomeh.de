@@ -11,7 +11,7 @@ type Props = {
   href: string
 }
 
-export default function NavLink({ children, segment, href }: Props) {
+export function NavLink({ children, segment, href }: Props) {
   const segments = useSelectedLayoutSegments()
   const isActive = segments[0] === segment
 

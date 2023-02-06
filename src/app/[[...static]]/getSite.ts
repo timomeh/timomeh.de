@@ -1,12 +1,14 @@
 import { NextSeoProps } from 'next-seo'
-import * as imprint from './imprint'
-import * as privacy from './privacy-policy'
+import * as impressum from './impressum'
+import * as datenschutz from './datenschutz'
 import * as about from './about'
+import * as feeds from './feeds'
 
 const sites = {
-  imprint,
+  impressum,
+  datenschutz,
   about,
-  'privacy-policy': privacy,
+  feeds,
 } as Record<string, { body: string; head: NextSeoProps }>
 
 export async function getSite(segments: string[]) {

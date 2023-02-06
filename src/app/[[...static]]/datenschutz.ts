@@ -1,7 +1,7 @@
 import { NextSeoProps } from 'next-seo'
 
 export const body = `
-# Privacy Policy – Datenschutzerklärung
+# Datenschutzerklärung
 
 ## 1. Datenschutz auf einen Blick
 

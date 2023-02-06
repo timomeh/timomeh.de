@@ -34,7 +34,7 @@ export default async function handler(
 
   const title = {
     posts: 'Timo’s Posts',
-    offtopic: 'Timo’s Thoughts',
+    offtopic: 'Timo’s Stream',
   }
 
   const description = {
