@@ -156,7 +156,7 @@ const components = (baseProps: Pick<Props, 'scope'>): MDXComponents => {
         return <Link href={href!.replace('https://timomeh.de', '')} {...rest} />
       }
 
-      return <a {...props} className="break-words" />
+      return <a {...props} className="break-words" rel="noopener noreferrer" />
     },
     section: (props) => {
       if ('data-footnotes' in props) {
