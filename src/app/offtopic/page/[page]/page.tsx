@@ -25,6 +25,7 @@ export default async function Offtopics({ params }: Props) {
     <>
       <NorthernLights />
       <main className="meh-main">
+        <div className="h-16 lg:hidden" />
         <div className="space-y-10">
           {offtopics.map((offtopic) => (
             <ListedOfftopic offtopic={offtopic} key={offtopic.number} />
