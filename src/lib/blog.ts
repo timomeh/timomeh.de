@@ -12,8 +12,9 @@ export const listPostsPaginated = cache(async (page = 1) => {
   const posts = allPosts.slice(start, end)
   const prev = page > 1 ? page - 1 : undefined
   const next = allPosts.length > end ? page + 1 : undefined
+  const pages = Math.ceil(allPosts.length / limit)
 
-  return { posts, next, prev }
+  return { posts, next, prev, pages }
 })
 
 export const listPosts = cache(async () => {
@@ -32,7 +33,7 @@ export const listOfftopics = cache(async () => {
 })
 
 export const listOfftopicsPaginated = cache(async (page = 1) => {
-  const limit = 2
+  const limit = 10
   const start = (page - 1) * limit
   const end = start + limit
 
@@ -40,8 +41,9 @@ export const listOfftopicsPaginated = cache(async (page = 1) => {
   const offtopics = allOfftopics.slice(start, end)
   const prev = page > 1 ? page - 1 : undefined
   const next = allOfftopics.length > end ? page + 1 : undefined
+  const pages = Math.ceil(allOfftopics.length / limit)
 
-  return { offtopics, next, prev }
+  return { offtopics, next, prev, pages }
 })
 
 export const getOfftopic = cache(async (slug: string) => {
@@ -90,6 +92,7 @@ type MetaData = {
   toc?: boolean
   lang?: string
   og_image?: string
+  title?: string
 }
 
 function parseDocument(document: string) {

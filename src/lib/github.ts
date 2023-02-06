@@ -8,6 +8,12 @@ const categoryIds = {
   offtopic: 'DIC_kwDOH6oEFs4CTj4l',
 } as const
 
+export function getCategoryNameFromId(id: string) {
+  if (id === categoryIds.offtopic) return 'offtopic' as const
+  if (id === categoryIds.posts) return 'posts' as const
+  return undefined
+}
+
 export type Discussion = {
   title: string
   createdAt: string

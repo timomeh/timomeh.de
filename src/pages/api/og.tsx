@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from '@vercel/og'
 import { NextRequest } from 'next/server'
+import removeMd from 'remove-markdown'
 
 export const config = {
   runtime: 'experimental-edge',
@@ -17,15 +18,24 @@ export default async function handler(req: NextRequest) {
       return new Response('No slug', { status: 404 })
     }
     const slug = searchParams.get('slug')!
+    const category = searchParams.get('category')! as 'posts' | 'offtopic'
 
     // @ts-expect-error
     process.version = 'v420.69'
 
-    const { getBlogPost } = await import('@/lib/blog')
-    const post = await getBlogPost(slug)
-    if (!post) {
-      return new Response('No post with the requested slug', { status: 404 })
+    const { getDiscussion } = await import('@/lib/github')
+    const entry = await getDiscussion({ slug, category })
+
+    if (!entry) {
+      return new Response(`No ${category} with the requested slug`, {
+        status: 404,
+      })
     }
+
+    let title = /^# (.*$)/gim.exec(entry.body)?.[1].trim()
+    title ||= /^title: (.*$)/gim.exec(entry.body)?.[1].trim()
+    title ||= entry.body.split(' ').slice(0, 10).join(' ').concat('…')
+    title ||= entry.title
 
     const fontData = await font
 
@@ -57,7 +67,7 @@ export default async function handler(req: NextRequest) {
             </div>
             <div tw="w-[80%] flex flex-col items-center">
               <div tw="text-7xl font-bold text-center text-slate-900">
-                {post?.rawTitle}
+                {removeMd(title)}
               </div>
               <div tw="min-h-[8px] flex-shrink h-10" />
               <div tw="flex-shrink-0 h-px bg-slate-800 opacity-10 w-[400px]" />
