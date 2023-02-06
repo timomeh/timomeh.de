@@ -207,6 +207,15 @@ function slugifiedHeading(
   const text = getInnerText(children)
   const slug = slugify(text)
 
+  if (element === 'h1') {
+    // for static pages
+    return (
+      <HeadingComponent className="text-2xl leading-snug font-bold font-display">
+        {children}
+      </HeadingComponent>
+    )
+  }
+
   const heading = (
     <HeadingComponent>
       <a

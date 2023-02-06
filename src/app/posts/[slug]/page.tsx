@@ -5,7 +5,6 @@ import { getPost } from '@/lib/blog'
 
 import { MDXRenderer } from '@/components/MDXRenderer'
 import { Toc, TocEntry, TocMarker } from '@/components/Toc'
-import { getInnerText } from '@/lib/jsx'
 import { getChapters } from '@/lib/mdx'
 import { slugify } from '@/lib/slugify'
 
