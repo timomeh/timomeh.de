@@ -163,7 +163,10 @@ function Highlighted({ children }: HighlightedProps) {
   }, [markersInView])
 
   return (
-    <div ref={ref} className="sticky top-2 max-w-[240px]">
+    <div
+      ref={ref}
+      className="sticky top-0 py-2 max-w-[240px] max-h-screen overflow-scroll"
+    >
       {children}
       {dimens.calced && (
         <motion.div
