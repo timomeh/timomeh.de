@@ -5,6 +5,7 @@ const nextConfig = {
   experimental: {
     appDir: true,
     esmExternals: 'loose',
+    serverComponentsExternalPackages: ['shiki'],
   },
   images: {
     remotePatterns: [
