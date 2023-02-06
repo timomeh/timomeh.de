@@ -48,7 +48,6 @@ export function FloatingFootnote({ id, children, scope }: Props) {
       const prevNote = self.current.previousElementSibling as
         | HTMLLIElement
         | undefined
-      console.log(ref)
       const refTop = relativePos(ref.getBoundingClientRect().top)
 
       if (!prevNote && refTop > 0) {

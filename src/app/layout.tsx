@@ -46,14 +46,14 @@ export default function RootLayout({ children }: Props) {
             <footer className="meh-footer">
               <div className="flex justify-end text-[11px] uppercase font-bold space-x-1">
                 <Link
-                  href="/impressum"
+                  href="/imprint"
                   className="opacity-30 hover:opacity-60 transition-opacity"
                 >
                   Impressum
                 </Link>
                 <div className="opacity-30">&</div>
                 <Link
-                  href="/datenschutz"
+                  href="/privacy-policy"
                   className="opacity-30 hover:opacity-60 transition-opacity"
                 >
                   Datenschutz

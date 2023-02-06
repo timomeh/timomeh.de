@@ -1,10 +1,11 @@
 import { CommonHead } from '@/app/CommonHead'
+import { Seo } from '@/components/Seo'
 
 export default function Head() {
   return (
     <>
       <CommonHead />
-      <title>Privacy Policy | Timo Mämecke</title>
+      <Seo title="Privacy Policy" />
     </>
   )
 }

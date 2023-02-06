@@ -1,6 +1,6 @@
 import mime from 'mime-types'
 import { Seo } from '@/components/Seo'
-import { getPost } from '../../../lib/blog'
+import { getOfftopic } from '../../../lib/blog'
 import { CommonHead } from '../../CommonHead'
 import { Feeds } from '@/components/Feeds'
 
@@ -9,12 +9,12 @@ type Props = {
 }
 
 export default async function Head({ params }: Props) {
-  const post = await getPost(params.slug)
-  if (!post) return null
+  const offtopic = await getOfftopic(params.slug)
+  if (!offtopic) return null
 
   const image =
-    post.meta.og_image ||
-    `https://timomeh.de/assets/og-image/offtopic/${post.slug}.png`
+    offtopic.meta.og_image ||
+    `https://timomeh.de/assets/og-image/offtopic/${offtopic.slug}.png`
 
   return (
     <>
@@ -22,13 +22,18 @@ export default async function Head({ params }: Props) {
       <Feeds type="offtopic" />
       <Seo
         description={
-          post.meta.description ||
-          `${post.title}, posted on ${post.postedAt.toLocaleDateString(
+          offtopic.meta.description ||
+          `${offtopic.title}, posted on ${offtopic.postedAt.toLocaleDateString(
             'en-US',
             { dateStyle: 'medium' }
           )} by Timo Mämecke`
         }
-        title={post.title}
+        title={
+          offtopic.meta.title ||
+          offtopic.title ||
+          offtopic.body.split(' ').slice(0, 10).join(' ').concat('…') ||
+          offtopic.slug
+        }
         twitter={{
           cardType: 'summary_large_image',
         }}
@@ -41,14 +46,14 @@ export default async function Head({ params }: Props) {
             },
           ],
           article: {
-            publishedTime: post.postedAt.toISOString(),
-            modifiedTime: post.updatedAt.toISOString(),
+            publishedTime: offtopic.postedAt.toISOString(),
+            modifiedTime: offtopic.updatedAt.toISOString(),
             authors: ['Timo Mämecke'],
           },
           profile: {
             username: 'timomeh',
           },
-          locale: post.meta.lang || 'en_US',
+          locale: offtopic.meta.lang || 'en_US',
         }}
       />
     </>

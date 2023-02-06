@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import removeMd from 'remove-markdown'
 
 import { listOfftopicsPaginated } from '@/lib/blog'
 import { ListedOfftopic } from '../../ListedOfftopic'
@@ -34,7 +35,19 @@ export default async function Offtopics({ params }: Props) {
         <Toc>
           {offtopics.map((offtopic) => (
             <TocEntry name={offtopic.slug} key={offtopic.slug}>
-              <MDXRenderer content={offtopic.title || offtopic.slug} inline />
+              <MDXRenderer
+                content={removeMd(
+                  offtopic.title ||
+                    offtopic.meta.title ||
+                    offtopic.body
+                      .split(' ')
+                      .slice(0, 10)
+                      .join(' ')
+                      .concat('…') ||
+                    offtopic.slug
+                )}
+                inline
+              />
             </TocEntry>
           ))}
         </Toc>

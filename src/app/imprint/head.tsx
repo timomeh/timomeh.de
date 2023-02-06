@@ -1,10 +1,11 @@
+import { Seo } from '@/components/Seo'
 import { CommonHead } from '../CommonHead'
 
 export default function Head() {
   return (
     <>
       <CommonHead />
-      <title>Imprint | Timo Mämecke</title>
+      <Seo title="Imprint" />
     </>
   )
 }

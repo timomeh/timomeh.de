@@ -12,6 +12,7 @@ import { FootnoteRef } from './FootnoteRef'
 import { TocMarker } from './Toc'
 import { getInnerText } from '@/lib/jsx'
 import clsx from 'clsx'
+import Link from 'next/link'
 
 type Props = {
   content: string
@@ -145,6 +146,14 @@ const components = (baseProps: Pick<Props, 'scope'>): MDXComponents => {
 
       if ('data-footnote-ref' in props) {
         return <FootnoteRef {...props} id={props.id!} scope={baseProps.scope} />
+      }
+
+      if (
+        props.href?.startsWith('https://timomeh.de') ||
+        props.href?.startsWith('/')
+      ) {
+        const { href, ref: _, ...rest } = props
+        return <Link href={href!.replace('https://timomeh.de', '')} {...rest} />
       }
 
       return <a {...props} className="break-words" />

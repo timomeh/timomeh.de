@@ -36,7 +36,13 @@ export function ListedOfftopic({ offtopic }: Props) {
           </div>
         </TocMarker>
         <MDXRenderer
-          content={offtopic.body}
+          content={
+            offtopic.excerpt
+              ? offtopic.excerpt.concat(
+                  ` <span class="not-prose"><a href="/offtopic/${offtopic.slug}" class="opacity-70 hover:opacity-100 transition-opacity glow">Continue…</a></span>`
+                )
+              : offtopic.body
+          }
           shiftHeadings
           scope={offtopic.number}
         />
