@@ -39,7 +39,7 @@ export function ListedOfftopic({ offtopic }: Props) {
           content={
             offtopic.excerpt
               ? offtopic.excerpt.concat(
-                  ` <span class="not-prose"><a href="/offtopic/${offtopic.slug}" class="opacity-70 hover:opacity-100 transition-opacity glow">Continue…</a></span>`
+                  ` <span className="not-prose"><a href="/offtopic/${offtopic.slug}" className="opacity-70 hover:opacity-100 transition-opacity glow">Continue…</a></span>`
                 )
               : offtopic.body
           }
