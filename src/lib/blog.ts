@@ -1,5 +1,6 @@
 import { cache } from 'react'
 import matter from 'gray-matter'
+import removeMd from 'remove-markdown'
 
 import { Discussion, getDiscussion, listDiscussions } from './github'
 
@@ -52,7 +53,7 @@ export const getOfftopic = cache(async (slug: string) => {
 })
 
 function toPost(discussion: Discussion) {
-  const { excerpt, meta, title, body } = parseDocument(discussion.body)
+  const { excerpt, meta, title, body } = parseDocument(discussion.body, true)
 
   return {
     slug: discussion.title,
@@ -78,6 +79,12 @@ function toOfftopic(discussion: Discussion) {
     postedAt: new Date(discussion.createdAt),
     updatedAt: new Date(discussion.updatedAt),
     title,
+    safeTitle: removeMd(
+      meta.title ||
+        title ||
+        body.split(' ').slice(0, 10).join(' ').concat('…') ||
+        discussion.title
+    ),
     meta,
     excerpt,
     body,
@@ -95,7 +102,7 @@ type MetaData = {
   title?: string
 }
 
-function parseDocument(document: string) {
+function parseDocument(document: string, fakeExcerpt = false) {
   const excerptSeparator = '<!-- intro -->'
   const parsed = matter(document, {
     excerpt: true,
@@ -106,10 +113,13 @@ function parseDocument(document: string) {
   const content = parsed.content.split(excerptSeparator).at(-1) || ''
   const title = /^# (.*$)/gim.exec(content)?.[1].trim()
   const body = content.replace(/^# .*$/gim, '')
+  // TODO delete fallback excerpt when I migrated all the posts to use excerpts
+  const excerpt = fakeExcerpt
+    ? parsed.excerpt || body.split('\r\n').filter(Boolean)[0]
+    : parsed.excerpt
 
   return {
-    // TODO delete fallback excerpt when properly supported
-    excerpt: parsed.excerpt || body.split('\r\n').filter(Boolean)[0],
+    excerpt,
     meta: parsed.data as MetaData,
     title,
     body,

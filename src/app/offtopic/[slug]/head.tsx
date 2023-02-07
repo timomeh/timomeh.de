@@ -23,17 +23,13 @@ export default async function Head({ params }: Props) {
       <Seo
         description={
           offtopic.meta.description ||
-          `${offtopic.title}, posted on ${offtopic.postedAt.toLocaleDateString(
-            'en-US',
-            { dateStyle: 'medium' }
-          )} by Timo Mämecke`
+          `${
+            offtopic.safeTitle
+          }, posted on ${offtopic.postedAt.toLocaleDateString('en-US', {
+            dateStyle: 'medium',
+          })} by Timo Mämecke`
         }
-        title={
-          offtopic.meta.title ||
-          offtopic.title ||
-          offtopic.body.split(' ').slice(0, 10).join(' ').concat('…') ||
-          offtopic.slug
-        }
+        title={offtopic.safeTitle}
         twitter={{
           cardType: 'summary_large_image',
         }}
