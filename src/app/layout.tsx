@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { RssIcon, UserCircleIcon } from '@heroicons/react/20/solid'
 
 import { Logo } from '@/components/Logo'
 import { NavLink } from '@/components/NavLink'
@@ -9,8 +10,6 @@ import '@/styles/globals.css'
 import '@fontsource/ibm-plex-mono/latin-ext.css'
 import '@fontsource/inter/latin.css'
 import '@fontsource/outfit/latin.css'
-import { RssIcon, UserCircleIcon } from '@heroicons/react/20/solid'
-import { IconDot } from '@/components/IconDot'
 
 type Props = {
   children: React.ReactNode
@@ -32,7 +31,7 @@ export default function RootLayout({ children }: Props) {
               </div>
             </header>
             <nav className="meh-nav">
-              <div className="flex flex-col pr-4 pt-6 lg:pt-0 lg:pr-0 items-end">
+              <div className="flex lg:flex-col pr-4 pt-6 lg:pt-0 lg:pr-0 items-center justify-end lg:items-end space-x-2 lg:space-x-0">
                 <div>
                   <div className="flex lg:flex-col space-x-3 lg:space-x-0 lg:space-y-1 items-end">
                     <NavLink segment="offtopic" href="/">
@@ -43,31 +42,24 @@ export default function RootLayout({ children }: Props) {
                     </NavLink>
                   </div>
                 </div>
-                <div className="flex space-x-3 mt-4 items-center">
-                  <Link
-                    title="Feeds"
-                    href="/feeds"
-                    className="relative flex justify-center items-center"
-                  >
-                    <RssIcon className="w-6 h-6 -m-1 p-1 fill-white/60 hover:fill-white/90 transition-colors" />
-                    <IconDot forPath="/feeds" />
-                  </Link>
+                <div className="flex space-x-3 lg:mt-4 items-center">
+                  <NavLink segment="feeds" href="/feeds" backDot>
+                    <RssIcon className="w-6 h-6 -m-1 p-1" title="Feeds" />
+                  </NavLink>
                   <a
                     title="@timomeh@mastodon.social"
                     href="https://mastodon.social/@timomeh"
                     rel="noopener noreferrer me"
                     target="_blank"
                   >
-                    <MastodonLogo className="w-[22px] h-[22px] fill-white/60 hover:fill-white/90 -m-1 p-1 transition-colors" />
+                    <MastodonLogo className="w-[22px] h-[22px] fill-white opacity-50 hover:opacity-80 -m-1 p-1 transition-opacity" />
                   </a>
-                  <Link
-                    title="About"
-                    href="/about"
-                    className="relative flex justify-center items-center"
-                  >
-                    <UserCircleIcon className="w-6 h-6 -m-1 p-1 fill-white/60 hover:fill-white/90 transition-colors" />
-                    <IconDot forPath="/about" />
-                  </Link>
+                  <NavLink segment="about" href="/about" backDot>
+                    <UserCircleIcon
+                      className="w-6 h-6 -m-1 p-1"
+                      title="About"
+                    />
+                  </NavLink>
                 </div>
               </div>
             </nav>

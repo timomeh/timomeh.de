@@ -154,7 +154,13 @@ const components = (baseProps: Pick<Props, 'scope'>): MDXComponents => {
         props.href?.startsWith('/')
       ) {
         const { href, ref: _, ...rest } = props
-        return <Link href={href!.replace('https://timomeh.de', '')} {...rest} />
+        return (
+          <Link
+            className="break-words"
+            href={href!.replace('https://timomeh.de', '')}
+            {...rest}
+          />
+        )
       }
 
       return <a {...props} className="break-words" rel="noopener noreferrer" />
