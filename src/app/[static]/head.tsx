@@ -5,7 +5,7 @@ import { CommonHead } from '../CommonHead'
 
 type Props = {
   params: {
-    static: string[]
+    static: string
   }
 }
 

@@ -11,7 +11,6 @@ const sites = {
   feeds,
 } as Record<string, { body: string; head: NextSeoProps }>
 
-export async function getSite(segments: string[]) {
-  const path = segments.join('/') || '/'
+export async function getSite(path: string) {
   return sites[path]
 }
