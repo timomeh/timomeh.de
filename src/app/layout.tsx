@@ -10,6 +10,7 @@ import '@fontsource/ibm-plex-mono/latin-ext.css'
 import '@fontsource/inter/latin.css'
 import '@fontsource/outfit/latin.css'
 import { RssIcon, UserCircleIcon } from '@heroicons/react/20/solid'
+import { IconDot } from '@/components/IconDot'
 
 type Props = {
   children: React.ReactNode
@@ -43,18 +44,29 @@ export default function RootLayout({ children }: Props) {
                   </div>
                 </div>
                 <div className="flex space-x-3 mt-4 items-center">
-                  <Link title="Feeds" href="/feeds">
+                  <Link
+                    title="Feeds"
+                    href="/feeds"
+                    className="relative flex justify-center items-center"
+                  >
                     <RssIcon className="w-6 h-6 -m-1 p-1 fill-white/60 hover:fill-white/90 transition-colors" />
+                    <IconDot forPath="/feeds" />
                   </Link>
                   <a
                     title="@timomeh@mastodon.social"
                     href="https://mastodon.social/@timomeh"
                     rel="noopener noreferrer me"
+                    target="_blank"
                   >
                     <MastodonLogo className="w-[22px] h-[22px] fill-white/60 hover:fill-white/90 -m-1 p-1 transition-colors" />
                   </a>
-                  <Link title="About" href="/about">
+                  <Link
+                    title="About"
+                    href="/about"
+                    className="relative flex justify-center items-center"
+                  >
                     <UserCircleIcon className="w-6 h-6 -m-1 p-1 fill-white/60 hover:fill-white/90 transition-colors" />
+                    <IconDot forPath="/about" />
                   </Link>
                 </div>
               </div>

@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { listPostsPaginated } from '@/lib/blog'
 import { ListedPost } from '../../ListedPost'
+import { NorthernLights } from '@/components/NorthernLights'
 
 export const revalidate = false
 export const generateStaticParams = () => []
@@ -19,6 +20,7 @@ export default async function Posts({ params }: Props) {
 
   return (
     <>
+      <NorthernLights />
       <main className="meh-main">
         <div className="space-y-10">
           {posts.map((post) => (

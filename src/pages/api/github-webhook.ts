@@ -64,9 +64,14 @@ export default async function handler(
   const listUrls = Array.from(Array(pages)).map(
     (_, i) => `/${category}/page/${i + 1}`
   )
-  const urls = [...listUrls, `/${category}/${slug}`]
+  const urls = [
+    ...listUrls,
+    `/${category}/${slug}`,
+    `/${category}`,
+    ...(category === 'offtopic' ? ['/'] : []), // https://github.com/vercel/next.js/issues/40549
+  ]
   const feedUrls = ['rss', 'atom', 'json'].map(
-    (type) => `https://timomeh.de/${category}/feed.type`
+    (type) => `https://timomeh.de/${category}/feed.${type}`
   )
 
   await Promise.allSettled([
