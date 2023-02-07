@@ -22,7 +22,7 @@ const nextConfig = {
   },
   async rewrites() {
     return {
-      beforeFiles: [
+      afterFiles: [
         {
           source: '/assets/og-image/:category(posts|offtopic)/:slug.png',
           destination:
