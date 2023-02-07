@@ -1,4 +1,4 @@
-import { CommonHead } from '@/app/CommonHead'
+import { CommonHead } from '@/components/CommonHead'
 import { Feeds } from '@/components/Feeds'
 import { Seo } from '@/components/Seo'
 

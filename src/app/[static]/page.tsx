@@ -6,19 +6,19 @@ import { getSite } from './getSite'
 
 type Props = {
   params: {
-    name: string
+    static: string
   }
 }
 
 export default async function StaticPage({ params }: Props) {
-  const site = await getSite(params.name)
+  const site = await getSite(params.static)
   if (!site) notFound()
 
   return (
     <main className="meh-main">
       <div className="mx-4">
         <Prose>
-          <MDXRenderer content={site.body} scope={params.name} />
+          <MDXRenderer content={site.body} scope={params.static} />
         </Prose>
       </div>
     </main>

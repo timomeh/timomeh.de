@@ -33,19 +33,15 @@ const nextConfig = {
           destination: '/api/feed?format=:format&type=:type',
         },
         {
-          source: '/:page(about|datenschutz|feeds|impressum)',
-          destination: '/static/:page',
-        },
-        {
-          source: '/posts',
+          source: '/posts{/}?',
           destination: '/posts/page/1',
         },
         {
-          source: '/offtopic',
+          source: '/offtopic{/}?',
           destination: '/offtopic/page/1',
         },
         {
-          source: '/',
+          source: '/{/}?',
           destination: '/offtopic/page/1',
         },
       ],
@@ -53,21 +49,6 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      {
-        source: '/static/:page',
-        destination: '/:page',
-        permanent: true,
-      },
-      {
-        source: '/posts/feed',
-        destination: '/posts/feed.atom',
-        permanent: true,
-      },
-      {
-        source: '/feed',
-        destination: '/posts/feed.atom',
-        permanent: false,
-      },
       {
         source: '/posts/page/1',
         destination: '/posts',

@@ -1,8 +1,7 @@
 import { notFound } from 'next/navigation'
 
-import { Prose } from '@/components/Prose'
 import { getOfftopic } from '@/lib/blog'
-
+import { Prose } from '@/components/Prose'
 import { MDXRenderer } from '@/components/MDXRenderer'
 
 export const revalidate = false

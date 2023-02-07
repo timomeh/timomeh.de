@@ -1,7 +1,7 @@
 import mime from 'mime-types'
+import { getOfftopic } from '@/lib/blog'
 import { Seo } from '@/components/Seo'
-import { getOfftopic } from '../../../lib/blog'
-import { CommonHead } from '../../CommonHead'
+import { CommonHead } from '@/components/CommonHead'
 import { Feeds } from '@/components/Feeds'
 
 type Props = {

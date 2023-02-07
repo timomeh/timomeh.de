@@ -1,8 +1,8 @@
 import mime from 'mime-types'
 import { Seo } from '@/components/Seo'
-import { getPost } from '../../../lib/blog'
-import { CommonHead } from '../../CommonHead'
+import { CommonHead } from '@/components/CommonHead'
 import { Feeds } from '@/components/Feeds'
+import { getPost } from '@/lib/blog'
 
 type Props = {
   params: { slug: string }

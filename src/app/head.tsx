@@ -1,4 +1,4 @@
-import { CommonHead } from '@/app/CommonHead'
+import { CommonHead } from '@/components/CommonHead'
 import { Seo } from '@/components/Seo'
 
 export default function Head() {

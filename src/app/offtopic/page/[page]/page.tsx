@@ -2,10 +2,10 @@ import { notFound } from 'next/navigation'
 import removeMd from 'remove-markdown'
 
 import { listOfftopicsPaginated } from '@/lib/blog'
-import { ListedOfftopic } from '../../ListedOfftopic'
 import { NorthernLights } from '@/components/NorthernLights'
 import { Toc, TocEntry } from '@/components/Toc'
 import { MDXRenderer } from '@/components/MDXRenderer'
+import { ListedOfftopic } from '../../ListedOfftopic'
 
 export const revalidate = false
 export const generateStaticParams = () => []

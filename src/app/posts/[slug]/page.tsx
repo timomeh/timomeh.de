@@ -1,12 +1,11 @@
 import { notFound } from 'next/navigation'
 
-import { Prose } from '@/components/Prose'
 import { getPost } from '@/lib/blog'
-
-import { MDXRenderer } from '@/components/MDXRenderer'
-import { Toc, TocEntry, TocMarker } from '@/components/Toc'
 import { getChapters } from '@/lib/mdx'
 import { slugify } from '@/lib/slugify'
+import { Prose } from '@/components/Prose'
+import { MDXRenderer } from '@/components/MDXRenderer'
+import { Toc, TocEntry, TocMarker } from '@/components/Toc'
 
 export const revalidate = false
 export const generateStaticParams = () => []
