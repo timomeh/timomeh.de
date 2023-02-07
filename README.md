@@ -21,5 +21,5 @@ All posts are located in the Discussion's
   - static rendering with revalidation
 - GitHub Discussions
 - Dynamic Open Graph Images using `@vercel/og`
-- Markdown to HTML using remark & rehype
+- Remote MDX
 - Tailwind CSS

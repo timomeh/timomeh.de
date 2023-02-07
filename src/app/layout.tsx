@@ -1,12 +1,15 @@
 import Link from 'next/link'
-import { Logo } from '../components/Logo'
+import { RssIcon, UserCircleIcon } from '@heroicons/react/20/solid'
 
+import { Logo } from '@/components/Logo'
+import { NavLink } from '@/components/NavLink'
+import { StoreProvider } from '@/lib/store'
+import { MastodonLogo } from '@/components/MastodonLogo'
+
+import '@/styles/globals.css'
+import '@fontsource/ibm-plex-mono/latin-ext.css'
 import '@fontsource/inter/latin.css'
 import '@fontsource/outfit/latin.css'
-import '@fontsource/ibm-plex-mono/500.css'
-import 'prism-themes/themes/prism-one-light.css'
-import '../styles/globals.css'
-import { Navigation } from './Navigation'
 
 type Props = {
   children: React.ReactNode
@@ -14,39 +17,71 @@ type Props = {
 
 export default function RootLayout({ children }: Props) {
   return (
-    <html className="antialiased [font-feature-settings:'ss01']" lang="en">
-      <body>
-        <div>
-          <div className="absolute flex justify-center h-80 w-full z-[-1] pointer-events-none overflow-hidden">
-            <div className="absolute h-[300px] flex-none w-[800px] -ml-[600px] bg-gradient-radial from-pink-500/20 via-transparent" />
-            <div className="absolute h-[300px] flex-none w-[800px] bg-gradient-radial from-cyan-500/20 via-transparent" />
-            <div className="absolute h-[300px] flex-none w-[800px] -mr-[600px] bg-gradient-radial from-lime-500/20 via-transparent" />
-          </div>
-          <div>
-            <div className="min-w-0 max-w-2xl flex-auto px-4 mx-auto pt-6 pb-4">
-              <nav className="flex items-center">
-                <Link href="/" className="block p-2 -m-2">
-                  <Logo className="h-8 w-auto fill-black/80" />
-                </Link>
-                <div className="flex-1" />
-                <Navigation />
-              </nav>
-            </div>
-          </div>
-          <div className="min-w-0 max-w-2xl flex-auto px-4 pb-16 py-8 mx-auto">
+    <html lang="en" className="h-full">
+      <body className="min-h-full relative antialiased [font-feature-settings:'ss01'] bg-[#1F1E20] text-white">
+        <StoreProvider>
+          <div className="absolute inset-0 [background-image:var(--grainy)] [background-size:300px] filter contrast-[2000%] brightness-[50%] mix-blend-multiply z-[-1] opacity-70" />
+          <div className="meh-grid">
             {children}
+            <header className="meh-header">
+              <div className="flex pl-4 lg:pl-0 lg:justify-end pt-4 lg:pt-8 pb-6">
+                <Link href="/">
+                  <Logo className="h-10 w-auto" />
+                </Link>
+              </div>
+            </header>
+            <nav className="meh-nav">
+              <div className="flex lg:flex-col pr-4 pt-6 lg:pt-0 lg:pr-0 items-center justify-end lg:items-end space-x-2 lg:space-x-0">
+                <div>
+                  <div className="flex lg:flex-col space-x-3 lg:space-x-0 lg:space-y-1 items-end">
+                    <NavLink segment="offtopic" href="/">
+                      Stream
+                    </NavLink>
+                    <NavLink segment="posts" href="/posts">
+                      Posts
+                    </NavLink>
+                  </div>
+                </div>
+                <div className="flex space-x-3 lg:mt-4 items-center">
+                  <NavLink segment="feeds" href="/feeds" backDot>
+                    <RssIcon className="w-6 h-6 -m-1 p-1" title="Feeds" />
+                  </NavLink>
+                  <a
+                    title="@timomeh@mastodon.social"
+                    href="https://mastodon.social/@timomeh"
+                    rel="noopener noreferrer me"
+                    target="_blank"
+                  >
+                    <MastodonLogo className="w-[22px] h-[22px] fill-white opacity-50 hover:opacity-80 -m-1 p-1 transition-opacity" />
+                  </a>
+                  <NavLink segment="about" href="/about" backDot>
+                    <UserCircleIcon
+                      className="w-6 h-6 -m-1 p-1"
+                      title="About"
+                    />
+                  </NavLink>
+                </div>
+              </div>
+            </nav>
+            <footer className="meh-footer">
+              <div className="flex justify-end text-[11px] uppercase font-bold space-x-1">
+                <Link
+                  href="/impressum"
+                  className="opacity-30 hover:opacity-60 transition-opacity"
+                >
+                  Impressum
+                </Link>
+                <div className="opacity-30">&</div>
+                <Link
+                  href="/datenschutz"
+                  className="opacity-30 hover:opacity-60 transition-opacity"
+                >
+                  Datenschutz
+                </Link>
+              </div>
+            </footer>
           </div>
-          <footer className="min-w-0 max-w-2xl flex-auto px-4 mx-auto py-6">
-            <div className="flex justify-end space-x-3 text-xs text-slate-500 prose-base hover:prose-a:underline">
-              <Link href="/imprint" className="hover:underline">
-                Imprint
-              </Link>
-              <Link href="/privacy-policy" className="hover:underline">
-                Privacy Policy
-              </Link>
-            </div>
-          </footer>
-        </div>
+        </StoreProvider>
       </body>
     </html>
   )

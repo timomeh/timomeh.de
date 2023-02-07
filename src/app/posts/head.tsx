@@ -1,14 +1,18 @@
-import { CommonHead } from '../CommonHead'
+import { CommonHead } from '@/components/CommonHead'
+import { Feeds } from '@/components/Feeds'
+import { Seo } from '@/components/Seo'
+
+// This file wouldn't be necessary if rewrites would be working:
+// https://github.com/vercel/next.js/issues/40549
 
 export default function Head() {
   return (
     <>
       <CommonHead />
-      <title>Posts | Timo Mämecke</title>
-      <meta
-        name="description"
-        content="Collection of things and thoughts I felt like writing about. A mixture of software development, JavaScript, React, or just random stuff."
-        key="description"
+      <Feeds type="posts" />
+      <Seo
+        title="Posts"
+        description="About software development and other thoughts I wanted to elaborate on."
       />
     </>
   )

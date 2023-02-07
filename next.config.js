@@ -4,6 +4,7 @@ const nextConfig = {
   swcMinify: true,
   experimental: {
     appDir: true,
+    serverComponentsExternalPackages: ['shiki', 'vscode-oniguruma'],
   },
   images: {
     remotePatterns: [
@@ -20,39 +21,42 @@ const nextConfig = {
     ],
   },
   async rewrites() {
-    return {
-      beforeFiles: [
-        {
-          source: '/assets/og-image/posts/:slug.png',
-          destination:
-            '/_next/image?url=https://timomeh.de/api/og?slug=:slug&w=1200&q=100',
-        },
-        {
-          source: '/posts/feed.atom',
-          destination: '/api/feed?format=atom',
-        },
-        {
-          source: '/posts/feed.rss',
-          destination: '/api/feed?format=rss',
-        },
-        {
-          source: '/posts/feed.json',
-          destination: '/api/feed?format=json',
-        },
-      ],
-    }
+    return [
+      {
+        source: '/assets/og-image/:category(posts|offtopic)/:slug.png',
+        destination:
+          '/_next/image?url=https://timomeh.de/api/og?slug=:slug&category=:category&w=1200&q=100',
+      },
+      {
+        source: '/:type(posts|offtopic)/feed.:format(rss|atom|json)',
+        destination: '/api/feed?format=:format&type=:type',
+      },
+      // This SHOULD work but: https://github.com/vercel/next.js/issues/40549
+      // {
+      //   source: '/posts',
+      //   destination: '/posts/page/1',
+      // },
+      // {
+      //   source: '/offtopic',
+      //   destination: '/offtopic/page/1',
+      // },
+      // {
+      //   source: '/',
+      //   destination: '/offtopic/page/1',
+      // },
+    ]
   },
   async redirects() {
     return [
       {
-        source: '/posts/feed',
-        destination: '/posts/feed.atom',
+        source: '/posts/page/1',
+        destination: '/posts',
         permanent: true,
       },
       {
-        source: '/feed',
-        destination: '/posts/feed.atom',
-        permanent: false,
+        source: '/offtopic/page/1',
+        destination: '/offtopic',
+        permanent: true,
       },
     ]
   },

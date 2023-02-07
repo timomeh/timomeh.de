@@ -1,6 +1,7 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
 import { Feed } from 'feed'
-import { getFeedPosts } from '../../lib/blog'
+import type { NextApiRequest, NextApiResponse } from 'next'
+
+import { listOfftopics, listPosts } from '@/lib/blog'
 
 export default async function handler(
   req: NextApiRequest,
@@ -13,26 +14,49 @@ export default async function handler(
   }
   const format = formatQuery as 'rss' | 'atom' | 'json'
 
-  const posts = await getFeedPosts()
+  const typeQuery = req.query.type?.toString()
+  if (!typeQuery || !['posts', 'offtopic'].includes(typeQuery)) {
+    res.status(400).send('Invalid type')
+    return
+  }
+  const type = typeQuery as 'posts' | 'offtopic'
+
+  const listEntires = {
+    posts: listPosts,
+    offtopic: listOfftopics,
+  }
+
+  const entries = await listEntires[type]()
+
   const latestUpdate = new Date(
-    Math.max(...posts.map((post) => post.updatedAt.getTime()))
+    Math.max(...entries.map((entry) => entry.updatedAt.getTime()))
   )
 
+  const title = {
+    posts: 'Timo’s Posts',
+    offtopic: 'Timo’s Stream',
+  }
+
+  const description = {
+    posts:
+      'About software development and other thoughts I wanted to elaborate on.',
+    offtopic: 'Collection of random thoughts and things I wanted to share.',
+  }
+
   const feed = new Feed({
-    id: 'https://timomeh.de/posts/',
-    link: 'https://timomeh.de/posts/',
-    description:
-      'Collection of things and thoughts I felt like writing about. A mixture of software development, JavaScript, React, or just random stuff.',
+    id: `https://timomeh.de/${type}/`,
+    link: `https://timomeh.de/${type}/`,
+    description: description[type],
     language: 'en',
     favicon: 'https://timomeh.de/favicon.ico',
-    title: 'Timo’s Posts',
+    title: title[type],
     copyright: '',
     updated: latestUpdate,
     generator: 'timomeh.de',
     feedLinks: {
-      rss: 'https://timomeh.de/posts/feed.rss',
-      json: 'https://timomeh.de/posts/feed.json',
-      atom: 'https://timomeh.de/posts/feed.atom',
+      rss: `https://timomeh.de/${type}/feed.rss`,
+      json: `https://timomeh.de/${type}/feed.json`,
+      atom: `https://timomeh.de/${type}/feed.atom`,
     },
     author: {
       name: 'Timo Mämecke',
@@ -40,15 +64,22 @@ export default async function handler(
     },
   })
 
-  posts.forEach((post) => {
+  entries.forEach((entry) => {
     feed.addItem({
-      id: `https://timomeh.de/posts/${post.slug}`,
-      published: post.postedAt,
-      date: post.updatedAt,
-      link: `https://timomeh.de/posts/${post.slug}`,
-      title: post.title,
-      image: `https://timomeh.de/assets/og-image/posts/${post.slug}.png`,
-      content: post.body.replace(/\<h1(.*)\>(.*)\<\/h1\>/, ''),
+      id: `https://timomeh.de/${type}/${entry.slug}`,
+      published: entry.postedAt,
+      date: entry.updatedAt,
+      link: `https://timomeh.de/${type}/${entry.slug}`,
+      title: entry.title || entry.slug,
+      image: `https://timomeh.de/assets/og-image/${type}/${entry.slug}.png`,
+      content: entry.bodyHTML
+        // remove title
+        .replace(/\<h1(.*?)\>(.*?)\<\/h1\>/, '')
+        // remove frontmatter
+        .replace(
+          /^\<div class="snippet-clipboard-content notranslate(.*?)"(.*?)\>(.*?)<\/div\>/,
+          ''
+        ),
     })
   })
 

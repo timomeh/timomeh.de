@@ -2,151 +2,113 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --grainy: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' /%3E%3C/svg%3E");
+}
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+}
+
 @layer utilities {
-  .prose :where(iframe):not(:where([class~='not-prose'] *)) {
-    @apply aspect-video w-full h-auto;
+  .glow {
+    @apply transition-all bg-gradient-to-t from-violet-500/30 to-transparent duration-500 [background-position:bottom_left] [background-size:100%_0] bg-no-repeat hover:[background-size:100%_100%];
+  }
+
+  .not-glow {
+    @apply !bg-none;
   }
 }
 
-.data-footnote-backref {
-  @apply text-xs;
-  font-family: sans-serif;
-}
+@layer components {
+  .meh-grid {
+    @apply grid lg:gap-5 xl:gap-10;
 
-h2[id],
-h3[id],
-h4[id],
-h5[id],
-h6[id] {
-  a[href^='#'] {
-    @apply invisible text-slate-400 text-[0.75em] ml-2 no-underline;
-  }
+    grid-template-areas:
+      'header'
+      'main'
+      'footer';
+    grid-template-columns: minmax(0, auto);
 
-  &:hover > a[href^='#'] {
-    @apply visible;
-  }
-
-  a > .icon-link {
-    &::after {
-      content: '#';
+    @media (min-width: 1024px) {
+      grid-template-areas:
+        'header .      .'
+        'nav    main   main'
+        'aside  main   main'
+        '.      footer .';
+      grid-template-columns: 1fr 682px 1fr;
+      grid-template-rows: minmax(0, auto) minmax(0, auto) 1fr minmax(0, auto);
     }
+  }
+
+  .meh-header {
+    @apply w-[682px] max-w-full mx-auto lg:max-w-none lg:w-full lg:mx-0;
+    grid-area: header;
+  }
+
+  .meh-fulltop {
+    grid-area: header;
+
+    @media (min-width: 1024px) {
+      grid-area: 1 / 1 / 2 / 4;
+    }
+  }
+
+  .meh-nav {
+    @apply w-[682px] max-w-full mx-auto lg:max-w-none lg:w-full lg:mx-0 lg:min-w-[200px];
+    grid-area: header;
+
+    @media (min-width: 1024px) {
+      grid-area: nav;
+    }
+  }
+
+  .meh-aside {
+    @apply hidden lg:flex justify-end items-start pl-2;
+    grid-area: aside;
+    position: relative;
+  }
+
+  .meh-footer {
+    @apply pb-4 pt-20 pr-4 lg:pr-0;
+    grid-area: footer;
+  }
+
+  .meh-main {
+    @apply w-[682px] max-w-full mx-auto lg:max-w-none lg:w-full lg:mx-0;
+    grid-area: main;
   }
 }
 
 .footnotes {
-  @apply border-t border-slate-200 mt-12 text-sm;
+  position: absolute;
+  top: 0;
+  height: calc(100% + 140px);
+  left: calc(100% + 16px);
+  overflow: hidden;
+  width: 200px;
 
-  h2 {
-    @apply mt-4 mb-0 text-base leading-tight;
-  }
-}
+  display: none;
 
-pre[class*='language-'] {
-  @apply overflow-x-auto bg-slate-50 !font-mono !font-medium;
-}
-
-code[class*='language-'] {
-  @apply !font-mono !font-medium lg:text-sm text-[13px] bg-slate-50;
-}
-
-code[class*='language-'] {
-  @apply !font-mono !font-medium;
-
-  .token.selector,
-  .token.string,
-  .token.char,
-  .token.builtin,
-  .token.inserted,
-  .token.regex,
-  .token.attr-value,
-  .token.attr-value > .token.punctuation {
-    @apply text-green-700;
+  @media (min-width: 1111px) {
+    display: block;
   }
 
-  &.language-css .token.url > .token.string.url {
-    @apply text-green-700;
+  h2,
+  h3 {
+    display: none;
   }
 
-  &.language-markdown .token.code-snippet {
-    @apply text-green-700;
+  > ol {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
   }
 
-  .rainbow-braces .token.token.punctuation.brace-level-2,
-  .rainbow-braces .token.token.punctuation.brace-level-6,
-  .rainbow-braces .token.token.punctuation.brace-level-10 {
-    @apply text-green-700;
-  }
-
-  .token.variable,
-  .token.operator,
-  .token.function {
-    @apply text-blue-600;
-  }
-
-  .token.url {
-    @apply text-teal-600;
-  }
-
-  &.language-css .token.function,
-  &.language-css .token.url > .token.function {
-    @apply text-blue-600;
-  }
-
-  &.language-markdown .token.url > .token.content {
-    @apply text-blue-600;
-  }
-
-  .rainbow-braces .token.token.punctuation.brace-level-3,
-  .rainbow-braces .token.token.punctuation.brace-level-7,
-  .rainbow-braces .token.token.punctuation.brace-level-11 {
-    @apply text-blue-600;
-  }
-
-  .token.attr-name,
-  .token.class-name,
-  .token.boolean,
-  .token.constant,
-  .token.number,
-  .token.atrule {
-    @apply text-amber-700;
-  }
-
-  .token.property,
-  .token.tag,
-  .token.symbol,
-  .token.deleted,
-  .token.important {
-    @apply text-orange-700;
-  }
-
-  &.language-css .token.selector {
-    @apply text-orange-700;
-  }
-
-  &.language-json .token.null.keyword {
-    @apply text-amber-700;
-  }
-
-  &.language-markdown .token.bold .token.content {
-    @apply text-amber-700;
-  }
-
-  &.language-markdown .token.strike .token.content,
-  &.language-markdown .token.strike .token.punctuation,
-  &.language-markdown .token.list.punctuation,
-  &.language-markdown .token.title.important > .token.punctuation {
-    @apply text-orange-700;
-  }
-
-  .rainbow-braces .token.token.punctuation.brace-level-1,
-  .rainbow-braces .token.token.punctuation.brace-level-5,
-  .rainbow-braces .token.token.punctuation.brace-level-9 {
-    @apply text-orange-700;
-  }
-
-  .token.comment,
-  .token.prolog,
-  .token.cdata {
-    @apply text-slate-500;
+  li p {
+    margin-top: 4px;
+    margin-bottom: 4px;
   }
 }

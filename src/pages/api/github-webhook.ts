@@ -1,10 +1,18 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
 import { Webhooks } from '@octokit/webhooks'
 import {
   DiscussionCreatedEvent,
   DiscussionEditedEvent,
 } from '@octokit/webhooks-types'
-import { categoryId, parseDiscussionTitle } from '../../lib/blog'
+import type { NextApiRequest, NextApiResponse } from 'next'
+
+import { listOfftopicsPaginated, listPostsPaginated } from '@/lib/blog'
+import { getCategoryNameFromId } from '@/lib/github'
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+}
 
 export default async function handler(
   req: NextApiRequest,
@@ -15,63 +23,65 @@ export default async function handler(
   })
 
   const signatureSha256 = req.headers['x-hub-signature-256'] as string
-  const data = req.body as DiscussionCreatedEvent | DiscussionEditedEvent
-  const verified = await webhooks.verify(data, signatureSha256)
+  const verified = await webhooks.verify(req.body as string, signatureSha256)
 
   if (!verified) {
     res.status(401).json({ ok: false, hint: 'Unverified' })
     return
   }
 
+  const data = JSON.parse(req.body) as
+    | DiscussionCreatedEvent
+    | DiscussionEditedEvent
+
   if (!data.discussion) {
     res.status(401).json({ ok: false, hint: 'Not a discussion event' })
     return
   }
 
-  // @ts-expect-error
-  const receivedCategoryId: string = data.discussion.category.node_id
+  const category = getCategoryNameFromId(
+    // @ts-expect-error wrong types lol
+    data.discussion.category.node_id as unknown as string
+  )
 
-  if (receivedCategoryId !== categoryId) {
+  if (!category) {
     res.status(200).json({
       ok: true,
       revalidated: [],
-      hint: `Only Blog Post Category ${categoryId} allowed. Received discussion had Category ${receivedCategoryId}`,
+      hint: 'Category is not handled',
     })
     return
   }
 
-  if (data.action === 'created') {
-    await Promise.allSettled([res.revalidate('/posts'), revalidateFeed()])
-    res.status(200).json({
-      ok: true,
-      hint: 'Revalidated pages',
-      revalidated: ['/posts', '/posts/feed'],
-    })
-    return
+  const listEntires = {
+    posts: listPostsPaginated,
+    offtopic: listOfftopicsPaginated,
   }
 
-  if (data.action === 'edited') {
-    const { slug } = parseDiscussionTitle(data.discussion.title)
-    await Promise.allSettled([
-      res.revalidate('/posts'),
-      res.revalidate(`/posts/${slug}`),
-      revalidateFeed(),
-    ])
+  const { pages } = await listEntires[category]()
+  const slug = data.discussion.title
 
-    res.status(200).json({
-      ok: true,
-      hint: 'Revalidated pages',
-      revalidated: ['/posts', '/posts/feed', `/posts/${slug}`],
-    })
-    return
-  }
-}
+  const listUrls = Array.from(Array(pages)).map(
+    (_, i) => `/${category}/page/${i + 1}`
+  )
+  const urls = [
+    ...listUrls,
+    `/${category}/${slug}`,
+    `/${category}`,
+    ...(category === 'offtopic' ? ['/'] : []), // https://github.com/vercel/next.js/issues/40549
+  ]
+  const feedUrls = ['rss', 'atom', 'json'].map(
+    (type) => `https://timomeh.de/${category}/feed.${type}`
+  )
 
-async function revalidateFeed() {
-  // pinging those routes will cause a revalidate while response is stale
-  Promise.allSettled([
-    fetch('https://timomeh.de/posts/feed.rss'),
-    fetch('https://timomeh.de/posts/feed.atom'),
-    fetch('https://timomeh.de/posts/feed.json'),
+  await Promise.allSettled([
+    ...urls.map((url) => res.revalidate(url)),
+    ...feedUrls.map((url) => fetch(url)),
   ])
+
+  res.status(200).json({
+    ok: true,
+    hint: 'Revalidated pages',
+    revalidated: [...urls, ...feedUrls],
+  })
 }
