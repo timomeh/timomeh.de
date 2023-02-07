@@ -4,6 +4,7 @@ import {
   DiscussionEditedEvent,
 } from '@octokit/webhooks-types'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { buffer } from 'micro'
 
 import { listOfftopicsPaginated, listPostsPaginated } from '@/lib/blog'
 import { getCategoryNameFromId } from '@/lib/github'
@@ -22,8 +23,9 @@ export default async function handler(
     secret: process.env.GITHUB_WEBHOOK_SECRET as string,
   })
 
+  const body = (await buffer(req)).toString()
   const signatureSha256 = req.headers['x-hub-signature-256'] as string
-  const verified = await webhooks.verify(req.body as string, signatureSha256)
+  const verified = await webhooks.verify(body, signatureSha256)
 
   if (!verified) {
     res.status(401).json({ ok: false, hint: 'Unverified' })
