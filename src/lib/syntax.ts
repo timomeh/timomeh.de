@@ -4,7 +4,7 @@ import { renderToHtml, getHighlighter } from 'shiki'
 
 const theme = 'tokyo-night'
 const themesPath = path.resolve(process.cwd(), 'src/styles')
-const langsPath = path.resolve(process.cwd(), 'shiki-langs')
+const langsPath = path.resolve(process.cwd(), 'vendor/shiki-langs')
 let highlighter: Highlighter
 
 export async function highlight(code: string, lang?: string) {
