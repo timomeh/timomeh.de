@@ -116,7 +116,8 @@ const components = (baseProps: Pick<Props, 'scope'>): MDXComponents => {
         )
       }
 
-      const lang = props.className.replace('language-', '')
+      let lang: string | undefined = props.className.replace('language-', '')
+      if (['text', 'txt', 'plain'].includes(lang)) lang = undefined
       const html = await syntax.highlight(props.children, lang)
 
       return (

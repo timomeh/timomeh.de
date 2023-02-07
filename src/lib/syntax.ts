@@ -7,11 +7,11 @@ const themesPath = path.resolve(process.cwd(), 'src/styles')
 const langsPath = path.resolve(process.cwd(), 'shiki-langs')
 let highlighter: Highlighter
 
-export async function highlight(code: string, lang: string) {
+export async function highlight(code: string, lang?: string) {
   highlighter ||= await getHighlighter({
     theme,
     paths: { themes: themesPath, languages: langsPath },
-    langs: [lang as Lang],
+    langs: lang ? [lang as Lang] : undefined,
   })
 
   const tokens = highlighter.codeToThemedTokens(code, lang)
