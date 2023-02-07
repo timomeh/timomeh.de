@@ -4,7 +4,7 @@ const nextConfig = {
   swcMinify: true,
   experimental: {
     appDir: true,
-    serverComponentsExternalPackages: ['vscode-oniguruma', 'shiki'],
+    serverComponentsExternalPackages: ['shiki', 'vscode-oniguruma'],
   },
   images: {
     remotePatterns: [
