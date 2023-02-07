@@ -2,23 +2,18 @@ import { CommonHead } from '@/components/CommonHead'
 import { Feeds } from '@/components/Feeds'
 import { Seo } from '@/components/Seo'
 
-type Props = {
-  params: { page: string }
-}
+// This file wouldn't be necessary if rewrites would be working:
+// https://github.com/vercel/next.js/issues/40549
 
-export default function Head({ params }: Props) {
-  let title = 'Offtopic'
-  const page = +params.page
-  if (page > 1) title += ` - Page ${page}`
-
+export default function Head() {
   return (
     <>
       <CommonHead />
       <Feeds type="offtopic" />
       <Seo
-        title={title}
+        defaultTitle="Timo Mämecke"
         description="I think things and just write 'em down."
-        canonical={page === 1 ? 'https://timomeh.de/' : undefined}
+        canonical="https://timomeh.de/"
       />
     </>
   )

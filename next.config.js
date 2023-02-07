@@ -31,18 +31,19 @@ const nextConfig = {
         source: '/:type(posts|offtopic)/feed.:format(rss|atom|json)',
         destination: '/api/feed?format=:format&type=:type',
       },
-      {
-        source: '/posts{/}?',
-        destination: '/posts/page/1',
-      },
-      {
-        source: '/offtopic{/}?',
-        destination: '/offtopic/page/1',
-      },
-      {
-        source: '/{/}?',
-        destination: '/offtopic/page/1',
-      },
+      // This SHOULD work but: https://github.com/vercel/next.js/issues/40549
+      // {
+      //   source: '/posts',
+      //   destination: '/posts/page/1',
+      // },
+      // {
+      //   source: '/offtopic',
+      //   destination: '/offtopic/page/1',
+      // },
+      // {
+      //   source: '/',
+      //   destination: '/offtopic/page/1',
+      // },
     ]
   },
   async redirects() {

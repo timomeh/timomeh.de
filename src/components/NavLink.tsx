@@ -13,7 +13,11 @@ type Props = {
 
 export function NavLink({ children, segment, href }: Props) {
   const segments = useSelectedLayoutSegments()
-  const isActive = segments[0] === segment
+  // Wouldn't be necessary with this fixed: // https://github.com/vercel/next.js/issues/40549
+  const isFakeOfftopicHomePage =
+    segment === 'offtopic' && segments[0] === undefined
+
+  const isActive = segments[0] === segment || isFakeOfftopicHomePage
 
   return (
     <Link
