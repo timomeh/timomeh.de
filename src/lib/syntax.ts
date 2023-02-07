@@ -35,7 +35,6 @@ export async function highlight(code: string, lang: string) {
 
 require('shiki/languages/javascript.tmLanguage.json')
 require('shiki/languages/jsx.tmLanguage.json')
-require('shiki/languages/js.tmLanguage.json')
+require('shiki/languages/json.tmLanguage.json')
 require('shiki/languages/typescript.tmLanguage.json')
 require('shiki/languages/tsx.tmLanguage.json')
-require('shiki/languages/ts.tmLanguage.json')
