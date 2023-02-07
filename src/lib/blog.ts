@@ -110,13 +110,14 @@ function parseDocument(document: string, fakeExcerpt = false) {
     delimiters: '~~~',
   })
 
+  const title = /^# (.*$)/gim.exec(document)?.[1].trim()
   const content = parsed.content.split(excerptSeparator).at(-1) || ''
-  const title = /^# (.*$)/gim.exec(content)?.[1].trim()
   const body = content.replace(/^# .*$/gim, '')
   // TODO delete fallback excerpt when I migrated all the posts to use excerpts
   const excerpt = fakeExcerpt
-    ? parsed.excerpt || body.split('\r\n').filter(Boolean)[0]
-    : parsed.excerpt
+    ? parsed.excerpt?.replace(/^# (.*$)/gim, '') ||
+      body.split('\r\n').filter(Boolean)[0]
+    : parsed.excerpt?.replace(/^# (.*$)/gim, '')
 
   return {
     excerpt,
