@@ -4,12 +4,16 @@ import { renderToHtml, getHighlighter } from 'shiki'
 
 const theme = 'tokyo-night'
 const themesPath = path.resolve(process.cwd(), 'src/styles')
+const langsPath =
+  process.env.NODE_ENV === 'production'
+    ? path.resolve(process.cwd(), 'shiki-langs')
+    : undefined
 let highlighter: Highlighter
 
 export async function highlight(code: string, lang: string) {
   highlighter ||= await getHighlighter({
     theme,
-    paths: { themes: themesPath },
+    paths: { themes: themesPath, languages: langsPath },
     langs: [lang as Lang],
   })
 
@@ -32,9 +36,3 @@ export async function highlight(code: string, lang: string) {
 
   return html
 }
-
-require('shiki/languages/javascript.tmLanguage.json')
-require('shiki/languages/jsx.tmLanguage.json')
-require('shiki/languages/json.tmLanguage.json')
-require('shiki/languages/typescript.tmLanguage.json')
-require('shiki/languages/tsx.tmLanguage.json')

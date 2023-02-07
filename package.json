@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "cp node_modules/shiki/languages/ shiki-langs && next build",
     "start": "next start",
     "lint": "next lint"
   },
