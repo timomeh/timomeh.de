@@ -4,16 +4,9 @@ import {
   DiscussionEditedEvent,
 } from '@octokit/webhooks-types'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { buffer } from 'micro'
 
 import { listOfftopicsPaginated, listPostsPaginated } from '@/lib/blog'
 import { getCategoryNameFromId } from '@/lib/github'
-
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-}
 
 export default async function handler(
   req: NextApiRequest,
@@ -23,18 +16,15 @@ export default async function handler(
     secret: process.env.GITHUB_WEBHOOK_SECRET as string,
   })
 
-  const body = (await buffer(req)).toString()
   const signatureSha256 = req.headers['x-hub-signature-256'] as string
-  const verified = await webhooks.verify(body, signatureSha256)
+  const verified = await webhooks.verify(req.body, signatureSha256)
 
   if (!verified) {
     res.status(401).json({ ok: false, hint: 'Unverified' })
     return
   }
 
-  const data = JSON.parse(req.body) as
-    | DiscussionCreatedEvent
-    | DiscussionEditedEvent
+  const data = req.body as DiscussionCreatedEvent | DiscussionEditedEvent
 
   if (!data.discussion) {
     res.status(401).json({ ok: false, hint: 'Not a discussion event' })
