@@ -33,6 +33,10 @@ const nextConfig = {
           destination: '/api/feed?format=:format&type=:type',
         },
         {
+          source: '/:page(about|datenschutz|feeds|impressum)',
+          destination: '/static/:page',
+        },
+        {
           source: '/posts',
           destination: '/posts/page/1',
         },
@@ -49,6 +53,11 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      {
+        source: '/static/:page',
+        destination: '/:page',
+        permanent: true,
+      },
       {
         source: '/posts/feed',
         destination: '/posts/feed.atom',

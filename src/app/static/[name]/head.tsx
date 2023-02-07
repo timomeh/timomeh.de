@@ -1,16 +1,16 @@
 import mime from 'mime-types'
 import { Seo } from '@/components/Seo'
 import { getSite } from './getSite'
-import { CommonHead } from '../CommonHead'
+import { CommonHead } from '../../CommonHead'
 
 type Props = {
   params: {
-    static: string
+    name: string
   }
 }
 
 export default async function Head({ params }: Props) {
-  const site = await getSite(params.static)
+  const site = await getSite(params.name)
   if (!site) return null
 
   return (
