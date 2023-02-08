@@ -150,8 +150,9 @@ const components = (baseProps: Pick<Props, 'scope'>): MDXComponents => {
       }
 
       if (
-        props.href?.startsWith('https://timomeh.de') ||
-        props.href?.startsWith('/')
+        (props.href?.startsWith('https://timomeh.de') ||
+          props.href?.startsWith('/')) &&
+        !/\.(json|atom|rss)$/.test(props.href)
       ) {
         const { href, ref: _, ...rest } = props
         return (
@@ -163,7 +164,14 @@ const components = (baseProps: Pick<Props, 'scope'>): MDXComponents => {
         )
       }
 
-      return <a {...props} className="break-words" rel="noopener noreferrer" />
+      return (
+        <a
+          {...props}
+          className="break-words"
+          rel="noopener noreferrer"
+          target="_blank"
+        />
+      )
     },
     section: (props) => {
       if ('data-footnotes' in props) {
