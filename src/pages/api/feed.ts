@@ -74,6 +74,7 @@ export default async function handler(
       date: entry.updatedAt,
       link: `https://timomeh.de/${type}/${entry.slug}`,
       title: title || entry.slug,
+      description: entry.excerpt,
       image: `https://timomeh.de/assets/og-image/${type}/${entry.slug}.png`,
       content: entry.bodyHTML
         // remove title
