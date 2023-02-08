@@ -22,6 +22,7 @@ export default async function Posts({ params }: Props) {
     <>
       <NorthernLights />
       <main className="meh-main">
+        <div className="h-16 lg:hidden" />
         <div className="space-y-10">
           {posts.map((post) => (
             <ListedPost post={post} key={post.number} />
