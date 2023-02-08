@@ -36,6 +36,7 @@ export function ListedPost({ post }: Props) {
             content={post.excerpt}
             shiftHeadings
             scope={post.number}
+            id={post.slug.concat('-listed')}
           />
         )}
       </Prose>

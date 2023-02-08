@@ -43,6 +43,7 @@ export default async function Post({ params }: Props) {
               content={post.body}
               scope={post.number}
               hasToc={!!post.meta.toc}
+              id={post.slug.concat('-single')}
             />
           </Prose>
         </article>

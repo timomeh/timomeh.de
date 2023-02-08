@@ -36,7 +36,11 @@ export default async function Offtopic({ params }: Props) {
                 </h1>
               )}
             </header>
-            <MDXRenderer content={offtopic.body} scope={offtopic.number} />
+            <MDXRenderer
+              content={offtopic.body}
+              scope={offtopic.number}
+              id={offtopic.slug.concat('-single')}
+            />
           </Prose>
         </article>
       </main>

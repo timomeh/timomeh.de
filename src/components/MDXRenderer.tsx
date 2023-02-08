@@ -19,6 +19,7 @@ type Props = {
   shiftHeadings?: boolean
   inline?: boolean
   scope?: string | number
+  id?: string
   hasToc?: boolean
 }
 
@@ -56,7 +57,7 @@ export function MDXRenderer({
   )
 }
 
-const components = (baseProps: Pick<Props, 'scope'>): MDXComponents => {
+const components = (baseProps: Pick<Props, 'scope' | 'id'>): MDXComponents => {
   return {
     // @ts-expect-error Server Component
     img: async (props) => {
@@ -133,7 +134,11 @@ const components = (baseProps: Pick<Props, 'scope'>): MDXComponents => {
     li: (props) => {
       if (props.id?.startsWith('content-footnote')) {
         return (
-          <FloatingFootnote id={props.id!} scope={baseProps.scope}>
+          <FloatingFootnote
+            id={props.id!}
+            scope={baseProps.scope}
+            key={`${props.id}-${baseProps.id}`}
+          >
             {props.children}
           </FloatingFootnote>
         )
