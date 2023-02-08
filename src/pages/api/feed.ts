@@ -67,7 +67,7 @@ export default async function handler(
   entries.forEach((entry) => {
     const title =
       type === 'offtopic' ? (entry as Offtopic).safeTitle : entry.title
-    console.log(entry.bodyHTML)
+
     feed.addItem({
       id: `https://timomeh.de/${type}/${entry.slug}`,
       published: entry.postedAt,
