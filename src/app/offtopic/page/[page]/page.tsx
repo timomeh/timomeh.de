@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import * as React from 'react'
 
 import { listOfftopicsPaginated } from '@/lib/blog'
 import { NorthernLights } from '@/components/NorthernLights'
@@ -27,8 +28,18 @@ export default async function Offtopics({ params }: Props) {
       <main className="meh-main">
         <div className="h-16 lg:hidden" />
         <div className="space-y-10">
-          {offtopics.map((offtopic) => (
-            <ListedOfftopic offtopic={offtopic} key={offtopic.number} />
+          {offtopics.map((offtopic, i) => (
+            <React.Fragment key={offtopic.number}>
+              <ListedOfftopic offtopic={offtopic} />
+              {i < offtopics.length - 1 && (
+                <div
+                  className="pl-1 font-display text-4xl leading-none font-medium text-violet-500/50"
+                  aria-hidden={true}
+                >
+                  ~
+                </div>
+              )}
+            </React.Fragment>
           ))}
         </div>
         <div className="mt-10 flex space-x-4 max-w-[682px] px-4 justify-center text-[13px] font-bold uppercase">
