@@ -1,7 +1,7 @@
 import { Feed } from 'feed'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import { listOfftopics, listPosts } from '@/lib/blog'
+import { listOfftopics, listPosts, Offtopic } from '@/lib/blog'
 
 export default async function handler(
   req: NextApiRequest,
@@ -65,12 +65,15 @@ export default async function handler(
   })
 
   entries.forEach((entry) => {
+    const title =
+      type === 'offtopic' ? (entry as Offtopic).safeTitle : entry.title
+
     feed.addItem({
       id: `https://timomeh.de/${type}/${entry.slug}`,
       published: entry.postedAt,
       date: entry.updatedAt,
       link: `https://timomeh.de/${type}/${entry.slug}`,
-      title: entry.title || entry.slug,
+      title: title || entry.slug,
       image: `https://timomeh.de/assets/og-image/${type}/${entry.slug}.png`,
       content: entry.bodyHTML
         // remove title
