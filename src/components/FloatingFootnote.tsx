@@ -17,15 +17,12 @@ export function FloatingFootnote({ id, children, scope }: Props) {
   const [hovered, setHovered] = React.useState(false)
 
   const self = React.useRef<HTMLLIElement>(null!)
-  const [ref, setRef] = React.useState<HTMLElement | undefined>(() =>
-    typeof window !== 'undefined' ? getRef(id) : undefined
-  )
+  const [ref, setRef] = React.useState<HTMLElement>()
   const [positioned, setPositioned] = React.useState(false)
   const [top, setTop] = React.useState(0)
 
   React.useEffect(() => {
     if (!ref) setRef(getRef(id))
-    return () => setRef(undefined)
   }, [ref, id])
 
   React.useEffect(() => () => setRef(undefined), [])
@@ -36,7 +33,6 @@ export function FloatingFootnote({ id, children, scope }: Props) {
     if (!article) return
 
     const calc = async () => {
-      console.log('calc', ref)
       if (!ref) return
       setPositioned(false)
 
@@ -44,7 +40,6 @@ export function FloatingFootnote({ id, children, scope }: Props) {
 
       const relativePos = (pos: number) => {
         const articleTop = article.getBoundingClientRect().top + window.scrollY
-        console.log(pos, articleTop, window.scrollY)
         return pos + window.scrollY - articleTop
       }
 
