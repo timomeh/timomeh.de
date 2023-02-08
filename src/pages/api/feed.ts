@@ -67,7 +67,7 @@ export default async function handler(
   entries.forEach((entry) => {
     const title =
       type === 'offtopic' ? (entry as Offtopic).safeTitle : entry.title
-
+    console.log(entry.bodyHTML)
     feed.addItem({
       id: `https://timomeh.de/${type}/${entry.slug}`,
       published: entry.postedAt,
@@ -80,7 +80,7 @@ export default async function handler(
         .replace(/\<h1(.*?)\>(.*?)\<\/h1\>/, '')
         // remove frontmatter
         .replace(
-          /^\<div class="snippet-clipboard-content notranslate(.*?)"(.*?)\>(.*?)<\/div\>/,
+          /\<div class="snippet-clipboard-content notranslate(.*?)"((.|\n)*?)\>((.|\n)*?)<\/div\>/,
           ''
         ),
     })
