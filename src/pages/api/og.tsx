@@ -4,7 +4,7 @@ import { NextRequest } from 'next/server'
 import removeMd from 'remove-markdown'
 
 export const config = {
-  runtime: 'experimental-edge',
+  runtime: 'edge',
 }
 
 const fbold = fetch(new URL('@/styles/Outfit-Bold.ttf', import.meta.url)).then(
