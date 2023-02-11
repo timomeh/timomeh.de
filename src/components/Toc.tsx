@@ -104,7 +104,7 @@ export function TocEntry({ children, name }: EntryProps) {
   return (
     <div
       className={clsx(
-        'transition-colors text-white text-[13px] p-1 hover:text-opacity-70',
+        'transition-colors text-white text-[13px] px-1 py-1.5 hover:text-opacity-70',
         'font-medium',
         inView ? 'text-opacity-80' : 'text-opacity-50'
       )}
