@@ -11,6 +11,7 @@ export default function Head() {
       <CommonHead />
       <Feeds type="offtopic" />
       <Seo
+        title={undefined}
         defaultTitle="Timo – Engineering, Apps, and random stuff."
         description="I think things and just write 'em down."
       />

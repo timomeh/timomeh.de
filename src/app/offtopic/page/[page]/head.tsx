@@ -16,7 +16,8 @@ export default function Head({ params }: Props) {
       <CommonHead />
       <Feeds type="offtopic" />
       <Seo
-        title={title}
+        defaultTitle="Timo – Engineering, Apps, and random stuff."
+        title={page > 1 ? title : undefined}
         description="I think things and just write 'em down."
         canonical={page === 1 ? 'https://timomeh.de/' : undefined}
       />
