@@ -24,7 +24,7 @@ export function CommonHead() {
       />
       <NextSeo
         useAppDir={true}
-        themeColor="#16161d"
+        themeColor="#141315"
         openGraph={{
           siteName: 'Timo Mämecke',
         }}
