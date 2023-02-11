@@ -23,4 +23,12 @@ displayed on my site.
 
 export const head: NextSeoProps = {
   title: 'Feeds',
+  openGraph: {
+    images: [
+      {
+        url: 'https://timomeh.de/assets/og-image/static/feeds.png',
+        type: 'image/png',
+      },
+    ],
+  },
 }

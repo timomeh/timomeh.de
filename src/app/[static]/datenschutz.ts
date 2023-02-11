@@ -184,4 +184,12 @@ Quelle: [https://www.e-recht24.de](https://www.e-recht24.de)`
 
 export const head: NextSeoProps = {
   title: 'Datenschutz',
+  openGraph: {
+    images: [
+      {
+        url: 'https://timomeh.de/assets/og-image/static/datenschutz.png',
+        type: 'image/png',
+      },
+    ],
+  },
 }

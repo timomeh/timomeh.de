@@ -15,4 +15,12 @@ If you want to reach out to me, you can do so via [Mastodon](https://mastodon.so
 
 export const head: NextSeoProps = {
   title: 'Hi, I’m Timo 👋',
+  openGraph: {
+    images: [
+      {
+        url: 'https://timomeh.de/assets/og-image/static/about.png',
+        type: 'image/png',
+      },
+    ],
+  },
 }
