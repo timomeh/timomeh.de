@@ -111,7 +111,7 @@ const components = (baseProps: Pick<Props, 'scope' | 'id'>): MDXComponents => {
                 width={result.width}
                 height={result.height}
                 alt=""
-                className="absolute inset-0 m-0 filter blur-lg z-[-1] opacity-50 mx-auto"
+                className="absolute inset-0 m-0 filter blur-lg z-[-1] opacity-50 mx-auto select-none"
                 aria-hidden={true}
               />
             )}
