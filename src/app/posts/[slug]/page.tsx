@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import Balancer from 'react-wrap-balancer'
 
 import { getPost } from '@/lib/blog'
 import { getChapters } from '@/lib/mdx'
@@ -51,16 +52,20 @@ export default async function Post({ params }: Props) {
       {post.meta.toc && (
         <aside className="meh-aside">
           <Toc>
-            <TocEntry name="top">
-              <MDXRenderer content={post.title} inline />
-            </TocEntry>
+            <Balancer>
+              <TocEntry name="top">
+                <MDXRenderer content={post.title} inline />
+              </TocEntry>
+            </Balancer>
             {chapters.map((chapter) => {
               const slug = slugify(chapter)
 
               return (
-                <TocEntry name={slug} key={slug}>
-                  <MDXRenderer content={chapter} inline />
-                </TocEntry>
+                <Balancer key={slug}>
+                  <TocEntry name={slug}>
+                    <MDXRenderer content={chapter} inline />
+                  </TocEntry>
+                </Balancer>
               )
             })}
           </Toc>

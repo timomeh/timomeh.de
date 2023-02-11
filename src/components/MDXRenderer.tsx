@@ -6,6 +6,7 @@ import remarkEmbedder, { TransformerInfo } from '@remark-embedder/core'
 import oembedTransformer from '@remark-embedder/transformer-oembed'
 import Image from 'next/image'
 import probeImageSize from 'probe-image-size'
+import Balancer from 'react-wrap-balancer'
 
 import * as syntax from '@/lib/syntax'
 import { slugify } from '@/lib/slugify'
@@ -243,7 +244,7 @@ function slugifiedHeading(
     // for static pages
     return (
       <HeadingComponent className="text-2xl leading-snug font-bold font-display">
-        {children}
+        <Balancer>{children}</Balancer>
       </HeadingComponent>
     )
   }
@@ -253,9 +254,9 @@ function slugifiedHeading(
       <a
         href={`#${slug}`}
         id={slug}
-        className="relative !no-underline !bg-none before:content-['#'] before:absolute before:left-0 before:pr-5 before:-ml-5 before:opacity-0 hover:before:opacity-100 before:transition-opacity before:text-emerald-400/60"
+        className="relative !no-underline !bg-none before:content-['#'] before:absolute before:left-0 before:pr-5 before:-ml-5 before:opacity-0 hover:before:opacity-100 before:transition-opacity before:text-emerald-400/20"
       >
-        {children}
+        <Balancer>{children}</Balancer>
       </a>
     </HeadingComponent>
   )

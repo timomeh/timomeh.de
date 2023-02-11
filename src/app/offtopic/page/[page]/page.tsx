@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import * as React from 'react'
+import Balancer from 'react-wrap-balancer'
 
 import { listOfftopicsPaginated } from '@/lib/blog'
 import { NorthernLights } from '@/components/NorthernLights'
@@ -64,9 +65,11 @@ export default async function Offtopics({ params }: Props) {
       <aside className="meh-aside">
         <Toc>
           {offtopics.map((offtopic) => (
-            <TocEntry name={offtopic.slug} key={offtopic.slug}>
-              <MDXRenderer content={offtopic.safeTitle} inline />
-            </TocEntry>
+            <Balancer key={offtopic.slug}>
+              <TocEntry name={offtopic.slug}>
+                <MDXRenderer content={offtopic.safeTitle} inline />
+              </TocEntry>
+            </Balancer>
           ))}
         </Toc>
       </aside>

@@ -3,6 +3,7 @@ import { Prose } from '@/components/Prose'
 import { TocMarker } from '@/components/Toc'
 import { Post } from '@/lib/blog'
 import Link from 'next/link'
+import Balancer from 'react-wrap-balancer'
 
 type Props = {
   post: Post
@@ -25,9 +26,11 @@ export function ListedPost({ post }: Props) {
               </Link>
             </time>
             <h2 className="mt-0 text-2xl leading-snug transition-all underline underline-offset-4 decoration-violet-400 font-bold mb-5 font-display">
-              <Link href={`/posts/${post.slug}`} className="glow">
-                <MDXRenderer content={post.title} inline />
-              </Link>
+              <Balancer>
+                <Link href={`/posts/${post.slug}`} className="glow">
+                  <MDXRenderer content={post.title} inline />
+                </Link>
+              </Balancer>
             </h2>
           </div>
         </TocMarker>

@@ -3,6 +3,7 @@ import { Prose } from '@/components/Prose'
 import { TocMarker } from '@/components/Toc'
 import { Offtopic } from '@/lib/blog'
 import Link from 'next/link'
+import Balancer from 'react-wrap-balancer'
 
 type Props = {
   offtopic: Offtopic
@@ -28,13 +29,15 @@ export function ListedOfftopic({ offtopic }: Props) {
             </time>
             {hasTitle && (
               <h2 className="mt-0 text-2xl leading-snug transition-all underline underline-offset-4 decoration-violet-400 font-bold mb-5 font-display">
-                <Link href={`/offtopic/${offtopic.slug}`} className="glow">
-                  <MDXRenderer
-                    content={offtopic.title!}
-                    inline
-                    id={offtopic.slug.concat('-listed')}
-                  />
-                </Link>
+                <Balancer>
+                  <Link href={`/offtopic/${offtopic.slug}`} className="glow">
+                    <MDXRenderer
+                      content={offtopic.title!}
+                      inline
+                      id={offtopic.slug.concat('-listed')}
+                    />
+                  </Link>
+                </Balancer>
               </h2>
             )}
           </div>

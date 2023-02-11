@@ -165,7 +165,7 @@ function Highlighted({ children }: HighlightedProps) {
   return (
     <div
       ref={ref}
-      className="sticky top-0 py-2 max-w-[240px] max-h-screen overflow-scroll"
+      className="sticky top-0 py-2 max-w-[240px] max-h-screen overflow-scroll flex flex-col"
     >
       {children}
       {dimens.calced && (

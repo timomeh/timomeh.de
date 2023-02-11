@@ -3,6 +3,7 @@
 import clsx from 'clsx'
 import * as React from 'react'
 import Prando from 'prando'
+import Balancer from 'react-wrap-balancer'
 
 type Props = {
   id: string
@@ -117,7 +118,7 @@ export function FloatingFootnote({ id, children, scope }: Props) {
       )}
       data-positioned={positioned}
     >
-      {children}
+      <Balancer>{children}</Balancer>
     </li>
   )
 }
