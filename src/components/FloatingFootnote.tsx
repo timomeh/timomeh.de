@@ -37,7 +37,7 @@ export function FloatingFootnote({ id, children, scope }: Props) {
       if (!ref) return
       setPositioned(false)
 
-      if (window.innerWidth < 1111) return
+      if (window.innerWidth < 1024) return
 
       const relativePos = (pos: number) => {
         const articleTop = article.getBoundingClientRect().top + window.scrollY
@@ -102,7 +102,7 @@ export function FloatingFootnote({ id, children, scope }: Props) {
       className={clsx(
         'pb-0.5 pl-3',
         positioned ? 'opacity-100' : 'opacity-0',
-        'hidden alaaf:block',
+        'hidden lg:block',
         'relative transition text-[13px] leading-snug text-opacity-50 text-white hover:text-opacity-90 focus-within:text-opacity-90',
         hovered && 'text-opacity-90',
         'before:absolute before:content-[""] before:w-0.5 before:h-4 before:left-1 before:top-0 before:mix-blend-screen before:opacity-40',

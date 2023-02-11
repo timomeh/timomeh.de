@@ -20,6 +20,9 @@ module.exports = {
       '9xl': ['8rem', { lineHeight: '1' }],
     },
     extend: {
+      width: {
+        content: 642,
+      },
       backgroundImage: {
         'gradient-radial':
           'radial-gradient(ellipse at top, var(--tw-gradient-stops))',
@@ -31,9 +34,7 @@ module.exports = {
       },
       maxWidth: {
         '8xl': '88rem',
-      },
-      screens: {
-        alaaf: '1111px',
+        content: 642,
       },
     },
   },

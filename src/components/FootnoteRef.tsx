@@ -34,7 +34,7 @@ export function FootnoteRef({ id, scope, children, ...rest }: Props) {
   const number = rng.nextInt(0, 6)
   const [isOpen, setIsOpen] = React.useState(false)
   const [footnote, setFoonote] = React.useState('')
-  const alaaf = useMediaQuery('(min-width: 1111px)')
+  const lg = useMediaQuery('(min-width: 1024px)')
 
   React.useEffect(() => {
     const html =
@@ -50,7 +50,7 @@ export function FootnoteRef({ id, scope, children, ...rest }: Props) {
   })
 
   const click = useClick(context, {
-    enabled: !alaaf,
+    enabled: !lg,
   })
   const dismiss = useDismiss(context)
   const role = useRole(context)
@@ -81,7 +81,7 @@ export function FootnoteRef({ id, scope, children, ...rest }: Props) {
         {...getReferenceProps()}
         id={id}
         className={clsx(
-          'relative inline-block h-[1ch] alaaf:active:pointer-events-none group',
+          'relative inline-block h-[1ch] lg:active:pointer-events-none group',
           {
             '!text-blue-500': number === 0,
             '!text-amber-500': number === 1,
@@ -99,8 +99,8 @@ export function FootnoteRef({ id, scope, children, ...rest }: Props) {
             'transition-opacity from-current'
           )}
         />
-        <span className="block alaaf:hidden w-2 h-2 absolute -right-1.5 -top-1.5 rounded-full bg-current" />
-        <span className="block alaaf:hidden w-3 h-3 absolute -right-2 -top-2 rounded-full bg-current opacity-30" />
+        <span className="block lg:hidden w-2 h-2 absolute -right-1.5 -top-1.5 rounded-full bg-current" />
+        <span className="block lg:hidden w-3 h-3 absolute -right-2 -top-2 rounded-full bg-current opacity-30" />
         <span className="sr-only group-focus-visible:not-sr-only">
           {children}
         </span>
@@ -110,7 +110,7 @@ export function FootnoteRef({ id, scope, children, ...rest }: Props) {
           <FloatingFocusManager context={context} modal={false}>
             <div
               ref={refs.setFloating}
-              className="alaaf:hidden"
+              className="lg:hidden"
               style={{
                 position: strategy,
                 top: y ?? 0,

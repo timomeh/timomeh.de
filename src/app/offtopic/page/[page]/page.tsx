@@ -43,7 +43,7 @@ export default async function Offtopics({ params }: Props) {
             </React.Fragment>
           ))}
         </div>
-        <div className="mt-10 flex space-x-4 max-w-[682px] px-4 justify-center text-[13px] font-bold uppercase">
+        <div className="mt-10 flex space-x-4 max-w-content px-4 justify-center text-[13px] font-bold uppercase">
           {prev && (
             <Link
               className="underline decoration-violet-400 underline-offset-4 glow opacity-60 hover:opacity-80"

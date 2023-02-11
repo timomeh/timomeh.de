@@ -9,9 +9,9 @@ export function Prose({ children, size = 'yes' }: Props) {
   return (
     <div
       className={clsx(
-        'prose prose-purple prose-invert relative',
+        'prose prose-purple prose-invert relative max-w-[620px]',
         'prose-headings:font-display',
-        size === 'big' && 'prose-lg leading-relaxed max-w-[650px]',
+        size === 'big' && 'prose-lg leading-relaxed',
         size === 'smol' && 'prose-sm leading-snug prose-p:my-1',
         'prose-a:text-inherit prose-a:glow prose-a:font-semibold prose-a:underline prose-a:underline-offset-2 prose-a:decoration-violet-400',
         'prose-code:before:content-none prose-code:after:content-none'
