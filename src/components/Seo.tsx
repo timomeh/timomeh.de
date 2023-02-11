@@ -12,13 +12,19 @@ const defaults: NextSeoProps = {
       {
         url: 'https://timomeh.de/assets/og-image/static/default.png',
         type: 'image/png',
+        height: 630,
+        width: 1200,
       },
     ],
   },
 }
 
 export function Seo(props: NextSeoProps) {
-  const merged = merge(defaults, props)
+  const merged = merge({}, defaults, props)
+  if (merged.openGraph?.images?.[0]) {
+    merged.openGraph.images[0].secureUrl = merged.openGraph.images[0].url
+  }
+
   return (
     <NextSeo
       useAppDir={true}
