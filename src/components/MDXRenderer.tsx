@@ -2,6 +2,8 @@ import * as React from 'react'
 import { MDXRemote, MDXRemoteProps, compileMDX } from 'next-mdx-remote/rsc'
 import remarkGfm from 'remark-gfm'
 import remarkUnwrapImages from 'remark-unwrap-images'
+import remarkEmbedder, { TransformerInfo } from '@remark-embedder/core'
+import oembedTransformer from '@remark-embedder/transformer-oembed'
 import Image from 'next/image'
 import probeImageSize from 'probe-image-size'
 
@@ -46,7 +48,17 @@ export function MDXRenderer({
         }}
         options={{
           mdxOptions: {
-            remarkPlugins: [remarkGfm, remarkUnwrapImages],
+            remarkPlugins: [
+              remarkGfm,
+              remarkUnwrapImages,
+              [
+                remarkEmbedder,
+                {
+                  transformers: [oembedTransformer],
+                  handleHTML,
+                },
+              ],
+            ],
             remarkRehypeOptions: {
               clobberPrefix: `content-footnote${scope || ''}-`,
             },
@@ -253,4 +265,18 @@ function slugifiedHeading(
   }
 
   return heading
+}
+
+function handleHTML(html: string, info: TransformerInfo) {
+  const { url, transformer } = info
+  if (
+    transformer.name === '@remark-embedder/transformer-oembed' ||
+    url.includes('youtube.com')
+  ) {
+    return `<div className="oembed oembed-youtube aspect-video rounded-lg overflow-hidden md:-mx-4">${html.replace(
+      'youtube.com',
+      'youtube-nocookie.com'
+    )}</div>`
+  }
+  return html
 }

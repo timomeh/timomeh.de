@@ -6,6 +6,7 @@ const repo = 'timomeh.de'
 const categoryIds = {
   posts: 'DIC_kwDOH6oEFs4CROow',
   offtopic: 'DIC_kwDOH6oEFs4CTj4l',
+  drafts: 'DIC_kwDOH6oEFs4CROox',
 } as const
 
 export function getCategoryNameFromId(id: string) {

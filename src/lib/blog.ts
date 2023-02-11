@@ -49,6 +49,11 @@ export const listOfftopicsPaginated = cache(async (page = 1) => {
 
 export const getOfftopic = cache(async (slug: string) => {
   const discussion = await getDiscussion({ slug, category: 'offtopic' })
+  if (process.env.NODE_ENV === 'development' && !discussion) {
+    const draft = await getDiscussion({ slug, category: 'drafts' })
+    return draft && toOfftopic(draft)
+  }
+
   return discussion && toOfftopic(discussion)
 })
 
