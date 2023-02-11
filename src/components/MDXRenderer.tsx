@@ -16,6 +16,7 @@ import { TocMarker } from './Toc'
 import { getInnerText } from '@/lib/jsx'
 import clsx from 'clsx'
 import Link from 'next/link'
+import rehypeRaw from 'rehype-raw'
 
 type Props = {
   content: string
@@ -40,7 +41,6 @@ export function MDXRenderer({
       {/* @ts-expect-error Server Component */}
       <MDXRemote
         source={content}
-        compiledSource=""
         components={{
           ...components({ scope }),
           ...(shiftHeadings ? shiftedHeadings : headings),
@@ -49,6 +49,7 @@ export function MDXRenderer({
         }}
         options={{
           mdxOptions: {
+            format: 'md',
             remarkPlugins: [
               remarkGfm,
               remarkUnwrapImages,
@@ -60,6 +61,7 @@ export function MDXRenderer({
                 },
               ],
             ],
+            rehypePlugins: [rehypeRaw],
             remarkRehypeOptions: {
               clobberPrefix: `content-footnote${scope || ''}-`,
             },
@@ -81,7 +83,7 @@ const components = (baseProps: Pick<Props, 'scope' | 'id'>): MDXComponents => {
         const result = await compileMDX({
           source: props.title,
           components: {
-            ...components,
+            ...components(baseProps),
             p: ({ children }) => <>{children}</>,
           },
           compiledSource: '',
@@ -89,7 +91,9 @@ const components = (baseProps: Pick<Props, 'scope' | 'id'>): MDXComponents => {
         figcaption = result.content
       }
 
-      const isFancy = !props.className?.includes('simple')
+      const isFancy =
+        !props.className?.includes('simple') &&
+        !props.className?.includes('plain')
 
       return (
         <figure className="md:-mx-4">
@@ -99,7 +103,7 @@ const components = (baseProps: Pick<Props, 'scope' | 'id'>): MDXComponents => {
               width={result.width}
               height={result.height}
               alt={props.alt || ''}
-              className={clsx('m-0', isFancy && 'rounded-lg')}
+              className={clsx('my-0 mx-auto', isFancy && 'rounded-lg')}
             />
             {isFancy && (
               <Image
@@ -107,7 +111,7 @@ const components = (baseProps: Pick<Props, 'scope' | 'id'>): MDXComponents => {
                 width={result.width}
                 height={result.height}
                 alt=""
-                className="absolute inset-0 m-0 filter blur-lg z-[-1] opacity-50"
+                className="absolute inset-0 m-0 filter blur-lg z-[-1] opacity-50 mx-auto"
                 aria-hidden={true}
               />
             )}
@@ -136,7 +140,7 @@ const components = (baseProps: Pick<Props, 'scope' | 'id'>): MDXComponents => {
 
       return (
         <pre
-          className="bg-[#1a1b26] border border-violet-400/10 bg-opacity-60 not-prose p-4 md:-mx-4 shadow-violet-300/10 [box-shadow:0_0_24px_var(--tw-shadow-color)] rounded-lg"
+          className="bg-[#1a1b26] my-12 border border-violet-400/10 bg-opacity-60 not-prose p-4 md:-mx-4 shadow-violet-300/10 [box-shadow:0_0_24px_var(--tw-shadow-color)] rounded-lg"
           dangerouslySetInnerHTML={{ __html: html }}
         />
       )
@@ -202,41 +206,42 @@ const components = (baseProps: Pick<Props, 'scope' | 'id'>): MDXComponents => {
 }
 
 const shiftedHeadings: MDXComponents = {
-  h1: (props) => slugifiedHeading('h2', props),
-  h2: (props) => slugifiedHeading('h3', props),
-  h3: (props) => slugifiedHeading('h4', props),
-  h4: (props) => slugifiedHeading('h5', props),
-  h5: (props) => slugifiedHeading('h6', props),
-  h6: (props) => slugifiedHeading('h6', props),
+  h1: (props) => <SlugifiedHeading element="h2" {...props} />,
+  h2: (props) => <SlugifiedHeading element="h3" {...props} />,
+  h3: (props) => <SlugifiedHeading element="h4" {...props} />,
+  h4: (props) => <SlugifiedHeading element="h5" {...props} />,
+  h5: (props) => <SlugifiedHeading element="h6" {...props} />,
+  h6: (props) => <SlugifiedHeading element="h6" {...props} />,
 }
 
 const headings: MDXComponents = {
-  h1: (props) => slugifiedHeading('h1', props),
-  h2: (props) => slugifiedHeading('h2', props),
-  h3: (props) => slugifiedHeading('h3', props),
-  h4: (props) => slugifiedHeading('h4', props),
-  h5: (props) => slugifiedHeading('h5', props),
-  h6: (props) => slugifiedHeading('h6', props),
+  h1: (props) => <SlugifiedHeading element="h1" {...props} />,
+  h2: (props) => <SlugifiedHeading element="h2" {...props} />,
+  h3: (props) => <SlugifiedHeading element="h3" {...props} />,
+  h4: (props) => <SlugifiedHeading element="h4" {...props} />,
+  h5: (props) => <SlugifiedHeading element="h5" {...props} />,
+  h6: (props) => <SlugifiedHeading element="h6" {...props} />,
 }
 
 const tocHeadings: MDXComponents = {
-  h2: (props) => slugifiedHeading('h2', props, { hasToc: true }),
+  h2: (props) => <SlugifiedHeading element="h2" {...props} hasToc />,
 }
 
 const inlineComponents: MDXComponents = {
   p: (props) => <>{props.children}</>,
 }
 
-function slugifiedHeading(
-  element: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6',
-  props: React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLHeadingElement>,
-    HTMLHeadingElement
-  >,
-  { hasToc = false } = {}
-) {
+type SlugifiedHeadingProps = {
+  element: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+  hasToc?: boolean
+} & React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLHeadingElement>,
+  HTMLHeadingElement
+>
+
+function SlugifiedHeading({ element, hasToc, ...rest }: SlugifiedHeadingProps) {
   const HeadingComponent = element
-  const { children } = props
+  const { children } = rest
   const text = getInnerText(children)
   const slug = slugify(text)
 
