@@ -25,7 +25,7 @@ const nextConfig = {
     return {
       beforeFiles: [
         {
-          source: '/assets/og-image/:category/:slug.png',
+          source: '/assets/og-image/:category(posts|offtopic|static)/:slug.png',
           destination:
             '/_next/image?url=https://timomeh.de/api/og%3Fslug=:slug%26category=:category&w=1200&q=100',
         },
