@@ -21,8 +21,8 @@ export default function RootLayout({ children }: Props) {
     <html lang="en" className="h-full">
       <body className="min-h-full relative antialiased [font-feature-settings:'ss01'] bg-[#1F1E20] text-white">
         <StoreProvider>
+          <div className="absolute inset-0 [background-image:var(--grainy)] [background-size:300px] filter contrast-[2000%] brightness-[50%] mix-blend-multiply z-[-1] opacity-70" />
           <BalancerProvider>
-            <div className="absolute inset-0 [background-image:var(--grainy)] [background-size:300px] filter contrast-[2000%] brightness-[50%] mix-blend-multiply z-[-1] opacity-70" />
             <div className="meh-grid">
               {children}
               <header className="meh-header">

@@ -65,11 +65,9 @@ export default async function Offtopics({ params }: Props) {
       <aside className="meh-aside">
         <Toc>
           {offtopics.map((offtopic) => (
-            <Balancer key={offtopic.slug}>
-              <TocEntry name={offtopic.slug}>
-                <MDXRenderer content={offtopic.safeTitle} inline />
-              </TocEntry>
-            </Balancer>
+            <TocEntry name={offtopic.slug} key={offtopic.slug}>
+              <MDXRenderer content={offtopic.safeTitle} inline />
+            </TocEntry>
           ))}
         </Toc>
       </aside>

@@ -52,20 +52,16 @@ export default async function Post({ params }: Props) {
       {post.meta.toc && (
         <aside className="meh-aside">
           <Toc>
-            <Balancer>
-              <TocEntry name="top">
-                <MDXRenderer content={post.title} inline />
-              </TocEntry>
-            </Balancer>
+            <TocEntry name="top">
+              <MDXRenderer content={post.title} inline />
+            </TocEntry>
             {chapters.map((chapter) => {
               const slug = slugify(chapter)
 
               return (
-                <Balancer key={slug}>
-                  <TocEntry name={slug}>
-                    <MDXRenderer content={chapter} inline />
-                  </TocEntry>
-                </Balancer>
+                <TocEntry name={slug} key={slug}>
+                  <MDXRenderer content={chapter} inline />
+                </TocEntry>
               )
             })}
           </Toc>

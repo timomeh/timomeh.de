@@ -26,11 +26,11 @@ export function ListedPost({ post }: Props) {
               </Link>
             </time>
             <h2 className="mt-0 text-2xl leading-snug transition-all underline underline-offset-4 decoration-violet-400 font-bold mb-5 font-display">
-              <Balancer>
-                <Link href={`/posts/${post.slug}`} className="glow">
+              <Link href={`/posts/${post.slug}`} className="glow inline-block">
+                <Balancer>
                   <MDXRenderer content={post.title} inline />
-                </Link>
-              </Balancer>
+                </Balancer>
+              </Link>
             </h2>
           </div>
         </TocMarker>

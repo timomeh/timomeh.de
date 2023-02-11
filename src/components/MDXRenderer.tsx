@@ -259,7 +259,7 @@ function SlugifiedHeading({ element, hasToc, ...rest }: SlugifiedHeadingProps) {
       <a
         href={`#${slug}`}
         id={slug}
-        className="relative !no-underline !bg-none before:content-['#'] before:absolute before:left-0 before:pr-5 before:-ml-5 before:opacity-0 hover:before:opacity-100 before:transition-opacity before:text-emerald-400/20"
+        className="inline-block relative !no-underline !bg-none before:content-['#'] before:absolute before:left-0 before:pr-5 before:-ml-5 before:opacity-0 hover:before:opacity-100 before:transition-opacity before:text-emerald-400/20"
       >
         <Balancer>{children}</Balancer>
       </a>

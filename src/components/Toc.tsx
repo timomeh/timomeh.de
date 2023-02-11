@@ -5,6 +5,7 @@ import * as React from 'react'
 import { orderBy } from 'lodash'
 import { useInView, motion } from 'framer-motion'
 import clsx from 'clsx'
+import Balancer from 'react-wrap-balancer'
 
 const tocMarkerAtom = atom<[string, DOMRect][]>([])
 const inViewAtom = atom<Record<string, boolean>>({})
@@ -105,12 +106,14 @@ export function TocEntry({ children, name }: EntryProps) {
     <div
       className={clsx(
         'transition-colors text-white text-[13px] px-1 py-1.5 hover:text-opacity-70',
-        'font-medium',
+        'font-medium max-w-full',
         inView ? 'text-opacity-80' : 'text-opacity-50'
       )}
       data-toc-entry={name}
     >
-      <a href={`#${name}`}>{children}</a>
+      <a href={`#${name}`} className="inline-block">
+        <Balancer>{children}</Balancer>
+      </a>
     </div>
   )
 }
@@ -165,12 +168,12 @@ function Highlighted({ children }: HighlightedProps) {
   return (
     <div
       ref={ref}
-      className="sticky top-0 py-2 max-w-[240px] max-h-screen overflow-scroll flex flex-col"
+      className="sticky top-0 py-2 max-w-[240px] max-h-screen overflow-scroll hide-scrollbars flex flex-col"
     >
       {children}
       {dimens.calced && (
         <motion.div
-          className="absolute z-[-1] bg-[#29292a] bg-opacity-30 left-0 right-0 rounded -mx-0.5"
+          className="absolute z-[-1] bg-[#29292a] bg-opacity-30 left-0 right-0 rounded"
           initial={{ opacity: 0, top: dimens.top, height: dimens.height }}
           animate={{ opacity: 1, top: dimens.top, height: dimens.height }}
           transition={{ ease: 'linear' }}

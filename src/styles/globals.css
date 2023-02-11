@@ -20,6 +20,14 @@
   .not-glow {
     @apply !bg-none;
   }
+
+  .hide-scrollbars {
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 }
 
 @layer components {
