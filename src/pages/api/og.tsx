@@ -45,7 +45,7 @@ export default async function handler(req: NextRequest) {
     // @ts-expect-error
     process.version = 'v420.69'
 
-    let entry, title
+    let entry, title, cover
     if (category !== 'static') {
       const { getDiscussion } = await import('@/lib/github')
       entry = await getDiscussion({ slug, category })
@@ -62,6 +62,8 @@ export default async function handler(req: NextRequest) {
       title ||= entry.title
       title = removeMd(title)
       title = [title]
+
+      cover = /^cover_image: (.*$)/gim.exec(entry.body)?.[1].trim()
     } else {
       title = staticTitles[slug] || staticTitles.default
     }
@@ -72,15 +74,37 @@ export default async function handler(req: NextRequest) {
     return new ImageResponse(
       (
         <div tw="flex w-full h-full" style={{ fontFamily: '"Outfit"' }}>
-          <img
-            tw="absolute inset-0"
-            src="https://timomeh.de/og-dark-template.png"
-            width="1200"
-            height="630"
-            alt=""
-          />
+          {!cover && (
+            <img
+              tw="absolute inset-0"
+              src="https://timomeh.de/og-dark-template.png"
+              width="1200"
+              height="630"
+              alt=""
+            />
+          )}
+          {cover && (
+            <>
+              <img
+                tw="absolute inset-0"
+                src={cover}
+                width="1200"
+                height="630"
+                alt=""
+                style={{ objectFit: 'cover' }}
+              />
+              <img
+                tw="absolute inset-0"
+                src="https://timomeh.de/og-dark-template-overlay.png"
+                width="1200"
+                height="630"
+                alt=""
+              />
+            </>
+          )}
           <div tw="absolute inset-16 z-10 flex flex-col justify-end">
-            <div tw="w-[80%] flex flex-col">
+            <div tw="flex flex-col relative">
+              <div tw="absolute -inset-4 bg-black opacity-50" />
               <div tw="text-6xl text-violet-100 font-bold flex flex-col">
                 {title.map((t, i) => (
                   <div key={i}>{t}</div>
