@@ -1,14 +1,13 @@
 import path from 'node:path'
-import type { Highlighter, Lang } from 'shiki'
+import type { Lang } from 'shiki'
 import { renderToHtml, getHighlighter } from 'shiki'
 
 const theme = 'tokyo-night'
 const themesPath = path.resolve(process.cwd(), 'src/styles')
 const langsPath = path.resolve(process.cwd(), 'vendor/shiki-langs')
-let highlighter: Highlighter
 
 export async function highlight(code: string, lang?: string) {
-  highlighter ||= await getHighlighter({
+  const highlighter = await getHighlighter({
     theme,
     paths: { themes: themesPath, languages: langsPath },
     langs: lang ? [lang as Lang] : undefined,
