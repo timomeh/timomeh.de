@@ -28,11 +28,20 @@
       display: none;
     }
   }
+
+  .fade-bottom {
+    mask-image: linear-gradient(
+      to top,
+      transparent 0px,
+      black 40px,
+      black 100%
+    );
+  }
 }
 
 @layer components {
   .meh-grid {
-    @apply grid lg:gap-5 xl:gap-10;
+    @apply grid gap-5;
 
     grid-template-areas:
       'header'

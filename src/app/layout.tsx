@@ -32,9 +32,9 @@ export default function RootLayout({ children }: Props) {
                   </Link>
                 </div>
               </header>
-              <nav className="meh-nav">
+              <nav className="meh-nav pointer-events-none">
                 <div className="flex lg:flex-col pr-4 pt-6 lg:pt-0 lg:pr-0 items-center justify-end lg:items-end space-x-4 lg:space-x-0">
-                  <div>
+                  <div className="pointer-events-auto">
                     <div className="flex lg:flex-col space-x-3 lg:space-x-0 lg:space-y-1 items-end">
                       <NavLink segment="offtopic" href="/">
                         Stream
@@ -44,7 +44,7 @@ export default function RootLayout({ children }: Props) {
                       </NavLink>
                     </div>
                   </div>
-                  <div className="flex space-x-3 lg:mt-4 items-center">
+                  <div className="flex space-x-3 lg:mt-4 items-center pointer-events-auto">
                     <NavLink segment="feeds" href="/feeds" backDot>
                       <RssIcon className="w-6 h-6 -m-1 p-1" title="Feeds" />
                     </NavLink>

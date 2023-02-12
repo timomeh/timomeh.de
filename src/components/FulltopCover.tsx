@@ -9,7 +9,7 @@ export async function FulltopCover({ image }: Props) {
   return (
     <>
       <div
-        className="meh-fulltop z-[-1] relative mb-[-100px] lg:mb-[-120px] h-[240px] lg:h-[380px] select-none mix-blend-lighten overflow-hidden"
+        className="meh-fulltop z-[-1] relative h-[280px] lg:h-[380px] mb-[-120px] select-none mix-blend-lighten overflow-hidden"
         aria-hidden
       >
         <div className="relative opacity-75 h-full w-full">
@@ -21,8 +21,10 @@ export async function FulltopCover({ image }: Props) {
           />
         </div>
       </div>
-      <div className="meh-fulltop-cover h-[100px] lg:h-[120px] -mt-5">
-        <div className="bg-[#151416]/60 backdrop-blur-xl rounded-t-lg w-auto h-full max-w-content mx-auto lg:mx-0" />
+      <div className="meh-fulltop-cover">
+        <div className="h-[160px] lg:absolute lg:mx-0 mx-auto w-full max-w-[650px]">
+          <div className="bg-[#151416]/60 backdrop-blur-xl rounded-t-lg -mt-5 w-full h-full fade-bottom" />
+        </div>
       </div>
     </>
   )
