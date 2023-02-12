@@ -36,7 +36,9 @@ export default async function Post({ params }: Props) {
                   })}
                 </time>
                 <h1 className="text-2xl leading-snug underline underline-offset-4 decoration-violet-400 font-bold mb-5 font-display">
-                  <MDXRenderer content={post.title} inline />
+                  <Balancer>
+                    <MDXRenderer content={post.title} inline />
+                  </Balancer>
                 </h1>
               </header>
             </TocMarker>

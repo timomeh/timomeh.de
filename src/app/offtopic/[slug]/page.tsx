@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import Balancer from 'react-wrap-balancer'
 
 import { getOfftopic } from '@/lib/blog'
 import { Prose } from '@/components/Prose'
@@ -32,7 +33,9 @@ export default async function Offtopic({ params }: Props) {
               </time>
               {hasTitle && (
                 <h1 className="text-2xl leading-snug underline underline-offset-4 decoration-violet-400 font-bold mb-5 font-display">
-                  <MDXRenderer content={offtopic.title!} inline />
+                  <Balancer>
+                    <MDXRenderer content={offtopic.title!} inline />
+                  </Balancer>
                 </h1>
               )}
             </header>
