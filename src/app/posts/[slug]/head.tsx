@@ -23,7 +23,7 @@ export default async function Head({ params }: Props) {
       <Seo
         description={
           post.meta.description ||
-          `${post.title}, posted on ${post.postedAt.toLocaleDateString(
+          `${post.safeTitle}, posted on ${post.postedAt.toLocaleDateString(
             'en-US',
             { dateStyle: 'medium' }
           )} by Timo Mämecke`
