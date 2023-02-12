@@ -26,13 +26,13 @@ export default async function Offtopic({ params }: Props) {
         <article className="mx-4">
           <Prose size={hasTitle ? 'yes' : 'big'}>
             <header className="not-prose">
-              <time className="text-xs uppercase opacity-50 font-bold flex -mb-1">
+              <time className="text-xs uppercase opacity-50 font-bold flex">
                 {offtopic.postedAt.toLocaleString('en-US', {
                   dateStyle: 'long',
                 })}
               </time>
               {hasTitle && (
-                <h1 className="text-2xl leading-snug underline underline-offset-4 decoration-violet-400 font-bold mb-5 font-display">
+                <h1 className="text-2xl leading-snug font-bold mb-5 mt-1 font-display">
                   <Balancer>
                     <MDXRenderer content={offtopic.title!} inline />
                   </Balancer>
