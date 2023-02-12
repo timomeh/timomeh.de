@@ -7,6 +7,7 @@ import { slugify } from '@/lib/slugify'
 import { Prose } from '@/components/Prose'
 import { MDXRenderer } from '@/components/MDXRenderer'
 import { Toc, TocEntry, TocMarker } from '@/components/Toc'
+import { FulltopCover } from '@/components/FulltopCover'
 
 export const revalidate = false
 export const generateStaticParams = () => []
@@ -25,6 +26,10 @@ export default async function Post({ params }: Props) {
 
   return (
     <>
+      {post.meta.cover_image && (
+        // @ts-expect-error Server Component
+        <FulltopCover image={post.meta.cover_image} />
+      )}
       <main className="meh-main">
         <article className="mx-4">
           <Prose>

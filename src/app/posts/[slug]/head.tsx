@@ -28,7 +28,7 @@ export default async function Head({ params }: Props) {
             { dateStyle: 'medium' }
           )} by Timo Mämecke`
         }
-        title={post.title}
+        title={post.safeTitle}
         twitter={{
           cardType: 'summary_large_image',
         }}

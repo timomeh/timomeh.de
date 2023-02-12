@@ -52,7 +52,7 @@
   }
 
   .meh-header {
-    @apply w-content max-w-full mx-auto lg:max-w-none lg:w-full lg:mx-0;
+    @apply w-content min-h-[120px] max-w-full mx-auto lg:max-w-none lg:w-full lg:mx-0;
     grid-area: header;
   }
 
@@ -62,6 +62,10 @@
     @media (min-width: 1024px) {
       grid-area: 1 / 1 / 2 / 4;
     }
+  }
+
+  .meh-fulltop-cover {
+    grid-area: main;
   }
 
   .meh-nav {

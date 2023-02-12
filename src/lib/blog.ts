@@ -66,6 +66,7 @@ function toPost(discussion: Discussion) {
     postedAt: new Date(discussion.createdAt),
     updatedAt: new Date(discussion.updatedAt),
     title: title || discussion.title,
+    safeTitle: removeMd(title || discussion.title),
     meta,
     excerpt,
     body,
@@ -104,6 +105,7 @@ type MetaData = {
   toc?: boolean
   lang?: string
   og_image?: string
+  cover_image?: string
   title?: string
 }
 
