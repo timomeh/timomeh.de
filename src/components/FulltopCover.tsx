@@ -21,12 +21,12 @@ export async function FulltopCover({ image, title }: Props) {
             src={image}
             width={size.width}
             height={size.height}
-            className="max-h-64 lg:max-h-96 w-full h-auto object-cover"
+            className="h-64 lg:h-96 w-full object-cover"
             alt=""
           />
         </div>
       </div>
-      <div className="meh-fulltop-cover h-36 lg:h-40 -mt-4">
+      <div className="meh-fulltop-cover h-36 lg:h-[148px] -mt-4">
         <div className="bg-[#151416]/60 backdrop-blur-xl rounded-t-lg w-auto h-full max-w-content mx-auto lg:mx-0" />
       </div>
     </>
