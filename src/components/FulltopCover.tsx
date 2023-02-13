@@ -1,4 +1,3 @@
-import probeImageSize from 'probe-image-size'
 import Image from 'next/image'
 
 type Props = {

@@ -1,16 +1,15 @@
 import Link from 'next/link'
-import { RssIcon, UserCircleIcon } from '@heroicons/react/20/solid'
+
 import { BalancerProvider } from '@/components/BalancerProvider'
 
 import { Logo } from '@/components/Logo'
-import { NavLink } from '@/components/NavLink'
 import { StoreProvider } from '@/lib/store'
-import { MastodonLogo } from '@/components/MastodonLogo'
 
 import '@/styles/globals.css'
 import '@fontsource/ibm-plex-mono/latin-ext.css'
 import '@fontsource/inter/latin.css'
 import '@fontsource/outfit/latin.css'
+import { Navigation } from '@/components/Navigation'
 
 type Props = {
   children: React.ReactNode
@@ -32,39 +31,7 @@ export default function RootLayout({ children }: Props) {
                   </Link>
                 </div>
               </header>
-              <nav className="meh-nav pointer-events-none">
-                <div className="flex lg:flex-col pr-4 pt-6 lg:pt-0 lg:pr-0 items-center justify-end lg:items-end space-x-4 lg:space-x-0">
-                  <div className="pointer-events-auto">
-                    <div className="flex lg:flex-col space-x-3 lg:space-x-0 lg:space-y-1 items-end">
-                      <NavLink segment="offtopic" href="/">
-                        Stream
-                      </NavLink>
-                      <NavLink segment="posts" href="/posts">
-                        Posts
-                      </NavLink>
-                    </div>
-                  </div>
-                  <div className="flex space-x-3 lg:mt-4 items-center pointer-events-auto">
-                    <NavLink segment="feeds" href="/feeds" backDot>
-                      <RssIcon className="w-6 h-6 -m-1 p-1" title="Feeds" />
-                    </NavLink>
-                    <a
-                      title="@timomeh@mastodon.social"
-                      href="https://mastodon.social/@timomeh"
-                      rel="noopener noreferrer me"
-                      target="_blank"
-                    >
-                      <MastodonLogo className="w-[22px] h-[22px] fill-white opacity-50 hover:opacity-80 -m-1 p-1 transition-opacity" />
-                    </a>
-                    <NavLink segment="about" href="/about" backDot>
-                      <UserCircleIcon
-                        className="w-6 h-6 -m-1 p-1"
-                        title="About"
-                      />
-                    </NavLink>
-                  </div>
-                </div>
-              </nav>
+              <Navigation />
               <footer className="meh-footer">
                 <div className="flex justify-end text-[11px] uppercase font-bold space-x-1">
                   <Link
