@@ -95,7 +95,7 @@ export function FootnoteRef({ id, scope, children, ...rest }: Props) {
       >
         <span
           className={clsx(
-            'absolute h-6 -top-1 -right-[3px] bg-gradient-to-l to-transparent opacity-30 hover:opacity-60 mix-blend-screen w-20',
+            'absolute h-6 -top-1 -right-[3px] rounded-l-lg bg-gradient-to-l to-transparent opacity-25 hover:opacity-50 mix-blend-screen w-20',
             'transition-opacity from-current'
           )}
         />
