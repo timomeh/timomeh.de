@@ -15,7 +15,7 @@ export function ListedPost({ post }: Props) {
       <Prose>
         <TocMarker name={post.slug}>
           <div className="not-prose">
-            <time className="text-xs uppercase font-bold flex -mb-1">
+            <time className="text-xs uppercase font-bold flex">
               <Link
                 className="opacity-50 hover:opacity-80 transition-opacity"
                 href={`/posts/${post.slug}`}
@@ -25,7 +25,7 @@ export function ListedPost({ post }: Props) {
                 })}
               </Link>
             </time>
-            <h2 className="mt-0 text-2xl leading-snug transition-all underline underline-offset-4 decoration-violet-400 font-bold mb-5 font-display">
+            <h2 className="mt-1 text-2xl leading-snug transition-all font-bold mb-5 font-display">
               <Balancer>
                 <Link href={`/posts/${post.slug}`} className="glow">
                   <MDXRenderer content={post.title} inline />

@@ -17,7 +17,7 @@ export function ListedOfftopic({ offtopic }: Props) {
       <Prose size={hasTitle ? 'yes' : 'big'}>
         <TocMarker name={offtopic.slug}>
           <div className="not-prose" id={offtopic.slug}>
-            <time className="text-xs uppercase font-bold flex -mb-1">
+            <time className="text-xs uppercase font-bold flex">
               <Link
                 className="opacity-50 hover:opacity-80 transition-opacity"
                 href={`/offtopic/${offtopic.slug}`}
@@ -28,7 +28,7 @@ export function ListedOfftopic({ offtopic }: Props) {
               </Link>
             </time>
             {hasTitle && (
-              <h2 className="mt-0 text-2xl leading-snug transition-all underline underline-offset-4 decoration-violet-400 font-bold mb-5 font-display">
+              <h2 className="text-2xl leading-snug mt-1 transition-all font-bold mb-5 font-display">
                 <Balancer>
                   <Link href={`/offtopic/${offtopic.slug}`} className="glow">
                     <MDXRenderer

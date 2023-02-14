@@ -14,11 +14,14 @@
 
 @layer utilities {
   .glow {
-    @apply transition-all bg-gradient-to-t from-violet-500/30 to-transparent duration-500 [background-position:bottom_left] [background-size:100%_0] bg-no-repeat hover:[background-size:100%_100%];
-  }
+    @apply transition-all duration-500;
 
-  .not-glow {
-    @apply !bg-none;
+    &:hover {
+      text-shadow: 0 0 7px theme('colors.cyan.100 / 20%'),
+        0 0 10px theme('colors.cyan.100 / 20%'),
+        0 0 21px theme('colors.cyan.500 / 20%'),
+        0 0 42px theme('colors.cyan.500 / 40%');
+    }
   }
 
   .hide-scrollbars {
