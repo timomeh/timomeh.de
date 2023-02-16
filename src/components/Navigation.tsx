@@ -7,13 +7,12 @@ import {
 } from '@heroicons/react/20/solid'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { MastodonLogo } from './MastodonLogo'
 import { NavLink } from './NavLink'
 
 export function Navigation() {
   const pathname = usePathname()
-  const router = useRouter()
 
   let backUrl
   if (/^\/posts\/(?!page\/).*$/.test(pathname || '')) backUrl = '/posts'
@@ -27,10 +26,6 @@ export function Navigation() {
             {backUrl && (
               <Link
                 href={backUrl}
-                onClick={(event) => {
-                  event.preventDefault()
-                  router.back()
-                }}
                 className="hidden mt-[-28px] lg:flex py-1 items-center relative justify-center uppercase text-sm leading-none tracking-wide font-display font-bold opacity-50 hover:opacity-80 transition-opacity"
               >
                 <ArrowSmallLeftIcon className="w-4 h-4 mr-1" />
