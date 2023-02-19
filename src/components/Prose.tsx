@@ -10,6 +10,7 @@ export function Prose({ children, size = 'yes' }: Props) {
     <div
       className={clsx(
         'prose prose-purple prose-invert relative max-w-[620px]',
+        '[hyphens:auto] [hyphenate-limit-chars:6_3_2] [hyphenate-limit-lines:2] [hyphenate-limit-last:always]',
         'prose-headings:font-display',
         size === 'big' && 'prose-lg leading-relaxed',
         size === 'smol' && 'prose-sm leading-snug prose-p:my-1',

@@ -43,7 +43,7 @@ export default async function Head({ params }: Props) {
           profile: {
             username: 'timomeh',
           },
-          locale: post.meta.lang || 'en_US',
+          locale: post.meta.lang,
         }}
       />
     </>

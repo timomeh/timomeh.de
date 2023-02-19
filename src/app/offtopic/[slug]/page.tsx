@@ -23,7 +23,7 @@ export default async function Offtopic({ params }: Props) {
   return (
     <>
       <main className="meh-main">
-        <article className="mx-4">
+        <article className="mx-4" lang={offtopic.meta.lang.split('_')[0]}>
           <Prose size={hasTitle ? 'yes' : 'big'}>
             <header className="not-prose">
               <time className="text-xs uppercase opacity-50 font-bold flex">

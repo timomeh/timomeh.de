@@ -13,7 +13,7 @@ export function ListedOfftopic({ offtopic }: Props) {
   const hasTitle = !!offtopic.title
 
   return (
-    <article className="mx-4">
+    <article className="mx-4" lang={offtopic.meta.lang.split('_')[0]}>
       <Prose size={hasTitle ? 'yes' : 'big'}>
         <TocMarker name={offtopic.slug}>
           <div className="not-prose" id={offtopic.slug}>

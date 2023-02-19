@@ -31,7 +31,7 @@ export default async function Post({ params }: Props) {
         <FulltopCover image={post.meta.cover_image} />
       )}
       <main className="meh-main">
-        <article className="mx-4">
+        <article className="mx-4" lang={post.meta.lang.split('_')[0]}>
           <Prose>
             <TocMarker name="top">
               <header className="not-prose">

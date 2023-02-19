@@ -11,7 +11,7 @@ type Props = {
 
 export function ListedPost({ post }: Props) {
   return (
-    <article className="mx-4">
+    <article className="mx-4" lang={post.meta.lang.split('_')[0]}>
       <Prose>
         <TocMarker name={post.slug}>
           <div className="not-prose">

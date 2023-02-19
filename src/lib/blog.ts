@@ -139,7 +139,10 @@ function parseDocument(document: string, { fakeExcerpt = false } = {}) {
     delimiters: '~~~',
   })
 
-  const meta = parsed.data as MetaData
+  const meta = {
+    lang: 'en_US',
+    ...(parsed.data as MetaData),
+  }
   const title = /^# (.*$)/gim.exec(document)?.[1].trim()
   const content = parsed.content.split(excerptSeparator).at(-1) || ''
   const body = content.replace(/^# .*$/gim, '')

@@ -43,7 +43,7 @@ export default async function Head({ params }: Props) {
           profile: {
             username: 'timomeh',
           },
-          locale: offtopic.meta.lang || 'en_US',
+          locale: offtopic.meta.lang,
         }}
       />
     </>
