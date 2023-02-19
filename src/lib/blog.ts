@@ -1,5 +1,6 @@
 import { cache } from 'react'
 import matter from 'gray-matter'
+import ellipsize from 'ellipsize'
 import removeMd from 'remove-markdown'
 
 import { Discussion, getDiscussion, listDiscussions } from './github'
@@ -58,15 +59,28 @@ export const getOfftopic = cache(async (slug: string) => {
 })
 
 function toPost(discussion: Discussion) {
-  const { excerpt, meta, title, body } = parseDocument(discussion.body, true)
+  const { excerpt, meta, title, body, plainTitle, plainDescription } =
+    parseDocument(discussion.body, { fakeExcerpt: true })
+  const safeTitle = plainTitle || discussion.title
+  const postedAt = new Date(discussion.createdAt)
+  const updatedAt = new Date(discussion.updatedAt)
+
+  let description = plainDescription
+  if (description.length < 30) {
+    description = safeTitle
+      .concat(', posted on ')
+      .concat(postedAt.toLocaleDateString('en-US', { dateStyle: 'medium' }))
+      .concat(' by Timo Mämecke')
+  }
 
   return {
     slug: discussion.title,
     number: discussion.number,
-    postedAt: new Date(discussion.createdAt),
-    updatedAt: new Date(discussion.updatedAt),
-    title: title || discussion.title,
-    safeTitle: removeMd(title || discussion.title),
+    postedAt,
+    updatedAt,
+    title: title || safeTitle,
+    description,
+    safeTitle,
     meta,
     excerpt,
     body,
@@ -77,20 +91,28 @@ function toPost(discussion: Discussion) {
 export type Post = ReturnType<typeof toPost>
 
 function toOfftopic(discussion: Discussion) {
-  const { excerpt, meta, title, body } = parseDocument(discussion.body)
+  const { excerpt, meta, title, body, plainTitle, plainDescription } =
+    parseDocument(discussion.body)
+  const safeTitle = plainTitle || discussion.title
+  const postedAt = new Date(discussion.createdAt)
+  const updatedAt = new Date(discussion.updatedAt)
+
+  let description = plainDescription
+  if (description.length < 20) {
+    description = safeTitle
+      .concat(', posted on ')
+      .concat(postedAt.toLocaleDateString('en-US', { dateStyle: 'medium' }))
+      .concat(' by Timo Mämecke')
+  }
 
   return {
     slug: discussion.title,
     number: discussion.number,
-    postedAt: new Date(discussion.createdAt),
-    updatedAt: new Date(discussion.updatedAt),
+    postedAt,
+    updatedAt,
     title,
-    safeTitle: removeMd(
-      meta.title ||
-        title ||
-        body.split(' ').slice(0, 10).join(' ').concat('…') ||
-        discussion.title
-    ),
+    safeTitle,
+    description,
     meta,
     excerpt,
     body,
@@ -109,7 +131,7 @@ type MetaData = {
   title?: string
 }
 
-function parseDocument(document: string, fakeExcerpt = false) {
+function parseDocument(document: string, { fakeExcerpt = false } = {}) {
   const excerptSeparator = '<!-- intro -->'
   const parsed = matter(document, {
     excerpt: true,
@@ -117,19 +139,36 @@ function parseDocument(document: string, fakeExcerpt = false) {
     delimiters: '~~~',
   })
 
+  const meta = parsed.data as MetaData
   const title = /^# (.*$)/gim.exec(document)?.[1].trim()
   const content = parsed.content.split(excerptSeparator).at(-1) || ''
   const body = content.replace(/^# .*$/gim, '')
-  // TODO delete fallback excerpt when I migrated all the posts to use excerpts
+
   const excerpt = fakeExcerpt
     ? parsed.excerpt?.replace(/^# (.*$)/gim, '') ||
       body.split('\r\n').filter(Boolean)[0]
     : parsed.excerpt?.replace(/^# (.*$)/gim, '')
 
+  const plainDescription =
+    meta.description || ellipsize(cleanText(excerpt || body), 160)
+  const plainTitle =
+    cleanText(meta.title || title || '') ||
+    ellipsize(cleanText(excerpt || body), 50)
+
   return {
     excerpt,
-    meta: parsed.data as MetaData,
+    meta,
     title,
     body,
+    plainTitle,
+    plainDescription: plainDescription.trim(),
   }
+}
+
+function cleanText(text: string) {
+  let cleaned = removeMd(text, { useImgAltText: false })
+  cleaned = cleaned.replace(/(?:https?):\/\/[\n\S]+/gi, '') // remove stray links (embeds)
+  cleaned = cleaned.replace(/(?:\r\n|\r|\n)/g, ' ') // remove newlines
+
+  return cleaned
 }

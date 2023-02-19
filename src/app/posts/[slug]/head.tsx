@@ -21,19 +21,14 @@ export default async function Head({ params }: Props) {
       <CommonHead />
       <Feeds type="posts" />
       <Seo
-        description={
-          post.meta.description ||
-          `${post.safeTitle}, posted on ${post.postedAt.toLocaleDateString(
-            'en-US',
-            { dateStyle: 'medium' }
-          )} by Timo Mämecke`
-        }
+        description={post.description}
         title={post.safeTitle}
         twitter={{
           cardType: 'summary_large_image',
         }}
         openGraph={{
           type: 'article',
+          description: post.description,
           images: [
             {
               url: image,
