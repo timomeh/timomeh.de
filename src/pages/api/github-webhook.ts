@@ -62,18 +62,12 @@ export default async function handler(
     `/${category}`,
     ...(category === 'offtopic' ? ['/'] : []), // https://github.com/vercel/next.js/issues/40549
   ]
-  const feedUrls = ['rss', 'atom', 'json'].map(
-    (type) => `https://timomeh.de/${category}/feed.${type}`
-  )
 
-  await Promise.allSettled([
-    ...urls.map((url) => res.revalidate(url)),
-    ...feedUrls.map((url) => fetch(url)),
-  ])
+  await Promise.allSettled(urls.map((url) => res.revalidate(url)))
 
   res.status(200).json({
     ok: true,
     hint: 'Revalidated pages',
-    revalidated: [...urls, ...feedUrls],
+    revalidated: urls,
   })
 }
