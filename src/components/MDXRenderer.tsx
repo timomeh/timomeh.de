@@ -203,6 +203,9 @@ const components = (baseProps: Pick<Props, 'scope' | 'id'>): MDXComponents => {
 
       return <section {...props} />
     },
+    del: (props) => {
+      return <del className="text-gray-500" {...props} />
+    },
   }
 }
 
@@ -262,7 +265,7 @@ function SlugifiedHeading({ element, hasToc, ...rest }: SlugifiedHeadingProps) {
         id={slug}
         className="inline-block relative !no-underline !bg-none group"
       >
-        <div className="w-5 h-3.5 absolute -left-5 pr-1.5 top-[1ch] -translate-y-1/2 opacity-0 duration-500 transition-all delay-300 scale-75 group-hover:scale-100 group-hover:opacity-100">
+        <div className="w-5 h-3.5 absolute -left-5 pr-1.5 top-[0.7ch] opacity-0 duration-500 transition-all delay-300 scale-75 group-hover:scale-100 group-hover:opacity-100">
           <div className="absolute left-0 top-0 w-3.5 h-3.5">
             <BookmarkIcon className="text-emerald-500 absolute inset-0" />
             <BookmarkIcon className="text-emerald-500 blur-[2px] absolute inset-0" />
