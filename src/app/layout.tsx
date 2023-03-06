@@ -15,6 +15,8 @@ type Props = {
   children: React.ReactNode
 }
 
+export const dynamic = 'force-static'
+
 export default function RootLayout({ children }: Props) {
   return (
     <html lang="en" className="h-full">
