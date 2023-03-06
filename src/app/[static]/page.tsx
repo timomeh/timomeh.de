@@ -4,6 +4,8 @@ import { MDXRenderer } from '@/components/MDXRenderer'
 import { Prose } from '@/components/Prose'
 import { getSite } from './getSite'
 
+export const dynamic = 'force-static'
+
 type Props = {
   params: {
     static: string

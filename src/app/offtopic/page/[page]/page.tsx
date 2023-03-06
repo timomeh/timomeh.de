@@ -11,6 +11,7 @@ import Link from 'next/link'
 
 export const revalidate = false
 export const generateStaticParams = () => []
+export const dynamic = 'force-static'
 
 type Props = {
   params: { page: string }

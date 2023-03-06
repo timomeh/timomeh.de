@@ -1,5 +1,6 @@
 import PostsPage from './page/[page]/page'
 
+export const dynamic = 'force-static'
 // This file wouldn't be necessary if rewrites would be working:
 // https://github.com/vercel/next.js/issues/40549
 
