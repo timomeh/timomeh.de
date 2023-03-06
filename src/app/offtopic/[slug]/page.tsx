@@ -6,8 +6,6 @@ import { Prose } from '@/components/Prose'
 import { MDXRenderer } from '@/components/MDXRenderer'
 
 export const revalidate = false
-export const generateStaticParams = () => []
-export const dynamic = 'force-static'
 
 type Props = {
   params: {
