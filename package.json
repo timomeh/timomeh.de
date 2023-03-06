@@ -29,7 +29,7 @@
     "lodash": "4.17.21",
     "micro": "10.0.1",
     "next": "13.2.3",
-    "next-mdx-remote": "4.3.0",
+    "next-mdx-remote": "4.4.1",
     "prando": "6.0.1",
     "probe-image-size": "7.2.3",
     "react": "18.2.0",
