@@ -4,8 +4,6 @@ import { MDXRenderer } from '@/components/MDXRenderer'
 import { Prose } from '@/components/Prose'
 import { getSite } from './getSite'
 
-export const dynamic = 'force-static'
-
 type Props = {
   params: {
     static: string
@@ -25,4 +23,11 @@ export default async function StaticPage({ params }: Props) {
       </div>
     </main>
   )
+}
+
+export async function generateMetadata({ params }: Props) {
+  const site = await getSite(params.static)
+  if (!site) return {}
+
+  return { ...site.head }
 }

@@ -56,3 +56,39 @@ export default function RootLayout({ children }: Props) {
     </html>
   )
 }
+
+export const metadata = {
+  icons: {
+    icon: [
+      { url: '/favicon-32x32.png', sizes: '32x32' },
+      { url: '/favicon-16x16.png', sizes: '16x16' },
+    ],
+    apple: '/apple-touch-icon.png',
+  },
+  themeColor: '#141315',
+  title: {
+    template: '%s | Timo Mämecke',
+    default: 'Timo Mämecke – Web Development and feeling ways about stuff.',
+  },
+  authors: [{ name: 'Timo Mämecke', url: 'https://timomeh.de' }],
+  publisher: 'Timo Mämecke',
+  openGraph: {
+    siteName: 'Timo Mämecke',
+    type: 'website',
+    locale: 'en_US',
+    images: [
+      {
+        url: 'https://timomeh.de/assets/og-image/static/default.png',
+        height: 630,
+        width: 1200,
+      },
+    ],
+  },
+  alternates: {
+    types: {
+      'application/atom+xml': 'https://timomeh.de/offtopic/feed.atom',
+      'application/rss+xml': 'https://timomeh.de/offtopic/feed.rss',
+      'application/feed+json': 'https://timomeh.de/offtopic/feed.json',
+    },
+  },
+}

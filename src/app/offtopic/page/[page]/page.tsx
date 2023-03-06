@@ -11,7 +11,6 @@ import Link from 'next/link'
 
 export const revalidate = false
 export const generateStaticParams = () => []
-export const dynamic = 'force-static'
 
 type Props = {
   params: { page: string }
@@ -74,4 +73,23 @@ export default async function Offtopics({ params }: Props) {
       </aside>
     </>
   )
+}
+
+export async function generateMetadata({ params }: Props) {
+  let title = 'Offtopic'
+  const page = +params.page
+  if (page > 1) title += ` - Page ${page}`
+
+  return {
+    title: page > 1 ? title : undefined,
+    description: "I think things and just write 'em down.",
+    alternates: {
+      canonical: page === 1 ? 'https://timomeh.de/' : undefined,
+      types: {
+        'application/atom+xml': 'https://timomeh.de/offtopic/feed.atom',
+        'application/rss+xml': 'https://timomeh.de/offtopic/feed.rss',
+        'application/feed+json': 'https://timomeh.de/offtopic/feed.json',
+      },
+    },
+  }
 }
