@@ -11,6 +11,7 @@ import { FulltopCover } from '@/components/FulltopCover'
 
 export const revalidate = false
 export const generateStaticParams = () => []
+export const dynamic = 'force-static'
 
 type Props = {
   params: {
