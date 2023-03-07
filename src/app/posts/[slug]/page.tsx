@@ -10,6 +10,7 @@ import { Toc, TocEntry, TocMarker } from '@/components/Toc'
 import { FulltopCover } from '@/components/FulltopCover'
 
 export const revalidate = false
+export const generateStaticParams = () => []
 
 type Props = {
   params: {

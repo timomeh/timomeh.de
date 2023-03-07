@@ -5,6 +5,7 @@ import { ListedPost } from '../../ListedPost'
 import { NorthernLights } from '@/components/NorthernLights'
 
 export const revalidate = false
+export const generateStaticParams = () => []
 
 type Props = {
   params: { page: string }

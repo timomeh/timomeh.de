@@ -6,6 +6,7 @@ import { Prose } from '@/components/Prose'
 import { MDXRenderer } from '@/components/MDXRenderer'
 
 export const revalidate = false
+export const generateStaticParams = () => []
 
 type Props = {
   params: {
