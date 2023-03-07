@@ -50,3 +50,23 @@ export default async function Posts({ params }: Props) {
     </>
   )
 }
+
+export async function generateMetadata({ params }: Props) {
+  let title = 'Posts'
+  const page = +params.page
+  if (page > 1) title += ` - Page ${page}`
+
+  return {
+    title,
+    description:
+      'About software development and other thoughts I wanted to elaborate on.',
+    alternates: {
+      canonical: page === 1 ? 'https://timomeh.de/posts' : undefined,
+      types: {
+        'application/atom+xml': 'https://timomeh.de/posts/feed.atom',
+        'application/rss+xml': 'https://timomeh.de/posts/feed.rss',
+        'application/feed+json': 'https://timomeh.de/posts/feed.json',
+      },
+    },
+  }
+}

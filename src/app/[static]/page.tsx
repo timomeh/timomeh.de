@@ -24,3 +24,10 @@ export default async function StaticPage({ params }: Props) {
     </main>
   )
 }
+
+export async function generateMetadata({ params }: Props) {
+  const site = await getSite(params.static)
+  if (!site) return {}
+
+  return { ...site.head }
+}

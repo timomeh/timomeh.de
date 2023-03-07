@@ -1,4 +1,4 @@
-import { NextSeoProps } from 'next-seo'
+import { Metadata } from 'next'
 
 export const body = `
 # Impressum
@@ -13,13 +13,14 @@ Deutschland – Germany
 E-Mail: [hello@timomeh.de](mailto:hello@timomeh.de)
 `
 
-export const head: NextSeoProps = {
+export const head: Metadata = {
   title: 'Impressum',
   openGraph: {
     images: [
       {
         url: 'https://timomeh.de/assets/og-image/static/impressum.png',
-        type: 'image/png',
+        height: 630,
+        width: 1200,
       },
     ],
   },

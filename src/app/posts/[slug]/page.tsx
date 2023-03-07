@@ -77,3 +77,39 @@ export default async function Post({ params }: Props) {
     </>
   )
 }
+
+export async function generateMetadata({ params }: Props) {
+  const post = await getPost(params.slug)
+  if (!post) return {}
+
+  const image =
+    post.meta.og_image ||
+    `https://timomeh.de/assets/og-image/posts/${post.slug}.png`
+
+  return {
+    title: post.safeTitle,
+    description: post.description,
+    openGraph: {
+      type: 'article',
+      description: post.description,
+      publishedTime: post.postedAt.toISOString(),
+      modifiedTime: post.postedAt.toISOString(),
+      authors: ['Timo Mämecke'],
+      locale: post.meta.lang,
+      images: [
+        {
+          url: image,
+          height: 630,
+          width: 1200,
+        },
+      ],
+    },
+    alternates: {
+      types: {
+        'application/atom+xml': 'https://timomeh.de/posts/feed.atom',
+        'application/rss+xml': 'https://timomeh.de/posts/feed.rss',
+        'application/feed+json': 'https://timomeh.de/posts/feed.json',
+      },
+    },
+  }
+}

@@ -50,3 +50,39 @@ export default async function Offtopic({ params }: Props) {
     </>
   )
 }
+
+export async function generateMetadata({ params }: Props) {
+  const offtopic = await getOfftopic(params.slug)
+  if (!offtopic) return {}
+
+  const image =
+    offtopic.meta.og_image ||
+    `https://timomeh.de/assets/og-image/offtopic/${offtopic.slug}.png`
+
+  return {
+    title: offtopic.safeTitle,
+    description: offtopic.description,
+    openGraph: {
+      type: 'article',
+      description: offtopic.description,
+      publishedTime: offtopic.postedAt.toISOString(),
+      modifiedTime: offtopic.postedAt.toISOString(),
+      authors: ['Timo Mämecke'],
+      locale: offtopic.meta.lang,
+      images: [
+        {
+          url: image,
+          height: 630,
+          width: 1200,
+        },
+      ],
+    },
+    alternates: {
+      types: {
+        'application/atom+xml': 'https://timomeh.de/offtopic/feed.atom',
+        'application/rss+xml': 'https://timomeh.de/offtopic/feed.rss',
+        'application/feed+json': 'https://timomeh.de/offtopic/feed.json',
+      },
+    },
+  }
+}

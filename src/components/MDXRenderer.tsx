@@ -87,7 +87,6 @@ const components = (baseProps: Pick<Props, 'scope' | 'id'>): MDXComponents => {
             ...components(baseProps),
             p: ({ children }) => <>{children}</>,
           },
-          compiledSource: '',
         })
         figcaption = result.content
       }

@@ -1,4 +1,4 @@
-import { NextSeoProps } from 'next-seo'
+import { Metadata } from 'next'
 
 export const body = `
 # Want to follow a Feed?
@@ -21,13 +21,14 @@ Please note that the Feeds might not render everything in the same way as it is
 displayed on my site.
 `
 
-export const head: NextSeoProps = {
+export const head: Metadata = {
   title: 'Feeds',
   openGraph: {
     images: [
       {
         url: 'https://timomeh.de/assets/og-image/static/feeds.png',
-        type: 'image/png',
+        height: 630,
+        width: 1200,
       },
     ],
   },

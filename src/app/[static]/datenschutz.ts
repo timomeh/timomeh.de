@@ -1,4 +1,4 @@
-import { NextSeoProps } from 'next-seo'
+import { Metadata } from 'next'
 
 export const body = `
 # Datenschutzerklärung
@@ -182,13 +182,14 @@ Wenn Sie nicht wünschen, dass Spotify den Besuch dieser Website Ihrem Spotify-N
 
 Quelle: [https://www.e-recht24.de](https://www.e-recht24.de)`
 
-export const head: NextSeoProps = {
+export const head: Metadata = {
   title: 'Datenschutz',
   openGraph: {
     images: [
       {
         url: 'https://timomeh.de/assets/og-image/static/datenschutz.png',
-        type: 'image/png',
+        height: 630,
+        width: 1200,
       },
     ],
   },
