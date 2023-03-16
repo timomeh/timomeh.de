@@ -123,6 +123,14 @@ const components = (baseProps: Pick<Props, 'scope' | 'id'>): MDXComponents => {
       )
     },
 
+    video: (props) => {
+      return (
+        <div className="md:-mx-4">
+          <video {...props} className="rounded-lg my-0 mx-auto" />
+        </div>
+      )
+    },
+
     // @ts-expect-error Server Component
     code: async (props) => {
       if (!props.className || typeof props.children !== 'string') {
