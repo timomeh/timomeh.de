@@ -61,11 +61,11 @@ export async function generateMetadata({ params }: Props) {
     description:
       'About software development and other thoughts I wanted to elaborate on.',
     alternates: {
-      canonical: page === 1 ? 'https://timomeh.de/posts' : undefined,
+      canonical: page === 1 ? '/posts' : undefined,
       types: {
-        'application/atom+xml': 'https://timomeh.de/posts/feed.atom',
-        'application/rss+xml': 'https://timomeh.de/posts/feed.rss',
-        'application/feed+json': 'https://timomeh.de/posts/feed.json',
+        'application/atom+xml': '/posts/feed.atom',
+        'application/rss+xml': '/posts/feed.rss',
+        'application/feed+json': '/posts/feed.json',
       },
     },
   }

@@ -86,9 +86,9 @@ export async function generateMetadata({ params }: Props) {
     alternates: {
       canonical: page === 1 ? 'https://timomeh.de/' : undefined,
       types: {
-        'application/atom+xml': 'https://timomeh.de/offtopic/feed.atom',
-        'application/rss+xml': 'https://timomeh.de/offtopic/feed.rss',
-        'application/feed+json': 'https://timomeh.de/offtopic/feed.json',
+        'application/atom+xml': '/offtopic/feed.atom',
+        'application/rss+xml': '/offtopic/feed.rss',
+        'application/feed+json': '/offtopic/feed.json',
       },
     },
   }

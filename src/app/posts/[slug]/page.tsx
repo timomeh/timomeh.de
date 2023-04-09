@@ -82,9 +82,7 @@ export async function generateMetadata({ params }: Props) {
   const post = await getPost(params.slug)
   if (!post) return {}
 
-  const image =
-    post.meta.og_image ||
-    `https://timomeh.de/assets/og-image/posts/${post.slug}.png`
+  const image = post.meta.og_image || `/assets/og-image/posts/${post.slug}.png`
 
   return {
     title: post.safeTitle,
@@ -106,9 +104,9 @@ export async function generateMetadata({ params }: Props) {
     },
     alternates: {
       types: {
-        'application/atom+xml': 'https://timomeh.de/posts/feed.atom',
-        'application/rss+xml': 'https://timomeh.de/posts/feed.rss',
-        'application/feed+json': 'https://timomeh.de/posts/feed.json',
+        'application/atom+xml': '/posts/feed.atom',
+        'application/rss+xml': '/posts/feed.rss',
+        'application/feed+json': '/posts/feed.json',
       },
     },
   }

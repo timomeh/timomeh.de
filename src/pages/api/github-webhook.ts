@@ -8,6 +8,8 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { listOfftopicsPaginated, listPostsPaginated } from '@/lib/blog'
 import { getCategoryNameFromId } from '@/lib/github'
 
+// On-Demand Revalidation isn't yet supported by Route Handlers
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse

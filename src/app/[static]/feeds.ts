@@ -26,7 +26,7 @@ export const head: Metadata = {
   openGraph: {
     images: [
       {
-        url: 'https://timomeh.de/assets/og-image/static/feeds.png',
+        url: '/assets/og-image/static/feeds.png',
         height: 630,
         width: 1200,
       },

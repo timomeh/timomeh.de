@@ -1,5 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
+// On-Demand Revalidation isn't yet supported by Route Handlers
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse

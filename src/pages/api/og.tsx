@@ -14,6 +14,10 @@ const fmed = fetch(new URL('@/styles/Outfit-Medium.ttf', import.meta.url)).then(
   (res) => res.arrayBuffer()
 )
 
+// Conventional opengraph-image.tsx not yet working because it fails to load
+// custom fonts.
+// https://github.com/vercel/next.js/issues/48081
+
 const staticTitles = {
   default: [
     'Timo Mämecke,',

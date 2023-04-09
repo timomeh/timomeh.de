@@ -60,6 +60,10 @@ export default function RootLayout({ children }: Props) {
 }
 
 export const metadata = {
+  metadataBase:
+    process.env.NODE_ENV === 'production'
+      ? new URL('https://timomeh.de')
+      : new URL('http://localhost:3000'),
   icons: {
     icon: [
       { url: '/favicon-32x32.png', sizes: '32x32' },
@@ -80,7 +84,7 @@ export const metadata = {
     locale: 'en_US',
     images: [
       {
-        url: 'https://timomeh.de/assets/og-image/static/default.png',
+        url: '/assets/og-image/static/default.png',
         height: 630,
         width: 1200,
       },
@@ -88,9 +92,9 @@ export const metadata = {
   },
   alternates: {
     types: {
-      'application/atom+xml': 'https://timomeh.de/offtopic/feed.atom',
-      'application/rss+xml': 'https://timomeh.de/offtopic/feed.rss',
-      'application/feed+json': 'https://timomeh.de/offtopic/feed.json',
+      'application/atom+xml': '/offtopic/feed.atom',
+      'application/rss+xml': '/offtopic/feed.rss',
+      'application/feed+json': '/offtopic/feed.json',
     },
   },
 }

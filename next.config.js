@@ -29,10 +29,6 @@ const nextConfig = {
           destination:
             '/_next/image?url=https://timomeh.de/api/og%3Fslug=:slug%26category=:category%26v=2&w=1200&q=100',
         },
-        {
-          source: '/:type(posts|offtopic)/feed.:format(rss|atom|json)',
-          destination: '/api/feed?format=:format&type=:type',
-        },
       ],
     }
     // This SHOULD work but: https://github.com/vercel/next.js/issues/40549

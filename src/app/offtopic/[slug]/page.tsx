@@ -56,8 +56,7 @@ export async function generateMetadata({ params }: Props) {
   if (!offtopic) return {}
 
   const image =
-    offtopic.meta.og_image ||
-    `https://timomeh.de/assets/og-image/offtopic/${offtopic.slug}.png`
+    offtopic.meta.og_image || `/assets/og-image/offtopic/${offtopic.slug}.png`
 
   return {
     title: offtopic.safeTitle,
@@ -79,9 +78,9 @@ export async function generateMetadata({ params }: Props) {
     },
     alternates: {
       types: {
-        'application/atom+xml': 'https://timomeh.de/offtopic/feed.atom',
-        'application/rss+xml': 'https://timomeh.de/offtopic/feed.rss',
-        'application/feed+json': 'https://timomeh.de/offtopic/feed.json',
+        'application/atom+xml': '/offtopic/feed.atom',
+        'application/rss+xml': '/offtopic/feed.rss',
+        'application/feed+json': '/offtopic/feed.json',
       },
     },
   }
