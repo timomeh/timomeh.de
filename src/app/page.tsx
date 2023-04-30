@@ -11,7 +11,7 @@ export default function Home() {
 }
 
 export const metadata = {
-  description: "I think thing and just write 'em down.",
+  description: "I think things and just write 'em down.",
   alternates: {
     canonical: 'https://timomeh.de/',
   },

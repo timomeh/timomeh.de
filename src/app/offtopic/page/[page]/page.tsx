@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation'
 import * as React from 'react'
-import Balancer from 'react-wrap-balancer'
 
 import { listOfftopicsPaginated } from '@/lib/blog'
 import { NorthernLights } from '@/components/NorthernLights'
