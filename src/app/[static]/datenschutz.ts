@@ -184,13 +184,4 @@ Quelle: [https://www.e-recht24.de](https://www.e-recht24.de)`
 
 export const head: Metadata = {
   title: 'Datenschutz',
-  openGraph: {
-    images: [
-      {
-        url: '/assets/og-image/static/datenschutz.png',
-        height: 630,
-        width: 1200,
-      },
-    ],
-  },
 }

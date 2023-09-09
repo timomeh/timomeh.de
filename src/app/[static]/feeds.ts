@@ -23,13 +23,4 @@ displayed on my site.
 
 export const head: Metadata = {
   title: 'Feeds',
-  openGraph: {
-    images: [
-      {
-        url: '/assets/og-image/static/feeds.png',
-        height: 630,
-        width: 1200,
-      },
-    ],
-  },
 }

@@ -21,42 +21,35 @@ export default async function Offtopic({ params }: Props) {
   const hasTitle = !!offtopic.title
 
   return (
-    <>
-      <main className="meh-main">
-        <article className="mx-4" lang={offtopic.meta.lang.split('_')[0]}>
-          <Prose size={hasTitle ? 'yes' : 'big'}>
-            <header className="not-prose">
-              <time className="text-xs uppercase opacity-50 font-bold flex">
-                {offtopic.postedAt.toLocaleString('en-US', {
-                  dateStyle: 'long',
-                })}
-              </time>
-              {hasTitle && (
-                <h1 className="text-2xl leading-snug font-bold mb-5 mt-1 font-display">
-                  <Balancer>
-                    <MDXRenderer content={offtopic.title!} inline />
-                  </Balancer>
-                </h1>
-              )}
-            </header>
-            <MDXRenderer
-              content={offtopic.body}
-              scope={offtopic.number}
-              id={offtopic.slug.concat('-single')}
-            />
-          </Prose>
-        </article>
-      </main>
-    </>
+    <article className="mx-4" lang={offtopic.meta.lang.split('_')[0]}>
+      <Prose size={hasTitle ? 'yes' : 'big'}>
+        <header className="not-prose">
+          <time className="text-xs uppercase opacity-50 font-bold flex">
+            {offtopic.postedAt.toLocaleString('en-US', {
+              dateStyle: 'long',
+            })}
+          </time>
+          {hasTitle && (
+            <h1 className="text-2xl leading-snug font-bold mb-5 mt-1 font-display">
+              <Balancer>
+                <MDXRenderer content={offtopic.title!} inline />
+              </Balancer>
+            </h1>
+          )}
+        </header>
+        <MDXRenderer
+          content={offtopic.body}
+          scope={offtopic.number}
+          id={offtopic.slug.concat('-single')}
+        />
+      </Prose>
+    </article>
   )
 }
 
 export async function generateMetadata({ params }: Props) {
   const offtopic = await getOfftopic(params.slug)
   if (!offtopic) return {}
-
-  const image =
-    offtopic.meta.og_image || `/assets/og-image/offtopic/${offtopic.slug}.png`
 
   return {
     title: offtopic.safeTitle,
@@ -68,13 +61,6 @@ export async function generateMetadata({ params }: Props) {
       modifiedTime: offtopic.postedAt.toISOString(),
       authors: ['Timo Mämecke'],
       locale: offtopic.meta.lang,
-      images: [
-        {
-          url: image,
-          height: 630,
-          width: 1200,
-        },
-      ],
     },
     alternates: {
       types: {

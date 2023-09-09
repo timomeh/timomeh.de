@@ -15,13 +15,4 @@ If you want to reach out to me, you can do so via [Mastodon](https://mastodon.so
 
 export const head: Metadata = {
   title: 'Hi, I’m Timo 👋',
-  openGraph: {
-    images: [
-      {
-        url: '/assets/og-image/static/about.png',
-        height: 630,
-        width: 1200,
-      },
-    ],
-  },
 }
