@@ -2,11 +2,11 @@ import { getPost } from '@/lib/blog'
 import { ImageResponse } from 'next/server'
 import { getFonts, OpengraphBaseImage } from '../../OpengraphBaseImage'
 
+export const generateStaticParams = () => []
 export const size = {
   width: 1200,
   height: 630,
 }
-
 export const contentType = 'image/png'
 
 type Props = {
