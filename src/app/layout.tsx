@@ -82,13 +82,6 @@ export const metadata = {
     siteName: 'Timo Mämecke',
     type: 'website',
     locale: 'en_US',
-    images: [
-      {
-        url: '/assets/og-image/static/default.png',
-        height: 630,
-        width: 1200,
-      },
-    ],
   },
   alternates: {
     types: {

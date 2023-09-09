@@ -1,9 +1,10 @@
+import Link from 'next/link'
+import Balancer from 'react-wrap-balancer'
+
 import { MDXRenderer } from '@/components/MDXRenderer'
 import { Prose } from '@/components/Prose'
 import { TocMarker } from '@/components/Toc'
 import { Post } from '@/lib/blog'
-import Link from 'next/link'
-import Balancer from 'react-wrap-balancer'
 
 type Props = {
   post: Post
