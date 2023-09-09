@@ -6,7 +6,6 @@ import { Prose } from '@/components/Prose'
 import { MDXRenderer } from '@/components/MDXRenderer'
 import { TocMarker } from '@/components/Toc'
 
-export const revalidate = false
 export const generateStaticParams = () => []
 
 type Props = {

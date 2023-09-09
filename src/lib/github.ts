@@ -31,6 +31,19 @@ const api = graphql.defaults({
   headers: {
     authorization: 'token '.concat(process.env.GITHUB_ACCESS_TOKEN!),
   },
+  request: {
+    fetch(url: string, options: RequestInit) {
+      const tags = options.body
+        ? JSON.parse(options.body as string)?.variables?.tags
+        : []
+
+      return fetch(url, {
+        ...options,
+        cache: 'force-cache',
+        next: { tags },
+      })
+    },
+  },
 })
 
 type ListDiscussionsResult = {
@@ -84,7 +97,13 @@ export async function listDiscussions({ category }: ListDiscussions) {
         }
       }
     `,
-      { owner, repo, categoryId: categoryIds[category], after }
+      {
+        owner,
+        repo,
+        categoryId: categoryIds[category],
+        after,
+        tags: [category],
+      }
     )
 
     const { pageInfo, nodes } = result.repository.discussions
@@ -141,7 +160,10 @@ export async function getDiscussion({ slug, category }: GetDiscussion) {
       }
     }
   `,
-    { search: `"${slug}" in:title repo:${owner}/${repo}` }
+    {
+      search: `"${slug}" in:title repo:${owner}/${repo}`,
+      tags: [`${category}/${slug}`],
+    }
   )
 
   // In case we find discussions with similar titles, find the exact one

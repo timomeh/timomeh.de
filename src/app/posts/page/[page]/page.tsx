@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { listPostsPaginated } from '@/lib/blog'
 import { ListedPost } from '../../ListedPost'
 
-export const revalidate = false
 export const generateStaticParams = () => []
 
 type Props = {

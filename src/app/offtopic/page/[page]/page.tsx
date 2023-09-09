@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { listOfftopicsPaginated } from '@/lib/blog'
 import { ListedOfftopic } from '../../ListedOfftopic'
 
-export const revalidate = false
 export const generateStaticParams = () => []
 
 type Props = {

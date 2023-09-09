@@ -6,7 +6,6 @@ import { slugify } from '@/lib/slugify'
 import { MDXRenderer } from '@/components/MDXRenderer'
 import { Toc, TocEntry } from '@/components/Toc'
 
-export const revalidate = false
 export const generateStaticParams = () => []
 
 type Props = {
