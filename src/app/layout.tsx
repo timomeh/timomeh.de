@@ -71,7 +71,6 @@ export const metadata = {
     ],
     apple: '/apple-touch-icon.png',
   },
-  themeColor: '#141315',
   title: {
     template: '%s | Timo Mämecke',
     default: 'Timo Mämecke – Web Development and feeling ways about stuff.',
@@ -90,4 +89,8 @@ export const metadata = {
       'application/feed+json': '/offtopic/feed.json',
     },
   },
+}
+
+export const viewport = {
+  themeColor: '#141315',
 }
