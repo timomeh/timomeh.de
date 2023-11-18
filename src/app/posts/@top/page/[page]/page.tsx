@@ -1,5 +1,5 @@
-import { NorthernLights } from '@/components/NorthernLights'
+import { GenericHeader } from '@/components/GenericHeader'
 
 export default function AsidePosts() {
-  return <NorthernLights />
+  return <GenericHeader />
 }
