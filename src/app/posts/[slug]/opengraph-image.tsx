@@ -1,5 +1,5 @@
 import { getPost } from '@/lib/blog'
-import { ImageResponse } from 'next/server'
+import { ImageResponse } from 'next/og'
 import { getFonts, OpengraphBaseImage } from '../../OpengraphBaseImage'
 
 export const generateStaticParams = () => []
