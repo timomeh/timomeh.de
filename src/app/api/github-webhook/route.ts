@@ -14,8 +14,23 @@ export async function POST(request: NextRequest) {
 
   const body = await request.text()
 
-  const signatureSha256 = request.headers.get('x-hub-signature-256') as string
-  const verified = await webhooks.verify(body, signatureSha256)
+  webhooks.on('error', (error) => {
+    console.error('Error when processing webhook:')
+    console.error(error)
+  })
+
+  const verified = await webhooks
+    .verifyAndReceive({
+      id: request.headers.get('x-github-delivery') as string,
+      name: request.headers.get('x-github-event') as string,
+      signature: request.headers.get('x-hub-signature-256') as string,
+      payload: body,
+    })
+    .then(() => true)
+    .catch((error) => {
+      console.error(error)
+      return false
+    })
 
   if (!verified) {
     return NextResponse.json(

@@ -15,7 +15,7 @@
     "@fontsource/outfit": "4.5.10",
     "@heroicons/react": "2.0.13",
     "@octokit/graphql": "5.0.4",
-    "@octokit/webhooks": "10.6.2",
+    "@octokit/webhooks": "12.0.10",
     "@remark-embedder/core": "3.0.1",
     "@remark-embedder/transformer-oembed": "3.0.0",
     "@sindresorhus/slugify": "2.1.1",
