@@ -23,6 +23,21 @@ module.exports = {
       width: {
         content: 642,
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            blockquote: {
+              'font-style': 'normal',
+              'p:first-of-type::before': {
+                content: 'none',
+              },
+              'p:last-of-type::after': {
+                content: 'none',
+              },
+            },
+          },
+        },
+      },
       backgroundImage: {
         'gradient-radial':
           'radial-gradient(ellipse at top, var(--tw-gradient-stops))',
