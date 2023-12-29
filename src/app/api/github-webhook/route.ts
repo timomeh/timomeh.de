@@ -7,7 +7,7 @@ import {
 } from '@octokit/webhooks-types'
 import { getCategoryNameFromId } from '@/lib/github'
 
-export async function GET(request: NextRequest) {
+export async function POST(request: NextRequest) {
   const webhooks = new Webhooks({
     secret: process.env.GITHUB_WEBHOOK_SECRET as string,
   })
