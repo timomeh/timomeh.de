@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
 
   const body = await request.text()
 
-  webhooks.on('error', (error) => {
+  webhooks.onError((error) => {
     console.error('Error when processing webhook:')
     console.error(error)
   })
