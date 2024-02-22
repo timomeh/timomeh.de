@@ -23,12 +23,8 @@ const nextConfig = {
           destination: '/posts/page/1',
         },
         {
-          source: '/offtopic',
-          destination: '/offtopic/page/1',
-        },
-        {
           source: '/',
-          destination: '/offtopic/page/1',
+          destination: '/offtopic',
         },
       ],
     }
@@ -41,7 +37,7 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/offtopic/page/1',
+        source: '/offtopic',
         destination: '/',
         permanent: true,
       },

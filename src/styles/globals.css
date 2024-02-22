@@ -3,107 +3,45 @@
 @tailwind utilities;
 
 :root {
-  --grainy: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' /%3E%3C/svg%3E");
+  --grainy: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  --grainy2: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-@layer base {
-  html {
-    @apply scroll-smooth;
-  }
+html {
+  height: 100%;
 }
 
-@layer utilities {
-  .glow {
-    @apply transition-all duration-500;
-
-    &:hover {
-      text-shadow: 0 0 7px theme('colors.cyan.100 / 20%'),
-        0 0 10px theme('colors.cyan.100 / 20%'),
-        0 0 21px theme('colors.cyan.500 / 20%'),
-        0 0 42px theme('colors.cyan.500 / 40%');
-    }
-  }
-
-  .hide-scrollbars {
-    scrollbar-width: none;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
-
-  .fade-bottom {
-    mask-image: linear-gradient(
-      to top,
-      transparent 0px,
-      black 40px,
-      black 100%
-    );
-  }
+body {
+  position: relative;
+  min-height: 100%;
 }
 
-@layer components {
-  .meh-grid {
-    @apply grid gap-5;
+/* adds the base grainyness, darkens */
+body::after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: '';
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  mix-blend-mode: color-burn;
+  filter: grayscale(1) brightness(1.2) blur(0.7px) opacity(0.5);
+  background-image: var(--grainy);
+}
 
-    grid-template-areas:
-      'header'
-      'main'
-      'footer';
-    grid-template-columns: minmax(0, auto);
-
-    @media (min-width: 1024px) {
-      grid-template-areas:
-        'header .      .'
-        'nav    main   main'
-        'aside  main   main'
-        '.      footer .';
-      grid-template-columns: 1fr 642px 1fr;
-      grid-template-rows: minmax(0, auto) minmax(0, auto) 1fr minmax(0, auto);
-    }
-  }
-
-  .meh-header {
-    @apply w-content min-h-[120px] max-w-full mx-auto lg:max-w-none lg:w-full lg:mx-0;
-    grid-area: header;
-  }
-
-  .meh-fulltop {
-    grid-area: header;
-
-    @media (min-width: 1024px) {
-      grid-area: 1 / 1 / 2 / 4;
-    }
-  }
-
-  .meh-fulltop-cover {
-    grid-area: main;
-  }
-
-  .meh-nav {
-    @apply w-content max-w-full mx-auto lg:max-w-none lg:w-full lg:mx-0 lg:min-w-[200px];
-    grid-area: header;
-
-    @media (min-width: 1024px) {
-      grid-area: nav;
-    }
-  }
-
-  .meh-aside {
-    @apply hidden lg:flex justify-end items-start pl-2;
-    grid-area: aside;
-    position: relative;
-  }
-
-  .meh-footer {
-    @apply pb-4 pt-20 pr-4 lg:pr-0;
-    grid-area: footer;
-  }
-
-  .meh-main {
-    @apply w-content max-w-full mx-auto lg:max-w-none lg:w-full lg:mx-0;
-    grid-area: main;
-  }
+/* adds a little bit of sparkly pizzaz on top, some sparkling, a little joujoux, bleubleux */
+body::before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: '';
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  mix-blend-mode: color-dodge; /* dodge sounds like doge */
+  filter: grayscale(1) invert(1) brightness(1.7) opacity(0.2);
+  background-image: var(--grainy2);
 }
 
 .oembed {
@@ -113,33 +51,16 @@
   }
 }
 
-.footnotes {
-  position: absolute;
-  top: 0;
-  height: calc(100% + 140px);
-  left: calc(100% + 16px);
-  overflow: hidden;
-  width: calc(100vw - 878px);
-  max-width: 200px;
-  display: none;
+.orbit-dot {
+  offset-path: ellipse(49.5px 19.5px at 50% 50%);
+  animation: orbit 15s infinite linear;
+}
 
-  @media (min-width: 1024px) {
-    display: block;
+@keyframes orbit {
+  0% {
+    offset-distance: 0%;
   }
-
-  h2,
-  h3 {
-    display: none;
-  }
-
-  > ol {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  li p {
-    margin-top: 0;
-    margin-bottom: 4px;
+  100% {
+    offset-distance: 100%;
   }
 }

@@ -40,12 +40,13 @@ module.exports = {
       },
       backgroundImage: {
         'gradient-radial':
-          'radial-gradient(ellipse at top, var(--tw-gradient-stops))',
+          'radial-gradient(closest-side, var(--tw-gradient-stops))',
       },
       fontFamily: {
-        sans: ['Inter', ...defaultTheme.fontFamily.sans],
-        display: ['Outfit', ...defaultTheme.fontFamily.sans],
-        mono: ['IBM Plex Mono', ...defaultTheme.fontFamily.mono],
+        sans: ['var(--font-inter)'],
+        display: ['var(--font-outfit)'],
+        mono: ['var(--font-ibm-plex-mono)'],
+        pixel: ['var(--font-silkscreen)'],
       },
       maxWidth: {
         '8xl': '88rem',
