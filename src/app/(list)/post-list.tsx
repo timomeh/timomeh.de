@@ -33,7 +33,7 @@ export default async function PostList({ tag }: Props) {
                 className="group/post mb-6 sm:mb-3 sm:flex"
               >
                 <time
-                  className="w-12 flex-shrink-0 pt-2 text-right font-pixel text-xs tabular-nums
+                  className="w-12 flex-shrink-0 pt-1.5 text-right font-pixel text-xs tabular-nums
                     text-purple-300"
                 >
                   {post.postedAt.toLocaleString('en-US', {
@@ -41,12 +41,12 @@ export default async function PostList({ tag }: Props) {
                     day: '2-digit',
                   })}
                 </time>
-                <div className="w-2" />
-                <h3 className="text-balance font-display text-lg font-semibold">
+                <div className="w-2 flex-shrink-0" />
+                <h3 className="text-balance font-display text-lg font-semibold leading-snug">
                   <Link href={`/post/${post.slug}`}>{post.safeTitle}</Link>
                 </h3>
                 <div className="h-2 min-w-2 flex-1" />
-                <div className="flex flex-wrap gap-1 self-start sm:justify-end">
+                <div className="-ml-1 flex flex-wrap gap-1 self-start sm:ml-0 sm:justify-end">
                   <div className="flex gap-1 self-start sm:justify-end">
                     <Tag color="black" name={`${post.estMinutes}min`} />
                     {firstTag && (
