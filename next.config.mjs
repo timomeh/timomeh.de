@@ -15,34 +15,6 @@ const nextConfig = {
       },
     ],
   },
-  async rewrites() {
-    return {
-      beforeFiles: [
-        {
-          source: '/posts',
-          destination: '/posts/page/1',
-        },
-        {
-          source: '/',
-          destination: '/offtopic',
-        },
-      ],
-    }
-  },
-  async redirects() {
-    return [
-      {
-        source: '/posts/page/1',
-        destination: '/posts',
-        permanent: true,
-      },
-      {
-        source: '/offtopic',
-        destination: '/',
-        permanent: true,
-      },
-    ]
-  },
 }
 
 export default nextConfig

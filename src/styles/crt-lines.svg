@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+    <defs>
+      <filter id="crtblur" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="0.2" />
+      </filter>
+
+      <pattern id="crt_pattern" patternUnits="userSpaceOnUse" width="100%" height="3">
+        <!-- scanlines, very thin -->
+        <rect width="100%" height="3" fill="#787878"></rect>
+        <!-- scanline blur -->
+        <rect width="100%" height="0.5" fill="#f2f2f2" filter="url(#crtblur)"></rect>
+        <!-- non-scanline -->
+        <rect y="0.5" width="100%" height="2.1" fill="#ffffff" filter="url(#crtblur)"></rect>
+      </pattern>
+    </defs>
+
+    <rect width="100%" height="100%" fill="url(#crt_pattern)" />
+</svg>
