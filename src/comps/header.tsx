@@ -13,12 +13,6 @@ export function Header() {
         className="relative flex max-h-20 max-w-20 flex-shrink items-center justify-center
           sm:max-h-24 sm:max-w-24"
       >
-        {/* glow */}
-        <div
-          className="pointer-events-none absolute h-[400px] w-[600px] rotate-6 transform
-            bg-gradient-radial from-purple-300 opacity-15 mix-blend-difference"
-        />
-
         <div className="relative">
           <Link
             href="/"

@@ -4,6 +4,8 @@ import { IBM_Plex_Mono, Inter, Outfit } from 'next/font/google'
 import localFont from 'next/font/local'
 import Link from 'next/link'
 
+import { Header } from '@/comps/header'
+
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
@@ -33,43 +35,48 @@ const pixeloid = localFont({
 
 type Props = {
   children: React.ReactNode
+  backdrop: React.ReactNode
 }
 
-export default function RootLayout({ children }: Props) {
+export default function RootLayout({ children, backdrop }: Props) {
   return (
     <html
       lang="en"
-      className={`h-full scroll-smooth bg-[#1f1e1f] bg-[url('./grainy.svg')] text-white
-      antialiased [font-feature-settings:'ss01'] ${pixeloid.variable}
-      ${ibmPlexMono.variable} ${outfit.variable} ${inter.variable}`}
+      className={`bg-grainy h-full scroll-smooth bg-[#1f1e1f] text-white antialiased
+      [font-feature-settings:'ss01'] ${pixeloid.variable} ${ibmPlexMono.variable}
+      ${outfit.variable} ${inter.variable}`}
     >
       <body className="relative min-h-full">
-        <div>
-          {children}
-          <footer className="mx-auto flex max-w-2xl justify-end px-4 py-10">
-            <div className="font-pixel text-[9px] font-bold uppercase">
-              <ul className="flex space-x-1">
-                <li>
-                  <Link
-                    href="/impressum"
-                    className="text-white/30 transition-colors hover:text-white/60"
-                  >
-                    Imprint
-                  </Link>
-                </li>
-                <li className="text-white/30">/</li>
-                <li>
-                  <Link
-                    href="/datenschutz"
-                    className="text-white/30 transition-colors hover:text-white/60"
-                  >
-                    Privacy Policy
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </footer>
-        </div>
+        <header className="relative">
+          <div className="relative z-10">
+            <Header />
+          </div>
+          {backdrop}
+        </header>
+        <main className="relative z-30">{children}</main>
+        <footer className="relative z-30 mx-auto flex max-w-2xl justify-end px-4 py-10">
+          <div className="font-pixel text-[9px] font-bold uppercase">
+            <ul className="flex space-x-1">
+              <li>
+                <Link
+                  href="/impressum"
+                  className="text-white/30 transition-colors hover:text-white/60"
+                >
+                  Imprint
+                </Link>
+              </li>
+              <li className="text-white/30">/</li>
+              <li>
+                <Link
+                  href="/datenschutz"
+                  className="text-white/30 transition-colors hover:text-white/60"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </footer>
       </body>
     </html>
   )

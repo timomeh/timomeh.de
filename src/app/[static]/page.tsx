@@ -1,7 +1,9 @@
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-import { MDXRenderer } from '@/components/MDXRenderer'
-import { Prose } from '@/components/Prose'
+import { MDX } from '@/comps/mdx/mdx'
+import { Tag } from '@/comps/tag'
+
 import { getSite } from './getSite'
 
 type Props = {
@@ -15,13 +17,17 @@ export default async function StaticPage({ params }: Props) {
   if (!site) notFound()
 
   return (
-    <main className="meh-main">
-      <div className="mx-4">
-        <Prose>
-          <MDXRenderer content={site.body} scope={params.static} />
-        </Prose>
+    <div className="mx-auto max-w-2xl px-4">
+      <div className="mb-10 flex sm:pt-6">
+        <Link href="/">
+          <Tag color="#DEC1EF" clickable name="← Back" />
+        </Link>
       </div>
-    </main>
+
+      <article className="prose prose-invert relative">
+        <MDX content={site.body} />
+      </article>
+    </div>
   )
 }
 

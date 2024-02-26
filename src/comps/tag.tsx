@@ -5,14 +5,25 @@ type Props = {
   name: React.ReactNode
   highlight?: boolean
   clickable?: boolean
+  size?: 'normal' | 'smol'
 }
 
-export function Tag({ color, name, highlight, clickable }: Props) {
+export function Tag({
+  color,
+  name,
+  highlight,
+  clickable,
+  size = 'normal',
+}: Props) {
   return (
     <div style={{ color }}>
       <div
-        className="group/tag relative flex rounded-full border border-current px-2 py-[5px]
-          font-pixel text-[11px] leading-none"
+        className={clsx(
+          `group/tag relative flex rounded-full border border-current font-pixel
+          font-normal leading-none`,
+          size === 'normal' && 'px-2 py-[5px] text-[11px]',
+          size === 'smol' && 'px-1.5 py-[3px] text-[9px]',
+        )}
       >
         <div className="pointer-events-none absolute inset-0 rounded-full bg-current opacity-20" />
         <div

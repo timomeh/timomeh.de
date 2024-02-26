@@ -13,7 +13,7 @@ export function getInnerText(node: React.ReactNode): string {
     Object.prototype.hasOwnProperty.call(node, 'props') &&
     Object.prototype.hasOwnProperty.call(
       (node as JSX.Element).props,
-      'children'
+      'children',
     )
   ) {
     return getInnerText((node as JSX.Element).props.children)

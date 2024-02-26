@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+import { MDX } from '@/comps/mdx/mdx'
 import { Tag } from '@/comps/tag'
 import { groupPostsByYear, listPosts } from '@/lib/blog'
 
@@ -25,37 +26,39 @@ export default async function PostList({ tag }: Props) {
             </div>
           )}
           {posts.map((post) => {
-            const [firstTag, ...moreTags] = post.tags
-
             return (
               <article
                 key={post.number}
-                className="group/post mb-6 sm:mb-3 sm:flex"
+                className="group/post mb-6 sm:mb-4 sm:flex"
               >
-                <time
-                  className="w-12 flex-shrink-0 pt-1.5 text-right font-pixel text-xs tabular-nums
-                    text-purple-300"
-                >
-                  {post.postedAt.toLocaleString('en-US', {
-                    month: 'short',
-                    day: '2-digit',
-                  })}
-                </time>
-                <div className="w-2 flex-shrink-0" />
-                <h3 className="text-balance font-display text-lg font-semibold leading-snug">
-                  <Link href={`/post/${post.slug}`}>{post.safeTitle}</Link>
-                </h3>
-                <div className="h-2 min-w-2 flex-1" />
-                <div className="-ml-1 flex flex-wrap gap-1 self-start sm:ml-0 sm:justify-end">
-                  <div className="flex gap-1 self-start sm:justify-end">
-                    <Tag color="black" name={`${post.estMinutes}min`} />
-                    {firstTag && (
-                      <Tag color={firstTag.color} name={firstTag.name} />
-                    )}
+                <div>
+                  <div className="flex items-center gap-1">
+                    <div className="font-pixel text-2xs leading-none sm:text-xs">
+                      <time className="text-purple-300">
+                        {post.postedAt.toLocaleString('en-US', {
+                          month: 'short',
+                          day: '2-digit',
+                        })}
+                      </time>
+                      <span className="text-white/50">
+                        {' | '}
+                        {post.estMinutes} min
+                      </span>
+                    </div>
+                    {post.tags.map((tag) => (
+                      <Tag
+                        key={tag.slug}
+                        color={tag.color}
+                        name={tag.name}
+                        size="smol"
+                      />
+                    ))}
                   </div>
-                  {moreTags.map((tag) => (
-                    <Tag key={tag.slug} color={tag.color} name={tag.name} />
-                  ))}
+                  <h3 className="mt-1 text-balance font-display font-semibold leading-snug">
+                    <Link href={`/posts/${post.slug}`}>
+                      <MDX content={post.title} inline />
+                    </Link>
+                  </h3>
                 </div>
               </article>
             )

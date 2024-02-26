@@ -47,6 +47,7 @@ module.exports = {
       backgroundImage: {
         'gradient-radial':
           'radial-gradient(closest-side, var(--tw-gradient-stops))',
+        grainy: "url('./grainy.svg')",
       },
       fontFamily: {
         sans: ['var(--font-inter)'],
