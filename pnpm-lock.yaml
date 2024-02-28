@@ -17,6 +17,9 @@ dependencies:
   '@octokit/webhooks':
     specifier: 12.0.10
     version: 12.0.10
+  '@octokit/webhooks-types':
+    specifier: 7.3.2
+    version: 7.3.2
   '@plaiceholder/next':
     specifier: 3.0.0
     version: 3.0.0(next@14.1.0)(plaiceholder@3.0.0)(sharp@0.32.6)
@@ -664,6 +667,10 @@ packages:
 
   /@octokit/webhooks-types@7.1.0:
     resolution: {integrity: sha512-y92CpG4kFFtBBjni8LHoV12IegJ+KFxLgKRengrVjKmGE5XMeCuGvlfRe75lTRrgXaG6XIWJlFpIDTlkoJsU8w==}
+    dev: false
+
+  /@octokit/webhooks-types@7.3.2:
+    resolution: {integrity: sha512-JWOoOgtWTFnTSAamPXXyjTY5/apttvNxF+vPBnwdSu5cj5snrd7FO0fyw4+wTXy8fHduq626JjhO+TwCyyA6vA==}
     dev: false
 
   /@octokit/webhooks@12.0.10:
