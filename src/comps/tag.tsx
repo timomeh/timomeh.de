@@ -21,7 +21,8 @@ export function Tag({
         className={clsx(
           `group/tag relative flex rounded-full border border-current font-pixel
           font-normal leading-none`,
-          size === 'normal' && 'px-2 py-[5px] text-[11px]',
+          size === 'normal' &&
+            'px-2 py-[5px] text-[11px] antialiased [font-feature-settings:ss01]',
           size === 'smol' && 'px-1.5 py-[3px] text-[9px]',
         )}
       >

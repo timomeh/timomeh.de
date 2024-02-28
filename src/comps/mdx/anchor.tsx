@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import Link from 'next/link'
 
 type Props = React.DetailedHTMLProps<
@@ -7,17 +8,30 @@ type Props = React.DetailedHTMLProps<
 
 export function Anchor(props: Props) {
   const isLocalLink =
-    props.href?.startsWith('https://timomeh.de') || props.href?.startsWith('/')
+    props.href?.startsWith('https://timomeh.de') ||
+    props.href?.startsWith('/') ||
+    props.href?.startsWith('#')
   const isFeedLink = /\.(json|atom|rss)$/.test(props.href || '')
+  const isFootnote = 'data-footnote-ref' in props
+  const isFootnoteBack = 'data-footnote-backref' in props
 
   if (isLocalLink && !isFeedLink) {
-    const { href, ref: _, ...rest } = props
+    const { href, ref: _, children, ...rest } = props
     return (
       <Link
-        className="break-words"
-        href={href!.replace('https://timomeh.de', '')}
         {...rest}
-      />
+        className={clsx(
+          'break-words',
+          !(isFootnote && isFootnoteBack) && 'text-[#f2f0f3]',
+          isFootnote &&
+            'rounded-full pl-0.5 font-pixel text-[11px] text-white/60 no-underline',
+          isFootnoteBack &&
+            'rounded-full pl-0.5 font-pixel text-[13px] text-white/60 no-underline',
+        )}
+        href={href!.replace('https://timomeh.de', '')}
+      >
+        {isFootnoteBack ? '↑' : children}
+      </Link>
     )
   }
 

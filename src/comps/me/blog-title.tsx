@@ -17,7 +17,7 @@ export function BlogTitle() {
       </div>
 
       <div
-        className="font-display text-xs font-medium leading-none text-yellow-100
+        className="font-display text-xs leading-none text-yellow-100
           [text-shadow:0px_0px_6px_rgba(0,0,0,0.3)] xs:text-sm"
       >
         <span>
@@ -26,7 +26,7 @@ export function BlogTitle() {
         <span className="-mt-1 block xs:-mt-2">
           <Link
             href="/about"
-            className="title-name inline-block text-nowrap text-xl font-bold"
+            className="title-name inline-block text-nowrap text-xl font-semibold"
           >
             Timo Mämecke
           </Link>

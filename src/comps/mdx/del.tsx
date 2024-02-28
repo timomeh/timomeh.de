@@ -5,5 +5,5 @@ type Props = React.DetailedHTMLProps<
 
 // get to del taco, they got a new thing called free shavoca do
 export function Del(props: Props) {
-  return <del className="text-white/70" {...props} />
+  return <del className="opacity-60" {...props} />
 }

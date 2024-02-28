@@ -11,8 +11,9 @@ export async function Code(props: Props) {
     return (
       <code
         {...props}
-        className="-mx-[3px] bg-emerald-400/10 px-[5px] py-[3px] font-mono font-bold
-          text-emerald-50"
+        className="-my-1 rounded-md border border-white/10 bg-[#121014] bg-opacity-70 px-1.5 py-1
+          font-mono text-[0.9em] font-normal text-current shadow-purple-300/5
+          before:content-none after:content-none"
       />
     )
   }
@@ -27,8 +28,8 @@ export async function Code(props: Props) {
 
   return (
     <pre
-      className="not-prose my-12 overflow-scroll rounded-lg border border-violet-400/10
-        bg-[#1a1b26] bg-opacity-60 p-4 text-sm font-medium shadow-violet-300/10
+      className="not-prose my-12 overflow-scroll rounded-md border border-white/10 bg-[#121014]
+        bg-opacity-70 p-4 text-sm font-normal mix-blend-overlay shadow-purple-300/5
         [box-shadow:0_0_24px_var(--tw-shadow-color)] md:-mx-4"
       dangerouslySetInnerHTML={{ __html: html }}
     />

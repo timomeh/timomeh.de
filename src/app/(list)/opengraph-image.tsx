@@ -1,5 +1,6 @@
 import { ImageResponse } from 'next/og'
-import { getFonts, OpengraphBaseImage } from './OpengraphBaseImage'
+
+import { getFonts, OpengraphBaseImage } from '../OpengraphBaseImage'
 
 export const size = {
   width: 1200,
@@ -21,6 +22,6 @@ export default async function Image() {
     {
       ...size,
       ...(await getFonts()),
-    }
+    },
   )
 }

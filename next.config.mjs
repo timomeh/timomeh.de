@@ -17,6 +17,25 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/offtopic/feed.atom',
+        destination: '/posts/feed.atom',
+        permanent: true,
+      },
+      {
+        source: '/offtopic/feed.json',
+        destination: '/posts/feed.json',
+        permanent: true,
+      },
+      {
+        source: '/offtopic/feed.rss',
+        destination: '/posts/feed.rss',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 export default withPlaiceholder(nextConfig)

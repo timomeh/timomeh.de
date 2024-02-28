@@ -17,7 +17,7 @@ export default async function Page({ params }: Props) {
     <div className="relative mx-auto max-w-2xl px-4">
       {post.meta.cover_image && (
         <div
-          className="bg-grainy absolute inset-x-0 top-[37px] h-[83px] border-t border-white/10
+          className="absolute inset-x-0 top-[37px] h-[83px] border-t border-white/10 bg-grainy
             sm:top-[63px] sm:h-[41px] sm:rounded-t-xl sm:border-x lg:h-[141px]"
         />
       )}
@@ -33,7 +33,7 @@ export default async function Page({ params }: Props) {
         lang={post.meta.lang.split('_')[0]}
       >
         <div className="mb-1 flex flex-wrap items-center gap-1">
-          <div className="font-pixel text-xs leading-none">
+          <div className="font-pixel text-xs leading-none antialiased [font-feature-settings:'ss01']">
             <time className="text-purple-300">
               {post.postedAt.toLocaleString('en-US', {
                 month: 'short',
@@ -50,7 +50,7 @@ export default async function Page({ params }: Props) {
             <Tag key={tag.slug} color={tag.color} name={tag.name} size="smol" />
           ))}
         </div>
-        <h1 className="text-balance font-display text-2xl leading-tight">
+        <h1 className="mb-8 text-balance font-display text-2xl font-semibold leading-tight sm:text-3xl">
           <MDX content={post.title} inline />
         </h1>
         <MDX content={post.body} />

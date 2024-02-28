@@ -29,7 +29,7 @@ module.exports = {
       width: {
         content: 642,
       },
-      typography: {
+      typography: ({ theme: _ }) => ({
         DEFAULT: {
           css: {
             blockquote: {
@@ -41,13 +41,30 @@ module.exports = {
                 content: 'none',
               },
             },
+            '--tw-prose-invert-body': '#ccc2cc',
+            '--tw-prose-invert-headings': '#f2f0f3',
+            // '--tw-prose-invert-lead': theme('colors.pink[300]'),
+            '--tw-prose-invert-links': '#e7e3e7',
+            '--tw-prose-invert-bold': '#e7e3e7',
+            // '--tw-prose-invert-counters': theme('colors.pink[400]'),
+            '--tw-prose-invert-bullets': '#988698',
+            // '--tw-prose-invert-hr': theme('colors.pink[700]'),
+            '--tw-prose-invert-quotes': '#e7e3d0',
+            '--tw-prose-invert-quote-borders': 'transparent',
+            // '--tw-prose-invert-captions': theme('colors.pink[400]'),
+            // '--tw-prose-invert-code': theme('colors.white'),
+            // '--tw-prose-invert-pre-code': theme('colors.pink[300]'),
+            // '--tw-prose-invert-pre-bg': 'rgb(0 0 0 / 50%)',
+            // '--tw-prose-invert-th-borders': theme('colors.pink[600]'),
+            // '--tw-prose-invert-td-borders': theme('colors.pink[700]'),
           },
         },
-      },
+      }),
       backgroundImage: {
         'gradient-radial':
           'radial-gradient(closest-side, var(--tw-gradient-stops))',
         grainy: "url('./grainy.svg')",
+        'crt-lines': "url('./crt-lines.svg')",
       },
       fontFamily: {
         sans: ['var(--font-inter)'],
@@ -67,6 +84,10 @@ module.exports = {
         blink: {
           '0%': { opacity: 1 },
           '100%': { opacity: 0.3 },
+        },
+        rotate360: {
+          from: { transform: 'rotateY(0deg)' },
+          to: { transform: 'rotateY(-360deg)' },
         },
       },
     },

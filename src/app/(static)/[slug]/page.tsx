@@ -8,12 +8,12 @@ import { getSite } from './getSite'
 
 type Props = {
   params: {
-    static: string
+    slug: string
   }
 }
 
-export default async function StaticPage({ params }: Props) {
-  const site = await getSite(params.static)
+export default async function Page({ params }: Props) {
+  const site = await getSite(params.slug)
   if (!site) notFound()
 
   return (
@@ -32,7 +32,7 @@ export default async function StaticPage({ params }: Props) {
 }
 
 export async function generateMetadata({ params }: Props) {
-  const site = await getSite(params.static)
+  const site = await getSite(params.slug)
   if (!site) return {}
 
   return { ...site.head }

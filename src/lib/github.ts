@@ -3,6 +3,8 @@ import { graphql } from '@octokit/graphql'
 const owner = 'timomeh'
 const repo = 'timomeh.de'
 
+const allowedCategorySlugs = ['offtopic', 'posts']
+
 export type Discussion = {
   title: string
   createdAt: string
@@ -12,6 +14,9 @@ export type Discussion = {
   number: number
   labels: {
     nodes: Label[]
+  }
+  category: {
+    slug: string
   }
 }
 
@@ -110,6 +115,9 @@ export async function listDiscussions() {
               body
               bodyHTML
               number
+              category {
+                slug
+              }
               labels(first: 100) {
                 nodes {
                   name
@@ -131,7 +139,11 @@ export async function listDiscussions() {
 
     let { pageInfo, nodes } = result.repository.discussions
 
-    discussions.push(...nodes)
+    const allowedNodes = nodes.filter((node) =>
+      allowedCategorySlugs.includes(node.category.slug),
+    )
+
+    discussions.push(...allowedNodes)
     hasNextPage = pageInfo.hasNextPage
     after = pageInfo.endCursor
   } while (hasNextPage)
@@ -173,6 +185,9 @@ export async function getDiscussion({ slug }: GetDiscussion) {
               body
               bodyHTML
               number
+              category {
+                slug
+              }
               labels(first: 100) {
                 nodes {
                   name
@@ -196,6 +211,10 @@ export async function getDiscussion({ slug }: GetDiscussion) {
   const discussion = result.search.edges.find((result) => {
     return result.node.title === slug
   })?.node
+
+  if (!allowedCategorySlugs.includes(discussion?.category.slug || '')) {
+    return null
+  }
 
   return discussion
 }

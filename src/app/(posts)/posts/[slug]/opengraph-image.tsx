@@ -1,6 +1,9 @@
-import { getOfftopic } from '@/lib/blog'
+import { notFound } from 'next/navigation'
 import { ImageResponse } from 'next/og'
-import { getFonts, OpengraphBaseImage } from '../../OpengraphBaseImage'
+
+import { getPost } from '@/lib/blog'
+
+import { getFonts, OpengraphBaseImage } from '../../../OpengraphBaseImage'
 
 export const generateStaticParams = () => []
 export const size = {
@@ -16,20 +19,20 @@ type Props = {
 }
 
 export default async function Image({ params }: Props) {
-  const offtopic = await getOfftopic(params.slug)
-  if (!offtopic) return null
+  const post = await getPost(params.slug)
+  if (!post) notFound()
 
   return new ImageResponse(
     (
       <OpengraphBaseImage
-        title={[offtopic.safeTitle]}
-        cover={offtopic.meta.cover_image}
-        date={offtopic.postedAt}
+        title={[post.safeTitle]}
+        cover={post.meta.cover_image}
+        date={post.postedAt}
       />
     ),
     {
       ...size,
       ...(await getFonts()),
-    }
+    },
   )
 }

@@ -16,7 +16,7 @@ export function Header() {
         <div className="relative">
           <Link
             href="/"
-            className="relative block size-full select-none transition-transform ease-in-out
+            className="relative block size-full rotate-0 select-none transition-transform ease-in-out
               motion-safe:hover:-rotate-3 motion-safe:hover:scale-110
               motion-safe:active:-rotate-2 motion-safe:active:scale-105"
           >

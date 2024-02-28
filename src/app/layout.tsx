@@ -20,7 +20,7 @@ const outfit = Outfit({
 
 const ibmPlexMono = IBM_Plex_Mono({
   subsets: ['latin-ext'],
-  weight: ['400', '600'],
+  weight: ['400'],
   display: 'swap',
   variable: '--font-ibm-plex-mono',
 })
@@ -42,9 +42,8 @@ export default function RootLayout({ children, backdrop }: Props) {
   return (
     <html
       lang="en"
-      className={`bg-grainy h-full scroll-smooth bg-[#1f1e1f] text-white antialiased
-      [font-feature-settings:'ss01'] ${pixeloid.variable} ${ibmPlexMono.variable}
-      ${outfit.variable} ${inter.variable}`}
+      className={`h-full scroll-smooth bg-[#1f1e1f] bg-grainy text-white ${pixeloid.variable}
+      ${ibmPlexMono.variable} ${outfit.variable} ${inter.variable}`}
     >
       <body className="relative min-h-full">
         <header className="relative">
@@ -55,8 +54,20 @@ export default function RootLayout({ children, backdrop }: Props) {
         </header>
         <main className="relative z-30">{children}</main>
         <footer className="relative z-30 mx-auto flex max-w-2xl justify-end px-4 py-10">
-          <div className="font-pixel text-[9px] font-bold uppercase">
+          <div
+            className="font-pixel text-[9px] font-bold uppercase antialiased
+              [font-feature-settings:'ss01']"
+          >
             <ul className="flex space-x-1">
+              <li>
+                <Link
+                  href="/feeds"
+                  className="text-white/30 transition-colors hover:text-white/60"
+                >
+                  Feeds
+                </Link>
+              </li>
+              <li className="text-white/30">/</li>
               <li>
                 <Link
                   href="/impressum"
@@ -107,9 +118,9 @@ export const metadata = {
   },
   alternates: {
     types: {
-      'application/atom+xml': '/offtopic/feed.atom',
-      'application/rss+xml': '/offtopic/feed.rss',
-      'application/feed+json': '/offtopic/feed.json',
+      'application/atom+xml': '/posts/feed.atom',
+      'application/rss+xml': '/posts/feed.rss',
+      'application/feed+json': '/posts/feed.json',
     },
   },
 }

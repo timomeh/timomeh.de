@@ -19,13 +19,15 @@ export function Heading({ element, ...rest }: Props) {
   if (element === 'h1') {
     // only used in static pages
     return (
-      <HeadingComponent className="text-balance">{children}</HeadingComponent>
+      <HeadingComponent className="text-balance font-display font-semibold leading-tight">
+        {children}
+      </HeadingComponent>
     )
   }
 
   return (
-    <HeadingComponent className="text-balance">
-      <a href={`#${slug}`} id={slug}>
+    <HeadingComponent className="text-balance font-display font-semibold leading-tight">
+      <a href={`#${slug}`} id={slug} className="font-semibold no-underline">
         {children}
       </a>
     </HeadingComponent>

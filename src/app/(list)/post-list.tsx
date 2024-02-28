@@ -33,7 +33,10 @@ export default async function PostList({ tag }: Props) {
               >
                 <div>
                   <div className="flex items-center gap-1">
-                    <div className="font-pixel text-2xs leading-none sm:text-xs">
+                    <div
+                      className="font-pixel text-2xs leading-none antialiased [font-feature-settings:'ss01']
+                        sm:text-xs"
+                    >
                       <time className="text-purple-300">
                         {post.postedAt.toLocaleString('en-US', {
                           month: 'short',
@@ -54,7 +57,7 @@ export default async function PostList({ tag }: Props) {
                       />
                     ))}
                   </div>
-                  <h3 className="mt-1 text-balance font-display font-semibold leading-snug">
+                  <h3 className="mt-1 text-balance font-display font-medium leading-snug">
                     <Link href={`/posts/${post.slug}`}>
                       <MDX content={post.title} inline />
                     </Link>

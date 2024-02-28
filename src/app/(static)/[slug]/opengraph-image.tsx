@@ -1,5 +1,6 @@
 import { ImageResponse } from 'next/og'
-import { getFonts, OpengraphBaseImage } from '../OpengraphBaseImage'
+
+import { getFonts, OpengraphBaseImage } from '../../OpengraphBaseImage'
 
 export const size = {
   width: 1200,
@@ -9,7 +10,7 @@ export const contentType = 'image/png'
 
 type Props = {
   params: {
-    static: string
+    slug: string
   }
 }
 
@@ -21,11 +22,8 @@ const titles = {
 } as Record<string, string[]>
 
 export default async function Image({ params }: Props) {
-  return new ImageResponse(
-    <OpengraphBaseImage title={titles[params.static]} />,
-    {
-      ...size,
-      ...(await getFonts()),
-    }
-  )
+  return new ImageResponse(<OpengraphBaseImage title={titles[params.slug]} />, {
+    ...size,
+    ...(await getFonts()),
+  })
 }
