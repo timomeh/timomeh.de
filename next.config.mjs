@@ -34,6 +34,31 @@ const nextConfig = {
         destination: '/posts/feed.rss',
         permanent: true,
       },
+      {
+        source: '/posts',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/posts/page/:num*',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/offtopic',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/offtopic/page/:num*',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/offtopic/:slug*',
+        destination: '/posts/:slug*',
+        permanent: true,
+      },
     ]
   },
 }
