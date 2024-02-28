@@ -1,8 +1,9 @@
-import * as impressum from './impressum'
-import * as datenschutz from './datenschutz'
-import * as about from './about'
-import * as feeds from './feeds'
 import { Metadata } from 'next'
+
+import * as about from './about'
+import * as datenschutz from './datenschutz'
+import * as feeds from './feeds'
+import * as impressum from './impressum'
 
 const sites = {
   impressum,

@@ -3,7 +3,6 @@ type Props = React.DetailedHTMLProps<
   HTMLQuoteElement
 >
 
-// get to del taco, they got a new thing called free shavoca do
 export function Blockquote({ children, ...rest }: Props) {
   return (
     <blockquote
@@ -24,7 +23,7 @@ export function Blockquote({ children, ...rest }: Props) {
           />
         </div>
         <div className="absolute inset-y-0 left-[1px] right-0 rounded-xl bg-yellow-50/5" />
-        <div className="bg-crt-lines absolute inset-y-0 left-[1px] right-0 rounded-xl opacity-5" />
+        <div className="absolute inset-y-0 left-[1px] right-0 rounded-xl bg-crt-lines opacity-5" />
       </div>
       <div className="relative">{children}</div>
     </blockquote>

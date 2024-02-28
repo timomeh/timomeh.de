@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
         now: Date.now(),
         message: 'Not allowed',
       },
-      { status: 403 }
+      { status: 403 },
     )
   }
 

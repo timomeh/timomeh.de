@@ -1,11 +1,10 @@
-import { revalidateTag } from 'next/cache'
-import { NextRequest, NextResponse } from 'next/server'
 import { Webhooks } from '@octokit/webhooks'
 import {
   DiscussionCreatedEvent,
   DiscussionEditedEvent,
 } from '@octokit/webhooks-types'
-import { getCategoryNameFromId } from '@/lib/github'
+import { revalidateTag } from 'next/cache'
+import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(request: NextRequest) {
   const webhooks = new Webhooks({
@@ -22,6 +21,7 @@ export async function POST(request: NextRequest) {
   const verified = await webhooks
     .verifyAndReceive({
       id: request.headers.get('x-github-delivery') as string,
+      // @ts-expect-error
       name: request.headers.get('x-github-event') as string,
       signature: request.headers.get('x-hub-signature-256') as string,
       payload: body,
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
         now: Date.now(),
         message: 'Unverified',
       },
-      { status: 401 }
+      { status: 401 },
     )
   }
 
@@ -55,21 +55,8 @@ export async function POST(request: NextRequest) {
     })
   }
 
-  const category = getCategoryNameFromId(
-    // @ts-expect-error wrong types lol
-    data.discussion.category.node_id as unknown as string
-  )
-
-  if (!category) {
-    return NextResponse.json({
-      revalidated: false,
-      now: Date.now(),
-      message: 'Category is not handled',
-    })
-  }
-
   const slug = data.discussion.title
-  const tags = [category, `${category}/${slug}`]
+  const tags = ['posts', slug, 'labels']
   for (const tag of tags) {
     revalidateTag(tag)
   }

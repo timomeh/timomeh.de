@@ -1,6 +1,7 @@
 import path from 'node:path'
+
 import type { Lang } from 'shiki'
-import { renderToHtml, getHighlighter } from 'shiki'
+import { getHighlighter, renderToHtml } from 'shiki'
 
 const theme = 'tokyo-night'
 const themesPath = path.resolve(process.cwd(), 'src/styles')
