@@ -3,7 +3,10 @@ import { graphql } from '@octokit/graphql'
 const owner = 'timomeh'
 const repo = 'timomeh.de'
 
-const allowedCategorySlugs = ['offtopic', 'posts']
+export function isAllowedCategory(slug: string) {
+  const allowedCategorySlugs = ['offtopic', 'posts']
+  return allowedCategorySlugs.includes(slug)
+}
 
 export type Discussion = {
   title: string
@@ -140,7 +143,7 @@ export async function listDiscussions() {
     let { pageInfo, nodes } = result.repository.discussions
 
     const allowedNodes = nodes.filter((node) =>
-      allowedCategorySlugs.includes(node.category.slug),
+      isAllowedCategory(node.category.slug),
     )
 
     discussions.push(...allowedNodes)
@@ -212,7 +215,7 @@ export async function getDiscussion({ slug }: GetDiscussion) {
     return result.node.title === slug
   })?.node
 
-  if (!allowedCategorySlugs.includes(discussion?.category.slug || '')) {
+  if (!isAllowedCategory(discussion?.category.slug || '')) {
     return null
   }
 

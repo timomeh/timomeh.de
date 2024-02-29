@@ -1,10 +1,17 @@
 import { Webhooks } from '@octokit/webhooks'
 import {
+  DiscussionCategoryChangedEvent,
   DiscussionCreatedEvent,
+  DiscussionDeletedEvent,
   DiscussionEditedEvent,
+  DiscussionLabeledEvent,
+  DiscussionUnlabeledEvent,
+  EventPayloadMap,
 } from '@octokit/webhooks-types'
 import { revalidateTag } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
+
+import { isAllowedCategory } from '@/lib/github'
 
 export async function POST(request: NextRequest) {
   const webhooks = new Webhooks({
@@ -21,8 +28,7 @@ export async function POST(request: NextRequest) {
   const verified = await webhooks
     .verifyAndReceive({
       id: request.headers.get('x-github-delivery') as string,
-      // @ts-expect-error
-      name: request.headers.get('x-github-event') as string,
+      name: request.headers.get('x-github-event') as keyof EventPayloadMap,
       signature: request.headers.get('x-hub-signature-256') as string,
       payload: body,
     })
@@ -45,7 +51,12 @@ export async function POST(request: NextRequest) {
 
   const data = JSON.parse(body) as
     | DiscussionCreatedEvent
+    | DiscussionLabeledEvent
+    | DiscussionLabeledEvent
+    | DiscussionUnlabeledEvent
+    | DiscussionCategoryChangedEvent
     | DiscussionEditedEvent
+    | DiscussionDeletedEvent
 
   if (!data.discussion) {
     return NextResponse.json({
@@ -55,16 +66,51 @@ export async function POST(request: NextRequest) {
     })
   }
 
-  const slug = data.discussion.title
-  const tags = ['posts', slug, 'labels']
-  for (const tag of tags) {
-    revalidateTag(tag)
+  const postSlug = data.discussion.title
+  const categorySlug = data.discussion.category.slug
+
+  if (data.action === 'category_changed') {
+    revalidateTag('posts')
+    revalidateTag(postSlug)
+  }
+
+  if (!isAllowedCategory(categorySlug)) {
+    return NextResponse.json({
+      revalidated: false,
+      now: Date.now(),
+      message: `It doesn't matter if posts in the category ${categorySlug} are created, edited, deleted, labeled or unlabeled.`,
+    })
+  }
+
+  if (data.action === 'deleted') {
+    revalidateTag('posts')
+    revalidateTag(postSlug)
+  }
+
+  if (data.action === 'created') {
+    revalidateTag('posts')
+  }
+
+  if (data.action === 'edited') {
+    revalidateTag('posts')
+    revalidateTag(postSlug)
+  }
+
+  if (data.action === 'labeled') {
+    revalidateTag('posts')
+    revalidateTag(postSlug)
+    revalidateTag('labels')
+  }
+
+  if (data.action === 'unlabeled') {
+    revalidateTag('posts')
+    revalidateTag(postSlug)
+    revalidateTag('labels')
   }
 
   return NextResponse.json({
     revalidated: true,
     now: Date.now(),
     message: 'Revalidated tags',
-    tags,
   })
 }
