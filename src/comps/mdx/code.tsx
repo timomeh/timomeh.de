@@ -26,5 +26,12 @@ export async function Code(props: Props) {
   if (lang && ['plain'].includes(lang)) lang = 'text'
   const html = await syntax.highlight(props.children, lang || 'text')
 
-  return <div dangerouslySetInnerHTML={{ __html: html }} />
+  return (
+    <div
+      className="not-prose my-12 overflow-clip rounded-md border border-white/10 text-sm
+        font-normal shadow-purple-300/5 [box-shadow:0_0_24px_var(--tw-shadow-color)]
+        md:-mx-4 [&_pre]:overflow-scroll [&_pre]:p-4"
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  )
 }
