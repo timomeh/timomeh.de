@@ -1,3 +1,10 @@
+import {
+  transformerNotationDiff,
+  transformerNotationErrorLevel,
+  transformerNotationFocus,
+  transformerNotationHighlight,
+  transformerNotationWordHighlight,
+} from '@shikijs/transformers'
 import { codeToHtml } from 'shiki'
 
 export async function highlight(code: string, lang: string) {
@@ -16,6 +23,11 @@ export async function highlight(code: string, lang: string) {
           )
         },
       },
+      transformerNotationDiff(),
+      transformerNotationHighlight(),
+      transformerNotationWordHighlight(),
+      transformerNotationFocus(),
+      transformerNotationErrorLevel(),
     ],
   })
   return html

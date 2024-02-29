@@ -29,6 +29,9 @@ dependencies:
   '@remark-embedder/transformer-oembed':
     specifier: 3.0.0
     version: 3.0.0(@remark-embedder/core@3.0.1)(bluebird@3.7.2)
+  '@shikijs/transformers':
+    specifier: 1.1.7
+    version: 1.1.7
   '@sindresorhus/slugify':
     specifier: 2.1.1
     version: 2.1.1
@@ -741,6 +744,12 @@ packages:
 
   /@shikijs/core@1.1.7:
     resolution: {integrity: sha512-gTYLUIuD1UbZp/11qozD3fWpUTuMqPSf3svDMMrL0UmlGU7D9dPw/V1FonwAorCUJBltaaESxq90jrSjQyGixg==}
+    dev: false
+
+  /@shikijs/transformers@1.1.7:
+    resolution: {integrity: sha512-lXz011ao4+rvweps/9h3CchBfzb1U5OtP5D51Tqc9lQYdLblWMIxQxH6Ybe1GeGINcEVM4goMyPrI0JvlIp4UQ==}
+    dependencies:
+      shiki: 1.1.7
     dev: false
 
   /@sindresorhus/slugify@2.1.1:
