@@ -44,7 +44,7 @@
     "remove-markdown": "0.5.0",
     "server-only": "0.0.1",
     "sharp": "0.32.6",
-    "shiki": "^0.12.1"
+    "shiki": "1.1.7"
   },
   "devDependencies": {
     "@tailwindcss/typography": "0.5.10",

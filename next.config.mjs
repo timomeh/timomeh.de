@@ -6,7 +6,6 @@ const nextConfig = {
   swcMinify: true,
   experimental: {
     esmExternals: 'loose',
-    serverComponentsExternalPackages: ['shiki', 'vscode-oniguruma'],
   },
   images: {
     remotePatterns: [

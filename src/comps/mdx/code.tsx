@@ -23,15 +23,8 @@ export async function Code(props: Props) {
   }
 
   let lang: string | undefined = props.className?.replace('language-', '')
-  if (lang && ['text', 'txt', 'plain'].includes(lang)) lang = undefined
-  const html = await syntax.highlight(props.children, lang)
+  if (lang && ['plain'].includes(lang)) lang = 'text'
+  const html = await syntax.highlight(props.children, lang || 'text')
 
-  return (
-    <pre
-      className="not-prose my-12 overflow-scroll rounded-md border border-white/10 bg-[#121014]
-        bg-opacity-70 p-4 text-sm font-normal mix-blend-overlay shadow-purple-300/5
-        [box-shadow:0_0_24px_var(--tw-shadow-color)] md:-mx-4"
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
-  )
+  return <div dangerouslySetInnerHTML={{ __html: html }} />
 }

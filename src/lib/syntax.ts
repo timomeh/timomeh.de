@@ -1,35 +1,22 @@
-import path from 'node:path'
+import { codeToHtml } from 'shiki'
 
-import type { Lang } from 'shiki'
-import { getHighlighter, renderToHtml } from 'shiki'
-
-const theme = 'tokyo-night'
-const themesPath = path.resolve(process.cwd(), 'src/styles')
-const langsPath = path.resolve(process.cwd(), 'vendor/shiki-langs')
-
-export async function highlight(code: string, lang?: string) {
-  const highlighter = await getHighlighter({
-    theme,
-    paths: { themes: themesPath, languages: langsPath },
-    langs: lang ? [lang as Lang] : undefined,
-  })
-
-  const tokens = highlighter.codeToThemedTokens(code, lang)
-  const html = renderToHtml(tokens, {
-    fg: highlighter.getForegroundColor(theme),
-    bg: highlighter.getBackgroundColor(theme),
-    elements: {
-      pre({ children }) {
-        return children
-      },
-      code({ children }) {
-        return `<code class="language-${lang}">${children}</code>`
-      },
-      line({ children }) {
-        return `<span class="line">${children}</span>`
-      },
+export async function highlight(code: string, lang: string) {
+  const html = codeToHtml(code, {
+    lang,
+    theme: 'tokyo-night',
+    colorReplacements: {
+      '#1a1b26': 'transparent',
     },
+    transformers: [
+      {
+        pre(node) {
+          this.addClassToHast(
+            node,
+            `not-prose my-12 overflow-scroll rounded-md border border-white/10 p-4 text-sm font-normal shadow-purple-300/5 [box-shadow:0_0_24px_var(--tw-shadow-color)] md:-mx-4`,
+          )
+        },
+      },
+    ],
   })
-
   return html
 }
