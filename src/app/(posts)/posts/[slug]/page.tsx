@@ -1,9 +1,11 @@
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
+import { BackTag } from '@/comps/back-tag'
 import { MDX } from '@/comps/mdx/mdx'
 import { Tag } from '@/comps/tag'
 import { getPost } from '@/lib/blog'
+
+import { Transition } from './transition'
 
 type Props = {
   params: { slug: string }
@@ -15,46 +17,44 @@ export default async function Page({ params }: Props) {
 
   return (
     <div className="relative mx-auto max-w-2xl px-4">
-      {post.meta.cover_image && (
-        <div
-          className="absolute inset-x-0 top-[37px] h-[83px] border-t border-white/10 bg-grainy
-            sm:top-[63px] sm:h-[41px] sm:rounded-t-xl sm:border-x lg:h-[141px]"
-        />
-      )}
-
       <div className="mb-10 flex sm:pt-6">
-        <Link href="/">
-          <Tag color="#DEC1EF" clickable name="← Back" />
-        </Link>
+        <BackTag />
       </div>
 
-      <article
-        className="prose prose-invert relative"
-        lang={post.meta.lang.split('_')[0]}
-      >
-        <div className="mb-1 flex flex-wrap items-center gap-1">
-          <div className="font-pixel text-xs leading-none antialiased [font-feature-settings:'ss01']">
-            <time className="text-purple-300">
-              {post.postedAt.toLocaleString('en-US', {
-                month: 'short',
-                day: '2-digit',
-                year: 'numeric',
-              })}
-            </time>
-            <span className="text-white/50">
-              {' | '}
-              {post.estMinutes} min reading time
-            </span>
+      <Transition>
+        <article
+          className="prose prose-invert relative"
+          lang={post.meta.lang.split('_')[0]}
+        >
+          <div className="mb-1 flex flex-wrap items-center gap-1">
+            <div className="font-pixel text-xs leading-none antialiased [font-feature-settings:'ss01']">
+              <time className="text-purple-300">
+                {post.postedAt.toLocaleString('en-US', {
+                  month: 'short',
+                  day: '2-digit',
+                  year: 'numeric',
+                })}
+              </time>
+              <span className="text-white/50">
+                {' | '}
+                {post.estMinutes} min reading time
+              </span>
+            </div>
+            {post.tags.map((tag) => (
+              <Tag
+                key={tag.slug}
+                color={tag.color}
+                name={tag.name}
+                size="smol"
+              />
+            ))}
           </div>
-          {post.tags.map((tag) => (
-            <Tag key={tag.slug} color={tag.color} name={tag.name} size="smol" />
-          ))}
-        </div>
-        <h1 className="mb-8 text-balance font-display text-2xl font-semibold leading-tight sm:text-3xl">
-          <MDX content={post.title} inline />
-        </h1>
-        <MDX content={post.body} />
-      </article>
+          <h1 className="mb-8 text-balance font-display text-2xl font-semibold leading-tight sm:text-3xl">
+            <MDX content={post.title} inline />
+          </h1>
+          <MDX content={post.body} />
+        </article>
+      </Transition>
     </div>
   )
 }
