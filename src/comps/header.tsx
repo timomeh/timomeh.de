@@ -1,5 +1,7 @@
 import Link from 'next/link'
 
+import { FeedIcon } from './icons/feed'
+import { MastodonIcon } from './icons/mastodon'
 import { BlogTitle } from './me/blog-title'
 import { Mug } from './me/mug'
 
@@ -35,6 +37,30 @@ export function Header() {
           >
             <span className="effect-crt-blue">it me!</span>
           </div>
+        </div>
+      </div>
+
+      <div className="absolute right-4 top-4">
+        <div className="flex gap-2 rounded-lg bg-black/30 p-2 text-white">
+          <a
+            title="@timomeh@mastodon.social"
+            href="https://mastodon.social/@timomeh"
+            rel="noopener noreferrer me"
+            target="_blank"
+            className="opacity-70 transition-opacity hover:opacity-100"
+          >
+            <div className="size-4">
+              <MastodonIcon />
+            </div>
+          </a>
+          <Link
+            href="/feeds"
+            className="opacity-70 transition-opacity hover:opacity-100"
+          >
+            <div className="size-4 p-px">
+              <FeedIcon />
+            </div>
+          </Link>
         </div>
       </div>
 
