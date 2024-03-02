@@ -76,6 +76,9 @@ module.exports = {
         '8xl': '88rem',
         content: 642,
       },
+      animation: {
+        'fade-in': 'fadeIn 0.2s linear',
+      },
       keyframes: {
         path: {
           '0%': { offsetDistance: '0%' },
@@ -84,6 +87,10 @@ module.exports = {
         blink: {
           '0%': { opacity: 1 },
           '100%': { opacity: 0.3 },
+        },
+        fadeIn: {
+          from: { opacity: 0 },
+          to: { opacity: 1 },
         },
         rotate360: {
           from: { transform: 'rotateY(0deg)' },

@@ -5,7 +5,6 @@ import { MDX } from '@/comps/mdx/mdx'
 import { getPost } from '@/lib/blog'
 
 import { PostHeader } from './post-header'
-import { Transition } from './transition'
 
 type Props = {
   params: { slug: string }
@@ -21,15 +20,13 @@ export default async function Page({ params }: Props) {
         <BackTag />
       </div>
 
-      <Transition>
-        <article
-          className="prose prose-invert relative"
-          lang={post.meta.lang.split('_')[0]}
-        >
-          <PostHeader post={post} />
-          <MDX content={post.body} />
-        </article>
-      </Transition>
+      <article
+        className="animate-fade-in prose prose-invert relative"
+        lang={post.meta.lang.split('_')[0]}
+      >
+        <PostHeader post={post} />
+        <MDX content={post.body} />
+      </article>
     </div>
   )
 }

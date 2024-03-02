@@ -5,7 +5,6 @@ import { getPost } from '@/lib/blog'
 
 import DefaultPage from '../../page'
 import { PostImage } from './post-image'
-import { Transition } from './transition'
 
 type Props = {
   params: { slug: string }
@@ -20,7 +19,7 @@ export default async function Page({ params }: Props) {
   }
 
   return (
-    <Transition>
+    <div className="animate-fade-in absolute inset-0 h-[280px] overflow-clip lg:h-[380px]">
       <div className="absolute inset-x-0 top-0 z-10 h-0">
         <div className="relative mx-auto max-w-2xl px-4">
           <SocialBox floating />
@@ -34,6 +33,6 @@ export default async function Page({ params }: Props) {
             bg-grainy sm:top-[63px] sm:h-[41px] sm:rounded-t-xl sm:border-x lg:h-[141px]"
         />
       </div>
-    </Transition>
+    </div>
   )
 }
