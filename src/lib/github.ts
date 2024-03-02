@@ -48,38 +48,6 @@ export type Label = {
   name: string
 }
 
-type ListLabelsResult = {
-  repository: {
-    labels: {
-      nodes: Label[]
-    }
-  }
-}
-
-export async function listLabels() {
-  const result: ListLabelsResult = await api(
-    `
-    query labels($owner: String!, $repo: String!) {
-      repository(owner: $owner, name: $repo) {
-        labels(first: 100, query: "tag:") {
-          nodes {
-            color
-            description
-            name
-          }
-        }
-      }
-    }`,
-    {
-      owner,
-      repo,
-      tags: ['labels'],
-    },
-  )
-
-  return result.repository.labels.nodes
-}
-
 type ListDiscussionsResult = {
   repository: {
     discussions: {

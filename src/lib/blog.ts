@@ -1,22 +1,34 @@
 import ellipsize from 'ellipsize'
 import matter from 'gray-matter'
-import { groupBy, range } from 'lodash'
+import { groupBy, range, sortBy } from 'lodash'
+import { unstable_cache } from 'next/cache'
 import { cache } from 'react'
 import readingTime from 'reading-time'
 import removeMd from 'remove-markdown'
 
-import {
-  Discussion,
-  getDiscussion,
-  Label,
-  listDiscussions,
-  listLabels,
-} from './github'
+import { Discussion, getDiscussion, Label, listDiscussions } from './github'
 
-export const listTags = cache(async () => {
-  const labels = await listLabels()
-  return labels.map((label) => toTag(label))
-})
+export const listTags = unstable_cache(
+  async () => {
+    const posts = await listPosts()
+    const tagsWithCount = posts.reduce(
+      (acc, post) => {
+        post.tags.forEach((tag) => {
+          if (acc[tag.slug]) acc[tag.slug].count++
+          else acc[tag.slug] = { count: 1, tag }
+        })
+        return acc
+      },
+      {} as Record<string, { count: number; tag: BlogTag }>,
+    )
+    const sortedTags = sortBy(tagsWithCount, 'count')
+      .reverse()
+      .map(({ tag }) => tag)
+    return sortedTags
+  },
+  ['tags'],
+  { tags: ['tags'] },
+)
 
 function toTag(label: Label) {
   const slug = label.name.replace(/^tag:/, '')
@@ -62,6 +74,14 @@ export function groupPostsByYear(posts: Post[]) {
     posts: postsByYear[year] || [],
   }))
 }
+
+export const getSurroundingPosts = cache(async (slug: string) => {
+  const posts = await listPosts()
+  const index = posts.findIndex((post) => post.slug === slug)
+  const next: Post | null = posts[index - 1] || null
+  const prev: Post | null = posts[index + 1] || null
+  return { prev, next }
+})
 
 export const getPost = cache(async (slug: string) => {
   const discussion = await getDiscussion({ slug })

@@ -84,11 +84,13 @@ export async function POST(request: NextRequest) {
 
   if (data.action === 'deleted') {
     revalidateTag('posts')
+    revalidateTag('tags')
     revalidateTag(postSlug)
   }
 
   if (data.action === 'created') {
     revalidateTag('posts')
+    revalidateTag('tags')
   }
 
   if (data.action === 'edited') {
@@ -98,14 +100,14 @@ export async function POST(request: NextRequest) {
 
   if (data.action === 'labeled') {
     revalidateTag('posts')
+    revalidateTag('tags')
     revalidateTag(postSlug)
-    revalidateTag('labels')
   }
 
   if (data.action === 'unlabeled') {
     revalidateTag('posts')
+    revalidateTag('tags')
     revalidateTag(postSlug)
-    revalidateTag('labels')
   }
 
   return NextResponse.json({

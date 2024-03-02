@@ -13,7 +13,7 @@ export function FadeInImage(props: ImageProps) {
       className={`absolute inset-0 object-cover transition-opacity duration-1000 ${
         loaded ? '' : 'opacity-0'
       }`}
-      onLoadingComplete={() => setLoaded(true)}
+      onLoad={() => setLoaded(true)}
       alt=""
     />
   )

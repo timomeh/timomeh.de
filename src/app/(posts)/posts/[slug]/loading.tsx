@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 import { Tag } from '@/comps/tag'
 
-export default async function Loading() {
+export default function Loading() {
   return (
     <div className="relative mx-auto max-w-2xl px-4">
       <div className="mb-10 flex sm:pt-6">
