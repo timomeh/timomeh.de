@@ -8,7 +8,7 @@ import {
   DiscussionUnlabeledEvent,
   EventPayloadMap,
 } from '@octokit/webhooks-types'
-import { revalidateTag } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
 
 import { isAllowedCategory } from '@/lib/github'
@@ -52,6 +52,7 @@ export async function POST(request: NextRequest) {
   }
 
   if (event === 'label') {
+    revalidatePath('/')
     revalidateTag('tags')
     revalidateTag('posts')
 
@@ -85,6 +86,7 @@ export async function POST(request: NextRequest) {
   const categorySlug = data.discussion.category.slug
 
   if (data.action === 'category_changed') {
+    revalidatePath('/')
     revalidateTag('posts')
     revalidateTag(postSlug)
   }
@@ -96,6 +98,8 @@ export async function POST(request: NextRequest) {
       message: `It doesn't matter if posts in the category ${categorySlug} are created, edited, deleted, labeled or unlabeled.`,
     })
   }
+
+  revalidatePath('/')
 
   if (data.action === 'deleted') {
     revalidateTag('posts')
