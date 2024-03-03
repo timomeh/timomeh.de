@@ -3,6 +3,7 @@ import '@/styles/globals.css'
 import { IBM_Plex_Mono, Inter, Outfit } from 'next/font/google'
 import localFont from 'next/font/local'
 import Link from 'next/link'
+import NextTopLoader from 'nextjs-toploader'
 
 import { Header } from '@/comps/header'
 
@@ -53,6 +54,11 @@ export default function RootLayout({
       ${ibmPlexMono.variable} ${outfit.variable} ${inter.variable}`}
     >
       <body className="relative">
+        <NextTopLoader
+          showSpinner={false}
+          shadow={false}
+          template={`<div class="bar site-progress-bar" role="bar"><div class="inner"></div></div>`}
+        />
         {nextPost}
         <div className="flex min-h-dvh flex-col">
           <header className="relative w-full">
