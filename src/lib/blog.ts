@@ -1,61 +1,91 @@
-import { cache } from 'react'
-import matter from 'gray-matter'
 import ellipsize from 'ellipsize'
+import matter from 'gray-matter'
+import { groupBy, range, sortBy } from 'lodash'
+import { unstable_cache } from 'next/cache'
+import { cache } from 'react'
+import readingTime from 'reading-time'
 import removeMd from 'remove-markdown'
 
-import { Discussion, getDiscussion, listDiscussions } from './github'
+import { Discussion, getDiscussion, Label, listDiscussions } from './github'
 
-export const listPostsPaginated = cache(async (page = 1) => {
-  const limit = 10
-  const start = (page - 1) * limit
-  const end = start + limit
+export const listTags = unstable_cache(
+  async () => {
+    const posts = await listPosts()
+    const tagsWithCount = posts.reduce(
+      (acc, post) => {
+        post.tags.forEach((tag) => {
+          if (acc[tag.slug]) acc[tag.slug].count++
+          else acc[tag.slug] = { count: 1, tag }
+        })
+        return acc
+      },
+      {} as Record<string, { count: number; tag: BlogTag }>,
+    )
+    const sortedTags = sortBy(tagsWithCount, 'count')
+      .reverse()
+      .map(({ tag }) => tag)
+    return sortedTags
+  },
+  ['tags'],
+  { tags: ['tags'] },
+)
 
-  const allPosts = await listPosts()
-  const posts = allPosts.slice(start, end)
-  const prev = page > 1 ? page - 1 : undefined
-  const next = allPosts.length > end ? page + 1 : undefined
-  const pages = Math.ceil(allPosts.length / limit)
+function toTag(label: Label) {
+  const slug = label.name.replace(/^tag:/, '')
+  const color = '#'.concat(label.color)
 
-  return { posts, next, prev, pages }
+  return { slug, name: label.description, color }
+}
+
+export type BlogTag = ReturnType<typeof toTag>
+
+type ListPosts = {
+  tag?: string
+}
+
+export const listPosts = cache(async ({ tag }: ListPosts = {}) => {
+  let discussions = await listDiscussions()
+  let posts = discussions.map((discussion) => toPost(discussion))
+
+  if (tag) {
+    posts = posts.filter((post) => post.tags.some((t) => t.slug === tag))
+  }
+
+  return posts
 })
 
-export const listPosts = cache(async () => {
-  const discussions = await listDiscussions({ category: 'posts' })
-  return discussions.map((discussion) => toPost(discussion))
+export function groupPostsByYear(posts: Post[]) {
+  const latestPost = posts.at(0)
+  const oldestPost = posts.at(-1)
+
+  // just in case, you never know
+  if (!latestPost || !oldestPost) {
+    return [{ year: new Date().getFullYear(), posts: [] }]
+  }
+
+  const latestYear = latestPost.postedAt.getFullYear()
+  const oldestYear = oldestPost.postedAt.getFullYear()
+  const years = range(oldestYear, latestYear! + 1).reverse()
+
+  const postsByYear = groupBy(posts, (post) => post.postedAt.getFullYear())
+
+  return years.map((year) => ({
+    year,
+    posts: postsByYear[year] || [],
+  }))
+}
+
+export const getSurroundingPosts = cache(async (slug: string) => {
+  const posts = await listPosts()
+  const index = posts.findIndex((post) => post.slug === slug)
+  const next: Post | null = posts[index - 1] || null
+  const prev: Post | null = posts[index + 1] || null
+  return { prev, next }
 })
 
 export const getPost = cache(async (slug: string) => {
-  const discussion = await getDiscussion({ slug, category: 'posts' })
+  const discussion = await getDiscussion({ slug })
   return discussion && toPost(discussion)
-})
-
-export const listOfftopics = cache(async () => {
-  const discussions = await listDiscussions({ category: 'offtopic' })
-  return discussions.map((discussion) => toOfftopic(discussion))
-})
-
-export const listOfftopicsPaginated = cache(async (page = 1) => {
-  const limit = 10
-  const start = (page - 1) * limit
-  const end = start + limit
-
-  const allOfftopics = await listOfftopics()
-  const offtopics = allOfftopics.slice(start, end)
-  const prev = page > 1 ? page - 1 : undefined
-  const next = allOfftopics.length > end ? page + 1 : undefined
-  const pages = Math.ceil(allOfftopics.length / limit)
-
-  return { offtopics, next, prev, pages }
-})
-
-export const getOfftopic = cache(async (slug: string) => {
-  const discussion = await getDiscussion({ slug, category: 'offtopic' })
-  if (process.env.NODE_ENV === 'development' && !discussion) {
-    const draft = await getDiscussion({ slug, category: 'drafts' })
-    return draft && toOfftopic(draft)
-  }
-
-  return discussion && toOfftopic(discussion)
 })
 
 function toPost(discussion: Discussion) {
@@ -64,6 +94,7 @@ function toPost(discussion: Discussion) {
   const safeTitle = plainTitle || discussion.title
   const postedAt = new Date(discussion.createdAt)
   const updatedAt = new Date(discussion.updatedAt)
+  const tags = discussion.labels.nodes.map((label) => toTag(label))
 
   let description = plainDescription
   if (description.length < 30) {
@@ -72,6 +103,8 @@ function toPost(discussion: Discussion) {
       .concat(postedAt.toLocaleDateString('en-US', { dateStyle: 'medium' }))
       .concat(' by Timo Mämecke')
   }
+
+  const { minutes } = readingTime(body)
 
   return {
     slug: discussion.title,
@@ -85,42 +118,12 @@ function toPost(discussion: Discussion) {
     excerpt,
     body,
     bodyHTML: discussion.bodyHTML,
+    tags,
+    estMinutes: Math.round(minutes) || 1,
   }
 }
 
 export type Post = ReturnType<typeof toPost>
-
-function toOfftopic(discussion: Discussion) {
-  const { excerpt, meta, title, body, plainTitle, plainDescription } =
-    parseDocument(discussion.body)
-  const safeTitle = plainTitle || discussion.title
-  const postedAt = new Date(discussion.createdAt)
-  const updatedAt = new Date(discussion.updatedAt)
-
-  let description = plainDescription
-  if (description.length < 20) {
-    description = safeTitle
-      .concat(', posted on ')
-      .concat(postedAt.toLocaleDateString('en-US', { dateStyle: 'medium' }))
-      .concat(' by Timo Mämecke')
-  }
-
-  return {
-    slug: discussion.title,
-    number: discussion.number,
-    postedAt,
-    updatedAt,
-    title,
-    safeTitle,
-    description,
-    meta,
-    excerpt,
-    body,
-    bodyHTML: discussion.bodyHTML,
-  }
-}
-
-export type Offtopic = ReturnType<typeof toOfftopic>
 
 type MetaData = {
   description?: string

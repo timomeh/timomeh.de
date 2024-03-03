@@ -1,10 +1,11 @@
+import withPlaiceholder from '@plaiceholder/next'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   experimental: {
     esmExternals: 'loose',
-    serverComponentsExternalPackages: ['shiki', 'vscode-oniguruma'],
   },
   images: {
     remotePatterns: [
@@ -15,38 +16,50 @@ const nextConfig = {
       },
     ],
   },
-  async rewrites() {
-    return {
-      beforeFiles: [
-        {
-          source: '/posts',
-          destination: '/posts/page/1',
-        },
-        {
-          source: '/offtopic',
-          destination: '/offtopic/page/1',
-        },
-        {
-          source: '/',
-          destination: '/offtopic/page/1',
-        },
-      ],
-    }
-  },
   async redirects() {
     return [
       {
-        source: '/posts/page/1',
-        destination: '/posts',
+        source: '/offtopic/feed.atom',
+        destination: '/posts/feed.atom',
         permanent: true,
       },
       {
-        source: '/offtopic/page/1',
+        source: '/offtopic/feed.json',
+        destination: '/posts/feed.json',
+        permanent: true,
+      },
+      {
+        source: '/offtopic/feed.rss',
+        destination: '/posts/feed.rss',
+        permanent: true,
+      },
+      {
+        source: '/posts',
         destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/posts/page/:num*',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/offtopic',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/offtopic/page/:num*',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/offtopic/:slug*',
+        destination: '/posts/:slug*',
         permanent: true,
       },
     ]
   },
 }
 
-export default nextConfig
+export default withPlaiceholder(nextConfig)

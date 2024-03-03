@@ -1,59 +1,104 @@
+import '@/styles/globals.css'
+
+import { IBM_Plex_Mono, Inter, Outfit } from 'next/font/google'
+import localFont from 'next/font/local'
 import Link from 'next/link'
 
-import { BalancerProvider } from '@/components/BalancerProvider'
+import { Header } from '@/comps/header'
 
-import { Logo } from '@/components/Logo'
-import { StoreProvider } from '@/lib/store'
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+})
 
-import '@/styles/globals.css'
-import '@fontsource/ibm-plex-mono/latin-ext.css'
-import '@fontsource/inter/latin.css'
-import '@fontsource/outfit/latin.css'
-import { Navigation } from '@/components/Navigation'
+const outfit = Outfit({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-outfit',
+})
+
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ['latin-ext'],
+  weight: ['400'],
+  display: 'swap',
+  variable: '--font-ibm-plex-mono',
+})
+
+const pixeloid = localFont({
+  src: [
+    { path: '../styles/Pixeloid.ttf', weight: '400', style: 'normal' },
+    { path: '../styles/PixeloidBold.ttf', weight: '700', style: 'normal' },
+  ],
+  variable: '--font-pixeloid',
+})
 
 type Props = {
   children: React.ReactNode
+  backdrop: React.ReactNode
+  nextPost: React.ReactNode
+  prevPost: React.ReactNode
 }
 
-export const dynamic = 'force-static'
-
-export default function RootLayout({ children }: Props) {
+export default function RootLayout({
+  children,
+  backdrop,
+  nextPost,
+  prevPost,
+}: Props) {
   return (
-    <html lang="en" className="h-full">
-      <body className="min-h-full relative antialiased [font-feature-settings:'ss01'] bg-[#1F1E20] text-white">
-        <StoreProvider>
-          <div className="absolute inset-0 [background-image:var(--grainy)] [background-size:300px] filter contrast-[2000%] brightness-[50%] mix-blend-multiply z-[-1] opacity-70" />
-          <BalancerProvider>
-            <div className="meh-grid">
-              {children}
-              <header className="meh-header">
-                <div className="flex pl-4 lg:pl-0 lg:justify-end pt-4 lg:pt-8 pb-6">
-                  <Link href="/">
-                    <Logo className="h-10 w-auto" />
+    <html
+      lang="en"
+      className={`h-full scroll-smooth bg-[#1f1e1f] bg-grainy text-white ${pixeloid.variable}
+      ${ibmPlexMono.variable} ${outfit.variable} ${inter.variable}`}
+    >
+      <body className="relative">
+        {nextPost}
+        <div className="flex min-h-dvh flex-col">
+          <header className="relative w-full">
+            <div className="relative z-10">
+              <Header />
+            </div>
+            {backdrop}
+          </header>
+          <main className="relative z-30 w-full flex-1">{children}</main>
+          <footer className="relative z-30 mx-auto flex w-full max-w-2xl justify-end px-4 py-10">
+            <div
+              className="font-pixel text-[9px] font-bold uppercase antialiased
+                [font-feature-settings:'ss01']"
+            >
+              <ul className="flex space-x-1">
+                <li>
+                  <Link
+                    href="/feeds"
+                    className="text-white/30 transition-colors hover:text-white/60"
+                  >
+                    Feeds
                   </Link>
-                </div>
-              </header>
-              <Navigation />
-              <footer className="meh-footer">
-                <div className="flex justify-end text-[11px] uppercase font-bold space-x-1">
+                </li>
+                <li className="text-white/30">/</li>
+                <li>
                   <Link
                     href="/impressum"
-                    className="opacity-30 hover:opacity-60 transition-opacity"
+                    className="text-white/30 transition-colors hover:text-white/60"
                   >
-                    Impressum
+                    Imprint
                   </Link>
-                  <div className="opacity-30">&</div>
+                </li>
+                <li className="text-white/30">/</li>
+                <li>
                   <Link
                     href="/datenschutz"
-                    className="opacity-30 hover:opacity-60 transition-opacity"
+                    className="text-white/30 transition-colors hover:text-white/60"
                   >
-                    Datenschutz
+                    Privacy Policy
                   </Link>
-                </div>
-              </footer>
+                </li>
+              </ul>
             </div>
-          </BalancerProvider>
-        </StoreProvider>
+          </footer>
+        </div>
+        {prevPost}
       </body>
     </html>
   )
@@ -72,25 +117,25 @@ export const metadata = {
     apple: '/apple-touch-icon.png',
   },
   title: {
-    template: '%s | Timo Mämecke',
-    default: 'Timo Mämecke – Web Development and feeling ways about stuff.',
+    template: '%s | timomeh.de',
+    default: 'timomeh.de',
   },
   authors: [{ name: 'Timo Mämecke', url: 'https://timomeh.de' }],
   publisher: 'Timo Mämecke',
   openGraph: {
-    siteName: 'Timo Mämecke',
+    siteName: 'timomeh.de',
     type: 'website',
     locale: 'en_US',
   },
   alternates: {
     types: {
-      'application/atom+xml': '/offtopic/feed.atom',
-      'application/rss+xml': '/offtopic/feed.rss',
-      'application/feed+json': '/offtopic/feed.json',
+      'application/atom+xml': '/posts/feed.atom',
+      'application/rss+xml': '/posts/feed.rss',
+      'application/feed+json': '/posts/feed.json',
     },
   },
 }
 
 export const viewport = {
-  themeColor: '#141315',
+  themeColor: '#1C1C1C',
 }

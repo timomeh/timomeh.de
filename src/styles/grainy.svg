@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <filter id="a" x="-20%" y="-20%" width="140%" height="140%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" color-interpolation-filters="linearRGB">
+    <!-- background color -->
+    <feFlood flood-color="#1f1e1f" flood-opacity="1" x="0%" y="0%" width="100%" height="100%" result="flood"/>
+    
+    <!-- some grain -->
+    <feTurbulence type="fractalNoise" baseFrequency="0.5 0.5" numOctaves="3" seed="7" stitchTiles="stitch" x="0%" y="0%" width="100%" height="100%" result="turbulence"/>
+    <feColorMatrix type="saturate" values="0" x="0%" y="0%" width="100%" height="100%" in="turbulence" result="colormatrix"/>
+    <feGaussianBlur stdDeviation="0.5 0.5" x="0%" y="0%" width="100%" height="100%" in="colormatrix" result="blur3"/>
+    <feComponentTransfer x="0%" y="0%" width="100%" height="100%" in="blur3" result="componentTransfer">
+      <feFuncA type="linear" slope=".1"/>
+    </feComponentTransfer>
+
+    <!-- more grain, for a little bit more pizzaz, a bit more joujoux, bleu bleu -->
+    <feTurbulence type="fractalNoise" baseFrequency="0.7 0.7" numOctaves="3" seed="2" stitchTiles="stitch" x="0%" y="0%" width="100%" height="100%" result="turbulence1"/>
+    <feColorMatrix type="saturate" values="0" x="0%" y="0%" width="100%" height="100%" in="turbulence1" result="colormatrix1"/>
+    <feGaussianBlur stdDeviation="0.4 0.4" x="0%" y="0%" width="100%" height="100%" in="colormatrix1" result="blur2"/>
+    <feComponentTransfer x="0%" y="0%" width="100%" height="100%" in="colormatrix1" result="componentTransfer2">
+      <feFuncA type="linear" slope=".1"/>
+    </feComponentTransfer>
+
+    <!-- blend the grains together, make em more alpha -->
+    <feBlend mode="overlay" x="0%" y="0%" width="100%" height="100%" in="componentTransfer" in2="componentTransfer2" result="blend"/>
+    <feComponentTransfer x="0%" y="0%" width="100%" height="100%" in="blend" result="componentTransfer3">
+      <feFuncA type="linear" slope=".2"/>
+    </feComponentTransfer>
+
+    <!-- combine -->
+    <feBlend mode="overlay" x="0%" y="0%" width="100%" height="100%" in="flood" in2="componentTransfer3" result="blend1"/>
+  </filter>
+  <rect width="100%" height="100%" filter="url(#a)"/>
+</svg>

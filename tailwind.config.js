@@ -4,7 +4,13 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
+    screens: {
+      xs: '475px',
+      ...defaultTheme.screens,
+    },
     fontSize: {
+      '3xs': ['0.5625rem', { lineHeight: '1' }],
+      '2xs': ['0.6875rem', { lineHeight: '1' }],
       xs: ['0.75rem', { lineHeight: '1rem' }],
       sm: ['0.875rem', { lineHeight: '1.5rem' }],
       base: ['1rem', { lineHeight: '2rem' }],
@@ -23,7 +29,7 @@ module.exports = {
       width: {
         content: 642,
       },
-      typography: {
+      typography: ({ theme: _ }) => ({
         DEFAULT: {
           css: {
             blockquote: {
@@ -35,21 +41,61 @@ module.exports = {
                 content: 'none',
               },
             },
+            '--tw-prose-invert-body': '#ccc2cc',
+            '--tw-prose-invert-headings': '#f2f0f3',
+            // '--tw-prose-invert-lead': theme('colors.pink[300]'),
+            '--tw-prose-invert-links': '#e7e3e7',
+            '--tw-prose-invert-bold': '#e7e3e7',
+            // '--tw-prose-invert-counters': theme('colors.pink[400]'),
+            '--tw-prose-invert-bullets': '#988698',
+            // '--tw-prose-invert-hr': theme('colors.pink[700]'),
+            '--tw-prose-invert-quotes': '#e7e3d0',
+            '--tw-prose-invert-quote-borders': 'transparent',
+            // '--tw-prose-invert-captions': theme('colors.pink[400]'),
+            // '--tw-prose-invert-code': theme('colors.white'),
+            // '--tw-prose-invert-pre-code': theme('colors.pink[300]'),
+            // '--tw-prose-invert-pre-bg': 'rgb(0 0 0 / 50%)',
+            // '--tw-prose-invert-th-borders': theme('colors.pink[600]'),
+            // '--tw-prose-invert-td-borders': theme('colors.pink[700]'),
           },
         },
-      },
+      }),
       backgroundImage: {
         'gradient-radial':
-          'radial-gradient(ellipse at top, var(--tw-gradient-stops))',
+          'radial-gradient(closest-side, var(--tw-gradient-stops))',
+        grainy: "url('./grainy.svg')",
+        'crt-lines': "url('./crt-lines.svg')",
       },
       fontFamily: {
-        sans: ['Inter', ...defaultTheme.fontFamily.sans],
-        display: ['Outfit', ...defaultTheme.fontFamily.sans],
-        mono: ['IBM Plex Mono', ...defaultTheme.fontFamily.mono],
+        sans: ['var(--font-inter)'],
+        display: ['var(--font-outfit)'],
+        mono: ['var(--font-ibm-plex-mono)'],
+        pixel: ['var(--font-pixeloid)'],
       },
       maxWidth: {
         '8xl': '88rem',
         content: 642,
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.2s linear',
+      },
+      keyframes: {
+        path: {
+          '0%': { offsetDistance: '0%' },
+          '100%': { offsetDistance: '100%' },
+        },
+        blink: {
+          '0%': { opacity: 1 },
+          '100%': { opacity: 0.3 },
+        },
+        fadeIn: {
+          from: { opacity: 0 },
+          to: { opacity: 1 },
+        },
+        rotate360: {
+          from: { transform: 'rotateY(0deg)' },
+          to: { transform: 'rotateY(-360deg)' },
+        },
       },
     },
   },

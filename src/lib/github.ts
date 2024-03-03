@@ -3,16 +3,9 @@ import { graphql } from '@octokit/graphql'
 const owner = 'timomeh'
 const repo = 'timomeh.de'
 
-const categoryIds = {
-  posts: 'DIC_kwDOH6oEFs4CROow',
-  offtopic: 'DIC_kwDOH6oEFs4CTj4l',
-  drafts: 'DIC_kwDOH6oEFs4CROox',
-} as const
-
-export function getCategoryNameFromId(id: string) {
-  if (id === categoryIds.offtopic) return 'offtopic' as const
-  if (id === categoryIds.posts) return 'posts' as const
-  return undefined
+export function isAllowedCategory(slug: string) {
+  const allowedCategorySlugs = ['offtopic', 'posts']
+  return allowedCategorySlugs.includes(slug)
 }
 
 export type Discussion = {
@@ -22,8 +15,11 @@ export type Discussion = {
   body: string
   bodyHTML: string
   number: number
+  labels: {
+    nodes: Label[]
+  }
   category: {
-    id: string
+    slug: string
   }
 }
 
@@ -46,6 +42,12 @@ const api = graphql.defaults({
   },
 })
 
+export type Label = {
+  color: string
+  description: string
+  name: string
+}
+
 type ListDiscussionsResult = {
   repository: {
     discussions: {
@@ -58,11 +60,7 @@ type ListDiscussionsResult = {
   }
 }
 
-type ListDiscussions = {
-  category: keyof typeof categoryIds
-}
-
-export async function listDiscussions({ category }: ListDiscussions) {
+export async function listDiscussions() {
   let hasNextPage = true
   let after: string | null = null
   let discussions: Discussion[] = []
@@ -70,12 +68,11 @@ export async function listDiscussions({ category }: ListDiscussions) {
   do {
     const result: ListDiscussionsResult = await api(
       `
-      query list($owner: String!, $repo: String!, $categoryId: ID! $after: String) {
+      query list($owner: String!, $repo: String!, $after: String) {
         repository(owner: $owner, name: $repo) {
           discussions(
             first: 100,
             after: $after,
-            categoryId: $categoryId,
             orderBy: { field: CREATED_AT, direction: DESC }
           ) {
             pageInfo {
@@ -90,31 +87,40 @@ export async function listDiscussions({ category }: ListDiscussions) {
               bodyHTML
               number
               category {
-                id
+                slug
+              }
+              labels(first: 100) {
+                nodes {
+                  name
+                  color
+                  description
+                }
               }
             }
           }
         }
-      }
-    `,
+      }`,
       {
         owner,
         repo,
-        categoryId: categoryIds[category],
         after,
-        tags: [category],
-      }
+        tags: ['posts', 'all'],
+      },
     )
 
-    const { pageInfo, nodes } = result.repository.discussions
+    let { pageInfo, nodes } = result.repository.discussions
 
-    discussions.push(...nodes)
+    const allowedNodes = nodes.filter((node) =>
+      isAllowedCategory(node.category.slug),
+    )
+
+    discussions.push(...allowedNodes)
     hasNextPage = pageInfo.hasNextPage
     after = pageInfo.endCursor
   } while (hasNextPage)
 
   const sorted = discussions.sort(
-    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
   )
 
   return sorted
@@ -130,10 +136,9 @@ type SearchDiscussionResult = {
 
 type GetDiscussion = {
   slug: string
-  category: keyof typeof categoryIds
 }
 
-export async function getDiscussion({ slug, category }: GetDiscussion) {
+export async function getDiscussion({ slug }: GetDiscussion) {
   const result: SearchDiscussionResult = await api(
     `
     query postBySlug($search: String!) {
@@ -152,7 +157,14 @@ export async function getDiscussion({ slug, category }: GetDiscussion) {
               bodyHTML
               number
               category {
-                id
+                slug
+              }
+              labels(first: 100) {
+                nodes {
+                  name
+                  color
+                  description
+                }
               }
             }
           }
@@ -162,17 +174,18 @@ export async function getDiscussion({ slug, category }: GetDiscussion) {
   `,
     {
       search: `"${slug}" in:title repo:${owner}/${repo}`,
-      tags: [`${category}/${slug}`],
-    }
+      tags: ['post', slug],
+    },
   )
 
   // In case we find discussions with similar titles, find the exact one
   const discussion = result.search.edges.find((result) => {
-    return (
-      result.node.title === slug &&
-      result.node.category.id === categoryIds[category]
-    )
+    return result.node.title === slug
   })?.node
+
+  if (!isAllowedCategory(discussion?.category.slug || '')) {
+    return null
+  }
 
   return discussion
 }

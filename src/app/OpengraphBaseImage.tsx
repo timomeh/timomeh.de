@@ -69,10 +69,10 @@ export function OpengraphBaseImage({ cover, title, date }: Props) {
 export async function getFonts() {
   const [fbold, fmed] = await Promise.all([
     fetch('https://timomeh.de/assets/OutfitBold.woff').then((res) =>
-      res.arrayBuffer()
+      res.arrayBuffer(),
     ),
     fetch('https://timomeh.de/assets/OutfitMedium.woff').then((res) =>
-      res.arrayBuffer()
+      res.arrayBuffer(),
     ),
   ])
 
