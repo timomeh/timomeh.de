@@ -1,8 +1,7 @@
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
+import { BackTag } from '@/comps/back-tag'
 import { MDX } from '@/comps/mdx/mdx'
-import { Tag } from '@/comps/tag'
 
 import { getSite } from './getSite'
 
@@ -19,9 +18,7 @@ export default async function Page({ params }: Props) {
   return (
     <div className="mx-auto max-w-2xl px-4">
       <div className="mb-10 flex sm:pt-6">
-        <Link href="/">
-          <Tag color="#DEC1EF" clickable name="← Back" />
-        </Link>
+        <BackTag />
       </div>
 
       <article className="prose prose-invert relative animate-fade-in">
