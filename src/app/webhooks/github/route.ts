@@ -25,10 +25,12 @@ export async function POST(request: NextRequest) {
     console.error(error)
   })
 
+  const event = request.headers.get('x-github-event') as keyof EventPayloadMap
+
   const verified = await webhooks
     .verifyAndReceive({
       id: request.headers.get('x-github-delivery') as string,
-      name: request.headers.get('x-github-event') as keyof EventPayloadMap,
+      name: event,
       signature: request.headers.get('x-hub-signature-256') as string,
       payload: body,
     })
@@ -49,6 +51,27 @@ export async function POST(request: NextRequest) {
     )
   }
 
+  if (event === 'label') {
+    revalidateTag('tags')
+    revalidateTag('posts')
+
+    return NextResponse.json({
+      revalidated: true,
+      now: Date.now(),
+    })
+  }
+
+  if (event !== 'discussion') {
+    return NextResponse.json(
+      {
+        revalidated: false,
+        now: Date.now(),
+        message: 'Unsupported event.',
+      },
+      { status: 401 },
+    )
+  }
+
   const data = JSON.parse(body) as
     | DiscussionCreatedEvent
     | DiscussionLabeledEvent
@@ -57,14 +80,6 @@ export async function POST(request: NextRequest) {
     | DiscussionCategoryChangedEvent
     | DiscussionEditedEvent
     | DiscussionDeletedEvent
-
-  if (!data.discussion) {
-    return NextResponse.json({
-      revalidated: false,
-      now: Date.now(),
-      message: 'Not a discussion event',
-    })
-  }
 
   const postSlug = data.discussion.title
   const categorySlug = data.discussion.category.slug
@@ -113,6 +128,5 @@ export async function POST(request: NextRequest) {
   return NextResponse.json({
     revalidated: true,
     now: Date.now(),
-    message: 'Revalidated tags',
   })
 }
