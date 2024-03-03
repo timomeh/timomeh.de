@@ -19,7 +19,7 @@ export default async function Page({ params }: Props) {
   }
 
   return (
-    <div className="animate-fade-in absolute inset-0 h-[280px] overflow-clip lg:h-[380px]">
+    <div className="absolute inset-0 h-[280px] animate-fade-in overflow-clip lg:h-[380px]">
       <div className="absolute inset-x-0 top-0 z-10 h-0">
         <div className="relative mx-auto max-w-2xl px-4">
           <SocialBox floating />

@@ -21,7 +21,7 @@ export default async function Page({ params }: Props) {
       </div>
 
       <article
-        className="animate-fade-in prose prose-invert relative"
+        className="prose prose-invert relative animate-fade-in"
         lang={post.meta.lang.split('_')[0]}
       >
         <PostHeader post={post} />

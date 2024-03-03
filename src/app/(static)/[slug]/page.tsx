@@ -24,7 +24,7 @@ export default async function Page({ params }: Props) {
         </Link>
       </div>
 
-      <article className="animate-fade-in prose prose-invert relative">
+      <article className="prose prose-invert relative animate-fade-in">
         <MDX content={site.body} />
       </article>
     </div>
