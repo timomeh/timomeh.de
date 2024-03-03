@@ -2,19 +2,25 @@
 
 import { ImageResponseOptions } from 'next/server'
 
+const basePath =
+  process.env.NODE_ENV === 'development'
+    ? `http://localhost:${process.env.PORT}`
+    : 'https://timomeh.de'
+
 type Props = {
   cover?: string
   title: string[]
   date?: Date | string
+  est?: number
 }
 
-export function OpengraphBaseImage({ cover, title, date }: Props) {
+export function OpengraphBaseImage({ cover, title, date, est }: Props) {
   return (
     <div tw="flex w-full h-full" style={{ fontFamily: '"Outfit"' }}>
       {!cover && (
         <img
           tw="absolute inset-0"
-          src="https://timomeh.de/assets/og-dark-template.png"
+          src={`${basePath}/assets/og-dark-bg.png`}
           width="1200"
           height="630"
           alt=""
@@ -32,33 +38,41 @@ export function OpengraphBaseImage({ cover, title, date }: Props) {
           />
           <img
             tw="absolute inset-0"
-            src="https://timomeh.de/assets/og-dark-template-overlay.png"
+            src={`${basePath}/assets/og-dark-overlay.png`}
             width="1200"
             height="630"
             alt=""
           />
         </>
       )}
-      <div tw="absolute inset-16 z-10 flex flex-col justify-end">
-        <div tw="flex flex-col relative">
-          <div tw="absolute -inset-4 bg-black opacity-50" />
-          <div tw="text-6xl text-violet-100 font-bold flex flex-col">
-            {title.map((t, i) => (
-              <div key={i}>{t}</div>
-            ))}
-          </div>
-          <div tw="text-3xl flex mt-8 text-violet-100 font-medium opacity-50">
-            <div tw="mr-2">timomeh.de</div>
+      <div tw="absolute z-10 flex flex-col inset-0">
+        <div tw="flew-shrink-0" style={{ height: 220 }} />
+        <div tw="relative flex flex-col justify-center px-16 flex-1">
+          <div
+            tw="text-3xl flex font-medium mb-4"
+            style={{ fontFamily: '"Pixeloid"', textShadow: '0 0 20px black' }}
+          >
             {!!date && (
-              <>
-                <div tw="mr-2">•</div>
-                <div>
-                  {new Date(date).toLocaleString('en-US', {
-                    dateStyle: 'medium',
-                  })}
-                </div>
-              </>
+              <div tw="text-purple-300">
+                {new Date(date).toLocaleString('en-US', {
+                  dateStyle: 'medium',
+                })}
+              </div>
             )}
+            {!!date && !!est && (
+              <div tw="text-white opacity-50 ml-3">| 5 min reading time</div>
+            )}
+          </div>
+          <div tw="flex flex-col relative">
+            {false && <div tw="absolute -inset-4 bg-black opacity-50" />}
+            <div
+              tw="text-6xl text-violet-100 font-bold flex flex-col"
+              style={{ textShadow: '0 5px 20px black' }}
+            >
+              {title.map((t, i) => (
+                <div key={i}>{t}</div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -67,26 +81,33 @@ export function OpengraphBaseImage({ cover, title, date }: Props) {
 }
 
 export async function getFonts() {
-  const [fbold, fmed] = await Promise.all([
-    fetch('https://timomeh.de/assets/OutfitBold.woff').then((res) =>
+  const [outbold, outmed, pix] = await Promise.all([
+    fetch(`${basePath}/assets/OutfitBold.woff`).then((res) =>
       res.arrayBuffer(),
     ),
-    fetch('https://timomeh.de/assets/OutfitMedium.woff').then((res) =>
+    fetch(`${basePath}/assets/OutfitMedium.woff`).then((res) =>
       res.arrayBuffer(),
     ),
+    fetch(`${basePath}/assets/Pixeloid.woff`).then((res) => res.arrayBuffer()),
   ])
 
   return {
     fonts: [
       {
         name: 'Outfit',
-        data: fbold,
+        data: outbold,
         style: 'normal',
         weight: 700,
       },
       {
         name: 'Outfit',
-        data: fmed,
+        data: outmed,
+        style: 'normal',
+        weight: 500,
+      },
+      {
+        name: 'Pixeloid',
+        data: pix,
         style: 'normal',
         weight: 500,
       },

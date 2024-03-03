@@ -28,6 +28,7 @@ export default async function Image({ params }: Props) {
         title={[post.safeTitle]}
         cover={post.meta.cover_image}
         date={post.postedAt}
+        est={post.estMinutes}
       />
     ),
     {
