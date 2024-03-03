@@ -117,13 +117,13 @@ export const metadata = {
     apple: '/apple-touch-icon.png',
   },
   title: {
-    template: '%s | Timo Mämecke',
-    default: 'Timo Mämecke – Web Development and feeling ways about stuff.',
+    template: '%s | timomeh.de',
+    default: 'timomeh.de',
   },
   authors: [{ name: 'Timo Mämecke', url: 'https://timomeh.de' }],
   publisher: 'Timo Mämecke',
   openGraph: {
-    siteName: 'Timo Mämecke',
+    siteName: 'timomeh.de',
     type: 'website',
     locale: 'en_US',
   },
