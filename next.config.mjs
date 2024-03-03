@@ -14,6 +14,11 @@ const nextConfig = {
         hostname: 'user-images.githubusercontent.com',
         pathname: '/4227520/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'github.com',
+        pathname: '/timomeh/timomeh.de/assets/4227520/**',
+      },
     ],
   },
   async redirects() {
