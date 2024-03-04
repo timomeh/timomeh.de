@@ -26,7 +26,6 @@ export const buildPostsFeed = unstable_cache(
         link: `https://timomeh.de/posts/${post.slug}`,
         title: post.safeTitle,
         description: removeMd(post.excerpt || '') || post.description,
-        image: `https://timomeh.de/assets/og-image/posts/${post.slug}.png`,
         content: post.bodyHTML
           // remove title
           .replace(/\<h1(.*?)\>(.*?)\<\/h1\>/, '')
@@ -34,6 +33,11 @@ export const buildPostsFeed = unstable_cache(
           .replace(
             /\<div class="snippet-clipboard-content notranslate(.*?)"((.|\n)*?)\>((.|\n)*?)<\/div\>/,
             '',
+          )
+          // Change github's private asset urls to public ones
+          .replace(
+            /(https:\/\/private-user-images\.githubusercontent\.com\/(\d+)\/)(\w+)-((\w+-)+\w+)\.\w+(\?.*?)?(")/g,
+            'https://github.com/timomeh/timomeh.de/assets/$2/$4$7',
           ),
       })
     })
