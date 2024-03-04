@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { compileMDX } from 'next-mdx-remote/rsc'
-import probeImageSize from 'probe-image-size'
+
+import { getPlaceholder } from '@/lib/placeholder'
 
 import { Anchor } from './anchor'
 import { Code } from './code'
@@ -13,7 +14,9 @@ type Props = React.DetailedHTMLProps<
 >
 
 export async function Img(props: Props) {
-  const result = await probeImageSize(props.src!)
+  if (!props.src) return null
+
+  const { img } = await getPlaceholder(props.src)
   let figcaption: JSX.Element | undefined
 
   if (props.title) {
@@ -39,17 +42,17 @@ export async function Img(props: Props) {
     <figure className="md:-mx-4">
       <div className="relative">
         <Image
-          src={props.src!}
-          width={result.width}
-          height={result.height}
+          src={img.src}
+          width={img.width}
+          height={img.height}
           alt={props.alt || ''}
           className="mx-auto my-0 rounded-md"
         />
         {isFancy && (
           <Image
-            src={props.src!}
-            width={result.width}
-            height={result.height}
+            src={img.src}
+            width={img.width}
+            height={img.height}
             alt=""
             className="absolute inset-0 z-[-1] m-0 mx-auto select-none opacity-50 blur-lg filter"
             aria-hidden={true}
