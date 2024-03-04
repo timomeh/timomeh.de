@@ -46,7 +46,7 @@ export function OpengraphBaseImage({ cover, title, date, est }: Props) {
         </>
       )}
       <div tw="absolute z-10 flex flex-col inset-0">
-        <div tw="flew-shrink-0" style={{ height: 220 }} />
+        <div tw="flex-shrink-0" style={{ height: 220 }} />
         <div tw="relative flex flex-col justify-center px-16 flex-1">
           <div
             tw="text-3xl flex font-medium mb-4"
