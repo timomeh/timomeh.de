@@ -50,7 +50,10 @@ export function OpengraphBaseImage({ cover, title, date, est }: Props) {
         <div tw="relative flex flex-col justify-center px-16 flex-1">
           <div
             tw="text-3xl flex font-medium mb-4"
-            style={{ fontFamily: '"Pixeloid"', textShadow: '0 0 20px black' }}
+            style={{
+              fontFamily: '"Pixeloid"',
+              textShadow: '0 0 5px rgba(0,0,0,0.8), 0 0 20px black',
+            }}
           >
             {!!date && (
               <div tw="text-purple-300">
@@ -60,7 +63,7 @@ export function OpengraphBaseImage({ cover, title, date, est }: Props) {
               </div>
             )}
             {!!date && !!est && (
-              <div tw="text-white opacity-50 ml-3">| 5 min reading time</div>
+              <div tw="text-white opacity-70 ml-3">| 5 min reading time</div>
             )}
           </div>
           <div tw="flex flex-col relative">
