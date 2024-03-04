@@ -1,5 +1,7 @@
 import Link from 'next/link'
 
+import { RandomKicker } from './random-kicker'
+
 export function BlogTitle() {
   return (
     <div className="group flex">
@@ -21,7 +23,7 @@ export function BlogTitle() {
           [text-shadow:0px_0px_6px_rgba(0,0,0,0.3)] xs:text-sm"
       >
         <span>
-          <RandomKicker />
+          <RandomKicker seed={Math.random()} />
         </span>
         <span className="-mt-1 block xs:-mt-2">
           <Link
@@ -34,14 +36,4 @@ export function BlogTitle() {
       </div>
     </div>
   )
-}
-
-function RandomKicker() {
-  const words = [
-    'a head full of software engineering by',
-    'a head full of dumb ideas by',
-    'a head full of memes by',
-  ]
-
-  return <>{words[Math.floor(Math.random() * words.length)]}</>
 }
