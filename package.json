@@ -17,6 +17,7 @@
     "@remark-embedder/transformer-oembed": "3.0.0",
     "@shikijs/transformers": "1.1.7",
     "@sindresorhus/slugify": "2.2.1",
+    "@vercel/speed-insights": "1.0.10",
     "bluebird": "3.7.2",
     "clsx": "2.1.0",
     "ellipsize": "0.5.1",
