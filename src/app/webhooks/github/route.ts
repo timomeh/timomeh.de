@@ -87,6 +87,7 @@ export async function POST(request: NextRequest) {
 
   if (data.action === 'category_changed') {
     revalidatePath('/')
+    revaliateFeeds()
     revalidateTag('posts')
     revalidateTag(postSlug)
   }
@@ -100,6 +101,7 @@ export async function POST(request: NextRequest) {
   }
 
   revalidatePath('/')
+  revaliateFeeds()
 
   if (data.action === 'deleted') {
     revalidateTag('posts')
@@ -133,4 +135,10 @@ export async function POST(request: NextRequest) {
     revalidated: true,
     now: Date.now(),
   })
+}
+
+function revaliateFeeds() {
+  revalidatePath('/posts/feed.atom')
+  revalidatePath('/posts/feed.json')
+  revalidatePath('/posts/feed.rss')
 }
