@@ -63,7 +63,9 @@ export function OpengraphBaseImage({ cover, title, date, est }: Props) {
               </div>
             )}
             {!!date && !!est && (
-              <div tw="text-white opacity-70 ml-3">| 5 min reading time</div>
+              <div tw="text-white opacity-70 ml-3">
+                {`| ${est} min reading time`}
+              </div>
             )}
           </div>
           <div tw="flex flex-col relative">
