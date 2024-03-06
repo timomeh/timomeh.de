@@ -43,6 +43,7 @@ export async function Img(props: Props) {
       <div className="relative">
         <Image
           src={img.src}
+          quality={90}
           width={img.width}
           height={img.height}
           alt={props.alt || ''}
@@ -51,6 +52,7 @@ export async function Img(props: Props) {
         {isFancy && (
           <Image
             src={img.src}
+            quality={90}
             width={img.width}
             height={img.height}
             alt=""
