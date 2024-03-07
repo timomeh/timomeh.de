@@ -8,13 +8,14 @@ export function BlogTitle() {
       {/* orbit */}
       <div
         className="pointer-events-none absolute -mt-1 ml-16 h-[40px] w-[100px] rotate-[35deg]
-          rounded-[100%] border border-yellow-50/10 transition-transform duration-1000
-          ease-in-out motion-safe:group-hover:rotate-[30deg]
+          transform-gpu rounded-[100%] border border-yellow-50/10 transition-transform
+          duration-1000 ease-in-out motion-safe:group-hover:rotate-[30deg]
           motion-safe:group-hover:scale-125"
       >
         <div
-          className="h-1 w-1 animate-[path_15s_infinite_linear] rounded-full bg-yellow-200/50
-            [offset-path:ellipse(49.5px_19.5px_at_50%_50%)] motion-reduce:hidden"
+          className="h-1 w-1 transform-gpu animate-[path_15s_infinite_linear] rounded-full
+            bg-yellow-200/50 [offset-path:ellipse(49.5px_19.5px_at_50%_50%)]
+            motion-reduce:hidden"
         />
       </div>
 
