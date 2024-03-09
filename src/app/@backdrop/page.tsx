@@ -1,2 +1,5 @@
 import Default from './default'
-export default Default
+
+export default function Page() {
+  return <Default />
+}

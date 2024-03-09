@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 
 import { listTags } from '@/lib/blog'
 
-import PostList from '../../post-list'
+import { PostList } from '../../post-list'
 
 type Props = {
   params: {

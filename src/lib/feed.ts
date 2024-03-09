@@ -1,64 +1,72 @@
 import { Feed, FeedOptions } from 'feed'
+import { memoize } from 'nextjs-better-unstable-cache'
 import removeMd from 'remove-markdown'
 
 import { listPosts } from './blog'
 
 type FeedType = 'atom' | 'json' | 'rss'
 
-export const buildPostsFeed = async (type: FeedType) => {
-  const posts = await listPosts()
-  const updated = new Date(
-    Math.max(...posts.map((post) => new Date(post.updatedAt).getTime())),
-  )
+export const buildPostsFeed = memoize(
+  async (type: FeedType) => {
+    const posts = await listPosts()
+    const updated = new Date(
+      Math.max(...posts.map((post) => new Date(post.updatedAt).getTime())),
+    )
 
-  const feed = new Feed({
-    ...postsOptions,
-    updated,
-  })
-
-  posts.forEach((post) => {
-    feed.addItem({
-      id: `https://timomeh.de/posts/${post.slug}`,
-      published: new Date(post.postedAt),
-      date: new Date(post.updatedAt),
-      link: `https://timomeh.de/posts/${post.slug}`,
-      title: post.safeTitle,
-      description: removeMd(post.excerpt || '') || post.description,
-      content: post.bodyHTML
-        // remove title
-        .replace(/\<h1(.*?)\>(.*?)\<\/h1\>/, '')
-        // remove frontmatter
-        .replace(
-          /\<div class="snippet-clipboard-content notranslate(.*?)"((.|\n)*?)\>((.|\n)*?)<\/div\>/,
-          '',
-        )
-        // Change github's private asset urls to public ones
-        .replace(
-          /(https:\/\/private-user-images\.githubusercontent\.com\/(\d+)\/)(\w+)-((\w+-)+\w+)\.\w+(\?.*?)?(")/g,
-          'https://github.com/timomeh/timomeh.de/assets/$2/$4$7',
-        ),
+    const feed = new Feed({
+      ...postsOptions,
+      updated,
     })
-  })
 
-  if (type === 'atom') {
-    return feed.atom1()
-  }
+    posts.forEach((post) => {
+      feed.addItem({
+        id: `https://timomeh.de/posts/${post.slug}`,
+        published: new Date(post.postedAt),
+        date: new Date(post.updatedAt),
+        link: `https://timomeh.de/posts/${post.slug}`,
+        title: post.safeTitle,
+        description: removeMd(post.excerpt || '') || post.description,
+        content: post.bodyHTML
+          // remove title
+          .replace(/\<h1(.*?)\>(.*?)\<\/h1\>/, '')
+          // remove frontmatter
+          .replace(
+            /\<div class="snippet-clipboard-content notranslate(.*?)"((.|\n)*?)\>((.|\n)*?)<\/div\>/,
+            '',
+          )
+          // Change github's private asset urls to public ones
+          .replace(
+            /(https:\/\/private-user-images\.githubusercontent\.com\/(\d+)\/)(\w+)-((\w+-)+\w+)\.\w+(\?.*?)?(")/g,
+            'https://github.com/timomeh/timomeh.de/assets/$2/$4$7',
+          ),
+      })
+    })
 
-  if (type === 'rss') {
-    return feed
-      .rss2()
-      .replace(
-        '<?xml version="1.0" encoding="utf-8"?>',
-        (s) => s + '<?xml-stylesheet href="/pretty-feed.xsl" type="text/xsl"?>',
-      )
-  }
+    if (type === 'atom') {
+      return feed.atom1()
+    }
 
-  if (type === 'json') {
-    return feed.json1()
-  }
+    if (type === 'rss') {
+      return feed
+        .rss2()
+        .replace(
+          '<?xml version="1.0" encoding="utf-8"?>',
+          (s) =>
+            s + '<?xml-stylesheet href="/pretty-feed.xsl" type="text/xsl"?>',
+        )
+    }
 
-  throw new Error('Not a supported type')
-}
+    if (type === 'json') {
+      return feed.json1()
+    }
+
+    throw new Error('Not a supported type')
+  },
+  {
+    additionalCacheKey: ['buildPostsFeed'],
+    revalidateTags: (type) => ['posts', 'feeds', `feeds/type:${type}`],
+  },
+)
 
 const postsOptions: FeedOptions = {
   id: `https://timomeh.de`,

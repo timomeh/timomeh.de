@@ -7,7 +7,7 @@ type Props = {
   tag?: string
 }
 
-export default async function PostList({ tag }: Props) {
+export async function PostList({ tag }: Props) {
   const posts = await listPosts({ tag })
   const postsByYear = groupPostsByYear(posts)
 
