@@ -28,6 +28,8 @@ export const listTags = memoize(
   {
     additionalCacheKey: ['listTags'],
     revalidateTags: ['tags', 'tags/all'],
+    // @ts-expect-error
+    duration: false,
   },
 )
 
@@ -40,6 +42,8 @@ export const getTag = memoize(
   {
     additionalCacheKey: ['getTag'],
     revalidateTags: (slug) => ['tags', `tag/slug:${slug}`],
+    // @ts-expect-error
+    duration: false,
   },
 )
 
@@ -82,6 +86,8 @@ export const listPosts = memoize(
       'posts/all',
       `posts/tagged:${tag || 'everything'}`,
     ],
+    // @ts-expect-error
+    duration: false,
   },
 )
 
@@ -94,6 +100,8 @@ export const getPost = memoize(
   {
     additionalCacheKey: ['getPost'],
     revalidateTags: (slug) => ['posts', `post/slug:${slug}`],
+    // @ts-expect-error
+    duration: false,
   },
 )
 

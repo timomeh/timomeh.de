@@ -17,9 +17,9 @@ export default async function Page({ params }: Props) {
   if (!tag) notFound()
 
   return (
-    <main className="mx-auto max-w-2xl px-4">
+    <div className="mx-auto max-w-2xl px-4">
       <PostList tag={params.tag} />
-    </main>
+    </div>
   )
 }
 
