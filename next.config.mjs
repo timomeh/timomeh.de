@@ -26,7 +26,6 @@ const nextConfig = {
       { source: '/posts/feed.rss', destination: '/feeds/rss' },
       { source: '/posts/feed.atom', destination: '/feeds/atom' },
       { source: '/posts/feed.json', destination: '/feeds/json' },
-      { source: '/', destination: '/tag/everything' },
     ]
   },
   async redirects() {
