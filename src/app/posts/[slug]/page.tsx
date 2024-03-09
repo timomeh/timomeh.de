@@ -2,9 +2,8 @@ import { notFound } from 'next/navigation'
 
 import { BackTag } from '@/comps/back-tag'
 import { MDX } from '@/comps/mdx/mdx'
+import { PostHeader } from '@/comps/post-header'
 import { getPost } from '@/lib/blog'
-
-import { PostHeader } from './post-header'
 
 type Props = {
   params: { slug: string }
@@ -24,7 +23,7 @@ export default async function Page({ params }: Props) {
         className="prose prose-invert relative animate-fade-in"
         lang={post.meta.lang.split('_')[0]}
       >
-        <PostHeader post={post} />
+        <PostHeader slug={post.slug} />
         <MDX content={post.body} />
       </article>
     </div>
@@ -41,8 +40,8 @@ export async function generateMetadata({ params }: Props) {
     openGraph: {
       type: 'article',
       description: post.description,
-      publishedTime: post.postedAt.toISOString(),
-      modifiedTime: post.postedAt.toISOString(),
+      publishedTime: new Date(post.postedAt).toISOString(),
+      modifiedTime: new Date(post.postedAt).toISOString(),
       authors: ['Timo Mämecke'],
       locale: post.meta.lang,
     },

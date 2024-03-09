@@ -1,8 +1,9 @@
+import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { listTags } from '@/lib/blog'
 
-import PostList from '../../post-list'
+import PostList from '../post-list'
 
 type Props = {
   params: {
@@ -13,16 +14,24 @@ type Props = {
 export default async function Page({ params }: Props) {
   const tags = await listTags()
   const tag = tags.find((t) => t.slug === params.tag)
-  if (!tag) notFound()
+  if (!tag && params.tag !== 'everything') notFound()
 
   return (
     <main className="mx-auto max-w-2xl px-4">
-      <PostList tag={params.tag} />
+      <PostList tag={params.tag === 'everything' ? undefined : params.tag} />
     </main>
   )
 }
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  if (params.tag === 'everything') {
+    return {
+      alternates: {
+        canonical: '/',
+      },
+    }
+  }
+
   const tags = await listTags()
   const tag = tags.find((t) => t.slug === params.tag)
   if (!tag) notFound()

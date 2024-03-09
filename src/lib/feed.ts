@@ -1,16 +1,16 @@
 import { Feed, FeedOptions } from 'feed'
-import { unstable_cache } from 'next/cache'
+import { memoize } from 'nextjs-better-unstable-cache'
 import removeMd from 'remove-markdown'
 
 import { listPosts } from './blog'
 
 type FeedType = 'atom' | 'json' | 'rss'
 
-export const buildPostsFeed = unstable_cache(
+export const buildPostsFeed = memoize(
   async (type: FeedType) => {
     const posts = await listPosts()
     const updated = new Date(
-      Math.max(...posts.map((post) => post.updatedAt.getTime())),
+      Math.max(...posts.map((post) => new Date(post.updatedAt).getTime())),
     )
 
     const feed = new Feed({
@@ -21,8 +21,8 @@ export const buildPostsFeed = unstable_cache(
     posts.forEach((post) => {
       feed.addItem({
         id: `https://timomeh.de/posts/${post.slug}`,
-        published: post.postedAt,
-        date: post.updatedAt,
+        published: new Date(post.postedAt),
+        date: new Date(post.updatedAt),
         link: `https://timomeh.de/posts/${post.slug}`,
         title: post.safeTitle,
         description: removeMd(post.excerpt || '') || post.description,
@@ -62,8 +62,10 @@ export const buildPostsFeed = unstable_cache(
 
     throw new Error('Not a supported type')
   },
-  ['feed'],
-  { tags: ['posts'] },
+  {
+    additionalCacheKey: ['buildPostsFeed'],
+    revalidateTags: (type) => ['posts', 'feeds', `feeds/type:${type}`],
+  },
 )
 
 const postsOptions: FeedOptions = {

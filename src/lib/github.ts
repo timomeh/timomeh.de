@@ -44,7 +44,7 @@ const api = graphql.defaults({
 
 export type Label = {
   color: string
-  description: string
+  description: string | null
   name: string
 }
 
@@ -104,7 +104,7 @@ export async function listDiscussions() {
         owner,
         repo,
         after,
-        tags: ['posts', 'all'],
+        tags: ['discussions'],
       },
     )
 
@@ -124,68 +124,4 @@ export async function listDiscussions() {
   )
 
   return sorted
-}
-
-type SearchDiscussionResult = {
-  search: {
-    edges: {
-      node: Discussion
-    }[]
-  }
-}
-
-type GetDiscussion = {
-  slug: string
-}
-
-export async function getDiscussion({ slug }: GetDiscussion) {
-  const result: SearchDiscussionResult = await api(
-    `
-    query postBySlug($search: String!) {
-      search(
-        query: $search
-        type: DISCUSSION
-        first: 100
-      ) {
-        edges {
-          node {
-            ... on Discussion {
-              title
-              createdAt
-              updatedAt
-              body
-              bodyHTML
-              number
-              category {
-                slug
-              }
-              labels(first: 100) {
-                nodes {
-                  name
-                  color
-                  description
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  `,
-    {
-      search: `"${slug}" in:title repo:${owner}/${repo}`,
-      tags: ['post', slug],
-    },
-  )
-
-  // In case we find discussions with similar titles, find the exact one
-  const discussion = result.search.edges.find((result) => {
-    return result.node.title === slug
-  })?.node
-
-  if (!isAllowedCategory(discussion?.category.slug || '')) {
-    return null
-  }
-
-  return discussion
 }

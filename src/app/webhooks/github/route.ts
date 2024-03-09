@@ -7,10 +7,14 @@ import {
   DiscussionLabeledEvent,
   DiscussionUnlabeledEvent,
   EventPayloadMap,
+  LabelCreatedEvent,
+  LabelDeletedEvent,
+  LabelEditedEvent,
 } from '@octokit/webhooks-types'
-import { revalidatePath, revalidateTag } from 'next/cache'
+import { revalidateTag } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
 
+import { isTag, labelNameToSlug } from '@/lib/blog'
 import { isAllowedCategory } from '@/lib/github'
 
 export async function POST(request: NextRequest) {
@@ -51,10 +55,11 @@ export async function POST(request: NextRequest) {
     )
   }
 
+  if (event !== 'discussion' && event !== 'label') {
+  }
+
   if (event === 'label') {
-    revalidatePath('/')
-    revalidateTag('tags')
-    revalidateTag('posts')
+    await onLabelEvent(body)
 
     return NextResponse.json({
       revalidated: true,
@@ -62,17 +67,51 @@ export async function POST(request: NextRequest) {
     })
   }
 
-  if (event !== 'discussion') {
-    return NextResponse.json(
-      {
-        revalidated: false,
-        now: Date.now(),
-        message: 'Unsupported event.',
-      },
-      { status: 401 },
-    )
+  if (event === 'discussion') {
+    await onDiscussionEvent(body)
+
+    return NextResponse.json({
+      revalidated: true,
+      now: Date.now(),
+    })
   }
 
+  return NextResponse.json(
+    {
+      revalidated: false,
+      now: Date.now(),
+      message: 'Unsupported event.',
+    },
+    { status: 401 },
+  )
+}
+
+async function onLabelEvent(body: string) {
+  const data = JSON.parse(body) as
+    | LabelCreatedEvent
+    | LabelDeletedEvent
+    | LabelEditedEvent
+
+  if (data.action === 'created') {
+    // do nothing. A created label has no effect
+  }
+
+  if (data.action === 'deleted' && isTag(data.label.name)) {
+    revalidateTag('tags/all')
+  }
+
+  if (data.action === 'edited') {
+    if (data.changes?.name?.from && isTag(data.changes.name.from)) {
+      revalidateTag(`tag/slug:${labelNameToSlug(data.changes.name.from)}`)
+    }
+
+    if (isTag(data.label.name)) {
+      revalidateTag(`tag/slug:${labelNameToSlug(data.label.name)}`)
+    }
+  }
+}
+
+async function onDiscussionEvent(body: string) {
   const data = JSON.parse(body) as
     | DiscussionCreatedEvent
     | DiscussionLabeledEvent
@@ -82,63 +121,43 @@ export async function POST(request: NextRequest) {
     | DiscussionEditedEvent
     | DiscussionDeletedEvent
 
-  const postSlug = data.discussion.title
-  const categorySlug = data.discussion.category.slug
-
   if (data.action === 'category_changed') {
-    revalidatePath('/')
-    revaliateFeeds()
-    revalidateTag('posts')
-    revalidateTag(postSlug)
-  }
+    if (
+      isAllowedCategory(data.discussion.category.slug) &&
+      isAllowedCategory(data.changes.category.from.slug)
+    ) {
+      // Do nothing. The post just changed from one supported category to the
+      // next. I don't separate between allowed categories right now.
+      return
+    }
 
-  if (!isAllowedCategory(categorySlug)) {
-    return NextResponse.json({
-      revalidated: false,
-      now: Date.now(),
-      message: `It doesn't matter if posts in the category ${categorySlug} are created, edited, deleted, labeled or unlabeled.`,
-    })
-  }
+    // The post was made either public or unlisted.
 
-  revalidatePath('/')
-  revaliateFeeds()
-
-  if (data.action === 'deleted') {
-    revalidateTag('posts')
-    revalidateTag('tags')
-    revalidateTag(postSlug)
+    revalidateTag(`post/slug:${data.discussion.title}`)
+    revalidateTag('feeds')
   }
 
   if (data.action === 'created') {
-    revalidateTag('posts')
-    revalidateTag('tags')
+    revalidateTag('posts/all')
+    revalidateTag('feeds')
+  }
+
+  if (data.action === 'deleted') {
+    revalidateTag(`post/slug:${data.discussion.title}`)
+    revalidateTag('posts/all')
+    revalidateTag('feeds')
   }
 
   if (data.action === 'edited') {
-    revalidateTag('posts')
-    revalidateTag(postSlug)
+    revalidateTag(`post/slug:${data.discussion.title}`)
+    revalidateTag('feeds')
   }
 
   if (data.action === 'labeled') {
-    revalidateTag('posts')
-    revalidateTag('tags')
-    revalidateTag(postSlug)
+    revalidateTag(`post/slug:${data.discussion.title}`)
   }
 
   if (data.action === 'unlabeled') {
-    revalidateTag('posts')
-    revalidateTag('tags')
-    revalidateTag(postSlug)
+    revalidateTag(`post/slug:${data.discussion.title}`)
   }
-
-  return NextResponse.json({
-    revalidated: true,
-    now: Date.now(),
-  })
-}
-
-function revaliateFeeds() {
-  revalidatePath('/posts/feed.atom')
-  revalidatePath('/posts/feed.json')
-  revalidatePath('/posts/feed.rss')
 }

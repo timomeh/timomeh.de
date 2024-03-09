@@ -1,14 +1,13 @@
 import ellipsize from 'ellipsize'
 import matter from 'gray-matter'
-import { groupBy, range, sortBy } from 'lodash'
-import { unstable_cache } from 'next/cache'
-import { cache } from 'react'
+import { sortBy } from 'lodash'
+import { memoize } from 'nextjs-better-unstable-cache'
 import readingTime from 'reading-time'
 import removeMd from 'remove-markdown'
 
-import { Discussion, getDiscussion, Label, listDiscussions } from './github'
+import { Discussion, Label, listDiscussions } from './github'
 
-export const listTags = unstable_cache(
+export const listTags = memoize(
   async () => {
     const posts = await listPosts()
     const tagsWithCount = posts.reduce(
@@ -26,15 +25,37 @@ export const listTags = unstable_cache(
       .map(({ tag }) => tag)
     return sortedTags
   },
-  ['tags'],
-  { tags: ['tags'] },
+  {
+    additionalCacheKey: ['listTags'],
+    revalidateTags: ['tags', 'tags/all'],
+  },
 )
 
-function toTag(label: Label) {
-  const slug = label.name.replace(/^tag:/, '')
+export const getTag = memoize(
+  async (slug: string) => {
+    const tags = await listTags()
+    const tag = tags.find((t) => t.slug === slug)
+    return tag
+  },
+  {
+    additionalCacheKey: ['getTag'],
+    revalidateTags: (slug) => ['tags', `tag/slug:${slug}`],
+  },
+)
+
+export function isTag(name: string | undefined) {
+  return name?.startsWith('tag:') ?? false
+}
+
+export function labelNameToSlug(name: string) {
+  return name.replace(/^tag:/, '')
+}
+
+export function toTag(label: Label) {
+  const slug = labelNameToSlug(label.name)
   const color = '#'.concat(label.color)
 
-  return { slug, name: label.description, color }
+  return { slug, name: label.description || slug, color }
 }
 
 export type BlogTag = ReturnType<typeof toTag>
@@ -43,64 +64,56 @@ type ListPosts = {
   tag?: string
 }
 
-export const listPosts = cache(async ({ tag }: ListPosts = {}) => {
-  let discussions = await listDiscussions()
-  let posts = discussions.map((discussion) => toPost(discussion))
+export const listPosts = memoize(
+  async ({ tag }: ListPosts = {}) => {
+    let discussions = await listDiscussions()
+    let posts = discussions.map((discussion) => toPost(discussion))
 
-  if (tag) {
-    posts = posts.filter((post) => post.tags.some((t) => t.slug === tag))
-  }
+    if (tag) {
+      posts = posts.filter((post) => post.tags.some((t) => t.slug === tag))
+    }
 
-  return posts
-})
+    return posts
+  },
+  {
+    additionalCacheKey: ['listPosts'],
+    revalidateTags: ({ tag } = {}) => [
+      'posts',
+      'posts/all',
+      `posts/tagged:${tag || 'everything'}`,
+    ],
+  },
+)
 
-export function groupPostsByYear(posts: Post[]) {
-  const latestPost = posts.at(0)
-  const oldestPost = posts.at(-1)
-
-  // just in case, you never know
-  if (!latestPost || !oldestPost) {
-    return [{ year: new Date().getFullYear(), posts: [] }]
-  }
-
-  const latestYear = latestPost.postedAt.getFullYear()
-  const oldestYear = oldestPost.postedAt.getFullYear()
-  const years = range(oldestYear, latestYear! + 1).reverse()
-
-  const postsByYear = groupBy(posts, (post) => post.postedAt.getFullYear())
-
-  return years.map((year) => ({
-    year,
-    posts: postsByYear[year] || [],
-  }))
-}
-
-export const getSurroundingPosts = cache(async (slug: string) => {
-  const posts = await listPosts()
-  const index = posts.findIndex((post) => post.slug === slug)
-  const next: Post | null = posts[index - 1] || null
-  const prev: Post | null = posts[index + 1] || null
-  return { prev, next }
-})
-
-export const getPost = cache(async (slug: string) => {
-  const discussion = await getDiscussion({ slug })
-  return discussion && toPost(discussion)
-})
+export const getPost = memoize(
+  async (slug: string) => {
+    const posts = await listPosts()
+    const post = posts.find((p) => p.slug === slug)
+    return post
+  },
+  {
+    additionalCacheKey: ['getPost'],
+    revalidateTags: (slug) => ['posts', `post/slug:${slug}`],
+  },
+)
 
 function toPost(discussion: Discussion) {
   const { excerpt, meta, title, body, plainTitle, plainDescription } =
     parseDocument(discussion.body, { fakeExcerpt: true })
   const safeTitle = plainTitle || discussion.title
-  const postedAt = new Date(discussion.createdAt)
-  const updatedAt = new Date(discussion.updatedAt)
-  const tags = discussion.labels.nodes.map((label) => toTag(label))
+  const postedAt = discussion.createdAt
+  const updatedAt = discussion.updatedAt
+  const tags = discussion.labels.nodes
+    .filter((label) => isTag(label.name))
+    .map((label) => toTag(label))
 
   let description = plainDescription
   if (description.length < 30) {
     description = safeTitle
       .concat(', posted on ')
-      .concat(postedAt.toLocaleDateString('en-US', { dateStyle: 'medium' }))
+      .concat(
+        new Date(postedAt).toLocaleDateString('en-US', { dateStyle: 'medium' }),
+      )
       .concat(' by Timo Mämecke')
   }
 

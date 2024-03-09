@@ -3,7 +3,7 @@ import { ImageResponse } from 'next/og'
 
 import { getPost } from '@/lib/blog'
 
-import { getFonts, OpengraphBaseImage } from '../../../OpengraphBaseImage'
+import { getFonts, OpengraphBaseImage } from '../../OpengraphBaseImage'
 
 export const generateStaticParams = () => []
 export const size = {

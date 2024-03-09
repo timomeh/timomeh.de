@@ -1,10 +1,10 @@
 import { notFound } from 'next/navigation'
 
+import { PostImage } from '@/comps/post-image'
 import { SocialBox } from '@/comps/social-box'
 import { getPost } from '@/lib/blog'
 
-import DefaultPage from '../../page'
-import { PostImage } from './post-image'
+import DefaultPage from '../../default'
 
 type Props = {
   params: { slug: string }

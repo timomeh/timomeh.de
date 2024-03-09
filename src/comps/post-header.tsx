@@ -1,18 +1,21 @@
 import { MDX } from '@/comps/mdx/mdx'
-import { Tag } from '@/comps/tag'
-import { Post } from '@/lib/blog'
+import { PostTag } from '@/comps/post-tag'
+import { getPost } from '@/lib/blog'
 
 type Props = {
-  post: Post
+  slug: string
 }
 
-export function PostHeader({ post }: Props) {
+export async function PostHeader({ slug }: Props) {
+  const post = await getPost(slug)
+  if (!post) return null
+
   return (
     <>
       <div className="mb-1 flex flex-wrap items-center gap-1">
         <div className="font-pixel text-xs leading-none antialiased [font-feature-settings:'ss01']">
           <time className="text-purple-300">
-            {post.postedAt.toLocaleString('en-US', {
+            {new Date(post.postedAt).toLocaleString('en-US', {
               month: 'short',
               day: '2-digit',
               year: 'numeric',
@@ -24,7 +27,7 @@ export function PostHeader({ post }: Props) {
           </span>
         </div>
         {post.tags.map((tag) => (
-          <Tag key={tag.slug} color={tag.color} name={tag.name} size="smol" />
+          <PostTag key={tag.slug} slug={tag.slug} size="smol" />
         ))}
       </div>
       <h1 className="mb-8 text-balance font-display text-2xl font-semibold leading-tight sm:text-3xl">

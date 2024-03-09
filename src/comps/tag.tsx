@@ -3,18 +3,10 @@ import clsx from 'clsx'
 type Props = {
   color: string
   name: React.ReactNode
-  highlight?: boolean
-  clickable?: boolean
   size?: 'normal' | 'smol'
 }
 
-export function Tag({
-  color,
-  name,
-  highlight,
-  clickable,
-  size = 'normal',
-}: Props) {
+export function Tag({ color, name, size = 'normal' }: Props) {
   return (
     <div style={{ color }}>
       <div
@@ -28,13 +20,10 @@ export function Tag({
       >
         <div className="pointer-events-none absolute inset-0 rounded-full bg-current opacity-20" />
         <div
-          className={clsx(
-            `pointer-events-none absolute inset-0 rounded-full
+          className="pointer-events-none absolute inset-0 rounded-full opacity-0
             shadow-[0_0_6px_2px_color-mix(in_srgb,currentColor_50%,transparent)]
-            transition-opacity duration-500`,
-            highlight ? 'opacity-100' : 'opacity-0',
-            clickable && !highlight && 'group-hover/tag:opacity-50',
-          )}
+            transition-opacity duration-300 group-hover/tag-link:opacity-50
+            group-data-[current=true]/tag-link:opacity-100"
         />
         <div
           className="relative text-nowrap text-[color-mix(in_srgb,currentColor_50%,white)]

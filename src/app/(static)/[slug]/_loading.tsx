@@ -1,14 +1,10 @@
-import Link from 'next/link'
-
-import { Tag } from '@/comps/tag'
+import { BackTag } from '@/comps/back-tag'
 
 export default function Loading() {
   return (
     <div className="mx-auto max-w-2xl px-4">
       <div className="mb-10 flex sm:pt-6">
-        <Link href="/">
-          <Tag color="#DEC1EF" clickable name="← Back" />
-        </Link>
+        <BackTag />
       </div>
 
       <article className="prose prose-invert relative">
