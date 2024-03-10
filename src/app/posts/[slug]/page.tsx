@@ -5,6 +5,12 @@ import { MDX } from '@/comps/mdx/mdx'
 import { PostHeader } from '@/comps/post-header'
 import { getPost } from '@/lib/blog'
 
+export const dynamic = 'force-static'
+export const dynamicParams = true
+export function generateStaticParams() {
+  return []
+}
+
 type Props = {
   params: { slug: string }
 }

@@ -5,6 +5,12 @@ import { MDX } from '@/comps/mdx/mdx'
 
 import { getSite } from './getSite'
 
+export const dynamic = 'force-static'
+export const dynamicParams = true
+export function generateStaticParams() {
+  return []
+}
+
 type Props = {
   params: {
     slug: string

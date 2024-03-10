@@ -9,9 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@octokit/core": "6.0.1",
+    "@octokit/graphql": "8.0.1",
     "@octokit/graphql-schema": "15.2.0",
-    "@octokit/plugin-paginate-graphql": "4.0.1",
     "@octokit/webhooks": "13.0.2",
     "@octokit/webhooks-types": "7.3.2",
     "@plaiceholder/next": "3.0.0",
@@ -28,10 +27,8 @@
     "next": "14.1.2",
     "next-mdx-remote": "4.4.1",
     "next-nprogress-bar": "2.3.4",
-    "nextjs-better-unstable-cache": "1.0.0",
     "plaiceholder": "3.0.0",
     "postcss-url": "10.1.3",
-    "prando": "6.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "reading-time": "1.5.0",

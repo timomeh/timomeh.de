@@ -5,6 +5,12 @@ import { getTag } from '@/lib/blog'
 
 import { PostList } from '../../post-list'
 
+export const dynamic = 'force-static'
+export const dynamicParams = true
+export function generateStaticParams() {
+  return []
+}
+
 type Props = {
   params: {
     tag: string

@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import Prando from 'prando'
+import { useEffect, useRef, useState } from 'react'
 
 const sentences = [
   'a head full of software engineering by',
@@ -15,11 +15,24 @@ const sentences = [
   'a head full of oat milk cappuccinos by',
 ]
 
+function randomSentence() {
+  return sentences[Math.floor(Math.random() * (sentences.length - 1)) + 1]
+}
+
 export function RandomKicker() {
   const pathname = usePathname()
-  const sentence = new Prando(
-    pathname + new Date().toISOString().split('T')[0],
-  ).nextArrayItem(sentences)
+  const [sentence, setSentence] = useState(sentences[0])
+  const prevPathname = useRef(pathname)
 
-  return <div suppressHydrationWarning>{sentence}</div>
+  useEffect(() => {
+    if (pathname === prevPathname.current) {
+      prevPathname.current = pathname
+      return
+    }
+
+    prevPathname.current = pathname
+    setSentence(randomSentence())
+  }, [pathname])
+
+  return <span>{sentence}</span>
 }

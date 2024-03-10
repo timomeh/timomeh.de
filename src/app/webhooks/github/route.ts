@@ -14,7 +14,7 @@ import {
 import { revalidateTag } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
 
-import { labelNameToSlug } from '@/lib/blog'
+import { cacheTag } from '@/lib/cache-tags'
 import { fetchDiscussion, isAllowedCategory, isTag } from '@/lib/github'
 
 export async function POST(request: NextRequest) {
@@ -94,20 +94,21 @@ async function onLabelEvent(body: string) {
     // Only if a discussion gets labeled.
   }
 
-  if (data.action === 'deleted' && isTag(data.label.name)) {
-    // When a label-tag was deleted, the list of labels has changed
-    revalidateTag('github/labels')
+  if (data.action === 'deleted') {
+    // Deleting a label has no effect on the blog.
+    // The label will be removed from the discussion, which is handled in a
+    // separate event.
   }
 
   if (data.action === 'edited') {
     if (data.changes?.name?.from && isTag(data.changes.name.from)) {
       // When the name of a label-tag changed, the list of labels has changed
-      revalidateTag('github/labels')
+      revalidateTags(cacheTag.labels.list())
     }
 
     if (isTag(data.label.name)) {
       // The label-tag has changed
-      revalidateTag(`github/label/${labelNameToSlug(data.label.name)}`)
+      revalidateTags(cacheTag.labels.get(data.label.name))
     }
   }
 }
@@ -143,13 +144,15 @@ async function onDiscussionEvent(body: string) {
     // discussions is affected, as well as the labeled lists.
     const discussion = await fetchDiscussion(data.discussion.title)
     discussion?.labels?.nodes?.forEach((label) => {
-      if (label) revalidateTag(`github/discussions/labeled:${label.name}`)
+      if (label && isTag(label.name)) {
+        revalidateTags(cacheTag.discussions.list({ label: label.name }))
+      }
     })
-    revalidateTag('github/discussions/all')
-    revalidateTag(`github/discussion/${data.discussion.title}`)
+    revalidateTags(cacheTag.discussions.list())
+    revalidateTags(cacheTag.discussions.get(data.discussion.title))
 
     // A new/removed post can affect the order of labels
-    revalidateTag('github/labels')
+    revalidateTags(cacheTag.labels.list())
   }
 
   if (data.action === 'created') {
@@ -159,12 +162,14 @@ async function onDiscussionEvent(body: string) {
     // as well as the labeled lists.
     const discussion = await fetchDiscussion(data.discussion.title)
     discussion?.labels?.nodes?.forEach((label) => {
-      if (label) revalidateTag(`github/discussions/labeled:${label.name}`)
+      if (label && isTag(label.name)) {
+        revalidateTags(cacheTag.discussions.list({ label: label.name }))
+      }
     })
-    revalidateTag('github/discussions/all')
+    revalidateTags(cacheTag.discussions.list())
 
     // A new post can affect the order of labels
-    revalidateTag('github/labels')
+    revalidateTags(cacheTag.labels.list())
   }
 
   if (data.action === 'deleted') {
@@ -174,13 +179,15 @@ async function onDiscussionEvent(body: string) {
     // as well as the labeled lists.
     const discussion = await fetchDiscussion(data.discussion.title)
     discussion?.labels?.nodes?.forEach((label) => {
-      if (label) revalidateTag(`github/discussions/labeled:${label.name}`)
+      if (label && isTag(label.name)) {
+        revalidateTags(cacheTag.discussions.list({ label: label.name }))
+      }
     })
-    revalidateTag('github/discussions/all')
-    revalidateTag(`github/discussion/${data.discussion.title}`)
+    revalidateTags(cacheTag.discussions.list())
+    revalidateTags(cacheTag.discussions.get(data.discussion.title))
 
     // A removed post can affect the order of labels
-    revalidateTag('github/labels')
+    revalidateTags(cacheTag.labels.list())
   }
 
   if (data.action === 'edited') {
@@ -191,12 +198,14 @@ async function onDiscussionEvent(body: string) {
       // the list of all discussions, as well as the labeled lists.
       const discussion = await fetchDiscussion(data.discussion.title)
       discussion?.labels?.nodes?.forEach((label) => {
-        if (label) revalidateTag(`github/discussions/labeled:${label.name}`)
+        if (label && isTag(label.name)) {
+          revalidateTags(cacheTag.discussions.list({ label: label.name }))
+        }
       })
-      revalidateTag('github/discussions/all')
+      revalidateTags(cacheTag.discussions.list())
     }
 
-    revalidateTag(`github/discussion/${data.discussion.title}`)
+    revalidateTags(cacheTag.discussions.get(data.discussion.title))
   }
 
   if (data.action === 'labeled') {
@@ -204,11 +213,11 @@ async function onDiscussionEvent(body: string) {
 
     // When a discussion is labeled, it affects the list labeled list, as well
     // as of course the dicussion itself.
-    revalidateTag(`github/discussions/labeled:${data.label.name}`)
-    revalidateTag(`github/discussion/${data.discussion.title}`)
+    revalidateTags(cacheTag.discussions.list({ label: data.label.name }))
+    revalidateTags(cacheTag.discussions.get(data.discussion.title))
 
     // Adding a label to a post can affect the order of labels
-    revalidateTag('github/labels')
+    revalidateTags(cacheTag.labels.list())
   }
 
   if (data.action === 'unlabeled') {
@@ -216,10 +225,14 @@ async function onDiscussionEvent(body: string) {
 
     // When a discussion is unlabeled, it affects the list labeled list, as well
     // as of course the dicussion itself.
-    revalidateTag(`github/discussions/labeled:${data.label.name}`)
-    revalidateTag(`post/slug:${data.discussion.title}`)
+    revalidateTags(cacheTag.discussions.list({ label: data.label.name }))
+    revalidateTags(cacheTag.discussions.get(data.discussion.title))
 
     // Removing a label from a post can affect the order of labels
-    revalidateTag('github/labels')
+    revalidateTags(cacheTag.labels.list())
   }
+}
+
+function revalidateTags(tags: string[]) {
+  tags.forEach((tag) => revalidateTag(tag))
 }

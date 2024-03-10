@@ -2,6 +2,7 @@ import { Discussion, Label } from '@octokit/graphql-schema'
 import ellipsize from 'ellipsize'
 import matter from 'gray-matter'
 import { groupBy, range } from 'lodash'
+import { cache } from 'react'
 import readingTime from 'reading-time'
 import removeMd from 'remove-markdown'
 
@@ -13,23 +14,22 @@ import {
   isTag,
 } from './github'
 
-export async function listTags() {
+export const listTags = cache(async () => {
   const labels = await fetchSortedLabels()
   const slugs = labels.map((label) => labelNameToSlug(label.name))
   return slugs
-}
+})
 
-export async function getTag(slug: string) {
+export const getTag = cache(async (slug: string) => {
+  const labels = await fetchSortedLabels()
+  if (!labels.some((label) => labelNameToSlug(label.name) === slug)) {
+    return null
+  }
+
   const label = await fetchLabel(`tag:${slug}`)
-  if (!label) return null
-
-  const tag = toTag({
-    name: label.name,
-    color: label.color,
-    description: label.description,
-  })
+  const tag = toTag(label)
   return tag
-}
+})
 
 export function labelNameToSlug(name: string) {
   return name.replace(/^tag:/, '')
@@ -48,14 +48,18 @@ type ListPostsFilter = {
   tag?: string
 }
 
-export async function listPosts(filter: ListPostsFilter = {}) {
-  const discussions = await fetchSortedDiscussions({ label: filter.tag })
+export const listPosts = cache(async (filter: ListPostsFilter = {}) => {
+  const discussions = await fetchSortedDiscussions({
+    label: filter.tag ? `tag:${filter.tag}` : undefined,
+  })
   const slugs = discussions.map((discussion) => discussion.title)
   return slugs
-}
+})
 
-export async function listPostsByYear(filter: ListPostsFilter = {}) {
-  const discussions = await fetchSortedDiscussions({ label: filter.tag })
+export const listPostsByYear = cache(async (filter: ListPostsFilter = {}) => {
+  const discussions = await fetchSortedDiscussions({
+    label: filter.tag ? `tag:${filter.tag}` : undefined,
+  })
   const latest = discussions.at(0)
   const oldest = discussions.at(-1)
 
@@ -78,15 +82,29 @@ export async function listPostsByYear(filter: ListPostsFilter = {}) {
   }))
 
   return list
-}
+})
 
-export async function getPost(slug: string) {
+export const getPost = cache(async (slug: string) => {
+  const posts = await listPosts()
+  if (!posts.includes(slug)) return null
+
   const discussion = await fetchDiscussion(slug)
-  if (!discussion) return null
-
   const post = toPost(discussion)
   return post
-}
+})
+
+export const getRelatedPosts = cache(async (slug: string) => {
+  const posts = await listPosts()
+  const index = posts.findIndex((post) => post === slug)
+
+  if (index === -1) {
+    return { prev: null, next: null }
+  }
+
+  const next = posts[index - 1] || null
+  const prev = posts[index + 1] || null
+  return { prev, next }
+})
 
 function toPost(discussion: Discussion) {
   const { excerpt, meta, title, body, plainTitle, plainDescription } =
@@ -140,47 +158,49 @@ type MetaData = {
   title?: string
 }
 
-function parseDocument(document: string, { fakeExcerpt = false } = {}) {
-  const excerptSeparator = '<!-- intro -->'
-  const parsed = matter(document, {
-    excerpt: true,
-    excerpt_separator: excerptSeparator,
-    delimiters: '~~~',
-  })
+const parseDocument = cache(
+  (document: string, { fakeExcerpt = false } = {}) => {
+    const excerptSeparator = '<!-- intro -->'
+    const parsed = matter(document, {
+      excerpt: true,
+      excerpt_separator: excerptSeparator,
+      delimiters: '~~~',
+    })
 
-  const meta = {
-    lang: 'en_US',
-    ...(parsed.data as MetaData),
-  }
-  const title = /^# (.*$)/gim.exec(document)?.[1].trim()
-  const content = parsed.content.split(excerptSeparator).at(-1) || ''
-  const body = content.replace(/^# .*$/gim, '')
+    const meta = {
+      lang: 'en_US',
+      ...(parsed.data as MetaData),
+    }
+    const title = /^# (.*$)/gim.exec(document)?.[1].trim()
+    const content = parsed.content.split(excerptSeparator).at(-1) || ''
+    const body = content.replace(/^# .*$/gim, '')
 
-  const excerpt = fakeExcerpt
-    ? parsed.excerpt?.replace(/^# (.*$)/gim, '') ||
-      body.split('\r\n').filter(Boolean)[0]
-    : parsed.excerpt?.replace(/^# (.*$)/gim, '')
+    const excerpt = fakeExcerpt
+      ? parsed.excerpt?.replace(/^# (.*$)/gim, '') ||
+        body.split('\r\n').filter(Boolean)[0]
+      : parsed.excerpt?.replace(/^# (.*$)/gim, '')
 
-  const plainDescription =
-    meta.description || ellipsize(cleanText(excerpt || body), 160)
-  const plainTitle =
-    cleanText(meta.title || title || '') ||
-    ellipsize(cleanText(excerpt || body), 50)
+    const plainDescription =
+      meta.description || ellipsize(cleanText(excerpt || body), 160)
+    const plainTitle =
+      cleanText(meta.title || title || '') ||
+      ellipsize(cleanText(excerpt || body), 50)
 
-  return {
-    excerpt,
-    meta,
-    title,
-    body,
-    plainTitle,
-    plainDescription: plainDescription.trim(),
-  }
-}
+    return {
+      excerpt,
+      meta,
+      title,
+      body,
+      plainTitle,
+      plainDescription: plainDescription.trim(),
+    }
+  },
+)
 
-function cleanText(text: string) {
+const cleanText = cache((text: string) => {
   let cleaned = removeMd(text, { useImgAltText: false })
   cleaned = cleaned.replace(/(?:https?):\/\/[\n\S]+/gi, '') // remove stray links (embeds)
   cleaned = cleaned.replace(/(?:\r\n|\r|\n)/g, ' ') // remove newlines
 
   return cleaned
-}
+})
