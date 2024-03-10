@@ -1,7 +1,5 @@
 import Link from 'next/link'
 
-import { RandomKicker } from './random-kicker'
-
 export function BlogTitle() {
   return (
     <div className="group flex">
@@ -23,7 +21,7 @@ export function BlogTitle() {
         className="font-display text-xs leading-none text-yellow-100
           [text-shadow:0px_0px_6px_rgba(0,0,0,0.3)] xs:text-sm"
       >
-        <RandomKicker />
+        <span>test</span>
         <span className="-mt-1 block xs:-mt-2">
           <Link
             href="/about"

@@ -1,5 +1,5 @@
 import { PostPreview } from '@/comps/post-preview'
-import { getRelatedPosts } from '@/util/related-posts'
+import { getRelatedPosts } from '@/lib/blog'
 
 type Props = {
   params: { slug: string }
