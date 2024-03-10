@@ -2,7 +2,6 @@
 
 import { usePathname } from 'next/navigation'
 import Prando from 'prando'
-import { useEffect, useRef, useState } from 'react'
 
 const sentences = [
   'a head full of software engineering by',
@@ -13,32 +12,14 @@ const sentences = [
   'a head full of useless knowledge by',
   'a head full of music on repeat by',
   'a head full of caching issues by',
+  'a head full of oat milk cappuccinos by',
 ]
 
-type Props = {
-  seed: number
-}
-
-function randomSentence() {
-  return new Prando().nextArrayItem(sentences)
-}
-
-export function RandomKicker({ seed }: Props) {
-  const [sentence, setSentence] = useState(() =>
-    new Prando(seed).nextArrayItem(sentences),
-  )
+export function RandomKicker() {
   const pathname = usePathname()
-  const prevPathname = useRef<string>(pathname)
+  const sentence = new Prando(
+    pathname + new Date().toISOString().split('T')[0],
+  ).nextArrayItem(sentences)
 
-  useEffect(() => {
-    if (pathname === prevPathname.current) {
-      prevPathname.current = pathname
-      return
-    }
-
-    prevPathname.current = pathname
-    setSentence(randomSentence())
-  }, [pathname])
-
-  return <>{sentence}</>
+  return <div suppressHydrationWarning>{sentence}</div>
 }
