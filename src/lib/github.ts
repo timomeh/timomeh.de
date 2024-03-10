@@ -18,6 +18,15 @@ const gh = graphql.defaults({
   headers: {
     authorization: `token ${process.env.GITHUB_ACCESS_TOKEN!}`,
   },
+  request: {
+    fetch(url: string, options: RequestInit) {
+      return fetch(url, {
+        ...options,
+        // we're wrapping the requests and caching them separately
+        cache: 'no-store',
+      })
+    },
+  },
 })
 
 type ListFilter = {
@@ -85,8 +94,6 @@ export const fetchSortedDiscussions = memoize(
   {
     additionalCacheKey: ['fetchSortedDiscussions'],
     revalidateTags: (filter = {}) => [
-      'github',
-      'github/discussions',
       filter.label
         ? `github/discussions/labeled:${filter.label}`
         : 'github/discussions/all',
@@ -136,11 +143,7 @@ export const fetchDiscussion = memoize(
   },
   {
     additionalCacheKey: ['fetchDiscussion'],
-    revalidateTags: (slug) => [
-      'github',
-      'github/discussion/*',
-      `github/discussion/${slug}`,
-    ],
+    revalidateTags: (slug) => [`github/discussion/${slug}`],
     // @ts-expect-error
     duration: false,
   },
@@ -167,7 +170,7 @@ export const fetchSortedLabels = memoize(
   },
   {
     additionalCacheKey: ['fetchSortedLabels'],
-    revalidateTags: ['github', 'github/labels'],
+    revalidateTags: ['github/labels'],
     // @ts-expect-error
     duration: false,
   },
@@ -199,11 +202,7 @@ export const fetchLabel = memoize(
   },
   {
     additionalCacheKey: ['fetchLabel'],
-    revalidateTags: (name) => [
-      'github',
-      'github/label/*',
-      `github/label/${name}`,
-    ],
+    revalidateTags: (name) => [`github/label/${name}`],
     // @ts-expect-error
     duration: false,
   },
