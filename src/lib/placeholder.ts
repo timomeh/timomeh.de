@@ -1,22 +1,25 @@
-import { memoize } from 'nextjs-better-unstable-cache'
+import { unstable_cache } from 'next/cache'
 import { getPlaiceholder } from 'plaiceholder'
+import { cache } from 'react'
 
-export const getPlaceholder = memoize(
-  async (src: string) => {
-    const buffer = await fetch(src).then(async (res) =>
-      Buffer.from(await res.arrayBuffer()),
-    )
+export const getPlaceholder = cache((src: string) => {
+  const cacheFn = unstable_cache(
+    () => getPlaceholderUncached(src),
+    [`getPlaceholderUncached/${src}`],
+  )
 
-    const {
-      metadata: { height, width },
-      ...plaiceholder
-    } = await getPlaiceholder(buffer, { size: 10 })
+  return cacheFn()
+})
 
-    return { css: plaiceholder.css, img: { src, height, width } }
-  },
-  {
-    additionalCacheKey: ['plaiceholder'],
-    // @ts-expect-error
-    duration: false,
-  },
-)
+async function getPlaceholderUncached(src: string) {
+  const buffer = await fetch(src).then(async (res) =>
+    Buffer.from(await res.arrayBuffer()),
+  )
+
+  const {
+    metadata: { height, width },
+    ...plaiceholder
+  } = await getPlaiceholder(buffer, { size: 10 })
+
+  return { css: plaiceholder.css, img: { src, height, width } }
+}

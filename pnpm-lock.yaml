@@ -59,9 +59,6 @@ dependencies:
   next-nprogress-bar:
     specifier: 2.3.4
     version: 2.3.4
-  nextjs-better-unstable-cache:
-    specifier: 1.0.0
-    version: 1.0.0(next@14.1.2)(react@18.2.0)(typescript@5.3.3)
   plaiceholder:
     specifier: 3.0.0
     version: 3.0.0(sharp@0.32.6)
@@ -948,6 +945,7 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       color-convert: 2.0.1
+    dev: true
 
   /ansi-styles@6.2.1:
     resolution: {integrity: sha512-bN798gFfQX+viw3R7yrGWRqnrN2oRkEkUjjl4JNn4E8GxxbjtG3FbrEIIY3l8/hrwUwIeCZvi4QuOTP4MErVug==}
@@ -1294,6 +1292,7 @@ packages:
     dependencies:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
+    dev: true
 
   /character-entities-html4@2.1.0:
     resolution: {integrity: sha512-1v7fgQRj6hnSwFpq1Eu0ynr/CDEw0rXo2B61qXrLNdHZmPKgb7fqS1a2JwF0rISo9q77jDI8VMEHoApn8qDoZA==}
@@ -2396,6 +2395,7 @@ packages:
   /has-flag@4.0.0:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
     engines: {node: '>=8'}
+    dev: true
 
   /has-property-descriptors@1.0.2:
     resolution: {integrity: sha512-55JNKuIW+vq4Ke1BjOTjM2YctQIvCT7GFzHwmfZPGo5wnrgkid0YQtnAleFSqumZm4az3n2BS+erby5ipJdgrg==}
@@ -3820,19 +3820,6 @@ packages:
       - babel-plugin-macros
     dev: false
 
-  /nextjs-better-unstable-cache@1.0.0(next@14.1.2)(react@18.2.0)(typescript@5.3.3):
-    resolution: {integrity: sha512-djzOX+XDHRtxPpptIjqvhYKbXyNTzBzht2tqtTwQBs+Y1uUqV7h2ptmTXF7YlJg6r/mka1/DaAhoI6srEwnlVg==}
-    peerDependencies:
-      next: '>=13.4'
-      react: next
-      typescript: '>=5.2.2'
-    dependencies:
-      chalk: 4.1.2
-      next: 14.1.2(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      typescript: 5.3.3
-    dev: false
-
   /node-abi@3.56.0:
     resolution: {integrity: sha512-fZjdhDOeRcaS+rcpve7XuwHBmktS1nS1gzgghwKUQQ8nTy2FdSDr6ZT8k6YhvlJeHmmQMYiT/IH9hfco5zeW2Q==}
     engines: {node: '>=10'}
@@ -4901,6 +4888,7 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       has-flag: 4.0.0
+    dev: true
 
   /supports-preserve-symlinks-flag@1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
@@ -5124,6 +5112,7 @@ packages:
     resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==}
     engines: {node: '>=14.17'}
     hasBin: true
+    dev: true
 
   /unbox-primitive@1.0.2:
     resolution: {integrity: sha512-61pPlCD9h51VoreyJ0BReideM3MDKMKnh6+V9L08331ipq6Q8OFXZYiqP6n/tbHx4s5I9uRhcye6BrbkizkBDw==}
