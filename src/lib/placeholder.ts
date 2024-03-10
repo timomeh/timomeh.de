@@ -16,5 +16,7 @@ export const getPlaceholder = memoize(
   },
   {
     additionalCacheKey: ['plaiceholder'],
+    // @ts-expect-error
+    duration: false,
   },
 )
