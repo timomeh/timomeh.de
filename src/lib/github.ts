@@ -139,7 +139,7 @@ export const fetchDiscussion = memoize(
     )
 
     const result = search.nodes?.find((discussion) => discussion.title === slug)
-    if (!result) return null
+    if (!result) throw new Error('not found')
 
     return result
   },
@@ -201,7 +201,10 @@ export const fetchLabel = memoize(
       },
     )
 
-    return res.repository.label
+    const label = res.repository.label
+    if (!label) throw new Error('not found')
+
+    return label
   },
   {
     additionalCacheKey: ['fetchLabel'],

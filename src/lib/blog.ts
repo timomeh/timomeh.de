@@ -20,7 +20,12 @@ export async function listTags() {
 }
 
 export async function getTag(slug: string) {
-  const label = await fetchLabel(`tag:${slug}`)
+  const labels = await fetchSortedLabels()
+  if (!labels.some((label) => labelNameToSlug(label.name) === slug)) {
+    return null
+  }
+
+  const label = await fetchLabel(`tag:${slug}`).catch(() => null)
   if (!label) return null
 
   const tag = toTag(label)
@@ -77,7 +82,11 @@ export async function listPostsByYear(filter: ListPostsFilter = {}) {
 }
 
 export async function getPost(slug: string) {
-  const discussion = await fetchDiscussion(slug)
+  const discussions = await fetchSortedDiscussions()
+  if (!discussions.some((discussion) => discussion.title === slug)) {
+    return null
+  }
+  const discussion = await fetchDiscussion(slug).catch(() => null)
   if (!discussion) return null
 
   const post = toPost(discussion)
