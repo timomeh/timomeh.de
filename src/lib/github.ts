@@ -3,6 +3,8 @@ import { Discussion, Label, PageInfo } from '@octokit/graphql-schema'
 import { sortBy } from 'lodash'
 import { unstable_cache } from 'next/cache'
 
+import { cacheTag } from './cache-tags'
+
 const owner = 'timomeh'
 const repo = 'timomeh.de'
 
@@ -39,7 +41,7 @@ async function fetchDiscussions(filter: ListFilter = {}) {
     'category:posts',
     'category:offtopic',
   ]
-  if (filter.label) queries.push(`label:tag:${filter.label}`)
+  if (filter.label) queries.push(`label:${filter.label}`)
 
   let hasNextPage = true
   let cursor: string | null = null
@@ -94,14 +96,8 @@ async function fetchSortedDiscussionsUncached(filter: ListFilter = {}) {
 export async function fetchSortedDiscussions(filter: ListFilter = {}) {
   const cacheFn = unstable_cache(
     () => fetchSortedDiscussionsUncached(filter),
-    [`fetchSortedDiscussions/${JSON.stringify(filter)}`],
-    {
-      tags: [
-        filter.label
-          ? `github/discussions/labeled:${filter.label}`
-          : 'github/discussions/all',
-      ],
-    },
+    [`fetchSortedDiscussions/${filter.label || 'all'}`],
+    { tags: cacheTag.discussions.list(filter) },
   )
 
   return cacheFn()
@@ -149,7 +145,7 @@ export async function fetchDiscussion(slug: string) {
   const cacheFn = unstable_cache(
     () => fetchDiscussionUncached(slug),
     [`fetchDiscussion/${slug}`],
-    { tags: [`github/discussion/${slug}`] },
+    { tags: cacheTag.discussions.get(slug) },
   )
 
   return cacheFn()
@@ -178,7 +174,7 @@ export async function fetchSortedLabels() {
   const cacheFn = unstable_cache(
     () => fetchSortedLabelsUncached(),
     ['fetchSortedLabels'],
-    { tags: ['github/labels'] },
+    { tags: cacheTag.labels.list() },
   )
 
   return cacheFn()
@@ -212,7 +208,7 @@ export async function fetchLabel(name: string) {
   const cacheFn = unstable_cache(
     () => fetchLabelUncached(name),
     [`fetchLabel/${name}`],
-    { tags: [`github/label/${name}`] },
+    { tags: cacheTag.labels.get(name) },
   )
 
   return cacheFn()

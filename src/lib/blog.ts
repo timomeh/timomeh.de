@@ -49,13 +49,17 @@ type ListPostsFilter = {
 }
 
 export const listPosts = cache(async (filter: ListPostsFilter = {}) => {
-  const discussions = await fetchSortedDiscussions({ label: filter.tag })
+  const discussions = await fetchSortedDiscussions({
+    label: filter.tag ? `tag:${filter.tag}` : undefined,
+  })
   const slugs = discussions.map((discussion) => discussion.title)
   return slugs
 })
 
 export const listPostsByYear = cache(async (filter: ListPostsFilter = {}) => {
-  const discussions = await fetchSortedDiscussions({ label: filter.tag })
+  const discussions = await fetchSortedDiscussions({
+    label: filter.tag ? `tag:${filter.tag}` : undefined,
+  })
   const latest = discussions.at(0)
   const oldest = discussions.at(-1)
 
