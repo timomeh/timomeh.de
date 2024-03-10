@@ -21,7 +21,7 @@ export async function PostPreview({ slug, dir }: Props) {
     >
       {post.meta.cover_image && (
         <div className="absolute inset-0 brightness-50">
-          <PostImage src={post.meta.cover_image} />
+          <PostImage src={post.meta.cover_image} alt="" />
         </div>
       )}
       <div className="mx-auto max-w-2xl px-4">
