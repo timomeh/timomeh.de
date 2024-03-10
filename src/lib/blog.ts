@@ -25,9 +25,7 @@ export async function getTag(slug: string) {
     return null
   }
 
-  const label = await fetchLabel(`tag:${slug}`).catch(() => null)
-  if (!label) return null
-
+  const label = await fetchLabel(`tag:${slug}`)
   const tag = toTag(label)
   return tag
 }
@@ -86,8 +84,7 @@ export async function getPost(slug: string) {
   if (!discussions.some((discussion) => discussion.title === slug)) {
     return null
   }
-  const discussion = await fetchDiscussion(slug).catch(() => null)
-  if (!discussion) return null
+  const discussion = await fetchDiscussion(slug)
 
   const post = toPost(discussion)
   return post
