@@ -27,6 +27,7 @@ export function SocialBox({ floating }: Props) {
           </div>
         </a>
         <Link
+          title="Feeds"
           href="/feeds"
           className="-mx-1 -my-2 px-1 py-2 opacity-70 transition-opacity hover:opacity-100"
         >
