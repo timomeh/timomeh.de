@@ -5,15 +5,12 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  '@octokit/core':
-    specifier: 6.0.1
-    version: 6.0.1
+  '@octokit/graphql':
+    specifier: 8.0.1
+    version: 8.0.1
   '@octokit/graphql-schema':
     specifier: 15.2.0
     version: 15.2.0
-  '@octokit/plugin-paginate-graphql':
-    specifier: 4.0.1
-    version: 4.0.1(@octokit/core@6.0.1)
   '@octokit/webhooks':
     specifier: 13.0.2
     version: 13.0.2
@@ -464,24 +461,6 @@ packages:
       rimraf: 3.0.2
     dev: false
 
-  /@octokit/auth-token@5.0.1:
-    resolution: {integrity: sha512-RTmWsLfig8SBoiSdgvCht4BXl1CHU89Co5xiQ5JF19my/sIRDFCQ1RPrmK0exgqUZuNm39C/bV8+/83+MJEjGg==}
-    engines: {node: '>= 18'}
-    dev: false
-
-  /@octokit/core@6.0.1:
-    resolution: {integrity: sha512-MIpPQXu8Y8GjHwXM81JLveiV+DHJZtLMcB5nKekBGOl3iAtk0HT3i12Xl8Biybu+bCS1+k4qbuKEq5d0RxNRnQ==}
-    engines: {node: '>= 18'}
-    dependencies:
-      '@octokit/auth-token': 5.0.1
-      '@octokit/graphql': 8.0.1
-      '@octokit/request': 9.0.1
-      '@octokit/request-error': 6.0.2
-      '@octokit/types': 12.6.0
-      before-after-hook: 3.0.2
-      universal-user-agent: 7.0.2
-    dev: false
-
   /@octokit/endpoint@10.0.0:
     resolution: {integrity: sha512-emBcNDxBdC1y3+knJonS5zhUB/CG6TihubxM2U1/pG/Z1y3a4oV0Gzz3lmkCvWWQI6h3tqBAX9MgCBFp+M68Jw==}
     engines: {node: '>= 18'}
@@ -512,15 +491,6 @@ packages:
 
   /@octokit/openapi-webhooks-types@6.0.2:
     resolution: {integrity: sha512-34ykOEAEEtIdB0GLokPER1ZaRZm6UQrmZ3Dglc7+JOFAhSfx00rcNYPzo3GZSiexCdxZ1f6HkWur7yGGYl8NXg==}
-    dev: false
-
-  /@octokit/plugin-paginate-graphql@4.0.1(@octokit/core@6.0.1):
-    resolution: {integrity: sha512-R8ZQNmrIKKpHWC6V2gum4x9LG2qF1RxRjo27gjQcG3j+vf2tLsEfE7I/wRWEPzYMaenr1M+qDAtNcwZve1ce1A==}
-    engines: {node: '>= 18'}
-    peerDependencies:
-      '@octokit/core': '>=5'
-    dependencies:
-      '@octokit/core': 6.0.1
     dev: false
 
   /@octokit/request-error@6.0.2:
@@ -1205,10 +1175,6 @@ packages:
 
   /base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
-    dev: false
-
-  /before-after-hook@3.0.2:
-    resolution: {integrity: sha512-Nik3Sc0ncrMK4UUdXQmAnRtzmNQTAAXmXIopizwZ1W1t8QmfJj+zL4OA2I7XPTPW5z5TDqv4hRo/JzouDJnX3A==}
     dev: false
 
   /binary-extensions@2.2.0:

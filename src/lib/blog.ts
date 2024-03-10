@@ -23,11 +23,7 @@ export async function getTag(slug: string) {
   const label = await fetchLabel(`tag:${slug}`)
   if (!label) return null
 
-  const tag = toTag({
-    name: label.name,
-    color: label.color,
-    description: label.description,
-  })
+  const tag = toTag(label)
   return tag
 }
 

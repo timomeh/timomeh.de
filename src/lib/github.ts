@@ -1,6 +1,5 @@
-import { Octokit } from '@octokit/core'
-import { Discussion, Label } from '@octokit/graphql-schema'
-import { paginateGraphql } from '@octokit/plugin-paginate-graphql'
+import { graphql } from '@octokit/graphql'
+import { Discussion, Label, PageInfo } from '@octokit/graphql-schema'
 import { sortBy } from 'lodash'
 import { memoize } from 'nextjs-better-unstable-cache'
 
@@ -15,24 +14,20 @@ export function isTag(slug?: string | null) {
   return !!slug?.startsWith('tag:')
 }
 
-function gh() {
-  const CustomOctokit = Octokit.plugin(paginateGraphql)
-
-  const gh = new CustomOctokit({
-    auth: process.env.GITHUB_ACCESS_TOKEN,
-    request: {
-      fetch(url: string, options: RequestInit) {
-        return fetch(url, {
-          ...options,
-          // we're wrapping the requests and caching them separately
-          cache: 'no-store',
-        })
-      },
+const gh = graphql.defaults({
+  headers: {
+    authorization: `token ${process.env.GITHUB_ACCESS_TOKEN!}`,
+  },
+  request: {
+    fetch(url: string, options: RequestInit) {
+      return fetch(url, {
+        ...options,
+        // we're wrapping the requests and caching them separately
+        cache: 'no-store',
+      })
     },
-  })
-
-  return gh
-}
+  },
+})
 
 type ListFilter = {
   label?: string
@@ -46,34 +41,45 @@ async function fetchDiscussions(filter: ListFilter = {}) {
   ]
   if (filter.label) queries.push(`label:tag:${filter.label}`)
 
-  const { search } = await gh().graphql.paginate<{
-    search: { nodes: Discussion[] }
-  }>(
-    `query paginate($cursor: String) {
-      search(type: DISCUSSION, query: "${queries.join(' ')}", first: 100, after: $cursor) {
-        pageInfo {
-          hasNextPage
-          endCursor
-        }
-        nodes {
-          ...on Discussion {
-            title
-            createdAt
-            labels(first: 100) {
-              nodes {
-                name
+  let hasNextPage = true
+  let cursor: string | null = null
+  let discussions: Discussion[] = []
+
+  do {
+    const res: {
+      search: { nodes: Discussion[]; pageInfo: PageInfo }
+    } = await gh(
+      `query paginate($cursor: String) {
+        search(type: DISCUSSION, query: "${queries.join(' ')}", first: 100, after: $cursor) {
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
+          nodes {
+            ...on Discussion {
+              title
+              createdAt
+              labels(first: 100) {
+                nodes {
+                  name
+                }
               }
             }
           }
         }
-      }
-    }`,
-    {
-      q: queries.join(' '),
-    },
-  )
+      }`,
+      {
+        q: queries.join(' '),
+        cursor,
+      },
+    )
 
-  return search.nodes
+    hasNextPage = res.search.pageInfo.hasNextPage
+    cursor = res.search.pageInfo.endCursor || null
+    discussions.push(...res.search.nodes)
+  } while (hasNextPage)
+
+  return discussions
 }
 
 export const fetchSortedDiscussions = memoize(
@@ -108,7 +114,7 @@ export const fetchDiscussion = memoize(
       'category:offtopic',
     ]
 
-    const { search } = await gh().graphql<{
+    const { search } = await gh<{
       search: { nodes: Discussion[] }
     }>(
       `{
@@ -124,8 +130,6 @@ export const fetchDiscussion = memoize(
               labels(first: 100) {
                 nodes {
                   name
-                  color
-                  description
                 }
               }
             }
@@ -141,7 +145,11 @@ export const fetchDiscussion = memoize(
   },
   {
     additionalCacheKey: ['fetchDiscussion'],
-    revalidateTags: (slug) => ['github', `github/discussion/${slug}`],
+    revalidateTags: (slug) => [
+      'github',
+      'github/discussion/*',
+      `github/discussion/${slug}`,
+    ],
     // @ts-expect-error
     duration: false,
   },
@@ -176,19 +184,32 @@ export const fetchSortedLabels = memoize(
 
 export const fetchLabel = memoize(
   async (name: string) => {
-    const res = await gh()
-      .request('GET /repos/{owner}/{repo}/labels/{name}', { owner, repo, name })
-      .catch((error) => {
-        console.error(error)
-        return null
-      })
+    const res = await gh<{ repository: { label: Label | null } }>(
+      `query label($owner: String!, $repo: String!, $name: String!) {
+        repository(owner: $owner, name: $repo) {
+          label(name: $name) {
+            name
+            description
+            color
+          }
+        }
+      }`,
+      {
+        owner,
+        repo,
+        name,
+      },
+    )
 
-    const label = res?.data || null
-    return label
+    return res.repository.label
   },
   {
     additionalCacheKey: ['fetchLabel'],
-    revalidateTags: (name) => ['github', `github/label/${name}`],
+    revalidateTags: (name) => [
+      'github',
+      'github/label/*',
+      `github/label/${name}`,
+    ],
     // @ts-expect-error
     duration: false,
   },
