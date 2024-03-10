@@ -18,15 +18,6 @@ const gh = graphql.defaults({
   headers: {
     authorization: `token ${process.env.GITHUB_ACCESS_TOKEN!}`,
   },
-  request: {
-    fetch(url: string, options: RequestInit) {
-      return fetch(url, {
-        ...options,
-        // we're wrapping the requests and caching them separately
-        cache: 'no-store',
-      })
-    },
-  },
 })
 
 type ListFilter = {
