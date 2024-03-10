@@ -1,5 +1,3 @@
-import clsx from 'clsx'
-
 type Props = {
   color: string
   name: React.ReactNode
@@ -10,13 +8,12 @@ export function Tag({ color, name, size = 'normal' }: Props) {
   return (
     <div style={{ color }}>
       <div
-        className={clsx(
-          `group/tag relative flex rounded-full border border-current font-pixel
-          font-normal leading-none`,
-          size === 'normal' &&
-            'px-2 py-[5px] text-[11px] antialiased [font-feature-settings:ss01]',
-          size === 'smol' && 'px-1.5 py-[3px] text-[9px]',
-        )}
+        data-size={size}
+        className="group/tag relative flex rounded-full border border-current font-pixel
+          font-normal leading-none data-[size=normal]:px-2 data-[size=normal]:py-[5px]
+          data-[size=smol]:px-1.5 data-[size=smol]:py-[3px] data-[size=normal]:text-[11px]
+          data-[size=smol]:text-[9px] data-[size=normal]:antialiased
+          data-[size=normal]:[font-feature-settings:ss01]"
       >
         <div className="pointer-events-none absolute inset-0 rounded-full bg-current opacity-20" />
         <div

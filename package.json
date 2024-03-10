@@ -21,7 +21,6 @@
     "@sindresorhus/slugify": "2.2.1",
     "@vercel/speed-insights": "1.0.10",
     "bluebird": "3.7.2",
-    "clsx": "2.1.0",
     "ellipsize": "0.5.1",
     "feed": "4.2.2",
     "gray-matter": "4.0.3",

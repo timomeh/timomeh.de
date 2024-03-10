@@ -1,4 +1,3 @@
-import clsx from 'clsx'
 import Link from 'next/link'
 
 import { FeedIcon } from './icons/feed'
@@ -12,10 +11,9 @@ export function SocialBox({ floating }: Props) {
   return (
     <div className="absolute right-4 top-4">
       <div
-        className={clsx(
-          'flex gap-2 p-2 text-white',
-          floating && 'rounded-md bg-black/30',
-        )}
+        data-floating={floating}
+        className="flex gap-2 p-2 text-white data-[floating=true]:rounded-md
+          data-[floating=true]:bg-black/30"
       >
         <a
           title="@timomeh@mastodon.social"

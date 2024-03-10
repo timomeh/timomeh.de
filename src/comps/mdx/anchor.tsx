@@ -1,4 +1,3 @@
-import clsx from 'clsx'
 import Link from 'next/link'
 
 type Props = React.DetailedHTMLProps<
@@ -12,7 +11,6 @@ export function Anchor(props: Props) {
     props.href?.startsWith('/') ||
     props.href?.startsWith('#')
   const isFeedLink = /\.(json|atom|rss)$/.test(props.href || '')
-  const isFootnote = 'data-footnote-ref' in props
   const isFootnoteBack = 'data-footnote-backref' in props
 
   if (isLocalLink && !isFeedLink) {
@@ -20,14 +18,13 @@ export function Anchor(props: Props) {
     return (
       <Link
         {...rest}
-        className={clsx(
-          'break-words',
-          !(isFootnote && isFootnoteBack) && 'text-[#f2f0f3]',
-          isFootnote &&
-            'rounded-full pl-0.5 font-pixel text-[11px] text-white/60 no-underline',
-          isFootnoteBack &&
-            'rounded-full pl-0.5 font-pixel text-[13px] text-white/60 no-underline',
-        )}
+        className="break-words data-[footnote-backref]:rounded-full
+          data-[footnote-ref]:rounded-full data-[footnote-backref]:pl-0.5
+          data-[footnote-ref]:pl-0.5 data-[footnote-backref]:font-pixel
+          data-[footnote-ref]:font-pixel data-[footnote-backref]:text-[13px]
+          data-[footnote-ref]:text-[11px] data-[footnote-backref]:text-white/50
+          data-[footnote-ref]:text-[#f2f0f3] data-[footnote-ref]:text-white/50
+          data-[footnote-backref]:no-underline data-[footnote-ref]:no-underline"
         href={href!.replace('https://timomeh.de', '')}
       >
         {isFootnoteBack ? '↑' : children}
