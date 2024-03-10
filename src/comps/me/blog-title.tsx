@@ -23,9 +23,7 @@ export function BlogTitle() {
         className="font-display text-xs leading-none text-yellow-100
           [text-shadow:0px_0px_6px_rgba(0,0,0,0.3)] xs:text-sm"
       >
-        <span>
-          <RandomKicker seed={Math.random()} />
-        </span>
+        <RandomKicker />
         <span className="-mt-1 block xs:-mt-2">
           <Link
             href="/about"
