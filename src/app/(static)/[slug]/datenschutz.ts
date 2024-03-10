@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 export const body = `
 # Datenschutzerklärung
 
-Stand: 28\. Dezember 2023
+Stand: 10\. März 2024
 
 ## Verantwortlicher
 
@@ -20,8 +20,6 @@ Die nachfolgende Übersicht fasst die Arten der verarbeiteten Daten und die Zwec
 
 ### Arten der verarbeiteten Daten
 
-- Bestandsdaten.
-- Kontaktdaten.
 - Inhaltsdaten.
 - Nutzungsdaten.
 - Meta-, Kommunikations- und Verfahrensdaten.
@@ -99,7 +97,7 @@ Wir verarbeiten die Daten der Nutzer, um ihnen unsere Online-Dienste zur Verfüg
 
 Wir nutzen Blogs oder vergleichbare Mittel der Onlinekommunikation und Publikation (nachfolgend "Publikationsmedium"). Die Daten der Leser werden für die Zwecke des Publikationsmediums nur insoweit verarbeitet, als es für dessen Darstellung und die Kommunikation zwischen Autoren und Lesern oder aus Gründen der Sicherheit erforderlich ist. Im Übrigen verweisen wir auf die Informationen zur Verarbeitung der Besucher unseres Publikationsmediums im Rahmen dieser Datenschutzhinweise.
 
-- **Verarbeitete Datenarten:** Bestandsdaten (z.B. Namen, Adressen); Kontaktdaten (z.B. E-Mail, Telefonnummern); Inhaltsdaten (z.B. Eingaben in Onlineformularen); Nutzungsdaten (z.B. besuchte Webseiten, Interesse an Inhalten, Zugriffszeiten); Meta-, Kommunikations- und Verfahrensdaten (z.B. IP-Adressen, Zeitangaben, Identifikationsnummern, Einwilligungsstatus).
+- **Verarbeitete Datenarten:** Inhaltsdaten (z.B. Eingaben in Onlineformularen); Nutzungsdaten (z.B. besuchte Webseiten, Interesse an Inhalten, Zugriffszeiten); Meta-, Kommunikations- und Verfahrensdaten (z.B. IP-Adressen, Zeitangaben, Identifikationsnummern, Einwilligungsstatus).
 - **Betroffene Personen:** Nutzer (z.B. Webseitenbesucher, Nutzer von Onlinediensten).
 - **Zwecke der Verarbeitung:** Erbringung vertraglicher Leistungen und Erfüllung vertraglicher Pflichten; Feedback (z.B. Sammeln von Feedback via Online-Formular). Bereitstellung unseres Onlineangebotes und Nutzerfreundlichkeit.
 - **Rechtsgrundlagen:** Berechtigte Interessen (Art. 6 Abs. 1 S. 1 lit. f) DSGVO).
