@@ -11,6 +11,12 @@ I have a past of building Blogs and wanting to publish content, but barely writi
 version of my blog solves this issue.
 
 If you want to reach out to me, you can do so via [Mastodon](https://mastodon.social/@timomeh), [GitHub](https://github.com/timomeh/timomeh.de/discussions/new?category=ask-me) or [Email](mailto:hello@timomeh.de).
+
+![](https://github.com/timomeh/timomeh.de/assets/4227520/052ffac4-3e59-4699-8218-7f0e6715fe49)
+
+## Credits
+
+Icons by [Pixelarticons](https://github.com/halfmage/pixelarticons), and [Pascal Garber](https://jumplink.github.io/) for the Mastodon Pixelart Icon.
 `
 
 export const head: Metadata = {
