@@ -1,4 +1,4 @@
-import { Discussion } from '@octokit/graphql-schema'
+import { Discussion, Label } from '@octokit/graphql-schema'
 import { memoize } from 'nextjs-better-unstable-cache'
 
 export function isAllowedCategory(slug: string) {
@@ -14,12 +14,12 @@ type ListFilter = {
 }
 
 async function fetchDiscussions(filter: ListFilter = {}) {
-  return []
+  return [] as Discussion[]
 }
 
 export const fetchSortedDiscussions = memoize(
   async (filter: ListFilter = {}) => {
-    return []
+    return [] as Discussion[]
   },
   {
     additionalCacheKey: ['fetchSortedDiscussions'],
@@ -49,7 +49,7 @@ export const fetchDiscussion = memoize(
 
 export const fetchSortedLabels = memoize(
   async () => {
-    return []
+    return [] as Label[]
   },
   {
     additionalCacheKey: ['fetchSortedLabels'],
@@ -61,7 +61,7 @@ export const fetchSortedLabels = memoize(
 
 export const fetchLabel = memoize(
   async (name: string) => {
-    return null
+    return null as Label | null
   },
   {
     additionalCacheKey: ['fetchLabel'],
