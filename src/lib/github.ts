@@ -15,20 +15,24 @@ export function isTag(slug?: string | null) {
   return !!slug?.startsWith('tag:')
 }
 
-const CustomOctokit = Octokit.plugin(paginateGraphql)
+function gh() {
+  const CustomOctokit = Octokit.plugin(paginateGraphql)
 
-const gh = new CustomOctokit({
-  auth: process.env.GITHUB_ACCESS_TOKEN,
-  request: {
-    fetch(url: string, options: RequestInit) {
-      return fetch(url, {
-        ...options,
-        // we're wrapping the requests and caching them separately
-        cache: 'no-store',
-      })
+  const gh = new CustomOctokit({
+    auth: process.env.GITHUB_ACCESS_TOKEN,
+    request: {
+      fetch(url: string, options: RequestInit) {
+        return fetch(url, {
+          ...options,
+          // we're wrapping the requests and caching them separately
+          cache: 'no-store',
+        })
+      },
     },
-  },
-})
+  })
+
+  return gh
+}
 
 type ListFilter = {
   label?: string
@@ -42,7 +46,7 @@ async function fetchDiscussions(filter: ListFilter = {}) {
   ]
   if (filter.label) queries.push(`label:tag:${filter.label}`)
 
-  const { search } = await gh.graphql.paginate<{
+  const { search } = await gh().graphql.paginate<{
     search: { nodes: Discussion[] }
   }>(
     `query paginate($cursor: String) {
@@ -82,7 +86,7 @@ export const fetchSortedDiscussions = memoize(
     return discussions
   },
   {
-    additionalCacheKey: ['fetchListedDiscussions'],
+    additionalCacheKey: ['fetchSortedDiscussions'],
     revalidateTags: (filter = {}) => [
       'github',
       'github/discussions',
@@ -104,7 +108,7 @@ export const fetchDiscussion = memoize(
       'category:offtopic',
     ]
 
-    const { search } = await gh.graphql<{
+    const { search } = await gh().graphql<{
       search: { nodes: Discussion[] }
     }>(
       `{
@@ -172,7 +176,7 @@ export const fetchSortedLabels = memoize(
 
 export const fetchLabel = memoize(
   async (name: string) => {
-    const res = await gh
+    const res = await gh()
       .request('GET /repos/{owner}/{repo}/labels/{name}', { owner, repo, name })
       .catch((error) => {
         console.error(error)
