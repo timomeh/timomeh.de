@@ -93,11 +93,7 @@ export const fetchSortedDiscussions = memoize(
   },
   {
     additionalCacheKey: ['fetchSortedDiscussions'],
-    revalidateTags: (filter = {}) => [
-      filter.label
-        ? `github/discussions/labeled:${filter.label}`
-        : 'github/discussions/all',
-    ],
+    revalidateTags: [`github/discussions/labeled`],
     // @ts-expect-error
     duration: false,
   },
@@ -143,7 +139,7 @@ export const fetchDiscussion = memoize(
   },
   {
     additionalCacheKey: ['fetchDiscussion'],
-    revalidateTags: (slug) => [`github/discussion/${slug}`],
+    revalidateTags: [`github/discussion/single`],
     // @ts-expect-error
     duration: false,
   },
@@ -202,7 +198,7 @@ export const fetchLabel = memoize(
   },
   {
     additionalCacheKey: ['fetchLabel'],
-    revalidateTags: (name) => [`github/label/${name}`],
+    revalidateTags: [`github/label/single`],
     // @ts-expect-error
     duration: false,
   },
