@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@octokit/graphql": "8.0.1",
+    "@octokit/core": "6.0.1",
+    "@octokit/graphql-schema": "15.2.0",
+    "@octokit/plugin-paginate-graphql": "4.0.1",
     "@octokit/webhooks": "13.0.2",
     "@octokit/webhooks-types": "7.3.2",
     "@plaiceholder/next": "3.0.0",

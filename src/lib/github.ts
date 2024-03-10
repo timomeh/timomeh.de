@@ -1,94 +1,120 @@
-import { graphql } from '@octokit/graphql'
+import { Octokit } from '@octokit/core'
+import { Discussion, Label } from '@octokit/graphql-schema'
+import { paginateGraphql } from '@octokit/plugin-paginate-graphql'
+import { sortBy } from 'lodash'
+import { memoize } from 'nextjs-better-unstable-cache'
 
 const owner = 'timomeh'
 const repo = 'timomeh.de'
 
 export function isAllowedCategory(slug: string) {
-  const allowedCategorySlugs = ['offtopic', 'posts']
-  return allowedCategorySlugs.includes(slug)
+  return slug === 'offtopic' || slug === 'posts'
 }
 
-export type Discussion = {
-  title: string
-  createdAt: string
-  updatedAt: string
-  body: string
-  bodyHTML: string
-  number: number
-  labels: {
-    nodes: Label[]
-  }
-  category: {
-    slug: string
-  }
+export function isTag(slug?: string | null) {
+  return !!slug?.startsWith('tag:')
 }
 
-const api = graphql.defaults({
-  headers: {
-    authorization: 'token '.concat(process.env.GITHUB_ACCESS_TOKEN!),
-  },
+const CustomOctokit = Octokit.plugin(paginateGraphql)
+
+const gh = new CustomOctokit({
+  auth: process.env.GITHUB_ACCESS_TOKEN,
   request: {
     fetch(url: string, options: RequestInit) {
-      const tags = options.body
-        ? JSON.parse(options.body as string)?.variables?.tags
-        : []
-
       return fetch(url, {
         ...options,
-        cache: 'force-cache',
-        next: { tags },
+        // we're wrapping the requests and caching them separately
+        cache: 'no-store',
       })
     },
   },
 })
 
-export type Label = {
-  color: string
-  description: string | null
-  name: string
+type ListFilter = {
+  label?: string
 }
 
-type ListDiscussionsResult = {
-  repository: {
-    discussions: {
-      pageInfo: {
-        endCursor: string
-        hasNextPage: boolean
-      }
-      nodes: Discussion[]
-    }
-  }
-}
+async function fetchDiscussions(filter: ListFilter = {}) {
+  const queries = [
+    `repo:${owner}/${repo}`,
+    'category:posts',
+    'category:offtopic',
+  ]
+  if (filter.label) queries.push(`label:tag:${filter.label}`)
 
-export async function listDiscussions() {
-  let hasNextPage = true
-  let after: string | null = null
-  let discussions: Discussion[] = []
-
-  do {
-    const result: ListDiscussionsResult = await api(
-      `
-      query list($owner: String!, $repo: String!, $after: String) {
-        repository(owner: $owner, name: $repo) {
-          discussions(
-            first: 100,
-            after: $after,
-            orderBy: { field: CREATED_AT, direction: DESC }
-          ) {
-            pageInfo {
-              hasNextPage
-              endCursor
+  const { search } = await gh.graphql.paginate<{
+    search: { nodes: Discussion[] }
+  }>(
+    `query paginate($cursor: String) {
+      search(type: DISCUSSION, query: "${queries.join(' ')}", first: 100, after: $cursor) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        nodes {
+          ...on Discussion {
+            title
+            createdAt
+            labels(first: 100) {
+              nodes {
+                name
+              }
             }
-            nodes {
+          }
+        }
+      }
+    }`,
+    {
+      q: queries.join(' '),
+    },
+  )
+
+  return search.nodes
+}
+
+export const fetchSortedDiscussions = memoize(
+  async (filter: ListFilter = {}) => {
+    let discussions = await fetchDiscussions(filter)
+    discussions = discussions.sort((a, b) => {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    })
+
+    return discussions
+  },
+  {
+    additionalCacheKey: ['fetchListedDiscussions'],
+    revalidateTags: (filter = {}) => [
+      'github',
+      'github/discussions',
+      filter.label
+        ? `github/discussions/labeled:${filter.label}`
+        : 'github/discussions/all',
+    ],
+  },
+)
+
+export const fetchDiscussion = memoize(
+  async (slug: string) => {
+    const queries = [
+      `${slug} in:title`,
+      `repo:${owner}/${repo}`,
+      'category:posts',
+      'category:offtopic',
+    ]
+
+    const { search } = await gh.graphql<{
+      search: { nodes: Discussion[] }
+    }>(
+      `{
+        search(type: DISCUSSION, query: "${queries.join(' ')}", first: 100) {
+          nodes {
+            ...on Discussion {
               title
               createdAt
               updatedAt
               body
               bodyHTML
               number
-              category {
-                slug
-              }
               labels(first: 100) {
                 nodes {
                   name
@@ -100,28 +126,58 @@ export async function listDiscussions() {
           }
         }
       }`,
-      {
-        owner,
-        repo,
-        after,
-        tags: ['discussions'],
+    )
+
+    const result = search.nodes?.find((discussion) => discussion.title === slug)
+    if (!result) return null
+
+    return result
+  },
+  {
+    additionalCacheKey: ['fetchDiscussion'],
+    revalidateTags: (slug) => ['github', `github/discussion/${slug}`],
+  },
+)
+
+export const fetchSortedLabels = memoize(
+  async () => {
+    const discussions = await fetchDiscussions()
+    const labelsWithDuplicates = discussions
+      .flatMap((discussion) => discussion.labels?.nodes)
+      .filter((label): label is Label => isTag(label?.name))
+    const labelsWithCount = labelsWithDuplicates.reduce(
+      (acc, label) => {
+        if (acc[label.name]) acc[label.name].count++
+        else acc[label.name] = { count: 1, label }
+        return acc
       },
+      {} as Record<string, { count: number; label: Label }>,
     )
+    const sortedLabels = sortBy(labelsWithCount, 'count')
+      .map(({ label }) => label)
+      .reverse()
+    return sortedLabels
+  },
+  {
+    additionalCacheKey: ['fetchSortedLabels'],
+    revalidateTags: ['github', 'github/labels'],
+  },
+)
 
-    let { pageInfo, nodes } = result.repository.discussions
+export const fetchLabel = memoize(
+  async (name: string) => {
+    const res = await gh
+      .request('GET /repos/{owner}/{repo}/labels/{name}', { owner, repo, name })
+      .catch((error) => {
+        console.error(error)
+        return null
+      })
 
-    const allowedNodes = nodes.filter((node) =>
-      isAllowedCategory(node.category.slug),
-    )
-
-    discussions.push(...allowedNodes)
-    hasNextPage = pageInfo.hasNextPage
-    after = pageInfo.endCursor
-  } while (hasNextPage)
-
-  const sorted = discussions.sort(
-    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-  )
-
-  return sorted
-}
+    const label = res?.data || null
+    return label
+  },
+  {
+    additionalCacheKey: ['fetchLabel'],
+    revalidateTags: (name) => ['github', `github/label/${name}`],
+  },
+)

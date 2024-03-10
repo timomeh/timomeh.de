@@ -1,61 +1,41 @@
+import { Discussion, Label } from '@octokit/graphql-schema'
 import ellipsize from 'ellipsize'
 import matter from 'gray-matter'
-import { sortBy } from 'lodash'
-import { memoize } from 'nextjs-better-unstable-cache'
+import { groupBy, range } from 'lodash'
 import readingTime from 'reading-time'
 import removeMd from 'remove-markdown'
 
-import { Discussion, Label, listDiscussions } from './github'
+import {
+  fetchDiscussion,
+  fetchLabel,
+  fetchSortedDiscussions,
+  fetchSortedLabels,
+  isTag,
+} from './github'
 
-export const listTags = memoize(
-  async () => {
-    const posts = await listPosts()
-    const tagsWithCount = posts.reduce(
-      (acc, post) => {
-        post.tags.forEach((tag) => {
-          if (acc[tag.slug]) acc[tag.slug].count++
-          else acc[tag.slug] = { count: 1, tag }
-        })
-        return acc
-      },
-      {} as Record<string, { count: number; tag: BlogTag }>,
-    )
-    const sortedTags = sortBy(tagsWithCount, 'count')
-      .reverse()
-      .map(({ tag }) => tag)
-    return sortedTags
-  },
-  {
-    additionalCacheKey: ['listTags'],
-    revalidateTags: ['tags', 'tags/all'],
-    // @ts-expect-error
-    duration: false,
-  },
-)
+export async function listTags() {
+  const labels = await fetchSortedLabels()
+  const slugs = labels.map((label) => labelNameToSlug(label.name))
+  return slugs
+}
 
-export const getTag = memoize(
-  async (slug: string) => {
-    const tags = await listTags()
-    const tag = tags.find((t) => t.slug === slug)
-    return tag
-  },
-  {
-    additionalCacheKey: ['getTag'],
-    revalidateTags: (slug) => ['tags', `tag/slug:${slug}`],
-    // @ts-expect-error
-    duration: false,
-  },
-)
+export async function getTag(slug: string) {
+  const label = await fetchLabel(`tag:${slug}`)
+  if (!label) return null
 
-export function isTag(name: string | undefined) {
-  return name?.startsWith('tag:') ?? false
+  const tag = toTag({
+    name: label.name,
+    color: label.color,
+    description: label.description,
+  })
+  return tag
 }
 
 export function labelNameToSlug(name: string) {
   return name.replace(/^tag:/, '')
 }
 
-export function toTag(label: Label) {
+export function toTag(label: Pick<Label, 'name' | 'color' | 'description'>) {
   const slug = labelNameToSlug(label.name)
   const color = '#'.concat(label.color)
 
@@ -64,56 +44,61 @@ export function toTag(label: Label) {
 
 export type BlogTag = ReturnType<typeof toTag>
 
-type ListPosts = {
+type ListPostsFilter = {
   tag?: string
 }
 
-export const listPosts = memoize(
-  async ({ tag }: ListPosts = {}) => {
-    let discussions = await listDiscussions()
-    let posts = discussions.map((discussion) => toPost(discussion))
+export async function listPosts(filter: ListPostsFilter = {}) {
+  const discussions = await fetchSortedDiscussions({ label: filter.tag })
+  const slugs = discussions.map((discussion) => discussion.title)
+  return slugs
+}
 
-    if (tag) {
-      posts = posts.filter((post) => post.tags.some((t) => t.slug === tag))
-    }
+export async function listPostsByYear(filter: ListPostsFilter = {}) {
+  const discussions = await fetchSortedDiscussions({ label: filter.tag })
+  const latest = discussions.at(0)
+  const oldest = discussions.at(-1)
 
-    return posts
-  },
-  {
-    additionalCacheKey: ['listPosts'],
-    revalidateTags: ({ tag } = {}) => [
-      'posts',
-      'posts/all',
-      `posts/tagged:${tag || 'everything'}`,
-    ],
-    // @ts-expect-error
-    duration: false,
-  },
-)
+  // just in case the world explodes, you never know
+  if (!latest || !oldest) {
+    return [{ year: new Date().getFullYear(), posts: [] }]
+  }
 
-export const getPost = memoize(
-  async (slug: string) => {
-    const posts = await listPosts()
-    const post = posts.find((p) => p.slug === slug)
-    return post
-  },
-  {
-    additionalCacheKey: ['getPost'],
-    revalidateTags: (slug) => ['posts', `post/slug:${slug}`],
-    // @ts-expect-error
-    duration: false,
-  },
-)
+  const latestYear = new Date(latest.createdAt).getFullYear()
+  const oldestYear = new Date(oldest.createdAt).getFullYear()
+  const years = range(oldestYear, latestYear! + 1).reverse()
+
+  const byYear = groupBy(discussions, (discussion) =>
+    new Date(discussion.createdAt).getFullYear(),
+  )
+
+  const list = years.map((year) => ({
+    year,
+    posts: byYear[year].map((discussion) => discussion.title) || [],
+  }))
+
+  return list
+}
+
+export async function getPost(slug: string) {
+  const discussion = await fetchDiscussion(slug)
+  if (!discussion) return null
+
+  const post = toPost(discussion)
+  return post
+}
 
 function toPost(discussion: Discussion) {
   const { excerpt, meta, title, body, plainTitle, plainDescription } =
     parseDocument(discussion.body, { fakeExcerpt: true })
+
   const safeTitle = plainTitle || discussion.title
   const postedAt = discussion.createdAt
   const updatedAt = discussion.updatedAt
-  const tags = discussion.labels.nodes
-    .filter((label) => isTag(label.name))
-    .map((label) => toTag(label))
+  const tags =
+    discussion.labels?.nodes
+      ?.filter((label): label is Label => isTag(label?.name))
+      .map((label) => labelNameToSlug(label.name)) || []
 
   let description = plainDescription
   if (description.length < 30) {

@@ -27,7 +27,7 @@ export async function PostHeader({ slug }: Props) {
           </span>
         </div>
         {post.tags.map((tag) => (
-          <PostTag key={tag.slug} slug={tag.slug} size="smol" />
+          <PostTag key={tag} slug={tag} size="smol" />
         ))}
       </div>
       <h1 className="mb-8 text-balance font-display text-2xl font-semibold leading-tight sm:text-3xl">

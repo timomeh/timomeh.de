@@ -1,5 +1,4 @@
-import { listPosts } from '@/lib/blog'
-import { groupPostsByYear } from '@/util/group-posts'
+import { listPostsByYear } from '@/lib/blog'
 
 import { PostItem } from './post-item'
 
@@ -8,8 +7,7 @@ type Props = {
 }
 
 export async function PostList({ tag }: Props) {
-  const posts = await listPosts({ tag })
-  const postsByYear = groupPostsByYear(posts)
+  const postsByYear = await listPostsByYear({ tag })
 
   return (
     <>
@@ -25,7 +23,7 @@ export async function PostList({ tag }: Props) {
             </div>
           )}
           {posts.map((post) => (
-            <PostItem key={post.slug} slug={post.slug} />
+            <PostItem key={post} slug={post} />
           ))}
         </div>
       ))}

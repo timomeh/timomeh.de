@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { listTags } from '@/lib/blog'
+import { getTag } from '@/lib/blog'
 
 import { PostList } from '../../post-list'
 
@@ -12,8 +12,7 @@ type Props = {
 }
 
 export default async function Page({ params }: Props) {
-  const tags = await listTags()
-  const tag = tags.find((t) => t.slug === params.tag)
+  const tag = await getTag(params.tag)
   if (!tag) notFound()
 
   return (
@@ -24,8 +23,7 @@ export default async function Page({ params }: Props) {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const tags = await listTags()
-  const tag = tags.find((t) => t.slug === params.tag)
+  const tag = await getTag(params.tag)
   if (!tag) notFound()
 
   return {

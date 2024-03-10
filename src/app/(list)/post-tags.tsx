@@ -12,8 +12,8 @@ export async function PostTags() {
         <Tag color="rgb(156, 163, 175)" name="Everything" />
       </TagLink>
       {tags.map((tag) => (
-        <TagLink key={tag.slug} href={`/tag/${tag.slug}`} dim>
-          <PostTag slug={tag.slug} />
+        <TagLink key={tag} href={`/tag/${tag}`} dim>
+          <PostTag slug={tag} />
         </TagLink>
       ))}
     </div>

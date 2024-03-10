@@ -1,4 +1,4 @@
-import { buildPostsFeed } from '@/lib/feed'
+import { buildFeed } from '@/lib/feed'
 
 type Options = {
   params: {
@@ -15,7 +15,7 @@ export async function GET(_req: Request, { params }: Options) {
     return new Response('Not an allowed feed type', { status: 400 })
   }
 
-  const feed = await buildPostsFeed(params.type)
+  const feed = await buildFeed(params.type)
 
   return new Response(feed, {
     headers: {
