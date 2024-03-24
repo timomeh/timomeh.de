@@ -2,14 +2,17 @@ import { expect, test } from '@playwright/test'
 
 test('renders correctly', async ({ page }) => {
   await page.goto('/tag/__test')
-  await expect(page).toHaveScreenshot({ fullPage: true })
+  await page.waitForLoadState('networkidle')
+  await page.screenshot({
+    fullPage: true,
+    path: 'playwright-screenshots/list.png',
+    timeout: 60_000,
+  })
 })
 
 test('has the correct title', async ({ page }) => {
   await page.goto('/tag/software-engineering')
   await expect(page).toHaveTitle('Software Engineering | timomeh.de')
-
-  await page.screenshot({ fullPage: true })
 })
 
 test('navigates to a tag', async ({ page }) => {

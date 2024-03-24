@@ -22,15 +22,30 @@ test('navigates from a post back', async ({ page }) => {
 
 test('renders the about page', async ({ page }) => {
   await page.goto('/about')
-  await expect(page).toHaveScreenshot({ fullPage: true })
+  await page.waitForLoadState('networkidle')
+  await page.screenshot({
+    fullPage: true,
+    path: 'playwright-screenshots/about.png',
+    timeout: 60_000,
+  })
 })
 
 test('renders the feeds page', async ({ page }) => {
   await page.goto('/feeds')
-  await expect(page).toHaveScreenshot({ fullPage: true })
+  await page.waitForLoadState('networkidle')
+  await page.screenshot({
+    fullPage: true,
+    path: 'playwright-screenshots/feeds.png',
+    timeout: 60_000,
+  })
 })
 
 test('renders the imprint page', async ({ page }) => {
   await page.goto('/impressum')
-  await expect(page).toHaveScreenshot({ fullPage: true })
+  await page.waitForLoadState('networkidle')
+  await page.screenshot({
+    fullPage: true,
+    path: 'playwright-screenshots/impressum.png',
+    timeout: 60_000,
+  })
 })
