@@ -21,6 +21,10 @@ export const listTags = cache(async () => {
 })
 
 export const getTag = cache(async (slug: string) => {
+  if (slug === '__test') {
+    return { slug: 'test', name: 'Test', color: 'red' }
+  }
+
   const labels = await fetchSortedLabels()
   if (!labels.some((label) => labelNameToSlug(label.name) === slug)) {
     return null
@@ -57,6 +61,27 @@ export const listPosts = cache(async (filter: ListPostsFilter = {}) => {
 })
 
 export const listPostsByYear = cache(async (filter: ListPostsFilter = {}) => {
+  if (filter.tag === '__test') {
+    return [
+      {
+        year: 2022,
+        posts: [
+          'how-to-build-a-blog',
+          'how-i-built-this-blog',
+          'what-belongs-into-gitignore',
+        ],
+      },
+      {
+        year: 2023,
+        posts: [
+          'updating-to-next-13-app-dir',
+          'offtopic-thoughts',
+          'kid-francescoli-arte-concerts',
+        ],
+      },
+    ]
+  }
+
   const discussions = await fetchSortedDiscussions({
     label: filter.tag ? `tag:${filter.tag}` : undefined,
   })

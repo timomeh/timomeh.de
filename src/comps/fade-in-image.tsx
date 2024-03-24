@@ -11,6 +11,7 @@ export function FadeInImage(props: ImageProps) {
     <Image
       quality={90}
       fill
+      data-fade-in
       data-loaded={loaded}
       className="absolute inset-0 object-cover opacity-0 transition-opacity duration-1000
         data-[loaded=true]:opacity-100"
