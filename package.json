@@ -49,7 +49,7 @@
     "@types/lodash": "4.17.0",
     "@types/node": "20.11.30",
     "@types/probe-image-size": "7.2.4",
-    "@types/react": "18.2.69",
+    "@types/react": "18.2.70",
     "@types/react-dom": "18.2.22",
     "@types/remove-markdown": "0.3.4",
     "autoprefixer": "10.4.19",
