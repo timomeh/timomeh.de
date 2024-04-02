@@ -13,6 +13,7 @@ export function FadeInImage(props: ImageProps) {
       fill
       data-fade-in
       data-loaded={loaded}
+      aria-busy={!loaded}
       className="absolute inset-0 object-cover opacity-0 transition-opacity duration-1000
         data-[loaded=true]:opacity-100"
       onLoad={() => setLoaded(true)}
