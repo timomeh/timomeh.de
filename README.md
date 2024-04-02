@@ -24,8 +24,9 @@ Using this structure, I can subscribe to GitHub's webhooks, and revalidate only 
 
 ## Stack
 
-- Next.js
-- GitHub Discussions / Octokit
-- Shiki
-- Remote MDX
-- Tailwind CSS
+- [Next.js](https://nextjs.org/)
+- [GitHub Discussions](https://github.com/timomeh/timomeh.de/discussions) / Octokit
+- [Shiki](https://shiki.style/)
+- [next-mdx-remote](https://github.com/hashicorp/next-mdx-remote)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Playwright](https://playwright.dev/) & [Argos CI](https://argos-ci.com)

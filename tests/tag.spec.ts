@@ -1,11 +1,11 @@
+import { argosScreenshot } from '@argos-ci/playwright'
 import { expect, test } from '@playwright/test'
 
 test('renders correctly', async ({ page }) => {
   await page.goto('/tag/__test')
   await page.waitForLoadState('networkidle')
-  await page.screenshot({
+  await argosScreenshot(page, 'tag/test', {
     fullPage: true,
-    path: 'playwright-screenshots/list.png',
     timeout: 60_000,
   })
 })

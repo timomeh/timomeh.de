@@ -1,3 +1,4 @@
+import { argosScreenshot } from '@argos-ci/playwright'
 import { expect, test } from '@playwright/test'
 
 test('navigates from home to about', async ({ page }) => {
@@ -23,9 +24,8 @@ test('navigates from a post back', async ({ page }) => {
 test('renders the about page', async ({ page }) => {
   await page.goto('/about')
   await page.waitForLoadState('networkidle')
-  await page.screenshot({
+  await argosScreenshot(page, 'page/about', {
     fullPage: true,
-    path: 'playwright-screenshots/about.png',
     timeout: 60_000,
   })
 })
@@ -33,9 +33,8 @@ test('renders the about page', async ({ page }) => {
 test('renders the feeds page', async ({ page }) => {
   await page.goto('/feeds')
   await page.waitForLoadState('networkidle')
-  await page.screenshot({
+  await argosScreenshot(page, 'page/feeds', {
     fullPage: true,
-    path: 'playwright-screenshots/feeds.png',
     timeout: 60_000,
   })
 })
@@ -43,9 +42,8 @@ test('renders the feeds page', async ({ page }) => {
 test('renders the imprint page', async ({ page }) => {
   await page.goto('/impressum')
   await page.waitForLoadState('networkidle')
-  await page.screenshot({
+  await argosScreenshot(page, 'page/imprint', {
     fullPage: true,
-    path: 'playwright-screenshots/impressum.png',
     timeout: 60_000,
   })
 })

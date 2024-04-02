@@ -1,0 +1,125 @@
+pre.shiki {
+  position: relative;
+  overflow: scroll;
+}
+
+.shiki code {
+  display: block;
+  padding: 16px;
+  width: fit-content;
+  min-width: 100%;
+}
+
+.shiki .tab,
+.shiki .space {
+  position: relative;
+}
+
+.shiki .tab::before {
+  content: '⇥';
+  position: absolute;
+  opacity: 0.2;
+}
+
+.shiki .space::before {
+  content: '·';
+  position: absolute;
+  opacity: 0.2;
+}
+
+.shiki .line {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+/* treat empty lines as inline,
+which discards empty lines at the end of the codeblock */
+.shiki .line:empty {
+  display: inline;
+}
+
+/* some lines have an empty <span> */
+.shiki .line:has(> span:only-child:empty) {
+  display: inline;
+}
+
+.shiki .line > * {
+  position: relative;
+  z-index: 1;
+}
+
+.shiki .line.diff::after,
+.shiki .line.highlighted::after {
+  content: '';
+  user-select: none;
+  position: absolute;
+  pointer-events: none;
+  left: -24px;
+  right: -24px;
+  top: 0;
+  bottom: 0;
+  display: block;
+  transition: background-color 0.5s;
+}
+
+.shiki .line.diff::before {
+  position: absolute;
+  left: -12px;
+}
+
+.shiki .line.diff.add::after {
+  background-color: rgba(16, 185, 129, 0.16);
+}
+
+.shiki .line.diff.add::before {
+  content: '+';
+  color: #3dd68c;
+}
+
+.shiki .line.diff.remove::after {
+  background-color: rgba(244, 63, 94, 0.16);
+  opacity: 0.7;
+}
+
+.shiki .line.diff.add::before {
+  content: '+';
+  color: #3dd68c;
+}
+
+.shiki .line.diff.remove::before {
+  content: '-';
+  color: #cb7676;
+}
+
+.shiki .line.highlighted::after {
+  background-color: rgba(81, 92, 126, 0.27);
+}
+
+.shiki .line.highlighted.error::after {
+  background-color: rgba(244, 63, 94, 0.16);
+}
+
+.shiki .line.highlighted.warning::after {
+  background-color: rgba(234, 179, 8, 0.16);
+}
+
+.shiki .highlighted-word {
+  background-color: #16161e;
+  border: 1px solid #42465d;
+  padding: 1px 3px;
+  margin: -1px -3px;
+  border-radius: 4px;
+}
+
+.shiki.has-focused .line:not(.focused) {
+  opacity: 1;
+  transition:
+    filter 0.35s,
+    opacity 0.35s;
+}
+
+.shiki.has-focused:not(:hover) .line:not(.focused) {
+  opacity: 0.7;
+  filter: blur(0.095rem);
+}
