@@ -81,6 +81,9 @@ export const metadata = {
     type: 'website',
     locale: 'en_US',
   },
+  robots: {
+    'max-image-preview': 'large',
+  },
   alternates: {
     types: {
       'application/atom+xml': '/posts/feed.atom',
