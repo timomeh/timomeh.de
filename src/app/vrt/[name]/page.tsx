@@ -1,4 +1,5 @@
 import { promises as fs } from 'node:fs'
+import path from 'node:path'
 
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
@@ -27,60 +28,22 @@ export default async function Page({ params }: Props) {
   notFound()
 }
 
-function ShikiTest() {
+async function ShikiTest() {
+  const file = await fs.readFile(
+    path.join(process.cwd(), '/src/app/vrt/[name]/shiki-test.mdx'),
+    'utf8',
+  )
+
   return (
     <div className="relative mx-auto max-w-2xl px-4">
-      <MDX
-        content={`
-\`\`\`ts
-function hello(params: unknown) {
-  return 'world'
-}
-
-export const foo = {
-  bar: 'baz',
-  quox: ['a', 1, {}],
-}
-\`\`\`
-
-\`\`\`ts
-console.log('hewwo') // [!code --]
-console.log('hello') // [!code ++]
-console.log('goodbye')
-\`\`\`
-
-\`\`\`ts
-console.log('Not highlighted')
-console.log('Highlighted') // [!code highlight]
-console.log('Not highlighted')
-\`\`\`
-
-\`\`\`ts
-// [!code word:Hello]
-const message = 'Hello World'
-console.log(message) // prints Hello World
-\`\`\`
-
-\`\`\`ts
-console.log('Not focused');
-console.log('Focused') // [!code focus]
-console.log('Not focused');
-\`\`\`
-
-\`\`\`ts
-console.log('No errors or warnings')
-console.error('Error') // [!code error]
-console.warn('Warning') // [!code warning]
-\`\`\`
-`}
-      />
+      <MDX content={file} />
     </div>
   )
 }
 
 async function MarkdownTest() {
   const file = await fs.readFile(
-    process.cwd() + '/src/app/vrt/[name]/markdown-test.md',
+    path.join(process.cwd(), '/src/app/vrt/[name]/markdown-test.mdx'),
     'utf8',
   )
 
