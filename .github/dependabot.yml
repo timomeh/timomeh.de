@@ -9,3 +9,26 @@ updates:
         patterns:
           - 'prettier*'
           - 'eslint*'
+      octokit:
+        patterns:
+          - '@octokit*'
+      css:
+        patterns:
+          - 'tailwind*'
+          - '@tailwind*'
+          - 'autoprefixer'
+          - 'postcss'
+      plaiceholder:
+        patterns:
+          - 'plaiceholder'
+          - '@plaiceholder*'
+      shiki:
+        patterns:
+          - 'shiki'
+          - '@shiki'
+      react:
+        patterns:
+          - 'react'
+          - 'react-dom'
+          - '@types/react'
+          - '@types/react-dom'
