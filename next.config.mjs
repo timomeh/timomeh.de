@@ -15,6 +15,10 @@ const nextConfig = {
         hostname: 'github.com',
         pathname: '/timomeh/timomeh.de/assets/4227520/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
     ],
   },
   async rewrites() {

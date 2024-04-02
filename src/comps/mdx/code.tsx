@@ -26,12 +26,35 @@ export async function Code(props: Props) {
   if (lang && ['plain'].includes(lang)) lang = 'text'
   const html = await syntax.highlight(props.children, lang || 'text')
 
+  const hiddenLangs = [
+    'text',
+    'sh',
+    'git-commit',
+    'git-rebase',
+    'plain',
+    'txt',
+    'console',
+    'bash',
+    'shellscript',
+    'zsh',
+    'shellsession',
+  ]
+
   return (
     <div
-      className="not-prose my-12 overflow-clip rounded-md border border-white/10 text-sm
+      className="not-prose relative my-12 overflow-clip rounded-md border border-white/10 text-sm
         font-normal shadow-purple-300/5 [box-shadow:0_0_24px_var(--tw-shadow-color)]
-        md:-mx-4 [&_pre]:overflow-scroll [&_pre]:p-4"
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
+        md:-mx-4"
+    >
+      <div dangerouslySetInnerHTML={{ __html: html }} />
+      {lang && !hiddenLangs.includes(lang) && (
+        <span
+          className="absolute right-1 top-1 select-none font-pixel text-3xs font-bold text-[#a9b1d6]
+            opacity-50"
+        >
+          {lang}
+        </span>
+      )}
+    </div>
   )
 }

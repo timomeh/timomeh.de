@@ -1,3 +1,4 @@
+import { argosScreenshot } from '@argos-ci/playwright'
 import { expect, test } from '@playwright/test'
 
 test('renders the first post correctly', async ({ page }) => {
@@ -9,9 +10,8 @@ test('renders the first post correctly', async ({ page }) => {
     }
   }
 
-  await page.screenshot({
+  await argosScreenshot(page, 'posts/how-to-build-a-blog', {
     fullPage: true,
-    path: 'playwright-screenshots/post-first.png',
     timeout: 60_000,
   })
 })
@@ -25,9 +25,8 @@ test('renders the second post correctly', async ({ page }) => {
     }
   }
 
-  await page.screenshot({
+  await argosScreenshot(page, 'posts/how-i-built-this-blog', {
     fullPage: true,
-    path: 'playwright-screenshots/post-second.png',
     timeout: 60_000,
   })
 })

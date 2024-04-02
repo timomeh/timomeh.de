@@ -53,7 +53,7 @@ module.exports = {
             },
             '--tw-prose-invert-body': '#ccc2cc',
             '--tw-prose-invert-headings': '#f2f0f3',
-            // '--tw-prose-invert-lead': theme('colors.pink[300]'),
+            '--tw-prose-invert-lead': 'rgba(204, 194, 204, 0.7)',
             '--tw-prose-invert-links': '#f2f0f3',
             '--tw-prose-invert-bold': '#f2f0f3',
             '--tw-prose-invert-italics': '#f2f0f3',
