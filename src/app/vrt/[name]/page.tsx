@@ -1,4 +1,5 @@
 import { promises as fs } from 'node:fs'
+import path from 'node:path'
 
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
@@ -29,7 +30,7 @@ export default async function Page({ params }: Props) {
 
 async function ShikiTest() {
   const file = await fs.readFile(
-    process.cwd() + '/src/app/vrt/[name]/shiki-test.txt',
+    path.join(process.cwd(), '/src/app/vrt/[name]/shiki-test.mdx'),
     'utf8',
   )
 
@@ -42,7 +43,7 @@ async function ShikiTest() {
 
 async function MarkdownTest() {
   const file = await fs.readFile(
-    process.cwd() + '/src/app/vrt/[name]/markdown-test.txt',
+    path.join(process.cwd(), '/src/app/vrt/[name]/markdown-test.mdx'),
     'utf8',
   )
 
