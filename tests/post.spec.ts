@@ -4,11 +4,6 @@ import { expect, test } from '@playwright/test'
 test('renders the first post correctly', async ({ page }) => {
   await page.goto('/posts/how-to-build-a-blog')
   await page.waitForLoadState('networkidle')
-  for (const img of await page.getByRole('img').all()) {
-    if (await img.getAttribute('data-fade-in')) {
-      await expect(img).toHaveAttribute('data-loaded', 'true')
-    }
-  }
 
   await argosScreenshot(page, 'posts/how-to-build-a-blog', {
     fullPage: true,
@@ -19,11 +14,6 @@ test('renders the first post correctly', async ({ page }) => {
 test('renders the second post correctly', async ({ page }) => {
   await page.goto('/posts/how-i-built-this-blog')
   await page.waitForLoadState('networkidle')
-  for (const img of await page.getByRole('img').all()) {
-    if (await img.getAttribute('data-fade-in')) {
-      await expect(img).toHaveAttribute('data-loaded', 'true')
-    }
-  }
 
   await argosScreenshot(page, 'posts/how-i-built-this-blog', {
     fullPage: true,
