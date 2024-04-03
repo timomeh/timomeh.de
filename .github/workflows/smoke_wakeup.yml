@@ -1,0 +1,31 @@
+name: Wakeup and Smoke Test
+on:
+  deployment_status:
+  workflow_dispatch:
+  schedule:
+    - cron: '10 */3 * * *'
+
+jobs:
+  smoke:
+    name: Wakeup ${{ github.event.deployment_status.environment }}
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'deployment_status' || (github.event.deployment_status.state == 'success' && contains(github.event.deployment_status.environment, 'Production')) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: pnpm
+      - run: pnpm install
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm smoke
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 3

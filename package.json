@@ -7,8 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "playwright test",
-    "test:ui": "pnpm test -- --ui"
+    "test": "playwright test --project=chromium-e2e",
+    "test:ui": "pnpm test -- --ui",
+    "smoke": "playwright test --project=production",
+    "smoke:ui": "pnpm smoke --ui"
   },
   "dependencies": {
     "@octokit/graphql": "8.0.1",

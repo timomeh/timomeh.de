@@ -34,6 +34,16 @@ export default defineConfig({
     {
       name: 'chromium-e2e',
       use: { ...devices['Desktop Chrome'] },
+      testIgnore: /.*smoke\.spec\.ts/,
+    },
+    {
+      name: 'production',
+      use: {
+        ...devices['Desktop Chrome'],
+        baseURL: 'https://timomeh.de',
+      },
+      retries: 2,
+      testMatch: /.*smoke\.spec\.ts/,
     },
   ],
 
