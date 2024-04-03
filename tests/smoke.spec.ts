@@ -21,6 +21,15 @@ test('load all posts', async ({ page }) => {
       waitUntil: 'domcontentloaded',
       timeout: 30_000,
     })
+
+    await page
+      .getByRole('link', { name: /go to home/i })
+      .first()
+      .click()
+    await page.waitForURL('https://timomeh.de/', {
+      waitUntil: 'domcontentloaded',
+      timeout: 30_000,
+    })
   }
 })
 
