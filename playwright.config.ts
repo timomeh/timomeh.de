@@ -19,7 +19,10 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     process.env.CI ? ['github'] : ['html'],
-    ['@argos-ci/playwright/reporter', { uploadToArgos: !!process.env.CI }],
+    [
+      '@argos-ci/playwright/reporter',
+      { uploadToArgos: !!process.env.CI && !!process.env.UPLOAD_TO_ARGOS },
+    ],
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
@@ -48,9 +51,12 @@ export default defineConfig({
   ],
 
   /* Run your local dev server before starting the tests */
-  webServer: {
-    command: 'pnpm dev',
-    url: baseURL,
-    reuseExistingServer: !process.env.CI,
-  },
+  webServer:
+    process.env.PLAYWRIGHT_WEB_SERVER !== '0'
+      ? {
+          command: 'pnpm dev',
+          url: baseURL,
+          reuseExistingServer: !process.env.CI,
+        }
+      : undefined,
 })

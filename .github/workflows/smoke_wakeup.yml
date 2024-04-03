@@ -23,6 +23,8 @@ jobs:
       - run: pnpm install
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm smoke
+        env:
+          PLAYWRIGHT_WEB_SERVER: '0'
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
