@@ -44,6 +44,7 @@ export default defineConfig({
       use: {
         ...devices['Desktop Chrome'],
         baseURL: 'https://timomeh.de',
+        userAgent: 'timomeh.de-wakeupbot/1.0',
       },
       retries: 2,
       testMatch: /.*smoke\.spec\.ts/,

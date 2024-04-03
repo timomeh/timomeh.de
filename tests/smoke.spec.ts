@@ -1,7 +1,5 @@
 import { expect, test } from '@playwright/test'
 
-test.use({ userAgent: 'timomeh.de-wakeup/1.0' })
-
 test('load all posts', async ({ page }) => {
   test.setTimeout(0)
   await page.goto('/')
