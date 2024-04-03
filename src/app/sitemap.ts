@@ -11,7 +11,7 @@ export default async function sitemap() {
 
   return [
     {
-      url: 'https://timomeh.de',
+      url: 'https://timomeh.de/',
       changeFrequency: 'daily',
       priority: 1,
       lastModified: new Date(),
