@@ -12,8 +12,8 @@ dependencies:
     specifier: 15.4.0
     version: 15.4.0
   '@octokit/webhooks':
-    specifier: 13.2.0
-    version: 13.2.0
+    specifier: 13.2.1
+    version: 13.2.1
   '@octokit/webhooks-types':
     specifier: 7.5.0
     version: 7.5.0
@@ -539,15 +539,15 @@ packages:
     resolution: {integrity: sha512-xx+Xd6I7rYvul/hgUDqv6TeGX0IOGnhSg9IOeYgd/uI7IAqUy6DE2B6Ipv2M4mWoxaMcWjIzgTIcv8pMO3F3vw==}
     dev: false
 
-  /@octokit/openapi-webhooks-types@6.4.0:
-    resolution: {integrity: sha512-oP11rbD709X16yj9FHRAj8t/iqQKW7c1v+nJx0OezOx5um7vm2pIf0pSrIh3dlKbVADNNhRTvBAQ65uFp7V1ig==}
+  /@octokit/openapi-webhooks-types@7.1.0:
+    resolution: {integrity: sha512-herBZXT0WqtlkkDAYfMOG2kv8ugJncn+yJbqpQPxXsu+uQjknVCYpGKkJWyNbxPNM5I4VhwBJFI6Qh3w7UqZ8Q==}
     dev: false
 
   /@octokit/request-error@6.1.0:
     resolution: {integrity: sha512-xcLJv4IgfWIOEEVZwfhUN3yHNWJL0AMw1J1Ba8BofM9RdDTbapg6MO4zNxlPS4XXX9aAIsbDRa47K57EhgeVAw==}
     engines: {node: '>= 18'}
     dependencies:
-      '@octokit/types': 13.0.0
+      '@octokit/types': 13.1.0
     dev: false
 
   /@octokit/request@9.0.1:
@@ -572,8 +572,14 @@ packages:
       '@octokit/openapi-types': 21.2.0
     dev: false
 
-  /@octokit/webhooks-methods@5.0.0:
-    resolution: {integrity: sha512-bMypz/oiU4DqaujqZH7IOwMyrHfr2MBZbXqrttyR/kawne7t8CIv1k+xALazo6VCuE7DJZbgBG1RFdk5OH8lnw==}
+  /@octokit/types@13.1.0:
+    resolution: {integrity: sha512-nBwAFOYqVUUJ2AZFK4ZzESQptaAVqdTDKk8gE0Xr0o99WuPDSrhUC38x0F40xD9OUxXhOOuZKWNNVVLPSHQDvQ==}
+    dependencies:
+      '@octokit/openapi-types': 21.2.0
+    dev: false
+
+  /@octokit/webhooks-methods@5.1.0:
+    resolution: {integrity: sha512-yFZa3UH11VIxYnnoOYCVoJ3q4ChuSOk2IVBBQ0O3xtKX4x9bmKb/1t+Mxixv2iUhzMdOl1qeWJqEhouXXzB3rQ==}
     engines: {node: '>= 18'}
     dev: false
 
@@ -581,13 +587,13 @@ packages:
     resolution: {integrity: sha512-oFypF1oD0z1x4qi+Ff4ienJ/iZ3GBXoht+0B+x8gMIWiNhRJZADYO+2KOh03ZGOX8WF6iJELZWw+giHieBO7rg==}
     dev: false
 
-  /@octokit/webhooks@13.2.0:
-    resolution: {integrity: sha512-utij3ZFHKi1OTnBV9I+Y/yyn266CcuXUDvOLeHDmtx4NGDMsSL3MfbXu7LvrIuuIb6GAqEt1msP3WIzJgxFn/g==}
+  /@octokit/webhooks@13.2.1:
+    resolution: {integrity: sha512-SH6yUxYCZXrhsWXDbw31SEIBUN6CMOHQduqbR9lh57O4CuOzHskoXGZmX9wl72eeN9QHE98f0bV5KYVZsxUlQQ==}
     engines: {node: '>= 18'}
     dependencies:
-      '@octokit/openapi-webhooks-types': 6.4.0
+      '@octokit/openapi-webhooks-types': 7.1.0
       '@octokit/request-error': 6.1.0
-      '@octokit/webhooks-methods': 5.0.0
+      '@octokit/webhooks-methods': 5.1.0
       aggregate-error: 5.0.0
     dev: false
 
@@ -1227,7 +1233,7 @@ packages:
     requiresBuild: true
     dependencies:
       bare-events: 2.2.0
-      bare-path: 2.1.0
+      bare-path: 2.1.1
       streamx: 2.16.1
     optional: true
 
@@ -1236,8 +1242,8 @@ packages:
     requiresBuild: true
     optional: true
 
-  /bare-path@2.1.0:
-    resolution: {integrity: sha512-DIIg7ts8bdRKwJRJrUMy/PICEaQZaPGZ26lsSx9MJSwIhSrcdHn7/C8W+XmnG/rKi6BaRcz+JO00CjZteybDtw==}
+  /bare-path@2.1.1:
+    resolution: {integrity: sha512-OHM+iwRDRMDBsSW7kl3dO62JyHdBKO3B25FB9vNQBPcGHMo4+eA8Yj41Lfbk3pS/seDY+siNge0LdRTulAau/A==}
     requiresBuild: true
     dependencies:
       bare-os: 2.2.0
@@ -5104,7 +5110,7 @@ packages:
       tar-stream: 3.1.7
     optionalDependencies:
       bare-fs: 2.2.3
-      bare-path: 2.1.0
+      bare-path: 2.1.1
 
   /tar-stream@2.2.0:
     resolution: {integrity: sha512-ujeqbceABgwMZxEJnk2HDY2DlnUZ+9oEcb1KzTVfYHio0UE6dG71n60d8D2I4qNvleWrrXpmjpt7vZeF1LnMZQ==}
