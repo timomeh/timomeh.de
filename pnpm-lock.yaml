@@ -9,11 +9,11 @@ dependencies:
     specifier: 8.1.0
     version: 8.1.0
   '@octokit/graphql-schema':
-    specifier: 15.4.0
-    version: 15.4.0
+    specifier: 15.4.2
+    version: 15.4.2
   '@octokit/webhooks':
-    specifier: 13.2.1
-    version: 13.2.1
+    specifier: 13.2.2
+    version: 13.2.2
   '@octokit/webhooks-types':
     specifier: 7.5.0
     version: 7.5.0
@@ -515,8 +515,8 @@ packages:
       universal-user-agent: 7.0.2
     dev: false
 
-  /@octokit/graphql-schema@15.4.0:
-    resolution: {integrity: sha512-lSjYx0qB2tHMqShJVYbh99Msz+HtnJVC16HUwDLh8EnSxdUXD7yFi5RQGWrMRC4ae0s5s6+pbzJ7rUaF8AQCBg==}
+  /@octokit/graphql-schema@15.4.2:
+    resolution: {integrity: sha512-PIfFAnTgRN5MW9ndnYIL3R07LZXQd8JlP1e2s4Ku7T+pvVXgl8JaAuongNdImKYOhrqEukgXNusKTZc2KEXUmg==}
     dependencies:
       graphql: 16.8.1
       graphql-tag: 2.12.6(graphql@16.8.1)
@@ -539,8 +539,8 @@ packages:
     resolution: {integrity: sha512-xx+Xd6I7rYvul/hgUDqv6TeGX0IOGnhSg9IOeYgd/uI7IAqUy6DE2B6Ipv2M4mWoxaMcWjIzgTIcv8pMO3F3vw==}
     dev: false
 
-  /@octokit/openapi-webhooks-types@7.1.0:
-    resolution: {integrity: sha512-herBZXT0WqtlkkDAYfMOG2kv8ugJncn+yJbqpQPxXsu+uQjknVCYpGKkJWyNbxPNM5I4VhwBJFI6Qh3w7UqZ8Q==}
+  /@octokit/openapi-webhooks-types@8.0.0:
+    resolution: {integrity: sha512-5ms2KAKemeo4JATXYY6pT0gVEFQFPZ3dEIfsHoS7/oly3tQXwl6AD0GWy3Y3TAakT69mqsjPaPErRO0KmMV1hA==}
     dev: false
 
   /@octokit/request-error@6.1.0:
@@ -587,11 +587,11 @@ packages:
     resolution: {integrity: sha512-oFypF1oD0z1x4qi+Ff4ienJ/iZ3GBXoht+0B+x8gMIWiNhRJZADYO+2KOh03ZGOX8WF6iJELZWw+giHieBO7rg==}
     dev: false
 
-  /@octokit/webhooks@13.2.1:
-    resolution: {integrity: sha512-SH6yUxYCZXrhsWXDbw31SEIBUN6CMOHQduqbR9lh57O4CuOzHskoXGZmX9wl72eeN9QHE98f0bV5KYVZsxUlQQ==}
+  /@octokit/webhooks@13.2.2:
+    resolution: {integrity: sha512-2ZqUHvAKxq5sljcqGSMZZ4l3fwo283X2nPiWKpHyu6BUk5NpIh9aGBBxb3hy9Nk/cWoooitOt+InBxLviKBdfA==}
     engines: {node: '>= 18'}
     dependencies:
-      '@octokit/openapi-webhooks-types': 7.1.0
+      '@octokit/openapi-webhooks-types': 8.0.0
       '@octokit/request-error': 6.1.0
       '@octokit/webhooks-methods': 5.1.0
       aggregate-error: 5.0.0
