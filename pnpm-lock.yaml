@@ -9,8 +9,8 @@ dependencies:
     specifier: 8.1.0
     version: 8.1.0
   '@octokit/graphql-schema':
-    specifier: 15.5.1
-    version: 15.5.1
+    specifier: 15.6.0
+    version: 15.6.0
   '@octokit/webhooks':
     specifier: 13.2.2
     version: 13.2.2
@@ -741,8 +741,8 @@ packages:
       universal-user-agent: 7.0.2
     dev: false
 
-  /@octokit/graphql-schema@15.5.1:
-    resolution: {integrity: sha512-iQS13VAT/XIfnQ4f28HO1ZoZBqnk5NGs4B9LtQly9BTuKd0Pz0NQbyYiT+V0ZrZffEgQy6yZDOZ6oQhehFokMg==}
+  /@octokit/graphql-schema@15.6.0:
+    resolution: {integrity: sha512-m6ojV8oRyzmSf3ErDMx4y7Qqmh/NZL3EGBjApEa4OdyaLK7Mci3GOwPq3DAgnC9kZ2mJDf5masjuDc+7OHSOEQ==}
     dependencies:
       graphql: 16.8.1
       graphql-tag: 2.12.6(graphql@16.8.1)
