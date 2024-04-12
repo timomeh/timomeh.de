@@ -3,12 +3,12 @@ on:
   deployment_status:
   workflow_dispatch:
   schedule:
-    - cron: '10 */3 * * *'
+    - cron: '5 4,16 * * *'
 
 jobs:
   smoke:
     name: Wakeup ${{ github.event.deployment_status.environment }}
-    timeout-minutes: 30
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     if: ${{ github.event_name != 'deployment_status' || (github.event.deployment_status.state == 'success' && contains(github.event.deployment_status.environment, 'Production')) }}
     steps:
