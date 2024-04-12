@@ -12,9 +12,8 @@ export const getPlaceholder = cache((src: string) => {
 })
 
 async function getPlaceholderUncached(src: string) {
-  const buffer = await fetch(src).then(async (res) =>
-    Buffer.from(await res.arrayBuffer()),
-  )
+  const res = await fetch(src, { cache: 'no-store' })
+  const buffer = Buffer.from(await res.arrayBuffer())
 
   const {
     metadata: { height, width },
