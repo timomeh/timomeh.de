@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
+import { unstable_noStore } from 'next/cache'
 import { ImageResponseOptions } from 'next/server'
 
 const basePath =
@@ -15,6 +16,8 @@ type Props = {
 }
 
 export function OpengraphBaseImage({ cover, title, date, est }: Props) {
+  unstable_noStore()
+
   return (
     <div tw="flex w-full h-full" style={{ fontFamily: '"Outfit"' }}>
       {!cover && (
