@@ -24,8 +24,7 @@ const gh = graphql.defaults({
     fetch(url: string, options: RequestInit) {
       return fetch(url, {
         ...options,
-        // we're wrapping the requests and caching them separately
-        cache: 'no-store',
+        next: { tags: ['github-raw'] },
       })
     },
   },

@@ -22,6 +22,12 @@ jobs:
           cache: pnpm
       - run: pnpm install
       - run: pnpm exec playwright install --with-deps chromium
+      - name: cache nextjs fetch cache
+        uses: actions/cache@v4
+        with:
+          path: .next/cache/fetch-cache # don't let CI exceed my github rate limit
+          key: ${{ runner.os }}-nextjs-fetch-cache-${{ hashFiles('**/*.ts', '**/*.tsx') }}
+          restore-keys: ${{ runner.os }}-nextjs-fetch-cache-
       - run: pnpm smoke
         env:
           PLAYWRIGHT_WEB_SERVER: '0'

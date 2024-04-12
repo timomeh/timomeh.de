@@ -234,5 +234,9 @@ async function onDiscussionEvent(body: string) {
 }
 
 function revalidateTags(tags: string[]) {
+  // as soon as we're revalidating _anything_, we have to also revalidate
+  // github data
+  revalidateTag('github-raw')
+
   tags.forEach((tag) => revalidateTag(tag))
 }
