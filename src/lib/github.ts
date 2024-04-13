@@ -24,6 +24,7 @@ const gh = graphql.defaults({
     fetch(url: string, options: RequestInit) {
       return fetch(url, {
         ...options,
+        cache: 'force-cache',
         next: { tags: ['github-raw'] },
       })
     },

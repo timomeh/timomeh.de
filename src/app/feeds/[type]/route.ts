@@ -21,7 +21,7 @@ export async function GET(_req: Request, { params }: Options) {
     headers: {
       'content-type': contentTypes[params.type],
       'Cache-Control': 'public, s-maxage=1',
-      'CDN-Cache-Control': 'public, s-maxage=600, stale-while-revalidate=60',
+      'CDN-Cache-Control': 'public, s-maxage=900, stale-while-revalidate=300',
       'Vercel-CDN-Cache-Control':
         'public, s-maxage=3600, stale-while-revalidate=600',
     },
