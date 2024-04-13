@@ -2,13 +2,23 @@ import { Feed, FeedOptions } from 'feed'
 import removeMd from 'remove-markdown'
 
 import { getPost, listPosts, Post } from './blog'
+import { unstable_cache } from 'next/cache'
 
 type FeedType = 'atom' | 'json' | 'rss'
 
+const fetchAllPosts = unstable_cache(
+  async () => {
+    const slugs = await listPosts()
+    const tryPosts = await Promise.all(slugs.map((slug) => getPost(slug)))
+    const posts = tryPosts.filter((post): post is Post => !!post)
+    return posts
+  },
+  ['fetchAllPosts/feeds'],
+  { tags: ['github-raw'] },
+)
+
 export async function buildFeed(type: FeedType) {
-  const slugs = await listPosts()
-  const tryPosts = await Promise.all(slugs.map((slug) => getPost(slug)))
-  const posts = tryPosts.filter((post): post is Post => !!post)
+  const posts = await fetchAllPosts()
 
   const updated = new Date(
     Math.max(...posts.map((post) => new Date(post.updatedAt).getTime())),
