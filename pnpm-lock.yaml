@@ -6,14 +6,14 @@ settings:
 
 dependencies:
   '@octokit/graphql':
-    specifier: 8.1.0
-    version: 8.1.0
+    specifier: 8.1.1
+    version: 8.1.1
   '@octokit/graphql-schema':
-    specifier: 15.6.0
-    version: 15.6.0
+    specifier: 15.7.0
+    version: 15.7.0
   '@octokit/webhooks':
-    specifier: 13.2.2
-    version: 13.2.2
+    specifier: 13.2.3
+    version: 13.2.3
   '@octokit/webhooks-types':
     specifier: 7.5.0
     version: 7.5.0
@@ -737,71 +737,55 @@ packages:
     resolution: {integrity: sha512-ogZ5uLMeGBZUzS32fNt9j+dNw3kkEn5CSw4CVkN1EvCNdFYWrQ5diQR6Hh52VrPR0oayIoYTqQFL/l8RqkV0qw==}
     engines: {node: '>= 18'}
     dependencies:
-      '@octokit/types': 13.0.0
+      '@octokit/types': 13.4.0
       universal-user-agent: 7.0.2
     dev: false
 
-  /@octokit/graphql-schema@15.6.0:
-    resolution: {integrity: sha512-m6ojV8oRyzmSf3ErDMx4y7Qqmh/NZL3EGBjApEa4OdyaLK7Mci3GOwPq3DAgnC9kZ2mJDf5masjuDc+7OHSOEQ==}
+  /@octokit/graphql-schema@15.7.0:
+    resolution: {integrity: sha512-Gamzf+eDqh1dWTjaF3aMUL1beYJ/1SCqQqr07qMbPKqd1KdAn76ELO7uFBYyBKo8Hnoe2BalZuEFeSSwTipBXw==}
     dependencies:
       graphql: 16.8.1
       graphql-tag: 2.12.6(graphql@16.8.1)
     dev: false
 
-  /@octokit/graphql@8.1.0:
-    resolution: {integrity: sha512-XDvj6GcUnQYgbCLXElt3vZDzNIPGvGiwxQO2XzsvfVUjebGh0E5eCD/1My9zUGSNKaGVZitVuO8LMziGmoFryg==}
+  /@octokit/graphql@8.1.1:
+    resolution: {integrity: sha512-ukiRmuHTi6ebQx/HFRCXKbDlOh/7xEV6QUXaE7MJEKGNAncGI/STSbOkl12qVXZrfZdpXctx5O9X1AIaebiDBg==}
     engines: {node: '>= 18'}
     dependencies:
-      '@octokit/request': 9.0.1
-      '@octokit/types': 13.0.0
+      '@octokit/request': 9.1.1
+      '@octokit/types': 13.4.0
       universal-user-agent: 7.0.2
     dev: false
 
-  /@octokit/openapi-types@20.0.0:
-    resolution: {integrity: sha512-EtqRBEjp1dL/15V7WiX5LJMIxxkdiGJnabzYx5Apx4FkQIFgAfKumXeYAqqJCj1s+BMX4cPFIFC4OLCR6stlnA==}
+  /@octokit/openapi-types@22.0.1:
+    resolution: {integrity: sha512-1yN5m1IMNXthoBDUXFF97N1gHop04B3H8ws7wtOr8GgRyDO1gKALjwMHARNBoMBiB/2vEe/vxstrApcJZzQbnQ==}
     dev: false
 
-  /@octokit/openapi-types@21.2.0:
-    resolution: {integrity: sha512-xx+Xd6I7rYvul/hgUDqv6TeGX0IOGnhSg9IOeYgd/uI7IAqUy6DE2B6Ipv2M4mWoxaMcWjIzgTIcv8pMO3F3vw==}
-    dev: false
-
-  /@octokit/openapi-webhooks-types@8.0.0:
-    resolution: {integrity: sha512-5ms2KAKemeo4JATXYY6pT0gVEFQFPZ3dEIfsHoS7/oly3tQXwl6AD0GWy3Y3TAakT69mqsjPaPErRO0KmMV1hA==}
+  /@octokit/openapi-webhooks-types@8.1.1:
+    resolution: {integrity: sha512-cfavqtPS5W1vy2JGXODIL4LsoXYoaXIhiNbil53wb9sLsTFuSBl+r1L6nNiVq/Ie8j0MSB2rCAGrGKJTfjqVEw==}
     dev: false
 
   /@octokit/request-error@6.1.0:
     resolution: {integrity: sha512-xcLJv4IgfWIOEEVZwfhUN3yHNWJL0AMw1J1Ba8BofM9RdDTbapg6MO4zNxlPS4XXX9aAIsbDRa47K57EhgeVAw==}
     engines: {node: '>= 18'}
     dependencies:
-      '@octokit/types': 13.1.0
+      '@octokit/types': 13.4.0
     dev: false
 
-  /@octokit/request@9.0.1:
-    resolution: {integrity: sha512-kL+cAcbSl3dctYLuJmLfx6Iku2MXXy0jszhaEIjQNaCp4zjHXrhVAHeuaRdNvJjW9qjl3u1MJ72+OuBP0YW/pg==}
+  /@octokit/request@9.1.1:
+    resolution: {integrity: sha512-pyAguc0p+f+GbQho0uNetNQMmLG1e80WjkIaqqgUkihqUp0boRU6nKItXO4VWnr+nbZiLGEyy4TeKRwqaLvYgw==}
     engines: {node: '>= 18'}
     dependencies:
       '@octokit/endpoint': 10.1.0
       '@octokit/request-error': 6.1.0
-      '@octokit/types': 12.6.0
+      '@octokit/types': 13.4.0
       universal-user-agent: 7.0.2
     dev: false
 
-  /@octokit/types@12.6.0:
-    resolution: {integrity: sha512-1rhSOfRa6H9w4YwK0yrf5faDaDTb+yLyBUKOCV4xtCDB5VmIPqd/v9yr9o6SAzOAlRxMiRiCic6JVM1/kunVkw==}
+  /@octokit/types@13.4.0:
+    resolution: {integrity: sha512-WlMegy3lPXYWASe3k9Jslc5a0anrYAYMWtsFrxBTdQjS70hvLH6C+PGvHbOsgy3RA3LouGJoU/vAt4KarecQLQ==}
     dependencies:
-      '@octokit/openapi-types': 20.0.0
-    dev: false
-
-  /@octokit/types@13.0.0:
-    resolution: {integrity: sha512-jSOgEoFZvjg78txlb7cuRTAEvyyQkIEB4Nujg5ZN7E1xaICsr8A0X045Nwb1wUWNrBUHBHZNtcsDIhk8d8ipCw==}
-    dependencies:
-      '@octokit/openapi-types': 21.2.0
-    dev: false
-
-  /@octokit/types@13.1.0:
-    resolution: {integrity: sha512-nBwAFOYqVUUJ2AZFK4ZzESQptaAVqdTDKk8gE0Xr0o99WuPDSrhUC38x0F40xD9OUxXhOOuZKWNNVVLPSHQDvQ==}
-    dependencies:
-      '@octokit/openapi-types': 21.2.0
+      '@octokit/openapi-types': 22.0.1
     dev: false
 
   /@octokit/webhooks-methods@5.1.0:
@@ -813,11 +797,11 @@ packages:
     resolution: {integrity: sha512-oFypF1oD0z1x4qi+Ff4ienJ/iZ3GBXoht+0B+x8gMIWiNhRJZADYO+2KOh03ZGOX8WF6iJELZWw+giHieBO7rg==}
     dev: false
 
-  /@octokit/webhooks@13.2.2:
-    resolution: {integrity: sha512-2ZqUHvAKxq5sljcqGSMZZ4l3fwo283X2nPiWKpHyu6BUk5NpIh9aGBBxb3hy9Nk/cWoooitOt+InBxLviKBdfA==}
+  /@octokit/webhooks@13.2.3:
+    resolution: {integrity: sha512-sj3sR4SMpGO+nzQXZANuSnukDB3GfmbGz9TfgVlBsmA8HzqmikwsyMdpUv5STNPFpAOulP0OtrIeNQiUAOBdcA==}
     engines: {node: '>= 18'}
     dependencies:
-      '@octokit/openapi-webhooks-types': 8.0.0
+      '@octokit/openapi-webhooks-types': 8.1.1
       '@octokit/request-error': 6.1.0
       '@octokit/webhooks-methods': 5.1.0
       aggregate-error: 5.0.0

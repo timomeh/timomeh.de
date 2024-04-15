@@ -13,9 +13,9 @@
     "smoke:ui": "pnpm smoke --ui"
   },
   "dependencies": {
-    "@octokit/graphql": "8.1.0",
-    "@octokit/graphql-schema": "15.6.0",
-    "@octokit/webhooks": "13.2.2",
+    "@octokit/graphql": "8.1.1",
+    "@octokit/graphql-schema": "15.7.0",
+    "@octokit/webhooks": "13.2.3",
     "@octokit/webhooks-types": "7.5.0",
     "@plaiceholder/next": "3.0.0",
     "@remark-embedder/core": "3.0.2",
