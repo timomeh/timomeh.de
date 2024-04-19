@@ -12,8 +12,8 @@ dependencies:
     specifier: 15.12.0
     version: 15.12.0
   '@octokit/webhooks':
-    specifier: 13.2.3
-    version: 13.2.3
+    specifier: 13.2.4
+    version: 13.2.4
   '@octokit/webhooks-types':
     specifier: 7.5.0
     version: 7.5.0
@@ -802,8 +802,8 @@ packages:
     resolution: {integrity: sha512-oFypF1oD0z1x4qi+Ff4ienJ/iZ3GBXoht+0B+x8gMIWiNhRJZADYO+2KOh03ZGOX8WF6iJELZWw+giHieBO7rg==}
     dev: false
 
-  /@octokit/webhooks@13.2.3:
-    resolution: {integrity: sha512-sj3sR4SMpGO+nzQXZANuSnukDB3GfmbGz9TfgVlBsmA8HzqmikwsyMdpUv5STNPFpAOulP0OtrIeNQiUAOBdcA==}
+  /@octokit/webhooks@13.2.4:
+    resolution: {integrity: sha512-nvjEW4ncfXGABPjLTgjXJrLNpMJRe8K+EZPxuwczZLbRjxMU2NJhGxAEWJXWBW5ziMlqanDr10QBX75dDpuqLQ==}
     engines: {node: '>= 18'}
     dependencies:
       '@octokit/openapi-webhooks-types': 8.1.1
