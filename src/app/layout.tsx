@@ -48,6 +48,13 @@ export default function RootLayout({ children }: Props) {
       className={`h-full scroll-smooth bg-[#1f1e1f] bg-grainy text-white ${pixeloid.variable}
       ${ibmPlexMono.variable} ${outfit.variable} ${inter.variable}`}
     >
+      <head>
+        <script
+          defer
+          src="https://peekaboo.timo.wtf/script.js"
+          data-website-id="ecbed209-2cd5-438d-ac1d-e1c983f0e8ec"
+        />
+      </head>
       <body className="relative">
         {children}
         <ProgressBar />
