@@ -3,7 +3,6 @@ import '@/styles/globals.css'
 import { IBM_Plex_Mono, Inter, Outfit } from 'next/font/google'
 import localFont from 'next/font/local'
 
-import { Analyze } from '@/comps/analyze'
 import { ProgressBar } from '@/comps/progress-bar'
 
 const inter = Inter({
@@ -51,7 +50,6 @@ export default function RootLayout({ children }: Props) {
     >
       <body className="relative">
         {children}
-        <Analyze />
         <ProgressBar />
       </body>
     </html>
