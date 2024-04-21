@@ -1,14 +1,15 @@
-name: Build
+name: Publish
 on:
   push:
     branches: ['main']
+
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  docker:
-    name: Docker
+  build-deploy:
+    name: Build and Deploy
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -42,3 +43,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Trigger deployment
+        run: |
+          curl --request GET '${{ secrets.DEPLOY_WEBHOOK }}' --header 'Authorization: Bearer ${{ secrets.DEPLOY_TOKEN }}'
