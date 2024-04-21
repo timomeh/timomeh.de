@@ -46,4 +46,4 @@ jobs:
 
       - name: Trigger deployment
         run: |
-          curl --request GET '${{ secrets.DEPLOY_WEBHOOK }}' --header 'Authorization: Bearer ${{ secrets.DEPLOY_TOKEN }}'
+          curl -X GET '${{ secrets.DEPLOY_WEBHOOK }}' -H 'Authorization: Bearer ${{ secrets.DEPLOY_TOKEN }}'
