@@ -49,11 +49,13 @@ export default function RootLayout({ children }: Props) {
       ${ibmPlexMono.variable} ${outfit.variable} ${inter.variable}`}
     >
       <head>
-        <script
-          defer
-          src="https://peekaboo.timo.wtf/script.js"
-          data-website-id="ecbed209-2cd5-438d-ac1d-e1c983f0e8ec"
-        />
+        {process.env.NODE_ENV === 'production' && (
+          <script
+            defer
+            src="https://peekaboo.timo.wtf/script.js"
+            data-website-id="ecbed209-2cd5-438d-ac1d-e1c983f0e8ec"
+          />
+        )}
       </head>
       <body className="relative">
         {children}
