@@ -1,9 +1,11 @@
 import { Metadata } from 'next'
 
 export const body = `
-# Information for humans
+# Disclosure for humans
 
 I'm Timo, a private person and not a company, this is my personal site, which I'm self-hosting on a server in Germany. It uses a Cloudflare proxy, to speed up the site a little, and to prevent unwanted traffic. I'm using a self-hosted instance of [Umami](https://umami.is/), to collect some anonymized insights on user traffic, like popular posts and how long visitors are browsing the site. Some pages may use embeds from a different site, like a YouTube video or Spotify song. If possible, those embeds are using a privacy-improved version, for example YouTube's "nocookie" domain. That's all, I don't want to do anything shady, and the source code of this site is public on GitHub: https://github.com/timomeh/timomeh.de
+
+Now that we've covered that in friendly human words, here are some german legal words for y'all:
 
 # Datenschutzerklärung 🇩🇪
 
@@ -131,5 +133,5 @@ Die Einbindung setzt immer voraus, dass die Drittanbieter dieser Inhalte die IP-
 [Erstellt mit kostenlosem Datenschutz-Generator.de von Dr. Thomas Schwenke](https://datenschutz-generator.de/)`
 
 export const head: Metadata = {
-  title: 'Datenschutz',
+  title: 'Privacy Disclosure & Datenschutzerklärung',
 }
