@@ -30,3 +30,4 @@ Using this structure, I can subscribe to GitHub's webhooks, and revalidate only 
 - [next-mdx-remote](https://github.com/hashicorp/next-mdx-remote)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Playwright](https://playwright.dev/) & [Argos CI](https://argos-ci.com)
+- Docker & Self-hosting
