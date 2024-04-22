@@ -32,6 +32,32 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
+      # Dance around buildkit cache in GitHub Actions
+      # https://github.com/reproducible-containers/buildkit-cache-dance
+      - name: Cache
+        uses: actions/cache@v3
+        id: docker-cache
+        with:
+          path: |
+            cache-mount-pnpm
+            cache-mount-next
+          key: docker-cache-${{ hashFiles('./Dockerfile') }}
+      - name: inject cache into docker
+        uses: reproducible-containers/buildkit-cache-dance@v3.1.0
+        with:
+          cache-map: |
+            {
+              "cache-mount-pnpm": {
+                "target": "/pnpm/store",
+                "id": "pnpm"
+              },
+              "cache-mount-next": {
+                "target": "/app/.next/cache",
+                "id": "next"
+              }
+            }
+          skip-extraction: ${{ steps.docker-cache.outputs.cache-hit }}
+
       - name: Build image and push to registry
         uses: docker/build-push-action@v5
         with:
