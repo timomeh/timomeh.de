@@ -11,8 +11,6 @@ Now that we've covered that in friendly human words, here are some german legal 
 
 Stand: 21\. April 2024
 
----
-
 ## Verantwortlicher
 
 Timo Mämecke  
