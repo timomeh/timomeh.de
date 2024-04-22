@@ -11,7 +11,7 @@ FROM pnpm AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json pnpm-lock.yaml* ./
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm i --frozen-lockfile
+RUN pnpm i --frozen-lockfile
 
 
 FROM pnpm AS builder
@@ -19,7 +19,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED 1
-RUN --mount=type=cache,id=next,target=/app/.next/cache pnpm run build
+RUN pnpm run build
 
 
 FROM base AS runner
