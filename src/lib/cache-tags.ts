@@ -1,16 +1,10 @@
-/* eslint-disable unused-imports/no-unused-vars */
-
-// FIXME: The tags should be more unique for better caching and invalidation.
-// But this causes issues with Vercel right now where deployments won't work.
-// See https://github.com/orgs/vercel/discussions/6082
-
 export const cacheTag = {
   discussions: {
-    list: ({ label = '' } = {}) => ['github/discussions/list'],
-    get: (slug: string) => ['github/discussion/single'],
+    list: ({ label = 'all' } = {}) => [`github/discussions/list:${label}`],
+    get: (slug: string) => [`github/discussion/slug:${slug}`],
   },
   labels: {
     list: () => ['github/labels/list'],
-    get: (name: string) => ['github/label/single'],
+    get: (name: string) => [`github/label/name:${name}`],
   },
 }
