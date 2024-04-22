@@ -56,9 +56,6 @@ dependencies:
   next-nprogress-bar:
     specifier: 2.3.11
     version: 2.3.11
-  noop:
-    specifier: 1.0.1
-    version: 1.0.1
   plaiceholder:
     specifier: 3.0.0
     version: 3.0.0(sharp@0.32.6)
@@ -4292,10 +4289,6 @@ packages:
   /node-releases@2.0.14:
     resolution: {integrity: sha512-y10wOWt8yZpqXmOgRo77WaHEmhYQYGNA6y421PKsKYWEK8aW+cqAphborZDhqfyKrbZEN92CN1X2KbafY2s7Yw==}
     dev: true
-
-  /noop@1.0.1:
-    resolution: {integrity: sha512-Ie26MApU6CpCVRyp1GHFSQsY+zKe3uUXqQnu6bW9dYO/Cb1cpp34nvfi69WHpMvxLeG3Bhu9YV9ItP8z5z1HCQ==}
-    dev: false
 
   /normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
