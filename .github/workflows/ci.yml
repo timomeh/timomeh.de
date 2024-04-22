@@ -18,7 +18,7 @@ jobs:
           node-version: lts/*
           cache: pnpm
       - run: pnpm install
-      - run: pnpm build:compile
+      - run: pnpm build
 
   test:
     timeout-minutes: 15
