@@ -11,6 +11,9 @@ jobs:
   build-deploy:
     name: Build and Deploy
     runs-on: ubuntu-latest
+    environment:
+      name: Production
+      url: https://timomeh.de
     permissions:
       contents: read
       packages: write
@@ -34,15 +37,16 @@ jobs:
 
       # Dance around buildkit cache in GitHub Actions
       # https://github.com/reproducible-containers/buildkit-cache-dance
-      - name: Cache
-        uses: actions/cache@v3
+      - name: Docker mount cache
+        uses: actions/cache@v4
         id: docker-cache
         with:
           path: |
             cache-mount-pnpm
             cache-mount-next
-          key: docker-cache-${{ hashFiles('./Dockerfile') }}
-      - name: inject cache into docker
+          key: docker-cache-${{ hashFiles('Dockerfile', 'src/**/*', 'pnpm-lock.yaml') }}
+          restore-keys: docker-cache-
+      - name: Inject cache into docker
         uses: reproducible-containers/buildkit-cache-dance@v3.1.0
         with:
           cache-map: |
