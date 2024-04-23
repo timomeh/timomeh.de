@@ -15,7 +15,7 @@
   "dependencies": {
     "@octokit/graphql": "8.1.1",
     "@octokit/graphql-schema": "15.12.0",
-    "@octokit/webhooks": "13.2.4",
+    "@octokit/webhooks": "13.2.5",
     "@octokit/webhooks-types": "7.5.1",
     "@plaiceholder/next": "3.0.0",
     "@remark-embedder/core": "3.0.2",
