@@ -50,7 +50,7 @@ jobs:
           push: false
           target: build
           build-args: |
-            CACHE=$CACHE_STATUS
+            CACHE=$$CACHE_STATUS
 
       - name: Export Cache
         uses: docker/build-push-action@v5
@@ -63,7 +63,7 @@ jobs:
           target: export
           outputs: out
           build-args: |
-            CACHE=$CACHE_STATUS
+            CACHE=$$CACHE_STATUS
 
       - name: Create production runner
         uses: docker/build-push-action@v5
@@ -75,4 +75,4 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            CACHE=$CACHE_STATUS
+            CACHE=$$CACHE_STATUS
