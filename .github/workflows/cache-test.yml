@@ -37,6 +37,10 @@ jobs:
           key: ${{ runner.os }}-docker_arm64-next-pnpm-cache-${{ hashFiles('pnpm-lock.yaml', 'src/**/*.ts', 'src/**/*.tsx') }}
           restore-keys: ${{ runner.os }}-docker_arm64-next-pnpm-cache-
 
+      - name: Store cache status
+        run: |
+          echo "CACHE_STATUS=${{ hashFiles('out/next-cache.tar', 'out/pnpm-cache.tar') == '' && 'uncached' || 'cached' }}" >> "$GITHUB_ENV"
+
       - name: Build Next.js
         uses: docker/build-push-action@v5
         with:
@@ -46,7 +50,7 @@ jobs:
           push: false
           target: build
           build-args: |
-            CACHE=${{ hashFiles('out/next-cache.tar', 'out/pnpm-cache.tar') == '' && 'uncached' || 'cached' }}
+            CACHE=$CACHE_STATUS
 
       - name: Export Cache
         uses: docker/build-push-action@v5
@@ -59,7 +63,7 @@ jobs:
           target: export
           outputs: out
           build-args: |
-            CACHE=${{ hashFiles('out/next-cache.tar', 'out/pnpm-cache.tar') == '' && 'uncached' || 'cached' }}
+            CACHE=$CACHE_STATUS
 
       - name: Create production runner
         uses: docker/build-push-action@v5
@@ -71,4 +75,4 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            CACHE=${{ hashFiles('out/next-cache.tar', 'out/pnpm-cache.tar') == '' && 'uncached' || 'cached' }}
+            CACHE=$CACHE_STATUS

@@ -24,7 +24,7 @@ COPY package.json pnpm-lock.yaml* ./
 RUN pnpm i --frozen-lockfile
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED 1
-RUN pnpm run build
+RUN pnpm build
 # prepare cache artifacts for export
 RUN tar -cf pnpm-cache.tar /pnpm/store && \
     tar -cf next-cache.tar .next
