@@ -37,7 +37,7 @@ jobs:
           key: ${{ runner.os }}-docker-cache-${{ hashFiles('pnpm-lock.yaml', 'src/**/*.ts', 'src/**/*.tsx') }}
           restore-keys: ${{ runner.os }}-docker-cache-
 
-      - name: Build
+      - name: Build Next.js
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -45,7 +45,6 @@ jobs:
           platforms: linux/arm64
           push: false
           target: build
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:build
           build-args: |
             CACHE=${{ hashFiles('out/next-cache.tar', 'out/node_modules-cache.tar') == '' && 'uncached' || 'cached' }}
 
@@ -69,4 +68,4 @@ jobs:
           push: false
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:build
+          cache-from: type=local,src=/tmp/.buildx-cache
