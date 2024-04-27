@@ -29,26 +29,38 @@ jobs:
 
       - name: Docker artifact cache
         uses: actions/cache@v4
+        id: cache
         with:
           path: |
             out/next-cache.tar
             out/node_modules-cache.tar
           key: ${{ runner.os }}-docker-cache-${{ hashFiles('pnpm-lock.yaml', 'src/**/*.ts', 'src/**/*.tsx') }}
+          restore-keys: ${{ runner.os }}-docker-cache-
 
-      - name: Build and export cache
+      - name: Build
         uses: docker/build-push-action@v5
         with:
           context: .
           file: Dockerfile
           platforms: linux/arm64
           push: false
-          target: export
-          outputs: .
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:cache
+          target: build
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:build
           build-args: |
             CACHE=${{ hashFiles('out/next-cache.tar', 'out/node_modules-cache.tar') == '' && 'uncached' || 'cached' }}
 
-      - name: Prepare production runner
+      - name: Export Cache
+        uses: docker/build-push-action@v5
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        with:
+          context: .
+          file: Dockerfile
+          platforms: linux/arm64
+          push: false
+          target: export
+          outputs: out
+
+      - name: Create production runner
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -57,5 +69,4 @@ jobs:
           push: false
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:cache
+          cache-from: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:build
