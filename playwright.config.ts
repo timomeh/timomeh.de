@@ -39,21 +39,11 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
       testIgnore: /.*smoke\.spec\.ts/,
     },
-    {
-      name: 'production',
-      use: {
-        ...devices['Desktop Chrome'],
-        baseURL: 'https://timomeh.de',
-        userAgent: 'timomeh.de-wakeupbot/1.0',
-      },
-      retries: 2,
-      testMatch: /.*smoke\.spec\.ts/,
-    },
   ],
 
   /* Run your local dev server before starting the tests */
   webServer:
-    process.env.PLAYWRIGHT_WEB_SERVER !== '0'
+    process.env.PLAYWRIGHT_WEB_SERVER !== 'off'
       ? {
           command: 'pnpm dev',
           url: baseURL,
