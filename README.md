@@ -25,9 +25,10 @@ Using this structure, I can subscribe to GitHub's webhooks, and revalidate only 
 ## Stack
 
 - [Next.js](https://nextjs.org/)
+- self-hosted on Hetzner
+- Cloudflare Proxy
 - [GitHub Discussions](https://github.com/timomeh/timomeh.de/discussions) / Octokit
 - [Shiki](https://shiki.style/)
 - [next-mdx-remote](https://github.com/hashicorp/next-mdx-remote)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Playwright](https://playwright.dev/) & [Argos CI](https://argos-ci.com)
-- Docker & Self-hosting
