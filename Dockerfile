@@ -14,7 +14,7 @@ ONBUILD WORKDIR /app
 # build base with cache: load cache
 FROM pnpm as build-base-cached
 ONBUILD WORKDIR /app
-ONBUILD ADD ./out/node_modules-cache.tar .
+ONBUILD ADD ./out/pnpm-cache.tar /
 ONBUILD ADD ./out/next-cache.tar ./
 
 # build with or without cache based on the CACHE build arg
@@ -26,13 +26,13 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED 1
 RUN pnpm run build
 # prepare cache artifacts for export
-RUN tar -cvf node_modules.tar node_modules && \
-    tar -cvf next-cache.tar .next/cache
+RUN tar -cf pnpm-cache.tar /pnpm/store && \
+    tar -cf next-cache.tar .next
 
 # export stage
 FROM scratch AS export
 COPY --from=build /app/next-cache.tar next-cache.tar
-COPY --from=build /app/node_modules.tar node_modules-cache.tar
+COPY --from=build /app/pnpm-cache.tar pnpm-cache.tar
 
 # production runner
 FROM base AS runner

@@ -33,9 +33,9 @@ jobs:
         with:
           path: |
             out/next-cache.tar
-            out/node_modules-cache.tar
-          key: ${{ runner.os }}-docker-cache-${{ hashFiles('pnpm-lock.yaml', 'src/**/*.ts', 'src/**/*.tsx') }}
-          restore-keys: ${{ runner.os }}-docker-cache-
+            out/pnpm-cache.tar
+          key: ${{ runner.os }}-docker_arm64-next-pnpm-cache-${{ hashFiles('pnpm-lock.yaml', 'src/**/*.ts', 'src/**/*.tsx') }}
+          restore-keys: ${{ runner.os }}-docker_arm64-next-pnpm-cache-
 
       - name: Build Next.js
         uses: docker/build-push-action@v5
@@ -46,7 +46,7 @@ jobs:
           push: false
           target: build
           build-args: |
-            CACHE=${{ hashFiles('out/next-cache.tar', 'out/node_modules-cache.tar') == '' && 'uncached' || 'cached' }}
+            CACHE=${{ hashFiles('out/next-cache.tar', 'out/pnpm-cache.tar') == '' && 'uncached' || 'cached' }}
 
       - name: Export Cache
         uses: docker/build-push-action@v5
@@ -58,6 +58,8 @@ jobs:
           push: false
           target: export
           outputs: out
+          build-args: |
+            CACHE=${{ hashFiles('out/next-cache.tar', 'out/pnpm-cache.tar') == '' && 'uncached' || 'cached' }}
 
       - name: Create production runner
         uses: docker/build-push-action@v5
@@ -68,4 +70,5 @@ jobs:
           push: false
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=local,src=/tmp/.buildx-cache
+          build-args: |
+            CACHE=${{ hashFiles('out/next-cache.tar', 'out/pnpm-cache.tar') == '' && 'uncached' || 'cached' }}
