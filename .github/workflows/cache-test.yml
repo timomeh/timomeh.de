@@ -44,7 +44,7 @@ jobs:
           target: export
           outputs: .
           build-args: |
-            CACHE=${{ hashFiles('out/next-cache.tar', 'out/node_modules-cache.tar') == '' ? 'uncached' : 'cached' }}
+            CACHE=${{ hashFiles('out/next-cache.tar', 'out/node_modules-cache.tar') == '' && 'uncached' || 'cached' }}
 
       - uses: docker/build-push-action@v5
         with:
