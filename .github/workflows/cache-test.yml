@@ -34,8 +34,8 @@ jobs:
           path: |
             out/next-cache.tar
             out/pnpm-cache.tar
-          key: ${{ runner.os }}-docker_arm64-next-pnpm-cache-${{ hashFiles('pnpm-lock.yaml', 'src/**/*.ts', 'src/**/*.tsx') }}
-          restore-keys: ${{ runner.os }}-docker_arm64-next-pnpm-cache-
+          key: ${{ runner.os }}-docker-next-pnpm-cache-${{ hashFiles('pnpm-lock.yaml', 'src/**/*.ts', 'src/**/*.tsx') }}
+          restore-keys: ${{ runner.os }}-docker-next-pnpm-cache-
 
       - name: Store cache status
         run: |
@@ -46,7 +46,7 @@ jobs:
         with:
           context: .
           file: Dockerfile
-          platforms: linux/arm64
+          # platforms: linux/arm64
           push: false
           target: build
           build-args: |
@@ -58,7 +58,7 @@ jobs:
         with:
           context: .
           file: Dockerfile
-          platforms: linux/arm64
+          # platforms: linux/arm64
           push: false
           target: export
           outputs: out
@@ -71,7 +71,7 @@ jobs:
         with:
           context: .
           file: Dockerfile
-          platforms: linux/arm64
+          # platforms: linux/arm64
           push: false
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
