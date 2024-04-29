@@ -152,8 +152,8 @@ devDependencies:
     specifier: 3.2.5
     version: 3.2.5
   prettier-plugin-classnames:
-    specifier: 0.6.5
-    version: 0.6.5(prettier@3.2.5)
+    specifier: 0.6.6
+    version: 0.6.6(prettier@3.2.5)
   prettier-plugin-merge:
     specifier: 0.6.0
     version: 0.6.0(prettier@3.2.5)
@@ -4667,8 +4667,8 @@ packages:
       fast-diff: 1.3.0
     dev: true
 
-  /prettier-plugin-classnames@0.6.5(prettier@3.2.5):
-    resolution: {integrity: sha512-33RQaTSxz4KzITJSJCOTTrVwbmuGjz4wIpJbDFalHQ8EBK4p0/4rgkvHd4M1MSTG/5gsfZUBksQRHBLYkuLv0Q==}
+  /prettier-plugin-classnames@0.6.6(prettier@3.2.5):
+    resolution: {integrity: sha512-sg28MlA6bsme4T3VbKVHeMTpfG9frdqGvTBOFXoAG6z7FuroRH8P54RkXgPw2cnEfJRKIOIWCZCouu5qu9ATmA==}
     engines: {node: '>=14'}
     peerDependencies:
       prettier: ^2 || ^3
