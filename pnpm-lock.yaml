@@ -27,8 +27,8 @@ dependencies:
     specifier: 3.0.0
     version: 3.0.0(@remark-embedder/core@3.0.2)(bluebird@3.7.2)
   '@shikijs/transformers':
-    specifier: 1.3.0
-    version: 1.3.0
+    specifier: 1.4.0
+    version: 1.4.0
   '@sindresorhus/slugify':
     specifier: 2.2.1
     version: 2.2.1
@@ -90,8 +90,8 @@ dependencies:
     specifier: 0.32.6
     version: 0.32.6
   shiki:
-    specifier: 1.3.0
-    version: 1.3.0
+    specifier: 1.4.0
+    version: 1.4.0
 
 devDependencies:
   '@argos-ci/playwright':
@@ -872,14 +872,14 @@ packages:
     resolution: {integrity: sha512-hw437iINopmQuxWPSUEvqE56NCPsiU8N4AYtfHmJFckclktzK9YQJieD3XkDCDH4OjL+C7zgPUh73R/nrcHrqw==}
     dev: true
 
-  /@shikijs/core@1.3.0:
-    resolution: {integrity: sha512-7fedsBfuILDTBmrYZNFI8B6ATTxhQAasUHllHmjvSZPnoq4bULWoTpHwmuQvZ8Aq03/tAa2IGo6RXqWtHdWaCA==}
+  /@shikijs/core@1.4.0:
+    resolution: {integrity: sha512-CxpKLntAi64h3j+TwWqVIQObPTED0FyXLHTTh3MKXtqiQNn2JGcMQQ362LftDbc9kYbDtrksNMNoVmVXzKFYUQ==}
     dev: false
 
-  /@shikijs/transformers@1.3.0:
-    resolution: {integrity: sha512-3mlpg2I9CjhjE96dEWQOGeCWoPcyTov3s4aAsHmgvnTHa8MBknEnCQy8/xivJPSpD+olqOqIEoHnLfbNJK29AA==}
+  /@shikijs/transformers@1.4.0:
+    resolution: {integrity: sha512-kzvlWmWYYSeaLKRce/kgmFFORUtBtFahfXRKndor0b60ocYiXufBQM6d6w1PlMuUkdk55aor9xLvy9wy7hTEJg==}
     dependencies:
-      shiki: 1.3.0
+      shiki: 1.4.0
     dev: false
 
   /@sindresorhus/slugify@2.2.1:
@@ -5152,10 +5152,10 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /shiki@1.3.0:
-    resolution: {integrity: sha512-9aNdQy/etMXctnPzsje1h1XIGm9YfRcSksKOGqZWXA/qP9G18/8fpz5Bjpma8bOgz3tqIpjERAd6/lLjFyzoww==}
+  /shiki@1.4.0:
+    resolution: {integrity: sha512-5WIn0OL8PWm7JhnTwRWXniy6eEDY234mRrERVlFa646V2ErQqwIFd2UML7e0Pq9eqSKLoMa3Ke+xbsF+DAuy+Q==}
     dependencies:
-      '@shikijs/core': 1.3.0
+      '@shikijs/core': 1.4.0
     dev: false
 
   /side-channel@1.0.6:
