@@ -97,8 +97,8 @@ importers:
         version: 1.4.0
     devDependencies:
       '@argos-ci/playwright':
-        specifier: 3.0.1
-        version: 3.0.1
+        specifier: 3.0.2
+        version: 3.0.2
       '@playwright/test':
         specifier: 1.43.1
         version: 1.43.1
@@ -179,12 +179,12 @@ packages:
     resolution: {integrity: sha512-pOWyyp39g1Jhags7Z7Qb+rgNjUtvMxh21lgF1Ts9epobE2ZQLkRxlUheSDlC6VbvauhO+8WS3mo3Q8dgEn7UtA==}
     engines: {node: '>=18.0.0'}
 
-  '@argos-ci/core@2.1.0':
-    resolution: {integrity: sha512-Av6eOaE0DZ3GstHn69GY++12ISUppkVhHwMxbYp0rUPqh2r+IZtSVAmo8U2D3K8eJK6+u1qUD75ROWmuQakCAQ==}
+  '@argos-ci/core@2.2.0':
+    resolution: {integrity: sha512-T5W37CZ6HZjRcVAXuPj0wUB/Fm4VdwLvKpQL9yqSwiJganeNz7u8AFYJ30ujSUJS1jdUViW5TNnmsgDjuvGyTQ==}
     engines: {node: '>=18.0.0'}
 
-  '@argos-ci/playwright@3.0.1':
-    resolution: {integrity: sha512-abnuBqjsPj0t6ClZGbWa1iK+FtHQ92/8b0hBNB431ox3kDRzlToFW3VItvx0xptc1FmTRHZSWgAUUZyJjZm12g==}
+  '@argos-ci/playwright@3.0.2':
+    resolution: {integrity: sha512-fvrocGEVC6S3IatprSBmikzDKJcHH4i7ekHSG9xU5fXQHaIFoQJDti/sCCJ7QbKY2w30Ry9yaEALnsPVprD80w==}
     engines: {node: '>=18.0.0'}
 
   '@argos-ci/util@2.0.0':
@@ -3121,7 +3121,7 @@ snapshots:
 
   '@argos-ci/browser@2.1.0': {}
 
-  '@argos-ci/core@2.1.0':
+  '@argos-ci/core@2.2.0':
     dependencies:
       '@argos-ci/util': 2.0.0
       axios: 1.6.8(debug@4.3.4)
@@ -3133,10 +3133,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@argos-ci/playwright@3.0.1':
+  '@argos-ci/playwright@3.0.2':
     dependencies:
       '@argos-ci/browser': 2.1.0
-      '@argos-ci/core': 2.1.0
+      '@argos-ci/core': 2.2.0
       '@argos-ci/util': 2.0.0
       chalk: 5.3.0
       debug: 4.3.4
