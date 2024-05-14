@@ -57,8 +57,8 @@ importers:
         specifier: canary
         version: 0.0.0-canary-20240321205249(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next-nprogress-bar:
-        specifier: 2.3.11
-        version: 2.3.11
+        specifier: 2.3.12
+        version: 2.3.12
       plaiceholder:
         specifier: 3.0.0
         version: 3.0.0(sharp@0.32.6)
@@ -2209,8 +2209,8 @@ packages:
       react: '>=16.x <=18.x'
       react-dom: '>=16.x <=18.x'
 
-  next-nprogress-bar@2.3.11:
-    resolution: {integrity: sha512-OjSvsQwgSWa2qBMYO478QreGG9Jt82tr4wTQptmiyzNqqjzHCyKZNkhANnzPrjuFAoelIvmruJuakODofSnvTQ==}
+  next-nprogress-bar@2.3.12:
+    resolution: {integrity: sha512-BCsmNmssPY4QfYKux7cGYm/JmsM/n9TGMJJDyYPt7ckWyK8l43hMgi7g9d7u/IxCaEAx3pbzfg7Ity0zdlDnGA==}
 
   next@14.2.3:
     resolution: {integrity: sha512-dowFkFTR8v79NPJO4QsBUtxv0g9BrS/phluVpMAt2ku7H+cbcBJlopXjkWlwxrk/xGqMemr7JkGPGemPrLLX7A==}
@@ -5681,7 +5681,7 @@ snapshots:
       - '@types/react'
       - supports-color
 
-  next-nprogress-bar@2.3.11:
+  next-nprogress-bar@2.3.12:
     dependencies:
       nprogress: 0.2.0
 
