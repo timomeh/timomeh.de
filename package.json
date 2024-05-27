@@ -42,7 +42,7 @@
     "shiki": "1.6.0"
   },
   "devDependencies": {
-    "@argos-ci/playwright": "3.0.2",
+    "@argos-ci/playwright": "3.0.3",
     "@playwright/test": "1.44.1",
     "@tailwindcss/typography": "0.5.13",
     "@types/ellipsize": "0.1.3",
