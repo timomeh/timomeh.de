@@ -4,7 +4,7 @@ import path from 'node:path'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { MDX } from '@/comps/mdx/mdx'
+import { MDX } from '@/app/_comps/mdx/mdx'
 
 export const dynamic = 'force-static'
 export const dynamicParams = true

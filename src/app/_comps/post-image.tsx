@@ -1,6 +1,6 @@
 import { ImageProps } from 'next/image'
 
-import { getPlaceholder } from '@/lib/placeholder'
+import { getPlaceholder } from '@/app/_lib/placeholder'
 
 import { FadeInImage } from './fade-in-image'
 

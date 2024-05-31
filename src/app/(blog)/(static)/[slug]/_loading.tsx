@@ -1,4 +1,4 @@
-import { BackTag } from '@/comps/back-tag'
+import { BackTag } from '@/app/_comps/back-tag'
 
 export default function Loading() {
   return (

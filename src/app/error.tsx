@@ -1,6 +1,6 @@
 'use client'
 
-import { ReportBrokenPage } from '@/comps/report-broken-link'
+import { ReportBrokenPage } from '@/app/_comps/report-broken-link'
 
 import BlogLayout from './(blog)/layout'
 

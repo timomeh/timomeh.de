@@ -14,8 +14,8 @@ import {
 import { revalidateTag } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
 
-import { cacheTag } from '@/lib/cache-tags'
-import { fetchDiscussion, isAllowedCategory, isTag } from '@/lib/github'
+import { cacheTag } from '@/app/_lib/cache-tags'
+import { fetchDiscussion, isAllowedCategory, isTag } from '@/app/_lib/github'
 
 export async function POST(request: NextRequest) {
   const webhooks = new Webhooks({

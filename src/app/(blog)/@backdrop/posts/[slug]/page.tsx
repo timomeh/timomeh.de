@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation'
 
-import { PostImage } from '@/comps/post-image'
-import { SocialBox } from '@/comps/social-box'
-import { getPost } from '@/lib/blog'
+import { PostImage } from '@/app/_comps/post-image'
+import { SocialBox } from '@/app/_comps/social-box'
+import { getPost } from '@/app/_lib/blog'
 
 import DefaultPage from '../../default'
 

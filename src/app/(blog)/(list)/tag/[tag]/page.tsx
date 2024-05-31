@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { getTag } from '@/lib/blog'
+import { getTag } from '@/app/_lib/blog'
 
 import { PostList } from '../../post-list'
 

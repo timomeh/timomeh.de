@@ -1,6 +1,6 @@
 import { ComponentProps } from 'react'
 
-import { getTag } from '@/lib/blog'
+import { getTag } from '@/app/_lib/blog'
 
 import { Tag } from './tag'
 

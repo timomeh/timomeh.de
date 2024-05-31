@@ -1,4 +1,4 @@
-import * as syntax from '@/lib/syntax'
+import * as syntax from '@/app/_lib/syntax'
 
 type Props = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLElement>,

@@ -1,4 +1,4 @@
-import { SocialBox } from '@/comps/social-box'
+import { SocialBox } from '@/app/_comps/social-box'
 
 export default function Default() {
   return (

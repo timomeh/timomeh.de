@@ -1,9 +1,9 @@
-import '@/styles/globals.css'
+import './_styles/globals.css'
 
 import { IBM_Plex_Mono, Inter, Outfit } from 'next/font/google'
 import localFont from 'next/font/local'
 
-import { ProgressBar } from '@/comps/progress-bar'
+import { ProgressBar } from '@/app/_comps/progress-bar'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -26,8 +26,8 @@ const ibmPlexMono = IBM_Plex_Mono({
 
 const pixeloid = localFont({
   src: [
-    { path: '../styles/Pixeloid.ttf', weight: '400', style: 'normal' },
-    { path: '../styles/PixeloidBold.ttf', weight: '700', style: 'normal' },
+    { path: './_styles/Pixeloid.ttf', weight: '400', style: 'normal' },
+    { path: './_styles/PixeloidBold.ttf', weight: '700', style: 'normal' },
   ],
   variable: '--font-pixeloid',
 })

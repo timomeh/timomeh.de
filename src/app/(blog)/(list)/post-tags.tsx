@@ -1,7 +1,7 @@
-import { PostTag } from '@/comps/post-tag'
-import { Tag } from '@/comps/tag'
-import { TagLink } from '@/comps/tag-link'
-import { listTags } from '@/lib/blog'
+import { PostTag } from '@/app/_comps/post-tag'
+import { Tag } from '@/app/_comps/tag'
+import { TagLink } from '@/app/_comps/tag-link'
+import { listTags } from '@/app/_lib/blog'
 
 export async function PostTags() {
   const tags = await listTags()

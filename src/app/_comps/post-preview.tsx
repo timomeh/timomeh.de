@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { getPost } from '@/lib/blog'
+import { getPost } from '@/app/_lib/blog'
 
 import { PostHeader } from './post-header'
 import { PostImage } from './post-image'

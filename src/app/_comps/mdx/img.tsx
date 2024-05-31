@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { compileMDX } from 'next-mdx-remote/rsc'
 
-import { getPlaceholder } from '@/lib/placeholder'
+import { getPlaceholder } from '@/app/_lib/placeholder'
 
 import { Anchor } from './anchor'
 import { Code } from './code'

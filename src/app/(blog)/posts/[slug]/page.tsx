@@ -1,9 +1,9 @@
 import { notFound } from 'next/navigation'
 
-import { BackTag } from '@/comps/back-tag'
-import { MDX } from '@/comps/mdx/mdx'
-import { PostHeader } from '@/comps/post-header'
-import { getPost } from '@/lib/blog'
+import { BackTag } from '@/app/_comps/back-tag'
+import { MDX } from '@/app/_comps/mdx/mdx'
+import { PostHeader } from '@/app/_comps/post-header'
+import { getPost } from '@/app/_lib/blog'
 
 export const dynamic = 'force-static'
 export const dynamicParams = true

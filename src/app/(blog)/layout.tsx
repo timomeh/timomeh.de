@@ -1,5 +1,5 @@
-import { Footer } from '@/comps/footer'
-import { Header } from '@/comps/header'
+import { Footer } from '@/app/_comps/footer'
+import { Header } from '@/app/_comps/header'
 
 type Props = {
   children: React.ReactNode

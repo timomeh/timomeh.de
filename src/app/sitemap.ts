@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next'
 
-import { getPost, listPosts, listTags, Post } from '@/lib/blog'
+import { getPost, listPosts, listTags, Post } from '@/app/_lib/blog'
 
 export default async function sitemap() {
   const [tags, posts, page] = await Promise.all([

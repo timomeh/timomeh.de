@@ -1,4 +1,4 @@
-import { ReportBrokenLink } from '@/comps/report-broken-link'
+import { ReportBrokenLink } from '@/app/_comps/report-broken-link'
 
 import BlogLayout from './(blog)/layout'
 

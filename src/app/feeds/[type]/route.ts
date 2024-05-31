@@ -1,4 +1,4 @@
-import { buildFeed } from '@/lib/feed'
+import { buildFeed } from '@/app/_lib/feed'
 
 type Options = {
   params: {

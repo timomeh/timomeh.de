@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 
-import { BackTag } from '@/comps/back-tag'
-import { MDX } from '@/comps/mdx/mdx'
+import { BackTag } from '@/app/_comps/back-tag'
+import { MDX } from '@/app/_comps/mdx/mdx'
 
 import { getSite } from './getSite'
 

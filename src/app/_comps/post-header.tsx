@@ -1,6 +1,6 @@
-import { MDX } from '@/comps/mdx/mdx'
-import { PostTag } from '@/comps/post-tag'
-import { getPost } from '@/lib/blog'
+import { MDX } from '@/app/_comps/mdx/mdx'
+import { PostTag } from '@/app/_comps/post-tag'
+import { getPost } from '@/app/_lib/blog'
 
 type Props = {
   slug: string

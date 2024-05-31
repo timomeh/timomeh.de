@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import { ImageResponse } from 'next/og'
 
-import { getPost } from '@/lib/blog'
+import { getPost } from '@/app/_lib/blog'
 
 import { getFonts, OpengraphBaseImage } from '../../OpengraphBaseImage'
 

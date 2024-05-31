@@ -1,4 +1,4 @@
-import { listPostsByYear } from '@/lib/blog'
+import { listPostsByYear } from '@/app/_lib/blog'
 
 import { PostItem } from './post-item'
 
