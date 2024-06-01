@@ -9,10 +9,7 @@ export function Header() {
       className="group/header relative mx-auto flex max-w-2xl flex-row items-center justify-start
         px-4 py-10 sm:items-end sm:justify-end"
     >
-      <div
-        className="relative flex max-h-20 max-w-20 flex-shrink items-center justify-center
-          sm:max-h-24 sm:max-w-24"
-      >
+      <div className="relative flex h-20 w-20 flex-shrink items-center justify-center sm:h-24 sm:w-24">
         <div className="relative">
           <Link
             title="Go to home"

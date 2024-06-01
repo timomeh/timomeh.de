@@ -1,9 +1,8 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { getTag } from '@/app/_lib/blog'
-
 import { PostList } from '../../post-list'
+import { getCategoryBySlug } from '@/app/_data/category.dto'
 
 export const dynamic = 'force-static'
 export const dynamicParams = true
@@ -18,8 +17,8 @@ type Props = {
 }
 
 export default async function Page({ params }: Props) {
-  const tag = await getTag(params.tag)
-  if (!tag) notFound()
+  const category = await getCategoryBySlug(params.tag)
+  if (!category) notFound()
 
   return (
     <div className="mx-auto max-w-2xl px-4">
@@ -29,12 +28,12 @@ export default async function Page({ params }: Props) {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const tag = await getTag(params.tag)
-  if (!tag) notFound()
+  const category = await getCategoryBySlug(params.tag)
+  if (!category) notFound()
 
   return {
-    title: tag.name,
-    description: `More or less coherent thoughts about ${tag.name}.`,
+    title: category.name,
+    description: `More or less coherent thoughts about ${category.name}.`,
     alternates: {
       types: {
         'application/atom+xml': '/posts/feed.atom',

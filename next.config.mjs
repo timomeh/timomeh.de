@@ -2,6 +2,10 @@ import withPlaiceholder from '@plaiceholder/next'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    instrumentationHook: true,
+    serverComponentsExternalPackages: ['payload'],
+  },
   images: {
     remotePatterns: [
       {
@@ -18,6 +22,11 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'images.unsplash.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'dump.timo.wtf',
+      },
+      { hostname: 'localhost' },
     ],
   },
   async rewrites() {

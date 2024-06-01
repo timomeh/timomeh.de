@@ -1,9 +1,7 @@
 import { notFound } from 'next/navigation'
 import { ImageResponse } from 'next/og'
-
-import { getPost } from '@/app/_lib/blog'
-
-import { getFonts, OpengraphBaseImage } from '../../OpengraphBaseImage'
+import { getPostBySlug } from '@/app/_data/post.dto'
+import { OgBaseImage, getFonts } from '@/app/_comps/og-base-image'
 
 export const generateStaticParams = () => []
 export const size = {
@@ -19,16 +17,16 @@ type Props = {
 }
 
 export default async function Image({ params }: Props) {
-  const post = await getPost(params.slug)
+  const post = await getPostBySlug(params.slug)
   if (!post) notFound()
 
   return new ImageResponse(
     (
-      <OpengraphBaseImage
-        title={[post.safeTitle]}
-        cover={post.meta.cover_image}
-        date={post.postedAt}
-        est={post.estMinutes}
+      <OgBaseImage
+        title={[post.title]}
+        cover={post.cover?.url || undefined}
+        date={post.publishedAt || new Date()}
+        est={post.readingTime}
       />
     ),
     {

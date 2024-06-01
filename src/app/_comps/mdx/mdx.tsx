@@ -10,6 +10,10 @@ import { mdxOptions } from './mdx-options'
 import { Section } from './section'
 import { Video } from './video'
 
+// I'm not using mdx for posts, I'm storing them in plain HTML, but MDX also
+// works with plain HTML, so I can use it to turn some MDX into components, like
+// `<a>` to `<Link>`.
+
 type Props = {
   content: string
   inline?: boolean

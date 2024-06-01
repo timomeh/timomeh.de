@@ -4,6 +4,7 @@ import { IBM_Plex_Mono, Inter, Outfit } from 'next/font/google'
 import localFont from 'next/font/local'
 
 import { ProgressBar } from '@/app/_comps/progress-bar'
+import { Header } from './_comps/header'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -57,7 +58,12 @@ export default function RootLayout({ children }: Props) {
           />
         )}
       </head>
-      <body className="relative">
+      <body className="group relative">
+        <header className="page-header relative h-0 w-full">
+          <div className="relative z-10 group-has-[.paginate-next]:top-40">
+            <Header />
+          </div>
+        </header>
         {children}
         <ProgressBar />
       </body>
