@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "PAYLOAD_CONFIG_PATH=src/payload/payload.config.ts tsx watch src/server.ts",
     "build:payload": "PAYLOAD_CONFIG_PATH=src/payload/payload.config.ts payload build",
-    "build:server": "tsc --project tsconfig.server.json",
+    "build:server": "tsc --project tsconfig.server.json && tsc-alias -p tsconfig.server.json",
     "build:next": "PAYLOAD_CONFIG_PATH=dist/payload/payload.config.js next build --experimental-build-mode compile",
     "build:copyfiles": "copyfiles -u 1 \"src/**/*.{html,css,scss,ttf,woff,woff2,eot,svg,jpg,png,js}\" dist/",
     "build": "NODE_ENV=production pnpm build:payload && pnpm build:server && pnpm build:copyfiles && pnpm build:next",
@@ -34,6 +34,7 @@
     "@shikijs/transformers": "1.6.1",
     "@sindresorhus/slugify": "2.2.1",
     "bluebird": "3.7.2",
+    "drizzle-orm": "0.31.0",
     "ellipsize": "0.5.1",
     "express": "4.19.2",
     "feed": "4.2.2",
@@ -86,6 +87,7 @@
     "prettier-plugin-merge": "0.6.0",
     "prettier-plugin-tailwindcss": "0.6.0",
     "tailwindcss": "3.4.3",
+    "tsc-alias": "1.8.10",
     "tsx": "4.11.0",
     "typescript": "5.4.5"
   },

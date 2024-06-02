@@ -44,6 +44,7 @@ export default buildConfig({
     pool: {
       connectionString: env.DATABASE_URI,
     },
+    migrationDir: path.resolve(__dirname, 'migrations'),
   }),
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
