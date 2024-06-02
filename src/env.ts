@@ -22,6 +22,9 @@ const envSchema = z.object({
   /** Local dir where images will be stored. @see https://payloadcms.com/docs/upload/overview#collection-upload-options */
   PAYLOAD_UPLOADS_DIR: z.string(),
 
+  /** Secret when payload calls next endpoints */
+  PAYLOAD_NEXT_BRIDGE_SECRET: z.string(),
+
   /** deez nuts */
   NODE_ENV: z
     .union([

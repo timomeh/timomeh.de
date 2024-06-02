@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
-
-import { getPost, listPosts, listTags, Post } from '@/app/_lib/blog'
+import { listCategories } from './_data/category.dto'
+import { PostDto, getPostBySlug, listPosts } from './_data/post.dto'
+import { PageDto, getPageBySlug, listPages } from './_data/page.dto'
 
 export default async function sitemap() {
   const [tags, posts, page] = await Promise.all([
@@ -23,10 +24,10 @@ export default async function sitemap() {
 }
 
 async function generateTagsSitemap() {
-  const tags = await listTags()
+  const categories = await listCategories()
 
-  const sitemap = tags.map((tag) => ({
-    url: `https://timomeh.de/tag/${tag}`,
+  const sitemap = categories.map((slug) => ({
+    url: `https://timomeh.de/tag/${slug}`,
     changeFrequency: 'daily',
     priority: 0.8,
     lastModified: new Date(),
@@ -36,9 +37,9 @@ async function generateTagsSitemap() {
 }
 
 async function generatePostsSitemap() {
-  const slugs = await listPosts()
-  const tryPosts = await Promise.all(slugs.map((slug) => getPost(slug)))
-  const posts = tryPosts.filter((post): post is Post => !!post)
+  const slugs = await listPosts(undefined)
+  const tryPosts = await Promise.all(slugs.map((slug) => getPostBySlug(slug)))
+  const posts = tryPosts.filter((post): post is PostDto => !!post)
 
   const sitemap = posts.map((post) => ({
     url: `https://timomeh.de/posts/${post.slug}`,
@@ -50,14 +51,16 @@ async function generatePostsSitemap() {
   return sitemap
 }
 
-function generatePageSitemap() {
-  const slugs = ['about', 'datenschutz', 'feeds', 'impressum']
+async function generatePageSitemap() {
+  const slugs = await listPages()
+  const tryPages = await Promise.all(slugs.map((slug) => getPageBySlug(slug)))
+  const pages = tryPages.filter((page): page is PageDto => !!page)
 
-  const sitemap = slugs.map((slug) => ({
-    url: `https://timomeh.de/${slug}`,
+  const sitemap = pages.map((page) => ({
+    url: `https://timomeh.de/${page.slug}`,
     changeFrequency: 'monthly',
     priority: 0.5,
-    lastModified: new Date(),
+    lastModified: new Date(page.updatedAt),
   })) satisfies MetadataRoute.Sitemap
 
   return sitemap

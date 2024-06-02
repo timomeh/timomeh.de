@@ -1,13 +1,12 @@
 import { ImageProps } from 'next/image'
 
-import { getPlaceholder } from '@/app/_lib/placeholder'
-
 import { FadeInImage } from './fade-in-image'
+import { getImagePlaceholder } from '../_data/image.dto'
 
 type Props = ImageProps & { src: string }
 
 export async function PostImage({ alt, src, ...rest }: Props) {
-  const { css, img } = await getPlaceholder(src)
+  const { css, img } = await getImagePlaceholder(src)
 
   return (
     <>

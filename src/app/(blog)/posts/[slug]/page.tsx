@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import { BackTag } from '@/app/_comps/back-tag'
 import { PostHeader } from '@/app/_comps/post-header'
 import { MDX } from '@/app/_comps/mdx/mdx'
-import { getPostBySlug } from '@/app/_data/post.dto'
+import { getPostBySlug, listPosts } from '@/app/_data/post.dto'
 import { HeaderSpacer } from '@/app/_comps/header-spacer'
 import { Footer } from '@/app/_comps/footer'
 import { HeaderBackdropHaze } from '@/app/_comps/header-backdrop-haze'
@@ -23,14 +23,23 @@ type Props = {
 }
 
 export default async function Page({ params }: Props) {
-  const post = await getPostBySlug(params.slug)
+  const [post, list] = await Promise.all([
+    getPostBySlug(params.slug),
+    listPosts(params.slug),
+  ])
   if (!post) notFound()
+
+  const index = list.findIndex((slug) => post.slug === slug) // could be -1 for unlisted
+  const nextPost = index !== -1 ? list[index - 1] : undefined
+  const prevPost = index !== -1 ? list[index + 1] : undefined
 
   return (
     <>
-      <Suspense>
-        <NextPost forSlug={post.slug} />
-      </Suspense>
+      {nextPost && (
+        <Suspense fallback={<div />}>
+          <NextPost slug={nextPost} />
+        </Suspense>
+      )}
 
       <div className="flex min-h-dvh flex-col">
         <HeaderSpacer>
@@ -58,9 +67,11 @@ export default async function Page({ params }: Props) {
         <Footer />
       </div>
 
-      <Suspense fallback={<div />}>
-        <PrevPost forSlug={post.slug} />
-      </Suspense>
+      {prevPost && (
+        <Suspense fallback={<div />}>
+          <PrevPost slug={prevPost} />
+        </Suspense>
+      )}
     </>
   )
 }
@@ -70,17 +81,18 @@ export async function generateMetadata({ params }: Props) {
   if (!post) notFound()
 
   return {
-    title: post.title,
-    description: post.excerpt,
+    title: post.meta.title || post.title,
+    description: post.meta.description || post.excerpt,
     openGraph: {
       type: 'article',
-      description: post.excerpt,
+      description: post.meta.description || post.excerpt,
       publishedTime: post.publishedAt
         ? new Date(post.publishedAt).toISOString()
         : undefined,
       modifiedTime: new Date(post.updatedAt).toISOString(),
       authors: ['Timo Mämecke'],
       locale: post.lang || 'en',
+      images: post.meta.ogImage ? [post.meta.ogImage] : undefined,
     },
     alternates: {
       types: {

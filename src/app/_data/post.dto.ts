@@ -2,32 +2,69 @@ import { memoize } from 'nextjs-better-unstable-cache'
 import { PostRepo } from './post.repository'
 import { Category, Post, Upload } from '@/payload/payload-types'
 import readingTime from 'reading-time'
+import { groupBy, range } from 'lodash'
+import assert from 'assert'
 
 export const postCacheKey = {
-  list: () => ['posts'],
-  listByCategory: (slug: string) => ['posts', `posts-category:${slug}`],
-  get: (slug: string) => ['post', `post-slug:${slug}`],
+  list: {
+    cache: (categorySlug?: string) =>
+      categorySlug ? ['posts', `posts-category:${categorySlug}`] : ['posts'],
+    invalidate: (categorySlug?: string) =>
+      categorySlug ? `posts-category:${categorySlug}` : 'posts',
+  },
+  single: {
+    cache: (slug: string) => ['post', `post-slug:${slug}`],
+    invalidate: (slug: string) => `post-slug:${slug}`,
+    invalidateAll: () => 'post',
+  },
 }
 
 export const listPosts = memoize(
-  async () => {
-    const result = await PostRepo.findAllPublic()
-    const posts = result.docs.map(mapToShortDto)
-    return posts
+  async (categorySlug?: string) => {
+    const result = categorySlug
+      ? await PostRepo.findAllPublicByCategory(categorySlug)
+      : await PostRepo.findAllPublic()
+
+    const postSlugs = result.docs.map((doc) => doc.slug)
+    return postSlugs
   },
   {
-    revalidateTags: () => postCacheKey.list(),
+    revalidateTags: (categorySlug) => postCacheKey.list.cache(categorySlug),
   },
 )
 
-export const listPostsByCategory = memoize(
-  async (slug: string) => {
-    const result = await PostRepo.findAllPublicByCategory(slug)
-    const posts = result.docs.map(mapToShortDto)
-    return posts
+export const listPostsByYear = memoize(
+  async (categorySlug?: string) => {
+    const result = categorySlug
+      ? await PostRepo.findAllPublicByCategory(categorySlug)
+      : await PostRepo.findAllPublic()
+
+    const posts = result.docs
+    const latest = posts.at(0)
+    const oldest = posts.at(-1)
+
+    // just in case the world explodes, you never know
+    if (!latest || !oldest) {
+      return [{ year: new Date().getFullYear(), posts: [] }]
+    }
+
+    const latestYear = new Date(latest.publishedAt || Date.now()).getFullYear()
+    const oldestYear = new Date(oldest.publishedAt || Date.now()).getFullYear()
+    const years = range(oldestYear, latestYear! + 1).reverse()
+
+    const byYear = groupBy(posts, (post) =>
+      new Date(post.publishedAt || Date.now()).getFullYear(),
+    )
+
+    const listByYear = years.map((year) => ({
+      year,
+      posts: byYear[year]?.map((post) => post.slug) || [],
+    }))
+
+    return listByYear
   },
   {
-    revalidateTags: (slug) => postCacheKey.listByCategory(slug),
+    revalidateTags: (categorySlug) => postCacheKey.list.cache(categorySlug),
   },
 )
 
@@ -38,58 +75,20 @@ export const getPostBySlug = memoize(
     return doc ? mapToFullDto(doc) : undefined
   },
   {
-    revalidateTags: (slug) => postCacheKey.get(slug),
+    revalidateTags: (slug) => postCacheKey.single.cache(slug),
   },
 )
-
-export const getNextPostBySlug = memoize(
-  async (slug: string) => {
-    const result = await PostRepo.findAllPublic()
-    const index = result.docs.findIndex((post) => post.slug === slug)
-    if (index === -1) return undefined
-    const doc = result.docs[index - 1]
-    return doc ? mapToFullDto(doc) : undefined
-  },
-  {
-    revalidateTags: () => postCacheKey.list(),
-  },
-)
-
-export const getPrevPostBySlug = memoize(
-  async (slug: string) => {
-    const result = await PostRepo.findAllPublic()
-    const index = result.docs.findIndex((post) => post.slug === slug)
-    if (index === -1) return undefined
-    const doc = result.docs[index + 1]
-    return doc ? mapToFullDto(doc) : undefined
-  },
-  {
-    revalidateTags: () => postCacheKey.list(),
-  },
-)
-
-function mapToShortDto(post: Post) {
-  return {
-    id: post.id,
-    cover: (post.cover as Upload | null) || undefined,
-    categories: (post.categories as Category[]) || [],
-    title: post.title,
-    lang: post.lang || undefined,
-    readingTime:
-      post.readingTime ||
-      Math.ceil(readingTime(post.body_html || '').minutes).toString(),
-    excerpt: post.excerpt_html || undefined,
-    publishedAt: post.publishedAt || undefined,
-    updatedAt: post.updatedAt,
-    slug: post.slug,
-  }
-}
 
 function mapToFullDto(post: Post) {
   return {
     id: post.id,
     cover: (post.cover as Upload | null) || undefined,
-    categories: (post.categories as Category[]) || [],
+    categories: post.categories
+      ? post.categories.map((category) => {
+          assert(typeof category === 'object')
+          return category.id
+        })
+      : [],
     title: post.title,
     lang: post.lang,
     readingTime:
@@ -100,8 +99,20 @@ function mapToFullDto(post: Post) {
     updatedAt: post.updatedAt,
     slug: post.slug,
     body: post.body_html || '',
+    meta: {
+      title: post.metaTitle || undefined,
+      description: post.metaDescription || undefined,
+      keywords: post.metaKeywords || undefined,
+      ogImage:
+        typeof post.ogImage === 'object' && !!post.ogImage?.url
+          ? {
+              url: post.ogImage.url,
+              width: post.ogImage.width || undefined,
+              height: post.ogImage.height || undefined,
+            }
+          : undefined,
+    },
   }
 }
 
-export type FullPostDto = ReturnType<typeof mapToFullDto>
-export type ShortPostDto = ReturnType<typeof mapToShortDto>
+export type PostDto = ReturnType<typeof mapToFullDto>

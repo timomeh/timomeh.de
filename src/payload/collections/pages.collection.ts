@@ -2,6 +2,7 @@ import { lexicalHTML } from '@payloadcms/richtext-lexical'
 import { CollectionConfig } from 'payload/types'
 import { bigBoyEditor } from '../fields/bigBoyEditor'
 import { SlugField } from '@nouance/payload-better-fields-plugin'
+import { revalidateHook } from '../revalidate-hook'
 
 export const pages: CollectionConfig = {
   slug: 'pages',
@@ -9,6 +10,30 @@ export const pages: CollectionConfig = {
     group: 'Content',
     useAsTitle: 'title',
     defaultColumns: ['title', 'slug'],
+  },
+  hooks: {
+    afterChange: [
+      async ({ doc, req }) => {
+        if (doc._status === 'draft') return
+
+        const prev = await req.payload.findByID({
+          collection: 'pages',
+          id: doc.id,
+        })
+
+        if (doc.slug !== prev.slug) {
+          void revalidateHook('list:pages', req)
+        }
+
+        void revalidateHook(`page:${doc.slug}`, req)
+      },
+    ],
+    afterDelete: [
+      ({ doc, req }) => {
+        void revalidateHook('list:pages', req)
+        void revalidateHook(`page:${doc.slug}`, req)
+      },
+    ],
   },
   fields: [
     {
@@ -32,7 +57,7 @@ export const pages: CollectionConfig = {
           ],
         },
         {
-          label: 'Meta',
+          label: 'Frontmatter',
           fields: [
             {
               name: 'excerpt',
@@ -43,7 +68,7 @@ export const pages: CollectionConfig = {
           ],
         },
         {
-          label: 'SEO',
+          label: 'Meta',
           fields: [
             {
               name: 'metaTitle',

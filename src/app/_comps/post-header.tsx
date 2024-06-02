@@ -1,6 +1,6 @@
 import { MDX } from '@/app/_comps/mdx/mdx'
 import { PostTag } from '@/app/_comps/post-tag'
-import { getPostBySlug } from '../_data/post.dto'
+import { getPostBySlug } from '@/app/_data/post.dto'
 
 type Props = {
   slug: string

@@ -1,12 +1,11 @@
 import Image from 'next/image'
 import { compileMDX } from 'next-mdx-remote/rsc'
 
-import { getPlaceholder } from '@/app/_lib/placeholder'
-
 import { Anchor } from './anchor'
 import { Code } from './code'
 import { Del } from './del'
 import { mdxOptions } from './mdx-options'
+import { getImagePlaceholder } from '@/app/_data/image.dto'
 
 type Props = React.DetailedHTMLProps<
   React.ImgHTMLAttributes<HTMLImageElement>,
@@ -16,7 +15,7 @@ type Props = React.DetailedHTMLProps<
 export async function Img(props: Props) {
   if (!props.src) return null
 
-  const { img } = await getPlaceholder(props.src)
+  const { img } = await getImagePlaceholder(props.src)
   let figcaption: JSX.Element | undefined
 
   if (props.title) {

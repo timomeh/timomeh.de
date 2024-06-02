@@ -11,7 +11,6 @@ export const mdxOptions: SerializeOptions['mdxOptions'] = {
     remarkGfm,
     remarkUnwrapImages,
     [
-      // @ts-expect-error
       remarkEmbedder,
       {
         transformers: [oembedTransformer],

@@ -1,24 +1,13 @@
 import { Feed, FeedOptions } from 'feed'
 import removeMd from 'remove-markdown'
-
-import { getPost, listPosts, Post } from './blog'
-import { unstable_cache } from 'next/cache'
+import { PostDto, getPostBySlug, listPosts } from '@/app/_data/post.dto'
 
 type FeedType = 'atom' | 'json' | 'rss'
 
-const fetchAllPosts = unstable_cache(
-  async () => {
-    const slugs = await listPosts()
-    const tryPosts = await Promise.all(slugs.map((slug) => getPost(slug)))
-    const posts = tryPosts.filter((post): post is Post => !!post)
-    return posts
-  },
-  ['fetchAllPosts/feeds'],
-  { tags: ['github-raw'] },
-)
-
 export async function buildFeed(type: FeedType) {
-  const posts = await fetchAllPosts()
+  const slugs = await listPosts(undefined)
+  const tryPosts = await Promise.all(slugs.map((slug) => getPostBySlug(slug)))
+  const posts = tryPosts.filter((post): post is PostDto => !!post)
 
   const updated = new Date(
     Math.max(...posts.map((post) => new Date(post.updatedAt).getTime())),
@@ -32,24 +21,12 @@ export async function buildFeed(type: FeedType) {
   posts.forEach((post) => {
     feed.addItem({
       id: `https://timomeh.de/posts/${post.slug}`,
-      published: new Date(post.postedAt),
+      published: new Date(post.publishedAt || Date.now()),
       date: new Date(post.updatedAt),
       link: `https://timomeh.de/posts/${post.slug}`,
-      title: post.safeTitle,
-      description: removeMd(post.excerpt || '') || post.description,
-      content: post.bodyHTML
-        // remove title
-        .replace(/\<h1(.*?)\>(.*?)\<\/h1\>/, '')
-        // remove frontmatter
-        .replace(
-          /\<div class="snippet-clipboard-content notranslate(.*?)"((.|\n)*?)\>((.|\n)*?)<\/div\>/,
-          '',
-        )
-        // Change github's private asset urls to public ones
-        .replace(
-          /(https:\/\/private-user-images\.githubusercontent\.com\/(\d+)\/)(\w+)-((\w+-)+\w+)\.\w+(\?.*?)?(")/g,
-          'https://github.com/timomeh/timomeh.de/assets/$2/$4$7',
-        ),
+      title: post.title,
+      description: post.meta.description || removeMd(post.excerpt || ''),
+      content: post.body,
     })
   })
 

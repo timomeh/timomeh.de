@@ -1,12 +1,12 @@
 import { PostPreview } from '@/app/_comps/post-preview'
-import { getPrevPostBySlug } from '@/app/_data/post.dto'
+import { getPostBySlug } from '@/app/_data/post.dto'
 
 type Props = {
-  forSlug: string
+  slug: string
 }
 
-export async function PrevPost({ forSlug }: Props) {
-  const post = await getPrevPostBySlug(forSlug)
+export async function PrevPost({ slug }: Props) {
+  const post = await getPostBySlug(slug)
   if (!post) return null
 
   return (

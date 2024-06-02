@@ -38,7 +38,13 @@ export async function generateMetadata({ params }: Props) {
   if (!page) notFound()
 
   return {
-    title: page.title,
-    description: page.excerpt,
+    title: page.meta.title || page.title,
+    description: page.meta.description || page.excerpt,
+    openGraph: {
+      description: page.meta.description || page.excerpt,
+      authors: ['Timo Mämecke'],
+      locale: page.lang || 'en',
+      images: page.meta.ogImage ? [page.meta.ogImage] : undefined,
+    },
   }
 }

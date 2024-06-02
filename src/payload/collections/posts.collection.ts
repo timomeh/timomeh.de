@@ -1,7 +1,8 @@
 import { lexicalHTML } from '@payloadcms/richtext-lexical'
 import { CollectionConfig } from 'payload/types'
-import { bigBoyEditor } from '../fields/bigBoyEditor'
 import { SlugField } from '@nouance/payload-better-fields-plugin'
+import { bigBoyEditor } from '../fields/bigBoyEditor'
+import { revalidateHook } from '../revalidate-hook'
 
 export const posts: CollectionConfig = {
   slug: 'posts',
@@ -9,6 +10,30 @@ export const posts: CollectionConfig = {
     group: 'Content',
     useAsTitle: 'title',
     defaultColumns: ['title', 'publishedAt', 'visibility'],
+  },
+  hooks: {
+    afterChange: [
+      async ({ doc, req }) => {
+        if (doc._status === 'draft') return
+
+        const prev = await req.payload.findByID({
+          collection: 'posts',
+          id: doc.id,
+        })
+
+        if (doc.slug !== prev.slug || doc.visibility !== prev.visibility) {
+          void revalidateHook('list:posts', req)
+        }
+
+        void revalidateHook(`post:${doc.slug}`, req)
+      },
+    ],
+    afterDelete: [
+      ({ doc, req }) => {
+        void revalidateHook('list:posts', req)
+        void revalidateHook(`post:${doc.slug}`, req)
+      },
+    ],
   },
   fields: [
     {
@@ -63,7 +88,7 @@ export const posts: CollectionConfig = {
           ],
         },
         {
-          label: 'SEO',
+          label: 'Meta',
           fields: [
             {
               name: 'metaTitle',
