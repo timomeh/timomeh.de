@@ -28,9 +28,11 @@ export default function NotFound() {
                   watch some important videos
                 </a>
               </li>
-              <li>
-                <a href="javascript:history.back()">go back</a>
-              </li>
+              <li
+                dangerouslySetInnerHTML={{
+                  __html: ' <a href="javascript:history.back()">go back</a>',
+                }}
+              />
             </ol>
           </div>
         </div>
