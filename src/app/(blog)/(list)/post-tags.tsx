@@ -12,7 +12,7 @@ export async function PostTags() {
         <Tag color="rgb(156, 163, 175)" name="Everything" />
       </TagLink>
       {categories.map((slug) => (
-        <CategoryTag slug={slug} />
+        <CategoryTag key={slug} slug={slug} />
       ))}
     </div>
   )

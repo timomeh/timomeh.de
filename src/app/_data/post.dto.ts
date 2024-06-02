@@ -86,7 +86,7 @@ function mapToFullDto(post: Post) {
     categories: post.categories
       ? post.categories.map((category) => {
           assert(typeof category === 'object')
-          return category.id
+          return category.slug
         })
       : [],
     title: post.title,

@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
-import { listCategories } from './_data/category.dto'
-import { PostDto, getPostBySlug, listPosts } from './_data/post.dto'
-import { PageDto, getPageBySlug, listPages } from './_data/page.dto'
+import { listCategories } from '@/app/_data/category.dto'
+import { PostDto, getPostBySlug, listPosts } from '@/app/_data/post.dto'
+import { PageDto, getPageBySlug, listPages } from '@/app/_data/page.dto'
 
 export default async function sitemap() {
   const [tags, posts, page] = await Promise.all([

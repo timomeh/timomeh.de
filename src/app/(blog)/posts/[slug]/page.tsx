@@ -25,7 +25,7 @@ type Props = {
 export default async function Page({ params }: Props) {
   const [post, list] = await Promise.all([
     getPostBySlug(params.slug),
-    listPosts(params.slug),
+    listPosts(undefined),
   ])
   if (!post) notFound()
 
@@ -35,11 +35,7 @@ export default async function Page({ params }: Props) {
 
   return (
     <>
-      {nextPost && (
-        <Suspense fallback={<div />}>
-          <NextPost slug={nextPost} />
-        </Suspense>
-      )}
+      {nextPost && <NextPost slug={nextPost} />}
 
       <div className="flex min-h-dvh flex-col">
         <HeaderSpacer>

@@ -32,7 +32,7 @@ export async function PostItem({ slug }: Props) {
             </span>
           </div>
           {post.categories?.map((category) => (
-            <PostTag key={category.id} slug={category.slug} size="smol" />
+            <PostTag key={category} slug={category} size="smol" />
           ))}
         </div>
         <h3 className="mt-1 text-balance font-display font-medium leading-snug">

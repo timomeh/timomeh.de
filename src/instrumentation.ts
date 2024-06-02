@@ -5,4 +5,6 @@ export async function register() {
     const { initPayload } = await import('./payload/client')
     await initPayload()
   }
+
+  // screw edge
 }

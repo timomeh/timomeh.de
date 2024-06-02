@@ -1,6 +1,7 @@
 import { MDX } from '@/app/_comps/mdx/mdx'
 import { PostTag } from '@/app/_comps/post-tag'
 import { getPostBySlug } from '@/app/_data/post.dto'
+import { getCategoryBySlug } from '../_data/category.dto'
 
 type Props = {
   slug: string
@@ -32,7 +33,7 @@ export async function PostHeader({ slug }: Props) {
           </span>
         </div>
         {post.categories?.map((category) => (
-          <PostTag key={category.id} slug={category.slug} size="smol" />
+          <CategoryTag key={category} slug={category} />
         ))}
       </div>
       <h1 className="mb-8 text-balance font-display text-2xl font-semibold leading-tight sm:text-3xl">
@@ -40,4 +41,11 @@ export async function PostHeader({ slug }: Props) {
       </h1>
     </>
   )
+}
+
+async function CategoryTag({ slug }: { slug: string }) {
+  const category = await getCategoryBySlug(slug)
+  if (!category) return null
+
+  return <PostTag slug={category.slug} size="smol" />
 }

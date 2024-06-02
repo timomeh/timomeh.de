@@ -4,7 +4,7 @@ import { IBM_Plex_Mono, Inter, Outfit } from 'next/font/google'
 import localFont from 'next/font/local'
 
 import { ProgressBar } from '@/app/_comps/progress-bar'
-import { Header } from './_comps/header'
+import { Header } from '@/app/_comps/header'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -35,9 +35,6 @@ const pixeloid = localFont({
 
 type Props = {
   children: React.ReactNode
-  backdrop: React.ReactNode
-  nextPost: React.ReactNode
-  prevPost: React.ReactNode
 }
 
 export const dynamic = 'force-static'
@@ -60,7 +57,7 @@ export default function RootLayout({ children }: Props) {
       </head>
       <body className="group relative">
         <header className="page-header relative h-0 w-full">
-          <div className="relative z-10 group-has-[.paginate-next]:top-40">
+          <div className="relative z-10 group-has-[.has-scrollaway]:top-40">
             <Header />
           </div>
         </header>

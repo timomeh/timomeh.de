@@ -7,16 +7,19 @@ type Props = {
 }
 
 export function ScrollAway({ children }: Props) {
-  const ref = useRef<HTMLDivElement>(null)
-  useLayoutEffect(() => {
-    if (!ref.current) return
+  const $wrap = useRef<HTMLDivElement>(null)
+  const $signal = useRef<HTMLDivElement>(null)
 
-    ref.current.style.height = ''
-    const rect = ref.current.getBoundingClientRect()
-    ref.current.style.height = '0px'
+  useLayoutEffect(() => {
+    if (!$wrap.current) return
+
+    $wrap.current.style.height = ''
+    const rect = $wrap.current.getBoundingClientRect()
+    $wrap.current.style.height = '0px'
     requestAnimationFrame(() => {
-      if (!ref.current) return
-      ref.current.style.height = ''
+      if (!$wrap.current) return
+      $wrap.current.style.height = ''
+      $signal.current?.classList.add('has-scrollaway')
 
       window.scrollTo({
         top: window.scrollX + rect.height,
@@ -26,8 +29,11 @@ export function ScrollAway({ children }: Props) {
   }, [])
 
   return (
-    <div ref={ref} style={{ height: 0 }} className="overflow-hidden">
-      {children}
-    </div>
+    <>
+      <div ref={$signal} />
+      <div ref={$wrap} style={{ height: 0 }} className="overflow-hidden">
+        {children}
+      </div>
+    </>
   )
 }
