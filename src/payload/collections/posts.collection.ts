@@ -21,7 +21,11 @@ export const posts: CollectionConfig = {
           id: doc.id,
         })
 
-        if (doc.slug !== prev.slug || doc.visibility !== prev.visibility) {
+        if (
+          doc.slug !== prev.slug ||
+          doc.visibility !== prev.visibility ||
+          doc._status !== prev._status
+        ) {
           void revalidateHook('list:posts', req)
         }
 

@@ -21,7 +21,7 @@ export const pages: CollectionConfig = {
           id: doc.id,
         })
 
-        if (doc.slug !== prev.slug) {
+        if (doc.slug !== prev.slug || doc._status !== prev._status) {
           void revalidateHook('list:pages', req)
         }
 
@@ -124,6 +124,18 @@ export const pages: CollectionConfig = {
         useFields: ['title'],
       },
     ),
+
+    {
+      name: 'visibility',
+      type: 'select',
+      options: ['public', 'unlisted', 'private'],
+      hasMany: false,
+      required: true,
+      defaultValue: 'public',
+      admin: {
+        position: 'sidebar',
+      },
+    },
   ],
   versions: {
     drafts: {

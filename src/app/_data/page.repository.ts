@@ -7,6 +7,10 @@ export class PageRepo {
       limit: 99999,
       depth: 1,
       sort: '-createdAt',
+      where: {
+        _status: { equals: 'published' },
+        visibility: { equals: 'public' },
+      },
     })
 
     return result
@@ -19,6 +23,8 @@ export class PageRepo {
       depth: 1,
       where: {
         slug: { equals: slug },
+        _status: { equals: 'published' },
+        visibility: { not_equals: 'private' },
       },
     })
 

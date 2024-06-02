@@ -6,7 +6,10 @@ export class PostRepo {
       collection: 'posts',
       limit: 99999,
       depth: 1,
-      where: { visibility: { equals: 'public' } },
+      where: {
+        visibility: { equals: 'public' },
+        _status: { equals: 'published' },
+      },
       sort: '-publishedAt',
     })
 
@@ -21,6 +24,7 @@ export class PostRepo {
       where: {
         visibility: { equals: 'public' },
         'categories.slug': { equals: slug },
+        _status: { equals: 'published' },
       },
       sort: '-publishedAt',
     })
@@ -35,6 +39,7 @@ export class PostRepo {
       depth: 1,
       where: {
         visibility: { not_equals: 'private' },
+        _status: { equals: 'published' },
         slug: { equals: slug },
       },
     })
