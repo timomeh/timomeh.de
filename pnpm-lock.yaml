@@ -12,8 +12,8 @@ importers:
         specifier: 8.1.1
         version: 8.1.1
       '@octokit/graphql-schema':
-        specifier: 15.18.0
-        version: 15.18.0
+        specifier: 15.18.1
+        version: 15.18.1
       '@octokit/webhooks':
         specifier: 13.2.7
         version: 13.2.7
@@ -472,8 +472,8 @@ packages:
     resolution: {integrity: sha512-JYjh5rMOwXMJyUpj028cu0Gbp7qe/ihxfJMLc8VZBMMqSwLgOxDI1911gV4Enl1QSavAQNJcwmwBF9M0VvLh6Q==}
     engines: {node: '>= 18'}
 
-  '@octokit/graphql-schema@15.18.0':
-    resolution: {integrity: sha512-XA2Qw0WrWs+0tvaVpXM4sLr9lGZAEQMyj1Ai4LhjRWtCZ1+bXegOLdY6P/Kx1UOPJ/4lrE2z/8RkOK6/5L1oTA==}
+  '@octokit/graphql-schema@15.18.1':
+    resolution: {integrity: sha512-7D16Xfg0s9RtEbbr6efQlavB8sw4x7BskKvxpc9DylIaQEnpEa66czIIKQ+tT0qTybl9VWx8ysaKxaVhafUNsA==}
 
   '@octokit/graphql@8.1.1':
     resolution: {integrity: sha512-ukiRmuHTi6ebQx/HFRCXKbDlOh/7xEV6QUXaE7MJEKGNAncGI/STSbOkl12qVXZrfZdpXctx5O9X1AIaebiDBg==}
@@ -2883,6 +2883,9 @@ packages:
   tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
 
+  tslib@2.6.3:
+    resolution: {integrity: sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==}
+
   tunnel-agent@0.6.0:
     resolution: {integrity: sha512-McnNiV1l8RYeY8tBgEpuodCC1mLUdbSN+CYBL7kJsJNInOP8UjDDEwdk6Mw60vdLLrr5NHKZhMAOSrR2NZuQ+w==}
 
@@ -3103,7 +3106,7 @@ snapshots:
 
   '@emnapi/runtime@1.1.1':
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.6.3
     optional: true
 
   '@eslint-community/eslint-utils@4.4.0(eslint@9.4.0)':
@@ -3342,7 +3345,7 @@ snapshots:
       '@octokit/types': 13.4.1
       universal-user-agent: 7.0.2
 
-  '@octokit/graphql-schema@15.18.0':
+  '@octokit/graphql-schema@15.18.1':
     dependencies:
       graphql: 16.8.1
       graphql-tag: 2.12.6(graphql@16.8.1)
@@ -4568,7 +4571,7 @@ snapshots:
   graphql-tag@2.12.6(graphql@16.8.1):
     dependencies:
       graphql: 16.8.1
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   graphql@16.8.1: {}
 
@@ -6347,6 +6350,8 @@ snapshots:
       strip-bom: 3.0.0
 
   tslib@2.6.2: {}
+
+  tslib@2.6.3: {}
 
   tunnel-agent@0.6.0:
     dependencies:
