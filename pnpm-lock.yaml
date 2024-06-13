@@ -97,8 +97,8 @@ importers:
         version: 1.6.4
     devDependencies:
       '@argos-ci/playwright':
-        specifier: 3.0.4
-        version: 3.0.4
+        specifier: 3.1.0
+        version: 3.1.0
       '@playwright/test':
         specifier: 1.44.1
         version: 1.44.1
@@ -183,8 +183,8 @@ packages:
     resolution: {integrity: sha512-T5W37CZ6HZjRcVAXuPj0wUB/Fm4VdwLvKpQL9yqSwiJganeNz7u8AFYJ30ujSUJS1jdUViW5TNnmsgDjuvGyTQ==}
     engines: {node: '>=18.0.0'}
 
-  '@argos-ci/playwright@3.0.4':
-    resolution: {integrity: sha512-AEDdNXRWoHjDaOJfnDBNkhbATSq1u3kJyqCUN+bEv7JncKkNL2zLTIJiljVnFNfIu/x3ffeST415LswKI9PpKw==}
+  '@argos-ci/playwright@3.1.0':
+    resolution: {integrity: sha512-SXsO3xhKzWHvn/Hr7DIlft9tHvzu2pM1dG6UQR+B4BtC5KE0Gc4y8X9h/g1ZUrMZ8WeEDkftuwXILdSlUiyFtA==}
     engines: {node: '>=18.0.0'}
 
   '@argos-ci/util@2.0.0':
@@ -3084,7 +3084,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@argos-ci/playwright@3.0.4':
+  '@argos-ci/playwright@3.1.0':
     dependencies:
       '@argos-ci/browser': 2.1.2
       '@argos-ci/core': 2.2.0
