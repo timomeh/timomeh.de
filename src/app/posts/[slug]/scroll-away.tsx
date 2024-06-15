@@ -19,13 +19,21 @@ export function ScrollAway({ children }: Props) {
       if (!$wrap.current) return
       $wrap.current.style.height = ''
 
-      console.log('lol!')
-
       window.scrollTo({
         top: window.scrollX + rect.height,
         behavior: 'instant',
       })
     })
+
+    return () => {
+      if (!$wrap.current) return
+
+      const rect = $wrap.current.getBoundingClientRect()
+      window.scrollTo({
+        top: window.scrollX - rect.height,
+        behavior: 'instant',
+      })
+    }
   }, [])
 
   return (
