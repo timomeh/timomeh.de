@@ -1,6 +1,6 @@
-import { SocialBox } from '@/comps/social-box'
+import { SocialBox } from './social-box'
 
-export default function Default() {
+export function HeaderBackdropHaze() {
   return (
     <>
       <div className="absolute inset-x-0 top-0 z-10 h-0">

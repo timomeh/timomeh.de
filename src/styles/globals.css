@@ -22,5 +22,12 @@
   }
 }
 
+.page-grid {
+  grid-template:
+    'topscroll' auto
+    'main' minmax(100dvh, auto)
+    'bottomscroll' auto;
+}
+
 @import './shiki-transformers.css';
 @import './nprogress.css';

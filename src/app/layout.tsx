@@ -4,6 +4,7 @@ import { IBM_Plex_Mono, Inter, Outfit } from 'next/font/google'
 import localFont from 'next/font/local'
 
 import { ProgressBar } from '@/comps/progress-bar'
+import { Header } from '@/comps/header'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -34,9 +35,6 @@ const pixeloid = localFont({
 
 type Props = {
   children: React.ReactNode
-  backdrop: React.ReactNode
-  nextPost: React.ReactNode
-  prevPost: React.ReactNode
 }
 
 export const dynamic = 'force-static'
@@ -57,9 +55,16 @@ export default function RootLayout({ children }: Props) {
           />
         )}
       </head>
-      <body className="relative">
-        {children}
-        <ProgressBar />
+      <body className="group/body relative">
+        <div className="page-grid grid h-full place-items-stretch items-start *:min-w-0">
+          <header className="relative h-0 [grid-area:main] group-has-[.signal-hide-header]/body:hidden">
+            <div className="relative z-10">
+              <Header />
+            </div>
+          </header>
+          {children}
+          <ProgressBar />
+        </div>
       </body>
     </html>
   )
