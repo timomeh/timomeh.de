@@ -56,7 +56,7 @@ export default function RootLayout({ children }: Props) {
         )}
       </head>
       <body className="group/body relative">
-        <div className="page-grid grid h-full grid-cols-[1fr] place-items-stretch items-start">
+        <div className="page-grid grid h-full place-items-stretch items-start *:min-w-0">
           <header className="relative h-0 [grid-area:main] group-has-[.signal-hide-header]/body:hidden">
             <div className="relative z-10">
               <Header />
