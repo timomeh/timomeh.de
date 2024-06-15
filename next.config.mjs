@@ -1,10 +1,10 @@
 import withPlaiceholder from '@plaiceholder/next'
+import { withPayload } from '@payloadcms/next/withPayload'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
     instrumentationHook: true,
-    serverComponentsExternalPackages: ['payload'],
   },
   images: {
     remotePatterns: [
@@ -88,4 +88,4 @@ const nextConfig = {
   },
 }
 
-export default withPlaiceholder(nextConfig)
+export default withPayload(withPlaiceholder(nextConfig))

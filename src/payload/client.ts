@@ -1,6 +1,6 @@
-import { env } from '@/env'
-import payload, { Payload } from 'payload'
-import { InitOptions } from 'payload/config'
+import { Payload } from 'payload'
+import configPromise from '@payload-config'
+import { getPayloadHMR } from '@payloadcms/next/utilities'
 
 type Cached = {
   client: Payload | null
@@ -12,21 +12,13 @@ if (!cached) {
   cached = (global as any).payload = { client: null, promise: null }
 }
 
-type Opts = {
-  initOptions?: Partial<InitOptions>
-}
-
-export async function initPayload({ initOptions }: Opts = {}) {
+export async function initPayload() {
   if (cached.client) {
     return cached.client
   }
 
   if (!cached.promise) {
-    cached.promise = payload.init({
-      secret: env.PAYLOAD_SECRET,
-      local: initOptions?.express ? false : true,
-      ...(initOptions || {}),
-    })
+    cached.promise = getPayloadHMR({ config: configPromise })
   }
 
   try {

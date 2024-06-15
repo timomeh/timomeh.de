@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_USER=yo
+      - POSTGRES_PASSWORD=dawg
+      - POSTGRES_DB=timomeh_payload
+    volumes:
+      - .tmp/db:/var/lib/postgresql/data
+    ports:
+      - 5553:5432
+
+volumes:
+  db:

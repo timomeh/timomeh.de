@@ -1,6 +1,6 @@
 import { CollectionConfig } from 'payload/types'
-import { ColourPickerField } from '@nouance/payload-better-fields-plugin'
-import { SlugField } from '@nouance/payload-better-fields-plugin'
+// import { ColourPickerField } from '@nouance/payload-better-fields-plugin'
+// import { SlugField } from '@nouance/payload-better-fields-plugin'
 import { revalidateHook } from '../revalidate-hook'
 
 export const categories: CollectionConfig = {
@@ -50,29 +50,29 @@ export const categories: CollectionConfig = {
       type: 'text',
       required: true,
     },
-    ...ColourPickerField(
-      {
-        name: 'color',
-        required: true,
-      },
-      {
-        type: 'hex',
-      },
-    ),
-    ...SlugField(
-      {
-        name: 'slug',
-        unique: true,
-        index: true,
-        required: true,
-        admin: {
-          position: 'sidebar',
-        },
-      },
-      {
-        useFields: ['name'],
-      },
-    ),
+    // ...ColourPickerField(
+    //   {
+    //     name: 'color',
+    //     required: true,
+    //   },
+    //   {
+    //     type: 'hex',
+    //   },
+    // ),
+    // ...SlugField(
+    //   {
+    //     name: 'slug',
+    //     unique: true,
+    //     index: true,
+    //     required: true,
+    //     admin: {
+    //       position: 'sidebar',
+    //     },
+    //   },
+    //   {
+    //     useFields: ['name'],
+    //   },
+    // ),
     {
       name: 'visibility',
       type: 'select',

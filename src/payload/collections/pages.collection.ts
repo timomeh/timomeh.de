@@ -1,7 +1,7 @@
 import { lexicalHTML } from '@payloadcms/richtext-lexical'
 import { CollectionConfig } from 'payload/types'
 import { bigBoyEditor } from '../fields/bigBoyEditor'
-import { SlugField } from '@nouance/payload-better-fields-plugin'
+// import { SlugField } from '@nouance/payload-better-fields-plugin'
 import { revalidateHook } from '../revalidate-hook'
 
 export const pages: CollectionConfig = {
@@ -110,20 +110,20 @@ export const pages: CollectionConfig = {
       ],
     },
 
-    ...SlugField(
-      {
-        name: 'slug',
-        unique: true,
-        index: true,
-        required: true,
-        admin: {
-          position: 'sidebar',
-        },
-      },
-      {
-        useFields: ['title'],
-      },
-    ),
+    // ...SlugField(
+    //   {
+    //     name: 'slug',
+    //     unique: true,
+    //     index: true,
+    //     required: true,
+    //     admin: {
+    //       position: 'sidebar',
+    //     },
+    //   },
+    //   {
+    //     useFields: ['title'],
+    //   },
+    // ),
 
     {
       name: 'visibility',

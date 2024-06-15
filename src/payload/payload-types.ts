@@ -17,6 +17,10 @@ export interface Config {
     'payload-migrations': PayloadMigration;
   };
   globals: {};
+  locale: null;
+  user: User & {
+    collection: 'users';
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -63,8 +67,6 @@ export interface Post {
   metaDescription?: string | null;
   metaKeywords?: string | null;
   ogImage?: number | Upload | null;
-  slug: string;
-  editSlug?: boolean | null;
   visibility: 'public' | 'unlisted' | 'private';
   categories?: (number | Category)[] | null;
   publishedAt?: string | null;
@@ -83,6 +85,7 @@ export interface Upload {
   updatedAt: string;
   createdAt: string;
   url?: string | null;
+  thumbnailURL?: string | null;
   filename?: string | null;
   mimeType?: string | null;
   filesize?: number | null;
@@ -98,9 +101,6 @@ export interface Upload {
 export interface Category {
   id: number;
   name: string;
-  color: string;
-  slug: string;
-  editSlug?: boolean | null;
   visibility: 'public' | 'unlisted';
   updatedAt: string;
   createdAt: string;
@@ -149,8 +149,7 @@ export interface Page {
   metaKeywords?: string | null;
   lang?: string | null;
   ogImage?: number | Upload | null;
-  slug: string;
-  editSlug?: boolean | null;
+  visibility: 'public' | 'unlisted' | 'private';
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -171,7 +170,7 @@ export interface User {
   hash?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
-  password: string | null;
+  password?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: scripts/Dockerfile
+    restart: unless-stopped
+    working_dir: /app
+    ports:
+      - '3000:3000'
+    volumes:
+      - pgdata:/app/.next/cache
+      - csmuploads:/app/uploads
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URI=postgres://yo:dawg@db:5432/whattup
+      - PAYLOAD_SECRET=foobar
+      - PAYLOAD_PUBLIC_SERVER_URL=http://localhost:3000
+      - PAYLOAD_UPLOADS_DIR=../../uploads
+      - PAYLOAD_NEXT_BRIDGE_SECRET=lol
+    entrypoint: ['sh', '-c', 'pnpm payload-prod-migrate && node dist/server.js']
+
+  db:
+    image: postgres:14-alpine
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=yo
+      - POSTGRES_PASSWORD=dawg
+      - POSTGRES_DB=whattup
+
+volumes:
+  pgdata:
+  nextcache:
+  csmuploads:

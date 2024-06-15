@@ -1,7 +1,4 @@
 import { z } from 'zod'
-import { loadEnvConfig } from '@next/env'
-
-loadEnvConfig(process.cwd(), process.env.NODE_ENV !== 'production')
 
 const envSchema = z.object({
   /** Server port */
@@ -16,14 +13,16 @@ const envSchema = z.object({
   /** Base URL the server is running on */
   PAYLOAD_PUBLIC_SERVER_URL: z.string().url(),
 
-  /** URL under which images are served. @see https://payloadcms.com/docs/upload/overview#collection-upload-options */
-  PAYLOAD_UPLOADS_URL: z.string(),
-
   /** Local dir where images will be stored. @see https://payloadcms.com/docs/upload/overview#collection-upload-options */
   PAYLOAD_UPLOADS_DIR: z.string(),
 
   /** Secret when payload calls next endpoints */
   PAYLOAD_NEXT_BRIDGE_SECRET: z.string(),
+
+  /** Auto login into payload admin for better dev experience */
+  PAYLOAD_AUTO_LOGIN: z.coerce
+    .boolean()
+    .default(process.env.NODE_ENV === 'development'),
 
   /** deez nuts */
   NODE_ENV: z

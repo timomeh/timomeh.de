@@ -1,43 +1,73 @@
 import {
+  BlocksFeature,
   HTMLConverterFeature,
   UploadFeature,
   convertLexicalNodesToHTML,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
-import { CodeBlockFeature } from 'payload-code-block-feature'
+import { Block } from 'payload/types'
+
+export const TypescriptCode: Block = {
+  slug: 'typescript-code',
+  fields: [
+    {
+      name: 'code',
+      type: 'code',
+      label: 'Code',
+      admin: {
+        language: 'typescript',
+      },
+    },
+  ],
+}
 
 export function bigBoyEditor() {
   return lexicalEditor({
     features: ({ defaultFeatures }) => [
       ...defaultFeatures,
+      BlocksFeature({
+        blocks: [TypescriptCode],
+      }),
       HTMLConverterFeature({
         converters: ({ defaultConverters }) => [
           ...defaultConverters.filter((c) => !c.nodeTypes.includes('upload')),
           {
             converter: ({ node }) => {
-              // @ts-expect-error
-              const children = node.children as {
-                type: string
-                text: string
-              }[]
-              // @ts-expect-error
-              const language = node.language as string
+              if (!('fields' in node)) return ''
 
-              const inner = children.reduce((acc, node) => {
-                if (node.type === 'linebreak') return (acc += '\n')
-                return (acc += node.text)
-              }, '')
-              return `<pre><code class="language-${language}">${inner}</code></pre>`
+              // @ts-expect-error
+              if (node.fields.blockType.endsWith('-code')) {
+                // @ts-expect-error
+                const language = node.fields.blockType.replace('-code', '')
+                // @ts-expect-error
+                const code = `<pre><code class="language-${language}">${node.fields.code}</code></pre>`
+
+                // @ts-expect-error
+                if (node.fields.blockName) {
+                  // @ts-expect-error
+                  return `<figure>${code}<figcaption>${node.fields.blockName}</figcaption></figure>`
+                }
+
+                return code
+              }
+
+              return ''
             },
-            nodeTypes: ['code'],
+            nodeTypes: ['block'],
           },
           {
-            converter: async ({ node, parent }) => {
-              const html = await convertLexicalNodesToHTML({
-                converters: defaultConverters,
-                lexicalNodes: [node],
-                parent: { ...node, parent },
+            converter: async ({ node, payload }) => {
+              if (!payload) return ''
+
+              const upload = await payload.findByID({
+                // @ts-expect-error
+                id: node.value,
+                // @ts-expect-error
+                collection: node.relationTo,
               })
+              if (!upload) return ''
+
+              const html = `<img src="${upload.url}" alt="${upload.alt || ''}" width="${upload.width}" height="${upload.height}"/>`
 
               if ('fields' in node) {
                 const fields = node.fields as { caption?: typeof node }
@@ -51,6 +81,7 @@ export function bigBoyEditor() {
                       ...fields.caption.root,
                       parent: fields.caption,
                     },
+                    payload: null,
                   })
 
                   return `<figure>${html}<figcaption>${figcaption}</figcaption></figure>`
@@ -63,7 +94,6 @@ export function bigBoyEditor() {
           },
         ],
       }),
-      CodeBlockFeature(),
       UploadFeature({
         collections: {
           uploads: {

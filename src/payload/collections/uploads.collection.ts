@@ -11,7 +11,6 @@ export const uploads: CollectionConfig = {
     read: () => true,
   },
   upload: {
-    staticURL: env.PAYLOAD_UPLOADS_URL,
     staticDir: env.PAYLOAD_UPLOADS_DIR,
   },
   fields: [
