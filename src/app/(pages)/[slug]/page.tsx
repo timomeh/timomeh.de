@@ -22,15 +22,17 @@ export default async function Page({ params }: Props) {
   if (!site) notFound()
 
   return (
-    <div className="mx-auto max-w-2xl px-4">
-      <div className="mb-10 flex sm:pt-6">
-        <BackTag />
-      </div>
+    <main className="relative z-30 w-full flex-1">
+      <div className="relative mx-auto max-w-2xl px-4">
+        <div className="mb-10 flex sm:pt-6">
+          <BackTag />
+        </div>
 
-      <article className="prose prose-invert relative animate-fade-in">
-        <MDX content={site.body} />
-      </article>
-    </div>
+        <article className="prose prose-invert relative animate-fade-in">
+          <MDX content={site.body} />
+        </article>
+      </div>
+    </main>
   )
 }
 
