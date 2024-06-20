@@ -12,8 +12,8 @@ importers:
         specifier: 8.1.1
         version: 8.1.1
       '@octokit/graphql-schema':
-        specifier: 15.20.0
-        version: 15.20.0
+        specifier: 15.21.0
+        version: 15.21.0
       '@octokit/webhooks':
         specifier: 13.2.7
         version: 13.2.7
@@ -476,8 +476,8 @@ packages:
     resolution: {integrity: sha512-JYjh5rMOwXMJyUpj028cu0Gbp7qe/ihxfJMLc8VZBMMqSwLgOxDI1911gV4Enl1QSavAQNJcwmwBF9M0VvLh6Q==}
     engines: {node: '>= 18'}
 
-  '@octokit/graphql-schema@15.20.0':
-    resolution: {integrity: sha512-N8hLNtVPyN+Dv0uODcmsa1YiTBABXobWz7424PznYJmhDJkfEIZTsKA22HJevSj7L3MIVX3vUnhHV7Z3oHO09Q==}
+  '@octokit/graphql-schema@15.21.0':
+    resolution: {integrity: sha512-RbmdExy0fbQDOohNOg3rAPjcz3BII+voQHSTbMLdpQxTwDVQje1xJfQfplJXBqqli0UEIet2kn/pfPwW6g4mLQ==}
 
   '@octokit/graphql@8.1.1':
     resolution: {integrity: sha512-ukiRmuHTi6ebQx/HFRCXKbDlOh/7xEV6QUXaE7MJEKGNAncGI/STSbOkl12qVXZrfZdpXctx5O9X1AIaebiDBg==}
@@ -3359,7 +3359,7 @@ snapshots:
       '@octokit/types': 13.4.1
       universal-user-agent: 7.0.2
 
-  '@octokit/graphql-schema@15.20.0':
+  '@octokit/graphql-schema@15.21.0':
     dependencies:
       graphql: 16.8.2
       graphql-tag: 2.12.6(graphql@16.8.2)
