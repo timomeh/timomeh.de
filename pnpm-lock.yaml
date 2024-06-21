@@ -12,8 +12,8 @@ importers:
         specifier: 8.1.1
         version: 8.1.1
       '@octokit/graphql-schema':
-        specifier: 15.21.0
-        version: 15.21.0
+        specifier: 15.22.0
+        version: 15.22.0
       '@octokit/webhooks':
         specifier: 13.2.7
         version: 13.2.7
@@ -476,8 +476,8 @@ packages:
     resolution: {integrity: sha512-JYjh5rMOwXMJyUpj028cu0Gbp7qe/ihxfJMLc8VZBMMqSwLgOxDI1911gV4Enl1QSavAQNJcwmwBF9M0VvLh6Q==}
     engines: {node: '>= 18'}
 
-  '@octokit/graphql-schema@15.21.0':
-    resolution: {integrity: sha512-RbmdExy0fbQDOohNOg3rAPjcz3BII+voQHSTbMLdpQxTwDVQje1xJfQfplJXBqqli0UEIet2kn/pfPwW6g4mLQ==}
+  '@octokit/graphql-schema@15.22.0':
+    resolution: {integrity: sha512-73A0q7SbonBiTq1lyYmXQDV9AZLuYGnosbZVpbJSh0nhIMp2Vp6ZYRAShDNVmZD7bFH8EPYPgO+QH5O50vs4Eg==}
 
   '@octokit/graphql@8.1.1':
     resolution: {integrity: sha512-ukiRmuHTi6ebQx/HFRCXKbDlOh/7xEV6QUXaE7MJEKGNAncGI/STSbOkl12qVXZrfZdpXctx5O9X1AIaebiDBg==}
@@ -1504,8 +1504,8 @@ packages:
     peerDependencies:
       graphql: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
 
-  graphql@16.8.2:
-    resolution: {integrity: sha512-cvVIBILwuoSyD54U4cF/UXDh5yAobhNV/tPygI4lZhgOIJQE/WLWC4waBRb4I6bDVYb3OVx3lfHbaQOEoUD5sg==}
+  graphql@16.9.0:
+    resolution: {integrity: sha512-GGTKBX4SD7Wdb8mqeDLni2oaRGYQWjWHGKPQ24ZMnUtKfcsVoiv4uX8+LJr1K6U5VW2Lu1BwJnj7uiori0YtRw==}
     engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
 
   gray-matter@4.0.3:
@@ -3359,10 +3359,10 @@ snapshots:
       '@octokit/types': 13.4.1
       universal-user-agent: 7.0.2
 
-  '@octokit/graphql-schema@15.21.0':
+  '@octokit/graphql-schema@15.22.0':
     dependencies:
-      graphql: 16.8.2
-      graphql-tag: 2.12.6(graphql@16.8.2)
+      graphql: 16.9.0
+      graphql-tag: 2.12.6(graphql@16.9.0)
 
   '@octokit/graphql@8.1.1':
     dependencies:
@@ -4588,12 +4588,12 @@ snapshots:
 
   graceful-fs@4.2.11: {}
 
-  graphql-tag@2.12.6(graphql@16.8.2):
+  graphql-tag@2.12.6(graphql@16.9.0):
     dependencies:
-      graphql: 16.8.2
+      graphql: 16.9.0
       tslib: 2.6.3
 
-  graphql@16.8.2: {}
+  graphql@16.9.0: {}
 
   gray-matter@4.0.3:
     dependencies:
