@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@octokit/graphql": "8.1.1",
-    "@octokit/graphql-schema": "15.22.0",
+    "@octokit/graphql-schema": "15.23.0",
     "@octokit/webhooks": "13.2.7",
     "@octokit/webhooks-types": "7.5.1",
     "@plaiceholder/next": "3.0.0",
