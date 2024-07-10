@@ -15,8 +15,8 @@ importers:
         specifier: 15.25.0
         version: 15.25.0
       '@octokit/webhooks':
-        specifier: 13.2.7
-        version: 13.2.7
+        specifier: 13.2.8
+        version: 13.2.8
       '@octokit/webhooks-types':
         specifier: 7.5.1
         version: 7.5.1
@@ -489,8 +489,8 @@ packages:
   '@octokit/openapi-types@22.2.0':
     resolution: {integrity: sha512-QBhVjcUa9W7Wwhm6DBFu6ZZ+1/t/oYxqc2tp81Pi41YNuJinbFRx8B133qVOrAaBbF7D/m0Et6f9/pZt9Rc+tg==}
 
-  '@octokit/openapi-webhooks-types@8.2.1':
-    resolution: {integrity: sha512-msAU1oTSm0ZmvAE0xDemuF4tVs5i0xNnNGtNmr4EuATi+1Rn8cZDetj6NXioSf5LwnxEc209COa/WOSbjuhLUA==}
+  '@octokit/openapi-webhooks-types@8.3.0':
+    resolution: {integrity: sha512-vKLsoR4xQxg4Z+6rU/F65ItTUz/EXbD+j/d4mlq2GW8TsA4Tc8Kdma2JTAAJ5hrKWUQzkR/Esn2fjsqiVRYaQg==}
 
   '@octokit/request-error@6.1.1':
     resolution: {integrity: sha512-1mw1gqT3fR/WFvnoVpY/zUM2o/XkMs/2AszUUG9I69xn0JFLv6PGkPhNk5lbfvROs79wiS0bqiJNxfCZcRJJdg==}
@@ -513,8 +513,8 @@ packages:
   '@octokit/webhooks-types@7.5.1':
     resolution: {integrity: sha512-1dozxWEP8lKGbtEu7HkRbK1F/nIPuJXNfT0gd96y6d3LcHZTtRtlf8xz3nicSJfesADxJyDh+mWBOsdLkqgzYw==}
 
-  '@octokit/webhooks@13.2.7':
-    resolution: {integrity: sha512-sPHCyi9uZuCs1gg0yF53FFocM+GsiiBEhQQV/itGzzQ8gjyv2GMJ1YvgdDY4lC0ePZeiV3juEw4GbS6w1VHhRw==}
+  '@octokit/webhooks@13.2.8':
+    resolution: {integrity: sha512-nQyf5UDEgIeZB65rXSvK9ep9PkYthbnmXu/VK9AJcMMOvH1UwzcvYNd9DN++HIr8HXwbqB1FAEv5CnNARQEsaQ==}
     engines: {node: '>= 18'}
 
   '@pkgjs/parseargs@0.11.0':
@@ -3374,7 +3374,7 @@ snapshots:
 
   '@octokit/openapi-types@22.2.0': {}
 
-  '@octokit/openapi-webhooks-types@8.2.1': {}
+  '@octokit/openapi-webhooks-types@8.3.0': {}
 
   '@octokit/request-error@6.1.1':
     dependencies:
@@ -3399,9 +3399,9 @@ snapshots:
 
   '@octokit/webhooks-types@7.5.1': {}
 
-  '@octokit/webhooks@13.2.7':
+  '@octokit/webhooks@13.2.8':
     dependencies:
-      '@octokit/openapi-webhooks-types': 8.2.1
+      '@octokit/openapi-webhooks-types': 8.3.0
       '@octokit/request-error': 6.1.1
       '@octokit/webhooks-methods': 5.1.0
       aggregate-error: 5.0.0
