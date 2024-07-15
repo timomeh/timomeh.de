@@ -57,8 +57,8 @@ importers:
         specifier: 5.0.0
         version: 5.0.0(@types/react@18.3.3)(react@18.3.1)
       next-nprogress-bar:
-        specifier: 2.3.12
-        version: 2.3.12
+        specifier: 2.3.13
+        version: 2.3.13
       plaiceholder:
         specifier: 3.0.0
         version: 3.0.0(sharp@0.32.6)
@@ -2188,8 +2188,8 @@ packages:
     peerDependencies:
       react: '>=16'
 
-  next-nprogress-bar@2.3.12:
-    resolution: {integrity: sha512-BCsmNmssPY4QfYKux7cGYm/JmsM/n9TGMJJDyYPt7ckWyK8l43hMgi7g9d7u/IxCaEAx3pbzfg7Ity0zdlDnGA==}
+  next-nprogress-bar@2.3.13:
+    resolution: {integrity: sha512-eJQDvPSUwZ2yRyNKqAH6xTFI4RtIFvs+qtY8essTtfooyaxLGmkanEO7vL83U166bullMtVpixD6FQk5SQkhMw==}
 
   next@14.2.5:
     resolution: {integrity: sha512-0f8aRfBVL+mpzfBjYfQuLWh2WyAwtJXCRfkPF4UJ5qd2YwrHczsrSzXU4tRMV0OAxR8ZJZWPFn6uhSC56UTsLA==}
@@ -5651,7 +5651,7 @@ snapshots:
       - '@types/react'
       - supports-color
 
-  next-nprogress-bar@2.3.12:
+  next-nprogress-bar@2.3.13:
     dependencies:
       nprogress: 0.2.0
 
