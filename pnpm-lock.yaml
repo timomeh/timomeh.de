@@ -22,7 +22,7 @@ importers:
         version: 7.5.1
       '@plaiceholder/next':
         specifier: 3.0.0
-        version: 3.0.0(next@14.2.5(@playwright/test@1.45.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(plaiceholder@3.0.0(sharp@0.32.6))(sharp@0.32.6)
+        version: 3.0.0(next@14.2.5(@playwright/test@1.45.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(plaiceholder@3.0.0(sharp@0.32.6))(sharp@0.32.6)
       '@remark-embedder/core':
         specifier: 3.0.3
         version: 3.0.3
@@ -52,7 +52,7 @@ importers:
         version: 4.17.21
       next:
         specifier: 14.2.5
-        version: 14.2.5(@playwright/test@1.45.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 14.2.5(@playwright/test@1.45.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next-mdx-remote:
         specifier: 5.0.0
         version: 5.0.0(@types/react@18.3.3)(react@18.3.1)
@@ -100,8 +100,8 @@ importers:
         specifier: 3.4.0
         version: 3.4.0
       '@playwright/test':
-        specifier: 1.45.2
-        version: 1.45.2
+        specifier: 1.45.3
+        version: 1.45.3
       '@tailwindcss/typography':
         specifier: 0.5.13
         version: 0.5.13(tailwindcss@3.4.6)
@@ -528,8 +528,8 @@ packages:
       plaiceholder: '>=3.0.0'
       sharp: '>= 0.30.6'
 
-  '@playwright/test@1.45.2':
-    resolution: {integrity: sha512-JxG9eq92ET75EbVi3s+4sYbcG7q72ECeZNbdBlaMkGcNbiDQ4cAi8U2QP5oKkOx+1gpaiL1LDStmzCaEM1Z6fQ==}
+  '@playwright/test@1.45.3':
+    resolution: {integrity: sha512-UKF4XsBfy+u3MFWEH44hva1Q8Da28G6RFtR2+5saw+jgAFQV5yYnB1fu68Mz7fO+5GJF3wgwAIs0UelU8TxFrA==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -2323,13 +2323,13 @@ packages:
     peerDependencies:
       sharp: '>= 0.30.6'
 
-  playwright-core@1.45.2:
-    resolution: {integrity: sha512-ha175tAWb0dTK0X4orvBIqi3jGEt701SMxMhyujxNrgd8K0Uy5wMSwwcQHtyB4om7INUkfndx02XnQ2p6dvLDw==}
+  playwright-core@1.45.3:
+    resolution: {integrity: sha512-+ym0jNbcjikaOwwSZycFbwkWgfruWvYlJfThKYAlImbxUgdWFO2oW70ojPm4OpE4t6TAo2FY/smM+hpVTtkhDA==}
     engines: {node: '>=18'}
     hasBin: true
 
-  playwright@1.45.2:
-    resolution: {integrity: sha512-ReywF2t/0teRvNBpfIgh5e4wnrI/8Su8ssdo5XsQKpjxJj+jspm00jSoz9BTg91TT0c9HRjXO7LBNVrgYj9X0g==}
+  playwright@1.45.3:
+    resolution: {integrity: sha512-QhVaS+lpluxCaioejDZ95l4Y4jSFCsBvl2UZkpeXlzxmqS+aABr5c82YmfMHrL6x27nvrvykJAFpkzT2eWdJww==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -3407,15 +3407,15 @@ snapshots:
 
   '@pkgr/core@0.1.1': {}
 
-  '@plaiceholder/next@3.0.0(next@14.2.5(@playwright/test@1.45.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(plaiceholder@3.0.0(sharp@0.32.6))(sharp@0.32.6)':
+  '@plaiceholder/next@3.0.0(next@14.2.5(@playwright/test@1.45.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(plaiceholder@3.0.0(sharp@0.32.6))(sharp@0.32.6)':
     dependencies:
-      next: 14.2.5(@playwright/test@1.45.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      next: 14.2.5(@playwright/test@1.45.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       plaiceholder: 3.0.0(sharp@0.32.6)
       sharp: 0.32.6
 
-  '@playwright/test@1.45.2':
+  '@playwright/test@1.45.3':
     dependencies:
-      playwright: 1.45.2
+      playwright: 1.45.3
 
   '@remark-embedder/core@3.0.3':
     dependencies:
@@ -5589,7 +5589,7 @@ snapshots:
     dependencies:
       nprogress: 0.2.0
 
-  next@14.2.5(@playwright/test@1.45.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  next@14.2.5(@playwright/test@1.45.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@next/env': 14.2.5
       '@swc/helpers': 0.5.5
@@ -5610,7 +5610,7 @@ snapshots:
       '@next/swc-win32-arm64-msvc': 14.2.5
       '@next/swc-win32-ia32-msvc': 14.2.5
       '@next/swc-win32-x64-msvc': 14.2.5
-      '@playwright/test': 1.45.2
+      '@playwright/test': 1.45.3
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
@@ -5759,11 +5759,11 @@ snapshots:
     dependencies:
       sharp: 0.32.6
 
-  playwright-core@1.45.2: {}
+  playwright-core@1.45.3: {}
 
-  playwright@1.45.2:
+  playwright@1.45.3:
     dependencies:
-      playwright-core: 1.45.2
+      playwright-core: 1.45.3
     optionalDependencies:
       fsevents: 2.3.2
 
