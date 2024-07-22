@@ -145,8 +145,8 @@ importers:
         specifier: 12.1.1
         version: 12.1.1(eslint@9.7.0)
       eslint-plugin-unused-imports:
-        specifier: 4.0.0
-        version: 4.0.0(eslint@9.7.0)
+        specifier: 4.0.1
+        version: 4.0.1(eslint@9.7.0)
       postcss:
         specifier: 8.4.39
         version: 8.4.39
@@ -154,8 +154,8 @@ importers:
         specifier: 3.3.3
         version: 3.3.3
       prettier-plugin-classnames:
-        specifier: 0.7.0
-        version: 0.7.0(prettier@3.3.3)
+        specifier: 0.7.1
+        version: 0.7.1(prettier@3.3.3)
       prettier-plugin-merge:
         specifier: 0.7.0
         version: 0.7.0(prettier@3.3.3)
@@ -1255,12 +1255,12 @@ packages:
     peerDependencies:
       eslint: '>=5.0.0'
 
-  eslint-plugin-unused-imports@4.0.0:
-    resolution: {integrity: sha512-mzM+y2B7XYpQryVa1usT+Y/BdNAtAZiXzwpSyDCboFoJN/LZRN67TNvQxKtuTK/Aplya3sLNQforiubzPPaIcQ==}
+  eslint-plugin-unused-imports@4.0.1:
+    resolution: {integrity: sha512-rax76s05z64uQgG9YXsWFmXrgjkaK79AvfeAWiSxhPP6RVGxeRaj4+2u+wxxu/mDy2pmJoOy1QTOEALMia2xGQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
-      '@typescript-eslint/eslint-plugin': '8'
-      eslint: '9'
+      '@typescript-eslint/eslint-plugin': ^8.0.0-0
+      eslint: ^9.0.0
     peerDependenciesMeta:
       '@typescript-eslint/eslint-plugin':
         optional: true
@@ -2405,8 +2405,8 @@ packages:
     resolution: {integrity: sha512-GbK2cP9nraSSUF9N2XwUwqfzlAFlMNYYl+ShE/V+H8a9uNl/oUqB1w2EL54Jh0OlyRSd8RfWYJ3coVS4TROP2w==}
     engines: {node: '>=6.0.0'}
 
-  prettier-plugin-classnames@0.7.0:
-    resolution: {integrity: sha512-gxnMyTUPs5rPY/JzjLBsiBFA0Dj9/oukk02fGofAQ+FFzGYNZEHWL8Q9TWXmglgJgBzy2Cx0Az9n+Uk4DtianA==}
+  prettier-plugin-classnames@0.7.1:
+    resolution: {integrity: sha512-Waux2tu4Cc9BtP5BhFhWR3pZCzL8nzWEdmQAbx2La2i1EI8XTgv/iOvQmuLz3Ufix31967eWteeAf6CYaZ58ig==}
     engines: {node: '>=14'}
     peerDependencies:
       prettier: ^2 || ^3
@@ -4334,7 +4334,7 @@ snapshots:
     dependencies:
       eslint: 9.7.0
 
-  eslint-plugin-unused-imports@4.0.0(eslint@9.7.0):
+  eslint-plugin-unused-imports@4.0.1(eslint@9.7.0):
     dependencies:
       eslint: 9.7.0
       eslint-rule-composer: 0.3.0
@@ -5846,7 +5846,7 @@ snapshots:
     dependencies:
       fast-diff: 1.3.0
 
-  prettier-plugin-classnames@0.7.0(prettier@3.3.3):
+  prettier-plugin-classnames@0.7.1(prettier@3.3.3):
     dependencies:
       prettier: 3.3.3
 
