@@ -115,8 +115,8 @@ importers:
         specifier: 20.14.12
         version: 20.14.12
       '@types/probe-image-size':
-        specifier: 7.2.4
-        version: 7.2.4
+        specifier: 7.2.5
+        version: 7.2.5
       '@types/react':
         specifier: 18.3.3
         version: 18.3.3
@@ -619,8 +619,8 @@ packages:
   '@types/node@20.14.12':
     resolution: {integrity: sha512-r7wNXakLeSsGT0H1AU863vS2wa5wBOK4bWMjZz2wj+8nBx+m5PeIn0k8AloSLpRuiwdRQZwarZqHE4FNArPuJQ==}
 
-  '@types/probe-image-size@7.2.4':
-    resolution: {integrity: sha512-HVqYj3L+D+S/6qpQRv5qMxrD/5pglzZuhP7ZIqgVSZ+Ck4z1TCFkNIRG8WesFueQTqWFTSgkkAl6f8lwxFPQSw==}
+  '@types/probe-image-size@7.2.5':
+    resolution: {integrity: sha512-9Bg6d/GNnjmhMMxadDstwrSlquuuLf0jQuPszbU6n3QUfybif3V/ryD3J2i9iaiC5JB/FU/8E41n88SM/UB+Tg==}
 
   '@types/prop-types@15.7.12':
     resolution: {integrity: sha512-5zvhXYtRNRluoE/jAp4GVsSduVUzNWKkOZrCDBWYtE7biZywwdC2AcEzg+cSMLFRfVgeAFqpfNabiPjxFddV1Q==}
@@ -3525,7 +3525,7 @@ snapshots:
     dependencies:
       undici-types: 5.26.5
 
-  '@types/probe-image-size@7.2.4':
+  '@types/probe-image-size@7.2.5':
     dependencies:
       '@types/needle': 3.3.0
       '@types/node': 20.14.12
