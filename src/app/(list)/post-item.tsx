@@ -2,6 +2,7 @@ import Link from 'next/link'
 
 import { MDX } from '@/comps/mdx/mdx'
 import { PostTag } from '@/comps/post-tag'
+import { TagLink } from '@/comps/tag-link'
 import { getPost } from '@/lib/blog'
 
 type Props = {
@@ -32,7 +33,9 @@ export async function PostItem({ slug }: Props) {
             </span>
           </div>
           {post.tags.map((tag) => (
-            <PostTag key={tag} slug={tag} size="smol" />
+            <TagLink key={tag} href={`/tag/${tag}`} dim>
+              <PostTag slug={tag} size="smol" />
+            </TagLink>
           ))}
         </div>
         <h3 className="mt-1 text-balance font-display font-medium leading-snug">
