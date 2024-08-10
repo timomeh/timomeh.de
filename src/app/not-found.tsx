@@ -4,7 +4,7 @@ import { ReportBrokenLink } from '@/comps/report-broken-link'
 
 export default function NotFound() {
   return (
-    <div className="row-start-2 flex min-h-dvh flex-col">
+    <div className="flex min-h-dvh flex-col self-start [grid-area:main]">
       <HeaderSpacer>
         <HeaderBackdropHaze />
       </HeaderSpacer>
