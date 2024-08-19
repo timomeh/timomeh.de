@@ -157,8 +157,8 @@ importers:
         specifier: 0.7.2
         version: 0.7.2(prettier@3.3.3)
       prettier-plugin-merge:
-        specifier: 0.7.0
-        version: 0.7.0(prettier@3.3.3)
+        specifier: 0.7.1
+        version: 0.7.1(prettier@3.3.3)
       prettier-plugin-tailwindcss:
         specifier: 0.6.6
         version: 0.6.6(prettier@3.3.3)
@@ -2435,8 +2435,8 @@ packages:
       prettier-plugin-svelte:
         optional: true
 
-  prettier-plugin-merge@0.7.0:
-    resolution: {integrity: sha512-DfLjkEg6Cdm+1kbudiuOf5B3xFCjQuMCF76PWvv95erzmPQNOsTdsz0O6fgc5CdNtWED/lBitemfBlufqJVqUw==}
+  prettier-plugin-merge@0.7.1:
+    resolution: {integrity: sha512-R3dSlv3kAlScjd/liWjTkGHcUrE4MBhPKKBxVOvHK7+FY2P5SEmLarZiD11VUEuaMRK0L7zqIurX6JcRYS9Y5Q==}
     engines: {node: '>=14'}
     peerDependencies:
       prettier: ^2 || ^3
@@ -5878,7 +5878,7 @@ snapshots:
     dependencies:
       prettier: 3.3.3
 
-  prettier-plugin-merge@0.7.0(prettier@3.3.3):
+  prettier-plugin-merge@0.7.1(prettier@3.3.3):
     dependencies:
       diff: 5.1.0
       prettier: 3.3.3
