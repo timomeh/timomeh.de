@@ -44,7 +44,7 @@
   "devDependencies": {
     "@argos-ci/playwright": "3.5.0",
     "@playwright/test": "1.46.1",
-    "@tailwindcss/typography": "0.5.14",
+    "@tailwindcss/typography": "0.5.15",
     "@types/ellipsize": "0.1.3",
     "@types/lodash": "4.17.7",
     "@types/node": "22.5.0",
