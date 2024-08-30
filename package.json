@@ -36,7 +36,7 @@
     "rehype-raw": "7.0.0",
     "remark-gfm": "4.0.0",
     "remark-unwrap-images": "4.0.0",
-    "remove-markdown": "0.5.2",
+    "remove-markdown": "0.5.3",
     "server-only": "0.0.1",
     "sharp": "0.32.6",
     "shiki": "1.14.1"
