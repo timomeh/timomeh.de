@@ -84,8 +84,8 @@ importers:
         specifier: 4.0.0
         version: 4.0.0
       remove-markdown:
-        specifier: 0.5.3
-        version: 0.5.3
+        specifier: 0.5.5
+        version: 0.5.5
       server-only:
         specifier: 0.0.1
         version: 0.0.1
@@ -2594,8 +2594,8 @@ packages:
   remark-unwrap-images@4.0.0:
     resolution: {integrity: sha512-Ilr5ZhrhZSvnjemy1rRuxlTC0I/39YyWDRiE9d5vF079APcwdYYzwcZL8RGehlCtQCiik8hWMyo4Xhz2Fq0JhA==}
 
-  remove-markdown@0.5.3:
-    resolution: {integrity: sha512-LZhspmqZNNCxMJbmVufgxSP1TObzkt78czBXR7h8tQ5eobm+5AkSbC5KUBRIroWE8MuvkuthGrY7d/gGKBCR4w==}
+  remove-markdown@0.5.5:
+    resolution: {integrity: sha512-lMR8tOtDqazFT6W2bZidoXwkptMdF3pCxpri0AEokHg0sZlC2GdoLqnoaxsEj1o7/BtXV1MKtT3YviA1t7rW7g==}
 
   resolve-from@4.0.0:
     resolution: {integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==}
@@ -6031,7 +6031,7 @@ snapshots:
       hast-util-whitespace: 3.0.0
       unist-util-visit: 5.0.0
 
-  remove-markdown@0.5.3: {}
+  remove-markdown@0.5.5: {}
 
   resolve-from@4.0.0: {}
 
