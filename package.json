@@ -46,7 +46,7 @@
     "@playwright/test": "1.47.2",
     "@tailwindcss/typography": "0.5.15",
     "@types/ellipsize": "0.1.3",
-    "@types/lodash": "4.17.9",
+    "@types/lodash": "4.17.10",
     "@types/node": "22.7.4",
     "@types/probe-image-size": "7.2.5",
     "@types/react": "18.3.11",
