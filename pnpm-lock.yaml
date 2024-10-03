@@ -109,8 +109,8 @@ importers:
         specifier: 0.1.3
         version: 0.1.3
       '@types/lodash':
-        specifier: 4.17.9
-        version: 4.17.9
+        specifier: 4.17.10
+        version: 4.17.10
       '@types/node':
         specifier: 22.7.4
         version: 22.7.4
@@ -618,8 +618,8 @@ packages:
   '@types/json5@0.0.29':
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
 
-  '@types/lodash@4.17.9':
-    resolution: {integrity: sha512-w9iWudx1XWOHW5lQRS9iKpK/XuRhnN+0T7HvdCCd802FYkT1AMTnxndJHGrNJwRoRHkslGr4S29tjm1cT7x/7w==}
+  '@types/lodash@4.17.10':
+    resolution: {integrity: sha512-YpS0zzoduEhuOWjAotS6A5AVCva7X4lVlYLF0FYHAY9sdraBfnatttHItlWeZdGhuEkf+OzMNg2ZYAx8t+52uQ==}
 
   '@types/make-fetch-happen@10.0.4':
     resolution: {integrity: sha512-jKzweQaEMMAi55ehvR1z0JF6aSVQm/h1BXBhPLOJriaeQBctjw5YbpIGs7zAx9dN0Sa2OO5bcXwCkrlgenoPEA==}
@@ -3595,7 +3595,7 @@ snapshots:
 
   '@types/json5@0.0.29': {}
 
-  '@types/lodash@4.17.9': {}
+  '@types/lodash@4.17.10': {}
 
   '@types/make-fetch-happen@10.0.4':
     dependencies:
