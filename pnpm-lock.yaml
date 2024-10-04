@@ -18,8 +18,8 @@ importers:
         specifier: 13.3.0
         version: 13.3.0
       '@octokit/webhooks-types':
-        specifier: 7.5.1
-        version: 7.5.1
+        specifier: 7.6.1
+        version: 7.6.1
       '@plaiceholder/next':
         specifier: 3.0.0
         version: 3.0.0(next@14.2.14(@playwright/test@1.47.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(plaiceholder@3.0.0(sharp@0.32.6))(sharp@0.32.6)
@@ -514,8 +514,8 @@ packages:
     resolution: {integrity: sha512-yFZa3UH11VIxYnnoOYCVoJ3q4ChuSOk2IVBBQ0O3xtKX4x9bmKb/1t+Mxixv2iUhzMdOl1qeWJqEhouXXzB3rQ==}
     engines: {node: '>= 18'}
 
-  '@octokit/webhooks-types@7.5.1':
-    resolution: {integrity: sha512-1dozxWEP8lKGbtEu7HkRbK1F/nIPuJXNfT0gd96y6d3LcHZTtRtlf8xz3nicSJfesADxJyDh+mWBOsdLkqgzYw==}
+  '@octokit/webhooks-types@7.6.1':
+    resolution: {integrity: sha512-S8u2cJzklBC0FgTwWVLaM8tMrDuDMVE4xiTK4EYXM9GntyvrdbSoxqDQa+Fh57CCNApyIpyeqPhhFEmHPfrXgw==}
 
   '@octokit/webhooks@13.3.0':
     resolution: {integrity: sha512-TUkJLtI163Bz5+JK0O+zDkQpn4gKwN+BovclUvCj6pI/6RXrFqQvUMRS2M+Rt8Rv0qR3wjoMoOPmpJKeOh0nBg==}
@@ -3470,7 +3470,7 @@ snapshots:
 
   '@octokit/webhooks-methods@5.1.0': {}
 
-  '@octokit/webhooks-types@7.5.1': {}
+  '@octokit/webhooks-types@7.6.1': {}
 
   '@octokit/webhooks@13.3.0':
     dependencies:
