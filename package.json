@@ -35,7 +35,7 @@
     "reading-time": "1.5.0",
     "rehype-raw": "7.0.0",
     "remark-gfm": "4.0.0",
-    "remark-unwrap-images": "4.0.0",
+    "remark-unwrap-images": "4.0.1",
     "remove-markdown": "0.5.5",
     "server-only": "0.0.1",
     "sharp": "0.32.6",
