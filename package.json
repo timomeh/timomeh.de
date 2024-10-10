@@ -17,7 +17,7 @@
     "@octokit/webhooks-types": "7.6.1",
     "@plaiceholder/next": "3.0.0",
     "@remark-embedder/core": "3.0.3",
-    "@remark-embedder/transformer-oembed": "5.0.0",
+    "@remark-embedder/transformer-oembed": "5.0.1",
     "@shikijs/transformers": "1.22.0",
     "@sindresorhus/slugify": "2.2.1",
     "bluebird": "3.7.2",
