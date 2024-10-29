@@ -25,7 +25,7 @@
     "feed": "4.2.2",
     "gray-matter": "4.0.3",
     "lodash": "4.17.21",
-    "next": "14.2.15",
+    "next": "15.0.2",
     "next-mdx-remote": "5.0.0",
     "next-nprogress-bar": "2.3.14",
     "plaiceholder": "3.0.0",
