@@ -9,28 +9,12 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'user-images.githubusercontent.com',
-        pathname: '/4227520/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'github.com',
-        pathname: '/timomeh/timomeh.de/assets/4227520/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
+        hostname: 'timomeh.de',
       },
       {
         protocol: 'http',
         hostname: 'localhost',
         port: '3000',
-        pathname: '/content-assets/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'utfs.io',
-        pathname: '/f/**',
       },
     ],
   },
