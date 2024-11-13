@@ -114,6 +114,12 @@ function queryPosts(filter: Filter = {}) {
 }
 
 export async function cacheAllPosts() {
+  try {
+    await repo.posts.createIndex()
+  } catch (error) {
+    console.warn('error when recreating index', error)
+  }
+
   const posts = await cms.posts.all()
   const ids = await repo.posts.search().return.allIds()
   await repo.posts.remove(...ids)

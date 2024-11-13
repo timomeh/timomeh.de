@@ -29,6 +29,12 @@ function queryTags(filter: Filter = {}) {
 }
 
 export async function cacheAllTags() {
+  try {
+    await repo.tags.createIndex()
+  } catch (error) {
+    console.warn('error when recreating index', error)
+  }
+
   const tags = await cms.tags.all()
   const ids = await repo.tags.search().return.allIds()
   await repo.tags.remove(...ids)

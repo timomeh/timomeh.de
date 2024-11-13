@@ -11,6 +11,12 @@ export const getSettings = cache(async () => {
 })
 
 export async function updateSettingsCache() {
+  try {
+    await repo.settings.createIndex()
+  } catch (error) {
+    console.warn('error when recreating index', error)
+  }
+
   const settings = await cms.settings.get()
 
   if (!settings) return

@@ -37,6 +37,12 @@ function queryPages(filter: Filter = {}) {
 }
 
 export async function cacheAllPages() {
+  try {
+    await repo.pages.createIndex()
+  } catch (error) {
+    console.warn('error when recreating index', error)
+  }
+
   const pages = await cms.pages.all()
   const ids = await repo.pages.search().return.allIds()
   await repo.pages.remove(...ids)
