@@ -11,7 +11,7 @@ export const fetchCache = 'default-cache'
 export async function GET(request: NextRequest) {
   if (
     process.env.NODE_ENV === 'production' &&
-    request.headers.get('x-api-key') !== process.env.NUKE_SECRET
+    request.nextUrl.searchParams.get('secret') !== process.env.NUKE_SECRET
   ) {
     return NextResponse.json({ message: 'Unverified' }, { status: 401 })
   }
