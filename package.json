@@ -11,8 +11,8 @@
     "test:ui": "pnpm test -- --ui"
   },
   "dependencies": {
-    "@octokit/graphql": "8.1.1",
-    "@octokit/graphql-schema": "15.25.0",
+    "@keystatic/core": "0.5.39",
+    "@keystatic/next": "5.0.1",
     "@octokit/webhooks": "13.3.0",
     "@octokit/webhooks-types": "7.6.1",
     "@plaiceholder/next": "3.0.0",
@@ -21,40 +21,43 @@
     "@shikijs/transformers": "1.22.2",
     "@sindresorhus/slugify": "2.2.1",
     "bluebird": "3.7.2",
-    "ellipsize": "0.5.1",
     "feed": "4.2.2",
-    "gray-matter": "4.0.3",
     "lodash": "4.17.21",
-    "next": "14.2.15",
+    "lucide-react": "0.456.0",
+    "mdast": "3.0.0",
+    "mdast-util-mdx": "3.0.0",
+    "next": "15.0.2",
     "next-mdx-remote": "5.0.0",
     "next-nprogress-bar": "2.3.15",
     "plaiceholder": "3.0.0",
     "postcss-url": "10.1.3",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
+    "react": "19.0.0-rc-02c0e824-20241028",
+    "react-dom": "19.0.0-rc-02c0e824-20241028",
     "reading-time": "1.5.0",
-    "rehype-raw": "7.0.0",
+    "redis": "4.7.0",
+    "redis-om": "0.4.7",
     "remark-gfm": "4.0.0",
     "remark-unwrap-images": "4.0.1",
     "remove-markdown": "0.5.5",
     "server-only": "0.0.1",
     "sharp": "0.32.6",
-    "shiki": "1.22.2"
+    "shiki": "1.22.2",
+    "unist-util-visit": "5.0.0"
   },
   "devDependencies": {
     "@argos-ci/playwright": "3.9.1",
     "@playwright/test": "1.48.2",
     "@tailwindcss/typography": "0.5.15",
-    "@types/ellipsize": "0.1.3",
     "@types/lodash": "4.17.13",
+    "@types/mdast": "4.0.4",
     "@types/node": "22.9.0",
     "@types/probe-image-size": "7.2.5",
-    "@types/react": "18.3.12",
-    "@types/react-dom": "18.3.1",
+    "@types/react": "npm:types-react@19.0.0-rc.1",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
     "@types/remove-markdown": "0.3.4",
     "autoprefixer": "10.4.20",
     "eslint": "9.13.0",
-    "eslint-config-next": "14.2.15",
+    "eslint-config-next": "15.0.2",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-prettier": "5.2.1",
     "eslint-plugin-simple-import-sort": "12.1.1",
@@ -76,5 +79,11 @@
       "prettier-plugin-merge"
     ]
   },
-  "packageManager": "pnpm@9.7.0+sha256.b35018fbfa8f583668b2649e407922a721355cd81f61beeb4ac1d4258e585559"
+  "packageManager": "pnpm@9.7.0+sha256.b35018fbfa8f583668b2649e407922a721355cd81f61beeb4ac1d4258e585559",
+  "pnpm": {
+    "overrides": {
+      "@types/react": "npm:types-react@19.0.0-rc.1",
+      "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
+    }
+  }
 }

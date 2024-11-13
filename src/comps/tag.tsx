@@ -1,10 +1,10 @@
 type Props = {
   color: string
-  name: React.ReactNode
+  title: React.ReactNode
   size?: 'normal' | 'smol'
 }
 
-export function Tag({ color, name, size = 'normal' }: Props) {
+export function Tag({ color, title, size = 'normal' }: Props) {
   return (
     <div style={{ color }}>
       <div
@@ -26,7 +26,7 @@ export function Tag({ color, name, size = 'normal' }: Props) {
           className="relative text-nowrap text-[color-mix(in_srgb,currentColor_50%,white)]
             brightness-150"
         >
-          {name}
+          {title}
         </div>
       </div>
     </div>

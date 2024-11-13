@@ -1,64 +1,143 @@
 import { MetadataRoute } from 'next'
-
-import { getPost, listPosts, listTags, Post } from '@/lib/blog'
+import { listPages } from '@/data/pages'
+import {
+  listPublishedPosts,
+  pageNumbersPublishedPosts,
+  pagePublishedPosts,
+} from '@/data/posts'
+import { listTags } from '@/data/tags'
 
 export default async function sitemap() {
-  const [tags, posts, page] = await Promise.all([
-    generateTagsSitemap(),
+  const [archiveTags, pagination, posts, page] = await Promise.all([
+    generateArchiveTagsSitemap(),
+    generatePaginationSitemap(),
     generatePostsSitemap(),
     generatePageSitemap(),
   ])
 
   return [
-    {
-      url: 'https://timomeh.de/',
-      changeFrequency: 'daily',
-      priority: 1,
-      lastModified: new Date(),
-    },
-    ...tags,
+    ...pagination,
+    ...archiveTags,
     ...posts,
     ...page,
   ] satisfies MetadataRoute.Sitemap
 }
 
-async function generateTagsSitemap() {
+async function generatePaginationSitemap() {
   const tags = await listTags()
 
-  const sitemap = tags.map((tag) => ({
-    url: `https://timomeh.de/tag/${tag}`,
-    changeFrequency: 'daily',
-    priority: 0.8,
-    lastModified: new Date(),
-  })) satisfies MetadataRoute.Sitemap
+  const tagPageSitemaps = await Promise.all(
+    tags.map(async (tag) => {
+      const pageNumbers = await pageNumbersPublishedPosts({ tag: tag.slug })
 
-  return sitemap
+      const tagsPagesSitemaps = await Promise.all(
+        pageNumbers.map(async (number) => {
+          const posts = await pagePublishedPosts(number, { tag: tag.slug })
+          const dates = posts.map((post) => post.updatedAt || post.publishedAt)
+          const latestDate = new Date(
+            Math.max(...dates.map((date) => date.getTime())),
+          )
+
+          return {
+            url:
+              number === 0
+                ? `https://timomeh.de/tag/${tag.slug}`
+                : `https://timomeh.de/tag/${tag.slug}/page/${number}`,
+            changeFrequency: 'daily' as const,
+            priority: 0.8,
+            lastModified: latestDate,
+          }
+        }),
+      )
+
+      return tagsPagesSitemaps
+    }),
+  )
+
+  const pageNumbers = await pageNumbersPublishedPosts()
+  const pageSitemaps = await Promise.all(
+    pageNumbers.map(async (number) => {
+      const posts = await pagePublishedPosts(number)
+      const dates = posts.map((post) => post.updatedAt || post.publishedAt)
+      const latestDate = new Date(
+        Math.max(...dates.map((date) => date.getTime())),
+      )
+
+      const everythingPages = {
+        url:
+          number === 0
+            ? 'https://timomeh.de/'
+            : `https://timomeh.de/page/${number}`,
+        changeFrequency: 'daily' as const,
+        priority: 1,
+        lastModified: latestDate,
+      }
+
+      return everythingPages
+    }),
+  )
+
+  return [...pageSitemaps, ...tagPageSitemaps.flat()]
+}
+
+async function generateArchiveTagsSitemap() {
+  const tags = await listTags()
+
+  const tagsSitemap = await Promise.all(
+    tags.map(async (tag) => {
+      const posts = await listPublishedPosts({ tag: tag.slug })
+      const dates = posts.map((post) => post.updatedAt || post.publishedAt)
+      const latestDate = new Date(
+        Math.max(...dates.map((date) => date.getTime())),
+      )
+
+      const sitemap = {
+        url: `https://timomeh.de/archive/tag/${tag.slug}`,
+        changeFrequency: 'daily' as const,
+        priority: 0.8,
+        lastModified: latestDate,
+      }
+
+      return sitemap
+    }),
+  )
+
+  const posts = await listPublishedPosts()
+  const dates = posts.map((post) => post.updatedAt || post.publishedAt)
+  const latestDate = new Date(Math.max(...dates.map((date) => date.getTime())))
+
+  const everythingSitemap = {
+    url: `https://timomeh.de/archive`,
+    changeFrequency: 'daily' as const,
+    priority: 0.8,
+    lastModified: latestDate,
+  }
+
+  return [everythingSitemap, ...tagsSitemap]
 }
 
 async function generatePostsSitemap() {
-  const slugs = await listPosts()
-  const tryPosts = await Promise.all(slugs.map((slug) => getPost(slug)))
-  const posts = tryPosts.filter((post): post is Post => !!post)
+  const posts = await listPublishedPosts()
 
   const sitemap = posts.map((post) => ({
     url: `https://timomeh.de/posts/${post.slug}`,
-    changeFrequency: 'monthly',
+    changeFrequency: 'monthly' as const,
     priority: 0.5,
-    lastModified: new Date(post.updatedAt),
-  })) satisfies MetadataRoute.Sitemap
+    lastModified: post.updatedAt || post.publishedAt,
+  }))
 
   return sitemap
 }
 
-function generatePageSitemap() {
-  const slugs = ['about', 'datenschutz', 'feeds', 'impressum']
+async function generatePageSitemap() {
+  const pages = await listPages()
 
-  const sitemap = slugs.map((slug) => ({
-    url: `https://timomeh.de/${slug}`,
-    changeFrequency: 'monthly',
+  const sitemap = pages.map((page) => ({
+    url: `https://timomeh.de/${page.path}`,
+    changeFrequency: 'monthly' as const,
     priority: 0.5,
     lastModified: new Date(),
-  })) satisfies MetadataRoute.Sitemap
+  }))
 
   return sitemap
 }

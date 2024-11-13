@@ -1,3 +1,6 @@
+@import './shiki-transformers.css';
+@import './nprogress.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -21,13 +24,3 @@
     height: 100%;
   }
 }
-
-.page-grid {
-  grid-template:
-    'topscroll' auto
-    'main' minmax(100dvh, auto)
-    'bottomscroll' auto;
-}
-
-@import './shiki-transformers.css';
-@import './nprogress.css';

@@ -2,7 +2,7 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.{js,ts,jsx,tsx}'],
+  content: ['./src/**/*.{js,ts,jsx,tsx}', './src/keystatic.config.tsx'],
   theme: {
     screens: {
       xs: '475px',
@@ -103,9 +103,17 @@ module.exports = {
           from: { opacity: 0 },
           to: { opacity: 1 },
         },
+        fadeOut: {
+          from: { opacity: 1 },
+          to: { opacity: 0 },
+        },
         rotate360: {
           from: { transform: 'rotateY(0deg)' },
           to: { transform: 'rotateY(-360deg)' },
+        },
+        slideDown: {
+          from: { transform: 'translateY(0)' },
+          to: { transform: 'translateY(100%)' },
         },
       },
     },
