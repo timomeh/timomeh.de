@@ -42,7 +42,7 @@ export async function Code(props: Props) {
 
   return (
     <div
-      className="not-prose relative my-8 overflow-clip rounded-md border border-white/10 text-sm
+      className="not-prose relative my-12 overflow-clip rounded-md border border-white/10 text-sm
         font-normal shadow-purple-300/5 [box-shadow:0_0_24px_var(--tw-shadow-color)]
         md:-mx-4"
     >

@@ -1,17 +1,16 @@
 import Link from 'next/link'
 
+import { getPost } from '@/lib/blog'
+
 import { PostHeader } from './post-header'
-import { PostFullImage } from './post-full-image'
-import { getPost } from '@/data/posts'
-import { contentAsset } from '@/data/cms'
-import { MDX } from './mdx/mdx'
+import { PostImage } from './post-image'
 
 type Props = {
   slug: string
-  direction: 'older' | 'newer'
+  dir: 'prev' | 'next'
 }
 
-export async function PostPreview({ slug, direction }: Props) {
+export async function PostPreview({ slug, dir }: Props) {
   const post = await getPost(slug)
   if (!post) return null
 
@@ -20,27 +19,21 @@ export async function PostPreview({ slug, direction }: Props) {
       href={`/posts/${post.slug}`}
       className="relative z-10 block w-full overflow-hidden bg-black/50 pt-10"
     >
-      {post.frontmatter.cover && (
+      {post.meta.cover_image && (
         <div className="absolute inset-0 brightness-50">
-          <PostFullImage
-            src={contentAsset('posts', slug, post.frontmatter.cover)}
-            alt=""
-          />
+          <PostImage src={post.meta.cover_image} alt="" />
         </div>
       )}
       <div className="mx-auto max-w-2xl px-4">
-        {direction === 'older' && (
+        {dir === 'prev' && (
           <div className="-mt-5 mb-5 font-pixel text-sm font-bold">
             <span className="effect-crt-blue">Previous Post ↓</span>
           </div>
         )}
         <article className="prose prose-invert relative">
           <PostHeader slug={slug} />
-          <h1 className="mb-8 text-balance font-display text-2xl font-semibold leading-tight sm:text-3xl">
-            <MDX content={post.title} inline />
-          </h1>
         </article>
-        {direction === 'newer' && (
+        {dir === 'next' && (
           <div className="-mt-5 mb-5 font-pixel text-sm font-bold">
             <span className="effect-crt-blue">Next Post ↑</span>
           </div>

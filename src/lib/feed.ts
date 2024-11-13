@@ -1,18 +1,27 @@
 import { Feed, FeedOptions } from 'feed'
-import { listPublishedPosts } from '@/data/posts'
+import removeMd from 'remove-markdown'
+
+import { getPost, listPosts, Post } from './blog'
 import { unstable_cache } from 'next/cache'
 
 type FeedType = 'atom' | 'json' | 'rss'
 
+const fetchAllPosts = unstable_cache(
+  async () => {
+    const slugs = await listPosts()
+    const tryPosts = await Promise.all(slugs.map((slug) => getPost(slug)))
+    const posts = tryPosts.filter((post): post is Post => !!post)
+    return posts
+  },
+  ['fetchAllPosts/feeds'],
+  { tags: ['github-raw'] },
+)
+
 export async function buildFeed(type: FeedType) {
-  const posts = await listPublishedPosts()
+  const posts = await fetchAllPosts()
 
   const updated = new Date(
-    Math.max(
-      ...posts.map((post) =>
-        post.updatedAt ? new Date(post.updatedAt).getTime() : 0,
-      ),
-    ),
+    Math.max(...posts.map((post) => new Date(post.updatedAt).getTime())),
   )
 
   const feed = new Feed({
@@ -20,46 +29,27 @@ export async function buildFeed(type: FeedType) {
     updated,
   })
 
-  const compiledPosts = await Promise.all(
-    posts.map(async (post) => {
-      const cachedContentFn = unstable_cache(
-        async () => {
-          const headers = new Headers()
-          headers.set('x-api-key', process.env.INTERNAL_SECRET!)
-          const res = await fetch(
-            `http://localhost:3000/partials/posts/${post.slug}`,
-            { headers },
-          )
-          const html = await res.text()
-
-          // Use regular expression to find the <article id="partial">...</article> content
-          const match = html.match(
-            /<article id="partial">([\s\S]*?)<\/article>/,
-          )
-
-          // Extract and return only the content within the <article> tag
-          const articleContent = match?.[1]
-          return articleContent
-        },
-        [`compiled-post/${post.slug}`],
-        { tags: ['compiled-posts', `compiled-post/${post.slug}`] },
-      )
-
-      const contentAsHtml = await cachedContentFn()
-      return contentAsHtml
-    }),
-  )
-
-  posts.forEach((post, i) => {
+  posts.forEach((post) => {
     feed.addItem({
       id: `https://timomeh.de/posts/${post.slug}`,
-      published: new Date(post.publishedAt),
-      date: post.updatedAt
-        ? new Date(post.updatedAt)
-        : new Date(post.publishedAt),
+      published: new Date(post.postedAt),
+      date: new Date(post.updatedAt),
       link: `https://timomeh.de/posts/${post.slug}`,
-      title: post.title,
-      content: compiledPosts[i],
+      title: post.safeTitle,
+      description: removeMd(post.excerpt || '') || post.description,
+      content: post.bodyHTML
+        // remove title
+        .replace(/\<h1(.*?)\>(.*?)\<\/h1\>/, '')
+        // remove frontmatter
+        .replace(
+          /\<div class="snippet-clipboard-content notranslate(.*?)"((.|\n)*?)\>((.|\n)*?)<\/div\>/,
+          '',
+        )
+        // Change github's private asset urls to public ones
+        .replace(
+          /(https:\/\/private-user-images\.githubusercontent\.com\/(\d+)\/)(\w+)-((\w+-)+\w+)\.\w+(\?.*?)?(")/g,
+          'https://github.com/timomeh/timomeh.de/assets/$2/$4$7',
+        ),
     })
   })
 

@@ -2,24 +2,19 @@ import Link from 'next/link'
 
 import { FeedIcon } from './icons/feed'
 import { MastodonIcon } from './icons/mastodon'
-import { ArchiveIcon } from './icons/archive'
 
-export function SocialBox() {
+type Props = {
+  floating?: boolean
+}
+
+export function SocialBox({ floating }: Props) {
   return (
     <div className="absolute right-4 top-4">
       <div
-        className="flex gap-4 p-2 text-white group-has-[.social-bg-signal]/body:rounded-md
-          group-has-[.social-bg-signal]/body:bg-black/30 sm:gap-2"
+        data-floating={floating}
+        className="flex gap-4 p-2 text-white data-[floating=true]:rounded-md
+          data-[floating=true]:bg-black/30 sm:gap-2"
       >
-        <Link
-          title="Archive"
-          href="/archive"
-          className="-mx-1 -my-2.5 px-1 py-2 opacity-70 transition-opacity hover:opacity-100"
-        >
-          <div className="size-5 p-px">
-            <ArchiveIcon />
-          </div>
-        </Link>
         <a
           title="@timomeh@mastodon.social"
           href="https://mastodon.social/@timomeh"

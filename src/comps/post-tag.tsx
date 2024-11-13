@@ -1,7 +1,8 @@
 import { ComponentProps } from 'react'
 
+import { getTag } from '@/lib/blog'
+
 import { Tag } from './tag'
-import { getTag } from '@/data/tags'
 
 type Props = {
   slug: string
@@ -11,5 +12,5 @@ export async function PostTag({ slug, ...rest }: Props) {
   const tag = await getTag(slug)
   if (!tag) return null
 
-  return <Tag {...rest} color={tag.color} title={tag.title} />
+  return <Tag {...rest} color={tag.color} name={tag.name} />
 }

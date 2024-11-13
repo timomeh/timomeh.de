@@ -10,15 +10,6 @@ export function Footer() {
         <ul className="flex space-x-1">
           <li>
             <Link
-              href="/archive"
-              className="text-white/30 transition-colors hover:text-white/60"
-            >
-              Archive
-            </Link>
-          </li>
-          <li className="text-white/30">/</li>
-          <li>
-            <Link
               href="/feeds"
               className="text-white/30 transition-colors hover:text-white/60"
             >
