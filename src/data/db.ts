@@ -13,7 +13,7 @@ declare const globalThis: {
 
 const redis = globalThis.redisGlobal ?? redisSingleton()
 
-if (process.env.NODE_ENV !== 'production') globalThis.redisGlobal = redis
+globalThis.redisGlobal = redis
 
 const postSchema = new Schema('post', {
   title: { type: 'text' },
