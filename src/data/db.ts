@@ -16,7 +16,7 @@ const connect = cache(async () => {
 
 export const db = { redis, connect }
 
-const postSchema = new Schema('posts', {
+const postSchema = new Schema('post', {
   title: { type: 'text' },
   slug: { type: 'string' },
   status: { type: 'string' },
@@ -32,7 +32,7 @@ const postSchema = new Schema('posts', {
   meta_lang: { type: 'string', path: '$.meta.lang' },
 })
 
-const tagSchema = new Schema('tags', {
+const tagSchema = new Schema('tag', {
   title: { type: 'text' },
   slug: { type: 'string' },
   color: { type: 'string' },
@@ -42,7 +42,7 @@ const tagSchema = new Schema('tags', {
   meta_image: { type: 'string', path: '$.meta.image' },
 })
 
-const pageSchema = new Schema('pages', {
+const pageSchema = new Schema('page', {
   title: { type: 'text' },
   slug: { type: 'string' },
   path: { type: 'string' },
@@ -53,7 +53,7 @@ const pageSchema = new Schema('pages', {
   meta_lang: { type: 'text', path: '$.meta.lang' },
 })
 
-const settingsSchema = new Schema('settings', {
+const settingsSchema = new Schema('setting', {
   tags: { type: 'string[]' },
   kickers: { type: 'string[]' },
 })

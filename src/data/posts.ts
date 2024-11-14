@@ -134,7 +134,7 @@ export async function cacheAllPosts() {
   const ids = await repo.posts.search().return.allIds()
   await repo.posts.remove(...ids)
 
-  await Promise.all(posts.map((post) => repo.posts.save(post.slug, post)))
+  await Promise.all(posts.map((post) => repo.posts.save(post)))
 
   try {
     await repo.posts.createIndex()
@@ -147,10 +147,14 @@ export async function updatePostCache(slug: string) {
   await db.connect()
 
   const post = await cms.posts.get(slug)
-  const cached = await repo.posts.fetch(slug)
+  const cachedId = await repo.posts
+    .search()
+    .where('slug')
+    .eq(slug)
+    .return.firstId()
 
-  if (!post && cached) {
-    await repo.posts.remove(slug)
+  if (!post && cachedId) {
+    await repo.posts.remove(cachedId)
   }
 
   if (post) {
