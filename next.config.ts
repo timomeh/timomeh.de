@@ -68,12 +68,6 @@ const nextConfig: NextConfig = {
         destination: '/posts/:slug*',
         permanent: true,
       },
-      {
-        source: '/:path*',
-        has: [{ type: 'host', value: 'www.timomeh.de' }],
-        destination: 'https://timomeh.de/:path*',
-        permanent: true,
-      },
     ]
   },
   logging: {

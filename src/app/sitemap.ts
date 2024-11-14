@@ -6,6 +6,7 @@ import {
   pagePublishedPosts,
 } from '@/data/posts'
 import { listTags } from '@/data/tags'
+import { config } from '@/config'
 
 export default async function sitemap() {
   const [archiveTags, pagination, posts, page] = await Promise.all([
@@ -41,8 +42,8 @@ async function generatePaginationSitemap() {
           return {
             url:
               number === 0
-                ? `https://timomeh.de/tag/${tag.slug}`
-                : `https://timomeh.de/tag/${tag.slug}/page/${number}`,
+                ? fullUrl(`/tag/${tag.slug}`)
+                : fullUrl(`/tag/${tag.slug}/page/${number}`),
             changeFrequency: 'daily' as const,
             priority: 0.8,
             lastModified: latestDate,
@@ -64,10 +65,7 @@ async function generatePaginationSitemap() {
       )
 
       const everythingPages = {
-        url:
-          number === 0
-            ? 'https://timomeh.de/'
-            : `https://timomeh.de/page/${number}`,
+        url: number === 0 ? fullUrl('/') : fullUrl(`/page/${number}`),
         changeFrequency: 'daily' as const,
         priority: 1,
         lastModified: latestDate,
@@ -92,7 +90,7 @@ async function generateArchiveTagsSitemap() {
       )
 
       const sitemap = {
-        url: `https://timomeh.de/archive/tag/${tag.slug}`,
+        url: fullUrl(`/archive/tag/${tag.slug}`),
         changeFrequency: 'daily' as const,
         priority: 0.8,
         lastModified: latestDate,
@@ -107,7 +105,7 @@ async function generateArchiveTagsSitemap() {
   const latestDate = new Date(Math.max(...dates.map((date) => date.getTime())))
 
   const everythingSitemap = {
-    url: `https://timomeh.de/archive`,
+    url: fullUrl(`/archive`),
     changeFrequency: 'daily' as const,
     priority: 0.8,
     lastModified: latestDate,
@@ -120,7 +118,7 @@ async function generatePostsSitemap() {
   const posts = await listPublishedPosts()
 
   const sitemap = posts.map((post) => ({
-    url: `https://timomeh.de/posts/${post.slug}`,
+    url: fullUrl(`/posts/${post.slug}`),
     changeFrequency: 'monthly' as const,
     priority: 0.5,
     lastModified: post.updatedAt || post.publishedAt,
@@ -133,11 +131,15 @@ async function generatePageSitemap() {
   const pages = await listPages()
 
   const sitemap = pages.map((page) => ({
-    url: `https://timomeh.de/${page.path}`,
+    url: fullUrl(`/${page.path}`),
     changeFrequency: 'monthly' as const,
     priority: 0.5,
     lastModified: new Date(),
   }))
 
   return sitemap
+}
+
+function fullUrl(path: string) {
+  return `${config.siteUrl}/${path}`
 }

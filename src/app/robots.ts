@@ -1,3 +1,4 @@
+import { config } from '@/config'
 import { MetadataRoute } from 'next'
 
 export default function robots() {
@@ -40,6 +41,6 @@ export default function robots() {
         disallow: '*',
       },
     ],
-    sitemap: 'https://timomeh.de/sitemap.xml',
+    sitemap: `${config.siteUrl}/sitemap.xml`,
   } satisfies MetadataRoute.Robots
 }

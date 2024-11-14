@@ -53,12 +53,12 @@ export async function buildFeed(type: FeedType) {
 
   posts.forEach((post, i) => {
     feed.addItem({
-      id: `https://timomeh.de/posts/${post.slug}`,
+      id: `${config.siteUrl}/posts/${post.slug}`,
       published: new Date(post.publishedAt),
       date: post.updatedAt
         ? new Date(post.updatedAt)
         : new Date(post.publishedAt),
-      link: `https://timomeh.de/posts/${post.slug}`,
+      link: `${config.siteUrl}/posts/${post.slug}`,
       title: post.title,
       content: compiledPosts[i],
     })
@@ -85,19 +85,19 @@ export async function buildFeed(type: FeedType) {
 }
 
 const postsOptions: FeedOptions = {
-  id: `https://timomeh.de`,
-  link: `https://timomeh.de`,
+  id: config.siteUrl,
+  link: config.siteUrl,
   description:
     'About software development and other thoughts I wanted to elaborate on.',
   language: 'en',
-  favicon: 'https://timomeh.de/favicon.ico',
+  favicon: `${config.siteUrl}/favicon.ico`,
   title: 'timomeh.de',
   copyright: '',
   generator: 'timomeh.de',
   feedLinks: {
-    rss: `https://timomeh.de/posts/feed.rss`,
-    json: `https://timomeh.de/posts/feed.json`,
-    atom: `https://timomeh.de/posts/feed.atom`,
+    rss: `${config.siteUrl}/posts/feed.rss`,
+    json: `${config.siteUrl}/posts/feed.json`,
+    atom: `${config.siteUrl}/posts/feed.atom`,
   },
   author: {
     name: 'Timo Mämecke',
