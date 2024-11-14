@@ -37,7 +37,7 @@ export async function cacheAllTags() {
   const ids = await repo.tags.search().return.allIds()
   await repo.tags.remove(...ids)
 
-  await Promise.all(tags.map((tag) => repo.tags.save(tag)))
+  await Promise.all(tags.map((tag) => repo.tags.save(tag.slug, tag)))
 
   try {
     await repo.tags.createIndex()
@@ -50,17 +50,13 @@ export async function updateTagCache(slug: string) {
   await db.connect()
 
   const tag = await cms.tags.get(slug)
-  const cachedId = await repo.tags
-    .search()
-    .where('slug')
-    .eq(slug)
-    .return.firstId()
+  const cached = await repo.tags.fetch(slug)
 
-  if (!tag && cachedId) {
-    await repo.tags.remove(cachedId)
+  if (!tag && cached) {
+    await repo.tags.remove(slug)
   }
 
   if (tag) {
-    await repo.tags.save(tag)
+    await repo.tags.save(slug, tag)
   }
 }

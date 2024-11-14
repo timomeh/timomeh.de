@@ -47,7 +47,7 @@ export async function cacheAllPages() {
   const ids = await repo.pages.search().return.allIds()
   await repo.pages.remove(...ids)
 
-  await Promise.all(pages.map((page) => repo.pages.save(page)))
+  await Promise.all(pages.map((page) => repo.pages.save(page.slug, page)))
 
   try {
     await repo.pages.createIndex()
@@ -60,17 +60,13 @@ export async function updatePageCache(slug: string) {
   await db.connect()
 
   const page = await cms.pages.get(slug)
-  const cachedId = await repo.pages
-    .search()
-    .where('slug')
-    .eq(slug)
-    .return.firstId()
+  const cached = await repo.pages.fetch(slug)
 
-  if (!page && cachedId) {
-    await repo.pages.remove(cachedId)
+  if (!page && cached) {
+    await repo.pages.remove(slug)
   }
 
   if (page) {
-    await repo.pages.save(page)
+    await repo.pages.save(slug, page)
   }
 }

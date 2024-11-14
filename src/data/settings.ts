@@ -2,7 +2,7 @@ import { cache } from 'react'
 import { db, repo } from './db'
 import { cms } from './cms'
 
-const SINGLETON_KEY = 'SETTINGS'
+const SINGLETON_KEY = 'settings'
 
 export const getSettings = cache(async () => {
   await db.connect()
