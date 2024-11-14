@@ -14,6 +14,7 @@ export default async function Page() {
       {posts.map((post) => (
         <ListedPost slug={post.slug} key={post.slug} />
       ))}
+      <div className="border-t border-white/10" />
       <Pagination current={0} hasOlderPost={hasOlderPost} bottom />
     </>
   )

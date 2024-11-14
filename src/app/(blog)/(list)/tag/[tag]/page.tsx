@@ -21,6 +21,7 @@ export default async function Page(props: Props) {
       {posts.map((post) => (
         <ListedPost slug={post.slug} key={post.slug} />
       ))}
+      <div className="border-t border-white/10" />
       <Pagination
         bottom
         current={0}
