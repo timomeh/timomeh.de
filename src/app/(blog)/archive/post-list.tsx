@@ -4,6 +4,7 @@ import { MDX } from '@/comps/mdx/mdx'
 import { getPublishedPostsRange, listPublishedPosts } from '@/data/posts'
 import { range } from '@/lib/range'
 import { formatReadingTime } from '@/lib/formatReadingTime'
+import { markdownHeadline } from '@/lib/markdownHeadline'
 
 type Props = {
   tag?: string
@@ -69,7 +70,10 @@ async function PostsByYear({ tag, year }: { tag?: string; year?: number }) {
             </div>
             <h3 className="mt-1 text-balance font-display font-medium leading-snug">
               <Link href={`/posts/${post.slug}`}>
-                <MDX content={post.headline || post.title} inline />
+                <MDX
+                  content={markdownHeadline(post.content) || post.title}
+                  inline
+                />
               </Link>
             </h3>
           </div>

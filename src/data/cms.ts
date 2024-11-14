@@ -3,6 +3,7 @@ import { EntryWithResolvedLinkedFiles } from '@keystatic/core/reader'
 import keystaticConfig from '@/keystatic.config'
 import { markdownHeadline } from '@/lib/markdownHeadline'
 import { config } from '@/config'
+import { cleanse } from '@/lib/cleanse'
 
 const reader = createGitHubReader(keystaticConfig, {
   repo: process.env.NEXT_PUBLIC_CMS_REPO! as `${string}/${string}`,
@@ -124,67 +125,69 @@ const sanitizePost = (
   post: EntryWithResolvedLinkedFiles<
     (typeof keystaticConfig)['collections']['posts']
   >,
-) => ({
-  status: post.status,
-  title: post.title,
-  headline: markdownHeadline(post.content),
-  content: post.content,
-  publishedAt: new Date(post.publishedAt),
-  updatedAt: post.updatedAt ? new Date(post.updatedAt) : null,
-  tags: post.tags.filter(Boolean),
-  frontmatter: {
-    cover: post.frontmatter.cover,
-    readingTime: post.frontmatter.readingTime || null,
-    kicker: post.frontmatter.kicker || null,
-  },
-  meta: {
-    description: post.meta.description || null,
-    image: post.meta.image,
-    lang: post.meta.lang || null,
-  },
-})
+) =>
+  cleanse({
+    status: post.status,
+    title: post.title || '',
+    content: post.content || '',
+    publishedAt: new Date(post.publishedAt),
+    updatedAt: post.updatedAt ? new Date(post.updatedAt) : undefined,
+    tags: post.tags.filter(Boolean),
+    frontmatter: {
+      cover: post.frontmatter.cover || undefined,
+      readingTime: post.frontmatter.readingTime || undefined,
+      kicker: post.frontmatter.kicker || undefined,
+    },
+    meta: {
+      description: post.meta.description || undefined,
+      image: post.meta.image || undefined,
+      lang: post.meta.lang || undefined,
+    },
+  })
 
 const sanitizeTag = (
   tag: EntryWithResolvedLinkedFiles<
     (typeof keystaticConfig)['collections']['tags']
   >,
-) => ({
-  title: tag.title,
-  color: tag.color,
-  frontmatter: {
-    kicker: tag.frontmatter.kicker || null,
-  },
-  meta: {
-    description: tag.meta.description || null,
-    image: tag.meta.image,
-  },
-})
+) =>
+  cleanse({
+    title: tag.title || '',
+    color: tag.color || undefined,
+    frontmatter: {
+      kicker: tag.frontmatter.kicker || undefined,
+    },
+    meta: {
+      description: tag.meta.description || undefined,
+      image: tag.meta.image || undefined,
+    },
+  })
 
 const sanitizePage = (
   page: EntryWithResolvedLinkedFiles<
     (typeof keystaticConfig)['collections']['pages']
   >,
-) => ({
-  title: page.title,
-  path: page.path,
-  visibility: page.visibility,
-  headline: markdownHeadline(page.content),
-  content: page.content,
-  frontmatter: {
-    kicker: page.frontmatter.kicker || null,
-  },
-  meta: {
-    description: page.meta.description || null,
-    image: page.meta.image,
-    lang: page.meta.lang || null,
-  },
-})
+) =>
+  cleanse({
+    title: page.title || '',
+    path: page.path,
+    visibility: page.visibility,
+    content: page.content || '',
+    frontmatter: {
+      kicker: page.frontmatter.kicker || undefined,
+    },
+    meta: {
+      description: page.meta.description || undefined,
+      image: page.meta.image || undefined,
+      lang: page.meta.lang || undefined,
+    },
+  })
 
 const sanitizeSettings = (
   settings: EntryWithResolvedLinkedFiles<
     (typeof keystaticConfig)['singletons']['settings']
   >,
-) => ({
-  tags: settings.tags.filter(Boolean),
-  kickers: settings.kickers.filter(Boolean),
-})
+) =>
+  cleanse({
+    tags: settings.tags.filter(Boolean),
+    kickers: settings.kickers.filter(Boolean),
+  })
