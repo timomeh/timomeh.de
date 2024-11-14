@@ -2,10 +2,11 @@ import { createGitHubReader } from '@keystatic/core/reader/github'
 import { EntryWithResolvedLinkedFiles } from '@keystatic/core/reader'
 import keystaticConfig from '@/keystatic.config'
 import { markdownHeadline } from '@/lib/markdownHeadline'
+import { config } from '@/config'
 
 const reader = createGitHubReader(keystaticConfig, {
   repo: process.env.NEXT_PUBLIC_CMS_REPO! as `${string}/${string}`,
-  token: process.env.GITHUB_CONTENT_PAT!,
+  token: config.github.contentPat,
 })
 
 export type Post = NonNullable<Awaited<ReturnType<typeof cms.posts.get>>>
@@ -94,7 +95,7 @@ export const cms = {
         `https://raw.githubusercontent.com/${process.env.NEXT_PUBLIC_CMS_REPO}/main/${path}`,
         {
           headers: {
-            Authorization: `Bearer ${process.env.GITHUB_CONTENT_PAT}`,
+            Authorization: `Bearer ${config.github.contentPat}`,
           },
           cache: 'force-cache',
         },
@@ -116,12 +117,7 @@ export function contentAsset(
 }
 
 export function contentAssetUrl(path: string) {
-  const baseUrl =
-    process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3000'
-      : 'https://timomeh.de'
-
-  return `${baseUrl}/content-assets/${path}`
+  return `${config.siteUrl}/content-assets/${path}`
 }
 
 const sanitizePost = (

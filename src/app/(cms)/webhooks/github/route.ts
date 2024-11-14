@@ -7,12 +7,13 @@ import { updatePageCache } from '@/data/pages'
 import { updatePostCache } from '@/data/posts'
 import { updateTagCache } from '@/data/tags'
 import { updateSettingsCache } from '@/data/settings'
+import { config } from '@/config'
 
 export const fetchCache = 'default-cache'
 
 export async function POST(request: NextRequest) {
   const webhooks = new Webhooks({
-    secret: process.env.GITHUB_WEBHOOK_SECRET as string,
+    secret: config.github.webhookSecret,
   })
 
   const body = await request.text()

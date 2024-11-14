@@ -5,6 +5,7 @@ import localFont from 'next/font/local'
 
 import { ProgressBar } from '@/comps/progress-bar'
 import { PrevPathProvider } from '@/comps/prev-path'
+import { config } from '@/config'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -55,11 +56,11 @@ export default function RootLayout({
         ${ibmPlexMono.variable} ${outfit.variable} ${inter.variable}`}
     >
       <head>
-        {process.env.NODE_ENV === 'production' && (
+        {config.umamiWebsiteId && (
           <script
             defer
             src="https://peekaboo.timo.wtf/script.js"
-            data-website-id="ecbed209-2cd5-438d-ac1d-e1c983f0e8ec"
+            data-website-id={config.umamiWebsiteId}
           />
         )}
       </head>
@@ -79,10 +80,7 @@ export default function RootLayout({
 }
 
 export const metadata = {
-  metadataBase:
-    process.env.NODE_ENV === 'production'
-      ? new URL('https://timomeh.de')
-      : new URL('http://localhost:3000'),
+  metadataBase: new URL(config.siteUrl),
   icons: {
     icon: [
       { url: '/favicon-32x32.png', sizes: '32x32' },

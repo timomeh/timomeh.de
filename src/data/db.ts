@@ -1,19 +1,20 @@
 import { createClient } from 'redis'
 import { Repository, Schema } from 'redis-om'
 import { Page, Post, Settings, Tag } from './cms'
+import { cache } from 'react'
+import { config } from '@/config'
 
-const redisSingleton = () =>
-  createClient({ url: process.env.REDIS_DB_URL }).on('error', (err) =>
-    console.log('Redis client error', err),
-  )
+const redis = createClient({ url: config.redis.url }).on('error', (err) =>
+  console.log('Redis client error', err),
+)
 
-declare const globalThis: {
-  redisGlobal: ReturnType<typeof redisSingleton>
-} & typeof global
+const connect = cache(async () => {
+  if (!redis.isOpen) {
+    await redis.connect()
+  }
+})
 
-const redis = globalThis.redisGlobal ?? redisSingleton()
-
-globalThis.redisGlobal = redis
+export const db = { redis, connect }
 
 const postSchema = new Schema('post', {
   title: { type: 'text' },
@@ -65,14 +66,17 @@ export const repo = {
 }
 
 export async function initRedis() {
-  await redis.connect()
+  await connect()
 
   try {
+    console.log('Creating indices...')
     await repo.posts.createIndex()
     await repo.tags.createIndex()
     await repo.pages.createIndex()
     await repo.settings.createIndex()
   } catch (e) {
     console.log('An error happened when creating redis indices', e)
+  } finally {
+    console.log('Done creating all indices')
   }
 }

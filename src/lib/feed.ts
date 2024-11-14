@@ -1,6 +1,7 @@
 import { Feed, FeedOptions } from 'feed'
 import { listPublishedPosts } from '@/data/posts'
 import { unstable_cache } from 'next/cache'
+import { config } from '@/config'
 
 type FeedType = 'atom' | 'json' | 'rss'
 
@@ -25,7 +26,7 @@ export async function buildFeed(type: FeedType) {
       const cachedContentFn = unstable_cache(
         async () => {
           const headers = new Headers()
-          headers.set('x-api-key', process.env.INTERNAL_SECRET!)
+          headers.set('x-api-key', config.api.internalSecret)
           const res = await fetch(
             `http://localhost:3000/partials/posts/${post.slug}`,
             { headers },

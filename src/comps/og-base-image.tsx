@@ -1,12 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 
+import { config } from '@/config'
 import { unstable_noStore } from 'next/cache'
 import { ImageResponseOptions } from 'next/server'
 
-const basePath =
-  process.env.NODE_ENV === 'development'
-    ? `http://localhost:${process.env.PORT}`
-    : 'https://timomeh.de'
+const basePath = config.siteUrl
 
 type Props = {
   cover?: string
@@ -17,7 +15,6 @@ type Props = {
 
 export function OpengraphBaseImage({ cover, title, date, est }: Props) {
   unstable_noStore()
-  console.log({ cover })
 
   return (
     <div tw="flex w-full h-full" style={{ fontFamily: '"Outfit"' }}>

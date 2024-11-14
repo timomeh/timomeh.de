@@ -1,4 +1,5 @@
 import { MDX } from '@/comps/mdx/mdx'
+import { config } from '@/config'
 import { contentAsset } from '@/data/cms'
 import { getPost } from '@/data/posts'
 import { headers } from 'next/headers'
@@ -15,7 +16,7 @@ type Props = {
 
 export default async function Page(props: Props) {
   const h = await headers()
-  if (h.get('x-api-key') !== process.env.INTERNAL_SECRET) {
+  if (h.get('x-api-key') !== config.api.internalSecret) {
     notFound()
   }
 

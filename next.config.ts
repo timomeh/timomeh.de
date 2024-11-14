@@ -1,20 +1,21 @@
+import { config } from '@/config'
 import withPlaiceholder from '@plaiceholder/next'
 import { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  // bypasses the file-system-cache's 2MB limit
   cacheHandler: require.resolve(
     'next/dist/server/lib/incremental-cache/file-system-cache.js',
   ),
+
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'timomeh.de',
-      },
-      {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '3000',
+        protocol: new URL(config.siteUrl).protocol.slice(0, -1) as
+          | 'http'
+          | 'https',
+        hostname: new URL(config.siteUrl).hostname,
+        port: new URL(config.siteUrl).port || undefined,
       },
     ],
   },

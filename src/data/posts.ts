@@ -1,5 +1,5 @@
 import { cache } from 'react'
-import { repo } from './db'
+import { db, repo } from './db'
 import { cms, Post } from './cms'
 import { range } from '@/lib/range'
 
@@ -10,6 +10,8 @@ type Filter = {
 }
 
 export const listPublishedPosts = cache(async (filter: Filter = {}) => {
+  await db.connect()
+
   const posts = await queryPosts({ ...filter, status: ['published'] })
     .sortDesc('publishedAt')
     .return.all()
@@ -21,6 +23,8 @@ const PAGINATION_SIZE = 10
 
 export const pagePublishedPosts = cache(
   async (num: number, filter: Filter = {}) => {
+    await db.connect()
+
     const posts = await queryPosts({ ...filter, status: ['published'] })
       .sortDesc('publishedAt')
       .return.page(PAGINATION_SIZE * num, PAGINATION_SIZE)
@@ -30,6 +34,8 @@ export const pagePublishedPosts = cache(
 )
 
 export const pageNumbersPublishedPosts = cache(async (filter: Filter = {}) => {
+  await db.connect()
+
   const count = await queryPosts({ ...filter, status: ['published'] })
     .sortDesc('publishedAt')
     .return.count()
@@ -40,6 +46,8 @@ export const pageNumbersPublishedPosts = cache(async (filter: Filter = {}) => {
 })
 
 export const getPublishedPostsRange = cache(async (filter: Filter = {}) => {
+  await db.connect()
+
   const latest = await queryPosts({ ...filter, status: ['published'] })
     .sortDesc('publishedAt')
     .return.first()
@@ -54,6 +62,8 @@ export const getPublishedPostsRange = cache(async (filter: Filter = {}) => {
 })
 
 export const getPost = cache(async (slug: string) => {
+  await db.connect()
+
   const post = await queryPosts({ status: ['published', 'unlisted'] })
     .and('slug')
     .equals(slug)
@@ -63,6 +73,8 @@ export const getPost = cache(async (slug: string) => {
 })
 
 export const getOlderPost = cache(async (slug: string, filter: Filter = {}) => {
+  await db.connect()
+
   const currentPost = await getPost(slug)
   if (!currentPost) return null
 
@@ -76,6 +88,8 @@ export const getOlderPost = cache(async (slug: string, filter: Filter = {}) => {
 })
 
 export const getNewerPost = cache(async (slug: string, filter: Filter = {}) => {
+  await db.connect()
+
   const currentPost = await getPost(slug)
   if (!currentPost) return null
 
@@ -114,20 +128,24 @@ function queryPosts(filter: Filter = {}) {
 }
 
 export async function cacheAllPosts() {
-  try {
-    await repo.posts.createIndex()
-  } catch (error) {
-    console.warn('error when recreating index', error)
-  }
+  await db.connect()
 
   const posts = await cms.posts.all()
   const ids = await repo.posts.search().return.allIds()
   await repo.posts.remove(...ids)
 
   await Promise.all(posts.map((post) => repo.posts.save(post.slug, post)))
+
+  try {
+    await repo.posts.createIndex()
+  } catch (error) {
+    console.warn('error when recreating index', error)
+  }
 }
 
 export async function updatePostCache(slug: string) {
+  await db.connect()
+
   const post = await cms.posts.get(slug)
   const cached = await repo.posts.fetch(slug)
 
