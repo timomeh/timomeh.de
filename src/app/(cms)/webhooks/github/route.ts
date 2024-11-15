@@ -8,8 +8,10 @@ import { updatePostCache } from '@/data/posts'
 import { updateTagCache } from '@/data/tags'
 import { updateSettingsCache } from '@/data/settings'
 import { config } from '@/config'
+import { logger } from '@/lib/log'
 
 export const fetchCache = 'default-cache'
+const log = logger.child({ module: 'webhooks/github' })
 
 export async function POST(request: NextRequest) {
   const webhooks = new Webhooks({
@@ -19,8 +21,7 @@ export async function POST(request: NextRequest) {
   const body = await request.text()
 
   webhooks.onError((error) => {
-    console.error('Error when processing webhook:')
-    console.error(error)
+    log.error(error, 'Failed to process webhook')
   })
 
   const event = request.headers.get('x-github-event') as keyof EventPayloadMap
@@ -61,19 +62,29 @@ export async function POST(request: NextRequest) {
         if (resource === 'posts') {
           await updatePostCache(slug)
           revalidateTag(`compiled-post/${slug}`)
+          log.info({ resource, slug }, 'Updated cache')
+          return
         }
 
         if (resource === 'pages') {
           await updatePageCache(slug)
+          log.info({ resource, slug }, 'Updated cache')
+          return
         }
 
         if (resource === 'tags') {
           await updateTagCache(slug)
+          log.info({ resource, slug }, 'Updated cache')
+          return
         }
 
         if (resource === 'settings') {
           await updateSettingsCache()
+          log.info({ resource, slug }, 'Updated cache')
+          return
         }
+
+        log.debug(`Nothing to update for ${file}`)
       }),
     )
 

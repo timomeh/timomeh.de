@@ -5,6 +5,7 @@ import { PostFullImage } from './post-full-image'
 import { getPost } from '@/data/posts'
 import { contentAsset } from '@/data/cms'
 import { MDX } from './mdx/mdx'
+import { Prose } from './prose'
 
 type Props = {
   slug: string
@@ -34,11 +35,13 @@ export async function PostPreview({ slug, direction }: Props) {
             <span className="effect-crt-blue">Previous Post ↓</span>
           </div>
         )}
-        <article className="prose prose-invert relative">
-          <PostHeader slug={slug} />
-          <h1 className="mb-8 text-balance font-display text-2xl font-semibold leading-tight sm:text-3xl">
-            <MDX content={post.title} inline />
-          </h1>
+        <article className="relative">
+          <Prose>
+            <PostHeader slug={slug} />
+            <h1 className="mb-8 text-balance font-display text-2xl font-semibold leading-tight sm:text-3xl">
+              <MDX content={post.title} inline />
+            </h1>
+          </Prose>
         </article>
         {direction === 'newer' && (
           <div className="-mt-5 mb-5 font-pixel text-sm font-bold">

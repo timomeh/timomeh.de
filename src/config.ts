@@ -1,6 +1,7 @@
 export const config = {
   siteUrl: process.env.SITE_URL!.split(',')[0],
   umamiWebsiteId: process.env.UMAMI_WEBSITE_ID,
+  logLevel: process.env.LOG_LEVEL || 'warn',
   api: {
     internalSecret: process.env.INTERNAL_SECRET!,
     nukeSecret: process.env.NUKE_SECRET!,

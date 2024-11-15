@@ -1,7 +1,6 @@
 import { createGitHubReader } from '@keystatic/core/reader/github'
 import { EntryWithResolvedLinkedFiles } from '@keystatic/core/reader'
 import keystaticConfig from '@/keystatic.config'
-import { markdownHeadline } from '@/lib/markdownHeadline'
 import { config } from '@/config'
 import { cleanse } from '@/lib/cleanse'
 

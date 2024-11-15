@@ -52,7 +52,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`h-full scroll-smooth bg-[#1f1e1f] bg-grainy text-white ${pixeloid.variable}
+      className={`h-full bg-[#1f1e1f] bg-grainy text-white ${pixeloid.variable}
         ${ibmPlexMono.variable} ${outfit.variable} ${inter.variable}`}
     >
       <head>

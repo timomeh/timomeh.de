@@ -5,6 +5,7 @@ import { PostHeader } from '@/comps/post-header'
 import { getPost } from '@/data/posts'
 import { contentAsset } from '@/data/cms'
 import { Metadata } from 'next'
+import { Prose } from '@/comps/prose'
 
 export const dynamicParams = true
 export function generateStaticParams() {
@@ -22,17 +23,16 @@ export default async function Page(props: Props) {
 
   return (
     <article
-      className="prose prose-invert relative animate-fade-in prose-headings:text-balance
-        prose-headings:font-display prose-headings:font-semibold
-        prose-headings:leading-tight max-sm:prose-h1:text-2xl
-        max-sm:prose-h1:leading-tight"
+      className="relative animate-fade-in"
       lang={post.meta.lang?.split('_')[0]}
     >
-      <PostHeader slug={post.slug} />
-      <MDX
-        content={post.content}
-        assetPrefix={contentAsset('posts', post.slug, '')}
-      />
+      <Prose>
+        <PostHeader slug={post.slug} />
+        <MDX
+          content={post.content}
+          assetPrefix={contentAsset('posts', post.slug, '')}
+        />
+      </Prose>
     </article>
   )
 }

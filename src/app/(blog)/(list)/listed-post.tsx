@@ -1,6 +1,7 @@
 import { MDX } from '@/comps/mdx/mdx'
 import { PostHeader } from '@/comps/post-header'
 import { PostPreviewImage } from '@/comps/post-preview-image'
+import { Prose } from '@/comps/prose'
 import { contentAsset } from '@/data/cms'
 import { getPost } from '@/data/posts'
 import { parseMdTitle } from '@/lib/parseMdTitle'
@@ -34,14 +35,10 @@ export async function ListedPost({ slug }: Props) {
         )}
         <Link
           href={`/posts/${post.slug}`}
-          className="relative mb-5 block w-auto no-underline"
+          className="relative z-10 mx-auto mb-5 block w-auto max-w-2xl animate-fade-in px-4
+            no-underline"
         >
-          <div
-            className="prose prose-invert relative z-10 mx-auto max-w-2xl animate-fade-in px-4
-              prose-headings:text-balance prose-headings:font-display
-              prose-headings:font-semibold prose-headings:leading-tight prose-h1:text-2xl
-              prose-h1:leading-tight sm:prose-h1:text-3xl"
-          >
+          <Prose>
             <PostHeader slug={post.slug} />
             {title && (
               <MDX
@@ -49,23 +46,18 @@ export async function ListedPost({ slug }: Props) {
                 content={title}
               />
             )}
-          </div>
+          </Prose>
         </Link>
       </header>
-      <div className="mx-auto max-w-2xl px-4">
-        <div
-          className="prose prose-invert relative animate-fade-in prose-headings:text-balance
-            prose-headings:font-display prose-headings:font-semibold
-            prose-headings:leading-tight prose-h1:mb-0 prose-h1:text-2xl
-            prose-h1:leading-tight md:prose-h1:text-3xl"
-        >
+      <div className="relative mx-auto max-w-2xl animate-fade-in px-4">
+        <Prose>
           <MDX
             assetPrefix={contentAsset('posts', post.slug, '')}
             content={post.content.replace(/^# .+\n?/, '')}
             readMorePath={`/posts/${post.slug}`}
             scope={post.slug}
           />
-        </div>
+        </Prose>
       </div>
     </article>
   )

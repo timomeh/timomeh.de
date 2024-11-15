@@ -3,6 +3,7 @@ import remarkEmbedder, { TransformerInfo } from '@remark-embedder/core'
 import oembedTransformer from '@remark-embedder/transformer-oembed'
 import remarkGfm from 'remark-gfm'
 import remarkUnwrapImages from 'remark-unwrap-images'
+import remarkSmartypants from 'remark-smartypants'
 
 import { Anchor } from './anchor'
 import { Blockquote } from './blockquote'
@@ -10,6 +11,11 @@ import { Code } from './code'
 import { Del } from './del'
 import { Img } from './img'
 import { Video } from './video'
+import { Kbd } from './kbd'
+import { Figure } from './figure'
+import { Lead } from './lead'
+import { Definition } from './definition'
+import { DefinitionList } from './definition-list'
 import { withMdxFootnotes } from '@/lib/remarkMdxFootnotes'
 import {
   FootnoteContent,
@@ -83,7 +89,8 @@ export function MDX({
                 handleHTML,
               },
             ],
-            withMdxFootnotes,
+            !plain ? withMdxFootnotes : () => {},
+            remarkSmartypants,
             readMorePath ? remarkReadMore : () => {},
           ],
         },
@@ -100,10 +107,16 @@ const components: MDXComponents = {
   del: Del,
   pre: (props) => <>{props.children}</>,
   blockquote: Blockquote,
+  Footnote: () => null,
   FootnoteContent,
   FootnoteReference,
   FootnotesSection,
   ReadMore: () => null,
+  Kbd,
+  Lead,
+  Figure,
+  DefinitionList,
+  Definition,
 }
 
 const inlineComponents: MDXComponents = {
@@ -115,6 +128,12 @@ const plainComponents: MDXComponents = {
   FootnoteContent: () => null,
   FootnoteReference: () => null,
   FootnotesSection: () => null,
+  Kbd,
+  Lead: (props) => <>{props.children}</>,
+  Figure,
+  DefinitionList,
+  Definition,
+  Footnote: (props) => <span>&nbsp;[Footnote: {props.children}]</span>,
 }
 
 function handleHTML(html: string, info: TransformerInfo) {

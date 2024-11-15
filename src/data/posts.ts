@@ -2,6 +2,9 @@ import { cache } from 'react'
 import { db, repo } from './db'
 import { cms, Post } from './cms'
 import { range } from '@/lib/range'
+import { logger } from '@/lib/log'
+
+const log = logger.child({ module: 'data/posts' })
 
 type Filter = {
   tag?: string
@@ -139,7 +142,7 @@ export async function cacheAllPosts() {
   try {
     await repo.posts.createIndex()
   } catch (error) {
-    console.warn('error when recreating index', error)
+    log.warn(error, 'Error when trying to create the index for posts')
   }
 }
 
@@ -150,10 +153,12 @@ export async function updatePostCache(slug: string) {
   const cached = await repo.posts.fetch(slug)
 
   if (!post && cached) {
+    log.info({ slug }, 'Removing record')
     await repo.posts.remove(slug)
   }
 
   if (post) {
+    log.info({ slug }, 'Saving record')
     await repo.posts.save(slug, post)
   }
 }

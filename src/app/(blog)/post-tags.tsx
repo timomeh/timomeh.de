@@ -11,7 +11,7 @@ export async function PostTags({ scope }: Props) {
   const tags = await listTags()
 
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="group/tags flex flex-wrap gap-2">
       <TagLink href={scope || '/'} dim>
         <Tag color="rgb(156, 163, 175)" title="Everything" />
       </TagLink>

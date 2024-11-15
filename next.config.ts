@@ -8,6 +8,8 @@ const nextConfig: NextConfig = {
     'next/dist/server/lib/incremental-cache/file-system-cache.js',
   ),
 
+  serverExternalPackages: ['pino', 'pino-pretty'],
+
   images: {
     remotePatterns: [
       {
@@ -19,6 +21,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+
   async rewrites() {
     return [
       { source: '/posts/feed.rss', destination: '/feeds/rss' },
@@ -26,6 +29,7 @@ const nextConfig: NextConfig = {
       { source: '/posts/feed.json', destination: '/feeds/json' },
     ]
   },
+
   async redirects() {
     return [
       {
@@ -70,6 +74,7 @@ const nextConfig: NextConfig = {
       },
     ]
   },
+
   logging: {
     fetches: {
       fullUrl: true,

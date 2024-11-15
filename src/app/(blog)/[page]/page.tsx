@@ -4,6 +4,7 @@ import { MDX } from '@/comps/mdx/mdx'
 import { getPage } from '@/data/pages'
 import { contentAsset } from '@/data/cms'
 import { Metadata } from 'next'
+import { Prose } from '@/comps/prose'
 
 export const dynamicParams = true
 export function generateStaticParams() {
@@ -20,11 +21,13 @@ export default async function Page(props: Props) {
   if (!page) notFound()
 
   return (
-    <article className="prose prose-invert relative animate-fade-in">
-      <MDX
-        content={page.content}
-        assetPrefix={contentAsset('pages', page.slug, '')}
-      />
+    <article className="relative animate-fade-in">
+      <Prose>
+        <MDX
+          content={page.content}
+          assetPrefix={contentAsset('pages', page.slug, '')}
+        />
+      </Prose>
     </article>
   )
 }

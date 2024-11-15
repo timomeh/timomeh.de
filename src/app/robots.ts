@@ -7,7 +7,7 @@ export default function robots() {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/vrt/'],
+        disallow: [],
         crawlDelay: 3,
       },
       {

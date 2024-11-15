@@ -22,7 +22,7 @@ export function Pagination({
   return (
     <>
       {bottom && (
-        <div className="relative z-[-1]">
+        <div className="relative z-[-1]" aria-hidden={true}>
           <div
             className="absolute left-0 right-0 -mb-14 h-14 bg-gradient-to-b from-black/30
               to-transparent"
@@ -52,7 +52,7 @@ export function Pagination({
         )}
       </div>
       {top && (
-        <div className="relative z-[-1]">
+        <div className="relative z-[-1]" aria-hidden={true}>
           <div
             className="absolute left-0 right-0 -mt-14 h-14 bg-gradient-to-t from-black/30
               to-transparent"

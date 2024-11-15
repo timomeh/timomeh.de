@@ -11,5 +11,5 @@ export async function PostTag({ slug, ...rest }: Props) {
   const tag = await getTag(slug)
   if (!tag) return null
 
-  return <Tag {...rest} color={tag.color} title={tag.title} />
+  return <Tag {...rest} color={tag.color || 'white'} title={tag.title} />
 }

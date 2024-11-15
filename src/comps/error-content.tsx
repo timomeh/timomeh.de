@@ -1,3 +1,4 @@
+import { Prose } from './prose'
 import { ReportBrokenPage } from './report-broken-link'
 
 type Props = {
@@ -7,10 +8,8 @@ type Props = {
 
 export function ErrorContent({ reset, description }: Props) {
   return (
-    <div className="prose prose-invert">
-      <h1 className="effect-crt-blue font-pixel text-4xl font-bold leading-none">
-        ERR 500
-      </h1>
+    <Prose crtTitle>
+      <h1>ERR 500</h1>
       {description || (
         <p>
           Whoopsie daisy, something went terribly wrong. Not all hope is lost,
@@ -33,6 +32,6 @@ export function ErrorContent({ reset, description }: Props) {
           </a>
         </li>
       </ol>
-    </div>
+    </Prose>
   )
 }

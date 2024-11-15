@@ -1,8 +1,10 @@
 import { cache } from 'react'
 import { db, repo } from './db'
 import { cms } from './cms'
+import { logger } from '@/lib/log'
 
 const SINGLETON_KEY = 'settings'
+const log = logger.child({ module: 'data/settings' })
 
 export const getSettings = cache(async () => {
   await db.connect()
@@ -22,6 +24,6 @@ export async function updateSettingsCache() {
   try {
     await repo.settings.createIndex()
   } catch (error) {
-    console.warn('error when recreating index', error)
+    log.warn(error, 'Error when trying to create the index for settings')
   }
 }

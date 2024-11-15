@@ -1,6 +1,88 @@
 import { config, fields, collection, singleton } from '@keystatic/core'
-import { block, inline, mark } from '@keystatic/core/content-components'
-import { Footprints } from 'lucide-react'
+import {
+  inline,
+  mark,
+  repeating,
+  wrapper,
+} from '@keystatic/core/content-components'
+import {
+  BetweenHorizonalStart,
+  BookOpen,
+  BookOpenText,
+  Footprints,
+  Images,
+  Keyboard,
+  ScrollText,
+} from 'lucide-react'
+
+const components = {
+  ReadMore: inline({
+    label: 'Read more',
+    icon: <BetweenHorizonalStart />,
+    ContentView: () => <> Read more ... </>,
+    schema: {},
+  }),
+  Footnote: mark({
+    label: 'Footnote',
+    icon: <Footprints />,
+    className:
+      'text-gray-500 before:content-["_(Footnote:_"] after:content-[")"] underline decoration-dashed decoration-gray-300',
+    schema: {},
+  }),
+  Kbd: mark({
+    label: '<kbd>',
+    icon: <Keyboard />,
+    className: 'border rounded-md border-gray-500 border-b-2 px-1 bg-gray-100',
+    schema: {},
+  }),
+  Lead: wrapper({
+    label: 'Lead',
+    icon: <ScrollText />,
+    schema: {},
+  }),
+  Figure: wrapper({
+    label: 'Figure',
+    icon: <Images />,
+    ContentView: (props) => {
+      return (
+        <>
+          {props.children}
+          <div className="mt-2 text-sm italic leading-tight text-gray-600">
+            {props.value.caption}
+          </div>
+        </>
+      )
+    },
+    schema: {
+      caption: fields.text({
+        label: 'Caption',
+        multiline: true,
+        validation: { isRequired: true },
+      }),
+    },
+  }),
+  DefinitionList: repeating({
+    label: 'Definition List',
+    children: ['Definition'],
+    icon: <BookOpen />,
+    schema: {},
+  }),
+  Definition: wrapper({
+    label: 'Definition',
+    icon: <BookOpenText />,
+    ContentView: (props) => {
+      return (
+        <>
+          <strong className="mb-1 block">{props.value.term}</strong>
+          {props.children}
+        </>
+      )
+    },
+    schema: {
+      term: fields.text({ label: 'Term', validation: { isRequired: true } }),
+    },
+  }),
+}
 
 export default config({
   storage: {
@@ -40,18 +122,7 @@ export default config({
         }),
         content: fields.mdx({
           label: 'Content',
-          components: {
-            ReadMore: inline({
-              label: 'Read more',
-              schema: {},
-            }),
-            Footnote: mark({
-              label: 'Footnote',
-              icon: <Footprints />,
-              className: 'underline decoration-dotted align-super text-xs',
-              schema: {},
-            }),
-          },
+          components,
           options: {
             image: {
               directory: 'posts',
@@ -185,6 +256,7 @@ export default config({
         }),
         content: fields.mdx({
           label: 'Content',
+          components,
           options: {
             image: {
               directory: 'pages',

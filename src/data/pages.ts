@@ -1,6 +1,9 @@
 import { cache } from 'react'
 import { db, repo } from './db'
 import { cms, Page } from './cms'
+import { logger } from '@/lib/log'
+
+const log = logger.child({ module: 'data/pages' })
 
 type Filter = {
   visibility?: Page['visibility'][]
@@ -52,7 +55,7 @@ export async function cacheAllPages() {
   try {
     await repo.pages.createIndex()
   } catch (error) {
-    console.warn('error when recreating index', error)
+    log.warn(error, 'Error when trying to create the index for pages')
   }
 }
 
@@ -63,10 +66,12 @@ export async function updatePageCache(slug: string) {
   const cached = await repo.pages.fetch(slug)
 
   if (!page && cached) {
+    log.info({ slug }, 'Removing record')
     await repo.pages.remove(slug)
   }
 
   if (page) {
+    log.info({ slug }, 'Saving record')
     await repo.pages.save(slug, page)
   }
 }
