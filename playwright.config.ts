@@ -37,7 +37,6 @@ export default defineConfig({
     {
       name: 'chromium-e2e',
       use: { ...devices['Desktop Chrome'] },
-      testIgnore: /.*smoke\.spec\.ts/,
     },
   ],
 

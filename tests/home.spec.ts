@@ -1,14 +1,12 @@
 import { expect, test } from '@playwright/test'
 
+test.beforeAll(async ({ request }) => {
+  await request.get('/webhooks/nuke?soft=true')
+})
+
 test('has the correct title', async ({ page }) => {
   await page.goto('/')
   await expect(page).toHaveTitle('timomeh.de')
-})
-
-test('lists articles', async ({ page }) => {
-  await page.goto('/')
-
-  await expect(page.getByRole('article')).not.toHaveCount(0)
 })
 
 test('lists all tags', async ({ page }) => {
@@ -26,4 +24,12 @@ test('has an active everything tag by default', async ({ page }) => {
   await expect(
     page.getByRole('navigation').getByRole('link').first(),
   ).toHaveAttribute('data-current', 'true')
+})
+
+test('can navigate to the next page', async ({ page }) => {
+  await page.goto('/')
+  await page.click('text=Older →')
+  await page.waitForLoadState('networkidle')
+  expect(page.url()).toMatch(/\/page\/1$/)
+  await expect(page).toHaveTitle('Page 1 | timomeh.de')
 })

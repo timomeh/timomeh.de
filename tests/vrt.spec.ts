@@ -1,8 +1,12 @@
 import { argosScreenshot } from '@argos-ci/playwright'
 import { test } from '@playwright/test'
 
+test.beforeAll(async ({ request }) => {
+  await request.get('/webhooks/nuke?soft=true')
+})
+
 test('renders code', async ({ page }) => {
-  await page.goto('/vrt/shiki')
+  await page.goto('/vrt-shiki')
   await argosScreenshot(page, 'shiki', {
     timeout: 30_000,
     fullPage: true,
@@ -11,7 +15,7 @@ test('renders code', async ({ page }) => {
 })
 
 test('renders markdown', async ({ page }) => {
-  await page.goto('/vrt/markdown')
+  await page.goto('/vrt-markdown')
   await argosScreenshot(page, 'markdown', {
     timeout: 30_000,
     fullPage: true,

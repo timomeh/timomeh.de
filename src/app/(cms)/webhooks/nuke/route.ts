@@ -7,6 +7,7 @@ import { updateSettingsCache } from '@/data/settings'
 import { revalidateTag } from 'next/cache'
 import { config } from '@/config'
 import { logger } from '@/lib/log'
+import { db, repo } from '@/data/db'
 
 export const fetchCache = 'default-cache'
 const log = logger.child({ module: 'webhooks/nuke' })
@@ -17,6 +18,23 @@ export async function GET(request: NextRequest) {
     request.nextUrl.searchParams.get('secret') !== config.api.nukeSecret
   ) {
     return NextResponse.json({ message: 'Unverified' }, { status: 401 })
+  }
+
+  const soft = request.nextUrl.searchParams.get('soft')
+
+  if (soft) {
+    await db.connect()
+    const count = await repo.posts.search().return.count()
+    if (count > 0) {
+      log.info(
+        'It looks like we have cached data. Not nuking because soft is used',
+      )
+
+      return NextResponse.json({
+        revalidated: false,
+        now: Date.now(),
+      })
+    }
   }
 
   log.info('Nuking all caches...')

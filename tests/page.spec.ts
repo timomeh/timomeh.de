@@ -1,6 +1,10 @@
 import { argosScreenshot } from '@argos-ci/playwright'
 import { expect, test } from '@playwright/test'
 
+test.beforeAll(async ({ request }) => {
+  await request.get('/webhooks/nuke?soft=true')
+})
+
 test('navigates from home to about', async ({ page }) => {
   await page.goto('/')
 
@@ -17,6 +21,7 @@ test('navigates from a post back', async ({ page }) => {
   await page.goto('/about')
 
   await page.getByRole('link', { name: /Back$/ }).click()
+  await page.waitForLoadState('networkidle')
   await expect(page).toHaveTitle('timomeh.de')
   expect(new URL(page.url()).pathname).toBe('/')
 })
