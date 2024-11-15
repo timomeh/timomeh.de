@@ -33,10 +33,7 @@ export async function POST(request: NextRequest) {
       payload: body,
     })
     .then(() => true)
-    .catch((error) => {
-      console.error(error)
-      return false
-    })
+    .catch(() => false)
 
   if (!verified) {
     return NextResponse.json(
