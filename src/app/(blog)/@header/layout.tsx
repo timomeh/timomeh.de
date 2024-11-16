@@ -54,7 +54,7 @@ export default function Layout({ kicker, backdrop }: Props) {
         <div className="group flex">
           {/* orbit */}
           <div
-            data-visual-test="transparent"
+            data-visual-test="removed"
             className="pointer-events-none absolute -mt-1 ml-16 h-[40px] w-[100px] rotate-[35deg]
               transform-gpu rounded-[100%] border border-yellow-50/10 transition-transform
               duration-1000 ease-in-out motion-safe:group-hover:rotate-[30deg]
@@ -71,7 +71,7 @@ export default function Layout({ kicker, backdrop }: Props) {
             className="font-display text-xs leading-none text-yellow-100
               [text-shadow:0px_0px_6px_rgba(0,0,0,0.3)] xs:text-sm"
           >
-            <span data-visual-test="transparent">{kicker}</span>
+            <span data-visual-test="removed">{kicker}</span>
             <span className="-mt-1 block xs:-mt-2">
               <Link
                 href="/about"
