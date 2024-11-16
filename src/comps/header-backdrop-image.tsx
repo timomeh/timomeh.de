@@ -7,7 +7,7 @@ type Props = {
 export function HeaderBackdropImage({ src }: Props) {
   return (
     <div className="absolute inset-0 h-[280px] animate-fade-in lg:h-[380px]">
-      <PostPreviewImage src={src} alt="" priority large />
+      <PostPreviewImage src={src} alt="" priority />
     </div>
   )
 }

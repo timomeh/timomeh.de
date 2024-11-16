@@ -4,17 +4,15 @@ import { getPlaceholder } from '@/lib/placeholder'
 
 import { FadeInImage } from './fade-in-image'
 
-type Props = ImageProps & { src: string; large?: boolean }
+type Props = ImageProps & { src: string }
 
-export async function PostPreviewImage({ alt, src, large, ...rest }: Props) {
+export async function PostPreviewImage({ alt, src, ...rest }: Props) {
   const { css, img } = await getPlaceholder(src)
 
   return (
     <div
-      data-large={large}
-      className="relative aspect-[3/1] max-h-[300px] min-h-[200px] w-full
-        [mask-image:linear-gradient(to_bottom,#000_0%,#000_30%,transparent_100%)]
-        data-[large=true]:aspect-[5/2] data-[large=true]:max-h-[350px]"
+      className="relative aspect-[5/2] max-h-[350px] min-h-[200px] w-full
+        [mask-image:linear-gradient(to_bottom,#000_0%,#000_30%,transparent_100%)]"
     >
       <div className="absolute inset-0 overflow-hidden">
         <div

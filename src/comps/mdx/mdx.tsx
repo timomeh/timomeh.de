@@ -33,6 +33,7 @@ type Props = {
   plain?: boolean
   readMorePath?: string
   scope?: string
+  components?: MDXComponents
 }
 
 type MDXComponents = MDXRemoteProps['components']
@@ -44,11 +45,12 @@ export function MDX({
   plain,
   readMorePath,
   scope,
+  components = {},
 }: Props) {
   const comps = plain
     ? plainComponents
     : {
-        ...components,
+        ...baseComponents,
         ...({
           FootnoteContent: (props) => (
             <FootnoteContent {...props} scope={scope} />
@@ -70,7 +72,7 @@ export function MDX({
   return (
     <MDXRemote
       source={content}
-      components={comps}
+      components={{ ...comps, ...components }}
       options={{
         mdxOptions: {
           rehypePlugins: [rehypeUnwrapImages],
@@ -99,7 +101,7 @@ export function MDX({
   )
 }
 
-const components: MDXComponents = {
+const baseComponents: MDXComponents = {
   img: Img,
   code: Code,
   video: Video,
