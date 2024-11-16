@@ -51,7 +51,7 @@ export default function Layout({ kicker, backdrop }: Props) {
 
       <div className="relative z-20 -mb-4 flex sm:min-w-[calc(50%-56px)] sm:flex-shrink-0">
         <div className="size-4 flex-shrink-0" />
-        <div className="group flex" data-visual-test="transparent">
+        <div className="group flex" data-visual-test="blackout">
           {/* orbit */}
           <div
             className="pointer-events-none absolute -mt-1 ml-16 h-[40px] w-[100px] rotate-[35deg]
@@ -69,7 +69,7 @@ export default function Layout({ kicker, backdrop }: Props) {
           <div
             className="font-display text-xs leading-none text-yellow-100
               [text-shadow:0px_0px_6px_rgba(0,0,0,0.3)] xs:text-sm"
-            data-visual-test="transparent"
+            data-visual-test="blackout"
           >
             {kicker}
             <span className="-mt-1 block xs:-mt-2">

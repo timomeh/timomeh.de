@@ -80,6 +80,13 @@ const nextConfig: NextConfig = {
       fullUrl: true,
     },
   },
+
+  devIndicators: process.env.CI
+    ? {
+        appIsrStatus: false,
+        buildActivity: false,
+      }
+    : undefined,
 }
 
 export default withPlaiceholder(nextConfig)

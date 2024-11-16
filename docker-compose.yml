@@ -4,6 +4,6 @@ services:
     ports:
       - '6379:6379'
     volumes:
-      - dragonflydata:/data
+      - ${REDIS_VOLUME:-redis}:/data
 volumes:
   dragonflydata:
