@@ -68,3 +68,6 @@ jobs:
           retention-days: 30
       - run: docker compose down
         if: always()
+      - name: ensure redis cache permissions
+        run: mkdir -p "$REDIS_VOLUME" && chmod -R 777 "$REDIS_VOLUME"
+        if: always()
