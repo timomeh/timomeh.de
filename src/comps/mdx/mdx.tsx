@@ -2,7 +2,7 @@ import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc'
 import remarkEmbedder, { TransformerInfo } from '@remark-embedder/core'
 import oembedTransformer from '@remark-embedder/transformer-oembed'
 import remarkGfm from 'remark-gfm'
-import remarkUnwrapImages from 'remark-unwrap-images'
+import rehypeUnwrapImages from 'rehype-unwrap-images'
 import remarkSmartypants from 'remark-smartypants'
 
 import { Anchor } from './anchor'
@@ -73,9 +73,9 @@ export function MDX({
       components={comps}
       options={{
         mdxOptions: {
+          rehypePlugins: [rehypeUnwrapImages],
           remarkPlugins: [
             remarkGfm,
-            remarkUnwrapImages,
             [
               remarkImageSrcPrefix,
               {
