@@ -19,6 +19,7 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     process.env.CI ? ['github'] : ['html'],
+    ['list'],
     [
       '@argos-ci/playwright/reporter',
       { uploadToArgos: !!process.env.CI && !!process.env.UPLOAD_TO_ARGOS },
