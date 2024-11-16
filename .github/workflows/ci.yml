@@ -50,7 +50,7 @@ jobs:
           path: .next/cache/fetch-cache
           key: ${{ runner.os }}-nextjs-fetch-cache-${{ hashFiles('**/*.ts', '**/*.tsx') }}
           restore-keys: ${{ runner.os }}-nextjs-fetch-cache-
-      - run: docker compose up -d
+      - run: docker compose up -d -v ./dragonflydata:/data
       - run: pnpm test
         env:
           NEXT_PUBLIC_CMS_REPO: timomeh/timomeh.de-content
