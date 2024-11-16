@@ -1,10 +1,6 @@
 import { argosScreenshot } from '@argos-ci/playwright'
 import { expect, test } from '@playwright/test'
 
-test.beforeAll(async ({ request }) => {
-  await request.get('/webhooks/nuke?soft=true')
-})
-
 test('renders the first post correctly', async ({ page }) => {
   await page.goto('/posts/how-to-build-a-blog')
   await page.waitForLoadState('networkidle')

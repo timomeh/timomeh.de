@@ -20,6 +20,8 @@ jobs:
           cache: pnpm
       - run: pnpm install
       - run: pnpm build
+        env:
+          NEXT_PUBLIC_CMS_REPO: timomeh/timomeh.de-content
 
   test:
     timeout-minutes: 15
@@ -53,6 +55,7 @@ jobs:
           NEXT_PUBLIC_CMS_REPO: timomeh/timomeh.de-content
           GITHUB_CONTENT_PAT: ${{ secrets.BLOG_GH_ACCESS_TOKEN }}
           UPLOAD_TO_ARGOS: 1
+          DEBUG: pw:webserver
       - uses: actions/upload-artifact@v4
         if: always()
         with:

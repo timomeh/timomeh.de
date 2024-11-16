@@ -75,35 +75,41 @@ export const getPost = cache(async (slug: string) => {
   return post
 })
 
-export const getOlderPost = cache(async (slug: string, filter: Filter = {}) => {
-  await db.connect()
+export const getOlderPost = cache(
+  async (slug?: string, filter: Filter = {}) => {
+    if (!slug) return null
+    await db.connect()
 
-  const currentPost = await getPost(slug)
-  if (!currentPost) return null
+    const currentPost = await getPost(slug)
+    if (!currentPost) return null
 
-  const olderPost = await queryPosts({ status: ['published'], ...filter })
-    .where('publishedAt')
-    .lessThan(currentPost.publishedAt)
-    .sortDesc('publishedAt')
-    .return.first()
+    const olderPost = await queryPosts({ status: ['published'], ...filter })
+      .where('publishedAt')
+      .lessThan(currentPost.publishedAt)
+      .sortDesc('publishedAt')
+      .return.first()
 
-  return olderPost
-})
+    return olderPost
+  },
+)
 
-export const getNewerPost = cache(async (slug: string, filter: Filter = {}) => {
-  await db.connect()
+export const getNewerPost = cache(
+  async (slug?: string, filter: Filter = {}) => {
+    if (!slug) return null
+    await db.connect()
 
-  const currentPost = await getPost(slug)
-  if (!currentPost) return null
+    const currentPost = await getPost(slug)
+    if (!currentPost) return null
 
-  const newerPost = await queryPosts({ status: ['published'], ...filter })
-    .where('publishedAt')
-    .greaterThan(currentPost.publishedAt)
-    .sortAsc('publishedAt')
-    .return.first()
+    const newerPost = await queryPosts({ status: ['published'], ...filter })
+      .where('publishedAt')
+      .greaterThan(currentPost.publishedAt)
+      .sortAsc('publishedAt')
+      .return.first()
 
-  return newerPost
-})
+    return newerPost
+  },
+)
 
 function queryPosts(filter: Filter = {}) {
   let query = repo.posts.search()

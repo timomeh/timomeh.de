@@ -6,7 +6,7 @@ import { Metadata } from 'next'
 export default async function Page() {
   const posts = await pagePublishedPosts(0)
 
-  const olderPost = await getOlderPost(posts.at(-1)!.slug)
+  const olderPost = await getOlderPost(posts.at(-1)?.slug)
   const hasOlderPost = !!olderPost
 
   return (

@@ -13,7 +13,7 @@ export default async function Page(props: Props) {
   const params = await props.params
   const posts = await pagePublishedPosts(0, { tag: params.tag })
 
-  const olderPost = await getOlderPost(posts.at(-1)!.slug, { tag: params.tag })
+  const olderPost = await getOlderPost(posts.at(-1)?.slug, { tag: params.tag })
   const hasOlderPost = !!olderPost
 
   return (

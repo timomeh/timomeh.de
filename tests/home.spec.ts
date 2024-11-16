@@ -1,9 +1,5 @@
 import { expect, test } from '@playwright/test'
 
-test.beforeAll(async ({ request }) => {
-  await request.get('/webhooks/nuke?soft=true')
-})
-
 test('has the correct title', async ({ page }) => {
   await page.goto('/')
   await expect(page).toHaveTitle('timomeh.de')

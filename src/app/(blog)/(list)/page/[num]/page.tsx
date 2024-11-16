@@ -17,7 +17,7 @@ export default async function Page(props: Props) {
   const posts = await pagePublishedPosts(num)
   if (posts.length === 0) notFound()
 
-  const olderPost = await getOlderPost(posts.at(-1)!.slug)
+  const olderPost = await getOlderPost(posts.at(-1)?.slug)
   const hasOlderPost = !!olderPost
 
   return (

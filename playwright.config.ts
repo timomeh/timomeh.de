@@ -35,8 +35,13 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
+      name: 'seed db',
+      testMatch: /global\.setup\.ts/,
+    },
+    {
       name: 'chromium-e2e',
       use: { ...devices['Desktop Chrome'] },
+      dependencies: ['setup db'],
     },
   ],
 
