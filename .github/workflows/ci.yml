@@ -47,7 +47,7 @@ jobs:
           key: ${{ runner.os }}-dragonflydata-${{ hashFiles('**/*.ts', '**/*.tsx') }}
           restore-keys: ${{ runner.os }}-dragonflydata-
       - name: ensure redis cache permissions
-        run: mkdir -p "$REDIS_VOLUME" && chmod -R 777 "$REDIS_VOLUME"
+        run: sudo mkdir -p "$REDIS_VOLUME" && chmod -R 777 "$REDIS_VOLUME"
       - name: cache nextjs fetch cache
         uses: actions/cache@v4
         with:
@@ -69,5 +69,5 @@ jobs:
       - run: docker compose down
         if: always()
       - name: ensure redis cache permissions
-        run: mkdir -p "$REDIS_VOLUME" && chmod -R 777 "$REDIS_VOLUME"
+        run: sudo mkdir -p "$REDIS_VOLUME" && chmod -R 777 "$REDIS_VOLUME"
         if: always()
