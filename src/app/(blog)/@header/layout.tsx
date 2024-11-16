@@ -21,8 +21,8 @@ export default function Layout({ kicker, backdrop }: Props) {
           <Link
             title="Go to home"
             href="/"
-            className="relative block size-full rotate-0 select-none transition-transform ease-in-out
-              motion-safe:hover:-rotate-3 motion-safe:hover:scale-110
+            className="group/link relative block size-full rotate-0 select-none transition-transform
+              ease-in-out motion-safe:hover:-rotate-3 motion-safe:hover:scale-110
               motion-safe:active:-rotate-2 motion-safe:active:scale-105"
           >
             <Mug />
