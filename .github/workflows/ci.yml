@@ -27,15 +27,6 @@ jobs:
   test:
     timeout-minutes: 15
     runs-on: ubuntu-latest
-    services:
-      dragonfly:
-        image: docker.dragonflydb.io/dragonflydb/dragonfly
-        ports:
-          - 6379:6379
-        options: >-
-          --health-cmd="redis-cli ping || exit 1"
-        volumes:
-          - dragonflydata:/data
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v3
@@ -59,6 +50,7 @@ jobs:
           path: .next/cache/fetch-cache
           key: ${{ runner.os }}-nextjs-fetch-cache-${{ hashFiles('**/*.ts', '**/*.tsx') }}
           restore-keys: ${{ runner.os }}-nextjs-fetch-cache-
+      - run: docker compose up -d
       - run: pnpm test
         env:
           NEXT_PUBLIC_CMS_REPO: timomeh/timomeh.de-content
@@ -71,3 +63,5 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+      - run: docker compose down
+        if: always()
