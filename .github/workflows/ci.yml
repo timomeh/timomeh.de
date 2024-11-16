@@ -32,6 +32,8 @@ jobs:
         image: docker.dragonflydb.io/dragonflydb/dragonfly
         ports:
           - 6379:6379
+        options: >-
+          --health-cmd="redis-cli ping || exit 1"
         volumes:
           - dragonflydata:/data
     steps:
