@@ -1,33 +1,31 @@
 ## [timomeh.de](https://timomeh.de)
 
-Source Code for my site and blog under [timomeh.de](https://timomeh.de). It's built on top of GitHub Discussions with Next.js
+Source Code of [timomeh.de](https://timomeh.de). It's built with Next.js, [Keystatic](https://keystatic.com/) as CMS, and Redis to cache and query content.
 
 I wrote posts about [how I'd like my Blog to work](https://timomeh.de/posts/how-to-build-a-blog) and [how I implemented it](https://timomeh.de/posts/how-i-built-this-blog), although the implementation post is outdated and changed a lot.
 
 See also:
 - ["Take Care of Your Blog"](https://www.robinrendle.com/notes/take-care-of-your-blog-/) by Robin Rendle
 
-## Discussions
+## Implementation details
 
-All posts are located in the Discussion's
-[Post Category](https://github.com/timomeh/timomeh.de/discussions/categories/posts) or [Offtopic Category](https://github.com/timomeh/timomeh.de/discussions/categories/offtopic). Why 2 categories? Historical reasons, I wanted to differentiate between posts I put more time into, and just brain blurbs.
+### Querying content
 
-## Architecture
+[Keystatic](https://keystatic.com/) allows me to edit and fetch content from a private GitHub repository. But you can only fetch content by its slug, and in order to filter posts, you'd need to fetch everything and filter it in code. That's why I store the content in a Redis cache with Redisearch, using [Dragonfly](https://dragonflydb.io/). It allows me to query, filter and paginate posts.
 
-To improve working with caching and revalidation, I structured data fetching into a simple and systematic way:
+### Serving images
 
-- Some components represent a resource (like a post or a tag).
-- Those components only get the resource's unique identifier as props – not the whole object.
-- Each one of those components then fetches their data itself.
+Images are stored in the private GitHub repository as well. To make them publicly accessible, I proxy and cache those images in a Next.js Route Handler.
 
-Using this structure, I can subscribe to GitHub's webhooks, and revalidate only the specific affected caches. This way a revalidation doesn't slow down the whole blog for a short while, but only the affected changes.
 
 ## Stack
 
 - [Next.js](https://nextjs.org/)
-- self-hosted on Hetzner
+- self-hosted on a [Hetzner VPS](https://www.hetzner.com/cloud/) with [Coolify](https://coolify.io/)
 - Cloudflare Proxy
-- [GitHub Discussions](https://github.com/timomeh/timomeh.de/discussions) / Octokit
+- [Keystatic](https://keystatic.com/)
+- Redis with [Dragonfly](https://dragonflydb.io/)
+- [Umami](https://umami.is/)
 - [Shiki](https://shiki.style/)
 - [next-mdx-remote](https://github.com/hashicorp/next-mdx-remote)
 - [Tailwind CSS](https://tailwindcss.com/)
