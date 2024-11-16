@@ -5,7 +5,7 @@ import Image, { ImageProps } from 'next/image'
 import { useState } from 'react'
 
 export function FadeInImage(props: ImageProps) {
-  const [loaded, setLoaded] = useState(false)
+  const [loaded, setLoaded] = useState(props.priority ? true : false)
 
   return (
     <Image

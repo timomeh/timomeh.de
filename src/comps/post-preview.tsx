@@ -49,6 +49,12 @@ export async function PostPreview({ slug, direction }: Props) {
           </div>
         )}
       </div>
+      {direction === 'older' && (
+        <div className="absolute inset-0 z-10 border-t border-white/20" />
+      )}
+      {direction === 'newer' && (
+        <div className="absolute inset-0 z-10 border-b border-white/20" />
+      )}
     </Link>
   )
 }

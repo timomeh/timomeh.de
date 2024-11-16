@@ -22,16 +22,17 @@ export async function ListedPost({ slug }: Props) {
       lang={post.meta.lang?.split('_')[0]}
       className="border-t border-white/10 pb-24"
     >
-      <header>
-        {post.frontmatter.cover ? (
-          <div className="-mb-8 sm:-mb-16 md:-mb-20">
-            <PostPreviewImage
-              src={contentAsset('posts', slug, post.frontmatter.cover)}
-              alt=""
-            />
-          </div>
-        ) : (
-          <div className="h-20" />
+      <header className="relative pt-20">
+        {post.frontmatter.cover && (
+          <>
+            <div className="absolute left-0 right-0 top-0">
+              <PostPreviewImage
+                src={contentAsset('posts', slug, post.frontmatter.cover)}
+                alt=""
+              />
+            </div>
+            <div className="aspect-[8/1] max-h-[120px]" />
+          </>
         )}
         <Link
           href={`/posts/${post.slug}`}

@@ -1,6 +1,6 @@
 import { HeaderBackdropHaze } from '@/comps/header-backdrop-haze'
 import { HeaderBackdropImage } from '@/comps/header-backdrop-image'
-import { contentAsset, contentAssetUrl } from '@/data/cms'
+import { contentAsset } from '@/data/cms'
 import { getPost } from '@/data/posts'
 
 type Props = {

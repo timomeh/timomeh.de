@@ -12,13 +12,14 @@ export function BackTag() {
   if (prevPath) {
     return (
       <button
-        className="group/tag-link ease-linear [transition:opacity_300ms,transform_60ms]
+        className="group/tag-link relative ease-linear [transition:opacity_300ms,transform_60ms]
           hover:!opacity-100 data-[current=false]:data-[dim-current=true]:opacity-75
           motion-safe:active:scale-[.97]"
         type="button"
         onClick={() => router.back()}
       >
         <Tag color="#DEC1EF" title="← Back" />
+        <div className="absolute inset-0 z-[-1] rounded-full bg-black/50" />
       </button>
     )
   }
