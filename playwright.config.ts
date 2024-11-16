@@ -41,7 +41,7 @@ export default defineConfig({
     {
       name: 'chromium-e2e',
       use: { ...devices['Desktop Chrome'] },
-      dependencies: ['setup db'],
+      dependencies: ['seed db'],
     },
   ],
 
