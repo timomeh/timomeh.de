@@ -25,20 +25,13 @@ export function Anchor(props: Props) {
   // external links. shows an external link indicator, but only for h1's
 
   return (
-    <a
-      {...props}
-      rel="noopener noreferrer"
-      target="_blank"
-      className={`group/link ${props.className || ''}`}
-    >
+    <a {...props} rel="noopener noreferrer" target="_blank">
       {props.children}
       <span
         aria-label="External link"
-        className="relative top-1 ml-2 hidden h-6 w-6 font-pixel text-purple-300/60
-          transition-colors group-hover/link:text-purple-300/100
-          group-has-[h1>a[href^='https://']]/prose:inline-block sm:-top-2"
+        className="external-link ml-2 hidden font-pixel text-[0.7em] font-normal opacity-50 sm:ml-3"
       >
-        <ExternalLink />
+        {'🔗'}
       </span>
     </a>
   )
