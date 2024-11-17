@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { FeedIcon } from './icons/feed'
 import { MastodonIcon } from './icons/mastodon'
 import { ArchiveIcon } from './icons/archive'
+import { BlueskyIcon } from './icons/bluesky'
 
 export function SocialBox() {
   return (
@@ -21,7 +22,7 @@ export function SocialBox() {
           </div>
         </Link>
         <a
-          title="@timomeh@mastodon.social"
+          title="@timomeh@mastodon.social on Mastodon"
           href="https://mastodon.social/@timomeh"
           rel="noopener noreferrer me"
           target="_blank"
@@ -29,6 +30,17 @@ export function SocialBox() {
         >
           <div className="size-4">
             <MastodonIcon />
+          </div>
+        </a>
+        <a
+          title="@timomeh.de on Bluesky"
+          href="https://bsky.app/profile/timomeh.de"
+          rel="noopener noreferrer"
+          target="_blank"
+          className="-mx-1 my-[-7px] px-1 py-2 opacity-70 transition-opacity hover:opacity-100"
+        >
+          <div className="size-3.5">
+            <BlueskyIcon />
           </div>
         </a>
         <Link
