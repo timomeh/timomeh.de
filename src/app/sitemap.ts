@@ -141,5 +141,5 @@ async function generatePageSitemap() {
 }
 
 function fullUrl(path: string) {
-  return `${config.siteUrl}/${path}`
+  return `${config.siteUrl}${path}`
 }
