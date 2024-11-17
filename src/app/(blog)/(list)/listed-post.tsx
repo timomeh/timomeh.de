@@ -1,3 +1,4 @@
+import { Anchor } from '@/comps/mdx/anchor'
 import { MDX } from '@/comps/mdx/mdx'
 import { PostHeader } from '@/comps/post-header'
 import { PostPreviewImage } from '@/comps/post-preview-image'
@@ -5,6 +6,7 @@ import { Prose } from '@/comps/prose'
 import { contentAsset } from '@/data/cms'
 import { getPost } from '@/data/posts'
 import Link from 'next/link'
+import React from 'react'
 
 type Props = {
   slug: string
@@ -39,16 +41,21 @@ export async function ListedPost({ slug }: Props) {
           </Link>
           <MDX
             components={{
-              h1: (props) => (
-                <h1>
-                  <Link
-                    href={`/posts/${post.slug}`}
-                    className="font-semibold no-underline"
-                  >
-                    {props.children}
+              h1: (props) => {
+                let hasLink = false
+
+                React.Children.forEach(props.children, (child) => {
+                  hasLink = child.type === Anchor
+                })
+
+                if (hasLink) return <h1>{props.children}</h1>
+
+                return (
+                  <Link href={`/posts/${post.slug}`} className="no-underline">
+                    <h1>{props.children}</h1>
                   </Link>
-                </h1>
-              ),
+                )
+              },
             }}
             assetPrefix={contentAsset('posts', post.slug, '')}
             content={post.content}

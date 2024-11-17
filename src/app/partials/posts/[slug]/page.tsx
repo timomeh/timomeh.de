@@ -24,7 +24,11 @@ export default async function Page(props: Props) {
   const post = await getPost(params.slug)
   if (!post) notFound()
 
-  const contentWithoutH1 = post.content.replace(/^# .+\n?/, '')
+  // strip h1 but only if it isn't a link
+  const contentWithoutH1 = post.content.replace(
+    /^# (?!.*\[[^\]]+\]\([^)]+\)).+\n?/,
+    '',
+  )
 
   return (
     <article id="partial">
