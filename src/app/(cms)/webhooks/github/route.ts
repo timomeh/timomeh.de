@@ -13,6 +13,8 @@ import { logger } from '@/lib/log'
 export const fetchCache = 'default-cache'
 const log = logger.child({ module: 'webhooks/github' })
 
+// cache content changes
+
 export async function POST(request: NextRequest) {
   const webhooks = new Webhooks({
     secret: config.github.webhookSecret,

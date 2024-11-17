@@ -14,6 +14,9 @@ type Props = {
   params: Promise<{ slug: string }>
 }
 
+// Renders a simple HTML version of a blogpost. Used for HTML in feeds.
+// Cause rendering MDX in a route handler is apparently a pain.
+
 export default async function Page(props: Props) {
   const h = await headers()
   if (h.get('x-api-key') !== config.api.internalSecret) {

@@ -9,6 +9,7 @@ export function Blockquote({ children, ...rest }: Props) {
       {...rest}
       className="relative my-10 rounded-lg border-none pl-5 pr-2 sm:pl-2"
     >
+      {/* ∠ */}
       <div className="absolute -inset-y-4 inset-x-0 shadow-xl sm:-inset-x-4 sm:-inset-y-5">
         <div className="absolute bottom-0 left-[1px] top-0 opacity-50">
           <div className="absolute bottom-0 top-0 w-0 border-l-[2px] border-yellow-300" />

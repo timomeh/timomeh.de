@@ -4,6 +4,8 @@ import keystaticConfig from '@/keystatic.config'
 import { config } from '@/config'
 import { cleanse } from '@/lib/cleanse'
 
+// everything related to fetching posts with keystatic
+
 const reader = createGitHubReader(keystaticConfig, {
   repo: process.env.NEXT_PUBLIC_CMS_REPO! as `${string}/${string}`,
   token: config.github.contentPat,

@@ -1,4 +1,4 @@
-// Source:
+// Inspired by:
 // https://github.com/stefanprobst/keystatic-footnotes/blob/main/lib/footnotes.js
 
 import {
@@ -8,6 +8,13 @@ import {
 } from 'mdast-util-mdx'
 import { SKIP, visit } from 'unist-util-visit'
 import { Root } from 'mdast'
+
+// This chonker will turn all inline MDX `<Footnote />` components into multiple
+// components, which makes it easier to render them.
+// - <FootnoteReference /> is the small number that references a footnote
+// - <FootnoteContent /> is the content of a footnote
+// - <FootnoteSection /> is a section of FootnoteContent's, that's put before the
+//   next headline, or at the end of the page.
 
 export function withMdxFootnotes() {
   return function transformer(tree: Root) {

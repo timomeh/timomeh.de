@@ -12,6 +12,8 @@ import { db, repo } from '@/data/db'
 export const fetchCache = 'default-cache'
 const log = logger.child({ module: 'webhooks/nuke' })
 
+// yeet everything that's in the cache and re-cache it.
+
 export async function GET(request: NextRequest) {
   if (
     process.env.NODE_ENV === 'production' &&

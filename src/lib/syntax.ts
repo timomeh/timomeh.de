@@ -8,6 +8,8 @@ import {
 } from '@shikijs/transformers'
 import { codeToHtml } from 'shiki'
 
+// basically smol wrapper around shiki
+
 export async function highlight(code: string, lang: string) {
   const html = codeToHtml(code, {
     lang,

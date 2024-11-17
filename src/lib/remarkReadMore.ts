@@ -1,6 +1,8 @@
 import { visit } from 'unist-util-visit'
 import { Root } from 'mdast'
 
+// This boy will yeet everything after `<ReadMore />`.
+
 export function remarkReadMore() {
   return function transformer(tree: Root) {
     let readMoreFound = false

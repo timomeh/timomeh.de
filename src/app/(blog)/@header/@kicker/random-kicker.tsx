@@ -1,5 +1,5 @@
 import { getSettings } from '@/data/settings'
-import { sample } from 'lodash'
+import { sample } from '@/lib/sample'
 
 export async function RandomKicker() {
   const { kickers } = await getSettings()

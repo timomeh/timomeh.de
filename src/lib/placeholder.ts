@@ -2,6 +2,8 @@ import { unstable_cache } from 'next/cache'
 import { getPlaiceholder } from 'plaiceholder'
 import { cache } from 'react'
 
+// turn images into blurry placeholders
+
 export const getPlaceholder = cache((src: string) => {
   const cacheFn = unstable_cache(
     () => getPlaceholderUncached(src),

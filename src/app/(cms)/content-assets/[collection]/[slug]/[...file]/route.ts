@@ -5,6 +5,8 @@ import { getTag } from '@/data/tags'
 import { notFound } from 'next/navigation'
 import { NextResponse } from 'next/server'
 
+// public proxy for files in the private github repo
+
 export async function GET(
   _req: Request,
   props: {
