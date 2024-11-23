@@ -34,7 +34,7 @@ export default async function Page(props: Props) {
 export async function generateMetadata(props: Props) {
   const params = await props.params
   const page = await getPage(params.page)
-  if (!page) notFound()
+  if (!page) return {}
 
   cacheTag('page', `page:${page.slug}`)
 

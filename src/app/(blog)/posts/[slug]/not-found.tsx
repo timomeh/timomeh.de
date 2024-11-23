@@ -1,6 +1,6 @@
 import { Prose } from '@/comps/prose'
 
-export default async function NotFound() {
+export default function NotFound() {
   return (
     <div className="mx-auto mt-10 max-w-2xl">
       <Prose crtTitle>

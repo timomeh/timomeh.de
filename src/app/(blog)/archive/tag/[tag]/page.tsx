@@ -25,7 +25,7 @@ export default async function Page(props: Props) {
 export async function generateMetadata(props: Props) {
   const params = await props.params
   const tag = await getTag(params.tag)
-  if (!tag) notFound()
+  if (!tag) return {}
 
   cacheTag('tag', `tag:${tag.slug}`)
 
