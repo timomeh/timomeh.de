@@ -24,7 +24,7 @@ export async function Img(props: Props) {
       />
       <div
         aria-hidden
-        className="absolute inset-0 z-[-1] opacity-30 blur-lg"
+        className="absolute inset-0 z-[-1] opacity-60 blur-md"
         style={css}
       />
     </div>
