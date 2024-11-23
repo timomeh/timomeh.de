@@ -89,6 +89,7 @@ module.exports = {
       },
       animation: {
         'fade-in': 'fadeIn 0.2s linear',
+        'outline-bounce': 'outlineBounce 0.3s',
       },
       keyframes: {
         path: {
@@ -114,6 +115,17 @@ module.exports = {
         slideDown: {
           from: { transform: 'translateY(0)' },
           to: { transform: 'translateY(100%)' },
+        },
+        outlineBounce: {
+          '0%': {
+            outlineOffset: '4px',
+          },
+          '50%': {
+            outlineOffset: '6px',
+          },
+          '100%': {
+            outlineOffset: '4px',
+          },
         },
       },
     },

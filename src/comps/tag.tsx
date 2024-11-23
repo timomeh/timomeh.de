@@ -24,7 +24,7 @@ export function Tag({ color, title, size = 'normal' }: Props) {
         />
         <div
           className="relative text-nowrap text-[color-mix(in_srgb,currentColor_50%,white)]
-            brightness-150"
+            antialiased brightness-150 [font-feature-settings:'ss01']"
         >
           {title}
         </div>

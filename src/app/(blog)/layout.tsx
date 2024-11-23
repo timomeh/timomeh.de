@@ -52,7 +52,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`h-full bg-[#1f1e1f] bg-grainy text-white ${pixeloid.variable}
+      className={`motion-safe:[&_*:focus-visible]:animate-outline-bounce h-full bg-[#1f1e1f]
+        bg-grainy text-white [&_*:focus-visible]:rounded-sm [&_*:focus-visible]:outline
+        [&_*:focus-visible]:outline-2 [&_*:focus-visible]:outline-offset-4
+        [&_*:focus-visible]:outline-emerald-300 ${pixeloid.variable}
         ${ibmPlexMono.variable} ${outfit.variable} ${inter.variable}`}
     >
       <head>

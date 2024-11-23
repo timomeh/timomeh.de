@@ -73,6 +73,9 @@ async function PostsByYear({ tag, year }: { tag?: string; year?: number }) {
                 <MDX
                   content={markdownHeadline(post.content) || post.title}
                   inline
+                  components={{
+                    a: (props) => <>{props.children}</>,
+                  }}
                 />
               </Link>
             </h3>

@@ -7,7 +7,7 @@ export function Prose({ children, crtTitle }: Props) {
   return (
     <div
       data-crt={crtTitle}
-      className="prose-h1:data-[crt=true]:effect-crt-blue prose prose-invert
+      className="prose-h1:data-[crt=true]:effect-crt-blue prose prose-invert underline-offset-2
         prose-headings:text-balance prose-headings:font-display
         prose-headings:font-semibold prose-headings:leading-tight prose-h1:text-2xl
         prose-h1:leading-tight prose-h1:data-[crt=true]:font-pixel

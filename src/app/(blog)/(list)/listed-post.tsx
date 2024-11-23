@@ -36,9 +36,7 @@ export async function ListedPost({ slug }: Props) {
       )}
       <div className="relative mx-auto max-w-2xl animate-fade-in px-4">
         <Prose>
-          <Link href={`/posts/${post.slug}`} className="no-underline">
-            <PostHeader slug={post.slug} />
-          </Link>
+          <PostHeader slug={post.slug} linked />
           <MDX
             components={{
               h1: (props) => {
@@ -51,9 +49,11 @@ export async function ListedPost({ slug }: Props) {
                 if (hasLink) return <h1>{props.children}</h1>
 
                 return (
-                  <Link href={`/posts/${post.slug}`} className="no-underline">
-                    <h1>{props.children}</h1>
-                  </Link>
+                  <h1>
+                    <Link href={`/posts/${post.slug}`} className="no-underline">
+                      {props.children}
+                    </Link>
+                  </h1>
                 )
               },
             }}

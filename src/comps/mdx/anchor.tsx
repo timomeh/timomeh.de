@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { ExternalLink } from '../icons/external-link'
 
 type Props = React.DetailedHTMLProps<
   React.AnchorHTMLAttributes<HTMLAnchorElement>,
@@ -29,7 +28,8 @@ export function Anchor(props: Props) {
       {props.children}
       <span
         aria-label="External link"
-        className="external-link ml-2 hidden font-pixel text-[0.7em] font-normal opacity-50 sm:ml-3"
+        className="external-link ml-2 hidden font-pixel text-[0.7em] font-normal leading-none
+          opacity-50 sm:ml-3"
       >
         {'🔗'}
       </span>

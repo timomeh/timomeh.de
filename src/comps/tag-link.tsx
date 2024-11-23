@@ -16,7 +16,8 @@ export function TagLink({ dim, ...rest }: Props) {
       data-current={pathname.split('page/')[0] === rest.href}
       data-dim-current={dim}
       className="group/tag-link relative ease-linear [transition:opacity_300ms,transform_60ms]
-        hover:!opacity-100 data-[current=false]:data-[dim-current=true]:opacity-60
+        hover:!opacity-100 group-focus-within/tags:!opacity-100
+        data-[current=false]:data-[dim-current=true]:opacity-75
         focus-visible:data-[current=false]:data-[dim-current=true]:opacity-80
         group-hover/tags:data-[current=false]:data-[dim-current=true]:opacity-80
         motion-safe:active:scale-[.97]"
