@@ -1,7 +1,5 @@
 import '@/styles/globals.css'
 
-export const fetchCache = 'default-cache'
-
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">

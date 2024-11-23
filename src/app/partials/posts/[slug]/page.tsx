@@ -4,11 +4,7 @@ import { contentAsset } from '@/data/cms'
 import { getPost } from '@/data/posts'
 import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
-
-export const dynamicParams = true
-export function generateStaticParams() {
-  return []
-}
+import { Suspense } from 'react'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -18,11 +14,16 @@ type Props = {
 // Cause rendering MDX in a route handler is apparently a pain.
 
 export default async function Page(props: Props) {
-  const h = await headers()
-  if (h.get('x-api-key') !== config.api.internalSecret) {
-    notFound()
-  }
+  return (
+    <Suspense>
+      <Access>
+        <CachedPost {...props} />
+      </Access>
+    </Suspense>
+  )
+}
 
+async function CachedPost(props: Props) {
   const params = await props.params
   const post = await getPost(params.slug)
   if (!post) notFound()
@@ -42,4 +43,16 @@ export default async function Page(props: Props) {
       />
     </article>
   )
+}
+
+async function Access(props: { children: React.ReactNode }) {
+  const h = await headers()
+  if (
+    process.env.NODE_ENV === 'production' &&
+    h.get('x-api-key') !== config.api.internalSecret
+  ) {
+    notFound()
+  }
+
+  return <>{props.children}</>
 }

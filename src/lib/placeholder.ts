@@ -1,20 +1,13 @@
-import { unstable_cache } from 'next/cache'
 import { getPlaiceholder } from 'plaiceholder'
-import { cache } from 'react'
+import { unstable_cacheLife as cacheLife } from 'next/cache'
 
 // turn images into blurry placeholders
 
-export const getPlaceholder = cache((src: string) => {
-  const cacheFn = unstable_cache(
-    () => getPlaceholderUncached(src),
-    [`getPlaceholderUncached/${src}`],
-  )
+export async function getPlaceholder(src: string) {
+  'use cache'
+  cacheLife('max')
 
-  return cacheFn()
-})
-
-async function getPlaceholderUncached(src: string) {
-  const res = await fetch(src, { cache: 'no-store' })
+  const res = await fetch(src)
   const buffer = Buffer.from(await res.arrayBuffer())
 
   const {

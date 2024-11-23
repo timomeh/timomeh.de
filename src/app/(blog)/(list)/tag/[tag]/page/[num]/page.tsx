@@ -1,3 +1,6 @@
+'use cache'
+
+import { unstable_cacheTag as cacheTag } from 'next/cache'
 import { getOlderPost, pagePublishedPosts } from '@/data/posts'
 import { saneParseInt } from '@/lib/saneParseInt'
 import { notFound } from 'next/navigation'
@@ -12,6 +15,8 @@ type Props = {
 }
 
 export default async function Page(props: Props) {
+  cacheTag('posts-list')
+
   const params = await props.params
   const num = saneParseInt(params.num)
   if (!num) notFound()
@@ -50,6 +55,8 @@ export async function generateMetadata(props: Props) {
   const params = await props.params
   const tag = await getTag(params.tag)
   if (!tag) return {}
+
+  cacheTag('tag', `tag:${tag.slug}`)
 
   const metadata: Metadata = {
     title: `${tag.title}, Page ${params.num}`,

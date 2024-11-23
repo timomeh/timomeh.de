@@ -1,9 +1,13 @@
+'use cache'
+
+import { unstable_cacheTag as cacheTag } from 'next/cache'
 import { getOlderPost, pagePublishedPosts } from '@/data/posts'
 import { ListedPost } from './listed-post'
 import { Pagination } from '@/comps/pagination'
 import { Metadata } from 'next'
 
 export default async function Page() {
+  cacheTag('posts-list')
   const posts = await pagePublishedPosts(0)
 
   const olderPost = await getOlderPost(posts.at(-1)?.slug)

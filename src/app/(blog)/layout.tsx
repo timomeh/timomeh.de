@@ -1,3 +1,5 @@
+'use cache'
+
 import '@/styles/globals.css'
 
 import { IBM_Plex_Mono, Inter, Outfit } from 'next/font/google'
@@ -34,8 +36,6 @@ const pixeloid = localFont({
   variable: '--font-pixeloid',
 })
 
-export const fetchCache = 'default-cache'
-
 type Props = {
   children: React.ReactNode
   header: React.ReactNode
@@ -43,7 +43,7 @@ type Props = {
   bottomscroll: React.ReactNode
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   header,
   topscroll,

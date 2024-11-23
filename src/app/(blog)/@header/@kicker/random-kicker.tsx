@@ -1,7 +1,16 @@
 import { getSettings } from '@/data/settings'
 import { sample } from '@/lib/sample'
+import { Suspense } from 'react'
 
-export async function RandomKicker() {
+export function RandomKicker() {
+  return (
+    <Suspense>
+      <RandomKickerSentence />
+    </Suspense>
+  )
+}
+
+async function RandomKickerSentence() {
   const { kickers } = await getSettings()
   const fallback = 'a head full of milk foam by'
 
