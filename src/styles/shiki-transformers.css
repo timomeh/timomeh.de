@@ -1,6 +1,7 @@
 pre.shiki {
   position: relative;
   overflow: scroll;
+  border-radius: 0.375rem;
 }
 
 .shiki code {

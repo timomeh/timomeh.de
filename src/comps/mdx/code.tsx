@@ -38,19 +38,32 @@ export async function Code(props: Props) {
     'shellscript',
     'zsh',
     'shellsession',
+    'log',
   ]
+
+  const colors: Record<string, string> = {
+    css: 'bg-[rebeccapurple] text-[#d2b7ed]',
+    html: 'bg-[#f06529]',
+    js: 'bg-[#f7df1e]',
+    jsx: 'bg-[#f7df1e]',
+    ts: 'bg-[#f7df1e]',
+    tsx: 'bg-[#f7df1e]',
+    ruby: 'bg-[#A91401] text-[#f2d6d3]',
+    rb: 'bg-[#A91401] text-[#f2d6d3]',
+    elixir: 'bg-[#48205D] text-[#e1c5f0]',
+  }
 
   return (
     <div
-      className="not-prose relative my-8 overflow-clip rounded-md border border-white/10 text-sm
-        font-normal shadow-purple-300/5 [box-shadow:0_0_24px_var(--tw-shadow-color)]
-        md:-mx-4"
+      className="not-prose relative my-8 rounded-md border border-white/10 text-sm font-normal
+        shadow-purple-300/5 [box-shadow:0_0_24px_var(--tw-shadow-color)] md:-mx-4"
     >
-      <div dangerouslySetInnerHTML={{ __html: html }} />
+      <div dangerouslySetInnerHTML={{ __html: html }} className="rounded-md" />
       {lang && !hiddenLangs.includes(lang) && (
         <span
-          className="absolute right-1 top-1 select-none font-pixel text-3xs font-bold text-[#a9b1d6]
-            opacity-50"
+          className={`absolute right-0 top-0 select-none rounded-bl rounded-tr px-1.5 pb-1 pt-1
+          text-2xs font-bold uppercase leading-none text-[#1a1b26] ${ colors[lang] ||
+          'bg-[#BB9AF7]/80' }`}
         >
           {lang}
         </span>
