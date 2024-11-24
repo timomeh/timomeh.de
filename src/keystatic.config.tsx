@@ -57,7 +57,10 @@ const components = {
       caption: fields.text({
         label: 'Caption',
         multiline: true,
-        validation: { isRequired: true },
+      }),
+      shadow: fields.checkbox({
+        label: 'Shadow',
+        defaultValue: true,
       }),
     },
   }),
