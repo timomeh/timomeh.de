@@ -19,7 +19,10 @@ type Props = {
 
 export default async function Page(props: Props) {
   const h = await headers()
-  if (h.get('x-api-key') !== config.api.internalSecret) {
+  if (
+    process.env.NODE_ENV === 'production' &&
+    h.get('x-api-key') !== config.api.internalSecret
+  ) {
     notFound()
   }
 
