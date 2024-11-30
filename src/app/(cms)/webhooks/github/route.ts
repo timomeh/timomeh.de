@@ -1,6 +1,6 @@
 import { Webhooks } from '@octokit/webhooks'
 import { EventPayloadMap, PushEvent } from '@octokit/webhooks-types'
-import { expireTag } from 'next/cache'
+import { unstable_expireTag as expireTag } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
 
 import { updatePageCache } from '@/data/pages'

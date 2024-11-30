@@ -7,7 +7,7 @@ import { updateSettingsCache } from '@/data/settings'
 import { config } from '@/config'
 import { logger } from '@/lib/log'
 import { db, repo } from '@/data/db'
-import { expireTag } from 'next/cache'
+import { unstable_expireTag as expireTag } from 'next/cache'
 
 const log = logger.child({ module: 'webhooks/nuke' })
 
