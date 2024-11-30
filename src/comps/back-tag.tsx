@@ -17,6 +17,8 @@ export function BackTag() {
           motion-safe:active:scale-[.97]"
         type="button"
         onClick={() => router.back()}
+        data-umami-event="Back button"
+        data-umami-event-type="history"
       >
         <Tag color="#DEC1EF" title="← Back" />
         <div className="absolute inset-0 z-[-1] rounded-full bg-black/50" />
@@ -24,7 +26,11 @@ export function BackTag() {
     )
   }
   return (
-    <TagLink href="/">
+    <TagLink
+      href="/"
+      data-umami-event="Back button"
+      data-umami-event-type="static"
+    >
       <Tag color="#DEC1EF" title="← Back" />
     </TagLink>
   )

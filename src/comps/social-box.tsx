@@ -27,6 +27,7 @@ export function SocialBox() {
           rel="noopener noreferrer me"
           target="_blank"
           className="-mx-1 -my-2 px-1 py-2 opacity-70 transition-opacity hover:opacity-100"
+          data-umami-event="Mastodon link"
         >
           <div className="size-4">
             <MastodonIcon />
@@ -38,6 +39,7 @@ export function SocialBox() {
           rel="noopener noreferrer"
           target="_blank"
           className="-mx-1 my-[-7px] px-1 py-2 opacity-70 transition-opacity hover:opacity-100"
+          data-umami-event="Bluesky link"
         >
           <div className="size-3.5">
             <BlueskyIcon />
