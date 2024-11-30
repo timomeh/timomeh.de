@@ -13,7 +13,7 @@ export async function GET(_req: Request, props: Options) {
     params.type !== 'rss' &&
     params.type !== 'json'
   ) {
-    return new Response('Not an allowed feed type', { status: 400 })
+    return new Response('Not a supported feed type', { status: 400 })
   }
 
   const feed = await buildFeed(params.type)

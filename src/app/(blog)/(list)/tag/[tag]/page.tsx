@@ -1,17 +1,24 @@
+'use cache'
+
+import { unstable_cacheTag as cacheTag } from 'next/cache'
 import { getOlderPost, pagePublishedPosts } from '@/data/posts'
 import { ListedPost } from '../../listed-post'
 import { Pagination } from '@/comps/pagination'
 import { getTag } from '@/data/tags'
 import { Metadata } from 'next'
 import { contentAsset } from '@/data/cms'
+import { notFound } from 'next/navigation'
 
 type Props = {
   params: Promise<{ tag: string }>
 }
 
 export default async function Page(props: Props) {
+  cacheTag('posts-list')
+
   const params = await props.params
   const posts = await pagePublishedPosts(0, { tag: params.tag })
+  if (posts.length < 1) notFound()
 
   const olderPost = await getOlderPost(posts.at(-1)?.slug, { tag: params.tag })
   const hasOlderPost = !!olderPost
@@ -35,7 +42,9 @@ export default async function Page(props: Props) {
 export async function generateMetadata(props: Props) {
   const params = await props.params
   const tag = await getTag(params.tag)
-  if (!tag) return {}
+  if (!tag) notFound()
+
+  cacheTag('tag', `tag:${tag.slug}`)
 
   const metadata: Metadata = {
     title: tag.title,

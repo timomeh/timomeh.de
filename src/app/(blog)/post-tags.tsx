@@ -1,3 +1,4 @@
+import { unstable_cacheTag as cacheTag } from 'next/cache'
 import { PostTag } from '@/comps/post-tag'
 import { Tag } from '@/comps/tag'
 import { TagLink } from '@/comps/tag-link'
@@ -8,6 +9,9 @@ type Props = {
 }
 
 export async function PostTags({ scope }: Props) {
+  'use cache'
+  cacheTag('tags-list')
+
   const tags = await listTags()
 
   return (

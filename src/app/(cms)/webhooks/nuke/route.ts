@@ -4,12 +4,11 @@ import { cacheAllPages } from '@/data/pages'
 import { cacheAllPosts } from '@/data/posts'
 import { cacheAllTags } from '@/data/tags'
 import { updateSettingsCache } from '@/data/settings'
-import { revalidateTag } from 'next/cache'
 import { config } from '@/config'
 import { logger } from '@/lib/log'
 import { db, repo } from '@/data/db'
+import { expireTag } from 'next/cache'
 
-export const fetchCache = 'default-cache'
 const log = logger.child({ module: 'webhooks/nuke' })
 
 // yeet everything that's in the cache and re-cache it.
@@ -46,7 +45,7 @@ export async function GET(request: NextRequest) {
   await cacheAllPosts()
   await cacheAllTags()
   await updateSettingsCache()
-  revalidateTag('compiled-posts')
+  expireTag('tag', 'post', 'page', 'posts-list', 'tags-list')
 
   log.info('Successfully nuked all caches')
 

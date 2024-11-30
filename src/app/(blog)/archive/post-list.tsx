@@ -1,3 +1,4 @@
+import { unstable_cacheTag as cacheTag } from 'next/cache'
 import Link from 'next/link'
 import { PostTag } from '@/comps/post-tag'
 import { MDX } from '@/comps/mdx/mdx'
@@ -11,6 +12,9 @@ type Props = {
 }
 
 export async function PostList({ tag }: Props) {
+  'use cache'
+  cacheTag('posts-list')
+
   const [latest, earliest] = await getPublishedPostsRange({ tag })
   const years = range(earliest.getFullYear(), latest.getFullYear()).reverse()
 

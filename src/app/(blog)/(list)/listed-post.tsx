@@ -1,3 +1,6 @@
+'use cache'
+
+import { unstable_cacheTag as cacheTag } from 'next/cache'
 import { Anchor } from '@/comps/mdx/anchor'
 import { MDX } from '@/comps/mdx/mdx'
 import { PostHeader } from '@/comps/post-header'
@@ -13,6 +16,8 @@ type Props = {
 }
 
 export async function ListedPost({ slug }: Props) {
+  cacheTag('listed-post', 'post', `post:${slug}`)
+
   const post = await getPost(slug)
   if (!post) return null
 

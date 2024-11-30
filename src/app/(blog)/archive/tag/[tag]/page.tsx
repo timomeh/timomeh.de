@@ -1,3 +1,6 @@
+'use cache'
+
+import { unstable_cacheTag as cacheTag } from 'next/cache'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
@@ -5,16 +8,13 @@ import { PostList } from '../../post-list'
 import { getTag } from '@/data/tags'
 import { contentAsset } from '@/data/cms'
 
-export const dynamicParams = true
-export function generateStaticParams() {
-  return []
-}
-
 type Props = {
   params: Promise<{ tag: string }>
 }
 
 export default async function Page(props: Props) {
+  cacheTag('posts-list')
+
   const params = await props.params
   const tag = await getTag(params.tag)
   if (!tag) notFound()
@@ -26,6 +26,8 @@ export async function generateMetadata(props: Props) {
   const params = await props.params
   const tag = await getTag(params.tag)
   if (!tag) notFound()
+
+  cacheTag('tag', `tag:${tag.slug}`)
 
   const metadata: Metadata = {
     title: `${tag.title} Archive`,

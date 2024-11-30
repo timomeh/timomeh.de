@@ -1,3 +1,5 @@
+'use cache'
+
 import { BackTag } from '@/comps/back-tag'
 import { Footer } from '@/comps/footer'
 
@@ -5,7 +7,7 @@ type Props = {
   children: React.ReactNode
 }
 
-export default function Layout({ children }: Props) {
+export default async function Layout({ children }: Props) {
   return (
     <>
       <main className="relative z-30 w-full flex-1">

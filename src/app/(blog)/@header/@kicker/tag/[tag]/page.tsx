@@ -1,3 +1,5 @@
+'use cache'
+
 import { getTag } from '@/data/tags'
 import { RandomKicker } from '../../random-kicker'
 

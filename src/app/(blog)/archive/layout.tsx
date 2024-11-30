@@ -1,3 +1,5 @@
+'use cache'
+
 import { PostTags } from '../post-tags'
 import { Footer } from '@/comps/footer'
 

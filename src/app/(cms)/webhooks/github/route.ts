@@ -1,6 +1,6 @@
 import { Webhooks } from '@octokit/webhooks'
 import { EventPayloadMap, PushEvent } from '@octokit/webhooks-types'
-import { revalidateTag } from 'next/cache'
+import { expireTag } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
 
 import { updatePageCache } from '@/data/pages'
@@ -10,7 +10,6 @@ import { updateSettingsCache } from '@/data/settings'
 import { config } from '@/config'
 import { logger } from '@/lib/log'
 
-export const fetchCache = 'default-cache'
 const log = logger.child({ module: 'webhooks/github' })
 
 // cache content changes
@@ -52,30 +51,39 @@ export async function POST(request: NextRequest) {
   if (event === 'push') {
     const data = JSON.parse(body) as PushEvent
 
-    const allChanges = data.commits
-      .map((commit) => [...commit.modified, ...commit.added, ...commit.removed])
-      .flat()
-    const changedFiles = Array.from(new Set(allChanges))
+    const allModified = data.commits.map((commit) => commit.modified).flat()
+    const allAdded = data.commits.map((commit) => commit.added).flat()
+    const allRemoved = data.commits.map((commit) => commit.removed).flat()
 
+    const changedFiles = Array.from(
+      new Set([...allModified, ...allAdded, ...allRemoved]),
+    )
+    const addedOrRemovedFiles = Array.from(
+      new Set([...allAdded, ...allRemoved]),
+    )
+
+    // update individuals
     await Promise.allSettled(
       changedFiles.map(async (file) => {
         const [resource, slug] = file.split('/')
 
         if (resource === 'posts') {
           await updatePostCache(slug)
-          revalidateTag(`compiled-post/${slug}`)
+          expireTag(`post:${slug}`)
           log.info({ resource, slug }, 'Updated cache')
           return
         }
 
         if (resource === 'pages') {
           await updatePageCache(slug)
+          expireTag(`page:${slug}`)
           log.info({ resource, slug }, 'Updated cache')
           return
         }
 
         if (resource === 'tags') {
           await updateTagCache(slug)
+          expireTag(`tags:${slug}`)
           log.info({ resource, slug }, 'Updated cache')
           return
         }
@@ -89,6 +97,18 @@ export async function POST(request: NextRequest) {
         log.debug(`Nothing to update for ${file}`)
       }),
     )
+
+    // update lists
+    for (const file of addedOrRemovedFiles) {
+      const [resource] = file.split('/')
+      if (resource === 'posts') {
+        expireTag('posts-list')
+      }
+
+      if (resource === 'tags') {
+        expireTag('tags-list')
+      }
+    }
 
     return NextResponse.json({
       revalidated: true,

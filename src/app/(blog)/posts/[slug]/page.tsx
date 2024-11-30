@@ -1,16 +1,13 @@
-import { notFound } from 'next/navigation'
+'use cache'
 
+import { notFound } from 'next/navigation'
+import { unstable_cacheTag as cacheTag } from 'next/cache'
 import { MDX } from '@/comps/mdx/mdx'
 import { PostHeader } from '@/comps/post-header'
 import { getPost } from '@/data/posts'
 import { contentAsset } from '@/data/cms'
 import { Metadata } from 'next'
 import { Prose } from '@/comps/prose'
-
-export const dynamicParams = true
-export function generateStaticParams() {
-  return []
-}
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -20,6 +17,7 @@ export default async function Page(props: Props) {
   const params = await props.params
   const post = await getPost(params.slug)
   if (!post) notFound()
+  cacheTag('post', 'full-post', `post:${post.slug}`)
 
   return (
     <article
@@ -41,6 +39,7 @@ export async function generateMetadata(props: Props) {
   const params = await props.params
   const post = await getPost(params.slug)
   if (!post) notFound()
+  cacheTag('post', `post:${post.slug}`)
 
   const metadata: Metadata = {
     title: post.title,

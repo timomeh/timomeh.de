@@ -1,15 +1,12 @@
-import { notFound } from 'next/navigation'
+'use cache'
 
+import { notFound } from 'next/navigation'
+import { unstable_cacheTag as cacheTag } from 'next/cache'
 import { MDX } from '@/comps/mdx/mdx'
 import { getPage } from '@/data/pages'
 import { contentAsset } from '@/data/cms'
 import { Metadata } from 'next'
 import { Prose } from '@/comps/prose'
-
-export const dynamicParams = true
-export function generateStaticParams() {
-  return []
-}
 
 type Props = {
   params: Promise<{ page: string }>
@@ -19,6 +16,8 @@ export default async function Page(props: Props) {
   const params = await props.params
   const page = await getPage(params.page)
   if (!page) notFound()
+
+  cacheTag('page', `page:${page.slug}`)
 
   return (
     <article className="relative animate-fade-in">
@@ -36,6 +35,8 @@ export async function generateMetadata(props: Props) {
   const params = await props.params
   const page = await getPage(params.page)
   if (!page) notFound()
+
+  cacheTag('page', `page:${page.slug}`)
 
   const metadata: Metadata = {
     title: page.title,
