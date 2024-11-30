@@ -19,10 +19,10 @@ export default async function Page(props: Props) {
 
   const params = await props.params
   const num = saneParseInt(params.num)
-  if (!num) return {}
+  if (!num) notFound()
 
   const posts = await pagePublishedPosts(num, { tag: params.tag })
-  if (posts.length === 0) return {}
+  if (posts.length < 1) notFound()
 
   const olderPost = await getOlderPost(posts.at(-1)?.slug, { tag: params.tag })
   const hasOlderPost = !!olderPost
@@ -54,7 +54,7 @@ export default async function Page(props: Props) {
 export async function generateMetadata(props: Props) {
   const params = await props.params
   const tag = await getTag(params.tag)
-  if (!tag) return {}
+  if (!tag) notFound()
 
   cacheTag('tag', `tag:${tag.slug}`)
 

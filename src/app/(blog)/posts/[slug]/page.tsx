@@ -38,7 +38,7 @@ export default async function Page(props: Props) {
 export async function generateMetadata(props: Props) {
   const params = await props.params
   const post = await getPost(params.slug)
-  if (!post) return {}
+  if (!post) notFound()
   cacheTag('post', `post:${post.slug}`)
 
   const metadata: Metadata = {
