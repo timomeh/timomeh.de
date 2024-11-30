@@ -90,10 +90,12 @@ async function fetchRenderedHtml(slug: string) {
   })
   const html = await res.text()
 
-  // Use regular expression to find the <article id="partial">...</article> content
-  const match = html.match(/<article id="partial">([\s\S]*?)<\/article>/)
+  // Extract the content from between <marker-begin> and <marker-end>
+  const match = html.match(
+    /<marker-begin><\/marker-begin>([\s\S]*?)<marker-end><\/marker-end>/,
+  )
 
   // Extract and return only the content within the <article> tag
-  const articleContent = match?.[1]
+  const articleContent = match?.[1]?.trim()
   return articleContent
 }

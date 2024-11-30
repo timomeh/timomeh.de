@@ -10,20 +10,21 @@ type Props = {
   params: Promise<{ slug: string }>
 }
 
-// Renders a simple HTML version of a blogpost. Used for HTML in feeds.
-// Cause rendering MDX in a route handler is apparently a pain.
+// Renders a simple HTML version of a blogpost.
+// Used for the HTML in feeds. The feeds fetch this page and parse the content.
+// Why does this exist? Because rendering a RSC's in a route handler is insane.
 
 export default async function Page(props: Props) {
   return (
     <Suspense>
       <Access>
-        <CachedPost {...props} />
+        <SimplePost {...props} />
       </Access>
     </Suspense>
   )
 }
 
-async function CachedPost(props: Props) {
+async function SimplePost(props: Props) {
   const params = await props.params
   const post = await getPost(params.slug)
   if (!post) notFound()
@@ -34,14 +35,46 @@ async function CachedPost(props: Props) {
     '',
   )
 
+  // The content gets wrapped by <marker-start /> and <marker-end />, allowing
+  // for easy parsing.
+
   return (
     <article id="partial">
       <MDX
         plain
-        content={contentWithoutH1}
+        content={[
+          '<FeedParseMarker name="begin" />',
+          contentWithoutH1,
+          '<FeedParseMarker name="end" />',
+        ].join('\n')}
         assetPrefix={contentAsset('posts', post.slug, '')}
+        components={{
+          FeedParseMarker: (props: { name: string }) => {
+            const Element = `marker-${props.name}`
+            return <Element />
+          },
+        }}
       />
     </article>
+  )
+}
+
+export async function SuperSimplePost(props: { slug: string }) {
+  const post = await getPost(props.slug)
+  if (!post) notFound()
+
+  // strip h1 but only if it isn't a link
+  const contentWithoutH1 = post.content.replace(
+    /^# (?!.*\[[^\]]+\]\([^)]+\)).+\n?/,
+    '',
+  )
+
+  return (
+    <MDX
+      plain
+      content={contentWithoutH1}
+      assetPrefix={contentAsset('posts', post.slug, '')}
+    />
   )
 }
 
