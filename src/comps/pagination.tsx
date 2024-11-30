@@ -33,9 +33,9 @@ export function Pagination({
         {current > 0 ? (
           <Link
             href={current === 1 ? `${scope}/` : `${scope}/page/${current - 1}`}
-            className="effect-crt-blue opacity-70 transition-opacity hover:opacity-100"
+            className="opacity-70 transition-opacity hover:opacity-100 focus-visible:opacity-100"
           >
-            ← Newer
+            <span className="effect-crt-blue">← Newer</span>
           </Link>
         ) : (
           <div />
@@ -43,9 +43,9 @@ export function Pagination({
         {hasOlderPost ? (
           <Link
             href={`${scope}/page/${current + 1}`}
-            className="effect-crt-blue opacity-70 transition-opacity hover:opacity-100"
+            className="opacity-70 transition-opacity hover:opacity-100 focus-visible:opacity-100"
           >
-            Older →
+            <span className="effect-crt-blue">Older →</span>
           </Link>
         ) : (
           <div />

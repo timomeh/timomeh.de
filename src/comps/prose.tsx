@@ -12,8 +12,8 @@ export function Prose({ children, crtTitle }: Props) {
         prose-headings:font-semibold prose-headings:leading-tight prose-h1:text-2xl
         prose-h1:leading-tight prose-h1:data-[crt=true]:font-pixel
         prose-h1:data-[crt=true]:text-4xl prose-h1:data-[crt=true]:font-bold
-        prose-h1:data-[crt=true]:leading-none prose-a:break-words prose-figcaption:-mt-2
-        prose-figcaption:px-2 sm:prose-h1:text-3xl md:prose-figcaption:px-8
+        prose-h1:data-[crt=true]:leading-none prose-a:break-words prose-figcaption:-mt-5
+        sm:prose-h1:text-3xl md:prose-figure:-mx-4 md:prose-figcaption:px-4
         [&_a[href^='https://']>.external-link]:prose-h1:inline-block
         [&_a]:prose-headings:font-semibold [&_a]:prose-headings:decoration-purple-300
         [&_a]:prose-headings:underline-offset-4"

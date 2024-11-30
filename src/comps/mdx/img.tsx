@@ -20,13 +20,20 @@ export async function Img(props: Props) {
         width={img.width}
         height={img.height}
         alt={props.alt || ''}
-        className="relative rounded-md"
+        className="relative mx-auto rounded-md"
       />
       <div
         aria-hidden
-        className="absolute inset-0 z-[-1] opacity-60 blur-md"
-        style={css}
-      />
+        className="absolute inset-0 z-[-1] group-data-[shadow=false]/figure:hidden"
+      >
+        <div
+          className="mx-auto h-full max-w-full opacity-30 blur-lg"
+          style={{
+            ...css,
+            width: img.width,
+          }}
+        />
+      </div>
     </div>
   )
 }
