@@ -1,21 +1,18 @@
-'use cache'
-
-import { unstable_cacheTag as cacheTag } from 'next/cache'
 import { getTag } from '@/data/tags'
-import { RandomKicker } from '../../../../random-kicker'
+import { DataKicker } from '../../../../data-kicker'
 
 type Props = {
   params: Promise<{ tag: string }>
 }
 
-export default async function Page(props: Props) {
-  const params = await props.params
-  const tag = await getTag(params.tag)
-  cacheTag('tag', `tag:${params.tag}`)
-
-  if (tag?.frontmatter.kicker) {
-    return <span>{tag.frontmatter.kicker}</span>
-  }
-
-  return <RandomKicker />
+export default function Page(props: Props) {
+  return (
+    <DataKicker
+      fetcher={async () => {
+        const params = await props.params
+        const tag = await getTag(params.tag)
+        return tag?.frontmatter.kicker
+      }}
+    />
+  )
 }

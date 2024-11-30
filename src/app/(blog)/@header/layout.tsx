@@ -71,7 +71,14 @@ export default function Layout({ kicker, backdrop }: Props) {
             className="font-display text-xs leading-none text-yellow-100
               [text-shadow:0px_0px_6px_rgba(0,0,0,0.3)] xs:text-sm"
           >
-            <span data-visual-test="removed">{kicker}</span>
+            <span data-visual-test="removed">
+              <span
+                className="opacity-40 blur-[2px] transition-all has-[span[data-loaded=true]]:opacity-100
+                  has-[span[data-loaded=true]]:blur-none"
+              >
+                {kicker}
+              </span>
+            </span>
             <span className="-mt-1 block xs:-mt-2">
               <Link
                 href="/about"
