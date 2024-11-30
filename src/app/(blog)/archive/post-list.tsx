@@ -1,5 +1,3 @@
-'use cache'
-
 import { unstable_cacheTag as cacheTag } from 'next/cache'
 import Link from 'next/link'
 import { PostTag } from '@/comps/post-tag'
@@ -14,6 +12,7 @@ type Props = {
 }
 
 export async function PostList({ tag }: Props) {
+  'use cache'
   cacheTag('posts-list')
 
   const [latest, earliest] = await getPublishedPostsRange({ tag })

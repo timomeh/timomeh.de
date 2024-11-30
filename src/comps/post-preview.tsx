@@ -1,5 +1,3 @@
-'use cache'
-
 import Link from 'next/link'
 import { unstable_cacheTag as cacheTag } from 'next/cache'
 import { PostHeader } from './post-header'
@@ -15,6 +13,7 @@ type Props = {
 }
 
 export async function PostPreview({ slug, direction }: Props) {
+  'use cache'
   cacheTag('post', 'post-preview', `post:${slug}`)
   const post = await getPost(slug)
   if (!post) return null

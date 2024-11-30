@@ -1,5 +1,3 @@
-'use cache'
-
 import { ComponentProps } from 'react'
 
 import { unstable_cacheTag as cacheTag } from 'next/cache'
@@ -11,6 +9,7 @@ type Props = {
 } & Partial<ComponentProps<typeof Tag>>
 
 export async function PostTag({ slug, ...rest }: Props) {
+  'use cache'
   const tag = await getTag(slug)
   if (!tag) return null
 
