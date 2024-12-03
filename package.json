@@ -46,7 +46,7 @@
     "unist-util-visit": "5.0.0"
   },
   "devDependencies": {
-    "@argos-ci/playwright": "3.9.2",
+    "@argos-ci/playwright": "3.9.4",
     "@playwright/test": "1.49.0",
     "@tailwindcss/typography": "0.5.15",
     "@types/mdast": "4.0.4",
