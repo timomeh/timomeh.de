@@ -12,6 +12,7 @@ export default function robots() {
       },
       {
         userAgent: [
+          'Twitterbot',
           'AdsBot-Google',
           'Amazonbot',
           'anthropic-ai',
