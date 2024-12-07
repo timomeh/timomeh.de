@@ -52,10 +52,11 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`motion-safe:[&_*:focus-visible]:animate-outline-bounce h-full bg-[#1f1e1f]
-        bg-grainy text-white [&_*:focus-visible]:rounded-sm [&_*:focus-visible]:outline
+      className={`h-full bg-[#141314] bg-grainy bg-[length:200px_200px] text-white
+        [&_*:focus-visible]:rounded-sm [&_*:focus-visible]:outline
         [&_*:focus-visible]:outline-2 [&_*:focus-visible]:outline-offset-4
-        [&_*:focus-visible]:outline-emerald-300 ${pixeloid.variable}
+        [&_*:focus-visible]:outline-emerald-300
+        motion-safe:[&_*:focus-visible]:animate-outline-bounce ${pixeloid.variable}
         ${ibmPlexMono.variable} ${outfit.variable} ${inter.variable}`}
     >
       <head>
