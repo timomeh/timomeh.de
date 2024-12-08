@@ -21,7 +21,17 @@ export function BackTag() {
         data-umami-event="Back button"
         data-umami-event-type="history"
       >
-        <Tag color="currentColor" title="← Back" />
+        <Tag
+          color="currentColor"
+          title={
+            <>
+              <span className="hidden dark:inline">←</span>
+              <span className="dark:hidden">
+                &lt;
+              </span> Back
+            </>
+          }
+        />
       </button>
     )
   }
@@ -31,7 +41,19 @@ export function BackTag() {
       data-umami-event="Back button"
       data-umami-event-type="static"
     >
-      <Tag color="#DEC1EF" title="← Back" />
+      <span className="text-[#ba7fdb] dark:text-[#DEC1EF]">
+        <Tag
+          color="currentColor"
+          title={
+            <>
+              <span className="hidden dark:inline">←</span>
+              <span className="dark:hidden">
+                &lt;
+              </span> Back
+            </>
+          }
+        />
+      </span>
     </TagLink>
   )
 }
