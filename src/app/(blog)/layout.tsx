@@ -7,7 +7,7 @@ import { ProgressBar } from '@/comps/progress-bar'
 import { PrevPathProvider } from '@/comps/prev-path'
 import { config } from '@/config'
 import React from 'react'
-import { cookies } from 'next/headers'
+import { Viewport } from 'next'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -49,12 +49,10 @@ export default async function RootLayout({
   topscroll,
   bottomscroll,
 }: Props) {
-  const theme = (await cookies()).get('theme')?.value ?? 'dark'
-
   return (
     <html
-      data-theme={theme}
       lang="en"
+      suppressHydrationWarning
       className={`h-full bg-[#f2f1f0] bg-grainy-light bg-[length:200px_200px] text-gray-900
         dark:bg-[#141314] dark:bg-grainy dark:text-white [&_*:focus-visible]:rounded-sm
         [&_*:focus-visible]:outline [&_*:focus-visible]:outline-2
@@ -71,6 +69,10 @@ export default async function RootLayout({
             data-website-id={config.umamiWebsiteId}
           />
         )}
+        <script>
+          {`const theme = localStorage.getItem('theme') || 'dark';
+          document.documentElement.setAttribute('data-theme', theme);`}
+        </script>
         <link href="https://mastodon.social/@timomeh" rel="me" />
       </head>
       <body className="group/body relative">
@@ -120,6 +122,7 @@ export const metadata = {
   },
 }
 
-export const viewport = {
+export const viewport: Viewport = {
   themeColor: '#1C1C1C',
+  colorScheme: 'light dark',
 }

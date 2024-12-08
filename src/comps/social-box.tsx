@@ -3,17 +3,13 @@ import Link from 'next/link'
 import { FeedIcon } from './icons/feed'
 import { ArchiveIcon } from './icons/archive'
 import { BlueskyIcon } from './icons/bluesky'
-import { MoonIcon } from './icons/moon'
-import { SunIcon } from './icons/sun'
-import { cookies } from 'next/headers'
+import { ThemeSwitcher } from './theme-switcher'
 
 export async function SocialBox() {
-  const currentTheme = (await cookies()).get('theme')?.value ?? 'dark'
-
   return (
     <div className="absolute right-4 top-4">
       <div
-        className="flex gap-4 p-2 text-gray-900 group-has-[.social-bg-signal]/body:rounded-md
+        className="flex gap-3 p-2 text-gray-900 group-has-[.social-bg-signal]/body:rounded-md
           group-has-[.social-bg-signal]/body:bg-white/10
           group-has-[.social-bg-signal]/body:backdrop-blur-md
           group-has-[.social-bg-signal]/body:backdrop-brightness-125 sm:gap-2
@@ -56,34 +52,7 @@ export async function SocialBox() {
             </div>
           </Link>
         </div>
-        <form
-          className="-ml-px"
-          action={async () => {
-            'use server'
-
-            const c = await cookies()
-            c.set('theme', currentTheme === 'dark' ? 'light' : 'dark', {
-              httpOnly: true,
-              maxAge: 315_360_000,
-            })
-          }}
-        >
-          <button
-            title="Switch color mode"
-            className="block opacity-70 transition-opacity hover:opacity-100"
-            value="light"
-          >
-            {currentTheme === 'dark' ? (
-              <div className="m-px size-3.5">
-                <MoonIcon />
-              </div>
-            ) : (
-              <div className="h-4 w-4">
-                <SunIcon />
-              </div>
-            )}
-          </button>
-        </form>
+        <ThemeSwitcher />
       </div>
     </div>
   )
