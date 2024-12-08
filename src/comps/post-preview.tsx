@@ -22,7 +22,7 @@ export async function PostPreview({ slug, direction }: Props) {
       data-umami-event="Post navigation"
       data-umami-event-direction={direction}
     >
-      <div className="group/post-preview relative block w-full overflow-hidden pt-10 dark:bg-black/50">
+      <div className="group/post-preview relative block w-full overflow-hidden pt-10">
         {post.frontmatter.cover && (
           <div className="cover-signal preview-cover-signal absolute inset-0 -z-[1]">
             <div className="absolute inset-0 z-20 bg-gray-300 mix-blend-hard-light dark:hidden" />
@@ -32,6 +32,10 @@ export async function PostPreview({ slug, direction }: Props) {
             />
           </div>
         )}
+        <div
+          className="absolute inset-0 bg-grainy backdrop-brightness-110 dark:bg-none
+            dark:backdrop-brightness-50"
+        />
         <div className="mx-auto max-w-2xl px-4">
           {direction === 'older' && (
             <div className="-mt-5 mb-5 group-has-[.preview-cover-signal]/post-preview:-mt-[26px] dark:!-mt-5">
@@ -75,10 +79,10 @@ export async function PostPreview({ slug, direction }: Props) {
           )}
         </div>
         {direction === 'older' && (
-          <div className="border-beige/50 absolute inset-0 z-10 border-t dark:border-white/20" />
+          <div className="absolute inset-0 z-10 border-t border-beige/50 dark:border-white/20" />
         )}
         {direction === 'newer' && (
-          <div className="border-beige/50 absolute inset-0 z-10 border-b dark:border-white/20" />
+          <div className="absolute inset-0 z-10 border-b border-beige/50 dark:border-white/20" />
         )}
       </div>
     </Link>

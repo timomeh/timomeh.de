@@ -6,7 +6,7 @@ export default function NotFound() {
   return (
     <>
       <main className="relative z-30 w-full flex-1">
-        <div className="mx-auto max-w-2xl px-4">
+        <div className="mx-auto mt-10 max-w-2xl px-4">
           <Prose crtTitle>
             <h1>ERR 404</h1>
             <p>

@@ -12,8 +12,9 @@ export async function Code(props: Props) {
       <code
         {...props}
         className="-my-1 rounded-md border border-gray-400/50 bg-white/30 bg-opacity-70 px-1.5 py-1
-          font-mono text-[0.9em] font-normal text-current shadow-purple-300/5
-          before:content-none after:content-none dark:border-white/10 dark:bg-[#121014]"
+          font-mono text-[0.9em] font-semibold text-current shadow-purple-300/5
+          before:content-none after:content-none dark:border-white/10 dark:bg-[#121014]
+          dark:font-normal"
       />
     )
   }
@@ -55,8 +56,8 @@ export async function Code(props: Props) {
 
   return (
     <div
-      className="not-prose border-beige/30 shadow-beige/20 relative my-8 rounded-md border
-        text-sm font-normal [box-shadow:0_0_24px_var(--tw-shadow-color)] md:-mx-4
+      className="not-prose relative my-8 rounded-md border border-beige/30 text-sm font-normal
+        shadow-beige/20 [box-shadow:0_0_24px_var(--tw-shadow-color)] md:-mx-4
         dark:border-white/10 dark:shadow-purple-300/5"
     >
       <div dangerouslySetInnerHTML={{ __html: html }} className="rounded-md" />

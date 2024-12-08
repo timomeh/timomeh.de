@@ -11,6 +11,8 @@ type Props = {
   params: Promise<{ num: string; tag: string }>
 }
 
+export const fetchCache = 'force-cache'
+
 export default async function Page(props: Props) {
   const params = await props.params
   const num = saneParseInt(params.num)
@@ -35,7 +37,7 @@ export default async function Page(props: Props) {
       {posts.map((post) => (
         <ListedPost slug={post.slug} key={post.slug} />
       ))}
-      <div className="border-beige/50 border-t dark:border-white/10" />
+      <div className="border-t border-beige/50 dark:border-white/10" />
       <Pagination
         bottom
         current={num}

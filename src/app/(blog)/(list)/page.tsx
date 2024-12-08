@@ -1,8 +1,9 @@
-import { unstable_cacheTag as cacheTag } from 'next/cache'
 import { getOlderPost, pagePublishedPosts } from '@/data/posts'
 import { ListedPost } from './listed-post'
 import { Pagination } from '@/comps/pagination'
 import { Metadata } from 'next'
+
+export const fetchCache = 'force-cache'
 
 export default async function Page() {
   const posts = await pagePublishedPosts(0)
@@ -15,7 +16,7 @@ export default async function Page() {
       {posts.map((post) => (
         <ListedPost slug={post.slug} key={post.slug} />
       ))}
-      <div className="border-beige/50 border-t dark:border-white/10" />
+      <div className="border-t border-beige/50 dark:border-white/10" />
       <Pagination current={0} hasOlderPost={hasOlderPost} bottom />
     </>
   )

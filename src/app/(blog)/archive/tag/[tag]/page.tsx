@@ -9,6 +9,8 @@ type Props = {
   params: Promise<{ tag: string }>
 }
 
+export const fetchCache = 'force-cache'
+
 export default async function Page(props: Props) {
   const params = await props.params
   const tag = await getTag(params.tag)

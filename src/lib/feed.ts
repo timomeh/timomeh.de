@@ -1,4 +1,4 @@
-import { unstable_cacheTag as cacheTag, unstable_cache } from 'next/cache'
+import { unstable_cache } from 'next/cache'
 import { Feed, FeedOptions } from 'feed'
 import { listPublishedPosts } from '@/data/posts'
 import { config } from '@/config'

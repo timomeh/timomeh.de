@@ -50,8 +50,8 @@ async function PostsByYear({ tag, year }: { tag?: string; year?: number }) {
           <div>
             <div className="flex items-center gap-1">
               <div
-                className="font-pixel text-2xs leading-none antialiased [font-feature-settings:'ss01']
-                  sm:text-xs"
+                className="font-display text-sm font-medium leading-none dark:font-pixel dark:text-xs
+                  dark:font-normal"
               >
                 <time className="text-purple-600 dark:text-purple-300">
                   {new Date(post.publishedAt).toLocaleString('en-US', {
@@ -59,7 +59,7 @@ async function PostsByYear({ tag, year }: { tag?: string; year?: number }) {
                     day: '2-digit',
                   })}
                 </time>
-                <span className="text-black/60 dark:text-white/50">
+                <span className="text-gray-500 dark:text-white/50">
                   {' | '}
                   {formatReadingTime(
                     post.content,

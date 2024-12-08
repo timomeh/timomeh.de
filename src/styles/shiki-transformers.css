@@ -94,6 +94,10 @@ which discards empty lines at the end of the codeblock */
 }
 
 .shiki .line.highlighted::after {
+  background-color: rgba(125, 211, 252, 0.27);
+}
+
+html[data-theme='dark'] .shiki .line.highlighted::after {
   background-color: rgba(81, 92, 126, 0.27);
 }
 
@@ -106,6 +110,14 @@ which discards empty lines at the end of the codeblock */
 }
 
 .shiki .highlighted-word {
+  background-color: rgba(125, 211, 252, 0.27);
+  border: 1px solid rgb(125, 211, 252);
+  padding: 1px 3px;
+  margin: -1px -3px;
+  border-radius: 4px;
+}
+
+html[data-theme='dark'] .shiki .highlighted-word {
   background-color: #16161e;
   border: 1px solid #42465d;
   padding: 1px 3px;

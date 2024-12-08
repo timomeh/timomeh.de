@@ -2,6 +2,8 @@ import { Metadata } from 'next'
 
 import { PostList } from './post-list'
 
+export const fetchCache = 'force-cache'
+
 export default async function Page() {
   return <PostList />
 }

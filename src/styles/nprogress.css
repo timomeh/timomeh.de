@@ -1,10 +1,20 @@
 #nprogress#nprogress .bar {
+  box-shadow: none;
+}
+
+#nprogress#nprogress .peg {
+  @apply w-full bg-rose-800;
+  transform: none;
+  box-shadow: none;
+}
+
+html[data-theme='dark'] #nprogress#nprogress .bar {
   box-shadow:
     0 0 3px rgb(30 64 175 / 1),
     0 0 10px rgb(29 78 216 / 0.6);
 }
 
-#nprogress#nprogress .peg {
+html[data-theme='dark'] #nprogress#nprogress .peg {
   @apply w-full bg-sky-200;
   mask-image: url('./crt-lines.svg');
   mask-mode: luminance;

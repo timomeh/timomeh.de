@@ -23,7 +23,7 @@ const outfit = Outfit({
 
 const ibmPlexMono = IBM_Plex_Mono({
   subsets: ['latin-ext'],
-  weight: ['400'],
+  weight: ['400', '600', '700'],
   display: 'swap',
   variable: '--font-ibm-plex-mono',
 })
@@ -55,8 +55,8 @@ export default async function RootLayout({
     <html
       data-theme={theme}
       lang="en"
-      className={`bg-grainy-light h-full bg-[#f2f1f0] bg-[length:200px_200px] text-white
-        dark:bg-[#141314] dark:bg-grainy [&_*:focus-visible]:rounded-sm
+      className={`h-full bg-[#f2f1f0] bg-grainy-light bg-[length:200px_200px] text-gray-900
+        dark:bg-[#141314] dark:bg-grainy dark:text-white [&_*:focus-visible]:rounded-sm
         [&_*:focus-visible]:outline [&_*:focus-visible]:outline-2
         [&_*:focus-visible]:outline-offset-4 [&_*:focus-visible]:outline-[#a18570]
         motion-safe:[&_*:focus-visible]:animate-outline-bounce

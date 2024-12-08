@@ -13,7 +13,7 @@ export async function SocialBox() {
   return (
     <div className="absolute right-4 top-4">
       <div
-        className="flex gap-4 p-2 text-black group-has-[.social-bg-signal]/body:rounded-md
+        className="flex gap-4 p-2 text-gray-900 group-has-[.social-bg-signal]/body:rounded-md
           group-has-[.social-bg-signal]/body:bg-white/10
           group-has-[.social-bg-signal]/body:backdrop-blur-md
           group-has-[.social-bg-signal]/body:backdrop-brightness-125 sm:gap-2

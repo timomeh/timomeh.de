@@ -21,7 +21,7 @@ export async function PostHeader({ slug, linked }: Props) {
           year: 'numeric',
         })}
       </time>
-      <span className="text-black/60 dark:text-white/70">
+      <span className="text-gray-500 dark:text-white/70">
         {' | '}
         {formatReadingTime(
           post.content,
@@ -35,7 +35,10 @@ export async function PostHeader({ slug, linked }: Props) {
   return (
     <>
       <div className="mb-1 flex flex-wrap items-center gap-1">
-        <div className="font-pixel text-xs leading-none antialiased [font-feature-settings:'ss01']">
+        <div
+          className="font-display text-sm font-medium leading-none dark:font-pixel dark:text-xs
+            dark:font-normal"
+        >
           {linked ? (
             <Link href={`/posts/${post.slug}`} className="no-underline">
               {meta}
