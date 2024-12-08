@@ -29,15 +29,17 @@ export function ThemeSwitcher() {
       <div
         aria-hidden
         aria-selected={activeTheme === 'dark'}
-        className="absolute left-0 top-0 m-px size-3.5 -translate-y-full opacity-0 transition-all
-          duration-300 aria-selected:translate-y-0 aria-selected:opacity-100"
+        className="absolute left-0 top-0 m-px size-3.5 -translate-y-3 translate-x-3 opacity-0
+          transition-all duration-700 aria-selected:translate-x-0
+          aria-selected:translate-y-0 aria-selected:opacity-100"
       >
         <MoonIcon />
       </div>
       <div
         aria-hidden
-        className="absolute left-0 top-0 h-4 w-4 translate-y-full opacity-0 transition-all
-          duration-300 aria-selected:translate-y-0 aria-selected:opacity-100"
+        className="absolute left-0 top-0 h-4 w-4 -translate-x-3 translate-y-3 opacity-0
+          transition-all duration-700 aria-selected:translate-x-0
+          aria-selected:translate-y-0 aria-selected:opacity-100"
         aria-selected={activeTheme === 'light'}
       >
         <SunIcon />
