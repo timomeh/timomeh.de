@@ -7,7 +7,7 @@ import { updateSettingsCache } from '@/data/settings'
 import { config } from '@/config'
 import { logger } from '@/lib/log'
 import { db, repo } from '@/data/db'
-import { unstable_expireTag as expireTag } from 'next/cache'
+import { revalidateTag } from 'next/cache'
 
 const log = logger.child({ module: 'webhooks/nuke' })
 
@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
   await cacheAllPosts()
   await cacheAllTags()
   await updateSettingsCache()
-  expireTag('tag', 'post', 'page', 'posts-list', 'tags-list')
+  revalidateTag('feed-pre')
 
   log.info('Successfully nuked all caches')
 

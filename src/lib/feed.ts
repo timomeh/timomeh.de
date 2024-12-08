@@ -45,7 +45,7 @@ export async function buildFeed(type: FeedType) {
           return articleContent
         },
         ['feed-prerendered-html'],
-        { tags: [`feed-pre:${post.slug}`] },
+        { tags: ['feed-pre', `feed-pre:${post.slug}`] },
       )
 
       return fetchRenderedHtml(post.slug)
