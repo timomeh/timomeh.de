@@ -1,6 +1,3 @@
-'use cache'
-
-import { unstable_cacheTag as cacheTag } from 'next/cache'
 import { Anchor } from '@/comps/mdx/anchor'
 import { MDX } from '@/comps/mdx/mdx'
 import { PostHeader } from '@/comps/post-header'
@@ -16,19 +13,18 @@ type Props = {
 }
 
 export async function ListedPost({ slug }: Props) {
-  cacheTag('listed-post', 'post', `post:${slug}`)
-
   const post = await getPost(slug)
   if (!post) return null
 
   return (
     <article
       lang={post.meta.lang?.split('_')[0]}
-      className="relative overflow-hidden border-t border-white/10 pb-24"
+      className="relative isolate overflow-hidden pb-24"
     >
+      <div className="bg-beige/50 relative z-10 h-px w-full dark:bg-white/10" />
       {post.frontmatter.cover ? (
         <>
-          <div className="absolute left-0 right-0 top-[-63px]">
+          <div className="absolute left-0 right-0 top-[-63px] overflow-hidden">
             <PostPreviewImage
               src={contentAsset('posts', slug, post.frontmatter.cover)}
               alt=""

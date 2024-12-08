@@ -49,27 +49,31 @@ export default function Layout({ kicker, backdrop }: Props) {
         </div>
       </div>
 
-      <div className="relative z-20 -mb-4 flex sm:min-w-[calc(50%-56px)] sm:flex-shrink-0">
+      <div
+        className="relative z-20 -mb-4 flex mix-blend-multiply sm:min-w-[calc(50%-56px)]
+          sm:flex-shrink-0 dark:mix-blend-lighten"
+      >
         <div className="size-4 flex-shrink-0" />
-        <div className="group flex">
+        <div className="group isolate flex">
           {/* orbit */}
           <div
             data-visual-test="removed"
-            className="pointer-events-none absolute -mt-1 ml-16 h-[40px] w-[100px] rotate-[35deg]
-              transform-gpu rounded-[100%] border border-yellow-50/10 transition-transform
-              duration-1000 ease-in-out motion-safe:group-hover:rotate-[30deg]
-              motion-safe:group-hover:scale-125"
+            className="pointer-events-none absolute z-[-1] -mt-1 ml-16 h-[40px] w-[100px]
+              rotate-[35deg] transform-gpu rounded-[100%] border border-rose-400/30
+              transition-transform duration-1000 ease-in-out
+              motion-safe:group-hover:rotate-[30deg] motion-safe:group-hover:scale-125
+              dark:border-yellow-50/10"
           >
             <div
               className="h-1 w-1 transform-gpu animate-[path_15s_infinite_linear] rounded-full
-                bg-yellow-200/50 [offset-path:ellipse(49.5px_19.5px_at_50%_50%)]
-                motion-reduce:hidden"
+                bg-rose-500/80 [offset-path:ellipse(49.5px_19.5px_at_50%_50%)]
+                motion-reduce:hidden dark:bg-yellow-200/50"
             />
           </div>
 
           <div
-            className="font-display text-xs leading-none text-yellow-100
-              [text-shadow:0px_0px_6px_rgba(0,0,0,0.3)] xs:text-sm"
+            className="font-display text-xs leading-none text-gray-800 xs:text-sm dark:text-yellow-100
+              dark:[text-shadow:0px_0px_6px_rgba(0,0,0,0.3)]"
           >
             <span data-visual-test="removed">
               <span

@@ -8,10 +8,6 @@ const nextConfig: NextConfig = {
     'next/dist/server/lib/incremental-cache/file-system-cache.js',
   ),
 
-  experimental: {
-    dynamicIO: true,
-  },
-
   serverExternalPackages: ['pino', 'pino-pretty'],
 
   images: {

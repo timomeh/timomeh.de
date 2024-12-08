@@ -1,4 +1,4 @@
-import { unstable_cacheTag as cacheTag } from 'next/cache'
+import { unstable_cacheTag as cacheTag, unstable_cache } from 'next/cache'
 import { Feed, FeedOptions } from 'feed'
 import { listPublishedPosts } from '@/data/posts'
 import { config } from '@/config'
@@ -22,7 +22,34 @@ export async function buildFeed(type: FeedType) {
   })
 
   const compiledPosts = await Promise.all(
-    posts.map(async (post) => fetchRenderedHtml(post.slug)),
+    posts.map(async (post) => {
+      const fetchRenderedHtml = unstable_cache(
+        async (slug: string) => {
+          const headers = new Headers()
+          headers.set('x-api-key', config.api.internalSecret)
+          const res = await fetch(
+            `http://localhost:3000/partials/posts/${slug}`,
+            {
+              headers,
+            },
+          )
+          const html = await res.text()
+
+          // Extract the content from between <marker-begin> and <marker-end>
+          const match = html.match(
+            /<marker-begin><\/marker-begin>([\s\S]*?)<marker-end><\/marker-end>/,
+          )
+
+          // Extract and return only the content within the <article> tag
+          const articleContent = match?.[1]?.trim()
+          return articleContent
+        },
+        ['feed-prerendered-html'],
+        { tags: [`feed-pre:${post.slug}`] },
+      )
+
+      return fetchRenderedHtml(post.slug)
+    }),
   )
 
   posts.forEach((post, i) => {
@@ -77,25 +104,4 @@ const postsOptions: FeedOptions = {
     name: 'Timo Mämecke',
     link: 'https://timomeh.de',
   },
-}
-
-async function fetchRenderedHtml(slug: string) {
-  'use cache'
-  cacheTag('simple-post', 'post', `post:${slug}`)
-
-  const headers = new Headers()
-  headers.set('x-api-key', config.api.internalSecret)
-  const res = await fetch(`http://localhost:3000/partials/posts/${slug}`, {
-    headers,
-  })
-  const html = await res.text()
-
-  // Extract the content from between <marker-begin> and <marker-end>
-  const match = html.match(
-    /<marker-begin><\/marker-begin>([\s\S]*?)<marker-end><\/marker-end>/,
-  )
-
-  // Extract and return only the content within the <article> tag
-  const articleContent = match?.[1]?.trim()
-  return articleContent
 }

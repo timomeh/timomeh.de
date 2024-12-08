@@ -1,5 +1,3 @@
-'use cache'
-
 import { Metadata } from 'next'
 
 import { PostList } from './post-list'

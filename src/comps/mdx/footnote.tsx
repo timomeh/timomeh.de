@@ -20,7 +20,7 @@ export function FootnotesSection(props: {
       </h3>
       <ol
         className="prose-sm prose-li:marker:font-pixel prose-li:marker:text-[11px]
-          prose-li:marker:text-white/60"
+          dark:prose-li:marker:text-white/60"
         start={props.startCount || 1}
       >
         {footnotes.map((footnote, index) => {
@@ -39,13 +39,13 @@ export function FootnoteReference(props: { count: number; scope?: string }) {
     >
       <span
         aria-hidden
-        className="absolute -left-[3px] -top-px z-[-1] block h-4 w-4 rounded-full bg-sky-200/10
+        className="absolute -left-[3px] -top-px z-[-1] block h-4 w-4 rounded-full bg-sky-400/50
           opacity-0 transition-opacity delay-300 ![animation-fill-mode:forwards]
           ![animation-iteration-count:5] group-target/footnoteref:animate-ping
-          group-target/footnoteref:opacity-100"
+          group-target/footnoteref:opacity-100 dark:bg-sky-200/10"
       />
       <a
-        className="break-words pl-0.5 font-pixel text-[11px] text-white/50 no-underline"
+        className="break-words pl-0.5 font-pixel text-[11px] no-underline dark:text-white/50"
         aria-describedby={`fn-${props.count}-${props.scope || ''}label`}
         href={`#${createFootnoteContentId(props.count, props.scope)}`}
       >
@@ -67,8 +67,8 @@ export function FootnoteContent(props: {
     >
       <span
         aria-hidden
-        className="absolute inset-0 -left-7 z-[-1] block bg-sky-200/10 opacity-0 transition-opacity
-          delay-300 group-target/footnote:opacity-100"
+        className="absolute inset-0 -left-7 z-[-1] block bg-sky-400/20 opacity-0 transition-opacity
+          delay-300 group-target/footnote:opacity-100 dark:bg-sky-200/10"
       />
       <span
         id={`fn-${props.count}-${props.scope || ''}label`}
@@ -79,7 +79,8 @@ export function FootnoteContent(props: {
       {props.children}{' '}
       <a
         aria-label={`Back to reference ${props.count}`}
-        className="break-words pl-0.5 font-pixel text-[13px] text-white/50 no-underline"
+        className="break-words pl-0.5 font-pixel text-[13px] text-current text-opacity-50
+          no-underline"
         href={`#${createFootnoteReferenceId(props.count, props.scope)}`}
       >
         ↑

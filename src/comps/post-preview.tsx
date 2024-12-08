@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { unstable_cacheTag as cacheTag } from 'next/cache'
 import { PostHeader } from './post-header'
 import { PostFullImage } from './post-full-image'
 import { getPost } from '@/data/posts'
@@ -13,21 +12,20 @@ type Props = {
 }
 
 export async function PostPreview({ slug, direction }: Props) {
-  'use cache'
-  cacheTag('post', 'post-preview', `post:${slug}`)
   const post = await getPost(slug)
   if (!post) return null
 
   return (
     <Link
       href={`/posts/${post.slug}`}
-      className="relative z-10 block !-outline-offset-8"
+      className="group-post-preview relative z-10 block !-outline-offset-8"
       data-umami-event="Post navigation"
       data-umami-event-direction={direction}
     >
-      <div className="relative block w-full overflow-hidden bg-black/50 pt-10">
+      <div className="group/post-preview relative block w-full overflow-hidden pt-10 dark:bg-black/50">
         {post.frontmatter.cover && (
-          <div className="absolute inset-0 -z-[1] brightness-50">
+          <div className="cover-signal preview-cover-signal absolute inset-0 -z-[1]">
+            <div className="absolute inset-0 z-20 bg-gray-300 mix-blend-hard-light dark:hidden" />
             <PostFullImage
               src={contentAsset('posts', slug, post.frontmatter.cover)}
               alt=""
@@ -36,8 +34,19 @@ export async function PostPreview({ slug, direction }: Props) {
         )}
         <div className="mx-auto max-w-2xl px-4">
           {direction === 'older' && (
-            <div className="-mt-5 mb-5 font-pixel text-sm font-bold">
-              <span className="effect-crt-blue">Previous Post ↓</span>
+            <div className="-mt-5 mb-5 group-has-[.preview-cover-signal]/post-preview:-mt-[26px] dark:!-mt-5">
+              <div
+                className="relative inline-block text-sm font-bold leading-none
+                  group-has-[.preview-cover-signal]/post-preview:rounded-md
+                  group-has-[.preview-cover-signal]/post-preview:p-2
+                  group-has-[.preview-cover-signal]/post-preview:backdrop-blur-md
+                  group-has-[.preview-cover-signal]/post-preview:backdrop-brightness-125 dark:!p-0
+                  dark:font-pixel dark:!backdrop-blur-none dark:!backdrop-brightness-100"
+              >
+                <span className="dark:effect-crt-blue text-[#a18570]">
+                  Previous Post ↓
+                </span>
+              </div>
             </div>
           )}
           <article className="relative">
@@ -49,16 +58,27 @@ export async function PostPreview({ slug, direction }: Props) {
             </Prose>
           </article>
           {direction === 'newer' && (
-            <div className="-mt-5 mb-5 font-pixel text-sm font-bold">
-              <span className="effect-crt-blue">Next Post ↑</span>
+            <div className="-mt-5 mb-5 group-has-[.preview-cover-signal]/post-preview:-mt-[26px] dark:!-mt-5">
+              <div
+                className="relative inline-block text-sm font-bold leading-none
+                  group-has-[.preview-cover-signal]/post-preview:rounded-md
+                  group-has-[.preview-cover-signal]/post-preview:p-2
+                  group-has-[.preview-cover-signal]/post-preview:backdrop-blur-md
+                  group-has-[.preview-cover-signal]/post-preview:backdrop-brightness-125 dark:!p-0
+                  dark:font-pixel dark:!backdrop-blur-none dark:!backdrop-brightness-100"
+              >
+                <span className="dark:effect-crt-blue text-[#a18570]">
+                  Next Post ↑
+                </span>
+              </div>
             </div>
           )}
         </div>
         {direction === 'older' && (
-          <div className="absolute inset-0 z-10 border-t border-white/20" />
+          <div className="border-beige/50 absolute inset-0 z-10 border-t dark:border-white/20" />
         )}
         {direction === 'newer' && (
-          <div className="absolute inset-0 z-10 border-b border-white/20" />
+          <div className="border-beige/50 absolute inset-0 z-10 border-b dark:border-white/20" />
         )}
       </div>
     </Link>

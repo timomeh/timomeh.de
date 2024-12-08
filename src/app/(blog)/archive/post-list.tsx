@@ -1,4 +1,3 @@
-import { unstable_cacheTag as cacheTag } from 'next/cache'
 import Link from 'next/link'
 import { PostTag } from '@/comps/post-tag'
 import { MDX } from '@/comps/mdx/mdx'
@@ -12,17 +11,17 @@ type Props = {
 }
 
 export async function PostList({ tag }: Props) {
-  'use cache'
-  cacheTag('posts-list')
-
   const [latest, earliest] = await getPublishedPostsRange({ tag })
   const years = range(earliest.getFullYear(), latest.getFullYear()).reverse()
 
   return (
     <>
       {years.map((year) => (
-        <div key={year} className="mt-10">
-          <h2 className="effect-crt-blue font-pixel text-2xl font-bold leading-none">
+        <div key={year} className="mt-10 text-gray-800 dark:text-white">
+          <h2
+            className="dark:effect-crt-blue text-2xl font-black leading-none text-orange-800/35
+              dark:font-pixel dark:font-bold"
+          >
             {year}
           </h2>
           <div className="h-4" />
@@ -38,7 +37,7 @@ async function PostsByYear({ tag, year }: { tag?: string; year?: number }) {
 
   if (posts.length === 0) {
     return (
-      <div className="font-display font-semibold text-white/50">
+      <div className="font-display font-semibold dark:text-white/50">
         No posts this year {':('}
       </div>
     )
@@ -54,13 +53,13 @@ async function PostsByYear({ tag, year }: { tag?: string; year?: number }) {
                 className="font-pixel text-2xs leading-none antialiased [font-feature-settings:'ss01']
                   sm:text-xs"
               >
-                <time className="text-purple-300">
+                <time className="text-purple-600 dark:text-purple-300">
                   {new Date(post.publishedAt).toLocaleString('en-US', {
                     month: 'short',
                     day: '2-digit',
                   })}
                 </time>
-                <span className="text-white/50">
+                <span className="text-black/60 dark:text-white/50">
                   {' | '}
                   {formatReadingTime(
                     post.content,

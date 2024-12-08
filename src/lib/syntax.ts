@@ -13,7 +13,10 @@ import { codeToHtml } from 'shiki'
 export async function highlight(code: string, lang: string) {
   const html = codeToHtml(code, {
     lang,
-    theme: 'tokyo-night',
+    themes: {
+      dark: 'tokyo-night',
+      light: 'one-light',
+    },
     transformers: [
       transformerNotationDiff(),
       transformerNotationHighlight(),

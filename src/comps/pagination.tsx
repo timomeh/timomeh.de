@@ -22,20 +22,25 @@ export function Pagination({
   return (
     <>
       {bottom && (
-        <div className="relative z-[-1]" aria-hidden={true}>
+        <div className="relative z-[-1] hidden dark:block" aria-hidden={true}>
           <div
             className="absolute left-0 right-0 -mb-14 h-14 bg-gradient-to-b from-black/30
               to-transparent"
           />
         </div>
       )}
-      <div className="mx-auto flex w-full max-w-2xl justify-between px-4 py-2 font-pixel">
+      <div
+        className="mx-auto flex w-full max-w-2xl justify-between px-4 py-2 font-semibold
+          text-[#a18570] dark:font-pixel dark:font-normal"
+      >
         {current > 0 ? (
           <Link
             href={current === 1 ? `${scope}/` : `${scope}/page/${current - 1}`}
             className="opacity-70 transition-opacity hover:opacity-100 focus-visible:opacity-100"
           >
-            <span className="effect-crt-blue">← Newer</span>
+            <span className="dark:effect-crt-blue">
+              <span className="hidden dark:inline">←</span> Newer
+            </span>
           </Link>
         ) : (
           <div />
@@ -45,14 +50,16 @@ export function Pagination({
             href={`${scope}/page/${current + 1}`}
             className="opacity-70 transition-opacity hover:opacity-100 focus-visible:opacity-100"
           >
-            <span className="effect-crt-blue">Older →</span>
+            <span className="dark:effect-crt-blue">
+              Older <span className="hidden dark:inline">→</span>
+            </span>
           </Link>
         ) : (
           <div />
         )}
       </div>
       {top && (
-        <div className="relative z-[-1]" aria-hidden={true}>
+        <div className="relative z-[-1] hidden dark:block" aria-hidden={true}>
           <div
             className="absolute left-0 right-0 -mt-14 h-14 bg-gradient-to-t from-black/30
               to-transparent"

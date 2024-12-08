@@ -14,14 +14,14 @@ export async function PostHeader({ slug, linked }: Props) {
 
   const meta = (
     <>
-      <time className="text-purple-300">
+      <time className="text-purple-600 dark:text-purple-300">
         {new Date(post.publishedAt).toLocaleString('en-US', {
           month: 'short',
           day: '2-digit',
           year: 'numeric',
         })}
       </time>
-      <span className="text-white/70">
+      <span className="text-black/60 dark:text-white/70">
         {' | '}
         {formatReadingTime(
           post.content,

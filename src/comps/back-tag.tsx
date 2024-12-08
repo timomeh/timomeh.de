@@ -12,16 +12,16 @@ export function BackTag() {
   if (prevPath) {
     return (
       <button
-        className="group/tag-link relative ease-linear [transition:opacity_300ms,transform_60ms]
-          hover:!opacity-100 data-[current=false]:data-[dim-current=true]:opacity-75
-          motion-safe:active:scale-[.97]"
+        className="group/tag-link relative rounded-full text-[#ba7fdb] ease-linear
+          [transition:opacity_300ms,transform_60ms] hover:!opacity-100
+          data-[current=false]:data-[dim-current=true]:opacity-75
+          motion-safe:active:scale-[.97] dark:text-[#DEC1EF] dark:backdrop-brightness-50"
         type="button"
         onClick={() => router.back()}
         data-umami-event="Back button"
         data-umami-event-type="history"
       >
-        <Tag color="#DEC1EF" title="← Back" />
-        <div className="absolute inset-0 z-[-1] rounded-full bg-black/50" />
+        <Tag color="currentColor" title="← Back" />
       </button>
     )
   }

@@ -2,6 +2,7 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: ['selector', '[data-theme="dark"]'],
   content: ['./src/**/*.{js,ts,jsx,tsx}', './src/keystatic.config.tsx'],
   theme: {
     screens: {
@@ -26,6 +27,9 @@ module.exports = {
       '9xl': ['8rem', { lineHeight: '1' }],
     },
     extend: {
+      colors: {
+        beige: '#d1bdae',
+      },
       width: {
         content: 642,
       },
@@ -41,9 +45,6 @@ module.exports = {
                 content: 'none',
               },
             },
-            em: {
-              color: '#f2f0f3',
-            },
             hr: {
               maxWidth: '120px',
               width: '100%',
@@ -51,6 +52,7 @@ module.exports = {
               margin: '40px auto',
               borderColor: 'rgba(145, 145, 145, 0.3)',
             },
+            '--tw-prose-bullets': '#d1bdae',
             '--tw-prose-invert-body': '#ccc2cc',
             '--tw-prose-invert-headings': '#f2f0f3',
             '--tw-prose-invert-lead': 'rgba(204, 194, 204, 0.7)',
@@ -75,6 +77,7 @@ module.exports = {
         'gradient-radial':
           'radial-gradient(closest-side, var(--tw-gradient-stops))',
         grainy: "url('./grainy.svg')",
+        'grainy-light': "url('./grainy-light.svg')",
         'crt-lines': "url('./crt-lines.svg')",
       },
       fontFamily: {

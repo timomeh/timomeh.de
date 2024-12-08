@@ -1,6 +1,3 @@
-'use cache'
-
-import { unstable_cacheTag as cacheTag } from 'next/cache'
 import { getOlderPost, pagePublishedPosts } from '@/data/posts'
 import { ListedPost } from '../../listed-post'
 import { Pagination } from '@/comps/pagination'
@@ -14,8 +11,6 @@ type Props = {
 }
 
 export default async function Page(props: Props) {
-  cacheTag('posts-list')
-
   const params = await props.params
   const posts = await pagePublishedPosts(0, { tag: params.tag })
   if (posts.length < 1) notFound()
@@ -28,7 +23,7 @@ export default async function Page(props: Props) {
       {posts.map((post) => (
         <ListedPost slug={post.slug} key={post.slug} />
       ))}
-      <div className="border-t border-white/10" />
+      <div className="border-beige/50 border-t dark:border-white/10" />
       <Pagination
         bottom
         current={0}
@@ -43,8 +38,6 @@ export async function generateMetadata(props: Props) {
   const params = await props.params
   const tag = await getTag(params.tag)
   if (!tag) notFound()
-
-  cacheTag('tag', `tag:${tag.slug}`)
 
   const metadata: Metadata = {
     title: tag.title,

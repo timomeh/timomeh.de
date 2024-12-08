@@ -1,5 +1,3 @@
-'use cache'
-
 import { BackTag } from '@/comps/back-tag'
 import { Footer } from '@/comps/footer'
 

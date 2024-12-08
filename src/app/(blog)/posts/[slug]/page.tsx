@@ -1,7 +1,4 @@
-'use cache'
-
 import { notFound } from 'next/navigation'
-import { unstable_cacheTag as cacheTag } from 'next/cache'
 import { MDX } from '@/comps/mdx/mdx'
 import { PostHeader } from '@/comps/post-header'
 import { getPost } from '@/data/posts'
@@ -17,7 +14,6 @@ export default async function Page(props: Props) {
   const params = await props.params
   const post = await getPost(params.slug)
   if (!post) notFound()
-  cacheTag('post', 'full-post', `post:${post.slug}`)
 
   return (
     <article
@@ -39,7 +35,6 @@ export async function generateMetadata(props: Props) {
   const params = await props.params
   const post = await getPost(params.slug)
   if (!post) notFound()
-  cacheTag('post', `post:${post.slug}`)
 
   const metadata: Metadata = {
     title: post.title,

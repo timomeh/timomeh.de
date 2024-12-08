@@ -1,6 +1,5 @@
 import { Webhooks } from '@octokit/webhooks'
 import { EventPayloadMap, PushEvent } from '@octokit/webhooks-types'
-import { unstable_expireTag as expireTag } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
 
 import { updatePageCache } from '@/data/pages'
@@ -9,6 +8,7 @@ import { updateTagCache } from '@/data/tags'
 import { updateSettingsCache } from '@/data/settings'
 import { config } from '@/config'
 import { logger } from '@/lib/log'
+import { revalidateTag } from 'next/cache'
 
 const log = logger.child({ module: 'webhooks/github' })
 
@@ -69,21 +69,19 @@ export async function POST(request: NextRequest) {
 
         if (resource === 'posts') {
           await updatePostCache(slug)
-          expireTag(`post:${slug}`)
+          revalidateTag(`feed-pre:${slug}`)
           log.info({ resource, slug }, 'Updated cache')
           return
         }
 
         if (resource === 'pages') {
           await updatePageCache(slug)
-          expireTag(`page:${slug}`)
           log.info({ resource, slug }, 'Updated cache')
           return
         }
 
         if (resource === 'tags') {
           await updateTagCache(slug)
-          expireTag(`tags:${slug}`)
           log.info({ resource, slug }, 'Updated cache')
           return
         }
@@ -97,18 +95,6 @@ export async function POST(request: NextRequest) {
         log.debug(`Nothing to update for ${file}`)
       }),
     )
-
-    // update lists
-    for (const file of addedOrRemovedFiles) {
-      const [resource] = file.split('/')
-      if (resource === 'posts') {
-        expireTag('posts-list')
-      }
-
-      if (resource === 'tags') {
-        expireTag('tags-list')
-      }
-    }
 
     return NextResponse.json({
       revalidated: true,
