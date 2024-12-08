@@ -70,8 +70,7 @@ export default async function RootLayout({
           />
         )}
         <script>
-          {`const theme = localStorage.getItem('theme') || 'dark';
-          document.documentElement.setAttribute('data-theme', theme);`}
+          {`document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');`}
         </script>
         <link href="https://mastodon.social/@timomeh" rel="me" />
       </head>
