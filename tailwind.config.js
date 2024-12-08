@@ -3,7 +3,7 @@ const colors = require('tailwindcss/colors')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ['selector', '[data-theme="dark"]'],
+  darkMode: ['selector', 'html:not([data-theme=light])'],
   content: ['./src/**/*.{js,ts,jsx,tsx}', './src/keystatic.config.tsx'],
   theme: {
     screens: {
