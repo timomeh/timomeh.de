@@ -21,7 +21,7 @@
     "@shikijs/transformers": "1.24.1",
     "bluebird": "3.7.2",
     "feed": "4.2.2",
-    "lucide-react": "0.464.0",
+    "lucide-react": "0.468.0",
     "mdast": "3.0.0",
     "mdast-util-mdx": "3.0.0",
     "next": "15.0.4-canary.46",
