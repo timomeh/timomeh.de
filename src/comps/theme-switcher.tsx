@@ -1,48 +1,84 @@
 'use client'
 
-import { useLayoutEffect, useState } from 'react'
 import { MoonIcon } from './icons/moon'
 import { SunIcon } from './icons/sun'
+import { MoonAutoIcon } from './icons/moon-auto'
+import { SunAutoIcon } from './icons/sun-auto'
 
 export function ThemeSwitcher() {
-  const [activeTheme, setActiveTheme] = useState<'light' | 'dark' | null>(null)
-
-  useLayoutEffect(() => {
-    const theme = (localStorage.getItem('theme') as 'light' | 'dark') || 'dark'
-    setActiveTheme(theme)
-  }, [])
-
   return (
     <button
       title="Switch color mode"
-      className="relative -ml-px block size-4 opacity-70 transition-opacity hover:opacity-100"
+      className="relative -m-1 block p-1 opacity-70 transition-opacity hover:opacity-100"
       value="light"
       type="button"
       onClick={() => {
-        const theme = localStorage.getItem('theme') || 'dark'
-        const newTheme = theme === 'dark' ? 'light' : 'dark'
-        localStorage.setItem('theme', newTheme)
+        const currentTheme =
+          document.documentElement.getAttribute('data-theme') || 'system'
+        const prefersDark = window.matchMedia(
+          '(prefers-color-scheme: dark)',
+        ).matches
+        const prefersDarkOrder = ['system', 'light', 'dark']
+        const prefersLightOrder = ['system', 'dark', 'light']
+        const order = prefersDark ? prefersDarkOrder : prefersLightOrder
+
+        const newTheme = order[(order.indexOf(currentTheme) + 1) % order.length]
+
         document.documentElement.setAttribute('data-theme', newTheme)
-        setActiveTheme(newTheme)
+
+        if (newTheme !== 'system') {
+          localStorage.setItem('theme', newTheme)
+        } else {
+          localStorage.removeItem('theme')
+        }
       }}
     >
       <div
         aria-hidden
-        aria-selected={activeTheme === 'dark'}
-        className="absolute left-0 top-0 m-px size-3.5 -translate-y-3 translate-x-3 opacity-0
-          transition-all duration-700 aria-selected:translate-x-0
-          aria-selected:translate-y-0 aria-selected:opacity-100"
+        className="pointer-events-none relative -left-[10.5px] -top-[10.5px] size-3.5
+          transition-transform"
       >
-        <MoonIcon />
-      </div>
-      <div
-        aria-hidden
-        className="absolute left-0 top-0 h-4 w-4 -translate-x-3 translate-y-3 opacity-0
-          transition-all duration-700 aria-selected:translate-x-0
-          aria-selected:translate-y-0 aria-selected:opacity-100"
-        aria-selected={activeTheme === 'light'}
-      >
-        <SunIcon />
+        <div
+          className="absolute size-3.5 transition-[offset-distance] duration-1000
+            [offset-path:path('M0_60C0_26_26_0_60_0')] [offset-rotate:auto_45deg]
+            group-data-[theme=dark]/root:[offset-distance:30%]
+            group-data-[theme=system]/root:[offset-distance:50%]
+            group-data-[theme=light]/root:[offset-distance:70%]"
+        >
+          <div
+            className="absolute left-0 top-0 size-3.5 opacity-0 transition-opacity duration-1000
+              dark:group-data-[theme=system]/root:opacity-100"
+          >
+            <MoonAutoIcon />
+          </div>
+          <div
+            className="absolute left-0 top-0 size-3.5 opacity-0 transition-opacity duration-1000
+              group-data-[theme=system]/root:opacity-100
+              dark:group-data-[theme=system]/root:!opacity-0"
+          >
+            <SunAutoIcon />
+          </div>
+        </div>
+        <div
+          className="absolute size-3.5 opacity-0 transition-[offset-distance,opacity] duration-1000
+            [offset-distance:50%] [offset-path:path('M0_60C0_26_26_0_60_0')]
+            [offset-rotate:auto_45deg] group-data-[theme=dark]/root:opacity-100
+            group-data-[theme=light]/root:[offset-distance:30%]
+            group-data-[theme=dark]/root:[offset-distance:50%]
+            group-data-[theme=system]/root:[offset-distance:70%]"
+        >
+          <MoonIcon />
+        </div>
+        <div
+          className="absolute size-3.5 opacity-0 transition-[offset-distance,opacity] duration-1000
+            [offset-distance:50%] [offset-path:path('M0_60C0_26_26_0_60_0')]
+            [offset-rotate:auto_45deg] group-data-[theme=light]/root:opacity-100
+            group-data-[theme=system]/root:[offset-distance:30%]
+            group-data-[theme=light]/root:[offset-distance:50%]
+            group-data-[theme=dark]/root:[offset-distance:70%]"
+        >
+          <SunIcon />
+        </div>
       </div>
     </button>
   )

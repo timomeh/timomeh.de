@@ -16,42 +16,36 @@ export async function SocialBox() {
           dark:text-white dark:backdrop-blur-none
           dark:group-has-[.social-bg-signal]/body:bg-black/30"
       >
-        <div className="-mx-1 -my-2.5 px-1 py-2">
-          <Link
-            title="Archive"
-            href="/archive"
-            className="block opacity-70 transition-opacity hover:opacity-100"
-          >
-            <div className="size-5 p-px">
-              <ArchiveIcon />
-            </div>
-          </Link>
-        </div>
-        <div className="-mx-1 my-[-7px] px-1 py-2">
-          <a
-            title="@timomeh.de on Bluesky"
-            href="https://bsky.app/profile/timomeh.de"
-            rel="noopener noreferrer"
-            target="_blank"
-            className="block opacity-70 transition-opacity hover:opacity-100"
-            data-umami-event="Bluesky link"
-          >
-            <div className="size-3.5">
-              <BlueskyIcon />
-            </div>
-          </a>
-        </div>
-        <div className="-mx-1 -my-2 px-1 py-2">
-          <Link
-            title="Feeds"
-            href="/feeds"
-            className="block opacity-70 transition-opacity hover:opacity-100"
-          >
-            <div className="size-4 p-px">
-              <FeedIcon />
-            </div>
-          </Link>
-        </div>
+        <Link
+          title="Archive"
+          href="/archive"
+          className="-m-1 block p-1 opacity-70 transition-opacity hover:opacity-100"
+        >
+          <div className="size-3.5">
+            <ArchiveIcon />
+          </div>
+        </Link>
+        <a
+          title="@timomeh.de on Bluesky"
+          href="https://bsky.app/profile/timomeh.de"
+          rel="noopener noreferrer"
+          target="_blank"
+          className="-m-1 block p-1 opacity-70 transition-opacity hover:opacity-100"
+          data-umami-event="Bluesky link"
+        >
+          <div className="size-3.5">
+            <BlueskyIcon />
+          </div>
+        </a>
+        <Link
+          title="Feeds"
+          href="/feeds"
+          className="-m-1 block p-1 opacity-70 transition-opacity hover:opacity-100"
+        >
+          <div className="size-3.5">
+            <FeedIcon />
+          </div>
+        </Link>
         <ThemeSwitcher />
       </div>
     </div>

@@ -52,11 +52,13 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
+      data-theme="system"
       suppressHydrationWarning
-      className={`h-full bg-[#f2f1f0] bg-grainy-light bg-[length:200px_200px] text-gray-900
-        dark:bg-[#141314] dark:bg-grainy dark:text-white [&_*:focus-visible]:rounded-sm
-        [&_*:focus-visible]:outline [&_*:focus-visible]:outline-2
-        [&_*:focus-visible]:outline-offset-4 [&_*:focus-visible]:outline-[#a18570]
+      className={`group/root h-full bg-[#f2f1f0] bg-grainy-light bg-[length:200px_200px]
+        text-gray-900 transition-colors duration-300 dark:bg-[#141314] dark:bg-grainy
+        dark:text-white [&_*:focus-visible]:rounded-sm [&_*:focus-visible]:outline
+        [&_*:focus-visible]:outline-2 [&_*:focus-visible]:outline-offset-4
+        [&_*:focus-visible]:outline-[#a18570]
         motion-safe:[&_*:focus-visible]:animate-outline-bounce
         dark:[&_*:focus-visible]:outline-emerald-300 ${pixeloid.variable}
         ${ibmPlexMono.variable} ${outfit.variable} ${inter.variable}`}
@@ -70,7 +72,12 @@ export default async function RootLayout({
           />
         )}
         <script>
-          {`document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');`}
+          {`(function () {
+              let theme = localStorage.getItem('theme');
+              const supp = ['dark','light'];
+              theme = supp.includes(theme) ? theme : null;
+              document.documentElement.setAttribute('data-theme', theme || 'system');
+          })();`}
         </script>
         <link href="https://mastodon.social/@timomeh" rel="me" />
       </head>
