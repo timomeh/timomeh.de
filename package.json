@@ -24,7 +24,7 @@
     "lucide-react": "0.464.0",
     "mdast": "3.0.0",
     "mdast-util-mdx": "3.0.0",
-    "next": "15.0.4-canary.46",
+    "next": "15.0.4",
     "next-mdx-remote": "5.0.0",
     "next-nprogress-bar": "2.3.15",
     "pino": "9.5.0",
