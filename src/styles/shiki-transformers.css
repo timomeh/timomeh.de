@@ -101,6 +101,12 @@ html[data-theme='dark'] .shiki .line.highlighted::after {
   background-color: rgba(81, 92, 126, 0.27);
 }
 
+@media (prefers-color-scheme: dark) {
+  .shiki .line.highlighted:not(html[data-theme='light'] *)::after {
+    background-color: rgba(81, 92, 126, 0.27);
+  }
+}
+
 .shiki .line.highlighted.error::after {
   background-color: rgba(244, 63, 94, 0.16);
 }
@@ -123,6 +129,16 @@ html[data-theme='dark'] .shiki .highlighted-word {
   padding: 1px 3px;
   margin: -1px -3px;
   border-radius: 4px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .shiki .highlighted-word:not(html[data-theme='light'] *) {
+    background-color: #16161e;
+    border: 1px solid #42465d;
+    padding: 1px 3px;
+    margin: -1px -3px;
+    border-radius: 4px;
+  }
 }
 
 .shiki.has-focused .line:not(.focused) {
