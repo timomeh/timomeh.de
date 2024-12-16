@@ -9,7 +9,8 @@ export function ThemeSwitcher() {
   return (
     <button
       title="Switch color mode"
-      className="relative -m-1 block p-1 opacity-70 transition-opacity hover:opacity-100"
+      className="relative -m-1 block p-1 opacity-70 transition-opacity hover:scale-110
+        hover:opacity-100 active:scale-95"
       value="light"
       type="button"
       onClick={() => {
@@ -39,9 +40,9 @@ export function ThemeSwitcher() {
           transition-transform"
       >
         <div
-          className="absolute size-3.5 transition-[offset-distance] duration-1000
-            [offset-path:path('M0_60C0_26_26_0_60_0')] [offset-rotate:auto_45deg]
-            group-data-[theme=dark]/root:[offset-distance:30%]
+          className="absolute size-3.5 transform-gpu transition-[offset-distance] duration-1000
+            will-change-transform [offset-path:path('M0_60C0_26_26_0_60_0')]
+            [offset-rotate:auto_45deg] group-data-[theme=dark]/root:[offset-distance:30%]
             group-data-[theme=system]/root:[offset-distance:50%]
             group-data-[theme=light]/root:[offset-distance:70%]"
         >

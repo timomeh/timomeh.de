@@ -101,8 +101,16 @@ module.exports = {
       animation: {
         'fade-in': 'fadeIn 0.2s linear',
         'outline-bounce': 'outlineBounce 0.3s',
+        tucker: 'tuckertucker 0.8s linear infinite',
       },
       keyframes: {
+        tuckertucker: {
+          '0%': { transform: 'scale(1)' },
+          '25%': { transform: 'scale(0.96)' },
+          '50%': { transform: 'scale(1.03)' },
+          '75%': { transform: 'scale(0.96)' },
+          '100%': { transform: 'scale(1)' },
+        },
         path: {
           '0%': { offsetDistance: '0%' },
           '100%': { offsetDistance: '100%' },

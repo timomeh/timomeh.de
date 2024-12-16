@@ -19,7 +19,8 @@ export async function SocialBox() {
         <Link
           title="Archive"
           href="/archive"
-          className="-m-1 block p-1 opacity-70 transition-opacity hover:opacity-100"
+          className="-m-1 block p-1 opacity-70 transition-[opacity,transform] hover:scale-110
+            hover:opacity-100 active:scale-95"
         >
           <div className="size-3.5">
             <ArchiveIcon />
@@ -30,7 +31,8 @@ export async function SocialBox() {
           href="https://bsky.app/profile/timomeh.de"
           rel="noopener noreferrer"
           target="_blank"
-          className="-m-1 block p-1 opacity-70 transition-opacity hover:opacity-100"
+          className="-m-1 block p-1 opacity-70 transition-[opacity,transform] hover:scale-110
+            hover:opacity-100 active:scale-95"
           data-umami-event="Bluesky link"
         >
           <div className="size-3.5">
@@ -40,7 +42,8 @@ export async function SocialBox() {
         <Link
           title="Feeds"
           href="/feeds"
-          className="-m-1 block p-1 opacity-70 transition-opacity hover:opacity-100"
+          className="-m-1 block p-1 opacity-70 transition-[opacity,transform] hover:scale-110
+            hover:opacity-100 active:scale-95"
         >
           <div className="size-3.5">
             <FeedIcon />
