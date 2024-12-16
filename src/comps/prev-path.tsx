@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useContext, useEffect, useRef } from 'react'
-import { usePathname } from 'next/navigation'
+import { useSelectedLayoutSegments } from 'next/navigation'
 
 const PrevPathContext = createContext<string | null>(null)
 
@@ -10,12 +10,14 @@ type Props = {
 }
 
 export function PrevPathProvider({ children }: Props) {
-  const pathname = usePathname()
+  const layoutSegments = useSelectedLayoutSegments()
   const prevPathRef = useRef<string>(null)
 
   useEffect(() => {
-    prevPathRef.current = pathname
-  }, [pathname])
+    if (layoutSegments[0] === '(list)' || layoutSegments[0] === 'archive') {
+      prevPathRef.current = layoutSegments.join('/')
+    }
+  }, [layoutSegments])
 
   return (
     <PrevPathContext.Provider value={prevPathRef.current}>
