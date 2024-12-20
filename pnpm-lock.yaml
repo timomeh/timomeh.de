@@ -58,8 +58,8 @@ importers:
         specifier: 5.0.0
         version: 5.0.0(acorn@8.14.0)(react@19.0.0)(types-react@19.0.0-rc.1)
       next-nprogress-bar:
-        specifier: 2.4.2
-        version: 2.4.2
+        specifier: 2.4.3
+        version: 2.4.3
       pino:
         specifier: 9.5.0
         version: 9.5.0
@@ -2956,8 +2956,8 @@ packages:
     peerDependencies:
       react: '>=16'
 
-  next-nprogress-bar@2.4.2:
-    resolution: {integrity: sha512-esXEm+t0JnhfXEVmwN9JJ8/awLMbLJ0dPMiOOPLMPwpyhd+wikkNLaXGOt/vuBaeGKHC/gGYFKMv+R6zkd6RCw==}
+  next-nprogress-bar@2.4.3:
+    resolution: {integrity: sha512-069WmFALkpCyKiIy89q6dWcPiHhUmXh6EZz6oLpOS7zsIunNOYLscloKFALjIQNCOg3ZO9dWRPowYW4ULho4HQ==}
 
   next@15.1.2:
     resolution: {integrity: sha512-nLJDV7peNy+0oHlmY2JZjzMfJ8Aj0/dd3jCwSZS8ZiO5nkQfcZRqDrRN3U5rJtqVTQneIOGZzb6LCNrk7trMCQ==}
@@ -7896,7 +7896,7 @@ snapshots:
       - acorn
       - supports-color
 
-  next-nprogress-bar@2.4.2:
+  next-nprogress-bar@2.4.3:
     dependencies:
       nprogress-v2: 1.0.4
 
