@@ -27,7 +27,7 @@
     "next": "15.1.2",
     "next-mdx-remote": "5.0.0",
     "next-nprogress-bar": "2.4.3",
-    "pino": "9.5.0",
+    "pino": "9.6.0",
     "pino-pretty": "13.0.0",
     "plaiceholder": "3.0.0",
     "postcss-url": "10.1.3",
