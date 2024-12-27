@@ -15,6 +15,9 @@ export function ShaderCanvas({ fragmentShaderSource }: Props) {
         const gl = canvas.getContext('webgl2', { alpha: true })
         if (!gl) return
 
+        gl.clearColor(0.0, 0.0, 0.0, 0.0)
+        gl.clear(gl.COLOR_BUFFER_BIT)
+
         let { width, height } = canvas.getBoundingClientRect()
         canvas.width = width
         canvas.height = height
@@ -66,8 +69,8 @@ export function ShaderCanvas({ fragmentShaderSource }: Props) {
           cancelAnimationFrame(frameId)
         }
 
-        canvas.style.opacity = '1'
         start()
+        canvas.style.opacity = '1'
 
         const resizeObserver = new ResizeObserver(([entry]) => {
           width = entry.contentRect.width

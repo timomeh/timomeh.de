@@ -88,7 +88,7 @@ void main() {
   // camera direction
   vec3 rd = normalize(vec3(p, 1.3));
   rd.yz *= mm2(0.25);
-  rd.xz *= mm2(sin(u_time * 0.01) * 0.02 + u_time * 0.005);
+  rd.xz *= mm2(sin(u_time * 0.01) * 0.02 + u_time * 0.003);
 
   // draw the aurora
   vec3 col = vec3(0.);

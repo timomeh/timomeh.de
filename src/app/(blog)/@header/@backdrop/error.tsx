@@ -1,7 +1,7 @@
 'use client'
 
-import { HeaderBackdropHaze } from '@/comps/header-backdrop-haze'
+import { HeaderBackdropEmpty } from '@/comps/header-backdrop-empty'
 
 export default function Page() {
-  return <HeaderBackdropHaze />
+  return <HeaderBackdropEmpty />
 }

@@ -18,6 +18,7 @@ export default function Layout({ kicker, backdrop }: Props) {
       <div
         className="absolute -top-[140px] left-0 right-0 hidden h-[550px] w-full
           group-has-[.header-backdrop-signal]/header:block"
+        data-visual-test="removed"
       >
         <Aurora />
         <Contours />
@@ -36,21 +37,6 @@ export default function Layout({ kicker, backdrop }: Props) {
           >
             <Mug />
           </Link>
-
-          <div
-            aria-hidden
-            className="absolute left-full top-1 ml-3 hidden scale-90 whitespace-nowrap font-pixel
-              text-xl font-bold uppercase leading-none tracking-tighter opacity-0
-              transition-all delay-[2s] duration-200
-              group-has-[.title-name:hover]/header:scale-100
-              group-has-[.title-name:hover]/header:animate-[blink_130ms_2]
-              group-has-[.title-name:hover]/header:opacity-100
-              group-has-[.title-name:hover]/header:delay-0
-              group-has-[.title-name:hover]/header:duration-[260ms] motion-reduce:hidden
-              dark:block"
-          >
-            <span className="effect-crt-blue">it me!</span>
-          </div>
         </div>
       </div>
 
@@ -80,35 +66,13 @@ export default function Layout({ kicker, backdrop }: Props) {
             </span>
             <span className="relative -mt-1 block">
               <Link
-                href="/about"
-                className="title-name inline-block text-nowrap text-xl font-semibold"
+                href="/"
+                title="Go to home"
+                className="title-name inline-block text-nowrap text-xl font-semibold antialiased
+                  duration-700"
               >
                 Timo Mämecke
               </Link>
-              <div
-                aria-hidden
-                className="absolute left-10 top-full translate-x-0 rotate-1 leading-none text-gray-700
-                  opacity-0 transition-all group-has-[.title-name:hover]/header:-translate-x-2
-                  group-has-[.title-name:hover]/header:rotate-3
-                  group-has-[.title-name:hover]/header:opacity-100 dark:hidden"
-              >
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  className="-mt-1.5 mr-0.5 inline-block size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M22 15.5C9.5 21.5 6 15.5 6 4.5M6 4.5L3 9M6 4.5L10.5 9"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    fill="none"
-                  />
-                </svg>
-                about me
-              </div>
             </span>
           </div>
         </div>

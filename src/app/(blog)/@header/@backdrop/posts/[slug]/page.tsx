@@ -1,4 +1,4 @@
-import { HeaderBackdropHaze } from '@/comps/header-backdrop-haze'
+import { HeaderBackdropEmpty } from '@/comps/header-backdrop-empty'
 import { HeaderBackdropImage } from '@/comps/header-backdrop-image'
 import { contentAsset } from '@/data/cms'
 import { getPost } from '@/data/posts'
@@ -22,5 +22,5 @@ export default async function Page(props: Props) {
     )
   }
 
-  return <HeaderBackdropHaze />
+  return <HeaderBackdropEmpty />
 }
