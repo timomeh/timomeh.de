@@ -18,7 +18,7 @@ export function BackTag() {
 
   return (
     <TagLink
-      href={backPath}
+      href={backPath || '/'}
       data-umami-event="Back button"
       data-umami-event-target={backPath}
     >
@@ -28,9 +28,7 @@ export function BackTag() {
           title={
             <>
               <span className="hidden dark:inline">←</span>
-              <span className="dark:hidden">
-                &lt;
-              </span> Back
+              <span className="dark:hidden">&lt;</span> Back
             </>
           }
         />
