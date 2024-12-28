@@ -13,6 +13,14 @@ export function Footer() {
         >
           <li>
             <Link
+              href="/about"
+              className="opacity-40 transition-opacity hover:opacity-60"
+            >
+              About
+            </Link>
+          </li>
+          <li>
+            <Link
               href="/archive"
               className="opacity-40 transition-opacity hover:opacity-60"
             >

@@ -66,8 +66,7 @@ export default function Layout({ kicker, backdrop }: Props) {
             </span>
             <span className="relative -mt-1 block">
               <Link
-                href="/"
-                title="Go to home"
+                href="/about"
                 className="title-name inline-block text-nowrap text-xl font-semibold antialiased
                   duration-700"
               >
