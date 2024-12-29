@@ -4,9 +4,14 @@ export function ArchiveIcon() {
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="h-full w-full"
+      className="h-full w-full overflow-visible"
     >
-      <path d="M1 2H23V7H1V2Z" fill="currentColor" />
+      <g
+        className="origin-center
+          group-hover/btn:animate-[archiveTip_0.6s_cubic-bezier(.3,.2,.17,3)_forwards]"
+      >
+        <path d="M1 2H23V7H1V2Z" fill="currentColor" />
+      </g>
       <path
         fillRule="evenodd"
         clipRule="evenodd"

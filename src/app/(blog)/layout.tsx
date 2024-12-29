@@ -59,7 +59,7 @@ export default async function RootLayout({
         dark:text-white [&_*:focus-visible]:rounded-sm [&_*:focus-visible]:outline
         [&_*:focus-visible]:outline-2 [&_*:focus-visible]:outline-offset-4
         [&_*:focus-visible]:outline-[#a18570]
-        motion-safe:[&_*:focus-visible]:animate-outline-bounce
+        motion-safe:[&_*:focus-visible]:animate-[outlineBounce_0.3s]
         dark:[&_*:focus-visible]:outline-emerald-300 ${pixeloid.variable}
         ${ibmPlexMono.variable} ${outfit.variable} ${inter.variable}`}
     >

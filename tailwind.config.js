@@ -82,8 +82,6 @@ module.exports = {
         },
       }),
       backgroundImage: {
-        'gradient-radial':
-          'radial-gradient(closest-side, var(--tw-gradient-stops))',
         grainy: "url('./grainy.svg')",
         'grainy-light': "url('./grainy-light.svg')",
         'crt-lines': "url('./crt-lines.svg')",
@@ -94,46 +92,23 @@ module.exports = {
         mono: ['var(--font-ibm-plex-mono)'],
         pixel: ['var(--font-pixeloid)'],
       },
-      maxWidth: {
-        '8xl': '88rem',
-        content: 642,
-      },
       animation: {
         'fade-in': 'fadeIn 0.2s linear',
-        'outline-bounce': 'outlineBounce 0.3s',
-        tucker: 'tuckertucker 0.8s linear infinite',
       },
       keyframes: {
-        tuckertucker: {
-          '0%': { transform: 'scale(1)' },
-          '25%': { transform: 'scale(0.96)' },
-          '50%': { transform: 'scale(1.03)' },
-          '75%': { transform: 'scale(0.96)' },
-          '100%': { transform: 'scale(1)' },
+        flap: {
+          '0%': { transform: 'scaleX(1)' },
+          '50%': { transform: 'scaleX(0.85)' },
+          '100%': { transform: 'scaleX(1)' },
         },
-        path: {
-          '0%': { offsetDistance: '0%' },
-          '100%': { offsetDistance: '100%' },
-        },
-        blink: {
-          '0%': { opacity: 1 },
-          '100%': { opacity: 0.3 },
+        archiveTip: {
+          '0%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(2px)' },
+          '100%': { transform: 'translateY(0) rotate(8deg)' },
         },
         fadeIn: {
           from: { opacity: 0 },
           to: { opacity: 1 },
-        },
-        fadeOut: {
-          from: { opacity: 1 },
-          to: { opacity: 0 },
-        },
-        rotate360: {
-          from: { transform: 'rotateY(0deg)' },
-          to: { transform: 'rotateY(-360deg)' },
-        },
-        slideDown: {
-          from: { transform: 'translateY(0)' },
-          to: { transform: 'translateY(100%)' },
         },
         outlineBounce: {
           '0%': {
