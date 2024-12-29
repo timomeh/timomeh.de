@@ -17,11 +17,7 @@ export function BackTag() {
   }
 
   return (
-    <TagLink
-      href={backPath || '/'}
-      data-umami-event="Back button"
-      data-umami-event-target={backPath}
-    >
+    <TagLink href={backPath || '/'}>
       <span className="text-[#ba7fdb] dark:text-[#DEC1EF]">
         <Tag
           color="currentColor"

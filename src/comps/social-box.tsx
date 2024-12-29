@@ -33,7 +33,6 @@ export async function SocialBox() {
           target="_blank"
           className="-m-1 block p-1 opacity-70 transition-[opacity,transform] hover:scale-110
             hover:opacity-100 active:scale-95"
-          data-umami-event="Bluesky link"
         >
           <div className="size-3.5">
             <BlueskyIcon />

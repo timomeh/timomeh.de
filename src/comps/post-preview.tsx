@@ -19,8 +19,6 @@ export async function PostPreview({ slug, direction }: Props) {
     <Link
       href={`/posts/${post.slug}`}
       className="group-post-preview relative z-10 block !-outline-offset-8"
-      data-umami-event="Post navigation"
-      data-umami-event-direction={direction}
     >
       <div className="group/post-preview relative block w-full overflow-hidden pt-10">
         {post.frontmatter.cover && (

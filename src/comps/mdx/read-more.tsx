@@ -9,7 +9,6 @@ export function ReadMore({ href }: Props) {
     <Link
       className="whitespace-nowrap no-underline dark:pl-1 dark:font-pixel dark:text-sm"
       href={href}
-      data-umami-event="Read more"
     >
       <span className="dark:effect-crt-blue text-[#a18570]">
         Read more
