@@ -38,9 +38,6 @@ module.exports = {
         beige: '#d1bdae',
         gray: colors.stone,
       },
-      width: {
-        content: 642,
-      },
       typography: ({ theme: _ }) => ({
         DEFAULT: {
           css: {
