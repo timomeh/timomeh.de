@@ -42,7 +42,7 @@
     "remove-markdown": "0.6.0",
     "server-only": "0.0.1",
     "sharp": "0.32.6",
-    "shiki": "1.26.2",
+    "shiki": "1.27.0",
     "unist-util-visit": "5.0.0"
   },
   "devDependencies": {
