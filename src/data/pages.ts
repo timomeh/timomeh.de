@@ -1,7 +1,9 @@
 import { cache } from 'react'
-import { db, repo } from './db'
-import { cms, Page } from './cms'
+
 import { logger } from '@/lib/log'
+
+import { cms, Page } from './cms'
+import { db, repo } from './db'
 
 const log = logger.child({ module: 'data/pages' })
 

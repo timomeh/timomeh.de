@@ -1,14 +1,14 @@
 import { Webhooks } from '@octokit/webhooks'
 import { EventPayloadMap, PushEvent } from '@octokit/webhooks-types'
+import { revalidateTag } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
 
+import { config } from '@/config'
 import { updatePageCache } from '@/data/pages'
 import { updatePostCache } from '@/data/posts'
-import { updateTagCache } from '@/data/tags'
 import { updateSettingsCache } from '@/data/settings'
-import { config } from '@/config'
+import { updateTagCache } from '@/data/tags'
 import { logger } from '@/lib/log'
-import { revalidateTag } from 'next/cache'
 
 const log = logger.child({ module: 'webhooks/github' })
 
@@ -57,9 +57,6 @@ export async function POST(request: NextRequest) {
 
     const changedFiles = Array.from(
       new Set([...allModified, ...allAdded, ...allRemoved]),
-    )
-    const addedOrRemovedFiles = Array.from(
-      new Set([...allAdded, ...allRemoved]),
     )
 
     // update individuals

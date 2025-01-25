@@ -1,13 +1,13 @@
-import '@/styles/globals.css'
+import '@/styles/main.css'
 
+import { Viewport } from 'next'
 import { IBM_Plex_Mono, Inter, Outfit } from 'next/font/google'
 import localFont from 'next/font/local'
-
-import { ProgressBar } from '@/comps/progress-bar'
-import { PrevPathProvider } from '@/comps/prev-path'
-import { config } from '@/config'
 import React from 'react'
-import { Viewport } from 'next'
+
+import { PrevPathProvider } from '@/comps/prev-path'
+import { ProgressBar } from '@/comps/progress-bar'
+import { config } from '@/config'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -54,13 +54,13 @@ export default async function RootLayout({
       lang="en"
       data-theme="system"
       suppressHydrationWarning
-      className={`group/root h-full bg-[#f2f1f0] bg-grainy-light bg-[length:200px_200px]
-        text-gray-900 transition-colors duration-300 dark:bg-[#141314] dark:bg-grainy
-        dark:text-white [&_*:focus-visible]:rounded-sm [&_*:focus-visible]:outline
-        [&_*:focus-visible]:outline-2 [&_*:focus-visible]:outline-offset-4
-        [&_*:focus-visible]:outline-[#a18570]
-        motion-safe:[&_*:focus-visible]:animate-[outlineBounce_0.3s]
-        dark:[&_*:focus-visible]:outline-emerald-300 ${pixeloid.variable}
+      className={`group/root bg-grainy-light dark:bg-grainy
+        motion-safe:**:focus-visible:animate-outline-bounce h-full bg-[#f2f1f0]
+        bg-[length:200px_200px] text-gray-900 scheme-light transition-colors
+        duration-300 **:focus-visible:rounded-xs **:focus-visible:outline-2
+        **:focus-visible:outline-offset-4 **:focus-visible:outline-[#a18570]
+        dark:bg-[#141314] dark:text-white dark:scheme-dark
+        dark:**:focus-visible:outline-emerald-300 ${pixeloid.variable}
         ${ibmPlexMono.variable} ${outfit.variable} ${inter.variable}`}
     >
       <head>

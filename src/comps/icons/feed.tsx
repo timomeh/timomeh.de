@@ -4,8 +4,8 @@ export function FeedIcon() {
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="h-full w-full overflow-visible [&>*]:transition-[transform,opacity]
-        [&>*]:duration-500 [&>*]:ease-[cubic-bezier(.3,.2,.17,3)]"
+      className="h-full w-full overflow-visible *:transition-all *:duration-500
+        *:ease-[cubic-bezier(.3,.2,.17,3)]"
     >
       <g
         className="origin-bottom-left group-hover/btn:-translate-x-px

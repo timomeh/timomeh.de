@@ -1,4 +1,5 @@
 import { getPage } from '@/data/pages'
+
 import { DataKicker } from '../data-kicker'
 
 type Props = {

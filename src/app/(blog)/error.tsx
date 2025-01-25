@@ -1,7 +1,7 @@
 'use client'
 
-import { Footer } from '@/comps/footer'
 import { ErrorContent } from '@/comps/error-content'
+import { Footer } from '@/comps/footer'
 
 type Props = {
   reset: () => void

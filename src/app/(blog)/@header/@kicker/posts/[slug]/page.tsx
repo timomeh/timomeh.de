@@ -1,4 +1,5 @@
 import { getPost } from '@/data/posts'
+
 import { DataKicker } from '../../data-kicker'
 
 type Props = {

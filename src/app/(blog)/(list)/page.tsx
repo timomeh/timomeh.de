@@ -1,7 +1,9 @@
-import { getOlderPost, pagePublishedPosts } from '@/data/posts'
-import { ListedPost } from './listed-post'
-import { Pagination } from '@/comps/pagination'
 import { Metadata } from 'next'
+
+import { Pagination } from '@/comps/pagination'
+import { getOlderPost, pagePublishedPosts } from '@/data/posts'
+
+import { ListedPost } from './listed-post'
 
 export const fetchCache = 'force-cache'
 
@@ -16,7 +18,7 @@ export default async function Page() {
       {posts.map((post) => (
         <ListedPost slug={post.slug} key={post.slug} />
       ))}
-      <div className="border-t border-beige/50 dark:border-white/10" />
+      <div className="border-beige/50 border-t dark:border-white/10" />
       <Pagination current={0} hasOlderPost={hasOlderPost} bottom />
     </>
   )

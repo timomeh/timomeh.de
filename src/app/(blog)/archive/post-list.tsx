@@ -1,10 +1,11 @@
 import Link from 'next/link'
-import { PostTag } from '@/comps/post-tag'
+
 import { MDX } from '@/comps/mdx/mdx'
+import { PostTag } from '@/comps/post-tag'
 import { getPublishedPostsRange, listPublishedPosts } from '@/data/posts'
-import { range } from '@/lib/range'
 import { formatReadingTime } from '@/lib/formatReadingTime'
 import { markdownHeadline } from '@/lib/markdownHeadline'
+import { range } from '@/lib/range'
 
 type Props = {
   tag?: string
@@ -19,8 +20,8 @@ export async function PostList({ tag }: Props) {
       {years.map((year) => (
         <div key={year} className="mt-10 text-gray-800 dark:text-white">
           <h2
-            className="dark:effect-crt-blue text-2xl font-black leading-none text-orange-800/35
-              dark:font-pixel dark:font-bold"
+            className="dark:effect-crt-blue dark:font-pixel text-2xl leading-none font-black
+              text-orange-800/35 dark:font-bold"
           >
             {year}
           </h2>
@@ -50,7 +51,7 @@ async function PostsByYear({ tag, year }: { tag?: string; year?: number }) {
           <div>
             <div className="flex items-center gap-1">
               <div
-                className="font-display text-sm font-medium leading-none dark:font-pixel dark:text-xs
+                className="font-display dark:font-pixel text-sm leading-none font-medium dark:text-xs
                   dark:font-normal"
               >
                 <time className="text-purple-600 dark:text-purple-300">
@@ -71,7 +72,7 @@ async function PostsByYear({ tag, year }: { tag?: string; year?: number }) {
                 <PostTag key={tag} slug={tag} size="smol" />
               ))}
             </div>
-            <h3 className="mt-1 text-balance font-display font-medium leading-snug">
+            <h3 className="font-display mt-1 leading-snug font-medium text-balance">
               <Link href={`/posts/${post.slug}`}>
                 <MDX
                   content={markdownHeadline(post.content) || post.title}

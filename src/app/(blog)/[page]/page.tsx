@@ -1,9 +1,10 @@
-import { notFound } from 'next/navigation'
-import { MDX } from '@/comps/mdx/mdx'
-import { getPage } from '@/data/pages'
-import { contentAsset } from '@/data/cms'
 import { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+
+import { MDX } from '@/comps/mdx/mdx'
 import { Prose } from '@/comps/prose'
+import { contentAsset } from '@/data/cms'
+import { getPage } from '@/data/pages'
 
 type Props = {
   params: Promise<{ page: string }>
@@ -17,7 +18,7 @@ export default async function Page(props: Props) {
   if (!page) notFound()
 
   return (
-    <article className="relative animate-fade-in">
+    <article className="animate-fade-in relative">
       <Prose>
         <MDX
           content={page.content}

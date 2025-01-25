@@ -1,3 +1,6 @@
+import Link from 'next/link'
+import React from 'react'
+
 import { Anchor } from '@/comps/mdx/anchor'
 import { MDX } from '@/comps/mdx/mdx'
 import { PostHeader } from '@/comps/post-header'
@@ -5,8 +8,6 @@ import { PostPreviewImage } from '@/comps/post-preview-image'
 import { Prose } from '@/comps/prose'
 import { contentAsset } from '@/data/cms'
 import { getPost } from '@/data/posts'
-import Link from 'next/link'
-import React from 'react'
 
 type Props = {
   slug: string
@@ -24,18 +25,18 @@ export async function ListedPost({ slug }: Props) {
       <div className="bg-beige/50 relative z-10 h-px w-full dark:bg-white/10" />
       {post.frontmatter.cover ? (
         <>
-          <div className="absolute left-0 right-0 top-[-63px] overflow-hidden">
+          <div className="absolute top-[-63px] right-0 left-0 overflow-hidden">
             <PostPreviewImage
               src={contentAsset('posts', slug, post.frontmatter.cover)}
               alt=""
             />
           </div>
-          <div className="aspect-[5/1] sm:h-[200px]" />
+          <div className="aspect-5/1 sm:h-[200px]" />
         </>
       ) : (
         <div className="h-24" />
       )}
-      <div className="relative mx-auto max-w-2xl animate-fade-in px-4">
+      <div className="animate-fade-in relative mx-auto max-w-2xl px-4">
         <Prose>
           <PostHeader slug={post.slug} linked />
           <MDX

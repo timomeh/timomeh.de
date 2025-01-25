@@ -1,9 +1,10 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { PostList } from '../../post-list'
-import { getTag } from '@/data/tags'
 import { contentAsset } from '@/data/cms'
+import { getTag } from '@/data/tags'
+
+import { PostList } from '../../post-list'
 
 type Props = {
   params: Promise<{ tag: string }>

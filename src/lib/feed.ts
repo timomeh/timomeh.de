@@ -1,7 +1,8 @@
-import { unstable_cache } from 'next/cache'
 import { Feed, FeedOptions } from 'feed'
-import { listPublishedPosts } from '@/data/posts'
+import { unstable_cache } from 'next/cache'
+
 import { config } from '@/config'
+import { listPublishedPosts } from '@/data/posts'
 
 type FeedType = 'atom' | 'json' | 'rss'
 

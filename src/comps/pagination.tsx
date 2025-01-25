@@ -23,15 +23,12 @@ export function Pagination({
     <>
       {bottom && (
         <div className="relative z-[-1] hidden dark:block" aria-hidden={true}>
-          <div
-            className="absolute left-0 right-0 -mb-14 h-14 bg-gradient-to-b from-black/30
-              to-transparent"
-          />
+          <div className="absolute right-0 left-0 -mb-14 h-14 bg-linear-to-b from-black/30 to-transparent" />
         </div>
       )}
       <div
-        className="mx-auto flex w-full max-w-2xl justify-between px-4 py-2 font-semibold
-          text-[#a18570] dark:font-pixel dark:font-normal"
+        className="dark:font-pixel mx-auto flex w-full max-w-2xl justify-between px-4 py-2
+          font-semibold text-[#a18570] dark:font-normal"
       >
         {current > 0 ? (
           <Link
@@ -60,10 +57,7 @@ export function Pagination({
       </div>
       {top && (
         <div className="relative z-[-1] hidden dark:block" aria-hidden={true}>
-          <div
-            className="absolute left-0 right-0 -mt-14 h-14 bg-gradient-to-t from-black/30
-              to-transparent"
-          />
+          <div className="absolute right-0 left-0 -mt-14 h-14 bg-linear-to-t from-black/30 to-transparent" />
         </div>
       )}
     </>

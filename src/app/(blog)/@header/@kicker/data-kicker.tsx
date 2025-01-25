@@ -1,4 +1,5 @@
 import { Suspense } from 'react'
+
 import { RandomKicker } from './random-kicker'
 
 type Props = {

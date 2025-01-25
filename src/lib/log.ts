@@ -1,5 +1,6 @@
-import { config } from '@/config'
 import pino from 'pino'
+
+import { config } from '@/config'
 
 const pinoSingleton = () => {
   return pino({

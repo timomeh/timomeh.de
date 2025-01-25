@@ -18,11 +18,21 @@ export async function highlight(code: string, lang: string) {
       light: 'one-light',
     },
     transformers: [
-      transformerNotationDiff(),
-      transformerNotationHighlight(),
-      transformerNotationWordHighlight(),
-      transformerNotationFocus(),
-      transformerNotationErrorLevel(),
+      transformerNotationDiff({
+        matchAlgorithm: 'v3',
+      }),
+      transformerNotationHighlight({
+        matchAlgorithm: 'v3',
+      }),
+      transformerNotationWordHighlight({
+        matchAlgorithm: 'v3',
+      }),
+      transformerNotationFocus({
+        matchAlgorithm: 'v3',
+      }),
+      transformerNotationErrorLevel({
+        matchAlgorithm: 'v3',
+      }),
       transformerRenderWhitespace({ position: 'boundary' }),
     ],
   })

@@ -2,9 +2,9 @@ import { notFound } from 'next/navigation'
 import { ImageResponse } from 'next/og'
 
 import { getFonts, OpengraphBaseImage } from '@/comps/og-base-image'
+import { contentAsset } from '@/data/cms'
 import { getPost } from '@/data/posts'
 import { formatReadingTime } from '@/lib/formatReadingTime'
-import { contentAsset } from '@/data/cms'
 
 export const generateStaticParams = () => []
 export const size = {

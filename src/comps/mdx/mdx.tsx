@@ -1,30 +1,31 @@
-import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc'
 import remarkEmbedder, { TransformerInfo } from '@remark-embedder/core'
 import oembedTransformer from '@remark-embedder/transformer-oembed'
-import remarkGfm from 'remark-gfm'
+import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc'
 import rehypeUnwrapImages from 'rehype-unwrap-images'
+import remarkGfm from 'remark-gfm'
 import remarkSmartypants from 'remark-smartypants'
+
+import { remarkImageSrcPrefix } from '@/lib/remarkImagePrefix'
+import { withMdxFootnotes } from '@/lib/remarkMdxFootnotes'
+import { remarkReadMore } from '@/lib/remarkReadMore'
 
 import { Anchor } from './anchor'
 import { Blockquote } from './blockquote'
 import { Code } from './code'
-import { Del } from './del'
-import { Img } from './img'
-import { Video } from './video'
-import { Kbd } from './kbd'
-import { Figure } from './figure'
-import { Lead } from './lead'
 import { Definition } from './definition'
 import { DefinitionList } from './definition-list'
-import { withMdxFootnotes } from '@/lib/remarkMdxFootnotes'
+import { Del } from './del'
+import { Figure } from './figure'
 import {
   FootnoteContent,
   FootnoteReference,
   FootnotesSection,
 } from './footnote'
-import { remarkImageSrcPrefix } from '@/lib/remarkImagePrefix'
-import { remarkReadMore } from '@/lib/remarkReadMore'
+import { Img } from './img'
+import { Kbd } from './kbd'
+import { Lead } from './lead'
 import { ReadMore } from './read-more'
+import { Video } from './video'
 
 type Props = {
   content: string

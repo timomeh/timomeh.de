@@ -1,9 +1,11 @@
+import { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+
+import { Pagination } from '@/comps/pagination'
 import { getOlderPost, pagePublishedPosts } from '@/data/posts'
 import { saneParseInt } from '@/lib/saneParseInt'
-import { notFound } from 'next/navigation'
+
 import { ListedPost } from '../../listed-post'
-import { Pagination } from '@/comps/pagination'
-import { Metadata } from 'next'
 
 type Props = {
   params: Promise<{ num: string }>
@@ -28,7 +30,7 @@ export default async function Page(props: Props) {
       {posts.map((post) => (
         <ListedPost slug={post.slug} key={post.slug} />
       ))}
-      <div className="border-t border-beige/50 dark:border-white/10" />
+      <div className="border-beige/50 border-t dark:border-white/10" />
       <Pagination current={num} hasOlderPost={hasOlderPost} bottom />
     </>
   )

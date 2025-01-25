@@ -1,13 +1,13 @@
 // Inspired by:
 // https://github.com/stefanprobst/keystatic-footnotes/blob/main/lib/footnotes.js
 
+import { Root } from 'mdast'
 import {
   MdxJsxAttribute,
   MdxJsxFlowElement,
   MdxJsxTextElement,
 } from 'mdast-util-mdx'
 import { SKIP, visit } from 'unist-util-visit'
-import { Root } from 'mdast'
 
 // This chonker will turn all inline MDX `<Footnote />` components into multiple
 // components, which makes it easier to render them.

@@ -1,10 +1,12 @@
-import { getOlderPost, pagePublishedPosts } from '@/data/posts'
-import { ListedPost } from '../../listed-post'
-import { Pagination } from '@/comps/pagination'
-import { getTag } from '@/data/tags'
 import { Metadata } from 'next'
-import { contentAsset } from '@/data/cms'
 import { notFound } from 'next/navigation'
+
+import { Pagination } from '@/comps/pagination'
+import { contentAsset } from '@/data/cms'
+import { getOlderPost, pagePublishedPosts } from '@/data/posts'
+import { getTag } from '@/data/tags'
+
+import { ListedPost } from '../../listed-post'
 
 type Props = {
   params: Promise<{ tag: string }>
@@ -25,7 +27,7 @@ export default async function Page(props: Props) {
       {posts.map((post) => (
         <ListedPost slug={post.slug} key={post.slug} />
       ))}
-      <div className="border-t border-beige/50 dark:border-white/10" />
+      <div className="border-beige/50 border-t dark:border-white/10" />
       <Pagination
         bottom
         current={0}

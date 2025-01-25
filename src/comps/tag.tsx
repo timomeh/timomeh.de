@@ -9,13 +9,14 @@ export function Tag({ color, title, size = 'normal' }: Props) {
     <div style={{ color }}>
       <div
         data-size={size}
-        className="group/tag relative isolate flex h-[23px] items-center rounded-full
-          border-current font-mono font-semibold tracking-tight data-[size=smol]:h-[17px]
-          data-[size=normal]:px-2 data-[size=smol]:px-1.5 data-[size=normal]:text-[12px]
-          data-[size=smol]:text-[10px] dark:border dark:font-pixel dark:font-normal
-          dark:tracking-normal dark:data-[size=normal]:text-[11px]
-          dark:data-[size=smol]:text-[9px] dark:data-[size=normal]:antialiased
-          dark:data-[size=normal]:[font-feature-settings:ss01]"
+        className="group/tag dark:font-pixel relative isolate flex h-[23px] items-center
+          rounded-full border-current font-mono font-semibold tracking-tight
+          data-[size=normal]:px-2 data-[size=normal]:text-[12px] data-[size=smol]:h-[17px]
+          data-[size=smol]:px-1.5 data-[size=smol]:text-[10px] dark:border
+          dark:font-normal dark:tracking-normal dark:data-[size=normal]:text-[11px]
+          dark:data-[size=normal]:antialiased
+          dark:data-[size=normal]:[font-feature-settings:ss01]
+          dark:data-[size=smol]:text-[9px]"
       >
         <div
           className="pointer-events-none absolute inset-0 rounded-full bg-current opacity-40

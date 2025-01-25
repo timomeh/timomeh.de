@@ -7,7 +7,7 @@ type Props = {
 export function ReadMore({ href }: Props) {
   return (
     <Link
-      className="whitespace-nowrap no-underline dark:pl-1 dark:font-pixel dark:text-sm"
+      className="dark:font-pixel whitespace-nowrap no-underline dark:pl-1 dark:text-sm"
       href={href}
     >
       <span className="dark:effect-crt-blue text-[#a18570]">

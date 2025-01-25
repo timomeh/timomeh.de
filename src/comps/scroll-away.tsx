@@ -10,27 +10,29 @@ export function ScrollAway({ children }: Props) {
   const $wrap = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
-    if (!$wrap.current) return
+    const wrap = $wrap.current
 
-    $wrap.current.style.height = ''
-    const rect = $wrap.current.getBoundingClientRect()
-    $wrap.current.style.height = '0px'
+    if (!wrap) return
+
+    wrap.style.height = ''
+    const rect = wrap.getBoundingClientRect()
+    wrap.style.height = '0px'
     requestAnimationFrame(() => {
-      if (!$wrap.current) return
-      $wrap.current.style.height = ''
+      if (!wrap) return
+      wrap.style.height = ''
 
       window.scrollTo({
-        top: window.scrollX + rect.height,
+        top: window.scrollX + Math.ceil(rect.height),
         behavior: 'instant',
       })
     })
 
     return () => {
-      if (!$wrap.current) return
+      if (!wrap) return
 
-      const rect = $wrap.current.getBoundingClientRect()
+      const rect = wrap.getBoundingClientRect()
       window.scrollTo({
-        top: window.scrollX - rect.height,
+        top: window.scrollX - Math.ceil(rect.height),
         behavior: 'instant',
       })
     }

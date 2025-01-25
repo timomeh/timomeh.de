@@ -1,5 +1,5 @@
-import { getPlaiceholder } from 'plaiceholder'
 import { unstable_cache } from 'next/cache'
+import { getPlaiceholder } from 'plaiceholder'
 
 // turn images into blurry placeholders
 

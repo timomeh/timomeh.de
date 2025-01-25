@@ -6,10 +6,7 @@ export function ArchiveIcon() {
       xmlns="http://www.w3.org/2000/svg"
       className="h-full w-full overflow-visible"
     >
-      <g
-        className="origin-center
-          group-hover/btn:animate-[archiveTip_0.6s_cubic-bezier(.3,.2,.17,3)_forwards]"
-      >
+      <g className="group-hover/btn:animate-archive-tip origin-center">
         <path d="M1 2H23V7H1V2Z" fill="currentColor" />
       </g>
       <path

@@ -1,5 +1,5 @@
-import { visit } from 'unist-util-visit'
 import { Root } from 'mdast'
+import { visit } from 'unist-util-visit'
 
 // This boy will yeet everything after `<ReadMore />`.
 

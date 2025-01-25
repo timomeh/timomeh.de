@@ -1,9 +1,11 @@
+import { cache } from 'react'
 import { createClient } from 'redis'
 import { Repository, Schema } from 'redis-om'
-import { Page, Post, Settings, Tag } from './cms'
-import { cache } from 'react'
+
 import { config } from '@/config'
 import { logger } from '@/lib/log'
+
+import { Page, Post, Settings, Tag } from './cms'
 
 const log = logger.child({ module: 'data/db' })
 

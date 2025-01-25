@@ -5,6 +5,7 @@ Source code from [timomeh.de](https://timomeh.de). It's built with Next.js, [Key
 I wrote posts about [how I'd like my blog to work](https://timomeh.de/posts/how-to-build-a-blog) and [how I implemented it](https://timomeh.de/posts/how-i-built-this-blog) – although this implementation post is outdated and has changed a lot. This README reflects the most up-to-date implementation.
 
 See also:
+
 - ["Take Care of Your Blog"](https://www.robinrendle.com/notes/take-care-of-your-blog-/) by Robin Rendle
 
 ## Implementation details
@@ -26,7 +27,6 @@ Redis is only used as an ephemeral cache, so there is no potential of data loss.
 Images are also stored in the private GitHub repository. To make them publicly accessible, I proxy and cache those images in a Next.js route handler.
 
 Videos are simply uploaded to YouTube, and YouTube links in posts are automatically converted to embeds.
-
 
 ## Stack
 

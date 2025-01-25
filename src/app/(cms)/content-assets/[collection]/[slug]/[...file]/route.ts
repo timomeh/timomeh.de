@@ -1,9 +1,10 @@
+import { notFound } from 'next/navigation'
+import { NextResponse } from 'next/server'
+
 import { cms } from '@/data/cms'
 import { getPage } from '@/data/pages'
 import { getPost } from '@/data/posts'
 import { getTag } from '@/data/tags'
-import { notFound } from 'next/navigation'
-import { NextResponse } from 'next/server'
 
 // public proxy for files in the private github repo
 

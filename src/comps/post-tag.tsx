@@ -1,7 +1,8 @@
 import React from 'react'
 
-import { Tag } from './tag'
 import { getTag } from '@/data/tags'
+
+import { Tag } from './tag'
 
 type Props = {
   slug: string
