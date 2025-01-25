@@ -1,21 +1,15 @@
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
-
 import { FlatCompat } from '@eslint/eslintrc'
-import js from '@eslint/js'
+import prettierRecommended from 'eslint-plugin-prettier/recommended'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import unusedImports from 'eslint-plugin-unused-imports'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
 const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
+  baseDirectory: import.meta.dirname,
 })
 
-const config = [
-  ...compat.extends('next/core-web-vitals', 'plugin:prettier/recommended'),
+const eslintConfig = [
+  ...compat.extends('next/core-web-vitals'),
+  prettierRecommended,
   {
     plugins: {
       'simple-import-sort': simpleImportSort,
@@ -41,4 +35,4 @@ const config = [
   },
 ]
 
-export default config
+export default eslintConfig
