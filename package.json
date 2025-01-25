@@ -18,7 +18,7 @@
     "@plaiceholder/next": "3.0.0",
     "@remark-embedder/core": "3.0.3",
     "@remark-embedder/transformer-oembed": "5.0.1",
-    "@shikijs/transformers": "1.27.2",
+    "@shikijs/transformers": "2.1.0",
     "bluebird": "3.7.2",
     "feed": "4.2.2",
     "lucide-react": "0.473.0",
@@ -42,7 +42,7 @@
     "remove-markdown": "0.6.0",
     "server-only": "0.0.1",
     "sharp": "0.32.6",
-    "shiki": "1.27.2",
+    "shiki": "2.1.0",
     "unist-util-visit": "5.0.0"
   },
   "devDependencies": {
