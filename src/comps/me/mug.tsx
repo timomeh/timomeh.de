@@ -12,8 +12,8 @@ export function Mug() {
         src={comicO}
         alt=""
         aria-hidden={true}
-        className="absolute left-0 top-0 size-full select-none object-contain opacity-0
-          transition-all duration-75 group-active/link:opacity-100"
+        className="absolute top-0 left-0 size-full object-contain opacity-0 transition-all
+          duration-75 select-none group-active/link:opacity-100"
         draggable={false}
       />
     </div>

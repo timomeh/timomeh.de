@@ -39,13 +39,13 @@ export function FootnoteReference(props: { count: number; scope?: string }) {
     >
       <span
         aria-hidden
-        className="absolute -left-[3px] -top-px z-[-1] block h-4 w-4 rounded-full bg-sky-400/50
+        className="absolute -top-px -left-[3px] z-[-1] block h-4 w-4 rounded-full bg-sky-400/50
           opacity-0 transition-opacity delay-300 ![animation-fill-mode:forwards]
           ![animation-iteration-count:5] group-target/footnoteref:animate-ping
           group-target/footnoteref:opacity-100 dark:bg-sky-200/10"
       />
       <a
-        className="break-words pl-0.5 font-pixel text-[11px] no-underline dark:text-white/50"
+        className="font-pixel pl-0.5 text-[11px] break-words no-underline dark:text-white/50"
         aria-describedby={`fn-${props.count}-${props.scope || ''}label`}
         href={`#${createFootnoteContentId(props.count, props.scope)}`}
       >
@@ -79,7 +79,7 @@ export function FootnoteContent(props: {
       {props.children}{' '}
       <a
         aria-label={`Back to reference ${props.count}`}
-        className="break-words pl-0.5 font-pixel text-[13px] text-current text-opacity-50
+        className="font-pixel text-opacity-50 pl-0.5 text-[13px] break-words text-current
           no-underline"
         href={`#${createFootnoteReferenceId(props.count, props.scope)}`}
       >

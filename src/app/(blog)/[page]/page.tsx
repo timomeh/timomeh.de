@@ -17,7 +17,7 @@ export default async function Page(props: Props) {
   if (!page) notFound()
 
   return (
-    <article className="relative animate-fade-in">
+    <article className="animate-fade-in relative">
       <Prose>
         <MDX
           content={page.content}

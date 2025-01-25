@@ -47,7 +47,7 @@ const components = {
       return (
         <>
           {props.children}
-          <div className="mt-2 text-sm italic leading-tight text-gray-600">
+          <div className="mt-2 text-sm leading-tight text-gray-600 italic">
             {props.value.caption}
           </div>
         </>

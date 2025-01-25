@@ -24,7 +24,7 @@ export async function ListedPost({ slug }: Props) {
       <div className="bg-beige/50 relative z-10 h-px w-full dark:bg-white/10" />
       {post.frontmatter.cover ? (
         <>
-          <div className="absolute left-0 right-0 top-[-63px] overflow-hidden">
+          <div className="absolute top-[-63px] right-0 left-0 overflow-hidden">
             <PostPreviewImage
               src={contentAsset('posts', slug, post.frontmatter.cover)}
               alt=""
@@ -35,7 +35,7 @@ export async function ListedPost({ slug }: Props) {
       ) : (
         <div className="h-24" />
       )}
-      <div className="relative mx-auto max-w-2xl animate-fade-in px-4">
+      <div className="animate-fade-in relative mx-auto max-w-2xl px-4">
         <Prose>
           <PostHeader slug={post.slug} linked />
           <MDX

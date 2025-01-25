@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "playwright test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test:ui": "pnpm test -- --ui"
   },
   "dependencies": {

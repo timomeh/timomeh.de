@@ -19,7 +19,7 @@ export default async function Page(props: Props) {
 
   return (
     <article
-      className="relative animate-fade-in"
+      className="animate-fade-in relative"
       lang={post.meta.lang?.split('_')[0]}
     >
       <Prose>

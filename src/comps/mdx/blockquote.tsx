@@ -7,16 +7,16 @@ export function Blockquote({ children, ...rest }: Props) {
   return (
     <blockquote
       {...rest}
-      className="relative my-10 rounded-lg border-none pl-5 pr-2 sm:pl-2"
+      className="relative my-10 rounded-lg border-none pr-2 pl-5 sm:pl-2"
     >
       {/* ∠ */}
       <div
-        className="text-beige absolute -inset-y-4 inset-x-0 sm:-inset-x-4 sm:-inset-y-5
+        className="text-beige absolute inset-x-0 -inset-y-4 sm:-inset-x-4 sm:-inset-y-5
           dark:text-yellow-300 dark:shadow-xl"
       >
-        <div className="absolute bottom-0 left-[1px] top-0 opacity-50">
-          <div className="absolute bottom-0 top-0 w-0 border-l-[2px] border-current" />
-          <div className="absolute right-full top-4 -mr-px w-[15px]">
+        <div className="absolute top-0 bottom-0 left-[1px] opacity-50">
+          <div className="absolute top-0 bottom-0 w-0 border-l-[2px] border-current" />
+          <div className="absolute top-4 right-full -mr-px w-[15px]">
             <div className="h-[3px] w-[15px] bg-current" />
             <div className="ml-[3px] h-[3px] w-[12px] bg-current" />
             <div className="ml-[6px] h-[3px] w-[9px] bg-current" />
@@ -25,11 +25,11 @@ export function Blockquote({ children, ...rest }: Props) {
           </div>
         </div>
         <div
-          className="bg-beige/20 absolute inset-y-0 left-[1px] right-0 rounded-r-xl
+          className="bg-beige/20 absolute inset-y-0 right-0 left-[1px] rounded-r-xl
             dark:bg-yellow-50/5"
         />
         <div
-          className="absolute inset-y-0 left-[1px] right-0 hidden rounded-r-xl bg-crt-lines opacity-5
+          className="bg-crt-lines absolute inset-y-0 right-0 left-[1px] hidden rounded-r-xl opacity-5
             dark:block"
         />
       </div>
