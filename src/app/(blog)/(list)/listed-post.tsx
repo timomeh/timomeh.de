@@ -1,3 +1,6 @@
+import Link from 'next/link'
+import React from 'react'
+
 import { Anchor } from '@/comps/mdx/anchor'
 import { MDX } from '@/comps/mdx/mdx'
 import { PostHeader } from '@/comps/post-header'
@@ -5,8 +8,6 @@ import { PostPreviewImage } from '@/comps/post-preview-image'
 import { Prose } from '@/comps/prose'
 import { contentAsset } from '@/data/cms'
 import { getPost } from '@/data/posts'
-import Link from 'next/link'
-import React from 'react'
 
 type Props = {
   slug: string

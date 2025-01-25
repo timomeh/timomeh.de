@@ -1,7 +1,8 @@
+import Link from 'next/link'
+
 import { PostTag } from '@/comps/post-tag'
 import { getPost } from '@/data/posts'
 import { formatReadingTime } from '@/lib/formatReadingTime'
-import Link from 'next/link'
 
 type Props = {
   slug: string

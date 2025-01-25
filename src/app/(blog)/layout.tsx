@@ -1,13 +1,13 @@
 import '@/styles/main.css'
 
+import { Viewport } from 'next'
 import { IBM_Plex_Mono, Inter, Outfit } from 'next/font/google'
 import localFont from 'next/font/local'
-
-import { ProgressBar } from '@/comps/progress-bar'
-import { PrevPathProvider } from '@/comps/prev-path'
-import { config } from '@/config'
 import React from 'react'
-import { Viewport } from 'next'
+
+import { PrevPathProvider } from '@/comps/prev-path'
+import { ProgressBar } from '@/comps/progress-bar'
+import { config } from '@/config'
 
 const inter = Inter({
   subsets: ['latin'],

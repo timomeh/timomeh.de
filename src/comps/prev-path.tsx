@@ -1,7 +1,7 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState } from 'react'
 import { useSelectedLayoutSegments } from 'next/navigation'
+import { createContext, useContext, useEffect, useState } from 'react'
 
 const PrevPathContext = createContext<string | null>(null)
 

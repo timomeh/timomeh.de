@@ -1,10 +1,11 @@
+import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+
 import { MDX } from '@/comps/mdx/mdx'
 import { PostHeader } from '@/comps/post-header'
-import { getPost } from '@/data/posts'
-import { contentAsset } from '@/data/cms'
-import { Metadata } from 'next'
 import { Prose } from '@/comps/prose'
+import { contentAsset } from '@/data/cms'
+import { getPost } from '@/data/posts'
 
 type Props = {
   params: Promise<{ slug: string }>

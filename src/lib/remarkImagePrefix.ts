@@ -1,5 +1,5 @@
-import { visit } from 'unist-util-visit'
 import { Root } from 'mdast'
+import { visit } from 'unist-util-visit'
 
 // If an image is a relative path, adds the baseUrl to it.
 

@@ -1,13 +1,13 @@
+import { revalidateTag } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
 
+import { config } from '@/config'
+import { db, repo } from '@/data/db'
 import { cacheAllPages } from '@/data/pages'
 import { cacheAllPosts } from '@/data/posts'
-import { cacheAllTags } from '@/data/tags'
 import { updateSettingsCache } from '@/data/settings'
-import { config } from '@/config'
+import { cacheAllTags } from '@/data/tags'
 import { logger } from '@/lib/log'
-import { db, repo } from '@/data/db'
-import { revalidateTag } from 'next/cache'
 
 const log = logger.child({ module: 'webhooks/nuke' })
 

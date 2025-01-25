@@ -1,9 +1,11 @@
 import Link from 'next/link'
-import { PostHeader } from './post-header'
-import { PostFullImage } from './post-full-image'
-import { getPost } from '@/data/posts'
+
 import { contentAsset } from '@/data/cms'
+import { getPost } from '@/data/posts'
+
 import { MDX } from './mdx/mdx'
+import { PostFullImage } from './post-full-image'
+import { PostHeader } from './post-header'
 import { Prose } from './prose'
 
 type Props = {

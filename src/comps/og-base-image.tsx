@@ -1,8 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { config } from '@/config'
 import { unstable_noStore } from 'next/cache'
 import { ImageResponseOptions } from 'next/server'
+
+import { config } from '@/config'
 
 const basePath = config.siteUrl
 

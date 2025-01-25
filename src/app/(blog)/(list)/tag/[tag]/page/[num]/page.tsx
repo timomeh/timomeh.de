@@ -1,11 +1,13 @@
-import { getOlderPost, pagePublishedPosts } from '@/data/posts'
-import { saneParseInt } from '@/lib/saneParseInt'
-import { notFound } from 'next/navigation'
-import { Pagination } from '@/comps/pagination'
-import { ListedPost } from '../../../../listed-post'
-import { getTag } from '@/data/tags'
 import { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+
+import { Pagination } from '@/comps/pagination'
 import { contentAsset } from '@/data/cms'
+import { getOlderPost, pagePublishedPosts } from '@/data/posts'
+import { getTag } from '@/data/tags'
+import { saneParseInt } from '@/lib/saneParseInt'
+
+import { ListedPost } from '../../../../listed-post'
 
 type Props = {
   params: Promise<{ num: string; tag: string }>

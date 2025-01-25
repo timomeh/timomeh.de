@@ -1,8 +1,9 @@
+import Link from 'next/link'
+
 import { Aurora } from '@/comps/aurora'
 import { Contours } from '@/comps/contours'
 import { Mug } from '@/comps/me/mug'
 import { SocialBox } from '@/comps/social-box'
-import Link from 'next/link'
 
 type Props = {
   kicker: React.ReactNode

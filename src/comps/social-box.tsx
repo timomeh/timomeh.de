@@ -1,8 +1,8 @@
 import Link from 'next/link'
 
-import { FeedIcon } from './icons/feed'
 import { ArchiveIcon } from './icons/archive'
 import { BlueskyIcon } from './icons/bluesky'
+import { FeedIcon } from './icons/feed'
 import { ThemeSwitcher } from './theme-switcher'
 
 export async function SocialBox() {

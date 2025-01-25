@@ -1,10 +1,11 @@
+import { headers } from 'next/headers'
+import { notFound } from 'next/navigation'
+import { Suspense } from 'react'
+
 import { MDX } from '@/comps/mdx/mdx'
 import { config } from '@/config'
 import { contentAsset } from '@/data/cms'
 import { getPost } from '@/data/posts'
-import { headers } from 'next/headers'
-import { notFound } from 'next/navigation'
-import { Suspense } from 'react'
 
 type Props = {
   params: Promise<{ slug: string }>

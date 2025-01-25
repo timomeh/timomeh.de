@@ -1,7 +1,8 @@
-import { createGitHubReader } from '@keystatic/core/reader/github'
 import { EntryWithResolvedLinkedFiles } from '@keystatic/core/reader'
-import keystaticConfig from '@/keystatic.config'
+import { createGitHubReader } from '@keystatic/core/reader/github'
+
 import { config } from '@/config'
+import keystaticConfig from '@/keystatic.config'
 import { cleanse } from '@/lib/cleanse'
 
 // everything related to fetching posts with keystatic

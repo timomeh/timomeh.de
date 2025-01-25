@@ -1,5 +1,6 @@
-import { PostTags } from '../post-tags'
 import { Footer } from '@/comps/footer'
+
+import { PostTags } from '../post-tags'
 
 type Props = {
   children: React.ReactNode

@@ -1,4 +1,5 @@
 import { getTag } from '@/data/tags'
+
 import { DataKicker } from '../../../../data-kicker'
 
 type Props = {

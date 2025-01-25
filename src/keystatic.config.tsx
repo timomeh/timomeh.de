@@ -1,4 +1,4 @@
-import { config, fields, collection, singleton } from '@keystatic/core'
+import { collection, config, fields, singleton } from '@keystatic/core'
 import {
   inline,
   mark,
@@ -95,7 +95,8 @@ export default config({
   ui: {
     brand: {
       name: 'timomeh.de',
-      mark: () => <img src="/favicon-32x32.png" height={24} />,
+      // eslint-disable-next-line @next/next/no-img-element
+      mark: () => <img alt="" src="/favicon-32x32.png" height={24} />,
     },
   },
   collections: {

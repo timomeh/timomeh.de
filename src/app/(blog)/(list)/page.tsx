@@ -1,7 +1,9 @@
-import { getOlderPost, pagePublishedPosts } from '@/data/posts'
-import { ListedPost } from './listed-post'
-import { Pagination } from '@/comps/pagination'
 import { Metadata } from 'next'
+
+import { Pagination } from '@/comps/pagination'
+import { getOlderPost, pagePublishedPosts } from '@/data/posts'
+
+import { ListedPost } from './listed-post'
 
 export const fetchCache = 'force-cache'
 

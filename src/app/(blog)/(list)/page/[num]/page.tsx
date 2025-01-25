@@ -1,9 +1,11 @@
+import { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+
+import { Pagination } from '@/comps/pagination'
 import { getOlderPost, pagePublishedPosts } from '@/data/posts'
 import { saneParseInt } from '@/lib/saneParseInt'
-import { notFound } from 'next/navigation'
+
 import { ListedPost } from '../../listed-post'
-import { Pagination } from '@/comps/pagination'
-import { Metadata } from 'next'
 
 type Props = {
   params: Promise<{ num: string }>

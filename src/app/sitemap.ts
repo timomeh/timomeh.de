@@ -1,4 +1,6 @@
 import { MetadataRoute } from 'next'
+
+import { config } from '@/config'
 import { listPages } from '@/data/pages'
 import {
   listPublishedPosts,
@@ -6,7 +8,6 @@ import {
   pagePublishedPosts,
 } from '@/data/posts'
 import { listTags } from '@/data/tags'
-import { config } from '@/config'
 
 export default async function sitemap() {
   const [archiveTags, pagination, posts, page] = await Promise.all([

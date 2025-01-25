@@ -1,8 +1,8 @@
+import { notFound } from 'next/navigation'
 import { ImageResponse } from 'next/og'
 
 import { getFonts, OpengraphBaseImage } from '@/comps/og-base-image'
 import { getTag } from '@/data/tags'
-import { notFound } from 'next/navigation'
 import { saneParseInt } from '@/lib/saneParseInt'
 
 export const generateStaticParams = () => []

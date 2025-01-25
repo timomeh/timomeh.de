@@ -1,10 +1,11 @@
 import Link from 'next/link'
-import { PostTag } from '@/comps/post-tag'
+
 import { MDX } from '@/comps/mdx/mdx'
+import { PostTag } from '@/comps/post-tag'
 import { getPublishedPostsRange, listPublishedPosts } from '@/data/posts'
-import { range } from '@/lib/range'
 import { formatReadingTime } from '@/lib/formatReadingTime'
 import { markdownHeadline } from '@/lib/markdownHeadline'
+import { range } from '@/lib/range'
 
 type Props = {
   tag?: string
