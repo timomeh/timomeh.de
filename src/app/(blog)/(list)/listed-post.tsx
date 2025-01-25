@@ -30,7 +30,7 @@ export async function ListedPost({ slug }: Props) {
               alt=""
             />
           </div>
-          <div className="aspect-[5/1] sm:h-[200px]" />
+          <div className="aspect-5/1 sm:h-[200px]" />
         </>
       ) : (
         <div className="h-24" />

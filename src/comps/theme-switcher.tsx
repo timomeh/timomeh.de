@@ -34,7 +34,8 @@ export function ThemeSwitcher() {
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="overflow-visible [&_*]:transition-[transform,opacity] [&_*]:duration-300"
+          className="overflow-visible **:transition-[transform,translate,scale,rotate,opacity]
+            **:duration-300"
         >
           <g className="origin-center scale-[0.6] dark:scale-100">
             <mask

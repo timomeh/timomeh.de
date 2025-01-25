@@ -11,7 +11,7 @@ export async function PostPreviewImage({ alt, src, ...rest }: Props) {
 
   return (
     <div
-      className="relative aspect-[5/2] max-h-[350px] min-h-[200px] w-full opacity-100 filter
+      className="relative aspect-5/2 max-h-[350px] min-h-[200px] w-full opacity-100 filter
         [mask-image:linear-gradient(to_bottom,#000_0%,transparent_100%)]"
     >
       <div className="absolute inset-0 overflow-hidden">
@@ -21,7 +21,7 @@ export async function PostPreviewImage({ alt, src, ...rest }: Props) {
         />
         <FadeInImage alt={alt} src={img.src} {...rest} />
         <div
-          className="absolute inset-0 z-10 bg-gray-400 bg-gradient-to-t mix-blend-hard-light
+          className="absolute inset-0 z-10 bg-gray-400 bg-linear-to-t mix-blend-hard-light
             dark:bg-transparent dark:from-black/80 dark:to-black/50 dark:mix-blend-normal"
         />
       </div>

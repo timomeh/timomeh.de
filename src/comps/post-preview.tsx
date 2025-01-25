@@ -18,11 +18,11 @@ export async function PostPreview({ slug, direction }: Props) {
   return (
     <Link
       href={`/posts/${post.slug}`}
-      className="group-post-preview relative z-10 block !-outline-offset-8"
+      className="group-post-preview relative z-10 block -outline-offset-8!"
     >
       <div className="group/post-preview relative block w-full overflow-hidden pt-10">
         {post.frontmatter.cover && (
-          <div className="cover-signal preview-cover-signal absolute inset-0 -z-[1]">
+          <div className="cover-signal preview-cover-signal absolute inset-0 -z-1">
             <div className="absolute inset-0 z-20 bg-gray-300 mix-blend-hard-light dark:hidden" />
             <PostFullImage
               src={contentAsset('posts', slug, post.frontmatter.cover)}
@@ -36,7 +36,7 @@ export async function PostPreview({ slug, direction }: Props) {
         />
         <div className="mx-auto max-w-2xl px-4">
           {direction === 'older' && (
-            <div className="-mt-5 mb-5 group-has-[.preview-cover-signal]/post-preview:-mt-[26px] dark:!-mt-5">
+            <div className="-mt-5 mb-5 group-has-[.preview-cover-signal]/post-preview:-mt-[26px] dark:-mt-5!">
               <div
                 className="relative inline-block text-sm font-bold leading-none
                   group-has-[.preview-cover-signal]/post-preview:rounded-md
@@ -60,7 +60,7 @@ export async function PostPreview({ slug, direction }: Props) {
             </Prose>
           </article>
           {direction === 'newer' && (
-            <div className="-mt-5 mb-5 group-has-[.preview-cover-signal]/post-preview:-mt-[26px] dark:!-mt-5">
+            <div className="-mt-5 mb-5 group-has-[.preview-cover-signal]/post-preview:-mt-[26px] dark:-mt-5!">
               <div
                 className="relative inline-block text-sm font-bold leading-none
                   group-has-[.preview-cover-signal]/post-preview:rounded-md

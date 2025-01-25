@@ -20,7 +20,7 @@ export function ScrollAway({ children }: Props) {
       $wrap.current.style.height = ''
 
       window.scrollTo({
-        top: window.scrollX + rect.height,
+        top: window.scrollX + Math.ceil(rect.height),
         behavior: 'instant',
       })
     })
@@ -30,7 +30,7 @@ export function ScrollAway({ children }: Props) {
 
       const rect = $wrap.current.getBoundingClientRect()
       window.scrollTo({
-        top: window.scrollX - rect.height,
+        top: window.scrollX - Math.ceil(rect.height),
         behavior: 'instant',
       })
     }

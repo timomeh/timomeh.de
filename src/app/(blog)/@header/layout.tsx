@@ -24,7 +24,7 @@ export default function Layout({ kicker, backdrop }: Props) {
         <Contours />
       </div>
       <div
-        className="relative z-30 flex max-h-20 max-w-20 flex-shrink items-center justify-center
+        className="relative z-30 flex max-h-20 max-w-20 shrink items-center justify-center
           sm:max-h-24 sm:max-w-24"
       >
         <div className="relative">
@@ -48,9 +48,9 @@ export default function Layout({ kicker, backdrop }: Props) {
 
       <div
         className="relative z-20 -mb-4 flex mix-blend-multiply sm:min-w-[calc(50%-56px)]
-          sm:flex-shrink-0 dark:mix-blend-lighten"
+          sm:shrink-0 dark:mix-blend-lighten"
       >
-        <div className="size-4 flex-shrink-0" />
+        <div className="size-4 shrink-0" />
         <div className="group isolate flex">
           <div
             className="font-display text-xs leading-none text-gray-800 xs:text-sm dark:text-teal-100

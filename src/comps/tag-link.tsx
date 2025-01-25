@@ -19,7 +19,7 @@ export function TagLink({ dim, ...rest }: Props) {
         [transition:opacity_300ms,transform_60ms] hover:!opacity-100
         data-[current=false]:data-[dim-current=true]:opacity-70
         focus-visible:data-[current=false]:data-[dim-current=true]:opacity-80
-        group-hover/tags:data-[current=false]:data-[dim-current=true]:opacity-80
+        data-[dim-current=true]:data-[current=false]:group-hover/tags:opacity-80
         motion-safe:active:scale-[.97] dark:backdrop-brightness-50"
       {...rest}
     />
