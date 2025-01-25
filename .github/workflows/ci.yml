@@ -38,6 +38,9 @@ jobs:
           cache: pnpm
       - run: pnpm install
       - run: pnpm lint
+        env:
+          SITE_URL: https://timomeh.de
+          NEXT_PUBLIC_CMS_REPO: timomeh/timomeh.de-content
       - run: pnpm format:check
 
   test:
