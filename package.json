@@ -52,7 +52,7 @@
     "@eslint/eslintrc": "3.2.0",
     "@eslint/js": "9.19.0",
     "@playwright/test": "1.49.1",
-    "@tailwindcss/postcss": "4.0.1",
+    "@tailwindcss/postcss": "4.0.2",
     "@tailwindcss/typography": "0.5.16",
     "@types/mdast": "4.0.4",
     "@types/node": "22.12.0",
@@ -71,7 +71,7 @@
     "prettier-plugin-classnames": "0.7.6",
     "prettier-plugin-merge": "0.7.2",
     "prettier-plugin-tailwindcss": "0.6.11",
-    "tailwindcss": "4.0.1",
+    "tailwindcss": "4.0.2",
     "typescript": "5.7.3"
   },
   "prettier": {
