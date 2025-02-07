@@ -19,8 +19,8 @@ importers:
         specifier: 5.0.2
         version: 5.0.2(@keystatic/core@0.5.43(next@15.1.6(@playwright/test@1.49.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@15.1.6(@playwright/test@1.49.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@octokit/webhooks':
-        specifier: 13.5.0
-        version: 13.5.0
+        specifier: 13.5.1
+        version: 13.5.1
       '@octokit/webhooks-types':
         specifier: 7.6.1
         version: 7.6.1
@@ -687,15 +687,15 @@ packages:
   '@octokit/types@13.8.0':
     resolution: {integrity: sha512-x7DjTIbEpEWXK99DMd01QfWy0hd5h4EN+Q7shkdKds3otGQP+oWE/y0A76i1OvH9fygo4ddvNf7ZvF0t78P98A==}
 
-  '@octokit/webhooks-methods@5.1.0':
-    resolution: {integrity: sha512-yFZa3UH11VIxYnnoOYCVoJ3q4ChuSOk2IVBBQ0O3xtKX4x9bmKb/1t+Mxixv2iUhzMdOl1qeWJqEhouXXzB3rQ==}
+  '@octokit/webhooks-methods@5.1.1':
+    resolution: {integrity: sha512-NGlEHZDseJTCj8TMMFehzwa9g7On4KJMPVHDSrHxCQumL6uSQR8wIkP/qesv52fXqV1BPf4pTxwtS31ldAt9Xg==}
     engines: {node: '>= 18'}
 
   '@octokit/webhooks-types@7.6.1':
     resolution: {integrity: sha512-S8u2cJzklBC0FgTwWVLaM8tMrDuDMVE4xiTK4EYXM9GntyvrdbSoxqDQa+Fh57CCNApyIpyeqPhhFEmHPfrXgw==}
 
-  '@octokit/webhooks@13.5.0':
-    resolution: {integrity: sha512-uSO/TCCfi9vaZHOBsGWsRNBXYYKtLnSDbHI+std0M80AaEd7AnVfLqvk+9V3GP1faPcOx06ADx+h8UWwvemIGw==}
+  '@octokit/webhooks@13.5.1':
+    resolution: {integrity: sha512-2q5xt+UEkElPjcRuE5QAEkgsL5WhWa7/vMeWIklhM7BTH86hxQedm20OO0BvEYRyNnOwEj/CpQCB0K9QYt2+ug==}
     engines: {node: '>= 18'}
 
   '@pkgr/core@0.1.1':
@@ -4697,15 +4697,15 @@ snapshots:
     dependencies:
       '@octokit/openapi-types': 23.0.1
 
-  '@octokit/webhooks-methods@5.1.0': {}
+  '@octokit/webhooks-methods@5.1.1': {}
 
   '@octokit/webhooks-types@7.6.1': {}
 
-  '@octokit/webhooks@13.5.0':
+  '@octokit/webhooks@13.5.1':
     dependencies:
       '@octokit/openapi-webhooks-types': 8.5.1
       '@octokit/request-error': 6.1.6
-      '@octokit/webhooks-methods': 5.1.0
+      '@octokit/webhooks-methods': 5.1.1
 
   '@pkgr/core@0.1.1': {}
 
