@@ -39,7 +39,7 @@
     "redis": "4.7.0",
     "redis-om": "0.4.7",
     "rehype-unwrap-images": "1.0.0",
-    "remark-gfm": "4.0.0",
+    "remark-gfm": "4.0.1",
     "remark-smartypants": "3.0.2",
     "remove-markdown": "0.6.0",
     "server-only": "0.0.1",
