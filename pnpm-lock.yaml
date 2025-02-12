@@ -16,8 +16,8 @@ importers:
         specifier: 0.5.44
         version: 0.5.44(next@15.1.6(@playwright/test@1.49.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@keystatic/next':
-        specifier: 5.0.2
-        version: 5.0.2(@keystatic/core@0.5.44(next@15.1.6(@playwright/test@1.49.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@15.1.6(@playwright/test@1.49.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 5.0.3
+        version: 5.0.3(@keystatic/core@0.5.44(next@15.1.6(@playwright/test@1.49.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@15.1.6(@playwright/test@1.49.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@octokit/webhooks':
         specifier: 13.6.0
         version: 13.6.0
@@ -583,13 +583,13 @@ packages:
       react: ^18.2.0 || ^19.0.0
       react-dom: ^18.2.0 || ^19.0.0
 
-  '@keystatic/next@5.0.2':
-    resolution: {integrity: sha512-Z9/dL0DduDuhEHYJD+YHQ7ByrFOcmEM4RqNEgQzl456tpGo20SfwGtz5Qiay4HMh3ku+VAoWNjWEMCyzmxk0Qg==}
+  '@keystatic/next@5.0.3':
+    resolution: {integrity: sha512-JAVuLI2GFWbBq+cXkrSs5OdtZn+n6TooCHKsoZ05p5eeXkGOZxIQJGHTx7WBXvaPcLMFRFQ8HPA2eXJ705pnLQ==}
     peerDependencies:
       '@keystatic/core': '*'
       next: '>=14'
-      react: ^18.2.0
-      react-dom: ^18.2.0
+      react: ^18.2.0 || ^19.0.0
+      react-dom: ^18.2.0 || ^19.0.0
 
   '@markdoc/markdoc@0.4.0':
     resolution: {integrity: sha512-fSh4P3Y4E7oaKYc2oNzSIJVPDto7SMzAuQN1Iyx53UxzleA6QzRdNWRxmiPqtVDaDi5dELd2yICoG91csrGrAw==}
@@ -4679,9 +4679,9 @@ snapshots:
       - next
       - supports-color
 
-  '@keystatic/next@5.0.2(@keystatic/core@0.5.44(next@15.1.6(@playwright/test@1.49.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@15.1.6(@playwright/test@1.49.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@keystatic/next@5.0.3(@keystatic/core@0.5.44(next@15.1.6(@playwright/test@1.49.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@15.1.6(@playwright/test@1.49.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
-      '@babel/runtime': 7.24.5
+      '@babel/runtime': 7.26.7
       '@keystatic/core': 0.5.44(next@15.1.6(@playwright/test@1.49.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@types/react': types-react@19.0.0-rc.1
       chokidar: 3.6.0
