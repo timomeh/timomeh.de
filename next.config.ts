@@ -1,6 +1,7 @@
-import { config } from '@/config'
 import withPlaiceholder from '@plaiceholder/next'
 import { NextConfig } from 'next'
+
+import { config } from '@/config'
 
 const nextConfig: NextConfig = {
   // bypasses the file-system-cache's 2MB limit

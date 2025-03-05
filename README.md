@@ -37,6 +37,6 @@ Videos are simply uploaded to YouTube, and YouTube links in posts are automatica
 - Redis with [Dragonfly](https://dragonflydb.io/)
 - [Umami](https://umami.is/)
 - [Shiki](https://shiki.style/)
-- [next-mdx-remote](https://github.com/hashicorp/next-mdx-remote)
+- [mdx](https://mdxjs.com/packages/mdx)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Playwright](https://playwright.dev/) & [Argos CI](https://argos-ci.com)

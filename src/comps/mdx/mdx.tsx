@@ -1,6 +1,7 @@
+import { evaluate } from '@mdx-js/mdx'
 import remarkEmbedder, { TransformerInfo } from '@remark-embedder/core'
 import oembedTransformer from '@remark-embedder/transformer-oembed'
-import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc'
+import * as runtime from 'react/jsx-runtime'
 import rehypeUnwrapImages from 'rehype-unwrap-images'
 import remarkGfm from 'remark-gfm'
 import remarkSmartypants from 'remark-smartypants'
@@ -34,12 +35,10 @@ type Props = {
   plain?: boolean
   readMorePath?: string
   scope?: string
-  components?: MDXComponents
+  components?: any
 }
 
-type MDXComponents = MDXRemoteProps['components']
-
-export function MDX({
+export async function MDX({
   content,
   inline,
   assetPrefix,
@@ -52,63 +51,59 @@ export function MDX({
     ? plainComponents
     : {
         ...baseComponents,
-        ...({
-          FootnoteContent: (props) => (
+        ...{
+          FootnoteContent: (props: any) => (
             <FootnoteContent {...props} scope={scope} />
           ),
-          FootnoteReference: (props) => (
+          FootnoteReference: (props: any) => (
             <FootnoteReference {...props} scope={scope} />
           ),
-          FootnotesSection: (props) => (
+          FootnotesSection: (props: any) => (
             <FootnotesSection {...props} scope={scope} />
           ),
-        } as MDXComponents),
-        ...(!!readMorePath &&
-          ({
-            ReadMore: () => <ReadMore href={readMorePath} />,
-          } as MDXComponents)),
+        },
+        ...(!!readMorePath && {
+          ReadMore: () => <ReadMore href={readMorePath} />,
+        }),
         ...(inline && inlineComponents),
       }
 
-  return (
-    <MDXRemote
-      source={content}
-      components={{ ...comps, ...components }}
-      options={{
-        mdxOptions: {
-          rehypePlugins: [rehypeUnwrapImages],
-          remarkPlugins: [
-            remarkGfm,
-            [
-              remarkImageSrcPrefix,
-              {
-                baseUrl: assetPrefix,
-              },
-            ],
-            [
-              remarkEmbedder,
-              {
-                transformers: [oembedTransformer],
-                handleHTML,
-              },
-            ],
-            !plain ? withMdxFootnotes : () => {},
-            remarkSmartypants,
-            readMorePath ? remarkReadMore : () => {},
-          ],
+  // @ts-expect-error
+  const { default: MDXContent } = await evaluate(content, {
+    ...runtime,
+    baseUrl: import.meta.url,
+    rehypePlugins: [rehypeUnwrapImages],
+    remarkPlugins: [
+      remarkGfm,
+      [
+        remarkImageSrcPrefix,
+        {
+          baseUrl: assetPrefix,
         },
-      }}
-    />
-  )
+      ],
+      [
+        remarkEmbedder,
+        {
+          transformers: [oembedTransformer],
+          handleHTML,
+        },
+      ],
+      !plain ? withMdxFootnotes : () => {},
+      remarkSmartypants,
+      readMorePath ? remarkReadMore : () => {},
+    ],
+  })
+
+  return <MDXContent components={{ ...comps, ...components }} />
 }
 
-const baseComponents: MDXComponents = {
+const baseComponents = {
   img: Img,
   code: Code,
   video: Video,
   a: Anchor,
   del: Del,
-  pre: (props) => <>{props.children}</>,
+  pre: (props: any) => <>{props.children}</>,
   blockquote: Blockquote,
   Footnote: () => null,
   FootnoteContent,
@@ -122,21 +117,21 @@ const baseComponents: MDXComponents = {
   Definition,
 }
 
-const inlineComponents: MDXComponents = {
-  p: (props) => <>{props.children}</>,
+const inlineComponents = {
+  p: (props: any) => <>{props.children}</>,
 }
 
-const plainComponents: MDXComponents = {
+const plainComponents = {
   ReadMore: () => null,
   FootnoteContent: () => null,
   FootnoteReference: () => null,
   FootnotesSection: () => null,
   Kbd,
-  Lead: (props) => <>{props.children}</>,
+  Lead: (props: any) => <>{props.children}</>,
   Figure,
   DefinitionList,
   Definition,
-  Footnote: (props) => <span>&nbsp;[Footnote: {props.children}]</span>,
+  Footnote: (props: any) => <span>&nbsp;[Footnote: {props.children}]</span>,
 }
 
 function handleHTML(html: string, info: TransformerInfo) {
