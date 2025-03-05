@@ -19,8 +19,8 @@ importers:
         specifier: 5.0.3
         version: 5.0.3(@keystatic/core@0.5.45(next@15.1.7(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@15.1.7(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@octokit/webhooks':
-        specifier: 13.6.0
-        version: 13.6.0
+        specifier: 13.7.4
+        version: 13.7.4
       '@octokit/webhooks-types':
         specifier: 7.6.1
         version: 7.6.1
@@ -685,11 +685,11 @@ packages:
   '@octokit/openapi-types@23.0.1':
     resolution: {integrity: sha512-izFjMJ1sir0jn0ldEKhZ7xegCTj/ObmEDlEfpFrx4k/JyZSMRHbO3/rBwgE7f3m2DHt+RrNGIVw4wSmwnm3t/g==}
 
-  '@octokit/openapi-webhooks-types@9.1.0':
-    resolution: {integrity: sha512-bO1D2jLdU8qEvqmbWjNxJzDYSFT4wesiYKIKP6f4LaM0XUGtn/0LBv/20hu9YqcnpdX38X5o/xANTMtIAqdwYw==}
+  '@octokit/openapi-webhooks-types@10.1.1':
+    resolution: {integrity: sha512-qBfqQVIDQaCFeGCofXieJDwvXcGgDn17+UwZ6WW6lfEvGYGreLFzTiaz9xjet9Us4zDf8iasoW3ixUj/R5lMhA==}
 
-  '@octokit/request-error@6.1.6':
-    resolution: {integrity: sha512-pqnVKYo/at0NuOjinrgcQYpEbv4snvP3bKMRqHaD9kIsk9u1LCpb2smHZi8/qJfgeNqLo5hNW4Z7FezNdEo0xg==}
+  '@octokit/request-error@6.1.7':
+    resolution: {integrity: sha512-69NIppAwaauwZv6aOzb+VVLwt+0havz9GT5YplkeJv7fG7a40qpLt/yZKyiDxAhgz0EtgNdNcb96Z0u+Zyuy2g==}
     engines: {node: '>= 18'}
 
   '@octokit/types@13.8.0':
@@ -702,8 +702,8 @@ packages:
   '@octokit/webhooks-types@7.6.1':
     resolution: {integrity: sha512-S8u2cJzklBC0FgTwWVLaM8tMrDuDMVE4xiTK4EYXM9GntyvrdbSoxqDQa+Fh57CCNApyIpyeqPhhFEmHPfrXgw==}
 
-  '@octokit/webhooks@13.6.0':
-    resolution: {integrity: sha512-qoYP1g6ZP01m8LtKjC+NLuAqRbiVzS5VmnwoEYlrQr6TaLRtb5yAMxWCq5/AqfrUF2Wx6ZQ9IJ4mAFytEn7J9A==}
+  '@octokit/webhooks@13.7.4':
+    resolution: {integrity: sha512-f386XyLTieQbgKPKS6ZMlH4dq8eLsxNddwofiKRZCq0bZ2gikoFwMD99K6l1oAwqe/KZNzrEziGicRgnzplplQ==}
     engines: {node: '>= 18'}
 
   '@pkgr/core@0.1.1':
@@ -4775,9 +4775,9 @@ snapshots:
 
   '@octokit/openapi-types@23.0.1': {}
 
-  '@octokit/openapi-webhooks-types@9.1.0': {}
+  '@octokit/openapi-webhooks-types@10.1.1': {}
 
-  '@octokit/request-error@6.1.6':
+  '@octokit/request-error@6.1.7':
     dependencies:
       '@octokit/types': 13.8.0
 
@@ -4789,10 +4789,10 @@ snapshots:
 
   '@octokit/webhooks-types@7.6.1': {}
 
-  '@octokit/webhooks@13.6.0':
+  '@octokit/webhooks@13.7.4':
     dependencies:
-      '@octokit/openapi-webhooks-types': 9.1.0
-      '@octokit/request-error': 6.1.6
+      '@octokit/openapi-webhooks-types': 10.1.1
+      '@octokit/request-error': 6.1.7
       '@octokit/webhooks-methods': 5.1.1
 
   '@pkgr/core@0.1.1': {}
