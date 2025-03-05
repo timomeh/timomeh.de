@@ -56,7 +56,7 @@ export function ThemeSwitcher() {
               <path
                 d="M14 2H22V10H20V12H18V14H12V12H10V6H12V4H14V2Z"
                 fill="black"
-                className="origin-top-right -translate-y-1 translate-x-3 dark:translate-x-0
+                className="origin-top-right translate-x-3 -translate-y-1 dark:translate-x-0
                   dark:translate-y-0 dark:group-hover/btn:scale-90"
                 id="crescent"
               />
