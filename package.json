@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "playwright test",
+    "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test:ui": "pnpm test -- --ui"
@@ -57,8 +58,8 @@
     "@types/mdast": "4.0.4",
     "@types/node": "22.13.9",
     "@types/probe-image-size": "7.2.5",
-    "@types/react": "npm:types-react@19.0.0-rc.1",
-    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
+    "@types/react": "19.0.10",
+    "@types/react-dom": "19.0.4",
     "@types/remove-markdown": "0.3.4",
     "eslint": "9.21.0",
     "eslint-config-next": "15.2.1",
@@ -83,11 +84,5 @@
       "prettier-plugin-merge"
     ]
   },
-  "packageManager": "pnpm@9.7.0+sha256.b35018fbfa8f583668b2649e407922a721355cd81f61beeb4ac1d4258e585559",
-  "pnpm": {
-    "overrides": {
-      "@types/react": "npm:types-react@19.0.0-rc.1",
-      "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
-    }
-  }
+  "packageManager": "pnpm@9.7.0+sha256.b35018fbfa8f583668b2649e407922a721355cd81f61beeb4ac1d4258e585559"
 }
