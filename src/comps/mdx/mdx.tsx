@@ -28,6 +28,10 @@ import { Lead } from './lead'
 import { ReadMore } from './read-more'
 import { Video } from './video'
 
+type MDXComponents = Parameters<
+  Awaited<ReturnType<typeof evaluate>>['default']
+>[0]['components']
+
 type Props = {
   content: string
   assetPrefix?: string
@@ -35,7 +39,7 @@ type Props = {
   plain?: boolean
   readMorePath?: string
   scope?: string
-  components?: any
+  components?: MDXComponents
 }
 
 export async function MDX({
@@ -47,18 +51,18 @@ export async function MDX({
   scope,
   components = {},
 }: Props) {
-  const comps = plain
+  const comps: MDXComponents = plain
     ? plainComponents
     : {
         ...baseComponents,
         ...{
-          FootnoteContent: (props: any) => (
+          FootnoteContent: (props) => (
             <FootnoteContent {...props} scope={scope} />
           ),
-          FootnoteReference: (props: any) => (
+          FootnoteReference: (props) => (
             <FootnoteReference {...props} scope={scope} />
           ),
-          FootnotesSection: (props: any) => (
+          FootnotesSection: (props) => (
             <FootnotesSection {...props} scope={scope} />
           ),
         },
@@ -68,7 +72,6 @@ export async function MDX({
         ...(inline && inlineComponents),
       }
 
-  // @ts-expect-error
   const { default: MDXContent } = await evaluate(content, {
     ...runtime,
     baseUrl: import.meta.url,
@@ -82,6 +85,7 @@ export async function MDX({
         },
       ],
       [
+        // @ts-expect-error
         remarkEmbedder,
         {
           transformers: [oembedTransformer],
@@ -89,6 +93,7 @@ export async function MDX({
         },
       ],
       !plain ? withMdxFootnotes : () => {},
+      // @ts-expect-error
       remarkSmartypants,
       readMorePath ? remarkReadMore : () => {},
     ],
@@ -97,13 +102,13 @@ export async function MDX({
   return <MDXContent components={{ ...comps, ...components }} />
 }
 
-const baseComponents = {
+const baseComponents: MDXComponents = {
   img: Img,
   code: Code,
   video: Video,
   a: Anchor,
   del: Del,
-  pre: (props: any) => <>{props.children}</>,
+  pre: (props) => <>{props.children}</>,
   blockquote: Blockquote,
   Footnote: () => null,
   FootnoteContent,
@@ -117,21 +122,21 @@ const baseComponents = {
   Definition,
 }
 
-const inlineComponents = {
-  p: (props: any) => <>{props.children}</>,
+const inlineComponents: MDXComponents = {
+  p: (props) => <>{props.children}</>,
 }
 
-const plainComponents = {
+const plainComponents: MDXComponents = {
   ReadMore: () => null,
   FootnoteContent: () => null,
   FootnoteReference: () => null,
   FootnotesSection: () => null,
   Kbd,
-  Lead: (props: any) => <>{props.children}</>,
+  Lead: (props) => <>{props.children}</>,
   Figure,
   DefinitionList,
   Definition,
-  Footnote: (props: any) => <span>&nbsp;[Footnote: {props.children}]</span>,
+  Footnote: (props) => <span>&nbsp;[Footnote: {props.children}]</span>,
 }
 
 function handleHTML(html: string, info: TransformerInfo) {
