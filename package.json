@@ -88,6 +88,9 @@
   "pnpm": {
     "overrides": {
       "jsonpath-plus": "npm:jsonpath-plus@10.3.0"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "sharp"
+    ]
   }
 }
