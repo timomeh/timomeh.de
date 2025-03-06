@@ -25,7 +25,6 @@ test('has an active everything tag by default', async ({ page }) => {
 test('can navigate to the next page', async ({ page }) => {
   await page.goto('/')
   await page.click('text=Older →')
-  await page.waitForLoadState('networkidle')
-  expect(page.url()).toMatch(/\/page\/1$/)
+  await page.waitForURL(/\/page\/1$/)
   await expect(page).toHaveTitle('Page 1 | timomeh.de')
 })
