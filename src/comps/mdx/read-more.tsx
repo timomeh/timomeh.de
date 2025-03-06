@@ -11,7 +11,7 @@ export function ReadMore({ href }: Props) {
       href={href}
     >
       <span className="dark:effect-crt-blue text-[#a18570]">
-        Read moreeee
+        Read more
         <span className="hidden dark:inline" aria-hidden>
           {' '}
           →

@@ -6,35 +6,15 @@ on:
     branches: [main]
 
 jobs:
-  build:
-    timeout-minutes: 15
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v3
-        with:
-          version: 9
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-          cache: pnpm
-      - run: pnpm install
-      - run: pnpm build
-        env:
-          SITE_URL: https://timomeh.de
-          NEXT_PUBLIC_CMS_REPO: timomeh/timomeh.de-content
-
   lint:
     timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v3
-        with:
-          version: 9
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: lts/*
+          node-version: 22
           cache: pnpm
       - run: pnpm install
       - run: pnpm lint
@@ -42,9 +22,11 @@ jobs:
           SITE_URL: https://timomeh.de
           NEXT_PUBLIC_CMS_REPO: timomeh/timomeh.de-content
       - run: pnpm format:check
+        if: failure() || success()
 
-  docker:
+  build:
     runs-on: ubuntu-24.04-arm
+    timeout-minutes: 15
     env:
       REGISTRY: ghcr.io
       IMAGE_NAME: ${{ github.repository }}
@@ -64,27 +46,29 @@ jobs:
           context: .
           file: Dockerfile
           platforms: linux/arm64
-          push: true
+          load: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache
           cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache,mode=max
-      # - name: Deploy to Coolify
-      #   run: |
-      #    curl --request GET '${{ secrets.COOLIFY_WEBHOOK }}' --header 'Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}'
+      - run: docker save -o /tmp/docker-image.tar ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+      - uses: actions/upload-artifact@v4
+        with:
+          name: docker-image
+          path: /tmp/docker-image.tar
+          retention-days: 1
 
   test:
+    needs: build
     timeout-minutes: 15
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     env:
       REDIS_VOLUME: './dragonflydata'
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v3
-        with:
-          version: 9
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: lts/*
+          node-version: 22
           cache: pnpm
       - run: pnpm install
       - run: pnpm exec playwright install --with-deps chromium
@@ -102,11 +86,22 @@ jobs:
           path: .next/cache/fetch-cache
           key: ${{ runner.os }}-nextjs-fetch-cache-${{ hashFiles('**/*.ts', '**/*.tsx') }}
           restore-keys: ${{ runner.os }}-nextjs-fetch-cache-
+      - uses: docker/setup-buildx-action@v3
+      - uses: actions/download-artifact@v4
+        with:
+          name: docker-image
+          path: /tmp
+      - run: docker load -i /tmp/docker-image.tar
+      - name: Export secrets
+        run: |
+          echo "GITHUB_CONTENT_PAT=${{ secrets.BLOG_GH_ACCESS_TOKEN }}" >> .env.local
+          echo "REDIS_URL=redis://dragonfly:6379" >> .env.local
+          echo "SITE_URL=http://localhost:3000" >> .env.local
+          echo "NEXT_PUBLIC_CMS_REPO=timomeh/timomeh.de-content" >> .env.local
       - run: docker compose up -d
       - run: pnpm test
         env:
-          NEXT_PUBLIC_CMS_REPO: timomeh/timomeh.de-content
-          GITHUB_CONTENT_PAT: ${{ secrets.BLOG_GH_ACCESS_TOKEN }}
+          PLAYWRIGHT_WEB_SERVER: off
           UPLOAD_TO_ARGOS: 1
       - uses: actions/upload-artifact@v4
         if: always()
@@ -115,6 +110,8 @@ jobs:
           path: playwright-report/
           retention-days: 30
       - run: docker compose down
+        if: failure() || success()
+      - run: docker compose logs
         if: always()
       - name: ensure redis cache permissions
         run: sudo mkdir -p "$REDIS_VOLUME" && sudo chmod -R 777 "$REDIS_VOLUME"
