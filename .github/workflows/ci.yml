@@ -43,6 +43,18 @@ jobs:
           NEXT_PUBLIC_CMS_REPO: timomeh/timomeh.de-content
       - run: pnpm format:check
 
+  docker:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and push Docker images
+        uses: iloveitaly/github-action-nixpacks@main
+        with:
+          platforms: linux/arm64
+          env: |
+            SITE_URL=https://timomeh.de
+            NEXT_PUBLIC_CMS_REPO=timomeh/timomeh.de-content
+
   test:
     timeout-minutes: 15
     runs-on: ubuntu-latest
