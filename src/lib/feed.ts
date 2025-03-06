@@ -29,7 +29,7 @@ export async function buildFeed(type: FeedType) {
           const headers = new Headers()
           headers.set('x-api-key', config.api.internalSecret)
           const res = await fetch(
-            `http://localhost:3000/partials/posts/${slug}`,
+            `http://0.0.0.0:3000/partials/posts/${slug}`,
             {
               headers,
             },
