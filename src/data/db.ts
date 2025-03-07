@@ -3,14 +3,14 @@ import { createClient } from 'redis'
 import { Repository, Schema } from 'redis-om'
 
 import { config } from '@/config'
-import { logger } from '@/lib/log'
+import { log as baseLog } from '@/lib/log'
 
 import { Page, Post, Settings, Tag } from './cms'
 
-const log = logger.child({ module: 'data/db' })
+const log = baseLog.child().withContext({ module: 'data/db' })
 
 const redis = createClient({ url: config.redis.url }).on('error', (err) =>
-  log.error(err, 'Redis client error'),
+  log.withError(err).error('Redis client error'),
 )
 
 const connect = cache(async () => {
@@ -80,7 +80,7 @@ export async function initRedis() {
     await repo.pages.createIndex()
     await repo.settings.createIndex()
   } catch (e) {
-    log.error(e, 'Error when creating redis indices')
+    log.withError(e).error('Error when creating redis indices')
   } finally {
     log.info('Successfully (re-)created all indices')
   }

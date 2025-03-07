@@ -110,10 +110,10 @@ jobs:
           name: test-results
           path: test-results/
           retention-days: 30
-      - run: docker compose down
-        if: failure() || success()
       - run: docker compose logs
         if: always()
+      - run: docker compose down
+        if: failure() || success()
       - name: ensure redis cache permissions
         run: sudo mkdir -p "$REDIS_VOLUME" && sudo chmod -R 777 "$REDIS_VOLUME"
         if: always()

@@ -7,9 +7,9 @@ import { cacheAllPages } from '@/data/pages'
 import { cacheAllPosts } from '@/data/posts'
 import { updateSettingsCache } from '@/data/settings'
 import { cacheAllTags } from '@/data/tags'
-import { logger } from '@/lib/log'
+import { log as baseLog } from '@/lib/log'
 
-const log = logger.child({ module: 'webhooks/nuke' })
+const log = baseLog.child().withContext({ module: 'webhooks/nuke' })
 
 // yeet everything that's in the cache and re-cache it.
 

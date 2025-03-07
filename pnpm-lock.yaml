@@ -17,6 +17,9 @@ importers:
       '@keystatic/next':
         specifier: 5.0.4
         version: 5.0.4(@keystatic/core@0.5.46(next@15.2.1(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(next@15.2.1(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@loglayer/transport-pino':
+        specifier: 2.1.1
+        version: 2.1.1(pino@9.6.0)
       '@mdx-js/mdx':
         specifier: 3.1.0
         version: 3.1.0(acorn@8.14.0)
@@ -44,6 +47,9 @@ importers:
       feed:
         specifier: 4.2.2
         version: 4.2.2
+      loglayer:
+        specifier: 6.3.1
+        version: 6.3.1
       lucide-react:
         specifier: 0.479.0
         version: 0.479.0(react@19.0.0)
@@ -98,6 +104,9 @@ importers:
       remove-markdown:
         specifier: 0.6.0
         version: 0.6.0
+      serialize-error:
+        specifier: 12.0.0
+        version: 12.0.0
       server-only:
         specifier: 0.0.1
         version: 0.0.1
@@ -577,6 +586,28 @@ packages:
       next: '>=14'
       react: ^18.2.0 || ^19.0.0
       react-dom: ^18.2.0 || ^19.0.0
+
+  '@loglayer/context-manager@1.0.4':
+    resolution: {integrity: sha512-ueyMgT7rnFAAB3IO0oouCJIGIHHYsv5/UYKcXpHdRjDDWZIDcBAUCPc7AdaGNrf1weKUkGckjpGmXbxdZDJt0w==}
+    engines: {node: '>=18'}
+
+  '@loglayer/plugin@2.0.4':
+    resolution: {integrity: sha512-3rz1SekhyHu33LcQeRdcSgE0DRv8mK7nePeKbtKUGN8jmHtF5k+llwIWMd5czrjtLZ+scp2hUlm2aqJvHvbwHw==}
+    engines: {node: '>=18'}
+
+  '@loglayer/shared@2.2.1':
+    resolution: {integrity: sha512-M31Wrue64t0PLmhLsa8PGcRIbQJTcuEAzJoE89m9YvSOzZ0Kzzml/mvEQwLdPAqzYSVyxwcOcOvT3jPq+YBB3A==}
+    engines: {node: '>=18'}
+
+  '@loglayer/transport-pino@2.1.1':
+    resolution: {integrity: sha512-39Mlxu8uEgAeKSfKPj8zOU1T9D36YGFvKRDw489mdh1ENfiJGZoTCQpuQfsqw1aDBHtdoYDwMzvm60A/feSeMA==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      pino: '*'
+
+  '@loglayer/transport@2.1.1':
+    resolution: {integrity: sha512-zOU/ZC0LUwgzbEU7+OMm5R3s4xuEAEUKkWIIhIHfxJcWAFFAl/YkvPO0pRVGo2yxHkL11SMzkdnddyIBkUHV0g==}
+    engines: {node: '>=18'}
 
   '@markdoc/markdoc@0.4.0':
     resolution: {integrity: sha512-fSh4P3Y4E7oaKYc2oNzSIJVPDto7SMzAuQN1Iyx53UxzleA6QzRdNWRxmiPqtVDaDi5dELd2yICoG91csrGrAw==}
@@ -2769,6 +2800,10 @@ packages:
   lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
 
+  loglayer@6.3.1:
+    resolution: {integrity: sha512-oYC+p4T2CG9NIFy8LG2Gb81MKt2rnxWN/lWYtawWGUVjA747oxfqoTtBb0kKW4i9lOa1lF9E0FxrLqqHC/B3gw==}
+    engines: {node: '>=18'}
+
   longest-streak@3.1.0:
     resolution: {integrity: sha512-9Ri+o0JYgehTaVBBDoMqIl8GXtbWg711O3srftcHhZ0dqnETqLaoIK0x17fUw9rFSlK/0NlsKe0Ahhyl5pXE2g==}
 
@@ -3604,6 +3639,10 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
+  serialize-error@12.0.0:
+    resolution: {integrity: sha512-ZYkZLAvKTKQXWuh5XpBw7CdbSzagarX39WyZ2H07CDLC5/KfsRGlIXV8d4+tfqX1M7916mRqR1QfNHSij+c9Pw==}
+    engines: {node: '>=18'}
+
   server-only@0.0.1:
     resolution: {integrity: sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA==}
 
@@ -3857,6 +3896,10 @@ packages:
   type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
     engines: {node: '>= 0.8.0'}
+
+  type-fest@4.37.0:
+    resolution: {integrity: sha512-S/5/0kFftkq27FPNye0XM1e2NsnoD/3FS+pBmbjmmtLT6I+i344KoOf7pvXreaFsDamWeaJX55nczA1m5PsBDg==}
+    engines: {node: '>=16'}
 
   typed-array-buffer@1.0.3:
     resolution: {integrity: sha512-nAYYwfY3qnzX30IkA6AQZjVbtK6duGontcQm1WSG1MD94YLqK0515GNApXkoxKOWMusVssAHWLh9SeaoefYFGw==}
@@ -4620,6 +4663,25 @@ snapshots:
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
       server-only: 0.0.1
+
+  '@loglayer/context-manager@1.0.4':
+    dependencies:
+      '@loglayer/shared': 2.2.1
+
+  '@loglayer/plugin@2.0.4':
+    dependencies:
+      '@loglayer/shared': 2.2.1
+
+  '@loglayer/shared@2.2.1': {}
+
+  '@loglayer/transport-pino@2.1.1(pino@9.6.0)':
+    dependencies:
+      '@loglayer/transport': 2.1.1
+      pino: 9.6.0
+
+  '@loglayer/transport@2.1.1':
+    dependencies:
+      '@loglayer/shared': 2.2.1
 
   '@markdoc/markdoc@0.4.0(@types/react@19.0.10)(react@19.0.0)':
     optionalDependencies:
@@ -7420,6 +7482,13 @@ snapshots:
 
   lodash@4.17.21: {}
 
+  loglayer@6.3.1:
+    dependencies:
+      '@loglayer/context-manager': 1.0.4
+      '@loglayer/plugin': 2.0.4
+      '@loglayer/shared': 2.2.1
+      '@loglayer/transport': 2.1.1
+
   longest-streak@3.1.0: {}
 
   loose-envify@1.4.0:
@@ -8682,6 +8751,10 @@ snapshots:
 
   semver@7.7.1: {}
 
+  serialize-error@12.0.0:
+    dependencies:
+      type-fest: 4.37.0
+
   server-only@0.0.1: {}
 
   set-function-length@1.2.2:
@@ -9022,6 +9095,8 @@ snapshots:
   type-check@0.4.0:
     dependencies:
       prelude-ls: 1.2.1
+
+  type-fest@4.37.0: {}
 
   typed-array-buffer@1.0.3:
     dependencies:

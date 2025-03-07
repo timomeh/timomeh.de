@@ -1,11 +1,11 @@
 import { cache } from 'react'
 
-import { logger } from '@/lib/log'
+import { log as baseLog } from '@/lib/log'
 
 import { cms } from './cms'
 import { db, repo } from './db'
 
-const log = logger.child({ module: 'data/tags' })
+const log = baseLog.child().withContext({ module: 'data/tags' })
 
 type Filter = {
   listed?: boolean
@@ -47,7 +47,7 @@ export async function cacheAllTags() {
   try {
     await repo.tags.createIndex()
   } catch (error) {
-    log.warn(error, 'Error when trying to create the index for tags')
+    log.withError(error).warn('Error when trying to create the index for tags')
   }
 }
 
@@ -58,12 +58,12 @@ export async function updateTagCache(slug: string) {
   const cached = await repo.tags.fetch(slug)
 
   if (!tag && cached) {
-    log.info({ slug }, 'Removing record')
+    log.withMetadata({ slug }).info('Removing record')
     await repo.tags.remove(slug)
   }
 
   if (tag) {
-    log.info({ slug }, 'Saving record')
+    log.withMetadata({ slug }).info('Saving record')
     await repo.tags.save(slug, tag)
   }
 }
