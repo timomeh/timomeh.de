@@ -70,7 +70,7 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install
-      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm exec playwright install --with-deps chromium --only-shell
       - name: cache dragonfly data
         uses: actions/cache@v4
         with:
