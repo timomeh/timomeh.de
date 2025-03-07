@@ -95,7 +95,7 @@ jobs:
         run: |
           echo "GITHUB_CONTENT_PAT=${{ secrets.BLOG_GH_ACCESS_TOKEN }}" >> .env.local
           echo "REDIS_DB_URL=redis://dragonfly:6379" >> .env.local
-          echo "SITE_URL=http://0.0.0.0:3000" >> .env.local
+          echo "SITE_URL=http://localhost:3000" >> .env.local
           echo "NEXT_PUBLIC_CMS_REPO=timomeh/timomeh.de-content" >> .env.local
           echo "NUKE_SECRET=test" >> .env.local
       - run: docker compose up -d
