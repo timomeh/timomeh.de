@@ -8,9 +8,9 @@ import { updatePageCache } from '@/data/pages'
 import { updatePostCache } from '@/data/posts'
 import { updateSettingsCache } from '@/data/settings'
 import { updateTagCache } from '@/data/tags'
-import { logger } from '@/lib/log'
+import { log as baseLog } from '@/lib/log'
 
-const log = logger.child({ module: 'webhooks/github' })
+const log = baseLog.child().withContext({ module: 'webhooks/github' })
 
 // cache content changes
 
@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
   const body = await request.text()
 
   webhooks.onError((error) => {
-    log.error(error, 'Failed to process webhook')
+    log.withError(error).error('Failed to process webhook')
   })
 
   const event = request.headers.get('x-github-event') as keyof EventPayloadMap
@@ -67,25 +67,25 @@ export async function POST(request: NextRequest) {
         if (resource === 'posts') {
           await updatePostCache(slug)
           revalidateTag(`feed-pre:${slug}`)
-          log.info({ resource, slug }, 'Updated cache')
+          log.withMetadata({ resource, slug }).info('Updated cache')
           return
         }
 
         if (resource === 'pages') {
           await updatePageCache(slug)
-          log.info({ resource, slug }, 'Updated cache')
+          log.withMetadata({ resource, slug }).info('Updated cache')
           return
         }
 
         if (resource === 'tags') {
           await updateTagCache(slug)
-          log.info({ resource, slug }, 'Updated cache')
+          log.withMetadata({ resource, slug }).info('Updated cache')
           return
         }
 
         if (resource === 'settings') {
           await updateSettingsCache()
-          log.info({ resource, slug }, 'Updated cache')
+          log.withMetadata({ resource, slug }).info('Updated cache')
           return
         }
 
