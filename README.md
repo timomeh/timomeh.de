@@ -28,6 +28,12 @@ Images are also stored in the private GitHub repository. To make them publicly a
 
 Videos are simply uploaded to YouTube, and YouTube links in posts are automatically converted to embeds.
 
+## Publish
+
+- The `main` branch automatically builds a release candidate, runs e2e tests against it, publishes it to ghcr.io, and then triggers a docker pull on the server.
+- Pull Requests are automatically built and e2e tested.
+- todo: pull request previews would be nice. Coolify doesn't seem to support them with docker-image based apps right now.
+
 ## Stack
 
 - [Next.js](https://nextjs.org/)
