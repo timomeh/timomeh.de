@@ -21,7 +21,8 @@ ARG SITE_URL="https://timomeh.de"
 ARG NEXT_PUBLIC_CMS_REPO="timomeh/timomeh.de-content"
 ENV SITE_URL=$SITE_URL
 ENV NEXT_PUBLIC_CMS_REPO=$NEXT_PUBLIC_CMS_REPO
-RUN corepack enable pnpm && pnpm run build
+RUN --mount=type=cache,id=next-cache,target=/app/.next/cache \
+    corepack enable pnpm && pnpm run build
 
 # Production image
 FROM base AS runner
