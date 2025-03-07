@@ -9,7 +9,8 @@ const nextConfig: NextConfig = {
   ),
 
   output: 'standalone',
-  serverExternalPackages: ['pino', 'pino-pretty'],
+  poweredByHeader: false,
+  compress: false,
 
   images: {
     remotePatterns: [
