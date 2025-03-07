@@ -35,4 +35,6 @@ jobs:
         run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
       - name: release
         run: |
-          curl --request GET '${{ secrets.COOLIFY_WEBHOOK }}' --header 'Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}'
+          RESPONSE=$(curl --silent --request GET '${{ secrets.COOLIFY_WEBHOOK }}' --header 'Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}')
+          echo "$RESPONSE"
+          echo "$RESPONSE" | grep -q "deployment queued." || { echo "Error: Deployment was not queued."; exit 1; }
