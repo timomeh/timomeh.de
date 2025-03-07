@@ -28,14 +28,12 @@ export default async function Page(props: Props) {
 
   return (
     <>
-      <div className="mb-12">
-        <Pagination
-          top
-          current={num}
-          hasOlderPost={hasOlderPost}
-          scope={`/tag/${params.tag}`}
-        />
-      </div>
+      <Pagination
+        top
+        current={num}
+        hasOlderPost={hasOlderPost}
+        scope={`/tag/${params.tag}`}
+      />
       {posts.map((post) => (
         <ListedPost slug={post.slug} key={post.slug} />
       ))}
