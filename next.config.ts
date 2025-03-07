@@ -1,7 +1,6 @@
+import { config } from '@/config'
 import withPlaiceholder from '@plaiceholder/next'
 import { NextConfig } from 'next'
-
-import { config } from '@/config'
 
 const nextConfig: NextConfig = {
   // bypasses the file-system-cache's 2MB limit
@@ -19,7 +18,12 @@ const nextConfig: NextConfig = {
           | 'http'
           | 'https',
         hostname: new URL(config.siteUrl).hostname,
-        port: new URL(config.siteUrl).port || undefined,
+        port: new URL(config.siteUrl).port,
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3000',
       },
     ],
   },
@@ -82,13 +86,6 @@ const nextConfig: NextConfig = {
       fullUrl: true,
     },
   },
-
-  devIndicators: process.env.CI
-    ? {
-        appIsrStatus: false,
-        buildActivity: false,
-      }
-    : undefined,
 }
 
 export default withPlaiceholder(nextConfig)
