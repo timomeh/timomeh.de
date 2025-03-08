@@ -49,6 +49,10 @@ jobs:
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache
           cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache,mode=max
+          secrets: |
+            "sentry_auth_token=${{ secrets.SENTRY_AUTH_TOKEN }}"
+          build-args: |
+            RELEASE_VERSION=${{ github.sha }}
       - run: docker save -o /tmp/docker-image.tar ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
       - uses: actions/upload-artifact@v4
         with:
@@ -98,6 +102,7 @@ jobs:
           echo "SITE_URL=http://localhost:3000" >> .env.local
           echo "NEXT_PUBLIC_CMS_REPO=timomeh/timomeh.de-content" >> .env.local
           echo "NUKE_SECRET=test" >> .env.local
+          echo "SENTRY_ENVIRONMENT=test" >> .env.local
       - run: docker compose up -d
       - run: pnpm test
         env:

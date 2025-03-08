@@ -1,3 +1,5 @@
+import 'server-only'
+
 import { EntryWithResolvedLinkedFiles } from '@keystatic/core/reader'
 import { createGitHubReader } from '@keystatic/core/reader/github'
 

@@ -16,12 +16,21 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-ENV NEXT_TELEMETRY_DISABLED=1
 ARG SITE_URL="https://timomeh.de"
 ARG NEXT_PUBLIC_CMS_REPO="timomeh/timomeh.de-content"
+ARG NEXT_PUBLIC_SENTRY_DSN="https://d79b2249f594418c9c59301d3569b42e@o4508942537195520.ingest.de.sentry.io/4508942542045264"
+ARG RELEASE_VERSION="unreleased"
+ARG CI="true"
+
+ENV NEXT_TELEMETRY_DISABLED=1
 ENV SITE_URL=$SITE_URL
+ENV NEXT_PUBLIC_SENTRY_DSN=$NEXT_PUBLIC_SENTRY_DSN
 ENV NEXT_PUBLIC_CMS_REPO=$NEXT_PUBLIC_CMS_REPO
-RUN --mount=type=cache,id=next-cache,target=/app/.next/cache \
+ENV CI=$CI
+ENV SENTRY_RELEASE=$RELEASE_VERSION
+
+RUN --mount=type=secret,id=sentry_auth_token,env=SENTRY_AUTH_TOKEN \
+    --mount=type=cache,id=next-cache,target=/app/.next/cache \
     corepack enable pnpm && pnpm run build
 
 # Production image

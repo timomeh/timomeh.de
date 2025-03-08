@@ -1,6 +1,8 @@
-import { config } from '@/config'
 import withPlaiceholder from '@plaiceholder/next'
+import { withSentryConfig } from '@sentry/nextjs'
 import { NextConfig } from 'next'
+
+import { config } from '@/config'
 
 const nextConfig: NextConfig = {
   // bypasses the file-system-cache's 2MB limit
@@ -93,4 +95,10 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default withPlaiceholder(nextConfig)
+export default withSentryConfig(withPlaiceholder(nextConfig), {
+  org: 'timomeh',
+  project: 'timomehde',
+  silent: !process.env.CI,
+  widenClientFileUpload: true,
+  disableLogger: true,
+})

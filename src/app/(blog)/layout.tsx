@@ -5,8 +5,10 @@ import { IBM_Plex_Mono, Inter, Outfit } from 'next/font/google'
 import localFont from 'next/font/local'
 import React from 'react'
 
+import { AttachDebugMetadata } from '@/comps/attach-debug-metadata'
 import { PrevPathProvider } from '@/comps/prev-path'
 import { ProgressBarProvider } from '@/comps/progress-bar'
+import { ThemeSwitchScript } from '@/comps/theme-switch-script'
 import { config } from '@/config'
 
 const inter = Inter({
@@ -71,17 +73,11 @@ export default async function RootLayout({
             data-website-id={config.umamiWebsiteId}
           />
         )}
-        <script>
-          {`(function () {
-              let theme = localStorage.getItem('theme');
-              const supp = ['dark','light'];
-              theme = supp.includes(theme) ? theme : null;
-              document.documentElement.setAttribute('data-theme', theme || 'system');
-          })();`}
-        </script>
+        <ThemeSwitchScript />
         <link href="https://mastodon.social/@timomeh" rel="me" />
       </head>
       <body className="group/body relative">
+        <AttachDebugMetadata environment={config.sentry.environment} />
         <ProgressBarProvider>
           <PrevPathProvider>
             {topscroll}

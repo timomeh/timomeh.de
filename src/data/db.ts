@@ -1,17 +1,21 @@
+import 'server-only'
+
 import { cache } from 'react'
 import { createClient } from 'redis'
 import { Repository, Schema } from 'redis-om'
 
 import { config } from '@/config'
 import { log as baseLog } from '@/lib/log'
+import { captureException } from '@/lib/sentry'
 
 import { Page, Post, Settings, Tag } from './cms'
 
 const log = baseLog.child().withContext({ module: 'data/db' })
 
-const redis = createClient({ url: config.redis.url }).on('error', (err) =>
-  log.withError(err).error('Redis client error'),
-)
+const redis = createClient({ url: config.redis.url }).on('error', (err) => {
+  captureException(err)
+  log.withError(err).error('Redis client error')
+})
 
 const connect = cache(async () => {
   if (!redis.isOpen) {
@@ -80,6 +84,7 @@ export async function initRedis() {
     await repo.pages.createIndex()
     await repo.settings.createIndex()
   } catch (e) {
+    captureException(e)
     log.withError(e).error('Error when creating redis indices')
   } finally {
     log.info('Successfully (re-)created all indices')
