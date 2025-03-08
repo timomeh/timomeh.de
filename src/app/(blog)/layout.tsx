@@ -6,7 +6,7 @@ import localFont from 'next/font/local'
 import React from 'react'
 
 import { PrevPathProvider } from '@/comps/prev-path'
-import { ProgressBar } from '@/comps/progress-bar'
+import { ProgressBarProvider } from '@/comps/progress-bar'
 import { config } from '@/config'
 
 const inter = Inter({
@@ -82,15 +82,16 @@ export default async function RootLayout({
         <link href="https://mastodon.social/@timomeh" rel="me" />
       </head>
       <body className="group/body relative">
-        <PrevPathProvider>
-          {topscroll}
-          <div className="relative flex min-h-dvh flex-col self-start *:w-full">
-            {header}
-            {children}
-          </div>
-          {bottomscroll}
-          <ProgressBar />
-        </PrevPathProvider>
+        <ProgressBarProvider>
+          <PrevPathProvider>
+            {topscroll}
+            <div className="relative flex min-h-dvh flex-col self-start *:w-full">
+              {header}
+              {children}
+            </div>
+            {bottomscroll}
+          </PrevPathProvider>
+        </ProgressBarProvider>
       </body>
     </html>
   )

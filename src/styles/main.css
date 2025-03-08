@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 @import './shiki-transformers.css' layer(base);
-@import './nprogress.css';
+@import './bprogress.css';
 
 @config '../../typography.config.js';
 
