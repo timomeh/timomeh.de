@@ -17,6 +17,7 @@ const nextConfig: NextConfig = {
   compress: false,
 
   images: {
+    minimumCacheTTL: 31536000,
     remotePatterns: [
       {
         protocol: new URL(process.env.SITE_URL!).protocol.slice(0, -1) as

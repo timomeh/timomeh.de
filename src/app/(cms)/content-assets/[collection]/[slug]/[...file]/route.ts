@@ -54,7 +54,7 @@ export async function GET(
 
   const headers = new Headers()
   headers.set('Content-Type', res.headers.get('content-type')!)
-  headers.set('Cache-Control', 'public, max-age=86400')
+  headers.set('Cache-Control', 'public, max-age=15768000')
   headers.set('Content-Disposition', `inline; filename="${params.file.at(-1)}"`)
 
   return new NextResponse(res.body, { headers })
