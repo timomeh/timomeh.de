@@ -2,8 +2,6 @@ import withPlaiceholder from '@plaiceholder/next'
 import { withSentryConfig } from '@sentry/nextjs'
 import { NextConfig } from 'next'
 
-import { config } from '@/config'
-
 const nextConfig: NextConfig = {
   // bypasses the file-system-cache's 2MB limit
   cacheHandler: require.resolve(
@@ -21,11 +19,11 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: new URL(config.siteUrl).protocol.slice(0, -1) as
+        protocol: new URL(process.env.SITE_URL!).protocol.slice(0, -1) as
           | 'http'
           | 'https',
-        hostname: new URL(config.siteUrl).hostname,
-        port: new URL(config.siteUrl).port,
+        hostname: new URL(process.env.SITE_URL!).hostname,
+        port: new URL(process.env.SITE_URL!).port,
       },
       {
         protocol: 'http',
