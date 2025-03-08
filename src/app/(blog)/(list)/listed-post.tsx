@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { unstable_ViewTransition as ViewTransition } from 'react'
 
 import { Anchor } from '@/comps/mdx/anchor'
 import { MDX } from '@/comps/mdx/mdx'
@@ -38,32 +38,39 @@ export async function ListedPost({ slug }: Props) {
       )}
       <div className="animate-fade-in relative mx-auto max-w-2xl px-4">
         <Prose>
-          <PostHeader slug={post.slug} linked />
-          <MDX
-            components={{
-              h1: (props) => {
-                let hasLink = false
+          <ViewTransition name={`${post.slug}-post-header`}>
+            <PostHeader slug={post.slug} linked />
+          </ViewTransition>
+          <ViewTransition name={`${post.slug}-post-content`}>
+            <MDX
+              components={{
+                h1: (props) => {
+                  let hasLink = false
 
-                React.Children.forEach(props.children, (child) => {
-                  hasLink = child.type === Anchor
-                })
+                  React.Children.forEach(props.children, (child) => {
+                    hasLink = child.type === Anchor
+                  })
 
-                if (hasLink) return <h1>{props.children}</h1>
+                  if (hasLink) return <h1>{props.children}</h1>
 
-                return (
-                  <h1>
-                    <Link href={`/posts/${post.slug}`} className="no-underline">
-                      {props.children}
-                    </Link>
-                  </h1>
-                )
-              },
-            }}
-            assetPrefix={contentAsset('posts', post.slug, '')}
-            content={post.content}
-            readMorePath={`/posts/${post.slug}`}
-            scope={post.slug}
-          />
+                  return (
+                    <h1>
+                      <Link
+                        href={`/posts/${post.slug}`}
+                        className="no-underline"
+                      >
+                        {props.children}
+                      </Link>
+                    </h1>
+                  )
+                },
+              }}
+              assetPrefix={contentAsset('posts', post.slug, '')}
+              content={post.content}
+              readMorePath={`/posts/${post.slug}`}
+              scope={post.slug}
+            />
+          </ViewTransition>
         </Prose>
       </div>
     </article>

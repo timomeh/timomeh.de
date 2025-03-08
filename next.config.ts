@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
     'next/dist/server/lib/incremental-cache/file-system-cache.js',
   ),
 
+  experimental: {
+    viewTransition: true,
+  },
+
   output: 'standalone',
   poweredByHeader: false,
   compress: false,

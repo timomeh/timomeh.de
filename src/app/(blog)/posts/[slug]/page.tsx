@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { unstable_ViewTransition as ViewTransition } from 'react'
 
 import { MDX } from '@/comps/mdx/mdx'
 import { PostHeader } from '@/comps/post-header'
@@ -24,11 +25,15 @@ export default async function Page(props: Props) {
       lang={post.meta.lang?.split('_')[0]}
     >
       <Prose>
-        <PostHeader slug={post.slug} />
-        <MDX
-          content={post.content}
-          assetPrefix={contentAsset('posts', post.slug, '')}
-        />
+        <ViewTransition name={`${post.slug}-post-header`}>
+          <PostHeader slug={post.slug} />
+        </ViewTransition>
+        <ViewTransition name={`${post.slug}-post-content`}>
+          <MDX
+            content={post.content}
+            assetPrefix={contentAsset('posts', post.slug, '')}
+          />
+        </ViewTransition>
       </Prose>
     </article>
   )
