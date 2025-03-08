@@ -77,7 +77,10 @@ export default async function RootLayout({
         <link href="https://mastodon.social/@timomeh" rel="me" />
       </head>
       <body className="group/body relative">
-        <AttachDebugMetadata environment={config.sentry.environment} />
+        <AttachDebugMetadata
+          environment={config.sentry.environment}
+          sampleRate={config.sentry.sampleRate}
+        />
         <ProgressBarProvider>
           <PrevPathProvider>
             {topscroll}

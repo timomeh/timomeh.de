@@ -17,6 +17,7 @@ export const config = {
     url: process.env.REDIS_DB_URL,
   },
   sentry: {
+    sampleRate: Number(process.env.SENTRY_TRACES_SAMPLE_RATE || 0.5),
     environment:
       process.env.SENTRY_ENVIRONMENT || `unset-${process.env.NODE_ENV}`,
   },
