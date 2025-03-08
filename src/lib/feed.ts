@@ -4,6 +4,8 @@ import { unstable_cache } from 'next/cache'
 import { config } from '@/config'
 import { listPublishedPosts } from '@/data/posts'
 
+import { captureException } from './sentry'
+
 type FeedType = 'atom' | 'json' | 'rss'
 
 export async function buildFeed(type: FeedType) {
@@ -83,7 +85,9 @@ export async function buildFeed(type: FeedType) {
     return feed.json1()
   }
 
-  throw new Error('Not a supported type')
+  const error = new Error(`Not a supported feed type: ${type}`)
+  captureException(error)
+  throw error
 }
 
 const postsOptions: FeedOptions = {

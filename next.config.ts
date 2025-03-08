@@ -1,5 +1,5 @@
-import { config } from '@/config'
 import withPlaiceholder from '@plaiceholder/next'
+import { withSentryConfig } from '@sentry/nextjs'
 import { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
@@ -19,11 +19,11 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: new URL(config.siteUrl).protocol.slice(0, -1) as
+        protocol: new URL(process.env.SITE_URL!).protocol.slice(0, -1) as
           | 'http'
           | 'https',
-        hostname: new URL(config.siteUrl).hostname,
-        port: new URL(config.siteUrl).port,
+        hostname: new URL(process.env.SITE_URL!).hostname,
+        port: new URL(process.env.SITE_URL!).port,
       },
       {
         protocol: 'http',
@@ -93,4 +93,10 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default withPlaiceholder(nextConfig)
+export default withSentryConfig(withPlaiceholder(nextConfig), {
+  org: 'timomeh',
+  project: 'timomehde',
+  silent: !process.env.CI,
+  widenClientFileUpload: true,
+  disableLogger: true,
+})

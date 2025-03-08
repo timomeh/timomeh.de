@@ -1,12 +1,16 @@
 'use client'
 
 import { ErrorContent } from '@/comps/error-content'
+import { useCaptureException } from '@/lib/sentry-browser'
 
 type Props = {
   reset: () => void
+  error: Error & { digest?: string }
 }
 
-export default function Error({ reset }: Props) {
+export default function Error({ reset, error }: Props) {
+  useCaptureException(error)
+
   return (
     <ErrorContent
       reset={reset}

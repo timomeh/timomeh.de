@@ -1,3 +1,5 @@
+import 'server-only'
+
 export const config = {
   siteUrl: process.env.SITE_URL!.split(',')[0],
   umamiWebsiteId: process.env.UMAMI_WEBSITE_ID,
@@ -13,5 +15,9 @@ export const config = {
   },
   redis: {
     url: process.env.REDIS_DB_URL,
+  },
+  sentry: {
+    environment:
+      process.env.SENTRY_ENVIRONMENT || `unset-${process.env.NODE_ENV}`,
   },
 }

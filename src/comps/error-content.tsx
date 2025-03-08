@@ -2,7 +2,7 @@ import { Prose } from './prose'
 import { ReportBrokenPage } from './report-broken-link'
 
 type Props = {
-  reset: () => void
+  reset?: () => void
   description?: React.ReactNode
 }
 
@@ -17,11 +17,13 @@ export function ErrorContent({ reset, description }: Props) {
         </p>
       )}
       <ol>
-        <li>
-          <a role="button" onClick={() => reset()}>
-            try to load this page again
-          </a>
-        </li>
+        {reset && (
+          <li>
+            <a role="button" onClick={() => reset()}>
+              try to load this page again
+            </a>
+          </li>
+        )}
         <li>come back later</li>
         <li>
           <ReportBrokenPage />
