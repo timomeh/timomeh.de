@@ -57,7 +57,12 @@ export async function PostPreview({ slug, direction }: Props) {
             <Prose>
               <PostHeader slug={slug} />
               <h1 className="font-display mb-8 text-2xl leading-tight font-semibold text-balance sm:text-3xl">
-                <MDX content={post.title} inline />
+                <MDX
+                  cacheKey={`post-preview-title-${post.slug}`}
+                  cacheTags={['mdx-type:post-preview', `mdx-post:${post.slug}`]}
+                  content={post.title}
+                  inline
+                />
               </h1>
             </Prose>
           </article>

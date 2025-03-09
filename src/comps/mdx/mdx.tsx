@@ -1,6 +1,7 @@
-import { evaluate } from '@mdx-js/mdx'
+import { compile, evaluate, run } from '@mdx-js/mdx'
 import remarkEmbedder, { TransformerInfo } from '@remark-embedder/core'
 import oembedTransformer from '@remark-embedder/transformer-oembed'
+import { unstable_cache } from 'next/cache'
 import * as runtime from 'react/jsx-runtime'
 import rehypeUnwrapImages from 'rehype-unwrap-images'
 import remarkGfm from 'remark-gfm'
@@ -37,6 +38,8 @@ type Props = {
   assetPrefix?: string
   inline?: boolean
   plain?: boolean
+  cacheKey?: string
+  cacheTags?: string[]
   readMorePath?: string
   scope?: string
   components?: MDXComponents
@@ -48,6 +51,8 @@ export async function MDX({
   assetPrefix,
   plain,
   readMorePath,
+  cacheKey,
+  cacheTags,
   scope,
   components = {},
 }: Props) {
@@ -72,31 +77,55 @@ export async function MDX({
         ...(inline && inlineComponents),
       }
 
-  const { default: MDXContent } = await evaluate(content, {
+  const compileUncached = async () => {
+    const code = await compile(content, {
+      outputFormat: 'function-body',
+      rehypePlugins: [rehypeUnwrapImages],
+      remarkPlugins: [
+        remarkGfm,
+        [
+          remarkImageSrcPrefix,
+          {
+            baseUrl: assetPrefix,
+          },
+        ],
+        [
+          // @ts-expect-error
+          remarkEmbedder,
+          {
+            transformers: [oembedTransformer],
+            handleHTML,
+          },
+        ],
+        !plain ? withMdxFootnotes : () => {},
+        // @ts-expect-error
+        remarkSmartypants,
+        readMorePath ? remarkReadMore : () => {},
+      ],
+    })
+
+    return String(code)
+  }
+
+  const compileCached = unstable_cache(
+    () => compileUncached(),
+    [
+      'cached-version:v1', // increase this version if rendered mdx updated
+      assetPrefix || '',
+      cacheKey || '',
+    ],
+    {
+      revalidate: false, // never expire
+      tags: ['mdx', ...(cacheTags || [])],
+    },
+  )
+
+  const code = cacheKey ? await compileCached() : await compileUncached()
+
+  // @ts-expect-error
+  const { default: MDXContent } = await run(code, {
     ...runtime,
     baseUrl: import.meta.url,
-    rehypePlugins: [rehypeUnwrapImages],
-    remarkPlugins: [
-      remarkGfm,
-      [
-        remarkImageSrcPrefix,
-        {
-          baseUrl: assetPrefix,
-        },
-      ],
-      [
-        // @ts-expect-error
-        remarkEmbedder,
-        {
-          transformers: [oembedTransformer],
-          handleHTML,
-        },
-      ],
-      !plain ? withMdxFootnotes : () => {},
-      // @ts-expect-error
-      remarkSmartypants,
-      readMorePath ? remarkReadMore : () => {},
-    ],
   })
 
   return <MDXContent components={{ ...comps, ...components }} />

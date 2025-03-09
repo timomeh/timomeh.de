@@ -31,6 +31,8 @@ export async function GET(request: NextRequest) {
         'It looks like we have cached data. Not nuking because soft is used',
       )
 
+      revalidateTag('mdx')
+
       return NextResponse.json({
         revalidated: false,
         now: Date.now(),
@@ -46,6 +48,7 @@ export async function GET(request: NextRequest) {
   await cacheAllTags()
   await updateSettingsCache()
   revalidateTag('feed-pre')
+  revalidateTag('mdx')
 
   log.info('Successfully nuked all caches')
 

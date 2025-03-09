@@ -21,6 +21,8 @@ export default async function Page(props: Props) {
     <article className="animate-fade-in relative">
       <Prose>
         <MDX
+          cacheKey={`page-${page.slug}`}
+          cacheTags={['mdx-type:page', `mdx-page:${page.slug}`]}
           content={page.content}
           assetPrefix={contentAsset('pages', page.slug, '')}
         />

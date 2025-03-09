@@ -75,6 +75,11 @@ async function PostsByYear({ tag, year }: { tag?: string; year?: number }) {
             <h3 className="font-display mt-1 leading-snug font-medium text-balance">
               <Link href={`/posts/${post.slug}`}>
                 <MDX
+                  cacheKey={`archive-list-title-${post.slug}`}
+                  cacheTags={[
+                    'mdx-type:archive-post-list',
+                    `mdx-post:${post.slug}`,
+                  ]}
                   content={markdownHeadline(post.content) || post.title}
                   inline
                   components={{

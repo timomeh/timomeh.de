@@ -67,12 +67,14 @@ export async function POST(request: NextRequest) {
         if (resource === 'posts') {
           await updatePostCache(slug)
           revalidateTag(`feed-pre:${slug}`)
+          revalidateTag(`mdx-post:${slug}`)
           log.withMetadata({ resource, slug }).info('Updated cache')
           return
         }
 
         if (resource === 'pages') {
           await updatePageCache(slug)
+          revalidateTag(`mdx-page:${slug}`)
           log.withMetadata({ resource, slug }).info('Updated cache')
           return
         }

@@ -43,6 +43,8 @@ async function SimplePost(props: Props) {
     <article id="partial">
       <MDX
         plain
+        cacheKey={`simple-post-${post.slug}`}
+        cacheTags={['mdx-type:simple-post', `mdx-post:${post.slug}`]}
         content={[
           '<FeedParseMarker name="begin" />',
           contentWithoutH1,

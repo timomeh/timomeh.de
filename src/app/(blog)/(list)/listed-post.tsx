@@ -65,6 +65,8 @@ export async function ListedPost({ slug }: Props) {
                   )
                 },
               }}
+              cacheTags={['mdx-type:listed-post', `mdx-post:${post.slug}`]}
+              cacheKey={`listed-post-${post.slug}`}
               assetPrefix={contentAsset('posts', post.slug, '')}
               content={post.content}
               readMorePath={`/posts/${post.slug}`}

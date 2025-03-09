@@ -30,6 +30,8 @@ export default async function Page(props: Props) {
         </ViewTransition>
         <ViewTransition name={`${post.slug}-post-content`}>
           <MDX
+            cacheKey={`post-${post.slug}`}
+            cacheTags={['mdx-type:post', `mdx-post:${post.slug}`]}
             content={post.content}
             assetPrefix={contentAsset('posts', post.slug, '')}
           />
