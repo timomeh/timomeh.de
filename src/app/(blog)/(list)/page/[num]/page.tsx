@@ -26,11 +26,11 @@ export default async function Page(props: Props) {
 
   return (
     <>
-      <Pagination current={num} hasOlderPost={hasOlderPost} top />
-      {posts.map((post) => (
-        <ListedPost slug={post.slug} key={post.slug} />
-      ))}
-      <div className="border-beige/50 border-t dark:border-white/10" />
+      <div>
+        {posts.map((post) => (
+          <ListedPost slug={post.slug} key={post.slug} />
+        ))}
+      </div>
       <Pagination current={num} hasOlderPost={hasOlderPost} bottom />
     </>
   )

@@ -15,10 +15,11 @@ export default async function Page() {
 
   return (
     <>
-      {posts.map((post) => (
-        <ListedPost slug={post.slug} key={post.slug} />
-      ))}
-      <div className="border-beige/50 border-t dark:border-white/10" />
+      <div>
+        {posts.map((post) => (
+          <ListedPost slug={post.slug} key={post.slug} />
+        ))}
+      </div>
       <Pagination current={0} hasOlderPost={hasOlderPost} bottom />
     </>
   )

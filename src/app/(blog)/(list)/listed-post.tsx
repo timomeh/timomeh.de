@@ -20,10 +20,12 @@ export async function ListedPost({ slug }: Props) {
   return (
     <article
       lang={post.meta.lang?.split('_')[0]}
-      className="relative isolate overflow-hidden pb-24"
+      data-cover={!!post.frontmatter.cover}
+      className="border-beige/50 relative isolate overflow-hidden border-t pb-24 first:border-t-0
+        data-[cover=false]:pt-24 first:data-[cover=false]:pt-0
+        data-[cover=true]:!border-t dark:border-white/10"
     >
-      <div className="bg-beige/50 relative z-10 h-px w-full dark:bg-white/10" />
-      {post.frontmatter.cover ? (
+      {post.frontmatter.cover && (
         <>
           <div className="absolute top-[-63px] right-0 left-0 overflow-hidden">
             <PostPreviewImage
@@ -33,8 +35,6 @@ export async function ListedPost({ slug }: Props) {
           </div>
           <div className="aspect-5/1 sm:h-[200px]" />
         </>
-      ) : (
-        <div className="h-24" />
       )}
       <div className="animate-fade-in relative mx-auto max-w-2xl px-4">
         <Prose>
