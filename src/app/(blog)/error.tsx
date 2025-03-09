@@ -2,16 +2,13 @@
 
 import { ErrorContent } from '@/comps/error-content'
 import { Footer } from '@/comps/footer'
-import { useCaptureException } from '@/lib/sentry-browser'
 
 type Props = {
   reset: () => void
   error: Error & { digest?: string }
 }
 
-export default function Error({ reset, error }: Props) {
-  useCaptureException(error)
-
+export default function Error({ reset }: Props) {
   return (
     <>
       <main className="relative z-30 w-full flex-1">

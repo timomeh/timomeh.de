@@ -5,7 +5,6 @@ import { IBM_Plex_Mono, Inter, Outfit } from 'next/font/google'
 import localFont from 'next/font/local'
 import React from 'react'
 
-import { AttachDebugMetadata } from '@/comps/attach-debug-metadata'
 import { PrevPathProvider } from '@/comps/prev-path'
 import { ProgressBarProvider } from '@/comps/progress-bar'
 import { ThemeSwitchScript } from '@/comps/theme-switch-script'
@@ -77,10 +76,6 @@ export default async function RootLayout({
         <link href="https://mastodon.social/@timomeh" rel="me" />
       </head>
       <body className="group/body relative">
-        <AttachDebugMetadata
-          environment={config.sentry.environment}
-          sampleRate={config.sentry.sampleRate}
-        />
         <ProgressBarProvider>
           <PrevPathProvider>
             {topscroll}

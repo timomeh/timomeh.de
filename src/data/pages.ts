@@ -1,7 +1,6 @@
 import { cache } from 'react'
 
 import { log as baseLog } from '@/lib/log'
-import { captureException } from '@/lib/sentry'
 
 import { cms, Page } from './cms'
 import { db, repo } from './db'
@@ -58,7 +57,6 @@ export async function cacheAllPages() {
   try {
     await repo.pages.createIndex()
   } catch (error) {
-    captureException(error)
     log.withError(error).warn('Error when trying to create the index for pages')
   }
 }

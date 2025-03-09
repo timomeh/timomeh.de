@@ -2,24 +2,18 @@
 
 import '@/styles/main.css'
 
-import * as Sentry from '@sentry/nextjs'
 import Link from 'next/link'
-import { useEffect } from 'react'
 
 import { ErrorContent } from '@/comps/error-content'
 import { Footer } from '@/comps/footer'
 import { Mug } from '@/comps/me/mug'
 import { ThemeSwitchScript } from '@/comps/theme-switch-script'
 
-export default function GlobalError({
-  error,
-}: {
+type Props = {
   error: Error & { digest?: string }
-}) {
-  useEffect(() => {
-    Sentry.captureException(error)
-  }, [error])
+}
 
+export default function GlobalError({ error: _error }: Props) {
   return (
     <html
       lang="en"

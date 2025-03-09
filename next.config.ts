@@ -1,5 +1,4 @@
 import withPlaiceholder from '@plaiceholder/next'
-import { withSentryConfig } from '@sentry/nextjs'
 import { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
@@ -94,10 +93,4 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default withSentryConfig(withPlaiceholder(nextConfig), {
-  org: 'timomeh',
-  project: 'timomehde',
-  silent: !process.env.CI,
-  widenClientFileUpload: true,
-  disableLogger: true,
-})
+export default withPlaiceholder(nextConfig)

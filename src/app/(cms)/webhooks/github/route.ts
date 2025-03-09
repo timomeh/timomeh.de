@@ -9,7 +9,6 @@ import { updatePostCache } from '@/data/posts'
 import { updateSettingsCache } from '@/data/settings'
 import { updateTagCache } from '@/data/tags'
 import { log as baseLog } from '@/lib/log'
-import { captureException } from '@/lib/sentry'
 
 const log = baseLog.child().withContext({ module: 'webhooks/github' })
 
@@ -24,7 +23,6 @@ export async function POST(request: NextRequest) {
 
   webhooks.onError((error) => {
     log.withError(error).error('Failed to process webhook')
-    captureException(error)
   })
 
   const event = request.headers.get('x-github-event') as keyof EventPayloadMap
