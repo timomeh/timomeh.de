@@ -12,8 +12,8 @@ importers:
   .:
     dependencies:
       '@bprogress/next':
-        specifier: 3.2.4
-        version: 3.2.4(next@15.2.1(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 3.2.7
+        version: 3.2.7(next@15.2.1(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@keystatic/core':
         specifier: 0.5.46
         version: 0.5.46(next@15.2.1(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -272,18 +272,18 @@ packages:
     resolution: {integrity: sha512-Y3IR1cRnOxOCDvMmNiym7XpXQ93iGDDPHx+Zj+NM+rg0fBaShfQLkg+hKPaZCEvg5N/LeCo4+Rj/i3FuJsIQaw==}
     engines: {node: '>=6.9.0'}
 
-  '@bprogress/core@1.2.4':
-    resolution: {integrity: sha512-dFhKl6MgwBgRZG7U9BbeDBMKjUgQ0s3JDCBwLBUZSZS/1wYGLkV9zl7T7wt4ddv49GWe358HyG3yQcsN+nJYig==}
+  '@bprogress/core@1.3.1':
+    resolution: {integrity: sha512-i7hJN8IyyY3by47VpLH8p/R4u/YrNkwQ8GwvrdMSPW0yj6SqRh1Bb9HCLw7iKeR6VMM4zziSGM+Oxuudgf35pQ==}
 
-  '@bprogress/next@3.2.4':
-    resolution: {integrity: sha512-s3ScGO/OVedphwwvwRpILRg5kWjjQG3M42TeJZOyD/QPSqzyCO+5WEjvjjdtT2qHafDBeq351e446vbcLq6vYw==}
+  '@bprogress/next@3.2.7':
+    resolution: {integrity: sha512-csbdc6SxobbxHaPYHDzZUSgV2CwrwQmill2G2mfWy+MZ3dOmcHRHnHKTYWC6rkWCjqdcgU801eCZpcPVVSxy3A==}
     peerDependencies:
       next: '>=13.0.0'
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
-  '@bprogress/react@1.1.8':
-    resolution: {integrity: sha512-D2JOO45IWCnVxvIkCpNx2Qmrn7QtX3UIIaybOF763fezeD2YMDdk9zWx9Q6k+3XbJRbTo01n0coDDgBBNqDSaA==}
+  '@bprogress/react@1.2.2':
+    resolution: {integrity: sha512-Q0TLu7BpUK6iWyJWtPebaGvGN5dyenYRhoT9dsEsEoRBG/tV11F+yYFmL6hCEpJARxK3pK9nS2tsodhXwf6C1w==}
     peerDependencies:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
@@ -4195,19 +4195,19 @@ snapshots:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
 
-  '@bprogress/core@1.2.4': {}
+  '@bprogress/core@1.3.1': {}
 
-  '@bprogress/next@3.2.4(next@15.2.1(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@bprogress/next@3.2.7(next@15.2.1(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
-      '@bprogress/core': 1.2.4
-      '@bprogress/react': 1.1.8(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@bprogress/core': 1.3.1
+      '@bprogress/react': 1.2.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       next: 15.2.1(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
 
-  '@bprogress/react@1.1.8(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@bprogress/react@1.2.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
-      '@bprogress/core': 1.2.4
+      '@bprogress/core': 1.3.1
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
 
