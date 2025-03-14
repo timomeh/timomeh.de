@@ -14,7 +14,7 @@
     "test:ui": "pnpm test -- --ui"
   },
   "dependencies": {
-    "@bprogress/next": "3.2.9",
+    "@bprogress/next": "3.2.10",
     "@keystatic/core": "0.5.46",
     "@keystatic/next": "5.0.4",
     "@loglayer/transport-pino": "2.1.1",
