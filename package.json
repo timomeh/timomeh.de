@@ -11,7 +11,7 @@
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test:ui": "pnpm test -- --ui"
+    "test:ui": "pnpm test --ui"
   },
   "dependencies": {
     "@bprogress/next": "3.2.10",
