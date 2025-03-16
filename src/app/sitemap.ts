@@ -2,81 +2,82 @@ import { MetadataRoute } from 'next'
 
 import { config } from '@/config'
 import { listPages } from '@/data/pages'
-import {
-  listPublishedPosts,
-  pageNumbersPublishedPosts,
-  pagePublishedPosts,
-} from '@/data/posts'
+import { getLatestPublishedPost, listPublishedPosts } from '@/data/posts'
 import { listTags } from '@/data/tags'
 
 export default async function sitemap() {
-  const [archiveTags, pagination, posts, page] = await Promise.all([
+  const [archiveTags, tags, pagination, posts, page] = await Promise.all([
     generateArchiveTagsSitemap(),
-    generatePaginationSitemap(),
+    generateTagsSitemap(),
+    generateYearlySitemap(),
     generatePostsSitemap(),
     generatePageSitemap(),
   ])
 
   return [
     ...pagination,
+    ...tags,
     ...archiveTags,
     ...posts,
     ...page,
   ] satisfies MetadataRoute.Sitemap
 }
 
-async function generatePaginationSitemap() {
+async function generateTagsSitemap() {
   const tags = await listTags()
 
-  const tagPageSitemaps = await Promise.all(
+  const sitemap = await Promise.all(
     tags.map(async (tag) => {
-      const pageNumbers = await pageNumbersPublishedPosts({ tag: tag.slug })
+      const post = await getLatestPublishedPost({ tag: tag.slug })
 
-      const tagsPagesSitemaps = await Promise.all(
-        pageNumbers.map(async (number) => {
-          const posts = await pagePublishedPosts(number, { tag: tag.slug })
-          const dates = posts.map((post) => post.updatedAt || post.publishedAt)
-          const latestDate = new Date(
-            Math.max(...dates.map((date) => date.getTime())),
-          )
+      if (!post) return null
 
-          return {
-            url:
-              number === 0
-                ? fullUrl(`/tag/${tag.slug}`)
-                : fullUrl(`/tag/${tag.slug}/page/${number}`),
-            changeFrequency: 'daily' as const,
-            priority: 0.8,
-            lastModified: latestDate,
-          }
-        }),
-      )
-
-      return tagsPagesSitemaps
+      return {
+        url: fullUrl(`/tag/${tag.slug}`),
+        changeFrequency: 'daily' as const,
+        priority: 0.8,
+        lastModified: post?.publishedAt || new Date(),
+      }
     }),
   )
 
-  const pageNumbers = await pageNumbersPublishedPosts()
-  const pageSitemaps = await Promise.all(
-    pageNumbers.map(async (number) => {
-      const posts = await pagePublishedPosts(number)
-      const dates = posts.map((post) => post.updatedAt || post.publishedAt)
-      const latestDate = new Date(
-        Math.max(...dates.map((date) => date.getTime())),
-      )
+  return sitemap.filter((entry) => entry !== null)
+}
 
-      const everythingPages = {
-        url: number === 0 ? fullUrl('/') : fullUrl(`/page/${number}`),
+async function generateYearlySitemap() {
+  const posts = await listPublishedPosts()
+
+  const seenYears = new Set<number>()
+
+  const yearlyFirstPosts = posts.filter((post) => {
+    const year = new Date(post.publishedAt).getFullYear()
+    if (seenYears.has(year)) return false
+    seenYears.add(year)
+    return true
+  })
+
+  const thisYear = new Date().getFullYear()
+  const sitemap = yearlyFirstPosts.map((post) => {
+    const year = post.publishedAt.getFullYear()
+
+    if (year === thisYear) {
+      return {
+        url: fullUrl('/'),
         changeFrequency: 'daily' as const,
         priority: 1,
-        lastModified: latestDate,
+        lastModified: post.publishedAt,
       }
+    }
 
-      return everythingPages
-    }),
-  )
+    return {
+      url: fullUrl(`/in/${year}`),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+      lastModified: post.publishedAt,
+    }
+  })
 
-  return [...pageSitemaps, ...tagPageSitemaps.flat()]
+  return sitemap
 }
 
 async function generateArchiveTagsSitemap() {
@@ -131,12 +132,14 @@ async function generatePostsSitemap() {
 async function generatePageSitemap() {
   const pages = await listPages()
 
-  const sitemap = pages.map((page) => ({
-    url: fullUrl(`/${page.path}`),
-    changeFrequency: 'monthly' as const,
-    priority: 0.5,
-    lastModified: new Date(),
-  }))
+  const sitemap = pages
+    .filter((page) => !page.path.startsWith('vrt/'))
+    .map((page) => ({
+      url: fullUrl(`/${page.path}`),
+      changeFrequency: 'monthly' as const,
+      priority: 0.5,
+      lastModified: new Date(),
+    }))
 
   return sitemap
 }

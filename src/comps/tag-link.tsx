@@ -13,7 +13,7 @@ export function TagLink({ dim, ...rest }: Props) {
 
   return (
     <Link
-      data-current={pathname.split('page/')[0] === rest.href}
+      data-current={pathname.split('in/')[0] === rest.href}
       data-dim-current={dim}
       className="group/tag-link relative rounded-full ease-linear
         [transition:opacity_300ms,transform_60ms] hover:!opacity-100

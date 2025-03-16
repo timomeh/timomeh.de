@@ -27,7 +27,7 @@ export async function Img(props: Props) {
         className="absolute inset-0 z-[-1] group-data-[shadow=false]/figure:hidden"
       >
         <div
-          className="mx-auto h-full max-w-full opacity-30 blur-lg"
+          className="mx-auto h-full max-w-full opacity-20 blur-md"
           style={{
             ...css,
             width: img.width,

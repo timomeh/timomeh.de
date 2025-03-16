@@ -11,7 +11,7 @@ export async function PostPreviewImage({ alt, src, ...rest }: Props) {
 
   return (
     <div
-      className="relative aspect-5/2 max-h-[350px] min-h-[200px] w-full opacity-100 filter
+      className="relative aspect-5/2 max-h-[350px] min-h-[200px] w-full
         [mask-image:linear-gradient(to_bottom,#000_0%,transparent_100%)]"
     >
       <div className="absolute inset-0 overflow-hidden">

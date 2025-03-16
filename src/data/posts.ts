@@ -1,3 +1,4 @@
+import { endOfYear, setYear, startOfYear } from 'date-fns'
 import { cache } from 'react'
 
 import { log as baseLog } from '@/lib/log'
@@ -24,15 +25,41 @@ export const listPublishedPosts = cache(async (filter: Filter = {}) => {
   return posts
 })
 
-const PAGINATION_SIZE = 10
+export const getLatestPublishedPost = cache(async (filter: Filter = {}) => {
+  await db.connect()
+
+  const post = await queryPosts({ ...filter, status: ['published'] })
+    .sortDesc('publishedAt')
+    .return.first()
+
+  return post
+})
 
 export const pagePublishedPosts = cache(
-  async (num: number, filter: Filter = {}) => {
+  async (year: number, filter: Filter = {}) => {
     await db.connect()
 
-    const posts = await queryPosts({ ...filter, status: ['published'] })
+    let posts = await queryPosts({ ...filter, status: ['published'] })
+      .where('publishedAt')
+      .between(
+        startOfYear(setYear(new Date(), year)),
+        endOfYear(setYear(new Date(), year)),
+      )
       .sortDesc('publishedAt')
-      .return.page(PAGINATION_SIZE * num, PAGINATION_SIZE)
+      .return.all()
+
+    if (posts.length < 10) {
+      const yearBeforePosts = await queryPosts({
+        ...filter,
+        status: ['published'],
+      })
+        .where('publishedAt')
+        .before(startOfYear(setYear(new Date(), year)))
+        .sortDesc('publishedAt')
+        .return.page(0, Math.max(3, 10 - posts.length))
+
+      posts = [...posts, ...yearBeforePosts]
+    }
 
     return posts
   },
@@ -45,6 +72,7 @@ export const pageNumbersPublishedPosts = cache(async (filter: Filter = {}) => {
     .sortDesc('publishedAt')
     .return.count()
 
+  const PAGINATION_SIZE = 20
   const pages = range(0, Math.ceil(count / PAGINATION_SIZE) - 1)
 
   return pages

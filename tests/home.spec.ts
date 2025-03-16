@@ -22,9 +22,8 @@ test('has an active everything tag by default', async ({ page }) => {
   ).toHaveAttribute('data-current', 'true')
 })
 
-test('can navigate to the next page', async ({ page }) => {
+test('can navigate to the next year', async ({ page }) => {
   await page.goto('/')
-  await page.click('text=Older →')
-  await page.waitForURL(/\/page\/1$/)
-  await expect(page).toHaveTitle('Page 1 | timomeh.de')
+  await page.click('a[href^="/in/"]')
+  await expect(page).toHaveTitle(/20\d{2} \| timomeh\.de/)
 })

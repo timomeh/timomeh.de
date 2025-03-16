@@ -40,29 +40,21 @@ const pixeloid = localFont({
 type Props = {
   children: React.ReactNode
   header: React.ReactNode
-  topscroll: React.ReactNode
-  bottomscroll: React.ReactNode
 }
 
-export default async function RootLayout({
-  children,
-  header,
-  topscroll,
-  bottomscroll,
-}: Props) {
+export default async function RootLayout({ children, header }: Props) {
   return (
     <html
       lang="en"
       data-theme="system"
       suppressHydrationWarning
-      className={`group/root bg-grainy-light dark:bg-grainy
-        motion-safe:**:focus-visible:animate-outline-bounce h-full bg-[#f2f1f0]
+      className={`group/root motion-safe:**:focus-visible:animate-outline-bounce page-bg h-full
         bg-[length:200px_200px] text-gray-900 scheme-light transition-colors
         duration-300 **:focus-visible:rounded-xs **:focus-visible:outline-2
         **:focus-visible:outline-offset-4 **:focus-visible:outline-[#a18570]
-        dark:bg-[#141314] dark:text-white dark:scheme-dark
-        dark:**:focus-visible:outline-emerald-300 ${pixeloid.variable}
-        ${ibmPlexMono.variable} ${outfit.variable} ${inter.variable}`}
+        dark:text-white dark:scheme-dark dark:**:focus-visible:outline-emerald-300
+        ${pixeloid.variable} ${ibmPlexMono.variable} ${outfit.variable}
+        ${inter.variable}`}
     >
       <head>
         {config.umamiWebsiteId && (
@@ -78,12 +70,10 @@ export default async function RootLayout({
       <body className="group/body relative">
         <ProgressBarProvider>
           <PrevPathProvider>
-            {topscroll}
             <div className="relative flex min-h-dvh flex-col self-start *:w-full">
               {header}
               {children}
             </div>
-            {bottomscroll}
           </PrevPathProvider>
         </ProgressBarProvider>
       </body>

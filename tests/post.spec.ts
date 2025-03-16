@@ -20,13 +20,13 @@ test('navigates to the next article', async ({ page }) => {
   await page.goto('/posts/how-to-build-a-blog')
 
   expect(
-    page.getByRole('heading', {
-      name: 'How I Built this Blog with GitHub Discussions',
+    page.getByRole('link', {
+      name: /How I Built this Blog with GitHub Discussions/,
     }),
   ).toBeDefined()
   await page
-    .getByRole('heading', {
-      name: 'How I Built this Blog with GitHub Discussions',
+    .getByRole('link', {
+      name: /How I Built this Blog with GitHub Discussions/,
     })
     .click()
   await expect(page).toHaveTitle(
@@ -40,8 +40,8 @@ test('navigates to the previous article', async ({ page }) => {
   await page.goto('/posts/how-i-built-this-blog')
 
   await page
-    .getByRole('heading', {
-      name: 'How to Build a Blog',
+    .getByRole('link', {
+      name: /How to Build a Blog/,
     })
     .click()
   await expect(page).toHaveTitle('How to Build a Blog | timomeh.de')

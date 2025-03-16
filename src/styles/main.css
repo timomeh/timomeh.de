@@ -125,6 +125,14 @@
   background-image: url(./crt-lines.svg);
 }
 
+@utility page-bg {
+  @apply bg-grainy-light dark:bg-grainy bg-[#f2f1f0] bg-[length:200px_200px] dark:bg-[#141314];
+}
+
+@utility wrapper {
+  @apply relative mx-auto max-w-2xl px-4;
+}
+
 .oembed {
   &.oembed-youtube iframe {
     width: 100%;
@@ -162,4 +170,8 @@ html[data-theme='dark'] .shiki span {
     font-weight: var(--shiki-dark-font-weight) !important;
     text-decoration: var(--shiki-dark-text-decoration) !important;
   }
+}
+
+:root {
+  interpolate-size: allow-keywords;
 }

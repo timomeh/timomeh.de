@@ -58,7 +58,7 @@ export async function Code(props: Props) {
     <div
       className="not-prose border-beige/30 shadow-beige/20 relative my-8 rounded-md border
         text-sm leading-6 font-normal [box-shadow:0_0_24px_var(--tw-shadow-color)]
-        md:-mx-4 dark:border-white/10 dark:shadow-purple-300/5"
+        md:-mx-4 dark:border-white/10 dark:shadow-purple-300/2"
     >
       <div dangerouslySetInnerHTML={{ __html: html }} className="rounded-md" />
       {lang && !hiddenLangs.includes(lang) && (

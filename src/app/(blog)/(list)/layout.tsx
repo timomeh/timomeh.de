@@ -13,7 +13,7 @@ export default async function Layout({ children }: Props) {
         <nav className="mx-auto mb-16 max-w-2xl px-4 sm:mt-6">
           <PostTags />
         </nav>
-        <div>{children}</div>
+        {children}
       </main>
       <Footer />
     </>

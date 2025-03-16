@@ -4,8 +4,8 @@ export function Footer() {
   return (
     <footer className="relative z-30 mx-auto flex w-full max-w-2xl justify-end px-4 py-10">
       <div
-        className="font-display dark:font-pixel text-xs font-bold uppercase antialiased
-          [font-feature-settings:'ss01'] dark:text-[9px]"
+        className="font-display dark:font-pixel text-2xs font-bold text-orange-950 uppercase
+          antialiased [font-feature-settings:'ss01'] dark:text-[9px] dark:text-white"
       >
         <ul
           className="flex space-x-1 *:after:ml-1 *:after:inline-block *:after:opacity-40
