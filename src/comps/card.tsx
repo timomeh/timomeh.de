@@ -1,9 +1,8 @@
 type Props = {
   children: React.ReactNode
-  padded?: boolean
 }
 
-export function Card({ children, padded = true }: Props) {
+export function Card({ children }: Props) {
   return (
     <div
       className="border-t-beige/20 border-x-beige/30 border-b-beige/40 shadow-beige/15 relative
@@ -13,13 +12,7 @@ export function Card({ children, padded = true }: Props) {
     >
       <div className="absolute inset-0 z-10 backdrop-blur-lg backdrop-brightness-110" />
       <div className="page-bg absolute inset-0 z-20 opacity-50" />
-      <div
-        data-padded={padded}
-        className="relative z-30 data-[padded=true]:py-6 data-[padded=true]:sm:px-6
-          data-[padded=true]:sm:py-10"
-      >
-        {children}
-      </div>
+      <div className="relative z-30">{children}</div>
     </div>
   )
 }

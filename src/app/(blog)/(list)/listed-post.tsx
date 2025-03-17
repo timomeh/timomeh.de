@@ -27,7 +27,7 @@ export async function ListedPost({ slug, continueMarker }: Props) {
     <article
       lang={post.meta.lang?.split('_')[0]}
       id={slug}
-      className="max-w-full"
+      className="w-full max-w-[720px]"
     >
       {continueMarker && (
         <AppearForFragment slug={slug}>
@@ -66,7 +66,7 @@ export async function ListedPost({ slug, continueMarker }: Props) {
             <div className="aspect-4/1 w-full sm:max-h-[200px]" />
           </>
         )}
-        <div className="wrapper">
+        <div className="wrapper px-4 py-6 sm:px-6 sm:py-10">
           <Prose>
             <ViewTransition name={`${post.slug}-post-header`}>
               <PostHeader slug={post.slug} linked />

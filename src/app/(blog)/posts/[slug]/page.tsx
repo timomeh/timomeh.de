@@ -30,7 +30,7 @@ export default async function Page(props: Props) {
     <div className="flex flex-col items-center sm:mx-4">
       <article
         lang={post.meta.lang?.split('_')[0]}
-        className="relative max-w-full"
+        className="relative w-full max-w-[720px]"
       >
         {!!newerPost && (
           <div className="absolute top-0 right-full bottom-[180px] hidden w-12 min-[840px]:block">
@@ -66,7 +66,7 @@ export default async function Page(props: Props) {
         )}
         <ViewTransition name="full-post">
           <Card>
-            <div className="wrapper">
+            <div className="wrapper px-4 py-6 sm:px-6 sm:py-10">
               <Prose>
                 <ViewTransition name={`${post.slug}-post-header`}>
                   <PostHeader slug={post.slug} />
@@ -90,7 +90,7 @@ export default async function Page(props: Props) {
               href={`/posts/${newerPost.slug}`}
               className="w-2/3 min-w-[250px] flex-1 self-start sm:w-0 sm:self-stretch"
             >
-              <Card padded={false}>
+              <Card>
                 <div className="p-4">
                   <div
                     className="font-display dark:font-pixel text-sm leading-none font-medium dark:text-xs
@@ -120,7 +120,7 @@ export default async function Page(props: Props) {
               href={`/posts/${olderPost.slug}`}
               className="w-2/3 min-w-[250px] flex-1 self-end sm:w-0 sm:self-stretch"
             >
-              <Card padded={false}>
+              <Card>
                 <div className="p-4 text-right">
                   <div
                     className="font-display dark:font-pixel text-sm leading-none font-medium dark:text-xs
