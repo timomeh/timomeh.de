@@ -121,8 +121,8 @@ importers:
         version: 5.0.0
     devDependencies:
       '@argos-ci/playwright':
-        specifier: 5.0.1
-        version: 5.0.1
+        specifier: 5.0.2
+        version: 5.0.2
       '@eslint/eslintrc':
         specifier: 3.3.1
         version: 3.3.1
@@ -214,16 +214,16 @@ packages:
     resolution: {integrity: sha512-3IHv7ANSPNO6OwWgwULlHbP9/tFV9kQDu6+nL9jysfPkGj0GgtrOsyBb+iU931c7wSMo1OD+XNujCnRzDD968w==}
     engines: {node: '>=18.0.0'}
 
-  '@argos-ci/browser@4.0.1':
-    resolution: {integrity: sha512-U29sIpK8B3bWAWsGnrTCi5DkGyHCyl6prSsihAzautPz0wm6IiRouo+PJTcdp7C1bPh3hrTzOyE6IsiP3tESnw==}
+  '@argos-ci/browser@4.1.0':
+    resolution: {integrity: sha512-B5zRl70hfckS8Tpgr35ZPit/87AyIETeqm5f8dfB/qWBdkDuKW2m6tCDnVD1UYdFy4k6tU5DaD/rAMw17swsJQ==}
     engines: {node: '>=18.0.0'}
 
   '@argos-ci/core@3.1.1':
     resolution: {integrity: sha512-7iE3o1XGxlfHC5AF05pzT0OxuO387sryrZt3gKGj/e+6R20DXz7J49yI8++nQ2cuT+wLhcJp8+X0ox+SGMYHmw==}
     engines: {node: '>=18.0.0'}
 
-  '@argos-ci/playwright@5.0.1':
-    resolution: {integrity: sha512-xADffNvU1iv0N0BKcu2h3MUaXDTdNRtHPtAlkuJEMCELm0uHwCWe4CiKwwym1/kviw6pcM20nREwl4MCYzxcAA==}
+  '@argos-ci/playwright@5.0.2':
+    resolution: {integrity: sha512-aOfuvsLZHSrbnOppcY6f36LQR7CQHi8/L1N7qbhVYGMfUL6jVJPzx4XliixgIBcJjCpFmIZ2qoXgQPO/Gp1fHg==}
     engines: {node: '>=18.16.0'}
 
   '@argos-ci/util@2.3.1':
@@ -4195,7 +4195,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@argos-ci/browser@4.0.1': {}
+  '@argos-ci/browser@4.1.0': {}
 
   '@argos-ci/core@3.1.1':
     dependencies:
@@ -4210,9 +4210,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@argos-ci/playwright@5.0.1':
+  '@argos-ci/playwright@5.0.2':
     dependencies:
-      '@argos-ci/browser': 4.0.1
+      '@argos-ci/browser': 4.1.0
       '@argos-ci/core': 3.1.1
       '@argos-ci/util': 2.3.1
       chalk: 5.4.1
