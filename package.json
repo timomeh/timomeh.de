@@ -59,7 +59,7 @@
     "@tailwindcss/postcss": "4.1.0",
     "@tailwindcss/typography": "0.5.16",
     "@types/mdast": "4.0.4",
-    "@types/node": "22.13.14",
+    "@types/node": "22.13.17",
     "@types/probe-image-size": "7.2.5",
     "@types/react": "19.0.12",
     "@types/react-dom": "19.0.4",
