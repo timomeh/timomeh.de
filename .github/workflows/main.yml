@@ -3,6 +3,11 @@ on:
   push:
     branches: [main]
 
+# Limit the concurrency of the whole main pipeline to prevent
+# race conditions in back-to-back workflow runs
+concurrency:
+  group: deploy_production
+
 jobs:
   ci:
     uses: ./.github/workflows/ci.yml
@@ -14,8 +19,6 @@ jobs:
     env:
       REGISTRY: ghcr.io
       IMAGE_NAME: ${{ github.repository }}
-    concurrency:
-      group: deploy-production
     environment:
       name: production
       url: https://timomeh.de
