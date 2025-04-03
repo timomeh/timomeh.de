@@ -38,5 +38,5 @@ jobs:
         timeout-minutes: 10 # This should only take a few seconds
         env:
           COOLIFY_DEPLOY_WEBHOOK_URL: ${{ secrets.COOLIFY_WEBHOOK }}
-          COOLIFY_DEPLOY_STATUS_URL=: ${{ secrets.COOLIFY_STATUS }}
+          COOLIFY_DEPLOY_STATUS_URL: ${{ secrets.COOLIFY_STATUS }}
           COOLIFY_TOKEN: ${{ secrets.COOLIFY_TOKEN }}
