@@ -1,9 +1,7 @@
-import { CircleArrowUp } from 'lucide-react'
 import Link from 'next/link'
 import React, { unstable_ViewTransition as ViewTransition } from 'react'
 
 import { Card } from '@/comps/card'
-import { GlassPill } from '@/comps/glass-pill'
 import { Anchor } from '@/comps/mdx/anchor'
 import { MDX } from '@/comps/mdx/mdx'
 import { PostHeader } from '@/comps/post-header'
@@ -12,14 +10,11 @@ import { Prose } from '@/comps/prose'
 import { contentAsset } from '@/data/cms'
 import { getPost } from '@/data/posts'
 
-import { AppearForFragment } from './appear-for-fragment'
-
 type Props = {
   slug: string
-  continueMarker?: boolean
 }
 
-export async function ListedPost({ slug, continueMarker }: Props) {
+export async function ListedPost({ slug }: Props) {
   const post = await getPost(slug)
   if (!post) return null
 
@@ -29,31 +24,6 @@ export async function ListedPost({ slug, continueMarker }: Props) {
       id={slug}
       className="w-full max-w-[720px]"
     >
-      {continueMarker && (
-        <AppearForFragment slug={slug}>
-          <div className="flex justify-center py-4">
-            <div className="relative">
-              <div className="relative z-10">
-                <GlassPill>
-                  <span>continue in {post.publishedAt.getFullYear()}</span>
-                </GlassPill>
-              </div>
-              <Link
-                href={`/in/${post.publishedAt.getFullYear()}`}
-                className="absolute top-0 left-full -ml-7 opacity-70 transition hover:translate-x-1
-                  hover:opacity-100"
-              >
-                <GlassPill>
-                  <div className="flex items-center pl-5">
-                    <span>up</span>
-                    <CircleArrowUp className="-mr-1.5 ml-1.5 size-4" />
-                  </div>
-                </GlassPill>
-              </Link>
-            </div>
-          </div>
-        </AppearForFragment>
-      )}
       <Card>
         {post.frontmatter.cover && (
           <>

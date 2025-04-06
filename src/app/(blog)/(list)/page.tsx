@@ -32,7 +32,7 @@ export default async function Page() {
           {group.posts.map((post, i) =>
             group.marker === 'last_year' && i === group.posts.length - 1 ? (
               <Link
-                href={`/in/${post.publishedAt.getFullYear()}#${post.slug}`}
+                href={`/in/${post.publishedAt.getFullYear()}?continue=${post.slug}`}
                 key={post.slug}
                 className="transition hover:translate-x-0.5"
               >
