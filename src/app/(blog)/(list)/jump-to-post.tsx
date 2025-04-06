@@ -27,8 +27,8 @@ export function JumpToPost({ slug }: Props) {
             dark:text-purple-300"
         >
           <CircleArrowDown
-            className="group-hover/jumper:animate-elevator absolute -right-14 size-32 opacity-10
-              sm:opacity-30"
+            className="absolute -right-14 size-32 opacity-10 motion-safe:mt-10
+              motion-safe:animate-bounce motion-safe:[animation-duration:3s] sm:opacity-30"
           />
           Jump to the post where you left off
         </div>
