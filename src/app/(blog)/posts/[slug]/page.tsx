@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { unstable_ViewTransition as ViewTransition } from 'react'
 
 import { Card } from '@/comps/card'
+import { ConditionalViewTransition } from '@/comps/ConditionalViewTransition'
 import { ArrowLeftCircle } from '@/comps/icons/arrow-left-circle'
 import { ArrowRightCircle } from '@/comps/icons/arrow-right-circle'
 import { MDX } from '@/comps/mdx/mdx'
@@ -64,25 +65,21 @@ export default async function Page(props: Props) {
             </div>
           </div>
         )}
-        <ViewTransition name="full-post">
+        <ConditionalViewTransition name={`${post.slug}-post`}>
           <Card>
             <div className="wrapper px-4 py-6 sm:px-6 sm:py-10">
               <Prose>
-                <ViewTransition name={`${post.slug}-post-header`}>
-                  <PostHeader slug={post.slug} />
-                </ViewTransition>
-                <ViewTransition name={`${post.slug}-post-content`}>
-                  <MDX
-                    cacheKey={`post-${post.slug}`}
-                    cacheTags={['mdx-type:post', `mdx-post:${post.slug}`]}
-                    content={post.content}
-                    assetPrefix={contentAsset('posts', post.slug, '')}
-                  />
-                </ViewTransition>
+                <PostHeader slug={post.slug} />
+                <MDX
+                  cacheKey={`post-${post.slug}`}
+                  cacheTags={['mdx-type:post', `mdx-post:${post.slug}`]}
+                  content={post.content}
+                  assetPrefix={contentAsset('posts', post.slug, '')}
+                />
               </Prose>
             </div>
           </Card>
-        </ViewTransition>
+        </ConditionalViewTransition>
         <section className="mt-10 mb-6 flex max-w-full flex-col flex-wrap gap-4 sm:flex-row sm:gap-6">
           <h4 className="sr-only">Pagination</h4>
           {newerPost && (
