@@ -66,7 +66,7 @@
     "@types/remove-markdown": "0.3.4",
     "eslint": "9.24.0",
     "eslint-config-next": "15.3.0",
-    "eslint-config-prettier": "10.1.1",
+    "eslint-config-prettier": "10.1.2",
     "eslint-plugin-prettier": "5.2.6",
     "eslint-plugin-simple-import-sort": "12.1.1",
     "eslint-plugin-unused-imports": "4.1.4",
