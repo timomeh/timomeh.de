@@ -60,7 +60,7 @@ export async function buildFeed(type: FeedType) {
       date: post.updatedAt
         ? new Date(post.updatedAt)
         : new Date(post.publishedAt),
-      link: `${config.siteUrl}/posts/${post.slug}`,
+      link: `${config.siteUrl}/posts/${post.slug}?utm_source=rss`,
       title: post.title,
       content: compiledPosts[i],
     })
