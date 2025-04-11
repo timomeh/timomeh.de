@@ -10,7 +10,7 @@ import { cleanse } from '@/lib/cleanse'
 // everything related to fetching posts with keystatic
 
 const reader = createGitHubReader(keystaticConfig, {
-  repo: process.env.NEXT_PUBLIC_CMS_REPO! as `${string}/${string}`,
+  repo: 'timomeh/timomeh.de-content',
   token: config.github.contentPat,
 })
 
@@ -97,7 +97,7 @@ export const cms = {
   assets: {
     async get(path: string) {
       const res = await fetch(
-        `https://raw.githubusercontent.com/${process.env.NEXT_PUBLIC_CMS_REPO}/main/${path}`,
+        `https://raw.githubusercontent.com/timomeh/timomeh.de-content/main/${path}`,
         {
           headers: {
             Authorization: `Bearer ${config.github.contentPat}`,

@@ -90,7 +90,7 @@ const components = {
 export default config({
   storage: {
     kind: 'github',
-    repo: process.env.NEXT_PUBLIC_CMS_REPO as `${string}/${string}`,
+    repo: 'timomeh/timomeh.de-content',
   },
   ui: {
     brand: {

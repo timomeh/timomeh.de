@@ -18,7 +18,7 @@ COPY . .
 
 RUN --mount=type=cache,id=next-cache,target=/app/.next/cache \
     corepack enable pnpm && \
-    SITE_URL="https://timomeh.de" NEXT_PUBLIC_CMS_REPO="timomeh/timomeh.de-content" pnpm run build
+    SITE_URL="https://timomeh.de" pnpm run build
 
 # Production image
 FROM base AS runner
