@@ -16,14 +16,9 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-ARG SITE_URL="https://timomeh.de"
-ARG NEXT_PUBLIC_CMS_REPO="timomeh/timomeh.de-content"
-
-ENV SITE_URL=$SITE_URL
-ENV NEXT_PUBLIC_CMS_REPO=$NEXT_PUBLIC_CMS_REPO
-
 RUN --mount=type=cache,id=next-cache,target=/app/.next/cache \
-    corepack enable pnpm && pnpm run build
+    corepack enable pnpm && \
+    SITE_URL="https://timomeh.de" NEXT_PUBLIC_CMS_REPO="timomeh/timomeh.de-content" pnpm run build
 
 # Production image
 FROM base AS runner
