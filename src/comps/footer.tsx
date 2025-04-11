@@ -8,8 +8,9 @@ export function Footer() {
           antialiased [font-feature-settings:'ss01'] dark:text-[9px] dark:text-white"
       >
         <ul
-          className="flex space-x-1 *:after:ml-1 *:after:inline-block *:after:opacity-40
-            *:after:content-['•'] *:last:after:hidden dark:*:after:content-['/']"
+          className="space-x-1 text-right *:inline-block *:before:mr-1 *:before:inline-block
+            *:before:opacity-40 *:before:content-['•'] *:first:before:hidden
+            dark:*:before:content-['/']"
         >
           <li>
             <Link
