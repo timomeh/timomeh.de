@@ -11,9 +11,19 @@ export async function Img(props: Props) {
   if (!props.src) return null
 
   const { img, css } = await getPlaceholder(props.src)
+  const filename = new URL(props.src).pathname.split('/').pop()
+  const theme = filename?.startsWith('darkmode-')
+    ? 'dark'
+    : filename?.startsWith('lightmode-')
+      ? 'light'
+      : 'none'
 
   return (
-    <div className="relative md:[&:not(figure_&)]:-mx-4">
+    <div
+      className="relative data-[image-theme=dark]:hidden dark:data-[image-theme=dark]:block
+        dark:data-[image-theme=light]:hidden md:[&:not(figure_&)]:-mx-4"
+      data-image-theme={theme}
+    >
       <Image
         src={props.src}
         quality={90}
