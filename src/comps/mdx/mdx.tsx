@@ -165,6 +165,14 @@ const plainComponents: MDXComponents = {
   Figure,
   DefinitionList,
   Definition,
+  img: (props) => {
+    if (props.src.includes('darkmode-')) {
+      return null
+    }
+
+    // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
+    return <img {...props} />
+  },
   Footnote: (props) => <span>&nbsp;[Footnote: {props.children}]</span>,
 }
 
