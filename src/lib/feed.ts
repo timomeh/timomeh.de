@@ -75,7 +75,9 @@ export async function buildFeed(type: FeedType) {
       .rss2()
       .replace(
         '<?xml version="1.0" encoding="utf-8"?>',
-        (s) => s + '<?xml-stylesheet href="/pretty-feed.xsl" type="text/xsl"?>',
+        (s) =>
+          s +
+          '<?xml-stylesheet href="/vendor/pretty-feed.xsl" type="text/xsl"?>',
       )
   }
 
