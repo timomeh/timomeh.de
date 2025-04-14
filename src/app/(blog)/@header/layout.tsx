@@ -16,6 +16,7 @@ export default function Layout({ kicker, backdrop }: Props) {
       className="group/header mx-auto flex max-w-2xl flex-row items-center justify-start px-4
         py-10 sm:items-end sm:justify-end"
     >
+      {backdrop}
       <div
         className="absolute -top-[140px] right-0 left-0 hidden h-[550px] w-full
           group-has-[.header-backdrop-signal]/header:block"
@@ -67,9 +68,8 @@ export default function Layout({ kicker, backdrop }: Props) {
             </span>
             <span className="relative -mt-1 block">
               <Link
-                href="/about"
-                className="title-name inline-block text-xl font-semibold text-nowrap antialiased
-                  duration-700"
+                href="/"
+                className="inline-block text-xl font-semibold text-nowrap antialiased duration-700"
               >
                 Timo Mämecke
               </Link>
@@ -77,7 +77,6 @@ export default function Layout({ kicker, backdrop }: Props) {
           </div>
         </div>
       </div>
-      {backdrop}
     </div>
   )
 }

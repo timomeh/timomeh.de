@@ -13,12 +13,9 @@ export default async function Page(props: Props) {
 
   if (post?.frontmatter.cover) {
     return (
-      <>
-        <div className="social-bg-signal" />
-        <HeaderBackdropImage
-          src={contentAsset('posts', post.slug, post.frontmatter.cover)}
-        />
-      </>
+      <HeaderBackdropImage
+        src={contentAsset('posts', post.slug, post.frontmatter.cover)}
+      />
     )
   }
 

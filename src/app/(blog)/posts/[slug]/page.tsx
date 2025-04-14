@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { unstable_ViewTransition as ViewTransition } from 'react'
 
-import { Card } from '@/comps/card'
 import { ConditionalViewTransition } from '@/comps/ConditionalViewTransition'
 import { ArrowLeftCircle } from '@/comps/icons/arrow-left-circle'
 import { ArrowRightCircle } from '@/comps/icons/arrow-right-circle'
@@ -40,8 +39,8 @@ export default async function Page(props: Props) {
                 <Link
                   title="Next post"
                   href={`/posts/${newerPost.slug}`}
-                  className="block size-12 p-2 text-orange-950 opacity-40 transition hover:-translate-x-0.5
-                    hover:opacity-70 dark:text-white"
+                  className="block size-12 text-gray-900 opacity-20 transition hover:-translate-x-0.5
+                    hover:opacity-50 dark:text-white"
                 >
                   <ArrowLeftCircle />
                 </Link>
@@ -56,8 +55,8 @@ export default async function Page(props: Props) {
                 <Link
                   title="Previous post"
                   href={`/posts/${olderPost.slug}`}
-                  className="block size-12 p-2 text-orange-950 opacity-40 transition hover:translate-x-0.5
-                    hover:opacity-70 dark:text-white"
+                  className="block size-12 text-gray-900 opacity-20 transition hover:translate-x-0.5
+                    hover:opacity-50 dark:text-white"
                 >
                   <ArrowRightCircle />
                 </Link>
@@ -66,83 +65,18 @@ export default async function Page(props: Props) {
           </div>
         )}
         <ConditionalViewTransition name={`${post.slug}-post`}>
-          <Card>
-            <div className="wrapper px-4 py-6 sm:px-6 sm:py-10">
-              <Prose>
-                <PostHeader slug={post.slug} />
-                <MDX
-                  cacheKey={`post-${post.slug}`}
-                  cacheTags={['mdx-type:post', `mdx-post:${post.slug}`]}
-                  content={post.content}
-                  assetPrefix={contentAsset('posts', post.slug, '')}
-                />
-              </Prose>
-            </div>
-          </Card>
+          <div className="wrapper px-4 py-6 sm:px-6 sm:py-10">
+            <Prose>
+              <PostHeader slug={post.slug} />
+              <MDX
+                cacheKey={`post-${post.slug}`}
+                cacheTags={['mdx-type:post', `mdx-post:${post.slug}`]}
+                content={post.content}
+                assetPrefix={contentAsset('posts', post.slug, '')}
+              />
+            </Prose>
+          </div>
         </ConditionalViewTransition>
-        <section className="mt-10 mb-6 flex max-w-full flex-col flex-wrap gap-4 sm:flex-row sm:gap-6">
-          <h4 className="sr-only">Pagination</h4>
-          {newerPost && (
-            <Link
-              href={`/posts/${newerPost.slug}`}
-              className="w-2/3 min-w-[250px] flex-1 self-start sm:w-0 sm:self-stretch"
-            >
-              <Card>
-                <div className="p-4">
-                  <div
-                    className="font-display dark:font-pixel text-sm leading-none font-medium dark:text-xs
-                      dark:font-normal"
-                  >
-                    <span className="text-gray-500 dark:text-white/70">
-                      Next post{' | '}
-                    </span>
-                    <time className="text-purple-600 dark:text-purple-300">
-                      {new Date(newerPost.publishedAt).toLocaleString('en-US', {
-                        month: 'short',
-                        day: '2-digit',
-                        year: 'numeric',
-                      })}
-                    </time>
-                  </div>
-                  <h3 className="font-display mt-2 text-lg leading-none font-medium">
-                    {newerPost.title}
-                  </h3>
-                </div>
-              </Card>
-            </Link>
-          )}
-          {!newerPost && <div className="w-0 flex-1" />}
-          {olderPost && (
-            <Link
-              href={`/posts/${olderPost.slug}`}
-              className="w-2/3 min-w-[250px] flex-1 self-end sm:w-0 sm:self-stretch"
-            >
-              <Card>
-                <div className="p-4 text-right">
-                  <div
-                    className="font-display dark:font-pixel text-sm leading-none font-medium dark:text-xs
-                      dark:font-normal"
-                  >
-                    <time className="text-purple-600 dark:text-purple-300">
-                      {new Date(olderPost.publishedAt).toLocaleString('en-US', {
-                        month: 'short',
-                        day: '2-digit',
-                        year: 'numeric',
-                      })}
-                    </time>
-                    <span className="text-gray-500 dark:text-white/70">
-                      {' | '}Previous post
-                    </span>
-                  </div>
-                  <h3 className="font-display mt-2 text-lg leading-none font-medium">
-                    {olderPost.title}
-                  </h3>
-                </div>
-              </Card>
-            </Link>
-          )}
-          {!olderPost && <div className="w-0 flex-1" />}
-        </section>
       </article>
     </div>
   )

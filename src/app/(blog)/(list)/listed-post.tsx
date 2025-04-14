@@ -25,19 +25,19 @@ export async function ListedPost({ slug }: Props) {
       id={slug}
       className="w-full max-w-[720px]"
     >
-      <ConditionalViewTransition name={`${post.slug}-post`}>
-        <Card>
-          {post.frontmatter.cover && (
-            <>
-              <div className="absolute inset-x-0 top-0 z-0 overflow-hidden opacity-75">
-                <PostPreviewImage
-                  src={contentAsset('posts', slug, post.frontmatter.cover)}
-                  alt=""
-                />
-              </div>
-              <div className="aspect-4/1 w-full sm:max-h-[200px]" />
-            </>
-          )}
+      <Card>
+        {post.frontmatter.cover && (
+          <>
+            <div className="absolute inset-x-0 top-0 z-0 overflow-hidden opacity-75">
+              <PostPreviewImage
+                src={contentAsset('posts', slug, post.frontmatter.cover)}
+                alt=""
+              />
+            </div>
+            <div className="aspect-4/1 w-full sm:max-h-[200px]" />
+          </>
+        )}
+        <ConditionalViewTransition name={`${post.slug}-post`}>
           <div className="wrapper px-4 py-6 sm:px-6 sm:py-10">
             <Prose>
               <PostHeader slug={post.slug} linked />
@@ -73,8 +73,8 @@ export async function ListedPost({ slug }: Props) {
               />
             </Prose>
           </div>
-        </Card>
-      </ConditionalViewTransition>
+        </ConditionalViewTransition>
+      </Card>
     </article>
   )
 }
