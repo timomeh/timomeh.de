@@ -61,7 +61,7 @@
     "@types/mdast": "4.0.4",
     "@types/node": "22.14.1",
     "@types/probe-image-size": "7.2.5",
-    "@types/react": "19.1.1",
+    "@types/react": "19.1.2",
     "@types/react-dom": "19.1.2",
     "@types/remove-markdown": "0.3.4",
     "eslint": "9.24.0",
