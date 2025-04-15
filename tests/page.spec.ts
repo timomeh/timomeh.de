@@ -4,7 +4,7 @@ import { expect, test } from '@playwright/test'
 test('navigates from home to about', async ({ page }) => {
   await page.goto('/')
 
-  await page.click('text=Timo Mämecke')
+  await page.getByTitle('About').click()
   await expect(page).toHaveTitle('Hi, I’m Timo 👋 | timomeh.de')
   expect(
     page.getByRole('heading', { level: 1, name: 'Hi, I’m Timo 👋' }),

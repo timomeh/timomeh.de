@@ -19,16 +19,7 @@ test('has the correct title', async ({ page }) => {
 test('navigates to the next article', async ({ page }) => {
   await page.goto('/posts/how-to-build-a-blog')
 
-  expect(
-    page.getByRole('link', {
-      name: /How I Built this Blog with GitHub Discussions/,
-    }),
-  ).toBeDefined()
-  await page
-    .getByRole('link', {
-      name: /How I Built this Blog with GitHub Discussions/,
-    })
-    .click()
+  await page.getByTitle('Next post').click()
   await expect(page).toHaveTitle(
     'How I Built this Blog with GitHub Discussions | timomeh.de',
   )
@@ -39,11 +30,7 @@ test('navigates to the next article', async ({ page }) => {
 test('navigates to the previous article', async ({ page }) => {
   await page.goto('/posts/how-i-built-this-blog')
 
-  await page
-    .getByRole('link', {
-      name: /How to Build a Blog/,
-    })
-    .click()
+  await page.getByTitle('Previous post').click()
   await expect(page).toHaveTitle('How to Build a Blog | timomeh.de')
 
   expect(page.url()).toMatch(/\/posts\/how-to-build-a-blog$/)
