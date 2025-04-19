@@ -7,14 +7,14 @@ import { config } from '@/config'
 import keystaticConfig from '@/keystatic.config'
 import { cleanse } from '@/lib/cleanse'
 
-const branch = 'development'
+const branch = 'main'
 
 // everything related to fetching posts with keystatic
 
 const reader = createGitHubReader(keystaticConfig, {
   repo: 'timomeh/timomeh.de-content',
   token: config.github.contentPat,
-  ref: 'development',
+  ref: branch,
 })
 
 export type Post = NonNullable<Awaited<ReturnType<typeof cms.posts.get>>>
