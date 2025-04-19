@@ -56,12 +56,6 @@ export function groupPosts(posts: Post[]) {
       return groups
     }
 
-    if (currentGroup?.marker === 'last_year') {
-      currentGroup.posts.push(post)
-    } else {
-      groups.push({ marker: 'last_year', posts: [post] })
-    }
-
     return groups
   }, [] as Group[])
 }

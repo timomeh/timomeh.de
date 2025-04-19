@@ -1,12 +1,12 @@
 import { Metadata } from 'next'
 import { notFound, redirect } from 'next/navigation'
 
-import { getNewerPost, getOlderPost, pagePublishedPosts } from '@/data/posts'
+import { GlassPill } from '@/comps/glass-pill'
+import { pagePublishedPosts } from '@/data/posts'
 import { saneParseInt } from '@/lib/saneParseInt'
 
-import { JumpToPost } from '../../jump-to-post'
 import { ListedPost } from '../../listed-post'
-import { Pagination } from '../../pagination'
+import { parseSort } from '../../parse-sort'
 
 export const fetchCache = 'force-cache'
 
@@ -16,38 +16,31 @@ type Props = {
 }
 
 export default async function Page({ params, searchParams }: Props) {
+  const sort = parseSort((await searchParams).sort)
   const year = saneParseInt((await params).year) || notFound()
   if (year > new Date().getFullYear()) notFound()
   if (year === new Date().getFullYear()) redirect('/')
 
-  const posts = await pagePublishedPosts(year)
+  const posts = await pagePublishedPosts(year, { sort })
   if (posts.length < 1) notFound()
 
-  const newerPost = await getNewerPost(posts[0].slug)
-  const olderPost = await getOlderPost(posts[posts.length - 1].slug)
-
-  const continueSlug = (await searchParams).continue?.toString()
-
   return (
-    <div className="flex flex-col items-center space-y-10 sm:mx-4">
-      <Pagination
-        newerYear={newerPost?.publishedAt.getFullYear()}
-        olderYear={olderPost?.publishedAt.getFullYear()}
-        thisYear={year}
-        postCount={posts.length}
-      />
-      {continueSlug && <JumpToPost slug={continueSlug} />}
+    <div className="space-y-10">
+      <div className="mb-4 flex justify-center">
+        <GlassPill>
+          <h3>{groupTitle(year, posts.length)}</h3>
+        </GlassPill>
+      </div>
       {posts.map((post) => (
         <ListedPost key={post.slug} slug={post.slug} />
       ))}
-      <Pagination
-        newerYear={newerPost?.publishedAt.getFullYear()}
-        olderYear={olderPost?.publishedAt.getFullYear()}
-        thisYear={year}
-        postCount={posts.length}
-      />
     </div>
   )
+}
+
+function groupTitle(year: number, amount: number) {
+  const posts = amount > 1 ? 'posts' : 'post'
+  return `${amount} ${posts} in ${year}`
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

@@ -7,11 +7,14 @@ import { config } from '@/config'
 import keystaticConfig from '@/keystatic.config'
 import { cleanse } from '@/lib/cleanse'
 
+const branch = 'development'
+
 // everything related to fetching posts with keystatic
 
 const reader = createGitHubReader(keystaticConfig, {
   repo: 'timomeh/timomeh.de-content',
   token: config.github.contentPat,
+  ref: 'development',
 })
 
 export type Post = NonNullable<Awaited<ReturnType<typeof cms.posts.get>>>
@@ -97,7 +100,7 @@ export const cms = {
   assets: {
     async get(path: string) {
       const res = await fetch(
-        `https://raw.githubusercontent.com/timomeh/timomeh.de-content/main/${path}`,
+        `https://raw.githubusercontent.com/timomeh/timomeh.de-content/${branch}/${path}`,
         {
           headers: {
             Authorization: `Bearer ${config.github.contentPat}`,
@@ -138,7 +141,10 @@ const sanitizePost = (
     updatedAt: post.updatedAt ? new Date(post.updatedAt) : undefined,
     tags: post.tags.filter(Boolean),
     frontmatter: {
-      cover: post.frontmatter.cover || undefined,
+      lightCover: post.frontmatter.lightCover || undefined,
+      darkCover: post.frontmatter.darkCover || undefined,
+      lightBgColor: post.frontmatter.lightBgColor || undefined,
+      darkBgColor: post.frontmatter.darkBgColor || undefined,
       readingTime: post.frontmatter.readingTime || undefined,
       kicker: post.frontmatter.kicker || undefined,
     },

@@ -6,21 +6,14 @@ import { getLatestPublishedPost, listPublishedPosts } from '@/data/posts'
 import { listTags } from '@/data/tags'
 
 export default async function sitemap() {
-  const [archiveTags, tags, pagination, posts, page] = await Promise.all([
-    generateArchiveTagsSitemap(),
+  const [tags, years, posts, page] = await Promise.all([
     generateTagsSitemap(),
     generateYearlySitemap(),
     generatePostsSitemap(),
     generatePageSitemap(),
   ])
 
-  return [
-    ...pagination,
-    ...tags,
-    ...archiveTags,
-    ...posts,
-    ...page,
-  ] satisfies MetadataRoute.Sitemap
+  return [...years, ...tags, ...posts, ...page] satisfies MetadataRoute.Sitemap
 }
 
 async function generateTagsSitemap() {
@@ -78,42 +71,6 @@ async function generateYearlySitemap() {
   })
 
   return sitemap
-}
-
-async function generateArchiveTagsSitemap() {
-  const tags = await listTags()
-
-  const tagsSitemap = await Promise.all(
-    tags.map(async (tag) => {
-      const posts = await listPublishedPosts({ tag: tag.slug })
-      const dates = posts.map((post) => post.updatedAt || post.publishedAt)
-      const latestDate = new Date(
-        Math.max(...dates.map((date) => date.getTime())),
-      )
-
-      const sitemap = {
-        url: fullUrl(`/archive/tag/${tag.slug}`),
-        changeFrequency: 'daily' as const,
-        priority: 0.8,
-        lastModified: latestDate,
-      }
-
-      return sitemap
-    }),
-  )
-
-  const posts = await listPublishedPosts()
-  const dates = posts.map((post) => post.updatedAt || post.publishedAt)
-  const latestDate = new Date(Math.max(...dates.map((date) => date.getTime())))
-
-  const everythingSitemap = {
-    url: fullUrl(`/archive`),
-    changeFrequency: 'daily' as const,
-    priority: 0.8,
-    lastModified: latestDate,
-  }
-
-  return [everythingSitemap, ...tagsSitemap]
 }
 
 async function generatePostsSitemap() {

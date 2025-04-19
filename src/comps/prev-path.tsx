@@ -12,16 +12,16 @@ type Props = {
 export function PrevPathProvider({ children }: Props) {
   const layoutSegments = useSelectedLayoutSegments()
   const [prevPath, setPrevPath] = useState<string | null>(() => {
-    if (layoutSegments[0] === '(list)' || layoutSegments[0] === 'archive') {
-      return layoutSegments.join('/')
+    if (layoutSegments[0] === '(list)' && typeof window !== 'undefined') {
+      return location.pathname + location.search
     }
 
     return null
   })
 
   useEffect(() => {
-    if (layoutSegments[0] === '(list)' || layoutSegments[0] === 'archive') {
-      setPrevPath(layoutSegments.join('/'))
+    if (layoutSegments[0] === '(list)') {
+      setPrevPath(location.pathname + location.search)
     }
   }, [layoutSegments])
 

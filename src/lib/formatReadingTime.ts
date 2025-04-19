@@ -6,7 +6,7 @@ export function formatReadingTime(
   suffix: string = '',
 ) {
   if (override && isNumeric(override)) {
-    return `${override} min ${suffix}`.trim()
+    return `${override} minute ${suffix}`.trim()
   }
 
   if (override) {
@@ -14,7 +14,7 @@ export function formatReadingTime(
   }
 
   const { minutes } = readingTime(content)
-  return `${Math.round(minutes) || 1} min ${suffix}`.trim()
+  return `${Math.round(minutes) || 1} minute ${suffix}`.trim()
 }
 
 function isNumeric(str: string) {

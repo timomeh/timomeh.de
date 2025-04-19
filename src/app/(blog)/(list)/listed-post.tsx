@@ -2,14 +2,16 @@ import Link from 'next/link'
 import React from 'react'
 
 import { Card } from '@/comps/card'
-import { ConditionalViewTransition } from '@/comps/ConditionalViewTransition'
+import { ConditionalViewTransition } from '@/comps/conditional-view-transition'
+import { FadeInImage } from '@/comps/fade-in-image'
 import { Anchor } from '@/comps/mdx/anchor'
 import { MDX } from '@/comps/mdx/mdx'
 import { PostHeader } from '@/comps/post-header'
-import { PostPreviewImage } from '@/comps/post-preview-image'
 import { Prose } from '@/comps/prose'
 import { contentAsset } from '@/data/cms'
 import { getPost } from '@/data/posts'
+import { formatReadingTime } from '@/lib/formatReadingTime'
+import { getPlaceholder } from '@/lib/placeholder'
 
 type Props = {
   slug: string
@@ -19,28 +21,87 @@ export async function ListedPost({ slug }: Props) {
   const post = await getPost(slug)
   if (!post) return null
 
+  const [lightCover, darkCover] = await Promise.all([
+    post.frontmatter.lightCover
+      ? await getPlaceholder(
+          contentAsset('posts', slug, post.frontmatter.lightCover),
+        )
+      : null,
+    post.frontmatter.darkCover
+      ? await getPlaceholder(
+          contentAsset('posts', slug, post.frontmatter.darkCover),
+        )
+      : null,
+  ])
+
   return (
-    <article
-      lang={post.meta.lang?.split('_')[0]}
-      id={slug}
-      className="w-full max-w-[720px]"
-    >
+    <article lang={post.meta.lang?.split('_')[0]} id={slug}>
       <Card>
-        {post.frontmatter.cover && (
-          <>
-            <div className="absolute inset-x-0 top-0 z-0 overflow-hidden opacity-75">
-              <PostPreviewImage
-                src={contentAsset('posts', slug, post.frontmatter.cover)}
-                alt=""
-              />
-            </div>
-            <div className="aspect-4/1 w-full sm:max-h-[200px]" />
-          </>
+        {post?.frontmatter.lightBgColor && (
+          <div
+            style={{ background: post?.frontmatter.lightBgColor }}
+            className="absolute inset-0 -z-10 mix-blend-multiply dark:hidden"
+          />
         )}
-        <ConditionalViewTransition name={`${post.slug}-post`}>
-          <div className="wrapper px-4 py-6 sm:px-6 sm:py-10">
+        {post?.frontmatter.darkBgColor && (
+          <div
+            style={{ background: post?.frontmatter.darkBgColor }}
+            className="absolute inset-0 -z-10 hidden mix-blend-exclusion dark:block"
+          />
+        )}
+        {lightCover && (
+          <div
+            data-has-dark={!!darkCover}
+            className="relative isolate flex h-auto max-h-[400px] w-full items-end overflow-hidden
+              [mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%)]
+              mix-blend-darken dark:data-[has-dark=true]:hidden"
+          >
+            <FadeInImage
+              alt=""
+              src={lightCover.img.src}
+              width={lightCover.img.width}
+              height={lightCover.img.height}
+            />
+            <div
+              className="absolute inset-0 -z-10 h-full w-full scale-110 transform blur-2xl filter"
+              style={lightCover.css}
+            />
+          </div>
+        )}
+        {darkCover && (
+          <div
+            className="relative isolate hidden h-auto max-h-[400px] w-full items-end overflow-hidden
+              [mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%)]
+              mix-blend-lighten dark:flex"
+          >
+            <FadeInImage
+              alt=""
+              src={darkCover.img.src}
+              width={darkCover.img.width}
+              height={darkCover.img.height}
+            />
+            <div
+              className="absolute inset-0 -z-10 h-full w-full scale-110 transform blur-2xl filter"
+              style={darkCover.css}
+            />
+          </div>
+        )}
+        <div className="p-4 sm:p-6 md:p-8">
+          <ConditionalViewTransition name={`${post.slug}-post`}>
             <Prose>
-              <PostHeader slug={post.slug} linked />
+              <Link
+                href={`/posts/${post.slug}`}
+                className="not-prose inline-flex"
+              >
+                <PostHeader
+                  publishedAt={post.publishedAt}
+                  readingTime={formatReadingTime(
+                    post.content,
+                    post.frontmatter.readingTime,
+                    'read',
+                  )}
+                />
+              </Link>
               <MDX
                 components={{
                   h1: (props) => {
@@ -72,8 +133,8 @@ export async function ListedPost({ slug }: Props) {
                 scope={post.slug}
               />
             </Prose>
-          </div>
-        </ConditionalViewTransition>
+          </ConditionalViewTransition>
+        </div>
       </Card>
     </article>
   )

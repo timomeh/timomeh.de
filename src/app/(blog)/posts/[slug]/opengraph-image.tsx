@@ -23,8 +23,8 @@ export default async function Image({ params }: Props) {
   const post = await getPost(params.slug)
   if (!post) notFound()
 
-  const cover = post.frontmatter.cover
-    ? contentAsset('posts', post.slug, post.frontmatter.cover)
+  const cover = post.frontmatter.darkCover
+    ? contentAsset('posts', post.slug, post.frontmatter.darkCover)
     : undefined
 
   return new ImageResponse(
@@ -36,7 +36,7 @@ export default async function Image({ params }: Props) {
         est={formatReadingTime(
           post.content,
           post.frontmatter.readingTime,
-          'reading time',
+          'read',
         )}
       />
     ),

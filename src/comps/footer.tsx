@@ -3,14 +3,10 @@ import Link from 'next/link'
 export function Footer() {
   return (
     <footer className="relative z-30 mx-auto flex w-full max-w-2xl justify-end px-4 py-10">
-      <div
-        className="font-display dark:font-pixel text-2xs font-bold text-gray-900 uppercase
-          antialiased [font-feature-settings:'ss01'] dark:text-[9px] dark:text-white"
-      >
+      <div className="text-2xs font-semibold text-gray-900 uppercase dark:text-white">
         <ul
           className="space-x-1 text-right *:inline-block *:before:mr-1 *:before:inline-block
-            *:before:opacity-40 *:before:content-['•'] *:first:before:hidden
-            dark:*:before:content-['/']"
+            *:before:opacity-40 *:before:content-['·'] *:first:before:hidden"
         >
           <li>
             <Link
@@ -18,14 +14,6 @@ export function Footer() {
               className="opacity-40 transition-opacity hover:opacity-60"
             >
               About
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/archive"
-              className="opacity-40 transition-opacity hover:opacity-60"
-            >
-              Archive
             </Link>
           </li>
           <li>

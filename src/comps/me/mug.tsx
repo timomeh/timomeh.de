@@ -5,7 +5,7 @@ import comicO from './comic-o-overlay.png'
 
 export function Mug() {
   return (
-    <div className="relative">
+    <div className="relative size-full">
       <Image priority src={comic} alt="" className="size-full object-contain" />
       <Image
         priority

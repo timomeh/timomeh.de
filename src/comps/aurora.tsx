@@ -2,11 +2,7 @@ import { ShaderCanvas } from './shader-canvas'
 
 export function Aurora() {
   return (
-    <div
-      className="hidden h-full w-full
-        [mask-image:linear-gradient(to_bottom,transparent_0%,#000_100px,#000_100%)]
-        dark:block"
-    >
+    <div className="absolute -z-10 hidden h-full w-full opacity-70 dark:block">
       <ShaderCanvas fragmentShaderSource={fragmentShaderSource} />
     </div>
   )

@@ -13,7 +13,7 @@ export function GlassPill({ children }: Props) {
       <div className="absolute inset-0 z-10 bg-orange-200 dark:bg-emerald-950" />
       <div className="page-bg absolute inset-0 z-20 opacity-80" />
       <div
-        className="font-display xs:text-sm relative z-30 px-3 py-1 text-center text-xs font-medium
+        className="xs:text-sm relative z-30 px-3 py-1 text-center text-xs font-medium
           text-amber-950 tabular-nums opacity-70 dark:text-emerald-200 dark:antialiased
           **:[em]:not-italic **:[em]:opacity-70"
       >

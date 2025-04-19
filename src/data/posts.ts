@@ -2,7 +2,6 @@ import { endOfYear, setYear, startOfYear } from 'date-fns'
 import { cache } from 'react'
 
 import { log as baseLog } from '@/lib/log'
-import { range } from '@/lib/range'
 
 import { cms, Post } from './cms'
 import { db, repo } from './db'
@@ -12,6 +11,7 @@ const log = baseLog.child().withContext({ module: 'data/posts' })
 type Filter = {
   tag?: string
   year?: number
+  sort?: 'ASC' | 'DESC'
   status?: Post['status'][]
 }
 
@@ -19,7 +19,7 @@ export const listPublishedPosts = cache(async (filter: Filter = {}) => {
   await db.connect()
 
   const posts = await queryPosts({ ...filter, status: ['published'] })
-    .sortDesc('publishedAt')
+    .sortBy('publishedAt', filter.sort || 'DESC')
     .return.all()
 
   return posts
@@ -35,6 +35,24 @@ export const getLatestPublishedPost = cache(async (filter: Filter = {}) => {
   return post
 })
 
+export const listPostYears = cache(async () => {
+  const posts = await queryPosts({ status: ['published'] }).return.all()
+  const postsByYear = posts.reduce(
+    (acc, post) => {
+      const year = new Date(post.publishedAt).getFullYear()
+      acc[year] = (acc[year] || 0) + 1
+      return acc
+    },
+    {} as Record<number, number>,
+  )
+
+  const yearsWithCount = Object.entries(postsByYear)
+    .map(([year, count]) => ({ year: Number(year), count }))
+    .sort((a, b) => b.year - a.year)
+
+  return yearsWithCount
+})
+
 export const pagePublishedPosts = cache(
   async (year: number, filter: Filter = {}) => {
     await db.connect()
@@ -45,54 +63,12 @@ export const pagePublishedPosts = cache(
         startOfYear(setYear(new Date(), year)),
         endOfYear(setYear(new Date(), year)),
       )
-      .sortDesc('publishedAt')
+      .sortBy('publishedAt', filter.sort || 'DESC')
       .return.all()
-
-    if (posts.length < 10) {
-      const yearBeforePosts = await queryPosts({
-        ...filter,
-        status: ['published'],
-      })
-        .where('publishedAt')
-        .before(startOfYear(setYear(new Date(), year)))
-        .sortDesc('publishedAt')
-        .return.page(0, Math.max(3, 10 - posts.length))
-
-      posts = [...posts, ...yearBeforePosts]
-    }
 
     return posts
   },
 )
-
-export const pageNumbersPublishedPosts = cache(async (filter: Filter = {}) => {
-  await db.connect()
-
-  const count = await queryPosts({ ...filter, status: ['published'] })
-    .sortDesc('publishedAt')
-    .return.count()
-
-  const PAGINATION_SIZE = 20
-  const pages = range(0, Math.ceil(count / PAGINATION_SIZE) - 1)
-
-  return pages
-})
-
-export const getPublishedPostsRange = cache(async (filter: Filter = {}) => {
-  await db.connect()
-
-  const latest = await queryPosts({ ...filter, status: ['published'] })
-    .sortDesc('publishedAt')
-    .return.first()
-  const earliest = await queryPosts({ ...filter, status: ['published'] })
-    .sortAsc('publishedAt')
-    .return.first()
-
-  return [
-    latest?.publishedAt || new Date(),
-    earliest?.publishedAt || new Date(),
-  ]
-})
 
 export const getPost = cache(async (slug: string) => {
   await db.connect()

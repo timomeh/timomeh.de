@@ -1,8 +1,7 @@
 import '@/styles/main.css'
 
 import { Viewport } from 'next'
-import { IBM_Plex_Mono, Inter, Outfit } from 'next/font/google'
-import localFont from 'next/font/local'
+import { Bitter, IBM_Plex_Mono, Inter } from 'next/font/google'
 import React from 'react'
 
 import { PrevPathProvider } from '@/comps/prev-path'
@@ -10,39 +9,36 @@ import { ProgressBarProvider } from '@/comps/progress-bar'
 import { ThemeSwitchScript } from '@/comps/theme-switch-script'
 import { config } from '@/config'
 
+import { KeyboardNavLink } from '../../comps/keyboard-nav-link'
+import { ResponsiveSidebar } from './responsive-sidebar'
+
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
 })
 
-const outfit = Outfit({
+const bitter = Bitter({
   subsets: ['latin'],
+  weight: 'variable',
   display: 'swap',
-  variable: '--font-outfit',
+  variable: '--font-bitter',
 })
 
 const ibmPlexMono = IBM_Plex_Mono({
   subsets: ['latin-ext'],
-  weight: ['400', '600', '700'],
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
   variable: '--font-ibm-plex-mono',
-})
-
-const pixeloid = localFont({
-  src: [
-    { path: '../../styles/Pixeloid.ttf', weight: '400', style: 'normal' },
-    { path: '../../styles/PixeloidBold.ttf', weight: '700', style: 'normal' },
-  ],
-  variable: '--font-pixeloid',
 })
 
 type Props = {
   children: React.ReactNode
   header: React.ReactNode
+  aside: React.ReactNode
 }
 
-export default async function RootLayout({ children, header }: Props) {
+export default async function RootLayout({ children, header, aside }: Props) {
   return (
     <html
       lang="en"
@@ -53,8 +49,7 @@ export default async function RootLayout({ children, header }: Props) {
         duration-300 **:focus-visible:rounded-xs **:focus-visible:outline-2
         **:focus-visible:outline-offset-4 **:focus-visible:outline-[#a18570]
         dark:text-white dark:scheme-dark dark:**:focus-visible:outline-emerald-300
-        ${pixeloid.variable} ${ibmPlexMono.variable} ${outfit.variable}
-        ${inter.variable}`}
+        ${ibmPlexMono.variable} ${bitter.variable} ${inter.variable}`}
     >
       <head>
         {config.umamiWebsiteId && (
@@ -70,9 +65,30 @@ export default async function RootLayout({ children, header }: Props) {
       <body className="group/body relative">
         <ProgressBarProvider>
           <PrevPathProvider>
-            <div className="relative flex min-h-dvh flex-col self-start *:w-full">
+            <div className="relative">
+              <KeyboardNavLink href="#main">Skip header</KeyboardNavLink>
               {header}
-              {children}
+              <div
+                className="mx-auto w-fit max-w-full gap-2 px-2 sm:grid sm:grid-cols-[minmax(0,700px)_auto]"
+                id="main"
+              >
+                <div className="relative order-2">
+                  <KeyboardNavLink href="#content" className="max-sm:hidden">
+                    Jump to content
+                  </KeyboardNavLink>
+                  <div role="navigation" id="aside" className="sm:h-full">
+                    <ResponsiveSidebar>{aside}</ResponsiveSidebar>
+                  </div>
+                </div>
+                <div className="relative order-1">
+                  <KeyboardNavLink href="#aside" className="max-sm:hidden">
+                    Jump to navigation
+                  </KeyboardNavLink>
+                  <div id="content" className="h-full">
+                    {children}
+                  </div>
+                </div>
+              </div>
             </div>
           </PrevPathProvider>
         </ProgressBarProvider>

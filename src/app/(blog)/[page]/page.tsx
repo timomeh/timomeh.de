@@ -18,7 +18,11 @@ export default async function Page(props: Props) {
   if (!page) notFound()
 
   return (
-    <article className="animate-fade-in relative">
+    <article
+      lang={page.meta.lang?.split('_')[0]}
+      className="relative"
+      data-landmark="content-page"
+    >
       <Prose>
         <MDX
           cacheKey={`page-${page.slug}`}

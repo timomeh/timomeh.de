@@ -10,14 +10,12 @@ export function FadeInImage(props: ImageProps) {
   return (
     <Image
       quality={90}
-      fill
-      data-fade-in
       data-loaded={loaded}
       aria-busy={!loaded}
-      className="absolute inset-0 object-cover opacity-0 transition-opacity duration-1000
-        data-[loaded=true]:opacity-100"
-      onLoad={() => setLoaded(true)}
       {...props}
+      className={`opacity-0 transition-opacity duration-1000 data-[loaded=true]:opacity-100
+        ${props.className || ''}`}
+      onLoad={() => setLoaded(true)}
     />
   )
 }

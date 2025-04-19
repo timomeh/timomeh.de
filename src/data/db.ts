@@ -31,7 +31,16 @@ const postSchema = new Schema('posts', {
   publishedAt: { type: 'date', sortable: true },
   updatedAt: { type: 'date' },
   tags: { type: 'string[]' },
-  frontmatter_cover: { type: 'string', path: '$.frontmatter.cover' },
+  frontmatter_lightCover: { type: 'string', path: '$.frontmatter.lightCover' },
+  frontmatter_darkCover: { type: 'string', path: '$.frontmatter.darkCover' },
+  frontmatter_lightBgColor: {
+    type: 'string',
+    path: '$.frontmatter.lightBgColor',
+  },
+  frontmatter_darkBgColor: {
+    type: 'string',
+    path: '$.frontmatter.darkBgColor',
+  },
   frontmatter_readingTime: { type: 'text', path: '$.frontmatter.readingTime' },
   frontmatter_kicker: { type: 'text', path: '$.frontmatter.kicker' },
   meta_description: { type: 'text', path: '$.meta.description' },

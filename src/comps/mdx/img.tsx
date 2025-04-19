@@ -10,8 +10,10 @@ type Props = React.DetailedHTMLProps<
 export async function Img(props: Props) {
   if (!props.src) return null
 
-  const { img, css } = await getPlaceholder(props.src)
-  const filename = new URL(props.src).pathname.split('/').pop()
+  const src = props.src as string
+
+  const { img, css } = await getPlaceholder(src)
+  const filename = new URL(src).pathname.split('/').pop()
   const theme = filename?.startsWith('darkmode-')
     ? 'dark'
     : filename?.startsWith('lightmode-')
@@ -21,11 +23,12 @@ export async function Img(props: Props) {
   return (
     <div
       className="relative data-[image-theme=dark]:hidden dark:data-[image-theme=dark]:block
-        dark:data-[image-theme=light]:hidden md:[&:not(figure_&)]:-mx-4"
+        dark:data-[image-theme=light]:hidden
+        in-data-[landmark=content-page]:md:[&:not(figure_&)]:-mx-4"
       data-image-theme={theme}
     >
       <Image
-        src={props.src}
+        src={src}
         quality={90}
         width={img.width}
         height={img.height}

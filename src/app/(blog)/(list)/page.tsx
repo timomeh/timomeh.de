@@ -1,63 +1,39 @@
-import { CircleArrowRight } from 'lucide-react'
 import { Metadata } from 'next'
-import Link from 'next/link'
 import { Fragment } from 'react'
 
-import { GlassPill } from '@/comps/glass-pill'
-import { getOlderPost, pagePublishedPosts } from '@/data/posts'
+import { pagePublishedPosts } from '@/data/posts'
 
+import { GlassPill } from '../../../comps/glass-pill'
 import { groupPosts, Marker } from './group-posts'
 import { ListedPost } from './listed-post'
-import { Pagination } from './pagination'
+import { parseSort } from './parse-sort'
 
 export const fetchCache = 'force-cache'
 
-export default async function Page() {
+type Props = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
+
+export default async function Page({ searchParams }: Props) {
   const year = new Date().getFullYear()
-  const posts = await pagePublishedPosts(year)
-  const olderPost = await getOlderPost(posts[posts.length - 1].slug)
+  const sort = parseSort((await searchParams).sort)
+  const posts = await pagePublishedPosts(year, { sort })
   const groupedPosts = groupPosts(posts)
 
   return (
-    <div className="flex flex-col items-center space-y-10 sm:mx-4">
+    <div className="space-y-10">
       {groupedPosts.map((group) => (
         <Fragment key={group.marker}>
-          <header className="wrapper mb-6 not-first-of-type:mt-8">
+          <div className="mb-4 flex justify-center">
             <GlassPill>
-              <h2>
-                <GroupTitle marker={group.marker} amount={group.posts.length} />
-              </h2>
+              <h3>{groupTitle(group.marker, group.posts.length)}</h3>
             </GlassPill>
-          </header>
-          {group.posts.map((post, i) =>
-            group.marker === 'last_year' && i === group.posts.length - 1 ? (
-              <Link
-                href={`/in/${post.publishedAt.getFullYear()}?continue=${post.slug}`}
-                key={post.slug}
-                className="transition hover:translate-x-0.5"
-              >
-                <GlassPill>
-                  <div className="flex items-center">
-                    <span>
-                      more posts from {post.publishedAt.getFullYear()}
-                    </span>
-                    <CircleArrowRight className="-mr-1.5 ml-1.5 size-4 opacity-70" />
-                  </div>
-                </GlassPill>
-              </Link>
-            ) : (
-              <ListedPost key={post.slug} slug={post.slug} />
-            ),
-          )}
+          </div>
+          {group.posts.map((post) => (
+            <ListedPost key={post.slug} slug={post.slug} />
+          ))}
         </Fragment>
       ))}
-      {groupedPosts.at(-1)?.marker !== 'last_year' && (
-        <Pagination
-          olderYear={olderPost?.publishedAt.getFullYear()}
-          thisYear={year}
-          postCount={posts.length}
-        />
-      )}
     </div>
   )
 }
@@ -68,57 +44,21 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-function GroupTitle(props: { marker: Marker; amount: number }) {
-  const { amount, marker } = props
-
+function groupTitle(marker: Marker, amount: number) {
   const posts = amount > 1 ? 'posts' : 'post'
   switch (marker) {
     case 'this_week':
-      return (
-        <>
-          <em>
-            {amount} {posts}
-          </em>{' '}
-          <span>this week</span>
-        </>
-      )
+      return `${amount} ${posts} this week`
     case 'last_week':
-      return (
-        <>
-          <em>
-            {amount} {posts}
-          </em>{' '}
-          <span>last week</span>
-        </>
-      )
+      return `${amount} ${posts} last week`
     case 'this_month':
-      return (
-        <>
-          <em>
-            {amount} {posts}
-          </em>{' '}
-          <span>earlier this month</span>
-        </>
-      )
+      return `${amount} ${posts} earlier this month`
     case 'last_month':
-      return (
-        <>
-          <em>
-            {amount} {posts}
-          </em>{' '}
-          <span>past month</span>
-        </>
-      )
+      return `${amount} ${posts} last month`
     case 'this_year':
-      return (
-        <>
-          <em>
-            {amount} {posts}
-          </em>{' '}
-          <span>earlier this year</span>
-        </>
-      )
-    case 'last_year':
-      return <span>posts from last year</span>
+    case 'last_month':
+      return `${amount} ${posts} earlier this year`
+    default:
+      return ''
   }
 }

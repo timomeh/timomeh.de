@@ -155,9 +155,22 @@ export default config({
 
         frontmatter: fields.object(
           {
-            cover: fields.image({
+            cover: fields.ignored(),
+            lightCover: fields.image({
               label: 'Cover Image',
               directory: 'posts',
+            }),
+            lightBgColor: fields.text({
+              label: 'Background Color',
+              description: 'tinted background of the post',
+            }),
+            darkCover: fields.image({
+              label: 'Dark Cover Image',
+              directory: 'posts',
+            }),
+            darkBgColor: fields.text({
+              label: 'Dark Background Color',
+              description: 'tinted background of the post',
             }),
             readingTime: fields.text({
               label: 'Reading time',

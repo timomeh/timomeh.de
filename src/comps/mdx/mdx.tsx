@@ -110,7 +110,7 @@ export async function MDX({
   const compileCached = unstable_cache(
     () => compileUncached(),
     [
-      'cached-version:v1', // increase this version if rendered mdx updated
+      'cached-version:v2', // increase this version if rendered mdx updated
       assetPrefix || '',
       cacheKey || '',
     ],
@@ -183,7 +183,7 @@ function handleHTML(html: string, info: TransformerInfo) {
     url.includes('youtube.com')
   ) {
     const noCookieHtml = html.replace('youtube.com', 'youtube-nocookie.com')
-    return `<div className="oembed my-5 oembed-youtube aspect-video rounded-lg overflow-hidden md:-mx-4">${noCookieHtml}</div>`
+    return `<div className="oembed my-5 oembed-youtube aspect-video rounded-lg overflow-hidden in-data-[landmark=content-page]:md:-mx-4">${noCookieHtml}</div>`
   }
   return html
 }

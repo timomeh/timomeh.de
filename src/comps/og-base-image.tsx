@@ -18,7 +18,10 @@ export function OpengraphBaseImage({ cover, title, date, est }: Props) {
   unstable_noStore()
 
   return (
-    <div tw="flex w-full h-full" style={{ fontFamily: '"Outfit"' }}>
+    <div
+      tw="flex w-full h-full"
+      style={{ fontFamily: '"Outfit"', background: '#0D0E12' }}
+    >
       {!cover && (
         <img
           tw="absolute inset-0"
@@ -31,7 +34,7 @@ export function OpengraphBaseImage({ cover, title, date, est }: Props) {
       {cover && (
         <>
           <img
-            tw="absolute inset-0"
+            tw="absolute inset-0 opacity-30"
             src={cover}
             width="1200"
             height="630"
