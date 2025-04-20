@@ -52,7 +52,27 @@ export function ShaderCanvas({ fragmentShaderSource }: Props) {
 
         let startTime = Math.random() * -10000000
 
+        let lastFrame = performance.now()
+        let slowFrames = 0
+
         const render = () => {
+          const now = performance.now()
+          const renderDuration = now - lastFrame
+          lastFrame = now
+
+          // detect slow performance and pause if it doesn't render smoothly
+          if (renderDuration > 50) {
+            // a slow frame is considered below 20fps
+            slowFrames++
+          } else {
+            slowFrames = Math.max(0, slowFrames - 1)
+          }
+
+          if (slowFrames > 10) {
+            stop()
+            return
+          }
+
           gl.uniform1f(timeUniform, (startTime + performance.now()) * 0.002)
           gl.uniform2f(resolutionUniform, width, height)
           gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
