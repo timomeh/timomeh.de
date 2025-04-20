@@ -8,3 +8,7 @@ type Props = {
 export default async function Page({ params, searchParams }: Props) {
   return <PostsListSidebar params={params} searchParams={searchParams} />
 }
+
+export async function generateStaticParams() {
+  return []
+}

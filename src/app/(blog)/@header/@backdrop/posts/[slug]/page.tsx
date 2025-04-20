@@ -44,3 +44,7 @@ export default async function Page(props: Props) {
     </>
   )
 }
+
+export async function generateStaticParams() {
+  return []
+}

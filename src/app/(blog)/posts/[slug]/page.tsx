@@ -50,6 +50,10 @@ export default async function Page(props: Props) {
   )
 }
 
+export async function generateStaticParams() {
+  return []
+}
+
 export async function generateMetadata(props: Props) {
   const params = await props.params
   const post = await getPost(params.slug)

@@ -43,6 +43,10 @@ function groupTitle(tag: string, amount: number) {
   return `${amount} ${posts} tagged ${tag}`
 }
 
+export async function generateStaticParams() {
+  return []
+}
+
 export async function generateMetadata(props: Props) {
   const params = await props.params
   const tag = await getTag(params.tag)

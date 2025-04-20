@@ -43,6 +43,10 @@ function groupTitle(year: number, amount: number) {
   return `${amount} ${posts} in ${year}`
 }
 
+export async function generateStaticParams() {
+  return []
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const year = saneParseInt((await params).year)
 
