@@ -1,6 +1,6 @@
 'use client'
 
-import { CircleXIcon, CompassIcon } from 'lucide-react'
+import { CircleXIcon, MenuIcon } from 'lucide-react'
 
 type Props = {
   children: React.ReactNode
@@ -9,14 +9,13 @@ type Props = {
 export function ResponsiveSidebar({ children }: Props) {
   return (
     <>
-      <div className="fixed right-0 bottom-0 z-50 sm:hidden">
+      <div className="fixed top-2 right-2 z-50 sm:hidden">
         <button
           type="button"
           aria-label="Open Menu"
-          className="flex h-10 w-[120px] items-center justify-center rounded-tl-2xl border-t border-l
-            border-gray-900/40 bg-[#FDFDFD]/60 shadow-md/30 backdrop-blur-sm
-            hover:shadow-md/50 active:translate-y-px dark:border-white/20
-            dark:bg-[#191A22]/80"
+          className="flex items-center justify-center rounded-lg border border-gray-900/40
+            bg-[#FDFDFD]/60 shadow-md/20 backdrop-blur-sm hover:shadow-md/50
+            active:translate-y-px dark:border-white/20 dark:bg-[#191A22]/80"
           onClick={() => {
             const $dialog = document.getElementById(
               'mobile-sidebar',
@@ -24,9 +23,9 @@ export function ResponsiveSidebar({ children }: Props) {
             $dialog.showModal()
           }}
         >
-          <div className="jusitfy-center flex items-center gap-1.5 px-3">
-            <CompassIcon className="size-4" />
-            <div className="font-mono text-sm leading-none font-medium">
+          <div className="jusitfy-center flex items-center gap-1.5 p-2">
+            <MenuIcon className="size-4" />
+            <div className="font-mono text-xs leading-none font-semibold">
               Menu
             </div>
           </div>
@@ -63,8 +62,7 @@ export function ResponsiveSidebar({ children }: Props) {
           open:backdrop:opacity-100 sm:block sm:[all:unset] dark:backdrop:bg-gray-950/40
           starting:open:scale-90 starting:open:opacity-0 starting:open:backdrop:opacity-0"
       >
-        {children}
-        <div className="mt-1 flex justify-end sm:hidden">
+        <div className="-mt-10 mb-1 flex justify-end sm:hidden">
           <button
             aria-label="Close"
             autoFocus
@@ -79,6 +77,7 @@ export function ResponsiveSidebar({ children }: Props) {
             <CircleXIcon className="size-6 drop-shadow-md drop-shadow-white/60 dark:drop-shadow-black/60" />
           </button>
         </div>
+        {children}
       </dialog>
     </>
   )

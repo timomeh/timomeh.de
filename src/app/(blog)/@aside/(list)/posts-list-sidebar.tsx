@@ -18,7 +18,7 @@ export async function PostsListSidebar({ params, searchParams }: Props) {
   return (
     <div
       className="@container top-0 max-h-dvh w-[220px] rounded-xl max-sm:bg-white/40
-        max-sm:shadow-xl/20 max-sm:backdrop-blur-sm sm:sticky sm:w-[86px] sm:py-2
+        max-sm:shadow-lg/40 max-sm:backdrop-blur-sm sm:sticky sm:w-[86px] sm:py-2
         lg:w-[220px] dark:max-sm:bg-black/40"
     >
       <Card>
