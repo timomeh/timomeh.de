@@ -32,37 +32,35 @@ export default async function Page(props: Props) {
       className="relative"
       data-landmark="content-page"
     >
-      <div className="p-4 sm:p-6 md:p-8">
-        <ConditionalViewTransition name={`${post.slug}-post`}>
-          <Prose>
-            <PostHeader
-              publishedAt={post.publishedAt}
-              readingTime={formatReadingTime(
-                post.content,
-                post.frontmatter.readingTime,
-                'read',
-              )}
-            />
-            <div className="not-prose -m-0.5 mb-2 hidden sm:block lg:hidden">
-              {tags.map((tag) => (
-                <Link
-                  key={tag.slug}
-                  href={`/tag/${tag.slug}`}
-                  className="group/btn inline-flex p-0.5"
-                >
-                  <Tag title={tag.title} />
-                </Link>
-              ))}
-            </div>
-            <MDX
-              cacheKey={`post-${post.slug}`}
-              cacheTags={['mdx-type:post', `mdx-post:${post.slug}`]}
-              content={post.content}
-              assetPrefix={contentAsset('posts', post.slug, '')}
-            />
-          </Prose>
-        </ConditionalViewTransition>
-      </div>
+      <ConditionalViewTransition name={`${post.slug}-post`}>
+        <Prose>
+          <PostHeader
+            publishedAt={post.publishedAt}
+            readingTime={formatReadingTime(
+              post.content,
+              post.frontmatter.readingTime,
+              'read',
+            )}
+          />
+          <div className="not-prose -m-0.5 mb-2 hidden sm:block lg:hidden">
+            {tags.map((tag) => (
+              <Link
+                key={tag.slug}
+                href={`/tag/${tag.slug}`}
+                className="group/btn inline-flex p-0.5"
+              >
+                <Tag title={tag.title} />
+              </Link>
+            ))}
+          </div>
+          <MDX
+            cacheKey={`post-${post.slug}`}
+            cacheTags={['mdx-type:post', `mdx-post:${post.slug}`]}
+            content={post.content}
+            assetPrefix={contentAsset('posts', post.slug, '')}
+          />
+        </Prose>
+      </ConditionalViewTransition>
     </article>
   )
 }

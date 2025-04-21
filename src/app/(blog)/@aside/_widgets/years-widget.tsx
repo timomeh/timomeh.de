@@ -6,12 +6,11 @@ import { listPostYears } from '@/data/posts'
 type Props = {
   yearParam?: string
   tagParam?: string
-  sortParam?: string | string[]
+  sort?: 'asc' | 'desc' | null
 }
 
-export async function YearsWidget({ yearParam, sortParam, tagParam }: Props) {
+export async function YearsWidget({ yearParam, tagParam, sort }: Props) {
   const postYears = await listPostYears()
-  const activeSort = sortParam?.toString() === 'asc' ? 'asc' : null
   const activeYear = yearParam
     ? Number(yearParam)
     : tagParam
@@ -23,13 +22,11 @@ export async function YearsWidget({ yearParam, sortParam, tagParam }: Props) {
       {postYears.map((postYear) => (
         <Link
           key={postYear.year}
-          href={{
-            pathname:
-              postYear.year === new Date().getFullYear()
-                ? '/'
-                : `/in/${postYear.year}`,
-            query: activeSort ? { sort: activeSort } : {},
-          }}
+          href={
+            postYear.year === new Date().getFullYear()
+              ? `/${sort === 'asc' ? 'asc' : ''}`
+              : `/in/${postYear.year}${sort === 'asc' ? '/asc' : ''}`
+          }
           className="group/btn relative block"
           data-current={postYear.year === activeYear}
         >

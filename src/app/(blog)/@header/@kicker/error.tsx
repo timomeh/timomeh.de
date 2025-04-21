@@ -1,5 +1,5 @@
 'use client'
 
 export default function Error() {
-  return <span>always doing oopsies by</span>
+  return <span data-loaded="true">always doing oopsies by</span>
 }

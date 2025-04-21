@@ -8,14 +8,13 @@ type Props = {
 
 export function ErrorContent({ reset, description }: Props) {
   return (
-    <Prose crtTitle>
-      <h1>ERR 500</h1>
-      {description || (
-        <p>
-          Whoopsie daisy, something went terribly wrong. Not all hope is lost,
-          you can try the following steps:
-        </p>
-      )}
+    <Prose>
+      <h1>Server Error</h1>
+      {description || <p>Sorry, something went wrong.</p>}
+      <p>
+        This isn’t your fault, it’s mine. But not all hope is lost—you can try
+        the following steps:
+      </p>
       <ol>
         {reset && (
           <li>

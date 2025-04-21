@@ -24,18 +24,16 @@ export default async function Page(props: Props) {
       className="relative"
       data-landmark="content-page"
     >
-      <div className="p-4 sm:p-6 md:p-8">
-        <ViewTransition>
-          <Prose>
-            <MDX
-              cacheKey={`page-${page.slug}`}
-              cacheTags={['mdx-type:page', `mdx-page:${page.slug}`]}
-              content={page.content}
-              assetPrefix={contentAsset('pages', page.slug, '')}
-            />
-          </Prose>
-        </ViewTransition>
-      </div>
+      <ViewTransition>
+        <Prose>
+          <MDX
+            cacheKey={`page-${page.slug}`}
+            cacheTags={['mdx-type:page', `mdx-page:${page.slug}`]}
+            content={page.content}
+            assetPrefix={contentAsset('pages', page.slug, '')}
+          />
+        </Prose>
+      </ViewTransition>
     </article>
   )
 }

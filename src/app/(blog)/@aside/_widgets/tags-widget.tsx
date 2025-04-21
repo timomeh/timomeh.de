@@ -4,24 +4,20 @@ import { Tag } from '@/comps/tag'
 import { listTags } from '@/data/tags'
 
 type Props = {
-  sortParam?: string | string[]
+  sort?: 'asc' | 'desc' | null
   tagParam?: string
 }
 
-export async function TagsWidget({ sortParam, tagParam }: Props) {
+export async function TagsWidget({ sort, tagParam }: Props) {
   const tags = await listTags()
-  const activeSort = sortParam?.toString() === 'asc' ? 'asc' : null
   const activeTag = tagParam
 
   return (
     <div>
-      {tags.map((tag) => (
+      {tags.slice(0, 14).map((tag) => (
         <Link
           key={tag.slug}
-          href={{
-            pathname: `/tag/${tag.slug}`,
-            query: activeSort ? { sort: activeSort } : {},
-          }}
+          href={`/tag/${tag.slug}${sort === 'asc' ? '/asc' : ''}`}
           className="group/btn inline-flex p-0.5"
         >
           <Tag title={tag.title} active={tag.slug === activeTag} />
@@ -31,7 +27,7 @@ export async function TagsWidget({ sortParam, tagParam }: Props) {
         href="/tags"
         className="group/btn inline-flex p-0.5 opacity-70 transition hover:opacity-100"
       >
-        <Tag title="Browse tags…" />
+        <Tag title="All tags…" />
       </Link>
     </div>
   )

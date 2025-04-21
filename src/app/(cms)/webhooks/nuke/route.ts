@@ -1,4 +1,4 @@
-import { revalidateTag } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
 
 import { config } from '@/config'
@@ -47,8 +47,12 @@ export async function GET(request: NextRequest) {
   await cacheAllPosts()
   await cacheAllTags()
   await updateSettingsCache()
+  revalidateTag('tag-count')
   revalidateTag('feed-pre')
   revalidateTag('mdx')
+  revalidatePath('/tags')
+  revalidatePath('/posts/[slug]')
+  revalidatePath('/[page]')
 
   log.info('Successfully nuked all caches')
 

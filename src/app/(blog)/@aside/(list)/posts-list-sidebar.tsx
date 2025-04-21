@@ -7,11 +7,10 @@ import { YearsWidget } from '../_widgets/years-widget'
 
 type Props = {
   params: Promise<{ tag?: string; year?: string }>
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+  sort?: 'asc' | 'desc' | null
 }
 
-export async function PostsListSidebar({ params, searchParams }: Props) {
-  const sortParam = (await searchParams).sort
+export async function PostsListSidebar({ params, sort }: Props) {
   const yearParam = (await params).year
   const tagParam = (await params).tag
 
@@ -25,7 +24,7 @@ export async function PostsListSidebar({ params, searchParams }: Props) {
         <div>
           <section aria-label="Years" className="@max-5xs:p-1 p-2">
             <YearsWidget
-              sortParam={sortParam}
+              sort={sort}
               tagParam={tagParam}
               yearParam={yearParam}
             />
@@ -34,14 +33,14 @@ export async function PostsListSidebar({ params, searchParams }: Props) {
             aria-label="Sort"
             className="@max-5xs:p-1 border-t border-gray-400/30 p-2 dark:border-gray-600/30"
           >
-            <SortWidget sortParam={sortParam} />
+            <SortWidget sort={sort} />
           </section>
           <section
             aria-label="Tags"
             className="@max-5xs:hidden @max-5xs:p-1 border-t border-gray-400/30 p-2
               dark:border-gray-600/30"
           >
-            <TagsWidget sortParam={sortParam} tagParam={tagParam} />
+            <TagsWidget sort={sort} tagParam={tagParam} />
           </section>
           <section
             aria-label="Links"

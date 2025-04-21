@@ -9,14 +9,11 @@ type Props = {
 
 export default function Error({ reset }: Props) {
   return (
-    <div className="mx-auto max-w-2xl px-4">
+    <div className="relative p-4 sm:p-6 md:p-8">
       <ErrorContent
         reset={reset}
         description={
-          <p>
-            Whoopsie daisy, something went terribly wrong while trying to list
-            these post. Not all hope is lost, you can try the following steps:
-          </p>
+          <p>Sorry, something went wrong while trying to list these post.</p>
         }
       />
     </div>

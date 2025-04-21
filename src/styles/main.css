@@ -108,12 +108,9 @@
   background-image: url(./grainy-light.svg);
 }
 
-@utility bg-crt-lines {
-  background-image: url(./crt-lines.svg);
-}
-
 @utility page-bg {
   @apply bg-grainy-light dark:bg-grainy bg-[#f2f1f0] bg-[length:200px_200px] dark:bg-[#0D0E12];
+  background-size: 200px 200px;
 }
 
 .oembed {

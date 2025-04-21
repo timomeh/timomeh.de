@@ -11,15 +11,20 @@ const log = baseLog.child().withContext({ module: 'data/posts' })
 type Filter = {
   tag?: string
   year?: number
-  sort?: 'ASC' | 'DESC'
+  sort?: 'asc' | 'desc'
   status?: Post['status'][]
+}
+
+function transformSort(sort?: 'asc' | 'desc') {
+  if (sort) return sort.toUpperCase() as 'ASC' | 'DESC'
+  return null
 }
 
 export const listPublishedPosts = cache(async (filter: Filter = {}) => {
   await db.connect()
 
   const posts = await queryPosts({ ...filter, status: ['published'] })
-    .sortBy('publishedAt', filter.sort || 'DESC')
+    .sortBy('publishedAt', transformSort(filter.sort) || 'DESC')
     .return.all()
 
   return posts
@@ -63,7 +68,7 @@ export const pagePublishedPosts = cache(
         startOfYear(setYear(new Date(), year)),
         endOfYear(setYear(new Date(), year)),
       )
-      .sortBy('publishedAt', filter.sort || 'DESC')
+      .sortBy('publishedAt', transformSort(filter.sort) || 'DESC')
       .return.all()
 
     return posts

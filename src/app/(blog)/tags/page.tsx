@@ -4,6 +4,7 @@ import { unstable_ViewTransition as ViewTransition } from 'react'
 
 import { Prose } from '@/comps/prose'
 import { listTags } from '@/data/tags'
+import { pluralizePosts } from '@/lib/plurals'
 
 export const fetchCache = 'force-cache'
 
@@ -19,7 +20,9 @@ export default async function Page() {
             <ul>
               {tags.map((tag) => (
                 <li key={tag.slug}>
-                  <Link href={`/tag/${tag.slug}`}>{tag.title}</Link>
+                  <Link href={`/tag/${tag.slug}`}>
+                    {tag.title} ({pluralizePosts(tag.postsCount)})
+                  </Link>
                 </li>
               ))}
             </ul>

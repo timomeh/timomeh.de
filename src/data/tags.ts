@@ -1,9 +1,11 @@
+import { unstable_cache } from 'next/cache'
 import { cache } from 'react'
 
 import { log as baseLog } from '@/lib/log'
 
 import { cms } from './cms'
 import { db, repo } from './db'
+import { listPublishedPosts } from './posts'
 
 const log = baseLog.child().withContext({ module: 'data/tags' })
 
@@ -14,9 +16,27 @@ type Filter = {
 export const listTags = cache(async () => {
   await db.connect()
 
-  const tags = await queryTags({ listed: true }).sortAsc('sort').return.all()
-  return tags
+  const tags = await queryTags({ listed: true }).return.all()
+  const counts = await Promise.all(tags.map((tag) => cachedTagCount(tag.slug)))
+
+  const tagsWithCount = tags
+    .map((tag, i) => ({
+      ...tag,
+      postsCount: counts[i],
+    }))
+    .sort((a, b) => b.postsCount - a.postsCount)
+
+  return tagsWithCount
 })
+
+const cachedTagCount = unstable_cache(
+  async (tagSlug: string) => {
+    const posts = await listPublishedPosts({ tag: tagSlug })
+    return posts.length
+  },
+  ['tag-count'],
+  { tags: ['tag-count'] },
+)
 
 export const getTag = cache(async (slug: string) => {
   await db.connect()

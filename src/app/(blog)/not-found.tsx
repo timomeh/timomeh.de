@@ -5,14 +5,14 @@ import { ReportBrokenLink } from '@/comps/report-broken-link'
 export default function NotFound() {
   return (
     <>
-      <main className="relative z-30 w-full flex-1">
-        <div className="mx-auto mt-10 max-w-2xl px-4">
-          <Prose crtTitle>
-            <h1>ERR 404</h1>
+      <div className="relative">
+        <div className="p-4 sm:p-6 md:p-8">
+          <Prose>
+            <h1>Page not found</h1>
             <p>
-              Sorry, you either found a broken link, or clicked an old link. If
-              you clicked on a link and arrived here, that’s my fault. Try the
-              following steps:
+              Sorry, you either found a broken link, or clicked on an old link.
+              If you clicked on a link and arrived here, that could be my fault.
+              Try the following steps:
             </p>
             <ol>
               <li>
@@ -31,7 +31,7 @@ export default function NotFound() {
             </ol>
           </Prose>
         </div>
-      </main>
+      </div>
       <Footer />
     </>
   )

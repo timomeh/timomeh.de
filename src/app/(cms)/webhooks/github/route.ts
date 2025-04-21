@@ -1,6 +1,6 @@
 import { Webhooks } from '@octokit/webhooks'
 import { EventPayloadMap, PushEvent } from '@octokit/webhooks-types'
-import { revalidateTag } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
 
 import { config } from '@/config'
@@ -68,6 +68,8 @@ export async function POST(request: NextRequest) {
           await updatePostCache(slug)
           revalidateTag(`feed-pre:${slug}`)
           revalidateTag(`mdx-post:${slug}`)
+          revalidateTag('tag-count')
+          revalidatePath('/tags') // also update tags to update the post count
           log.withMetadata({ resource, slug }).info('Updated cache')
           return
         }
@@ -81,6 +83,7 @@ export async function POST(request: NextRequest) {
 
         if (resource === 'tags') {
           await updateTagCache(slug)
+          revalidatePath('/tags')
           log.withMetadata({ resource, slug }).info('Updated cache')
           return
         }

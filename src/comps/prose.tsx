@@ -1,12 +1,10 @@
 type Props = {
   children: React.ReactNode
-  crtTitle?: boolean
 }
 
-export function Prose({ children, crtTitle }: Props) {
+export function Prose({ children }: Props) {
   return (
     <div
-      data-crt={crtTitle}
       className="prose prose-stone dark:prose-invert prose-headings:text-balance
         prose-headings:font-serif prose-headings:font-semibold prose-h1:text-2xl
         sm:prose-h1:text-3xl prose-a:break-words prose-figcaption:-mt-5

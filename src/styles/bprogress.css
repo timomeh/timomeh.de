@@ -16,8 +16,6 @@ html[data-theme='dark'] .bprogress.bprogress .bar {
 
 html[data-theme='dark'] .bprogress.bprogress .peg {
   @apply w-full bg-sky-200;
-  mask-image: url('./crt-lines.svg');
-  mask-mode: luminance;
   transform: none;
 }
 
@@ -29,9 +27,7 @@ html[data-theme='dark'] .bprogress.bprogress .peg {
   }
 
   .bprogress.bprogress .peg:not(html[data-theme='light'] *) {
-    @apply w-full bg-sky-200;
-    mask-image: url('./crt-lines.svg');
-    mask-mode: luminance;
+    @apply w-full bg-sky-300;
     transform: none;
   }
 }

@@ -12,10 +12,7 @@ export default function Error({ reset }: Props) {
     <ErrorContent
       reset={reset}
       description={
-        <p>
-          Whoopsie daisy, something went terribly wrong while rendering this
-          post. Not all hope is lost, you can try the following steps:
-        </p>
+        <p>Sorry, something went wrong while trying to load this post.</p>
       }
     />
   )

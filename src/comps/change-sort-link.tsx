@@ -11,14 +11,12 @@ type Props = Omit<LinkProps, 'href'> &
 
 export function ChangeSortLink({ sort, ...rest }: Props) {
   const pathname = usePathname()
+  const base = pathname.replace(/\/asc\/?$/, '') || '/'
 
   return (
     <Link
       {...rest}
-      href={{
-        pathname,
-        query: sort ? { sort: 'asc' } : {},
-      }}
+      href={sort === 'asc' ? `${base === '/' ? '' : base}/asc` : base}
     />
   )
 }

@@ -4,20 +4,18 @@ import { unstable_ViewTransition as ViewTransition } from 'react'
 import { ChangeSortLink } from '@/comps/change-sort-link'
 
 type Props = {
-  sortParam?: string | string[]
+  sort?: 'asc' | 'desc' | null
 }
 
-export function SortWidget({ sortParam }: Props) {
-  const activeSort = sortParam?.toString() === 'asc' ? 'asc' : null
-
+export function SortWidget({ sort }: Props) {
   return (
     <div className="grid grid-cols-2 gap-1">
       <ChangeSortLink
         sort={null}
         className="group/btn relative block"
-        data-current={activeSort === null}
+        data-current={sort !== 'asc'}
       >
-        <Item active={activeSort === null}>
+        <Item active={sort !== 'asc'}>
           <CalendarArrowDownIcon className="@max-5xs:size-3.5 size-4" />
           <div className="@max-5xs:sr-only text-xs font-medium">new to old</div>
         </Item>
@@ -25,9 +23,9 @@ export function SortWidget({ sortParam }: Props) {
       <ChangeSortLink
         sort="asc"
         className="group/btn relative block"
-        data-current={activeSort === 'asc'}
+        data-current={sort === 'asc'}
       >
-        <Item active={activeSort === 'asc'}>
+        <Item active={sort === 'asc'}>
           <CalendarArrowUpIcon className="@max-5xs:size-3.5 size-4" />
           <div className="@max-5xs:sr-only text-xs font-medium">old to new</div>
         </Item>

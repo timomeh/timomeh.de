@@ -12,6 +12,12 @@ import { config } from '@/config'
 import { KeyboardNavLink } from '../../comps/keyboard-nav-link'
 import { ResponsiveSidebar } from './responsive-sidebar'
 
+type Props = {
+  children: React.ReactNode
+  header: React.ReactNode
+  aside: React.ReactNode
+}
+
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
@@ -32,12 +38,6 @@ const ibmPlexMono = IBM_Plex_Mono({
   variable: '--font-ibm-plex-mono',
 })
 
-type Props = {
-  children: React.ReactNode
-  header: React.ReactNode
-  aside: React.ReactNode
-}
-
 export default async function RootLayout({ children, header, aside }: Props) {
   return (
     <html
@@ -45,8 +45,8 @@ export default async function RootLayout({ children, header, aside }: Props) {
       data-theme="system"
       suppressHydrationWarning
       className={`group/root motion-safe:**:focus-visible:animate-outline-bounce page-bg h-full
-        bg-[length:200px_200px] text-gray-900 scheme-light transition-colors
-        duration-300 **:focus-visible:rounded-xs **:focus-visible:outline-2
+        text-gray-900 scheme-light transition-colors duration-300
+        **:focus-visible:rounded-xs **:focus-visible:outline-2
         **:focus-visible:outline-offset-4 **:focus-visible:outline-[#a18570]
         dark:text-white dark:scheme-dark dark:**:focus-visible:outline-emerald-300
         ${ibmPlexMono.variable} ${bitter.variable} ${inter.variable}`}
