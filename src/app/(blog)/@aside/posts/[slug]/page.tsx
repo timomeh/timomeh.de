@@ -19,10 +19,10 @@ export default async function Page({ params }: Props) {
     >
       <Card>
         <div className="divide-y divide-gray-400/30 dark:divide-gray-600/30">
-          <BackWidget />
           <section aria-label="Post Navigation">
             <PostNavigationWidget currentSlug={slug} />
           </section>
+          <BackWidget />
           <section aria-label="Site Links">
             <LinksWidget />
           </section>

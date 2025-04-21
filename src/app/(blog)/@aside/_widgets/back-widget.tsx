@@ -1,4 +1,3 @@
-import { ArrowLeftIcon } from 'lucide-react'
 import { unstable_ViewTransition as ViewTransition } from 'react'
 
 import { BackLink } from '@/comps/back-link'
@@ -9,10 +8,7 @@ export function BackWidget() {
       <div className="@max-5xs:p-1 p-2">
         <BackLink className="group/btn">
           <Item>
-            <ArrowLeftIcon className="@max-5xs:size-3.5 size-4" />
-            <div className="text-xs font-medium">
-              Back <span className="@max-5xs:hidden">to posts</span>
-            </div>
+            <div className="text-center text-xs font-medium">All posts</div>
           </Item>
         </BackLink>
       </div>
@@ -30,9 +26,7 @@ function Item(props: { children: React.ReactNode }) {
         dark:text-white/80 dark:group-hover/btn:border-white/10
         dark:group-hover/btn:bg-white/5 dark:group-hover/btn:text-white"
     >
-      <div className="@max-5xs:p-1 flex items-center justify-center gap-1 p-2">
-        {props.children}
-      </div>
+      <div className="@max-5xs:p-1 p-2">{props.children}</div>
     </div>
   )
 }
