@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export function Footer() {
   return (
-    <footer className="relative z-30 mx-auto flex w-full max-w-2xl justify-end px-4 py-10">
+    <footer className="relative z-30 mx-auto flex w-full max-w-2xl justify-end px-4 py-10 font-mono">
       <div className="text-2xs font-semibold text-gray-900 uppercase dark:text-white">
         <ul
           className="space-x-1 text-right *:inline-block *:before:mr-1 *:before:inline-block

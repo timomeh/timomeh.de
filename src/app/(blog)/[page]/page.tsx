@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { unstable_ViewTransition as ViewTransition } from 'react'
 
 import { MDX } from '@/comps/mdx/mdx'
 import { Prose } from '@/comps/prose'
@@ -23,14 +24,18 @@ export default async function Page(props: Props) {
       className="relative"
       data-landmark="content-page"
     >
-      <Prose>
-        <MDX
-          cacheKey={`page-${page.slug}`}
-          cacheTags={['mdx-type:page', `mdx-page:${page.slug}`]}
-          content={page.content}
-          assetPrefix={contentAsset('pages', page.slug, '')}
-        />
-      </Prose>
+      <div className="p-4 sm:p-6 md:p-8">
+        <ViewTransition>
+          <Prose>
+            <MDX
+              cacheKey={`page-${page.slug}`}
+              cacheTags={['mdx-type:page', `mdx-page:${page.slug}`]}
+              content={page.content}
+              assetPrefix={contentAsset('pages', page.slug, '')}
+            />
+          </Prose>
+        </ViewTransition>
+      </div>
     </article>
   )
 }

@@ -69,7 +69,8 @@ export default async function RootLayout({ children, header, aside }: Props) {
               <KeyboardNavLink href="#main">Skip header</KeyboardNavLink>
               {header}
               <div
-                className="mx-auto w-fit max-w-full gap-2 px-2 sm:grid sm:grid-cols-[minmax(0,700px)_auto]"
+                className="mx-auto w-full gap-2 px-2 sm:grid sm:w-fit sm:max-w-full
+                  sm:grid-cols-[minmax(0,700px)_auto]"
                 id="main"
               >
                 <div className="relative order-2">
