@@ -3,6 +3,7 @@ import { Card } from '@/comps/card'
 import { BackWidget } from '../../_widgets/back-widget'
 import { LinksWidget } from '../../_widgets/links-widget'
 import { PostNavigationWidget } from '../../_widgets/post-navigation-widget'
+import { PostTagsWidget } from '../../_widgets/post-tags-widget'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -18,12 +19,23 @@ export default async function Page({ params }: Props) {
         lg:w-[220px] dark:max-sm:bg-black/40"
     >
       <Card>
-        <div className="divide-y divide-gray-400/30 dark:divide-gray-600/30">
-          <section aria-label="Post Navigation">
+        <div>
+          <section
+            aria-label="Next and previous post"
+            className="@max-5xs:p-1 p-2"
+          >
             <PostNavigationWidget currentSlug={slug} />
           </section>
-          <BackWidget />
-          <section aria-label="Site Links">
+          <div className="@max-5xs:p-1 border-t border-gray-400/30 p-2 dark:border-gray-600/30">
+            <section aria-label="Post’s Tags" className="@max-5xs:hidden mb-2">
+              <PostTagsWidget currentSlug={slug} />
+            </section>
+            <BackWidget />
+          </div>
+          <section
+            aria-label="Site Links"
+            className="@max-5xs:p-1 border-t border-gray-400/30 p-2 dark:border-gray-600/30"
+          >
             <LinksWidget />
           </section>
         </div>

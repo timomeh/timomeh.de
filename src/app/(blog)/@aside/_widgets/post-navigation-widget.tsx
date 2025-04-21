@@ -12,7 +12,7 @@ export async function PostNavigationWidget({ currentSlug }: Props) {
   const olderPost = await getOlderPost(currentSlug)
 
   return (
-    <div className="@max-5xs:p-1 @max-5xs:gap-1 flex flex-col items-stretch gap-2 p-2">
+    <div className="@max-5xs:gap-1 flex flex-col items-stretch gap-2">
       {newerPost && (
         <Link
           className="group/btn"

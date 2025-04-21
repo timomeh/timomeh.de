@@ -11,7 +11,7 @@ export function SortWidget({ sortParam }: Props) {
   const activeSort = sortParam?.toString() === 'asc' ? 'asc' : null
 
   return (
-    <div className="@max-5xs:p-1 grid grid-cols-2 gap-1 p-2">
+    <div className="grid grid-cols-2 gap-1">
       <ChangeSortLink
         sort={null}
         className="group/btn relative block"

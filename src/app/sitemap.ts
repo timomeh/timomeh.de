@@ -13,7 +13,21 @@ export default async function sitemap() {
     generatePageSitemap(),
   ])
 
-  return [...years, ...tags, ...posts, ...page] satisfies MetadataRoute.Sitemap
+  const misc = [
+    {
+      url: fullUrl('/tags'),
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+  ] satisfies MetadataRoute.Sitemap
+
+  return [
+    ...years,
+    ...tags,
+    ...posts,
+    ...misc,
+    ...page,
+  ] satisfies MetadataRoute.Sitemap
 }
 
 async function generateTagsSitemap() {

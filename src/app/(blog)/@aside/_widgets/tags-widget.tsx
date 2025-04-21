@@ -14,7 +14,7 @@ export async function TagsWidget({ sortParam, tagParam }: Props) {
   const activeTag = tagParam
 
   return (
-    <div className="@max-5xs:p-1 p-2">
+    <div>
       {tags.map((tag) => (
         <Link
           key={tag.slug}
@@ -27,6 +27,12 @@ export async function TagsWidget({ sortParam, tagParam }: Props) {
           <Tag title={tag.title} active={tag.slug === activeTag} />
         </Link>
       ))}
+      <Link
+        href="/tags"
+        className="group/btn inline-flex p-0.5 opacity-70 transition hover:opacity-100"
+      >
+        <Tag title="Browse tags…" />
+      </Link>
     </div>
   )
 }

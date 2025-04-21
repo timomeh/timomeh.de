@@ -5,7 +5,7 @@ import { BackLink } from '@/comps/back-link'
 export function BackWidget() {
   return (
     <ViewTransition name="sidebar-back-widget">
-      <div className="@max-5xs:p-1 p-2">
+      <div>
         <BackLink className="group/btn">
           <Item>
             <div className="text-center text-xs font-medium">All posts</div>

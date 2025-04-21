@@ -22,21 +22,31 @@ export async function PostsListSidebar({ params, searchParams }: Props) {
         lg:w-[220px] dark:max-sm:bg-black/40"
     >
       <Card>
-        <div className="divide-y divide-gray-400/30 dark:divide-gray-600/30">
-          <section aria-label="Years" className="sticky top-0">
+        <div>
+          <section aria-label="Years" className="@max-5xs:p-1 p-2">
             <YearsWidget
               sortParam={sortParam}
               tagParam={tagParam}
               yearParam={yearParam}
             />
           </section>
-          <section aria-label="Sort">
+          <section
+            aria-label="Sort"
+            className="@max-5xs:p-1 border-t border-gray-400/30 p-2 dark:border-gray-600/30"
+          >
             <SortWidget sortParam={sortParam} />
           </section>
-          <section aria-label="Tags" className="@max-5xs:hidden">
+          <section
+            aria-label="Tags"
+            className="@max-5xs:hidden @max-5xs:p-1 border-t border-gray-400/30 p-2
+              dark:border-gray-600/30"
+          >
             <TagsWidget sortParam={sortParam} tagParam={tagParam} />
           </section>
-          <section aria-label="Links">
+          <section
+            aria-label="Links"
+            className="@max-5xs:p-1 border-t border-gray-400/30 p-2 dark:border-gray-600/30"
+          >
             <LinksWidget />
           </section>
         </div>

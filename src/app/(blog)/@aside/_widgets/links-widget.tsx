@@ -4,20 +4,21 @@ import { unstable_ViewTransition as ViewTransition } from 'react'
 import { DarkLightIcon } from '@/comps/icons/darklight'
 import { DownasaurIcon } from '@/comps/icons/downasaur'
 import { FeedIcon } from '@/comps/icons/feed'
+import { TagIcon } from '@/comps/icons/tag'
 import { SwitchThemeButton } from '@/comps/switch-theme-button'
 
 export function LinksWidget() {
   return (
     <ViewTransition name="sidebar-links-widget">
-      <div className="@max-5xs:grid-cols-1 @max-5xs:p-1 grid grid-cols-3 gap-1 p-2">
-        {/* <Link href="/tags" className="group/btn @max-5xs:block relative hidden">
+      <div className="@max-5xs:grid-cols-1 grid grid-cols-3 gap-1">
+        <Link href="/tags" className="group/btn @max-5xs:block relative hidden">
           <Item>
             <div className="@max-5xs:size-3 size-4">
-              <TagIcon className="size-full" />
+              <TagIcon />
             </div>
             <div className="text-xs font-medium">Tags</div>
           </Item>
-        </Link> */}
+        </Link>
         <SwitchThemeButton
           aria-label="Switch color theme"
           className="group/btn"

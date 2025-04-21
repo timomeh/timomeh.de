@@ -19,7 +19,7 @@ export async function YearsWidget({ yearParam, sortParam, tagParam }: Props) {
       : postYears[0].year
 
   return (
-    <div className="@max-5xs:grid-cols-1 @max-5xs:p-1 grid grid-cols-2 gap-1 p-2">
+    <div className="@max-5xs:grid-cols-1 grid grid-cols-2 gap-1">
       {postYears.map((postYear) => (
         <Link
           key={postYear.year}
