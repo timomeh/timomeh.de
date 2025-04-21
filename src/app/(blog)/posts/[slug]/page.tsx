@@ -1,12 +1,15 @@
 import { Metadata } from 'next'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 import { ConditionalViewTransition } from '@/comps/conditional-view-transition'
 import { MDX } from '@/comps/mdx/mdx'
 import { PostHeader } from '@/comps/post-header'
 import { Prose } from '@/comps/prose'
+import { Tag } from '@/comps/tag'
 import { contentAsset } from '@/data/cms'
 import { getPost } from '@/data/posts'
+import { getTag } from '@/data/tags'
 import { formatReadingTime } from '@/lib/formatReadingTime'
 
 type Props = {
@@ -19,6 +22,9 @@ export default async function Page(props: Props) {
   const params = await props.params
   const post = await getPost(params.slug)
   if (!post) notFound()
+
+  const nullableTags = await Promise.all(post.tags.map((slug) => getTag(slug)))
+  const tags = nullableTags.filter((tag) => tag !== null)
 
   return (
     <article
@@ -37,6 +43,17 @@ export default async function Page(props: Props) {
                 'read',
               )}
             />
+            <div className="not-prose -m-0.5 mb-2 hidden sm:block lg:hidden">
+              {tags.map((tag) => (
+                <Link
+                  key={tag.slug}
+                  href={`/tag/${tag.slug}`}
+                  className="group/btn inline-flex p-0.5"
+                >
+                  <Tag title={tag.title} />
+                </Link>
+              ))}
+            </div>
             <MDX
               cacheKey={`post-${post.slug}`}
               cacheTags={['mdx-type:post', `mdx-post:${post.slug}`]}
