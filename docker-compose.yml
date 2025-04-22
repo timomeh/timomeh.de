@@ -18,7 +18,7 @@ services:
       - path: ./.env.production
         required: false
   dragonfly:
-    image: 'docker.dragonflydb.io/dragonflydb/dragonfly'
+    image: 'docker.dragonflydb.io/dragonflydb/dragonfly:v1.28.0'
     ports:
       - '6379:6379'
     volumes:
