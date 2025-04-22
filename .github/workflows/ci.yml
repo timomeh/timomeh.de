@@ -71,7 +71,7 @@ jobs:
       - name: cache database
         uses: actions/cache@v4
         with:
-          path: db/blog.db
+          path: blog.db
           key: ${{ runner.os }}-sqlite-blogdb-${{ hashFiles('**/*.ts', '**/*.tsx') }}
           restore-keys: ${{ runner.os }}-sqlite-blogdb-
       - name: cache nextjs fetch cache
@@ -90,7 +90,7 @@ jobs:
         run: |
           echo "GITHUB_CONTENT_PAT=${{ secrets.BLOG_GH_ACCESS_TOKEN }}" >> .env.local
           echo "SITE_URL=http://localhost:3000" >> .env.local
-          echo "DB_FILE_NAME=./db/blog.db" >> .env.local
+          echo "DB_FILE_NAME=./blog.db" >> .env.local
           echo "NUKE_SECRET=test" >> .env.local
       - run: pnpm db:push
       - run: docker compose up -d
