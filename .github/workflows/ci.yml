@@ -59,8 +59,6 @@ jobs:
     needs: build
     timeout-minutes: 15
     runs-on: ubuntu-24.04-arm
-    env:
-      REDIS_VOLUME: './dragonflydata'
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -70,14 +68,12 @@ jobs:
           cache: pnpm
       - run: pnpm install
       - run: pnpm exec playwright install --with-deps chromium --only-shell
-      - name: cache dragonfly data
+      - name: cache database
         uses: actions/cache@v4
         with:
-          path: dragonflydata
-          key: ${{ runner.os }}-dragonflydata-v3-${{ hashFiles('**/*.ts', '**/*.tsx') }}
-          restore-keys: ${{ runner.os }}-dragonflydata-v3-
-      - name: ensure redis cache permissions
-        run: sudo mkdir -p "$REDIS_VOLUME" && sudo chmod -R 777 "$REDIS_VOLUME"
+          path: db/blog.db
+          key: ${{ runner.os }}-sqlite-blogdb-${{ hashFiles('**/*.ts', '**/*.tsx') }}
+          restore-keys: ${{ runner.os }}-sqlite-blogdb-
       - name: cache nextjs fetch cache
         uses: actions/cache@v4
         with:
@@ -93,8 +89,8 @@ jobs:
       - name: Export secrets
         run: |
           echo "GITHUB_CONTENT_PAT=${{ secrets.BLOG_GH_ACCESS_TOKEN }}" >> .env.local
-          echo "REDIS_DB_URL=redis://dragonfly:6379" >> .env.local
           echo "SITE_URL=http://localhost:3000" >> .env.local
+          echo "DB_FILE_NAME=./db/blog.db" >> .env.local
           echo "NUKE_SECRET=test" >> .env.local
       - run: docker compose up -d
       - run: pnpm test
@@ -112,6 +108,3 @@ jobs:
         if: always()
       - run: docker compose down
         if: failure() || success()
-      - name: ensure redis cache permissions
-        run: sudo mkdir -p "$REDIS_VOLUME" && sudo chmod -R 777 "$REDIS_VOLUME"
-        if: always()

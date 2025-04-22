@@ -21,7 +21,7 @@ export default async function Page() {
               {tags.map((tag) => (
                 <li key={tag.slug}>
                   <Link href={`/tag/${tag.slug}`}>
-                    {tag.title} ({pluralizePosts(tag.postsCount)})
+                    {tag.title} ({pluralizePosts(tag.postCount)})
                   </Link>
                 </li>
               ))}

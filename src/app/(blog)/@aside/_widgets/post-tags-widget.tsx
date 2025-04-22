@@ -1,23 +1,19 @@
 import Link from 'next/link'
 
 import { Tag } from '@/comps/tag'
-import { getPost } from '@/data/posts'
-import { getTag } from '@/data/tags'
+import { getPostBySlug } from '@/data/posts'
 
 type Props = {
   currentSlug: string
 }
 
 export async function PostTagsWidget({ currentSlug }: Props) {
-  const post = await getPost(currentSlug)
+  const post = await getPostBySlug(currentSlug)
   if (!post) return null
-
-  const nullableTags = await Promise.all(post.tags.map((slug) => getTag(slug)))
-  const tags = nullableTags.filter((tag) => tag !== null)
 
   return (
     <div>
-      {tags.map((tag) => (
+      {post.postTags.map(({ tag }) => (
         <Link
           key={tag.slug}
           href={`/tag/${tag.slug}`}

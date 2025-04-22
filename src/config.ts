@@ -13,7 +13,4 @@ export const config = {
     contentPat: process.env.GITHUB_CONTENT_PAT!,
     webhookSecret: process.env.GITHUB_WEBHOOK_SECRET!,
   },
-  redis: {
-    url: process.env.REDIS_DB_URL,
-  },
 }

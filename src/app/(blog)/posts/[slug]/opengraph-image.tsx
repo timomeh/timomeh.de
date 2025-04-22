@@ -3,7 +3,7 @@ import { ImageResponse } from 'next/og'
 
 import { getFonts, OpengraphBaseImage } from '@/comps/og-base-image'
 import { contentAsset } from '@/data/cms'
-import { getPost } from '@/data/posts'
+import { getPostBySlug } from '@/data/posts'
 import { formatReadingTime } from '@/lib/formatReadingTime'
 
 export const generateStaticParams = () => []
@@ -20,11 +20,11 @@ type Props = {
 }
 
 export default async function Image({ params }: Props) {
-  const post = await getPost(params.slug)
+  const post = await getPostBySlug(params.slug)
   if (!post) notFound()
 
-  const cover = post.frontmatter.darkCover
-    ? contentAsset('posts', post.slug, post.frontmatter.darkCover)
+  const cover = post.darkCover
+    ? contentAsset('posts', post.slug, post.darkCover)
     : undefined
 
   return new ImageResponse(
@@ -33,11 +33,7 @@ export default async function Image({ params }: Props) {
         title={[post.title]}
         cover={cover}
         date={post.publishedAt}
-        est={formatReadingTime(
-          post.content,
-          post.frontmatter.readingTime,
-          'read',
-        )}
+        est={formatReadingTime(post.content, post.readingTime, 'read')}
       />
     ),
     {

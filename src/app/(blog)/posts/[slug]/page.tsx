@@ -8,8 +8,7 @@ import { PostHeader } from '@/comps/post-header'
 import { Prose } from '@/comps/prose'
 import { Tag } from '@/comps/tag'
 import { contentAsset } from '@/data/cms'
-import { getPost } from '@/data/posts'
-import { getTag } from '@/data/tags'
+import { getPostBySlug } from '@/data/posts'
 import { formatReadingTime } from '@/lib/formatReadingTime'
 
 type Props = {
@@ -20,15 +19,12 @@ export const fetchCache = 'force-cache'
 
 export default async function Page(props: Props) {
   const params = await props.params
-  const post = await getPost(params.slug)
+  const post = await getPostBySlug(params.slug)
   if (!post) notFound()
-
-  const nullableTags = await Promise.all(post.tags.map((slug) => getTag(slug)))
-  const tags = nullableTags.filter((tag) => tag !== null)
 
   return (
     <article
-      lang={post.meta.lang?.split('_')[0]}
+      lang={post.metaLang?.split('_')[0]}
       className="relative"
       data-landmark="content-page"
     >
@@ -38,12 +34,12 @@ export default async function Page(props: Props) {
             publishedAt={post.publishedAt}
             readingTime={formatReadingTime(
               post.content,
-              post.frontmatter.readingTime,
+              post.readingTime,
               'read',
             )}
           />
           <div className="not-prose -m-0.5 mb-2 hidden sm:block lg:hidden">
-            {tags.map((tag) => (
+            {post.postTags.map(({ tag }) => (
               <Link
                 key={tag.slug}
                 href={`/tag/${tag.slug}`}
@@ -71,19 +67,19 @@ export async function generateStaticParams() {
 
 export async function generateMetadata(props: Props) {
   const params = await props.params
-  const post = await getPost(params.slug)
+  const post = await getPostBySlug(params.slug)
   if (!post) notFound()
 
   const metadata: Metadata = {
     title: post.title,
-    description: post.meta.description,
+    description: post.metaDescription,
     openGraph: {
       type: 'article',
-      description: post.meta.description || undefined,
+      description: post.metaDescription || undefined,
       publishedTime: post.publishedAt.toISOString(),
       modifiedTime: post.updatedAt?.toISOString(),
       authors: ['Timo Mämecke'],
-      locale: post.meta.lang || undefined,
+      locale: post.metaLang || undefined,
     },
     alternates: {
       types: {
@@ -94,9 +90,9 @@ export async function generateMetadata(props: Props) {
     },
   }
 
-  if (post.meta.image) {
+  if (post.metaImage) {
     metadata.openGraph!.images = [
-      { url: contentAsset('posts', post.slug, post.meta.image) },
+      { url: contentAsset('posts', post.slug, post.metaImage) },
     ]
   }
 

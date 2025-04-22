@@ -1,83 +1,53 @@
-import { unstable_cache } from 'next/cache'
+import { count, desc, eq } from 'drizzle-orm'
 import { cache } from 'react'
 
+import { db, schema } from '@/db/client'
 import { log as baseLog } from '@/lib/log'
 
 import { cms } from './cms'
-import { db, repo } from './db'
-import { listPublishedPosts } from './posts'
 
 const log = baseLog.child().withContext({ module: 'data/tags' })
 
-type Filter = {}
-
 export const listTags = cache(async () => {
-  await db.connect()
+  const tags = await db
+    .select({
+      id: schema.tags.id,
+      title: schema.tags.title,
+      slug: schema.tags.slug,
+      postCount: count(schema.postTags.postId),
+    })
+    .from(schema.tags)
+    .innerJoin(schema.postTags, eq(schema.tags.id, schema.postTags.tagId))
+    .groupBy(schema.tags.id)
+    .orderBy(desc(count(schema.postTags.postId)))
 
-  const tags = await queryTags().return.all()
-  const counts = await Promise.all(tags.map((tag) => cachedTagCount(tag.slug)))
-
-  const tagsWithCount = tags
-    .map((tag, i) => ({
-      ...tag,
-      postsCount: counts[i],
-    }))
-    .sort((a, b) => b.postsCount - a.postsCount)
-
-  return tagsWithCount
+  return tags
 })
 
-const cachedTagCount = unstable_cache(
-  async (tagSlug: string) => {
-    const posts = await listPublishedPosts({ tag: tagSlug })
-    return posts.length
-  },
-  ['tag-count'],
-  { tags: ['tag-count'] },
-)
+export const getTagBySlug = cache(async (slug: string) => {
+  const tag = await db.query.tags.findFirst({
+    where: (tag, q) => q.eq(tag.slug, slug),
+  })
 
-export const getTag = cache(async (slug: string) => {
-  await db.connect()
-
-  const tag = await queryTags().where('slug').equals(slug).return.first()
   return tag
 })
 
-function queryTags(_filter: Filter = {}) {
-  let query = repo.tags.search()
-
-  return query
-}
-
-export async function cacheAllTags() {
-  await db.connect()
-
-  const tags = await cms.tags.all()
-  const ids = await repo.tags.search().return.allIds()
-  await repo.tags.remove(...ids)
-
-  await Promise.all(tags.map((tag) => repo.tags.save(tag.slug, tag)))
-
-  try {
-    await repo.tags.createIndex()
-  } catch (error) {
-    log.withError(error).warn('Error when trying to create the index for tags')
-  }
-}
-
 export async function updateTagCache(slug: string) {
-  await db.connect()
-
   const tag = await cms.tags.get(slug)
-  const cached = await repo.tags.fetch(slug)
+  const storedTag = await db.query.tags.findFirst({
+    where: (tag, q) => q.eq(tag.slug, slug),
+  })
 
-  if (!tag && cached) {
+  if (!tag && storedTag) {
     log.withMetadata({ slug }).info('Removing record')
-    await repo.tags.remove(slug)
+    await db.delete(schema.tags).where(eq(schema.tags.id, storedTag.id))
   }
 
   if (tag) {
     log.withMetadata({ slug }).info('Saving record')
-    await repo.tags.save(slug, tag)
+    await db.insert(schema.tags).values(tag).onConflictDoUpdate({
+      target: schema.posts.slug,
+      set: tag,
+    })
   }
 }

@@ -5,7 +5,7 @@ import { Suspense } from 'react'
 import { MDX } from '@/comps/mdx/mdx'
 import { config } from '@/config'
 import { contentAsset } from '@/data/cms'
-import { getPost } from '@/data/posts'
+import { getPostBySlug } from '@/data/posts'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -31,7 +31,7 @@ export async function generateStaticParams() {
 
 async function SimplePost(props: Props) {
   const params = await props.params
-  const post = await getPost(params.slug)
+  const post = await getPostBySlug(params.slug)
   if (!post) notFound()
 
   // strip h1 but only if it isn't a link
@@ -67,7 +67,7 @@ async function SimplePost(props: Props) {
 }
 
 export async function SuperSimplePost(props: { slug: string }) {
-  const post = await getPost(props.slug)
+  const post = await getPostBySlug(props.slug)
   if (!post) notFound()
 
   // strip h1 but only if it isn't a link

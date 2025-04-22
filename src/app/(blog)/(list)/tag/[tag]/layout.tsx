@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { contentAsset } from '@/data/cms'
-import { getTag } from '@/data/tags'
+import { getTagBySlug } from '@/data/tags'
 
 type Props = {
   children: React.ReactNode
@@ -17,13 +17,13 @@ export default function Layout({ children }: Props) {
 
 export async function generateMetadata(props: Props) {
   const params = await props.params
-  const tag = await getTag(params.tag)
+  const tag = await getTagBySlug(params.tag)
   if (!tag) notFound()
 
   const metadata: Metadata = {
     title: tag.title,
     description:
-      tag.meta.description ||
+      tag.metaDescription ||
       `More or less coherent thoughts about ${tag.title}.`,
     openGraph: {},
     alternates: {
@@ -35,9 +35,9 @@ export async function generateMetadata(props: Props) {
     },
   }
 
-  if (tag.meta.image) {
+  if (tag.metaImage) {
     metadata.openGraph!.images = [
-      { url: contentAsset('tags', tag.slug, tag.meta.image) },
+      { url: contentAsset('tags', tag.slug, tag.metaImage) },
     ]
   }
 

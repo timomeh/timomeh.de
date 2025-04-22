@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 
-import { getSettings } from '@/data/settings'
+import { getDefaultKickers } from '@/data/settings'
 import { sample } from '@/lib/sample'
 
 export function RandomKicker() {
@@ -18,10 +18,10 @@ export function RandomKicker() {
 }
 
 async function RandomKickerSentence() {
-  const { kickers } = await getSettings()
+  const kickers = await getDefaultKickers()
   const fallback = 'a head full of milk foam by'
 
-  const kicker = kickers?.length > 0 ? sample(kickers) : fallback
+  const kicker = kickers.length > 0 ? sample(kickers) : fallback
 
   return <span data-loaded="true">{kicker}</span>
 }

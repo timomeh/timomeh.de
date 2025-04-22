@@ -9,7 +9,7 @@ import { MDX } from '@/comps/mdx/mdx'
 import { PostHeader } from '@/comps/post-header'
 import { Prose } from '@/comps/prose'
 import { contentAsset } from '@/data/cms'
-import { getPost } from '@/data/posts'
+import { getPostBySlug } from '@/data/posts'
 import { formatReadingTime } from '@/lib/formatReadingTime'
 import { getPlaceholder } from '@/lib/placeholder'
 
@@ -18,34 +18,30 @@ type Props = {
 }
 
 export async function ListedPost({ slug }: Props) {
-  const post = await getPost(slug)
+  const post = await getPostBySlug(slug)
   if (!post) return null
 
   const [lightCover, darkCover] = await Promise.all([
-    post.frontmatter.lightCover
-      ? await getPlaceholder(
-          contentAsset('posts', slug, post.frontmatter.lightCover),
-        )
+    post.lightCover
+      ? await getPlaceholder(contentAsset('posts', slug, post.lightCover))
       : null,
-    post.frontmatter.darkCover
-      ? await getPlaceholder(
-          contentAsset('posts', slug, post.frontmatter.darkCover),
-        )
+    post.darkCover
+      ? await getPlaceholder(contentAsset('posts', slug, post.darkCover))
       : null,
   ])
 
   return (
-    <article lang={post.meta.lang?.split('_')[0]} id={slug}>
+    <article lang={post.metaLang?.split('_')[0]} id={slug}>
       <Card>
-        {post?.frontmatter.lightBgColor && (
+        {post?.lightBgColor && (
           <div
-            style={{ background: post?.frontmatter.lightBgColor }}
+            style={{ background: post.lightBgColor }}
             className="absolute inset-0 -z-10 mix-blend-multiply dark:hidden"
           />
         )}
-        {post?.frontmatter.darkBgColor && (
+        {post?.darkBgColor && (
           <div
-            style={{ background: post?.frontmatter.darkBgColor }}
+            style={{ background: post.darkBgColor }}
             className="absolute inset-0 -z-10 hidden mix-blend-exclusion dark:block"
           />
         )}
@@ -97,7 +93,7 @@ export async function ListedPost({ slug }: Props) {
                   publishedAt={post.publishedAt}
                   readingTime={formatReadingTime(
                     post.content,
-                    post.frontmatter.readingTime,
+                    post.readingTime,
                     'read',
                   )}
                 />

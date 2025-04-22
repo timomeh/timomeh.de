@@ -1,79 +1,52 @@
+import { eq } from 'drizzle-orm'
 import { cache } from 'react'
 
+import { db, schema } from '@/db/client'
 import { log as baseLog } from '@/lib/log'
 
-import { cms, Page } from './cms'
-import { db, repo } from './db'
+import { cms } from './cms'
 
 const log = baseLog.child().withContext({ module: 'data/pages' })
 
-type Filter = {
-  visibility?: Page['visibility'][]
-}
-
-export const listPages = cache(async () => {
-  await db.connect()
-
-  const pages = await queryPages({ visibility: ['public'] }).return.all()
+export const listPublicPages = cache(async () => {
+  const pages = await db.query.pages.findMany({
+    where: (page, q) => q.eq(page.visibility, 'public'),
+  })
 
   return pages
 })
 
-export const getPage = cache(async (slug: string) => {
-  await db.connect()
-
-  const page = await queryPages({ visibility: ['public'] })
-    .where('slug')
-    .equals(slug)
-    .return.first()
+export const getPageBySlug = cache(async (slug: string) => {
+  const page = await db.query.pages.findFirst({
+    where: (page, q) => q.eq(page.slug, slug),
+  })
 
   return page
 })
 
-function queryPages(filter: Filter = {}) {
-  let query = repo.pages.search()
-
-  if (filter.visibility) {
-    const [first, ...more] = filter.visibility
-    query = query.where('visibility').equals(first)
-
-    for (const visibility of more) {
-      query = query.or('visibility').equals(visibility)
-    }
-  }
-
-  return query
-}
-
 export async function cacheAllPages() {
-  await db.connect()
-
   const pages = await cms.pages.all()
-  const ids = await repo.pages.search().return.allIds()
-  await repo.pages.remove(...ids)
 
-  await Promise.all(pages.map((page) => repo.pages.save(page.slug, page)))
-
-  try {
-    await repo.pages.createIndex()
-  } catch (error) {
-    log.withError(error).warn('Error when trying to create the index for pages')
-  }
+  await db.delete(schema.pages)
+  await db.insert(schema.pages).values(pages)
 }
 
 export async function updatePageCache(slug: string) {
-  await db.connect()
-
   const page = await cms.pages.get(slug)
-  const cached = await repo.pages.fetch(slug)
+  const storedPage = await db.query.pages.findFirst({
+    where: (page, q) => q.eq(page.slug, slug),
+  })
 
-  if (!page && cached) {
+  if (!page && storedPage) {
     log.withMetadata({ slug }).info('Removing record')
-    await repo.pages.remove(slug)
+    await db.delete(schema.pages).where(eq(schema.posts.id, storedPage.id))
   }
 
   if (page) {
     log.withMetadata({ slug }).info('Saving record')
-    await repo.pages.save(slug, page)
+    await db.insert(schema.pages).values(page).onConflictDoUpdate({
+      target: schema.pages.slug,
+      set: page,
+    })
   }
 }
