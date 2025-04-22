@@ -92,6 +92,7 @@ jobs:
           echo "SITE_URL=http://localhost:3000" >> .env.local
           echo "DB_FILE_NAME=./db/blog.db" >> .env.local
           echo "NUKE_SECRET=test" >> .env.local
+      - run: pnpm db:push
       - run: docker compose up -d
       - run: pnpm test
         env:
