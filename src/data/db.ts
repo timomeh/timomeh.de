@@ -52,7 +52,6 @@ const tagSchema = new Schema('tags', {
   title: { type: 'text' },
   slug: { type: 'string' },
   color: { type: 'string' },
-  sort: { type: 'number', sortable: true },
   frontmatter_kicker: { type: 'text', path: '$.frontmatter.kicker' },
   meta_description: { type: 'text', path: '$.meta.description' },
   meta_image: { type: 'string', path: '$.meta.image' },

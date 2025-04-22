@@ -47,27 +47,14 @@ export const cms = {
       })
       if (!tag) return null
 
-      const settings = await cms.settings.get()
-      const sortedTags = settings?.tags || []
-
-      return {
-        slug,
-        ...sanitizeTag(tag),
-        sort: sortedTags.indexOf(slug),
-      }
+      return { slug, ...sanitizeTag(tag) }
     },
     async all() {
       const tags = await reader.collections.tags.all({
         resolveLinkedFiles: true,
       })
-      const settings = await cms.settings.get()
-      const sortedTags = settings?.tags || []
 
-      return tags.map(({ slug, entry }) => ({
-        slug,
-        ...sanitizeTag(entry),
-        sort: sortedTags.indexOf(slug),
-      }))
+      return tags.map(({ slug, entry }) => ({ slug, ...sanitizeTag(entry) }))
     },
   },
   pages: {

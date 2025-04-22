@@ -9,14 +9,12 @@ import { listPublishedPosts } from './posts'
 
 const log = baseLog.child().withContext({ module: 'data/tags' })
 
-type Filter = {
-  listed?: boolean
-}
+type Filter = {}
 
 export const listTags = cache(async () => {
   await db.connect()
 
-  const tags = await queryTags({ listed: true }).return.all()
+  const tags = await queryTags().return.all()
   const counts = await Promise.all(tags.map((tag) => cachedTagCount(tag.slug)))
 
   const tagsWithCount = tags
@@ -45,12 +43,8 @@ export const getTag = cache(async (slug: string) => {
   return tag
 })
 
-function queryTags(filter: Filter = {}) {
+function queryTags(_filter: Filter = {}) {
   let query = repo.tags.search()
-
-  if (filter.listed) {
-    query = query.where('sort').is.greaterThanOrEqualTo(0)
-  }
 
   return query
 }
