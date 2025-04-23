@@ -1,6 +1,5 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { unstable_ViewTransition as ViewTransition } from 'react'
 
 import { Prose } from '@/comps/prose'
 import { listTags } from '@/data/tags'
@@ -14,7 +13,7 @@ export default async function Page() {
   return (
     <div className="relative">
       <div className="p-4 sm:p-6 md:p-8">
-        <ViewTransition>
+        <>
           <Prose>
             <h1>Browse all tags</h1>
             <ul>
@@ -27,7 +26,7 @@ export default async function Page() {
               ))}
             </ul>
           </Prose>
-        </ViewTransition>
+        </>
       </div>
     </div>
   )

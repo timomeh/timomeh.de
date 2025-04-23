@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { unstable_ViewTransition as ViewTransition } from 'react'
 
 import { DarkLightIcon } from '@/comps/icons/darklight'
 import { DownasaurIcon } from '@/comps/icons/downasaur'
@@ -9,7 +8,7 @@ import { SwitchThemeButton } from '@/comps/switch-theme-button'
 
 export function LinksWidget() {
   return (
-    <ViewTransition name="sidebar-links-widget">
+    <>
       <div className="@max-5xs:grid-cols-1 grid grid-cols-3 gap-1">
         <Link href="/tags" className="group/btn @max-5xs:block relative hidden">
           <Item>
@@ -58,7 +57,7 @@ export function LinksWidget() {
           </Item>
         </Link>
       </div>
-    </ViewTransition>
+    </>
   )
 }
 

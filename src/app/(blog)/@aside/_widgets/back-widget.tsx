@@ -1,10 +1,8 @@
-import { unstable_ViewTransition as ViewTransition } from 'react'
-
 import { BackLink } from '@/comps/back-link'
 
 export function BackWidget() {
   return (
-    <ViewTransition name="sidebar-back-widget">
+    <>
       <div>
         <BackLink className="group/btn">
           <Item>
@@ -12,7 +10,7 @@ export function BackWidget() {
           </Item>
         </BackLink>
       </div>
-    </ViewTransition>
+    </>
   )
 }
 

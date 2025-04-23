@@ -1,5 +1,4 @@
 import { CalendarArrowDownIcon, CalendarArrowUpIcon } from 'lucide-react'
-import { unstable_ViewTransition as ViewTransition } from 'react'
 
 import { ChangeSortLink } from '@/comps/change-sort-link'
 
@@ -45,9 +44,9 @@ function Item(props: { children: React.ReactNode; active: boolean }) {
         dark:group-hover/btn:text-white"
     >
       {props.active && (
-        <ViewTransition name="active-sort-bg">
+        <>
           <div className="absolute inset-0 rounded-md border border-blue-600/50 bg-blue-600/20" />
-        </ViewTransition>
+        </>
       )}
       <div
         className="@max-5xs:p-1.5 flex flex-col items-center justify-center gap-1 p-2
