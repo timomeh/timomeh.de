@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
 
   output: 'standalone',
   outputFileTracingIncludes: {
-    './**/*': ['./node_modules/.pnpm/@libsql*/**/*'],
+    './**/*': ['./node_modules/@libsql/**/*'],
   },
 
   poweredByHeader: false,
