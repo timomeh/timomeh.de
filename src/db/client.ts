@@ -1,10 +1,9 @@
 import { drizzle } from 'drizzle-orm/libsql'
 
 import * as schema from '@/db/schema'
-import { env } from '@/lib/env'
 
 export const db = drizzle({
-  connection: { url: env.DB_FILE_NAME },
+  connection: { url: 'file:./blog.db' },
   casing: 'snake_case',
   schema,
 })

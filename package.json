@@ -22,7 +22,6 @@
     "@libsql/client": "0.15.4",
     "@loglayer/transport-pino": "2.1.1",
     "@mdx-js/mdx": "3.1.0",
-    "@next/env": "15.3.1",
     "@octokit/webhooks": "13.8.0",
     "@octokit/webhooks-types": "7.6.1",
     "@plaiceholder/next": "3.0.0",
@@ -52,8 +51,7 @@
     "server-only": "0.0.1",
     "sharp": "0.34.1",
     "shiki": "3.2.2",
-    "unist-util-visit": "5.0.0",
-    "zod": "3.24.3"
+    "unist-util-visit": "5.0.0"
   },
   "devDependencies": {
     "@argos-ci/playwright": "5.0.3",
