@@ -12,7 +12,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test:ui": "pnpm test --ui",
-    "db:push": "drizzle-kit push --force",
+    "db:push": "mkdir -p db-data && drizzle-kit push --force",
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {

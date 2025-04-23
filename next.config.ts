@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
   },
 
   output: 'standalone',
+  outputFileTracingIncludes: {
+    './**/*': ['./node_modules/.pnpm/@libsql*/**/*'],
+  },
+
   poweredByHeader: false,
   compress: false,
 
