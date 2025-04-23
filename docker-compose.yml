@@ -10,7 +10,7 @@ services:
       - '3000:3000'
     volumes:
       - .next/cache/fetch-cache:/app/.next/cache/fetch-cache
-      - ./blog.db:/app/blog.db
+      - ./db-data/blog.db:/app/db-data/blog.db
     env_file:
       - path: ./.env
         required: false

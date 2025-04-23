@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  migrate:
+    image: node:22-slim
+    working_dir: /app
+    restart: no
+    command: >
+      sh -c "corepack enable &&
+             corepack prepare pnpm@latest --activate &&
+             pnpm install &&
+             pnpm drizzle-kit push"
+    volumes:
+      - timomeh-de-blog-db:/app/db-data/
+
+volumes:
+  timomeh-de-blog-db:

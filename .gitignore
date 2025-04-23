@@ -1,4 +1,4 @@
-blog.db
+/db-data/blog.db
 
 # dependencies
 /node_modules
