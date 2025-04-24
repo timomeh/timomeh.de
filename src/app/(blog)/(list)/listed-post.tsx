@@ -2,7 +2,6 @@ import Link from 'next/link'
 import React from 'react'
 
 import { Card } from '@/comps/card'
-import { ConditionalViewTransition } from '@/comps/conditional-view-transition'
 import { FadeInImage } from '@/comps/fade-in-image'
 import { Anchor } from '@/comps/mdx/anchor'
 import { MDX } from '@/comps/mdx/mdx'
@@ -87,53 +86,51 @@ export async function ListedPost({ slug }: Props) {
           </div>
         )}
         <div className="p-4 sm:p-6 md:p-8">
-          <ConditionalViewTransition name={`${post.slug}-post`}>
-            <Prose>
-              <Link
-                href={`/posts/${post.slug}`}
-                className="not-prose inline-flex"
-              >
-                <PostHeader
-                  publishedAt={post.publishedAt}
-                  readingTime={formatReadingTime(
-                    post.content,
-                    post.frontmatter.readingTime,
-                    'read',
-                  )}
-                />
-              </Link>
-              <MDX
-                components={{
-                  h1: (props) => {
-                    let hasLink = false
-
-                    React.Children.forEach(props.children, (child) => {
-                      hasLink = child.type === Anchor
-                    })
-
-                    if (hasLink) return <h1>{props.children}</h1>
-
-                    return (
-                      <h1>
-                        <Link
-                          href={`/posts/${post.slug}`}
-                          className="no-underline"
-                        >
-                          {props.children}
-                        </Link>
-                      </h1>
-                    )
-                  },
-                }}
-                cacheTags={['mdx-type:listed-post', `mdx-post:${post.slug}`]}
-                cacheKey={`listed-post-${post.slug}`}
-                assetPrefix={contentAsset('posts', post.slug, '')}
-                content={post.content}
-                readMorePath={`/posts/${post.slug}`}
-                scope={post.slug}
+          <Prose>
+            <Link
+              href={`/posts/${post.slug}`}
+              className="not-prose inline-flex"
+            >
+              <PostHeader
+                publishedAt={post.publishedAt}
+                readingTime={formatReadingTime(
+                  post.content,
+                  post.frontmatter.readingTime,
+                  'read',
+                )}
               />
-            </Prose>
-          </ConditionalViewTransition>
+            </Link>
+            <MDX
+              components={{
+                h1: (props) => {
+                  let hasLink = false
+
+                  React.Children.forEach(props.children, (child) => {
+                    hasLink = child.type === Anchor
+                  })
+
+                  if (hasLink) return <h1>{props.children}</h1>
+
+                  return (
+                    <h1>
+                      <Link
+                        href={`/posts/${post.slug}`}
+                        className="no-underline"
+                      >
+                        {props.children}
+                      </Link>
+                    </h1>
+                  )
+                },
+              }}
+              cacheTags={['mdx-type:listed-post', `mdx-post:${post.slug}`]}
+              cacheKey={`listed-post-${post.slug}`}
+              assetPrefix={contentAsset('posts', post.slug, '')}
+              content={post.content}
+              readMorePath={`/posts/${post.slug}`}
+              scope={post.slug}
+            />
+          </Prose>
         </div>
       </Card>
     </article>
