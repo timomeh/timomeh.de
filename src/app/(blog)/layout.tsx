@@ -2,7 +2,6 @@ import '@/styles/main.css'
 
 import { Viewport } from 'next'
 import { Bitter, IBM_Plex_Mono, Inter } from 'next/font/google'
-import { unstable_ViewTransition as ViewTransition } from 'react'
 import React from 'react'
 
 import { PrevPathProvider } from '@/comps/prev-path'
@@ -87,7 +86,7 @@ export default async function RootLayout({ children, header, aside }: Props) {
                     Jump to navigation
                   </KeyboardNavLink>
                   <div id="content" className="h-full">
-                    <ViewTransition>{children}</ViewTransition>
+                    {children}
                   </div>
                 </div>
               </div>

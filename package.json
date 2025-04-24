@@ -31,7 +31,6 @@
     "lucide-react": "0.501.0",
     "mdast": "3.0.0",
     "mdast-util-mdx": "3.0.0",
-    "motion": "12.9.1",
     "next": "15.3.1",
     "pino": "9.6.0",
     "pino-pretty": "13.0.0",

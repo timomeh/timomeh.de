@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
-import { LayoutAnimated } from '@/comps/LayoutAnimated'
 import { listPostYears } from '@/data/posts'
+import { ViewTransition } from '@/lib/react'
 
 type Props = {
   yearParam?: string
@@ -39,10 +39,9 @@ export async function YearsWidget({ yearParam, tagParam, sort }: Props) {
               dark:group-hover/btn:text-white"
           >
             {postYear.year === activeYear && (
-              <LayoutAnimated
-                layoutId="active-year-bg"
-                className="absolute inset-0 rounded-md border border-emerald-600/70 bg-emerald-600/20"
-              />
+              <ViewTransition name="active-year-bg">
+                <div className="absolute inset-0 rounded-md border border-emerald-600/70 bg-emerald-600/20" />
+              </ViewTransition>
             )}
             <div
               className="@max-5xs:p-1 @max-5xs:flex-row flex flex-col items-center justify-center p-2

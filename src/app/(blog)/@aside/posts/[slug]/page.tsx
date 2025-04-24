@@ -1,6 +1,5 @@
-import { unstable_ViewTransition as ViewTransition } from 'react'
-
 import { Card } from '@/comps/card'
+import { ViewTransition } from '@/lib/react'
 
 import { BackWidget } from '../../_widgets/back-widget'
 import { LinksWidget } from '../../_widgets/links-widget'
@@ -15,39 +14,41 @@ export default async function Page({ params }: Props) {
   const slug = (await params).slug
 
   return (
-    <ViewTransition name="sidebar">
-      <div
-        className="@container top-0 max-h-dvh w-[220px] rounded-xl max-sm:bg-white/40
-          max-sm:shadow-xl/20 max-sm:backdrop-blur-sm sm:sticky sm:w-[86px] sm:py-2
-          lg:w-[220px] dark:max-sm:bg-black/40"
-      >
-        <Card>
-          <div>
-            <section
-              aria-label="Next and previous post"
-              className="@max-5xs:p-1 p-2"
-            >
-              <PostNavigationWidget currentSlug={slug} />
-            </section>
-            <div className="@max-5xs:p-1 border-t border-gray-400/30 p-2 dark:border-gray-600/30">
+    <div className="top-0 max-h-dvh">
+      <ViewTransition name="sidebar">
+        <div
+          className="@container w-[220px] rounded-xl max-sm:bg-white/40 max-sm:shadow-xl/20
+            max-sm:backdrop-blur-sm sm:sticky sm:w-[86px] sm:py-2 lg:w-[220px]
+            dark:max-sm:bg-black/40"
+        >
+          <Card>
+            <div>
               <section
-                aria-label="Post’s Tags"
-                className="@max-5xs:hidden mb-2"
+                aria-label="Next and previous post"
+                className="@max-5xs:p-1 p-2"
               >
-                <PostTagsWidget currentSlug={slug} />
+                <PostNavigationWidget currentSlug={slug} />
               </section>
-              <BackWidget />
+              <div className="@max-5xs:p-1 border-t border-gray-400/30 p-2 dark:border-gray-600/30">
+                <section
+                  aria-label="Post’s Tags"
+                  className="@max-5xs:hidden mb-2"
+                >
+                  <PostTagsWidget currentSlug={slug} />
+                </section>
+                <BackWidget />
+              </div>
+              <section
+                aria-label="Site Links"
+                className="@max-5xs:p-1 border-t border-gray-400/30 p-2 dark:border-gray-600/30"
+              >
+                <LinksWidget />
+              </section>
             </div>
-            <section
-              aria-label="Site Links"
-              className="@max-5xs:p-1 border-t border-gray-400/30 p-2 dark:border-gray-600/30"
-            >
-              <LinksWidget />
-            </section>
-          </div>
-        </Card>
-      </div>
-    </ViewTransition>
+          </Card>
+        </div>
+      </ViewTransition>
+    </div>
   )
 }
 
