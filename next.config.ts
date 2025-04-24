@@ -12,9 +12,11 @@ const nextConfig: NextConfig = {
   },
 
   output: 'standalone',
-  outputFileTracingIncludes: {
-    './**/*': ['./node_modules/@libsql/**/*'],
-  },
+  serverExternalPackages: [
+    // for libsql
+    '@neon-rs/load',
+    'detect-libc',
+  ],
 
   poweredByHeader: false,
   compress: false,

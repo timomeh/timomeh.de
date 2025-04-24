@@ -47,7 +47,7 @@ export async function GET(request: NextRequest) {
   revalidateTag('feed-pre')
   revalidateTag('mdx')
   revalidatePath('/tags')
-  revalidatePath('/posts/[slug]')
+  revalidatePath('/posts/[slug]', 'page')
   revalidatePath('/[page]')
 
   log.info('Successfully nuked all caches')
