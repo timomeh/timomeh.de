@@ -97,6 +97,9 @@ jobs:
       - run: chmod +w ./db-data/blog.db
       - run: chmod +w ./db-data
       - run: id -u
+      - run: whoami
+      - run: chown 1001:1001 ./db-data
+      - run: chown 1001:1001 ./db-data/blog.db
       - run: docker compose up -d
       - run: pnpm test
         env:
