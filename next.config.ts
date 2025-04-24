@@ -15,14 +15,10 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     './**/*': [
       // required so that @libsql's pre-built binaries are included
-      './node_modules/.pnpm/@libsql*/**/*',
+      './node_modules/@libsql/darwin*/**/*',
+      './node_modules/@libsql/linux*/**/*',
     ],
   },
-  serverExternalPackages: [
-    // for libsql
-    '@neon-rs/load',
-    'detect-libc',
-  ],
 
   poweredByHeader: false,
   compress: false,
