@@ -1,7 +1,7 @@
 import Link from 'next/link'
-import { unstable_ViewTransition as ViewTransition } from 'react'
 
 import { listPostYears } from '@/data/posts'
+import { ViewTransition } from '@/lib/react'
 
 type Props = {
   yearParam?: string

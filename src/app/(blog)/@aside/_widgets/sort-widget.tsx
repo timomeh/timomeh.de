@@ -1,7 +1,7 @@
 import { CalendarArrowDownIcon, CalendarArrowUpIcon } from 'lucide-react'
-import { unstable_ViewTransition as ViewTransition } from 'react'
 
 import { ChangeSortLink } from '@/comps/change-sort-link'
+import { ViewTransition } from '@/lib/react'
 
 type Props = {
   sort?: 'asc' | 'desc' | null
