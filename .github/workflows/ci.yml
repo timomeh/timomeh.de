@@ -92,6 +92,11 @@ jobs:
           echo "SITE_URL=http://localhost:3000" >> .env.local
           echo "NUKE_SECRET=test" >> .env.local
       - run: pnpm db:push
+      - run: ls -al
+      - run: ls -al ./db-data
+      - run: chmod +w ./db-data/blog.db
+      - run: chmod +w ./db-data
+      - run: id -u
       - run: docker compose up -d
       - run: pnpm test
         env:
