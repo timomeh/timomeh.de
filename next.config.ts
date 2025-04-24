@@ -12,6 +12,12 @@ const nextConfig: NextConfig = {
   },
 
   output: 'standalone',
+  outputFileTracingIncludes: {
+    './**/*': [
+      // required so that @libsql's pre-built binaries are included
+      './node_modules/.pnpm/@libsql*/**/*',
+    ],
+  },
   serverExternalPackages: [
     // for libsql
     '@neon-rs/load',
