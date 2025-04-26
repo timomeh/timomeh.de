@@ -8,16 +8,7 @@ Source code from [timomeh.de](https://timomeh.de). Stack:
 - [Drizzle](https://orm.drizzle.team) with SQLite for caching and querying the content from GitHub
 - Docker Compose to build, deploy and migrate
 
-Is this stack overkill for a blog? Probably. Is it fun? Absolutely.
-
-While this is just a blog, the stack here can be used for dynamic pages as well.
-
-## Getting Started
-
-1. Fill in env variables
-2. `pnpm db:push` to prepare database
-3. `pnpm dev`
-4. Visit https://localhost:3000/webhooks/nuke to populate database
+Is this a bit overkill for a blog? Probably. Is it fun? Absolutely.
 
 ## Implementation details
 
@@ -27,17 +18,24 @@ All posts and pages, including images, are stored in a private GitHub repository
 
 ### Why cache in SQLite?
 
-[Keystatic](https://keystatic.com/) only supports fetching content by their slug. No filtering, no joins, no sort—you have to do that in JavaScript.
+[Keystatic](https://keystatic.com/) only supports fetching content by a slug or fetching everything. No filtering, no joins, no sort—you have to do that in JavaScript. This can result in a bunch of requests to the GitHub API.
 
-Next.js' caching could fix that, but _in theory_ I could still hit the GitHub API Rate Limits, especially when dependabot opens or rebases a bunch of PRs and E2E tests constantly fetch new content.
+A fetch cache could fix that, but _in theory_ I could still hit the GitHub API Rate Limits—especially when dependabot opens or rebases a bunch of PRs, and E2E tests constantly fetch new data from GitHub.
 
-That's why I cache it. Caching in SQLite additionally gives me filters, joins, sort. Whenever content in the private repository changes, GitHub triggers a webhook that updates the corresponding cache.
+That's why I cache it. Caching it in a SQL database additionally gives me filters, joins, sort. Whenever content in the private repository changes, GitHub triggers a webhook that updates the corresponding caches.
 
 ### Serving images
 
 Images are also stored in the private GitHub repository. To make them publicly accessible, I proxy and cache those images in a Next.js route handler.
 
 Videos are simply uploaded to YouTube, and YouTube links in posts are automatically converted to embeds.
+
+## Getting Started
+
+1. Fill in env variables
+2. `pnpm db:push` to prepare database
+3. `pnpm dev`
+4. Visit https://localhost:3000/webhooks/nuke to populate database
 
 ## Publish
 
