@@ -48,7 +48,7 @@ export async function GET(request: NextRequest) {
   revalidateTag('mdx')
   revalidatePath('/tags')
   revalidatePath('/posts/[slug]', 'page')
-  revalidatePath('/[page]')
+  revalidatePath('/[page]', 'page')
 
   log.info('Successfully nuked all caches')
 
