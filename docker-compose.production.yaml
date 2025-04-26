@@ -54,4 +54,4 @@ services:
       app:
         condition: service_healthy
     volumes:
-      - db-data:/app/db-data/
+      - db-data:/app/db-data
