@@ -3,6 +3,7 @@ version: '3.9'
 services:
   app:
     image: ghcr.io/timomeh/timomeh.de:sqlite
+    pull_policy: always
     healthcheck:
       test:
         - CMD-SHELL

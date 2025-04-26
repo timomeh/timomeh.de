@@ -1,12 +1,16 @@
 ## [timomeh.de](https://timomeh.de)
 
-Source code from [timomeh.de](https://timomeh.de). It's built with Next.js, [Keystatic](https://keystatic.com/) as CMS, and SQLite for caching and querying content.
+Source code from [timomeh.de](https://timomeh.de). Stack:
 
-I wrote posts about [how I'd like my blog to work](https://timomeh.de/posts/how-to-build-a-blog) and [how I implemented it](https://timomeh.de/posts/how-i-built-this-blog) – although this implementation post is outdated and has changed a lot. This README reflects the most up-to-date implementation.
+- Next.js
+- Content stored in a separate (private) GitHub Repo
+- [Keystatic](https://keystatic.com/) as CMS
+- [Drizzle](https://orm.drizzle.team) with SQLite for caching and querying the content from GitHub
+- Docker Compose to build, deploy and migrate
 
-See also:
+Is this stack overkill for a blog? Probably. Is it fun? Absolutely.
 
-- ["Take Care of Your Blog"](https://www.robinrendle.com/notes/take-care-of-your-blog-/) by Robin Rendle
+While this is just a blog, the stack here can be used for dynamic pages as well.
 
 ## Getting Started
 
@@ -19,15 +23,15 @@ See also:
 
 ### Where do I store content?
 
-All content, including images, is stored in a private GitHub repository. I use [Keystatic](https://keystatic.com/) as a CMS to manage this content. I enjoy the editing experience in a WYSIWYG editor in my browser, with support for drag-and-drop file uploads. Keeping the content repository private allows me to work on drafts in private.
+All posts and pages, including images, are stored in a private GitHub repository as MDX. I use [Keystatic](https://keystatic.com/) as a CMS to manage this content. I enjoy the editing experience in a WYSIWYG editor in my browser, with support for drag-and-drop file uploads. Keeping the content repository private allows me to work on drafts in private.
 
-### Storing content in SQLite
+### Why cache in SQLite?
 
-[Keystatic](https://keystatic.com/) only supports fetching content by its slug. Getting content based on other attributes (like tags) means you have to fetch all posts and filter them yourself. Caching in Next.js could fix that, but I'm a bit paranoid about hitting GitHub API Rate Limits. That's why I store the content in a SQLite cache. It allows me to query, filter and sort posts. Everything you need.
+[Keystatic](https://keystatic.com/) only supports fetching content by their slug. No filtering, no joins, no sort—you have to do that in JavaScript.
 
-Whenever content in the private repository changes, GitHub triggers a webhook that updates the corresponding cache.
+Next.js' caching could fix that, but _in theory_ I could still hit the GitHub API Rate Limits, especially when dependabot opens or rebases a bunch of PRs and E2E tests constantly fetch new content.
 
-SQLite is only used as an ephemeral cache, so there is no potential of data loss.
+That's why I cache it. Caching in SQLite additionally gives me filters, joins, sort. Whenever content in the private repository changes, GitHub triggers a webhook that updates the corresponding cache.
 
 ### Serving images
 
@@ -37,11 +41,10 @@ Videos are simply uploaded to YouTube, and YouTube links in posts are automatica
 
 ## Publish
 
-- The `main` branch automatically builds a release candidate, runs e2e tests against it, publishes it to ghcr.io, and then triggers a docker pull on the server.
+- The `main` branch automatically builds a release candidate, runs e2e tests against it, publishes it to ghcr.io, and then triggers a docker pull on the server, which then also executes any pending database migrations.
 - Pull Requests are automatically built and e2e tested.
-- todo: pull request previews would be nice. Coolify doesn't seem to support them with docker-image based apps right now.
 
-## Stack
+## Tech & Libraries used
 
 - [Next.js](https://nextjs.org/)
 - self-hosted on a [Hetzner VPS](https://www.hetzner.com/cloud/) with [Coolify](https://coolify.io/)
@@ -53,3 +56,4 @@ Videos are simply uploaded to YouTube, and YouTube links in posts are automatica
 - [mdx](https://mdxjs.com/packages/mdx) with cached rendered output
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Playwright](https://playwright.dev/) & [Argos CI](https://argos-ci.com)
+- [LogLayer](https://loglayer.dev/)
