@@ -46,8 +46,9 @@ services:
         RUN adduser --system --uid 1001 nextjs
         COPY . .
         COPY --from=deps --chown=nextjs:nodejs /app/node_modules /app/node_modules
+        RUN mkdir -p /app/db-data && chown -R nextjs:nodejs /app/db-data
         USER nextjs
-        CMD ["pnpm", "drizzle-kit", "push", "--force"]
+        CMD ["npx", "drizzle-kit", "push", "--force"]
     restart: no
     depends_on:
       app:
