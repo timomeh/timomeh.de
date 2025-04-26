@@ -112,7 +112,7 @@ export function contentAsset(
 }
 
 export function contentAssetUrl(path: string) {
-  return `${config.siteUrl}/content-assets/${path}`
+  return `/content-assets/${path}`
 }
 
 const sanitizePost = (

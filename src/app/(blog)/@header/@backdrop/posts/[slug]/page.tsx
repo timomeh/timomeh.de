@@ -1,3 +1,5 @@
+import { Suspense } from 'react'
+
 import { HeaderBackdropEmpty } from '@/comps/header-backdrop-empty'
 import { HeaderBackdropImage } from '@/comps/header-backdrop-image'
 import { contentAsset } from '@/data/cms'
@@ -13,15 +15,25 @@ export default async function Page(props: Props) {
 
   return (
     <>
-      {post?.lightCover ? (
-        <HeaderBackdropImage
-          lightSrc={contentAsset('posts', post.slug, post.lightCover)}
-          darkSrc={
-            post.darkCover
-              ? contentAsset('posts', post.slug, post.darkCover)
-              : undefined
+      {post?.lightCover || post?.darkCover ? (
+        <Suspense
+          fallback={
+            <div className="-mb-36 aspect-[3/2] h-auto max-h-[500px] min-h-[300px] w-full max-w-[1024px]" />
           }
-        />
+        >
+          <HeaderBackdropImage
+            lightSrc={
+              post.lightCover
+                ? contentAsset('posts', post.slug, post.lightCover)
+                : undefined
+            }
+            darkSrc={
+              post.darkCover
+                ? contentAsset('posts', post.slug, post.darkCover)
+                : undefined
+            }
+          />
+        </Suspense>
       ) : (
         <HeaderBackdropEmpty />
       )}

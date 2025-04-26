@@ -2,6 +2,7 @@ import { compile, evaluate, run } from '@mdx-js/mdx'
 import remarkEmbedder, { TransformerInfo } from '@remark-embedder/core'
 import oembedTransformer from '@remark-embedder/transformer-oembed'
 import { unstable_cache } from 'next/cache'
+import { Suspense } from 'react'
 import * as runtime from 'react/jsx-runtime'
 import rehypeUnwrapImages from 'rehype-unwrap-images'
 import remarkGfm from 'remark-gfm'
@@ -132,7 +133,11 @@ export async function MDX({
 }
 
 const baseComponents: MDXComponents = {
-  img: Img,
+  img: (props) => (
+    <Suspense fallback={<div />}>
+      <Img {...props} />
+    </Suspense>
+  ),
   code: Code,
   video: Video,
   a: Anchor,

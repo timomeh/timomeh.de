@@ -24,7 +24,7 @@ export async function Code(props: Props) {
 
   let lang: string | undefined = props.className?.replace('language-', '')
   if (lang && ['plain'].includes(lang)) lang = 'text'
-  const html = await syntax.highlight(props.children, lang || 'text')
+  const html = await syntax.highlightCached(props.children, lang || 'text')
 
   const hiddenLangs = [
     'text',
