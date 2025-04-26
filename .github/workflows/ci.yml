@@ -92,7 +92,7 @@ jobs:
           echo "SITE_URL=http://localhost:3000" >> .env.local
           echo "NUKE_SECRET=test" >> .env.local
       - run: pnpm db:push
-      - run: docker compose up -d
+      - run: docker compose up -d app
       - run: pnpm test
         env:
           PLAYWRIGHT_WEB_SERVER: off
