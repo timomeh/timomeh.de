@@ -54,7 +54,9 @@ async function SimplePost(props: Props) {
           contentWithoutH1,
           '<FeedParseMarker name="end" />',
         ].join('\n')}
-        assetPrefix={contentAsset('posts', post.slug, '')}
+        assetPrefix={
+          new URL(contentAsset('posts', post.slug, ''), config.siteUrl).href
+        }
         components={{
           FeedParseMarker: (props: { name: string }) => {
             const Element = `marker-${props.name}`
@@ -80,7 +82,9 @@ export async function SuperSimplePost(props: { slug: string }) {
     <MDX
       plain
       content={contentWithoutH1}
-      assetPrefix={contentAsset('posts', post.slug, '')}
+      assetPrefix={
+        new URL(contentAsset('posts', post.slug, ''), config.siteUrl).href
+      }
     />
   )
 }

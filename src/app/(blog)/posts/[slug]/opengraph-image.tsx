@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { ImageResponse } from 'next/og'
 
 import { getFonts, OpengraphBaseImage } from '@/comps/og-base-image'
+import { config } from '@/config'
 import { contentAsset } from '@/data/cms'
 import { getPostBySlug } from '@/data/posts'
 import { formatReadingTime } from '@/lib/formatReadingTime'
@@ -24,7 +25,8 @@ export default async function Image({ params }: Props) {
   if (!post) notFound()
 
   const cover = post.darkCover
-    ? contentAsset('posts', post.slug, post.darkCover)
+    ? new URL(contentAsset('posts', post.slug, post.darkCover), config.siteUrl)
+        .href
     : undefined
 
   return new ImageResponse(
