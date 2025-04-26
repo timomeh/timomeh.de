@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import { ImageResponse } from 'next/og'
 
 import { getFonts, OpengraphBaseImage } from '@/comps/og-base-image'
-import { getTag } from '@/data/tags'
+import { getTagBySlug } from '@/data/tags'
 
 export const size = {
   width: 1200,
@@ -16,7 +16,7 @@ type Props = {
 
 export default async function Image(props: Props) {
   const params = await props.params
-  const tag = await getTag(params.tag)
+  const tag = await getTagBySlug(params.tag)
   if (!tag) notFound()
 
   return new ImageResponse(

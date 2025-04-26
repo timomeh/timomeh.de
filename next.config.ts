@@ -12,25 +12,19 @@ const nextConfig: NextConfig = {
   },
 
   output: 'standalone',
+  outputFileTracingIncludes: {
+    './**/*': [
+      // required so that @libsql's pre-built binaries are included
+      './node_modules/@libsql/darwin*/**/*',
+      './node_modules/@libsql/linux*/**/*',
+    ],
+  },
+
   poweredByHeader: false,
   compress: false,
 
   images: {
     minimumCacheTTL: 31536000,
-    remotePatterns: [
-      {
-        protocol: new URL(process.env.SITE_URL!).protocol.slice(0, -1) as
-          | 'http'
-          | 'https',
-        hostname: new URL(process.env.SITE_URL!).hostname,
-        port: new URL(process.env.SITE_URL!).port,
-      },
-      {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '3000',
-      },
-    ],
   },
 
   async rewrites() {

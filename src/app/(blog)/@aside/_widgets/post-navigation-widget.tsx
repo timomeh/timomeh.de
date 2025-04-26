@@ -1,15 +1,17 @@
 import { RedoIcon, UndoIcon } from 'lucide-react'
 import Link from 'next/link'
 
-import { getNewerPost, getOlderPost } from '@/data/posts'
+import { getNewerPostBySlug, getOlderPostBySlug } from '@/data/posts'
 
 type Props = {
   currentSlug: string
 }
 
 export async function PostNavigationWidget({ currentSlug }: Props) {
-  const newerPost = await getNewerPost(currentSlug)
-  const olderPost = await getOlderPost(currentSlug)
+  const [newerPost, olderPost] = await Promise.all([
+    getNewerPostBySlug(currentSlug),
+    getOlderPostBySlug(currentSlug),
+  ])
 
   return (
     <div className="@max-5xs:gap-1 flex flex-col items-stretch gap-2">

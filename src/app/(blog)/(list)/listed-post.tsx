@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 import { Card } from '@/comps/card'
 import { FadeInImage } from '@/comps/fade-in-image'
@@ -8,7 +8,7 @@ import { MDX } from '@/comps/mdx/mdx'
 import { PostHeader } from '@/comps/post-header'
 import { Prose } from '@/comps/prose'
 import { contentAsset } from '@/data/cms'
-import { getPost } from '@/data/posts'
+import { getPostBySlug } from '@/data/posts'
 import { formatReadingTime } from '@/lib/formatReadingTime'
 import { getPlaceholder } from '@/lib/placeholder'
 
@@ -17,73 +17,32 @@ type Props = {
 }
 
 export async function ListedPost({ slug }: Props) {
-  const post = await getPost(slug)
+  const post = await getPostBySlug(slug)
   if (!post) return null
 
-  const [lightCover, darkCover] = await Promise.all([
-    post.frontmatter.lightCover
-      ? await getPlaceholder(
-          contentAsset('posts', slug, post.frontmatter.lightCover),
-        )
-      : null,
-    post.frontmatter.darkCover
-      ? await getPlaceholder(
-          contentAsset('posts', slug, post.frontmatter.darkCover),
-        )
-      : null,
-  ])
-
   return (
-    <article lang={post.meta.lang?.split('_')[0]} id={slug}>
+    <article lang={post.metaLang?.split('_')[0]} id={slug}>
       <Card>
-        {post?.frontmatter.lightBgColor && (
+        {post?.lightBgColor && (
           <div
-            style={{ background: post?.frontmatter.lightBgColor }}
+            style={{ background: post.lightBgColor }}
             className="absolute inset-0 -z-10 mix-blend-multiply dark:hidden"
           />
         )}
-        {post?.frontmatter.darkBgColor && (
+        {post?.darkBgColor && (
           <div
-            style={{ background: post?.frontmatter.darkBgColor }}
+            style={{ background: post.darkBgColor }}
             className="absolute inset-0 -z-10 hidden mix-blend-exclusion dark:block"
           />
         )}
-        {lightCover && (
-          <div
-            data-has-dark={!!darkCover}
-            className="relative isolate flex h-auto max-h-[400px] w-full items-end overflow-hidden
-              [mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%)]
-              mix-blend-darken dark:data-[has-dark=true]:hidden"
-          >
-            <FadeInImage
-              alt=""
-              src={lightCover.img.src}
-              width={lightCover.img.width}
-              height={lightCover.img.height}
+        {(post.darkCover || post.lightCover) && (
+          <Suspense fallback={<div className="aspect-[3/2] max-h-[400px]" />}>
+            <Cover
+              slug={post.slug}
+              light={post.lightCover}
+              dark={post.darkCover}
             />
-            <div
-              className="absolute inset-0 -z-10 h-full w-full scale-110 transform blur-2xl filter"
-              style={lightCover.css}
-            />
-          </div>
-        )}
-        {darkCover && (
-          <div
-            className="relative isolate hidden h-auto max-h-[400px] w-full items-end overflow-hidden
-              [mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%)]
-              mix-blend-lighten dark:flex"
-          >
-            <FadeInImage
-              alt=""
-              src={darkCover.img.src}
-              width={darkCover.img.width}
-              height={darkCover.img.height}
-            />
-            <div
-              className="absolute inset-0 -z-10 h-full w-full scale-110 transform blur-2xl filter"
-              style={darkCover.css}
-            />
-          </div>
+          </Suspense>
         )}
         <div className="p-4 sm:p-6 md:p-8">
           <Prose>
@@ -95,7 +54,7 @@ export async function ListedPost({ slug }: Props) {
                 publishedAt={post.publishedAt}
                 readingTime={formatReadingTime(
                   post.content,
-                  post.frontmatter.readingTime,
+                  post.readingTime,
                   'read',
                 )}
               />
@@ -134,5 +93,60 @@ export async function ListedPost({ slug }: Props) {
         </div>
       </Card>
     </article>
+  )
+}
+
+type CoverProps = {
+  light: string | null
+  dark: string | null
+  slug: string
+}
+
+export async function Cover({ light, dark, slug }: CoverProps) {
+  const [lightCover, darkCover] = await Promise.all([
+    light ? await getPlaceholder(contentAsset('posts', slug, light)) : null,
+    dark ? await getPlaceholder(contentAsset('posts', slug, dark)) : null,
+  ])
+
+  return (
+    <div>
+      {lightCover && (
+        <div
+          data-has-dark={!!darkCover}
+          className="relative isolate flex h-auto max-h-[400px] w-full items-end overflow-hidden
+            [mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%)]
+            mix-blend-darken dark:data-[has-dark=true]:hidden"
+        >
+          <FadeInImage
+            alt=""
+            src={lightCover.img.src}
+            width={lightCover.img.width}
+            height={lightCover.img.height}
+          />
+          <div
+            className="absolute inset-0 -z-10 h-full w-full scale-110 transform blur-2xl filter"
+            style={lightCover.css}
+          />
+        </div>
+      )}
+      {darkCover && (
+        <div
+          className="relative isolate hidden h-auto max-h-[400px] w-full items-end overflow-hidden
+            [mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%)]
+            mix-blend-lighten dark:flex"
+        >
+          <FadeInImage
+            alt=""
+            src={darkCover.img.src}
+            width={darkCover.img.width}
+            height={darkCover.img.height}
+          />
+          <div
+            className="absolute inset-0 -z-10 h-full w-full scale-110 transform blur-2xl filter"
+            style={darkCover.css}
+          />
+        </div>
+      )}
+    </div>
   )
 }

@@ -1,33 +1,27 @@
 import { cache } from 'react'
 
-import { log as baseLog } from '@/lib/log'
+import { db, schema } from '@/db/client'
 
 import { cms } from './cms'
-import { db, repo } from './db'
 
-const SINGLETON_KEY = 'settings'
-const log = baseLog.child().withContext({ module: 'data/settings' })
+export const getDefaultKickers = cache(async () => {
+  const setting = await db.query.settings.findFirst({
+    where: (setting, q) => q.eq(setting.key, 'kickers'),
+  })
 
-export const getSettings = cache(async () => {
-  await db.connect()
+  if (!setting) return []
 
-  const settings = await repo.settings.fetch(SINGLETON_KEY)
-  return settings
+  const kickers = setting.value as string[]
+  return kickers
 })
 
 export async function updateSettingsCache() {
-  await db.connect()
-
   const settings = await cms.settings.get()
   if (!settings) return
 
-  await repo.settings.save(SINGLETON_KEY, settings)
+  await db.delete(schema.settings)
 
-  try {
-    await repo.settings.createIndex()
-  } catch (error) {
-    log
-      .withError(error)
-      .warn('Error when trying to create the index for settings')
-  }
+  await db
+    .insert(schema.settings)
+    .values([{ key: 'kickers', value: settings.kickers }])
 }

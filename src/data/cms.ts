@@ -112,7 +112,7 @@ export function contentAsset(
 }
 
 export function contentAssetUrl(path: string) {
-  return `${config.siteUrl}/content-assets/${path}`
+  return `/content-assets/${path}`
 }
 
 const sanitizePost = (
@@ -127,19 +127,15 @@ const sanitizePost = (
     publishedAt: new Date(post.publishedAt),
     updatedAt: post.updatedAt ? new Date(post.updatedAt) : undefined,
     tags: post.tags.filter(Boolean),
-    frontmatter: {
-      lightCover: post.frontmatter.lightCover || undefined,
-      darkCover: post.frontmatter.darkCover || undefined,
-      lightBgColor: post.frontmatter.lightBgColor || undefined,
-      darkBgColor: post.frontmatter.darkBgColor || undefined,
-      readingTime: post.frontmatter.readingTime || undefined,
-      kicker: post.frontmatter.kicker || undefined,
-    },
-    meta: {
-      description: post.meta.description || undefined,
-      image: post.meta.image || undefined,
-      lang: post.meta.lang || undefined,
-    },
+    lightCover: post.frontmatter.lightCover || undefined,
+    darkCover: post.frontmatter.darkCover || undefined,
+    lightBgColor: post.frontmatter.lightBgColor || undefined,
+    darkBgColor: post.frontmatter.darkBgColor || undefined,
+    readingTime: post.frontmatter.readingTime || undefined,
+    kicker: post.frontmatter.kicker || undefined,
+    metaDdescription: post.meta.description || undefined,
+    metaImage: post.meta.image || undefined,
+    metaLang: post.meta.lang || undefined,
   })
 
 const sanitizeTag = (
@@ -169,14 +165,10 @@ const sanitizePage = (
     path: page.path,
     visibility: page.visibility,
     content: page.content || '',
-    frontmatter: {
-      kicker: page.frontmatter.kicker || undefined,
-    },
-    meta: {
-      description: page.meta.description || undefined,
-      image: page.meta.image || undefined,
-      lang: page.meta.lang || undefined,
-    },
+    kicker: page.frontmatter.kicker || undefined,
+    metaDescription: page.meta.description || undefined,
+    metaImage: page.meta.image || undefined,
+    metaLang: page.meta.lang || undefined,
   })
 
 const sanitizeSettings = (

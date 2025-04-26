@@ -2,11 +2,9 @@ import { revalidatePath, revalidateTag } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
 
 import { config } from '@/config'
-import { db, repo } from '@/data/db'
 import { cacheAllPages } from '@/data/pages'
-import { cacheAllPosts } from '@/data/posts'
+import { cacheAllPostsAndTags, listPublishedPosts } from '@/data/posts'
 import { updateSettingsCache } from '@/data/settings'
-import { cacheAllTags } from '@/data/tags'
 import { log as baseLog } from '@/lib/log'
 
 const log = baseLog.child().withContext({ module: 'webhooks/nuke' })
@@ -24,9 +22,8 @@ export async function GET(request: NextRequest) {
   const soft = request.nextUrl.searchParams.get('soft')
 
   if (soft) {
-    await db.connect()
-    const count = await repo.posts.search().return.count()
-    if (count > 0) {
+    const existingPosts = await listPublishedPosts()
+    if (existingPosts.length > 0) {
       log.info(
         'It looks like we have cached data. Not nuking because soft is used',
       )
@@ -44,15 +41,14 @@ export async function GET(request: NextRequest) {
 
   // TODO: this makes lots of requests to the same /git/trees/HEAD?recursive=1 URL
   await cacheAllPages()
-  await cacheAllPosts()
-  await cacheAllTags()
+  await cacheAllPostsAndTags()
   await updateSettingsCache()
   revalidateTag('tag-count')
   revalidateTag('feed-pre')
   revalidateTag('mdx')
   revalidatePath('/tags')
-  revalidatePath('/posts/[slug]')
-  revalidatePath('/[page]')
+  revalidatePath('/posts/[slug]', 'page')
+  revalidatePath('/[page]', 'page')
 
   log.info('Successfully nuked all caches')
 

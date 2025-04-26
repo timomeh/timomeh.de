@@ -7,9 +7,10 @@ services:
       context: .
       target: runner
     ports:
-      - '3000:3000'
+      - 3000:3000
     volumes:
       - .next/cache/fetch-cache:/app/.next/cache/fetch-cache
+      - ./db-data:/app/db-data
     env_file:
       - path: ./.env
         required: false
@@ -17,11 +18,3 @@ services:
         required: false
       - path: ./.env.production
         required: false
-  dragonfly:
-    image: 'docker.dragonflydb.io/dragonflydb/dragonfly:v1.28.0'
-    ports:
-      - '6379:6379'
-    volumes:
-      - ${REDIS_VOLUME:-dragonflydata}:/data
-volumes:
-  dragonflydata:

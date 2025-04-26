@@ -2,13 +2,12 @@ import { notFound } from 'next/navigation'
 import { Fragment } from 'react'
 
 import { GlassPill } from '@/comps/glass-pill'
-import { Post } from '@/data/cms'
 import {
   listPostYears,
-  listPublishedPosts,
-  pagePublishedPosts,
+  listPublishedPostsByTag,
+  listPublishedPostsByYear,
 } from '@/data/posts'
-import { getTag } from '@/data/tags'
+import { getTagBySlug } from '@/data/tags'
 import { isMonthAgo, isWeekAgo, isYearAgo } from '@/lib/date'
 import { pluralizePosts } from '@/lib/plurals'
 
@@ -22,12 +21,12 @@ type Props = {
 
 export async function PostsList({ sort = 'desc', year, tagSlug }: Props) {
   if (tagSlug) {
-    const tag = await getTag(tagSlug)
+    const tag = await getTagBySlug(tagSlug)
     if (!tag) {
       notFound()
     }
 
-    const posts = await listPublishedPosts({ tag: tagSlug, sort })
+    const posts = await listPublishedPostsByTag(tag.id, { sort })
 
     return (
       <div className="space-y-10">
@@ -53,7 +52,7 @@ export async function PostsList({ sort = 'desc', year, tagSlug }: Props) {
       notFound()
     }
 
-    const posts = await pagePublishedPosts(postYear.year, { sort })
+    const posts = await listPublishedPostsByYear(postYear.year, { sort })
 
     return (
       <div className="space-y-10">
@@ -73,7 +72,9 @@ export async function PostsList({ sort = 'desc', year, tagSlug }: Props) {
 
   const postYears = await listPostYears()
   const postYear = postYears[0]
-  const posts = await pagePublishedPosts(postYear.year, { sort })
+  const posts = postYear
+    ? await listPublishedPostsByYear(postYear.year, { sort })
+    : []
 
   const groupedPosts = groupPosts(posts)
 
@@ -97,7 +98,7 @@ export async function PostsList({ sort = 'desc', year, tagSlug }: Props) {
   )
 }
 
-function groupPosts(posts: Post[]) {
+function groupPosts<T extends { publishedAt: Date }>(posts: T[]) {
   return posts.reduce((groups, post) => {
     const date = post.publishedAt
     const currentGroup = groups.at(-1)
@@ -165,10 +166,10 @@ function groupPosts(posts: Post[]) {
     }
 
     return groups
-  }, [] as Group[])
+  }, [] as Group<T>[])
 }
 
-type Group = { marker: Marker; posts: Post[]; title: string }
+type Group<T> = { marker: Marker; posts: T[]; title: string }
 
 type Marker =
   | 'this_week'

@@ -59,8 +59,6 @@ jobs:
     needs: build
     timeout-minutes: 15
     runs-on: ubuntu-24.04-arm
-    env:
-      REDIS_VOLUME: './dragonflydata'
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -70,38 +68,46 @@ jobs:
           cache: pnpm
       - run: pnpm install
       - run: pnpm exec playwright install --with-deps chromium --only-shell
-      - name: cache dragonfly data
+
+      # Restore caches
+      - name: cache database
         uses: actions/cache@v4
         with:
-          path: dragonflydata
-          key: ${{ runner.os }}-dragonflydata-v3-${{ hashFiles('**/*.ts', '**/*.tsx') }}
-          restore-keys: ${{ runner.os }}-dragonflydata-v3-
-      - name: ensure redis cache permissions
-        run: sudo mkdir -p "$REDIS_VOLUME" && sudo chmod -R 777 "$REDIS_VOLUME"
+          path: ./db-data
+          key: ${{ runner.os }}-sqlite-blogdb-${{ hashFiles('**/*.ts', '**/*.tsx') }}
+          restore-keys: ${{ runner.os }}-sqlite-blogdb-
       - name: cache nextjs fetch cache
         uses: actions/cache@v4
         with:
           path: .next/cache/fetch-cache
           key: ${{ runner.os }}-nextjs-fetch-cache-v2-${{ hashFiles('**/*.ts', '**/*.tsx') }}
           restore-keys: ${{ runner.os }}-nextjs-fetch-cache-v2-
-      - uses: docker/setup-buildx-action@v3
-      - uses: actions/download-artifact@v4
+
+      # Load docker image from previous build stage
+      - name: download docker image to /tmp/docker-image.tar
+        uses: actions/download-artifact@v4
         with:
           name: docker-image
           path: /tmp
       - run: docker load -i /tmp/docker-image.tar
+
+      # Start the server
       - name: Export secrets
         run: |
           echo "GITHUB_CONTENT_PAT=${{ secrets.BLOG_GH_ACCESS_TOKEN }}" >> .env.local
-          echo "REDIS_DB_URL=redis://dragonfly:6379" >> .env.local
           echo "SITE_URL=http://localhost:3000" >> .env.local
           echo "NUKE_SECRET=test" >> .env.local
+      - run: pnpm db:push
       - run: docker compose up -d
+
+      # Run tests
       - run: pnpm test
         env:
           PLAYWRIGHT_WEB_SERVER: off
           UPLOAD_TO_ARGOS: 1
           NUKE_SECRET: test
+
+      # Post-test
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -112,6 +118,3 @@ jobs:
         if: always()
       - run: docker compose down
         if: failure() || success()
-      - name: ensure redis cache permissions
-        run: sudo mkdir -p "$REDIS_VOLUME" && sudo chmod -R 777 "$REDIS_VOLUME"
-        if: always()

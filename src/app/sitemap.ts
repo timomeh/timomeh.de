@@ -1,8 +1,8 @@
 import { MetadataRoute } from 'next'
 
 import { config } from '@/config'
-import { listPages } from '@/data/pages'
-import { getLatestPublishedPost, listPublishedPosts } from '@/data/posts'
+import { listPublicPages } from '@/data/pages'
+import { getLatestPublishedPostByTag, listPublishedPosts } from '@/data/posts'
 import { listTags } from '@/data/tags'
 
 export default async function sitemap() {
@@ -35,7 +35,7 @@ async function generateTagsSitemap() {
 
   const sitemap = await Promise.all(
     tags.map(async (tag) => {
-      const post = await getLatestPublishedPost({ tag: tag.slug })
+      const post = await getLatestPublishedPostByTag(tag.id)
 
       if (!post) return null
 
@@ -101,12 +101,12 @@ async function generatePostsSitemap() {
 }
 
 async function generatePageSitemap() {
-  const pages = await listPages()
+  const pages = await listPublicPages()
 
   const sitemap = pages
-    .filter((page) => !page.path.startsWith('vrt/'))
+    .filter((page) => !page.slug.startsWith('vrt-'))
     .map((page) => ({
-      url: fullUrl(`/${page.path}`),
+      url: fullUrl(`/${page.slug}`),
       changeFrequency: 'monthly' as const,
       priority: 0.5,
       lastModified: new Date(),

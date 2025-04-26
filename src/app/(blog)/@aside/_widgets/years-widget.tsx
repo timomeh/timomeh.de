@@ -15,7 +15,7 @@ export async function YearsWidget({ yearParam, tagParam, sort }: Props) {
     ? Number(yearParam)
     : tagParam
       ? null
-      : postYears[0].year
+      : postYears[0]?.year
 
   return (
     <div className="@max-5xs:grid-cols-1 grid grid-cols-2 gap-1">

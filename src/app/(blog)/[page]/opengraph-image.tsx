@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import { ImageResponse } from 'next/og'
 
 import { getFonts, OpengraphBaseImage } from '@/comps/og-base-image'
-import { getPage } from '@/data/pages'
+import { getPageBySlug } from '@/data/pages'
 
 export const generateStaticParams = () => []
 export const size = {
@@ -17,7 +17,7 @@ type Props = {
 
 export default async function Image(props: Props) {
   const params = await props.params
-  const page = await getPage(params.page)
+  const page = await getPageBySlug(params.page)
   if (!page) notFound()
 
   return new ImageResponse(<OpengraphBaseImage title={[page.title]} />, {

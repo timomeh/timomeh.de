@@ -1,9 +1,4 @@
 export async function register() {
-  if (process.env.NEXT_RUNTIME === 'nodejs') {
-    const { initRedis } = await import('./data/db')
-    await initRedis()
-  }
-
   if (
     process.env.NEXT_RUNTIME === 'nodejs' &&
     process.env.NODE_ENV !== 'development'

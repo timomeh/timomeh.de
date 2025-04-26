@@ -2,9 +2,9 @@ import { notFound } from 'next/navigation'
 import { NextResponse } from 'next/server'
 
 import { cms } from '@/data/cms'
-import { getPage } from '@/data/pages'
-import { getPost } from '@/data/posts'
-import { getTag } from '@/data/tags'
+import { getPageBySlug } from '@/data/pages'
+import { getPostBySlug } from '@/data/posts'
+import { getTagBySlug } from '@/data/tags'
 
 // public proxy for files in the private github repo
 
@@ -20,19 +20,19 @@ export async function GET(
   // ensure file is allowed to be fetched
 
   if (params.collection === 'posts') {
-    const post = await getPost(params.slug)
+    const post = await getPostBySlug(params.slug)
     if (!post) notFound()
     path = `posts/${params.slug}`
   }
 
   if (params.collection === 'pages') {
-    const page = await getPage(params.slug)
+    const page = await getPageBySlug(params.slug)
     if (!page) notFound()
     path = `pages/${params.slug}`
   }
 
   if (params.collection === 'tags') {
-    const tag = await getTag(params.slug)
+    const tag = await getTagBySlug(params.slug)
     if (!tag) notFound()
     path = `tags/${params.slug}`
   }

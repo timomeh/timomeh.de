@@ -1,181 +1,252 @@
-import { endOfYear, setYear, startOfYear } from 'date-fns'
+import { and, desc, eq, sql } from 'drizzle-orm'
 import { cache } from 'react'
 
+import { db, schema } from '@/db/client'
 import { log as baseLog } from '@/lib/log'
 
-import { cms, Post } from './cms'
-import { db, repo } from './db'
+import { cms } from './cms'
 
 const log = baseLog.child().withContext({ module: 'data/posts' })
 
 type Filter = {
-  tag?: string
-  year?: number
   sort?: 'asc' | 'desc'
-  status?: Post['status'][]
-}
-
-function transformSort(sort?: 'asc' | 'desc') {
-  if (sort) return sort.toUpperCase() as 'ASC' | 'DESC'
-  return null
 }
 
 export const listPublishedPosts = cache(async (filter: Filter = {}) => {
-  await db.connect()
-
-  const posts = await queryPosts({ ...filter, status: ['published'] })
-    .sortBy('publishedAt', transformSort(filter.sort) || 'DESC')
-    .return.all()
+  const posts = await db.query.posts.findMany({
+    where: (post, q) => q.eq(post.status, 'published'),
+    orderBy: (post, q) => [
+      filter.sort === 'asc'
+        ? q.asc(post.publishedAt)
+        : q.desc(post.publishedAt),
+    ],
+    with: {
+      postTags: {
+        with: { tag: true },
+      },
+    },
+  })
 
   return posts
 })
 
-export const getLatestPublishedPost = cache(async (filter: Filter = {}) => {
-  await db.connect()
-
-  const post = await queryPosts({ ...filter, status: ['published'] })
-    .sortDesc('publishedAt')
-    .return.first()
-
-  return post
-})
-
-export const listPostYears = cache(async () => {
-  const posts = await queryPosts({ status: ['published'] }).return.all()
-  const postsByYear = posts.reduce(
-    (acc, post) => {
-      const year = new Date(post.publishedAt).getFullYear()
-      acc[year] = (acc[year] || 0) + 1
-      return acc
-    },
-    {} as Record<number, number>,
-  )
-
-  const yearsWithCount = Object.entries(postsByYear)
-    .map(([year, count]) => ({ year: Number(year), count }))
-    .sort((a, b) => b.year - a.year)
-
-  return yearsWithCount
-})
-
-export const pagePublishedPosts = cache(
+export const listPublishedPostsByYear = cache(
   async (year: number, filter: Filter = {}) => {
-    await db.connect()
-
-    let posts = await queryPosts({ ...filter, status: ['published'] })
-      .where('publishedAt')
-      .between(
-        startOfYear(setYear(new Date(), year)),
-        endOfYear(setYear(new Date(), year)),
-      )
-      .sortBy('publishedAt', transformSort(filter.sort) || 'DESC')
-      .return.all()
+    const posts = await db.query.posts.findMany({
+      where: (post, q) =>
+        q.and(
+          q.eq(post.status, 'published'),
+          q.gte(post.publishedAt, new Date(`${year}-01-01`)),
+          q.lt(post.publishedAt, new Date(`${year + 1}-01-01`)),
+        ),
+      orderBy: (post, q) => [
+        filter.sort === 'asc'
+          ? q.asc(post.publishedAt)
+          : q.desc(post.publishedAt),
+      ],
+      with: {
+        postTags: {
+          with: { tag: true },
+        },
+      },
+    })
 
     return posts
   },
 )
 
-export const getPost = cache(async (slug: string) => {
-  await db.connect()
+export const listPublishedPostsByTag = cache(
+  async (tagId: number, filter: Filter = {}) => {
+    const posts = await db.query.posts.findMany({
+      where: (post, q) =>
+        q.and(
+          q.eq(post.status, 'published'),
+          q.exists(
+            db
+              .select()
+              .from(schema.postTags)
+              .where(
+                and(
+                  eq(schema.postTags.postId, post.id),
+                  eq(schema.postTags.tagId, tagId),
+                ),
+              ),
+          ),
+        ),
+      orderBy: (post, q) => [
+        filter.sort === 'asc'
+          ? q.asc(post.publishedAt)
+          : q.desc(post.publishedAt),
+      ],
+      with: {
+        postTags: {
+          with: { tag: true },
+        },
+      },
+    })
 
-  const post = await queryPosts({ status: ['published', 'unlisted'] })
-    .and('slug')
-    .equals(slug)
-    .return.first()
+    return posts
+  },
+)
+
+export const getLatestPublishedPostByTag = cache(async (tagId: number) => {
+  const post = await db.query.posts.findFirst({
+    where: (post, q) =>
+      q.and(
+        q.eq(post.status, 'published'),
+        q.exists(
+          db
+            .select()
+            .from(schema.postTags)
+            .where(
+              and(
+                eq(schema.postTags.postId, post.id),
+                eq(schema.postTags.tagId, tagId),
+              ),
+            ),
+        ),
+      ),
+    orderBy: (post, q) => [q.desc(post.publishedAt)],
+    with: {
+      postTags: {
+        with: { tag: true },
+      },
+    },
+  })
 
   return post
 })
 
-export const getOlderPost = cache(
-  async (slug?: string, filter: Filter = {}) => {
-    if (!slug) return null
-    await db.connect()
+export const listPostYears = cache(async () => {
+  const postYears = await db
+    .select({
+      year: sql<number>`CAST(strftime('%Y', datetime(${schema.posts.publishedAt}, 'unixepoch')) AS INTEGER)`.as(
+        'year',
+      ),
+      count: sql<number>`count(*)`.as('count'),
+    })
+    .from(schema.posts)
+    .where(eq(schema.posts.status, 'published'))
+    .groupBy(sql`year`)
+    .orderBy(desc(sql`year`))
 
-    const currentPost = await getPost(slug)
-    if (!currentPost) return null
+  return postYears
+})
 
-    const olderPost = await queryPosts({ status: ['published'], ...filter })
-      .where('publishedAt')
-      .lessThan(currentPost.publishedAt)
-      .sortDesc('publishedAt')
-      .return.first()
+export const getPostBySlug = cache(async (slug: string) => {
+  const post = await db.query.posts.findFirst({
+    where: (post, q) =>
+      q.and(
+        q.eq(post.slug, slug),
+        q.or(q.eq(post.status, 'published'), q.eq(post.status, 'unlisted')),
+      ),
+    with: {
+      postTags: {
+        with: { tag: true },
+      },
+    },
+  })
 
-    return olderPost
-  },
-)
+  return post
+})
 
-export const getNewerPost = cache(
-  async (slug?: string, filter: Filter = {}) => {
-    if (!slug) return null
-    await db.connect()
+export const getOlderPostBySlug = cache(async (slug: string) => {
+  const currentPost = await db.query.posts.findFirst({
+    where: (post, q) =>
+      q.and(q.eq(post.slug, slug), q.eq(post.status, 'published')),
+  })
 
-    const currentPost = await getPost(slug)
-    if (!currentPost) return null
+  if (!currentPost) return undefined
 
-    const newerPost = await queryPosts({ status: ['published'], ...filter })
-      .where('publishedAt')
-      .greaterThan(currentPost.publishedAt)
-      .sortAsc('publishedAt')
-      .return.first()
+  const olderPost = await db.query.posts.findFirst({
+    where: (post, q) =>
+      q.and(
+        q.eq(post.status, 'published'),
+        q.lt(post.publishedAt, currentPost.publishedAt),
+      ),
+    orderBy: (post, q) => q.desc(post.publishedAt),
+  })
 
-    return newerPost
-  },
-)
+  return olderPost
+})
 
-function queryPosts(filter: Filter = {}) {
-  let query = repo.posts.search()
+export const getNewerPostBySlug = cache(async (slug: string) => {
+  const currentPost = await db.query.posts.findFirst({
+    where: (post, q) =>
+      q.and(q.eq(post.slug, slug), q.eq(post.status, 'published')),
+  })
 
-  if (filter.status) {
-    const [firstStatus, ...moreStatus] = filter.status
-    query = query.where('status').equals(firstStatus)
+  if (!currentPost) return undefined
 
-    for (const status of moreStatus) {
-      query = query.or('status').equals(status)
-    }
-  }
+  const newerPost = await db.query.posts.findFirst({
+    where: (post, q) =>
+      q.and(
+        q.eq(post.status, 'published'),
+        q.gt(post.publishedAt, currentPost.publishedAt),
+      ),
+    orderBy: (post, q) => q.asc(post.publishedAt),
+  })
 
-  if (filter.tag) {
-    query = query.where('tags').contains(filter.tag)
-  }
+  return newerPost
+})
 
-  if (filter.year) {
-    query = query
-      .where('publishedAt')
-      .is.between(new Date(filter.year, 0, 1), new Date(filter.year + 1, 0, 1))
-  }
-
-  return query
-}
-
-export async function cacheAllPosts() {
-  await db.connect()
-
+export async function cacheAllPostsAndTags() {
   const posts = await cms.posts.all()
-  const ids = await repo.posts.search().return.allIds()
-  await repo.posts.remove(...ids)
 
-  await Promise.all(posts.map((post) => repo.posts.save(post.slug, post)))
+  await db.delete(schema.posts)
+  const insertedPosts = await db.insert(schema.posts).values(posts).returning()
 
-  try {
-    await repo.posts.createIndex()
-  } catch (error) {
-    log.withError(error).warn('Error when trying to create the index for posts')
-  }
+  const tags = await cms.tags.all()
+  await db.delete(schema.tags)
+  const insertedTags = await db.insert(schema.tags).values(tags).returning()
+
+  const tagsMap = Object.fromEntries(insertedTags.map((tag) => [tag.slug, tag]))
+  const postsMap = Object.fromEntries(
+    insertedPosts.map((post) => [post.slug, post]),
+  )
+
+  const postTags = posts.flatMap((post) =>
+    post.tags.map((tag) => ({
+      postId: postsMap[post.slug].id,
+      tagId: tagsMap[tag].id,
+    })),
+  )
+  await db.insert(schema.postTags).values(postTags)
 }
 
 export async function updatePostCache(slug: string) {
-  await db.connect()
-
   const post = await cms.posts.get(slug)
-  const cached = await repo.posts.fetch(slug)
+  const storedPost = await db.query.posts.findFirst({
+    where: (post, q) => q.eq(post.slug, slug),
+  })
 
-  if (!post && cached) {
+  if (!post && storedPost) {
     log.withMetadata({ slug }).info('Removing record')
-    await repo.posts.remove(slug)
+    await db.delete(schema.posts).where(eq(schema.posts.id, storedPost.id))
   }
 
   if (post) {
     log.withMetadata({ slug }).info('Saving record')
-    await repo.posts.save(slug, post)
+    const [updatedPost] = await db
+      .insert(schema.posts)
+      .values(post)
+      .onConflictDoUpdate({
+        target: schema.posts.slug,
+        set: post,
+      })
+      .returning()
+
+    await db
+      .delete(schema.postTags)
+      .where(eq(schema.postTags.postId, updatedPost.id))
+    const tags = await db.query.tags.findMany({
+      where: (tags, q) => q.inArray(tags.slug, post.tags),
+    })
+    const postTags = tags.map((tag) => ({
+      postId: updatedPost.id,
+      tagId: tag.id,
+    }))
+
+    await db.insert(schema.postTags).values(postTags)
   }
 }

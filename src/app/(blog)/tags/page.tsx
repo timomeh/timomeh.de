@@ -5,8 +5,6 @@ import { Prose } from '@/comps/prose'
 import { listTags } from '@/data/tags'
 import { pluralizePosts } from '@/lib/plurals'
 
-export const fetchCache = 'force-cache'
-
 export default async function Page() {
   const tags = await listTags()
 
@@ -20,7 +18,7 @@ export default async function Page() {
               {tags.map((tag) => (
                 <li key={tag.slug}>
                   <Link href={`/tag/${tag.slug}`}>
-                    {tag.title} ({pluralizePosts(tag.postsCount)})
+                    {tag.title} ({pluralizePosts(tag.postCount)})
                   </Link>
                 </li>
               ))}

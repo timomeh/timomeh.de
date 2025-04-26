@@ -2,6 +2,8 @@ import Image from 'next/image'
 
 import { getPlaceholder } from '@/lib/placeholder'
 
+import { config } from '../../config'
+
 type Props = React.DetailedHTMLProps<
   React.ImgHTMLAttributes<HTMLImageElement>,
   HTMLImageElement
@@ -13,7 +15,7 @@ export async function Img(props: Props) {
   const src = props.src as string
 
   const { img, css } = await getPlaceholder(src)
-  const filename = new URL(src).pathname.split('/').pop()
+  const filename = new URL(src, config.siteUrl).pathname.split('/').pop()
   const theme = filename?.startsWith('darkmode-')
     ? 'dark'
     : filename?.startsWith('lightmode-')
