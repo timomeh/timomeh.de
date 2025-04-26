@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   app:
-    image: ghcr.io/timomeh/timomeh.de:sqlite
+    image: ghcr.io/timomeh/timomeh.de:latest
     build:
       context: .
       target: runner
