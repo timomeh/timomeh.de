@@ -72,8 +72,8 @@ jobs:
       - name: Get installed Playwright version
         id: playwright-version
         run: echo "PLAYWRIGHT_VERSION=$(npm pkg get devDependencies.@playwright/test | sed 's/^"\(.*\)"$/\1/')" >> $GITHUB_ENV
-      - name: Cache playwright binaries
-      - uses: actions/cache@v4
+      - name: cache playwright browsers
+        uses: actions/cache@v4
         id: playwright-cache
         with:
           path: |
@@ -99,7 +99,8 @@ jobs:
           restore-keys: ${{ runner.os }}-nextjs-fetch-cache-v2-
 
         # Load docker image from previous build stage
-      - uses: actions/download-artifact@v4
+      - name: download docker image to /tmp/docker-image.tar
+        uses: actions/download-artifact@v4
         with:
           name: docker-image
           path: /tmp
