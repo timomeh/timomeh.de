@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  app:
+    image: ghcr.io/timomeh/timomeh.de:sqlite
+    build:
+      context: .
+      target: runner
+    ports:
+      - 3000:3000
+    volumes:
+      - .next/cache/fetch-cache:/app/.next/cache/fetch-cache
+      - ./db-data:/app/db-data
+    env_file:
+      - path: ./.env
+        required: false
+      - path: ./.env.local
+        required: false
+      - path: ./.env.production
+        required: false

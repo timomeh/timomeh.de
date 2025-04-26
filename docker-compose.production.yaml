@@ -1,6 +1,21 @@
 version: '3.9'
 
 services:
+  app:
+    image: ghcr.io/timomeh/timomeh.de:sqlite
+    healthcheck:
+      test:
+        ['CMD-SHELL', "curl -fs http://0.0.0.0:3000/-ah/up | grep -q '^OK$'"]
+      interval: 5s
+      timeout: 2s
+      retries: 12
+    ports:
+      - 3000:3000
+    volumes:
+      - fetch-cache:/app/.next/cache/fetch-cache
+      - db-data:/app/db-data
+
+  # starts on production, migrates the database, and then exits
   migrate:
     build:
       context: .
@@ -21,8 +36,8 @@ services:
         COPY --from=deps /app/node_modules /app/node_modules
         CMD ["pnpm", "drizzle-kit", "push", "--force"]
     restart: no
+    depends_on:
+      app:
+        condition: service_healthy
     volumes:
-      - timomeh-de-blog-db:/app/db-data/
-
-volumes:
-  timomeh-de-blog-db:
+      - db-data:/app/db-data/
