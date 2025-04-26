@@ -8,7 +8,7 @@ services:
         [
           'sh',
           '-c',
-          'chown -R nextjs:nodejs /app/.next/cache/fetch-cache /app/db-data || true && su-exec nodejs node server.js',
+          'chown -R nextjs:nodejs /app/.next/cache/fetch-cache /app/db-data || true && su-exec nodejs node /app/server.js',
         ]
       test:
         - CMD-SHELL
