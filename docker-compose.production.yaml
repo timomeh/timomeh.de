@@ -5,7 +5,17 @@ services:
     image: ghcr.io/timomeh/timomeh.de:sqlite
     healthcheck:
       test:
-        ['CMD-SHELL', "curl -fs http://0.0.0.0:3000/-ah/up | grep -q '^OK$'"]
+        - CMD-SHELL
+        - |
+          node -e "
+            require('http').get('http://localhost:3000/-ah/up', res => {
+              let data = '';
+              res.on('data', chunk => data += chunk);
+              res.on('end', () => {
+                if (res.statusCode !== 200 || data.trim() !== 'OK') process.exit(1);
+              });
+            }).on('error', () => process.exit(1));
+          "
       interval: 5s
       timeout: 2s
       retries: 12
