@@ -14,12 +14,11 @@ export default async function Page({ params }: Props) {
   const slug = (await params).slug
 
   return (
-    <div className="top-0 max-h-dvh">
+    <div className="top-0 max-h-dvh sm:sticky">
       <ViewTransition name="sidebar">
         <div
           className="@container w-[220px] rounded-xl max-sm:bg-white/40 max-sm:shadow-xl/20
-            max-sm:backdrop-blur-sm sm:sticky sm:w-[86px] sm:py-2 lg:w-[220px]
-            dark:max-sm:bg-black/40"
+            max-sm:backdrop-blur-sm sm:w-[86px] sm:py-2 lg:w-[220px] dark:max-sm:bg-black/40"
         >
           <Card>
             <div>
