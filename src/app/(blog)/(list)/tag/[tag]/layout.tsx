@@ -9,8 +9,6 @@ type Props = {
   params: Promise<{ tag: string }>
 }
 
-export const fetchCache = 'force-cache'
-
 export default function Layout({ children }: Props) {
   return <>{children}</>
 }

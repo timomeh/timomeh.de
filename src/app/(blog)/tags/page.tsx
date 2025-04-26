@@ -5,8 +5,6 @@ import { Prose } from '@/comps/prose'
 import { listTags } from '@/data/tags'
 import { pluralizePosts } from '@/lib/plurals'
 
-export const fetchCache = 'force-cache'
-
 export default async function Page() {
   const tags = await listTags()
 

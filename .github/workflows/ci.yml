@@ -1,7 +1,7 @@
 name: ci
 on:
   pull_request:
-    branches: [main]
+    branches: []
   workflow_call:
 
 jobs:
@@ -45,10 +45,10 @@ jobs:
           file: Dockerfile
           platforms: linux/arm64
           load: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:sqlite
           cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache
           cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache,mode=max
-      - run: docker save -o /tmp/docker-image.tar ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+      - run: docker save -o /tmp/docker-image.tar ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:sqlite
       - uses: actions/upload-artifact@v4
         with:
           name: docker-image

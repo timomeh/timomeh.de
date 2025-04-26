@@ -1,7 +1,5 @@
 import { PostsList } from './posts-list'
 
-export const fetchCache = 'force-cache'
-
 export default async function Page() {
   return <PostsList />
 }
