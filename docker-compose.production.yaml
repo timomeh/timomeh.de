@@ -3,13 +3,13 @@ version: '3.9'
 services:
   app:
     image: ghcr.io/timomeh/timomeh.de:sqlite
+    entrypoint:
+      [
+        'sh',
+        '-c',
+        'chown -R nextjs:nodejs /app/.next/cache/fetch-cache /app/db-data || true && su-exec nodejs node /app/server.js',
+      ]
     healthcheck:
-      entrypoint:
-        [
-          'sh',
-          '-c',
-          'chown -R nextjs:nodejs /app/.next/cache/fetch-cache /app/db-data || true && su-exec nodejs node /app/server.js',
-        ]
       test:
         - CMD-SHELL
         - |
