@@ -42,7 +42,7 @@ export async function highlight(code: string, lang: string) {
 
 export const highlightCached = unstable_cache(
   async (code: string, lang: string) => {
-    const html = highlight(code, lang)
+    const html = await highlight(code, lang)
     return html
   },
 )
