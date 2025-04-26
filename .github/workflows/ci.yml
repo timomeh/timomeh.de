@@ -67,7 +67,24 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install
+
+        # Install Playwright
+      - name: Get installed Playwright version
+        id: playwright-version
+        run: echo "PLAYWRIGHT_VERSION=$(npm pkg get devDependencies.@playwright/test | sed 's/^"\(.*\)"$/\1/')" >> $GITHUB_ENV
+      - name: Cache playwright binaries
+      - uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: |
+            ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
       - run: pnpm exec playwright install --with-deps chromium --only-shell
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+      - run: pnpm exec playwright install-deps
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+
+        # Restore caches
       - name: cache database
         uses: actions/cache@v4
         with:
@@ -80,12 +97,15 @@ jobs:
           path: .next/cache/fetch-cache
           key: ${{ runner.os }}-nextjs-fetch-cache-v2-${{ hashFiles('**/*.ts', '**/*.tsx') }}
           restore-keys: ${{ runner.os }}-nextjs-fetch-cache-v2-
-      - uses: docker/setup-buildx-action@v3
+
+        # Load docker image from previous build stage
       - uses: actions/download-artifact@v4
         with:
           name: docker-image
           path: /tmp
       - run: docker load -i /tmp/docker-image.tar
+
+        # Start everything
       - name: Export secrets
         run: |
           echo "GITHUB_CONTENT_PAT=${{ secrets.BLOG_GH_ACCESS_TOKEN }}" >> .env.local
@@ -93,11 +113,15 @@ jobs:
           echo "NUKE_SECRET=test" >> .env.local
       - run: pnpm db:push
       - run: docker compose up -d
+
+        # Run tests
       - run: pnpm test
         env:
           PLAYWRIGHT_WEB_SERVER: off
           UPLOAD_TO_ARGOS: 1
           NUKE_SECRET: test
+
+        # Post-test
       - uses: actions/upload-artifact@v4
         if: always()
         with:
