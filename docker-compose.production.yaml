@@ -42,8 +42,12 @@ services:
         RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
         FROM base
+        RUN addgroup --system --gid 1001 nodejs
+        RUN adduser --system --uid 1001 nextjs
         COPY . .
-        COPY --from=deps /app/node_modules /app/node_modules
+        COPY --from=deps --chown=nextjs:nodejs /app/node_modules /app/node_modules
+        RUN mkdir -p /app/db-data && chown -R nextjs:nodejs /app/db-data
+        USER nextjs
         CMD ["pnpm", "drizzle-kit", "push", "--force"]
     restart: no
     depends_on:
