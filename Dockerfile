@@ -32,7 +32,9 @@ RUN adduser --system --uid 1001 nextjs
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-RUN mkdir -p /app/.next/cache/fetch-cache && chown -R nextjs:nodejs /app/.next/cache
+RUN mkdir -p /app/.next/cache/images
+RUN mkdir -p /app/.next/cache/raw-content-images
+RUN chown -R nextjs:nodejs /app/.next/cache
 RUN mkdir -p /app/db-data && chown -R nextjs:nodejs /app/db-data
 
 USER nextjs

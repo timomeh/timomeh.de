@@ -3,9 +3,8 @@ import { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   // bypasses the file-system-cache's 2MB limit
-  cacheHandler: require.resolve(
-    'next/dist/server/lib/incremental-cache/file-system-cache.js',
-  ),
+  cacheHandler: require.resolve('./dist/cache-handler.js'),
+  cacheMaxMemorySize: 0,
 
   experimental: {
     viewTransition: true,

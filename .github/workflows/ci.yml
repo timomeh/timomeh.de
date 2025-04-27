@@ -70,18 +70,20 @@ jobs:
       - run: pnpm exec playwright install --with-deps chromium --only-shell
 
       # Restore caches
-      - name: cache database
+      - name: cache sqlite database
         uses: actions/cache@v4
         with:
           path: ./db-data
           key: ${{ runner.os }}-sqlite-blogdb-${{ hashFiles('**/*.ts', '**/*.tsx') }}
           restore-keys: ${{ runner.os }}-sqlite-blogdb-
-      - name: cache nextjs fetch cache
+      - name: cache nextjs cache
         uses: actions/cache@v4
         with:
-          path: .next/cache/fetch-cache
-          key: ${{ runner.os }}-nextjs-fetch-cache-v2-${{ hashFiles('**/*.ts', '**/*.tsx') }}
-          restore-keys: ${{ runner.os }}-nextjs-fetch-cache-v2-
+          path: |
+            .next/cache/images
+            .next/cache/raw-content-images
+          key: ${{ runner.os }}-nextjs-cache-v2-${{ hashFiles('**/*.ts', '**/*.tsx') }}
+          restore-keys: ${{ runner.os }}-nextjs-cache-v2-
 
       # Load docker image from previous build stage
       - name: download docker image to /tmp/docker-image.tar

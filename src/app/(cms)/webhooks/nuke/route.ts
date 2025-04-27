@@ -43,7 +43,6 @@ export async function GET(request: NextRequest) {
   await cacheAllPages()
   await cacheAllPostsAndTags()
   await updateSettingsCache()
-  revalidateTag('tag-count')
   revalidateTag('feed-pre')
   revalidateTag('mdx')
   revalidatePath('/tags')

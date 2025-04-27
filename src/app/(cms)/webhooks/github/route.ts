@@ -68,7 +68,6 @@ export async function POST(request: NextRequest) {
           await updatePostCache(slug)
           revalidateTag(`feed-pre:${slug}`)
           revalidateTag(`mdx-post:${slug}`)
-          revalidateTag('tag-count')
           revalidatePath('/tags') // also update tags to update the post count
           log.withMetadata({ resource, slug }).info('Updated cache')
           return
