@@ -1,4 +1,4 @@
-import { unstable_cache } from 'next/cache'
+import { memoize } from 'nextjs-better-unstable-cache'
 import { getPlaiceholder } from 'plaiceholder'
 
 import { config } from '../config'
@@ -6,11 +6,11 @@ import { config } from '../config'
 // turn images into blurry placeholders
 
 export async function getPlaceholder(src: string) {
-  return getCachedPlaceholder(src)
+  const placeholder = await getCachedPlaceholder(src)
+  return placeholder
 }
 
-// use old unstable_cache until the cache directive persists on disk
-const getCachedPlaceholder = unstable_cache(
+const getCachedPlaceholder = memoize(
   async (src: string) => {
     const res = await fetch(
       src.startsWith('http') ? src : new URL(src, config.siteUrl).href,
@@ -24,5 +24,7 @@ const getCachedPlaceholder = unstable_cache(
 
     return { css: plaiceholder.css, img: { src, height, width } }
   },
-  ['placeholder'],
+  {
+    revalidateTags: (src) => ['placeholder', `placeholder:${src}`],
+  },
 )

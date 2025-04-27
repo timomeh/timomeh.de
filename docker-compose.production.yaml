@@ -23,7 +23,8 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - fetch-cache:/app/.next/cache/fetch-cache
+      - optim-image-cache:/app/.next/cache/images
+      - raw-image-cache:/app/.next/cache/raw-content-images
       - db-data:/app/db-data
 
   # starts on production, migrates the database, and then exits

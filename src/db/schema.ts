@@ -100,3 +100,12 @@ export const postTagsRelations = relations(postTags, ({ one }) => ({
     references: [tags.id],
   }),
 }))
+
+export const dataCaches = t.sqliteTable('data_caches', {
+  key: t.text().primaryKey(),
+  value: t.text().notNull(),
+  tags: t.text({ mode: 'json' }).$type<string[]>().default([]),
+  createdAt: t.integer({ mode: 'timestamp' }).$default(() => new Date()),
+  updatedAt: t.integer({ mode: 'timestamp' }),
+  expiredAt: t.integer({ mode: 'timestamp' }),
+})

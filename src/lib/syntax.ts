@@ -6,7 +6,7 @@ import {
   transformerNotationWordHighlight,
   transformerRenderWhitespace,
 } from '@shikijs/transformers'
-import { unstable_cache } from 'next/cache'
+import { memoize } from 'nextjs-better-unstable-cache'
 import { codeToHtml } from 'shiki'
 
 // basically smol wrapper around shiki
@@ -40,9 +40,12 @@ export async function highlight(code: string, lang: string) {
   return html
 }
 
-export const highlightCached = unstable_cache(
+export const highlightCached = memoize(
   async (code: string, lang: string) => {
     const html = await highlight(code, lang)
     return html
+  },
+  {
+    revalidateTags: (_code, lang) => ['shiki', `shiki-lang:${lang}`],
   },
 )

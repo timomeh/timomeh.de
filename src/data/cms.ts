@@ -92,7 +92,7 @@ export const cms = {
           headers: {
             Authorization: `Bearer ${config.github.contentPat}`,
           },
-          cache: 'force-cache',
+          cache: 'no-store',
         },
       )
 

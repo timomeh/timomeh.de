@@ -1,7 +1,7 @@
 import { compile, evaluate, run } from '@mdx-js/mdx'
 import remarkEmbedder, { TransformerInfo } from '@remark-embedder/core'
 import oembedTransformer from '@remark-embedder/transformer-oembed'
-import { unstable_cache } from 'next/cache'
+import { memoize } from 'nextjs-better-unstable-cache'
 import { Suspense } from 'react'
 import * as runtime from 'react/jsx-runtime'
 import rehypeUnwrapImages from 'rehype-unwrap-images'
@@ -108,16 +108,19 @@ export async function MDX({
     return String(code)
   }
 
-  const compileCached = unstable_cache(
-    () => compileUncached(),
-    [
-      'cached-version:v2', // increase this version if rendered mdx updated
-      assetPrefix || '',
-      cacheKey || '',
-    ],
+  const compileCached = memoize(
+    async () => {
+      const compiled = await compileUncached()
+      return compiled
+    },
     {
-      revalidate: false, // never expire
-      tags: ['mdx', ...(cacheTags || [])],
+      additionalCacheKey: [
+        'compiled-mdx',
+        'cached-version:v2', // increase this version if rendered mdx updated
+        assetPrefix || 'mdx-no-asset-prefix',
+        cacheKey || 'mdx-no-cache-key',
+      ],
+      revalidateTags: ['mdx', ...(cacheTags || [])],
     },
   )
 
