@@ -16,24 +16,26 @@ export default async function Page(props: Props) {
   return (
     <>
       {post?.lightCover || post?.darkCover ? (
-        <Suspense
-          fallback={
-            <div className="-mb-36 aspect-[3/2] h-auto max-h-[500px] min-h-[300px] w-full max-w-[1024px]" />
-          }
-        >
-          <HeaderBackdropImage
-            lightSrc={
-              post.lightCover
-                ? contentAsset('posts', post.slug, post.lightCover)
-                : undefined
+        <div className="static -mb-36">
+          <Suspense
+            fallback={
+              <div className="aspect-[3/2] h-auto max-h-[500px] min-h-[300px] w-full max-w-[1024px]" />
             }
-            darkSrc={
-              post.darkCover
-                ? contentAsset('posts', post.slug, post.darkCover)
-                : undefined
-            }
-          />
-        </Suspense>
+          >
+            <HeaderBackdropImage
+              lightSrc={
+                post.lightCover
+                  ? contentAsset('posts', post.slug, post.lightCover)
+                  : undefined
+              }
+              darkSrc={
+                post.darkCover
+                  ? contentAsset('posts', post.slug, post.darkCover)
+                  : undefined
+              }
+            />
+          </Suspense>
+        </div>
       ) : (
         <HeaderBackdropEmpty />
       )}

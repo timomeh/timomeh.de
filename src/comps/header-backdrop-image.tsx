@@ -14,7 +14,7 @@ export async function HeaderBackdropImage({ lightSrc, darkSrc }: Props) {
   ])
 
   return (
-    <div className="relative -mb-36 h-auto w-full opacity-90 mix-blend-darken dark:mix-blend-lighten">
+    <div className="relative h-auto w-full opacity-90 mix-blend-darken dark:mix-blend-lighten">
       {lightCover && (
         <div
           data-has-dark={!!darkCover}

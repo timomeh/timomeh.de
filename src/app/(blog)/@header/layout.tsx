@@ -4,6 +4,8 @@ import { Aurora } from '@/comps/aurora'
 import { Contours } from '@/comps/contours'
 import { Mug } from '@/comps/me/mug'
 
+import { BackdropAnimate } from './backdrop-animate'
+
 type Props = {
   kicker: React.ReactNode
   backdrop: React.ReactNode
@@ -12,7 +14,7 @@ type Props = {
 export default function Layout({ kicker, backdrop }: Props) {
   return (
     <div className="group/header">
-      {backdrop}
+      <BackdropAnimate>{backdrop}</BackdropAnimate>
 
       <div
         className="absolute -top-[140px] right-0 left-0 -z-10 hidden h-[550px] w-full
