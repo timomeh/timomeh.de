@@ -34,7 +34,6 @@ Videos are simply uploaded to YouTube, and YouTube links in posts are automatica
 
 1. Fill in env variables
 2. `pnpm db:push` to prepare database
-3. `pnpm build:cache-handler`
 4. `pnpm dev`
 5. Visit https://localhost:3000/webhooks/nuke to populate database
 
