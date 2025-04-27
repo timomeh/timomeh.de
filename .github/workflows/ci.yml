@@ -77,14 +77,15 @@ jobs:
           path: ./db-data
           key: ${{ runner.os }}-sqlite-blogdb-${{ hashFiles('**/*.ts', '**/*.tsx') }}
           restore-keys: ${{ runner.os }}-sqlite-blogdb-
+      - run: mkdir -p db-data .next/cache/{images,raw-content-images}
       - name: cache nextjs cache
         uses: actions/cache@v4
         with:
           path: |
             .next/cache/images
             .next/cache/raw-content-images
-          key: ${{ runner.os }}-nextjs-cache-v2-${{ hashFiles('**/*.ts', '**/*.tsx') }}
-          restore-keys: ${{ runner.os }}-nextjs-cache-v2-
+          key: ${{ runner.os }}-nextjs-cache-v3-${{ hashFiles('**/*.ts', '**/*.tsx') }}
+          restore-keys: ${{ runner.os }}-nextjs-cache-v3-
 
       # Load docker image from previous build stage
       - name: download docker image to /tmp/docker-image.tar
