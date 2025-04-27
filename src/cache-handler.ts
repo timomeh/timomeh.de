@@ -56,7 +56,7 @@ export default class SQLiteCacheHandler {
 
     await db.delete(schema.dataCaches).where(sql`exists (
       select 1 from json_each(${schema.dataCaches.tags})
-      where json_each.value in (${sql.join(tags.map((t) => sql`${t}`))})
+      where json_each.value in (${sql.join(tags, sql`, `)})
     )`)
   }
 
