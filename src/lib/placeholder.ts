@@ -10,7 +10,6 @@ export async function getPlaceholder(src: string) {
   return placeholder
 }
 
-// use old unstable_cache until the cache directive persists on disk
 const getCachedPlaceholder = memoize(
   async (src: string) => {
     const res = await fetch(

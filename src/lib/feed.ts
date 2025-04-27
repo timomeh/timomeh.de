@@ -1,5 +1,5 @@
 import { Feed, FeedOptions } from 'feed'
-import { unstable_cache } from 'next/cache'
+import { memoize } from 'nextjs-better-unstable-cache'
 
 import { config } from '@/config'
 import { listPublishedPosts } from '@/data/posts'
@@ -24,7 +24,7 @@ export async function buildFeed(type: FeedType) {
 
   const compiledPosts = await Promise.all(
     posts.map(async (post) => {
-      const fetchRenderedHtml = unstable_cache(
+      const fetchRenderedHtml = memoize(
         async (slug: string) => {
           const headers = new Headers()
           headers.set('x-api-key', config.api.internalSecret)
@@ -45,8 +45,10 @@ export async function buildFeed(type: FeedType) {
           const articleContent = match?.[1]?.trim()
           return articleContent
         },
-        ['feed-prerendered-html'],
-        { tags: ['feed-pre', `feed-pre:${post.slug}`] },
+        {
+          additionalCacheKey: ['feed-prerendered-html'],
+          revalidateTags: (slug) => ['feed-pre', `feed-pre:${slug}`],
+        },
       )
 
       return fetchRenderedHtml(post.slug)
