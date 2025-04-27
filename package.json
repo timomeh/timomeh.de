@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "postinstall": "pnpm build:cache-handler",
     "dev": "next dev",
     "build": "next build --experimental-build-mode compile",
     "prebuild": "pnpm build:cache-handler",
