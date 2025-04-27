@@ -16,10 +16,11 @@ export default async function Page(props: Props) {
   return (
     <>
       {post?.lightCover || post?.darkCover ? (
-        <div className="static -mb-36">
+        <div className="static">
+          <div className="header-backdrop-signal" />
           <Suspense
             fallback={
-              <div className="aspect-[3/2] h-auto max-h-[500px] min-h-[300px] w-full max-w-[1024px]" />
+              <div className="aspect-[3/2] h-auto max-h-[356px] min-h-[156px] w-full max-w-[1024px]" />
             }
           >
             <HeaderBackdropImage

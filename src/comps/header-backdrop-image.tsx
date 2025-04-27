@@ -14,17 +14,22 @@ export async function HeaderBackdropImage({ lightSrc, darkSrc }: Props) {
   ])
 
   return (
-    <div className="relative h-auto w-full opacity-90 mix-blend-darken dark:mix-blend-lighten">
+    <div
+      className="relative h-auto w-full max-w-dvw opacity-90 mix-blend-darken
+        dark:mix-blend-lighten"
+    >
       {lightCover && (
         <div
           data-has-dark={!!darkCover}
-          className="relative mx-auto block h-auto max-h-[500px] min-h-[300px] w-full max-w-[1024px]
-            overflow-hidden
+          className="relative mx-auto -mb-36 block h-auto max-h-[500px] min-h-[300px] w-full
+            max-w-[1024px] overflow-hidden
             [mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%)]
             [mask-composite:intersect]
             lg:[mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%),linear-gradient(to_left,#000_95%,transparent_100%),linear-gradient(to_right,#000_95%,transparent_100%)]
             dark:data-[has-dark=true]:hidden"
-          style={{ aspectRatio: lightCover.img.width / lightCover.img.height }}
+          style={{
+            aspectRatio: lightCover.img.width / lightCover.img.height,
+          }}
         >
           <FadeInImage
             alt=""
@@ -40,8 +45,8 @@ export async function HeaderBackdropImage({ lightSrc, darkSrc }: Props) {
       )}
       {darkCover && (
         <div
-          className="relative mx-auto hidden h-auto max-h-[500px] min-h-[300px] w-full max-w-[1024px]
-            overflow-hidden
+          className="relative mx-auto -mb-36 hidden h-auto max-h-[500px] min-h-[300px] w-full
+            max-w-[1024px] overflow-hidden
             [mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%)]
             [mask-composite:intersect]
             lg:[mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%),linear-gradient(to_left,#000_95%,transparent_100%),linear-gradient(to_right,#000_95%,transparent_100%)]

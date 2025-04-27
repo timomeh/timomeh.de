@@ -4,8 +4,6 @@ import { Aurora } from '@/comps/aurora'
 import { Contours } from '@/comps/contours'
 import { Mug } from '@/comps/me/mug'
 
-import { BackdropAnimate } from './backdrop-animate'
-
 type Props = {
   kicker: React.ReactNode
   backdrop: React.ReactNode
@@ -14,11 +12,16 @@ type Props = {
 export default function Layout({ kicker, backdrop }: Props) {
   return (
     <div className="group/header">
-      <BackdropAnimate>{backdrop}</BackdropAnimate>
+      <div
+        className="grid [grid-template-rows:0fr] transition-all duration-700 ease-in-out
+          has-[.header-backdrop-signal]:[grid-template-rows:1fr]"
+      >
+        <div className="min-h-0">{backdrop}</div>
+      </div>
 
       <div
         className="absolute -top-[140px] right-0 left-0 -z-10 hidden h-[550px] w-full
-          group-has-[.header-backdrop-signal]/header:block"
+          group-has-[.header-no-backdrop-signal]/header:block"
         data-visual-test="removed"
       >
         <Aurora />
