@@ -51,8 +51,8 @@ importers:
         specifier: 4.1.0
         version: 4.1.0
       drizzle-orm:
-        specifier: 0.42.0
-        version: 0.42.0(@libsql/client@0.15.4)(@opentelemetry/api@1.9.0)
+        specifier: 0.43.1
+        version: 0.43.1(@libsql/client@0.15.4)(@opentelemetry/api@1.9.0)
       feed:
         specifier: 4.2.2
         version: 4.2.2
@@ -675,10 +675,6 @@ packages:
 
   '@eslint/eslintrc@3.3.1':
     resolution: {integrity: sha512-gtF186CXhIl1p4pJNGZw8Yc6RlshoePRvE0X91oPGb3vZ8pM3qOS9W9NGPat9LziaBV7XrJWGylNQXkGcnM3IQ==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
-  '@eslint/js@9.25.0':
-    resolution: {integrity: sha512-iWhsUS8Wgxz9AXNfvfOPFSW4VfMXdVhp1hjkZVhXCrpgh/aLcc45rX6MPu+tIVUWDw0HfNwth7O28M1xDxNf9w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@eslint/js@9.25.1':
@@ -2508,8 +2504,8 @@ packages:
     resolution: {integrity: sha512-pcKVT+GbfPA+bUovPIilgVOoq+onNBo/YQBG86sf3/GFHkN6lRJPm1l7dKN0IMAk57RQoIm4GUllRrasLlcaSg==}
     hasBin: true
 
-  drizzle-orm@0.42.0:
-    resolution: {integrity: sha512-pS8nNJm2kBNZwrOjTHJfdKkaU+KuUQmV/vk5D57NojDq4FG+0uAYGMulXtYT///HfgsMF0hnFFvu1ezI3OwOkg==}
+  drizzle-orm@0.43.1:
+    resolution: {integrity: sha512-dUcDaZtE/zN4RV/xqGrVSMpnEczxd5cIaoDeor7Zst9wOe/HzC/7eAaulywWGYXdDEc9oBPMjayVEDg0ziTLJA==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
       '@cloudflare/workers-types': '>=4'
@@ -3343,6 +3339,7 @@ packages:
 
   libsql@0.5.7:
     resolution: {integrity: sha512-YbWW3YsGZl6PrBRNAtUVuMLqKRqYcYPa/QqhQCuR67SlcOHIhJ11ksTLAHxXkDRJs6kSrzr9JgGJGJQ91e1Bww==}
+    cpu: [x64, arm64, wasm32]
     os: [darwin, linux, win32]
 
   lightningcss-darwin-arm64@1.29.2:
@@ -5075,8 +5072,6 @@ snapshots:
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
       - supports-color
-
-  '@eslint/js@9.25.0': {}
 
   '@eslint/js@9.25.1': {}
 
@@ -7427,7 +7422,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.42.0(@libsql/client@0.15.4)(@opentelemetry/api@1.9.0):
+  drizzle-orm@0.43.1(@libsql/client@0.15.4)(@opentelemetry/api@1.9.0):
     optionalDependencies:
       '@libsql/client': 0.15.4
       '@opentelemetry/api': 1.9.0
