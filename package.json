@@ -50,7 +50,7 @@
     "rehype-unwrap-images": "1.0.0",
     "remark-gfm": "4.0.1",
     "remark-smartypants": "3.0.2",
-    "remove-markdown": "0.6.0",
+    "remove-markdown": "0.6.2",
     "serialize-error": "12.0.0",
     "server-only": "0.0.1",
     "sharp": "0.34.1",
