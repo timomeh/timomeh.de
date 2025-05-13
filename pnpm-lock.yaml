@@ -24,8 +24,8 @@ importers:
         specifier: 0.15.4
         version: 0.15.4
       '@loglayer/transport-pino':
-        specifier: 2.1.1
-        version: 2.1.1(pino@9.6.0)
+        specifier: 2.2.0
+        version: 2.2.0(pino@9.6.0)
       '@mdx-js/mdx':
         specifier: 3.1.0
         version: 3.1.0(acorn@8.14.1)
@@ -1093,14 +1093,22 @@ packages:
     resolution: {integrity: sha512-M31Wrue64t0PLmhLsa8PGcRIbQJTcuEAzJoE89m9YvSOzZ0Kzzml/mvEQwLdPAqzYSVyxwcOcOvT3jPq+YBB3A==}
     engines: {node: '>=18'}
 
-  '@loglayer/transport-pino@2.1.1':
-    resolution: {integrity: sha512-39Mlxu8uEgAeKSfKPj8zOU1T9D36YGFvKRDw489mdh1ENfiJGZoTCQpuQfsqw1aDBHtdoYDwMzvm60A/feSeMA==}
+  '@loglayer/shared@2.3.0':
+    resolution: {integrity: sha512-jBg8RC13ytx7ZfWOAdlYOt61T2GrbsJpNDrAmuK/flOhNW30OENn21l7Ns28L986QfTRPJyVtKxe5lqFN2w3vg==}
+    engines: {node: '>=18'}
+
+  '@loglayer/transport-pino@2.2.0':
+    resolution: {integrity: sha512-Ob3a072uSoTBBxnc8L3BQhXTqvq/EDceNNj0gGaL0UAiFlwzDTELTRk+EhcUCmrEDyqt3LaKH5breWZJL72fOA==}
     engines: {node: '>=18'}
     peerDependencies:
       pino: '*'
 
   '@loglayer/transport@2.1.1':
     resolution: {integrity: sha512-zOU/ZC0LUwgzbEU7+OMm5R3s4xuEAEUKkWIIhIHfxJcWAFFAl/YkvPO0pRVGo2yxHkL11SMzkdnddyIBkUHV0g==}
+    engines: {node: '>=18'}
+
+  '@loglayer/transport@2.2.0':
+    resolution: {integrity: sha512-X6j9o9Q+xuGL3HnNu+dcAlBgf+9LBswsVK9MOKQJdOSCwQZpSrEBilaZdecuLhoczZsqIu11cbRXzAsbFj06sA==}
     engines: {node: '>=18'}
 
   '@markdoc/markdoc@0.4.0':
@@ -5846,14 +5854,20 @@ snapshots:
 
   '@loglayer/shared@2.2.1': {}
 
-  '@loglayer/transport-pino@2.1.1(pino@9.6.0)':
+  '@loglayer/shared@2.3.0': {}
+
+  '@loglayer/transport-pino@2.2.0(pino@9.6.0)':
     dependencies:
-      '@loglayer/transport': 2.1.1
+      '@loglayer/transport': 2.2.0
       pino: 9.6.0
 
   '@loglayer/transport@2.1.1':
     dependencies:
       '@loglayer/shared': 2.2.1
+
+  '@loglayer/transport@2.2.0':
+    dependencies:
+      '@loglayer/shared': 2.3.0
 
   '@markdoc/markdoc@0.4.0(@types/react@19.1.4)(react@19.1.0)':
     optionalDependencies:
