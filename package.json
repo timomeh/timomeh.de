@@ -71,7 +71,7 @@
     "@types/react-dom": "19.1.4",
     "@types/remove-markdown": "0.3.4",
     "drizzle-kit": "0.31.1",
-    "esbuild": "0.25.3",
+    "esbuild": "0.25.4",
     "eslint": "9.26.0",
     "eslint-config-next": "15.3.2",
     "eslint-config-prettier": "10.1.5",
