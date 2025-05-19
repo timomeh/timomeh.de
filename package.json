@@ -65,7 +65,7 @@
     "@tailwindcss/postcss": "4.1.7",
     "@tailwindcss/typography": "0.5.16",
     "@types/mdast": "4.0.4",
-    "@types/node": "22.15.18",
+    "@types/node": "22.15.19",
     "@types/probe-image-size": "7.2.5",
     "@types/react": "19.1.4",
     "@types/react-dom": "19.1.5",
