@@ -25,7 +25,7 @@ importers:
         version: 0.15.6
       '@loglayer/transport-pino':
         specifier: 2.2.0
-        version: 2.2.0(pino@9.6.0)
+        version: 2.2.0(pino@9.7.0)
       '@mdx-js/mdx':
         specifier: 3.1.0
         version: 3.1.0(acorn@8.14.1)
@@ -75,8 +75,8 @@ importers:
         specifier: 1.1.0
         version: 1.1.0(next@15.3.2(@opentelemetry/api@1.9.0)(@playwright/test@1.52.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
       pino:
-        specifier: 9.6.0
-        version: 9.6.0
+        specifier: 9.7.0
+        version: 9.7.0
       pino-pretty:
         specifier: 13.0.0
         version: 13.0.0
@@ -3945,8 +3945,8 @@ packages:
   pino-std-serializers@7.0.0:
     resolution: {integrity: sha512-e906FRY0+tV27iq4juKzSYPbUj2do2X2JX4EzSca1631EB2QJQUqGbDuERal7LCtOpxl6x3+nvo9NPZcmjkiFA==}
 
-  pino@9.6.0:
-    resolution: {integrity: sha512-i85pKRCt4qMjZ1+L7sy2Ag4t1atFcdbEt76+7iRJn1g2BvsnRMGu9p8pivl9fs63M2kF/A0OacFZhTub+m/qMg==}
+  pino@9.7.0:
+    resolution: {integrity: sha512-vnMCM6xZTb1WDmLvtG2lE/2p+t9hDEIvTWJsu6FejkE62vB7gDhvzrpFR4Cw2to+9JNQxVnkAKVPA1KPB98vWg==}
     hasBin: true
 
   plaiceholder@3.0.0:
@@ -4073,8 +4073,8 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
-  process-warning@4.0.0:
-    resolution: {integrity: sha512-/MyYDxttz7DfGMMHiysAsFE4qF+pQYAA8ziO/3NcRVrQ5fSk+Mns4QZA/oRPFzvcqNoVJXQNWNAsdwBXLUkQKw==}
+  process-warning@5.0.0:
+    resolution: {integrity: sha512-a39t9ApHNx2L4+HBnQKqxxHNs1r7KF+Intd8Q/g1bUh6q0WIp9voPXJ/x0j+ZL45KF1pJd9+q2jLIRMfvEshkA==}
 
   promise-limit@2.7.0:
     resolution: {integrity: sha512-7nJ6v5lnJsXwGprnGXga4wx6d1POjvi5Qmf1ivTRxTjH4Z/9Czja/UCMLVmB9N93GeWOU93XaFaEt6jbuoagNw==}
@@ -5665,10 +5665,10 @@ snapshots:
 
   '@loglayer/shared@2.3.0': {}
 
-  '@loglayer/transport-pino@2.2.0(pino@9.6.0)':
+  '@loglayer/transport-pino@2.2.0(pino@9.7.0)':
     dependencies:
       '@loglayer/transport': 2.2.0
-      pino: 9.6.0
+      pino: 9.7.0
 
   '@loglayer/transport@2.2.0':
     dependencies:
@@ -9441,14 +9441,14 @@ snapshots:
 
   pino-std-serializers@7.0.0: {}
 
-  pino@9.6.0:
+  pino@9.7.0:
     dependencies:
       atomic-sleep: 1.0.0
       fast-redact: 3.5.0
       on-exit-leak-free: 2.1.2
       pino-abstract-transport: 2.0.0
       pino-std-serializers: 7.0.0
-      process-warning: 4.0.0
+      process-warning: 5.0.0
       quick-format-unescaped: 4.0.4
       real-require: 0.2.0
       safe-stable-stringify: 2.5.0
@@ -9515,7 +9515,7 @@ snapshots:
 
   prettier@3.5.3: {}
 
-  process-warning@4.0.0: {}
+  process-warning@5.0.0: {}
 
   promise-limit@2.7.0: {}
 
