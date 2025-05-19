@@ -40,7 +40,7 @@
     "mdast-util-mdx": "3.0.0",
     "next": "15.3.2",
     "nextjs-better-unstable-cache": "1.1.0",
-    "pino": "9.6.0",
+    "pino": "9.7.0",
     "pino-pretty": "13.0.0",
     "plaiceholder": "3.0.0",
     "postcss-url": "10.1.3",
