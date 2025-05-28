@@ -32,7 +32,7 @@
     "@remark-embedder/transformer-oembed": "5.0.1",
     "@shikijs/transformers": "3.4.2",
     "date-fns": "4.1.0",
-    "drizzle-orm": "0.43.1",
+    "drizzle-orm": "0.44.0",
     "feed": "5.1.0",
     "loglayer": "6.4.2",
     "lucide-react": "0.511.0",
