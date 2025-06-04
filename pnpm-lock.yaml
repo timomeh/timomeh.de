@@ -30,8 +30,8 @@ importers:
         specifier: 3.1.0
         version: 3.1.0(acorn@8.14.1)
       '@octokit/webhooks':
-        specifier: 14.0.0
-        version: 14.0.0
+        specifier: 14.0.1
+        version: 14.0.1
       '@octokit/webhooks-types':
         specifier: 7.6.1
         version: 7.6.1
@@ -1207,8 +1207,8 @@ packages:
   '@octokit/openapi-types@25.1.0':
     resolution: {integrity: sha512-idsIggNXUKkk0+BExUn1dQ92sfysJrje03Q0bv0e+KPLrvyqZF8MnBpFz8UNfYDwB3Ie7Z0TByjWfzxt7vseaA==}
 
-  '@octokit/openapi-webhooks-types@11.0.0':
-    resolution: {integrity: sha512-ZBzCFj98v3SuRM7oBas6BHZMJRadlnDoeFfvm1olVxZnYeU6Vh97FhPxyS5aLh5pN51GYv2I51l/hVUAVkGBlA==}
+  '@octokit/openapi-webhooks-types@12.0.0':
+    resolution: {integrity: sha512-IPHipSw0naf75Fb5KePR0w3no4IEWdvNNiUQNz9tJTVPN8NWXMzL05z05gSd+LvzsXNEBWnuwrWLz3e2CmVAgQ==}
 
   '@octokit/request-error@7.0.0':
     resolution: {integrity: sha512-KRA7VTGdVyJlh0cP5Tf94hTiYVVqmt2f3I6mnimmaVz4UG3gQV/k4mDJlJv3X67iX6rmN7gSHCF8ssqeMnmhZg==}
@@ -1224,8 +1224,8 @@ packages:
   '@octokit/webhooks-types@7.6.1':
     resolution: {integrity: sha512-S8u2cJzklBC0FgTwWVLaM8tMrDuDMVE4xiTK4EYXM9GntyvrdbSoxqDQa+Fh57CCNApyIpyeqPhhFEmHPfrXgw==}
 
-  '@octokit/webhooks@14.0.0':
-    resolution: {integrity: sha512-IZV4vg/s1pqIpCs86a0tp5FQ/O94DUaqksMdNrXFSaE037TXsB+fIhr8OVig09oEx3WazVgE6B2U+u7/Fvdlsw==}
+  '@octokit/webhooks@14.0.1':
+    resolution: {integrity: sha512-GsM0S/Xip4kHuLpgRLbQ3VN6BVnmBbd45cuKYL++aSckLp/gBjSvgNDW5xh8nhKvn55PfG02RYacZtGOp4ac6w==}
     engines: {node: '>= 20'}
 
   '@opentelemetry/api@1.9.0':
@@ -5780,7 +5780,7 @@ snapshots:
 
   '@octokit/openapi-types@25.1.0': {}
 
-  '@octokit/openapi-webhooks-types@11.0.0': {}
+  '@octokit/openapi-webhooks-types@12.0.0': {}
 
   '@octokit/request-error@7.0.0':
     dependencies:
@@ -5794,9 +5794,9 @@ snapshots:
 
   '@octokit/webhooks-types@7.6.1': {}
 
-  '@octokit/webhooks@14.0.0':
+  '@octokit/webhooks@14.0.1':
     dependencies:
-      '@octokit/openapi-webhooks-types': 11.0.0
+      '@octokit/openapi-webhooks-types': 12.0.0
       '@octokit/request-error': 7.0.0
       '@octokit/webhooks-methods': 6.0.0
 
