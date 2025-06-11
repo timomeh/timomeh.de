@@ -67,7 +67,7 @@
     "@types/mdast": "4.0.4",
     "@types/node": "22.15.30",
     "@types/probe-image-size": "7.2.5",
-    "@types/react": "19.1.7",
+    "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
     "@types/remove-markdown": "0.3.4",
     "drizzle-kit": "0.31.1",
