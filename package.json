@@ -61,7 +61,7 @@
     "@argos-ci/playwright": "5.0.4",
     "@eslint/eslintrc": "3.3.1",
     "@eslint/js": "9.30.0",
-    "@playwright/test": "1.53.1",
+    "@playwright/test": "1.53.2",
     "@tailwindcss/postcss": "4.1.11",
     "@tailwindcss/typography": "0.5.16",
     "@types/mdast": "4.0.4",
