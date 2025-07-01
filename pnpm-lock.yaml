@@ -30,8 +30,8 @@ importers:
         specifier: 3.1.0
         version: 3.1.0(acorn@8.14.1)
       '@octokit/webhooks':
-        specifier: 14.0.2
-        version: 14.0.2
+        specifier: 14.1.0
+        version: 14.1.0
       '@octokit/webhooks-types':
         specifier: 7.6.1
         version: 7.6.1
@@ -1232,8 +1232,8 @@ packages:
   '@octokit/webhooks-types@7.6.1':
     resolution: {integrity: sha512-S8u2cJzklBC0FgTwWVLaM8tMrDuDMVE4xiTK4EYXM9GntyvrdbSoxqDQa+Fh57CCNApyIpyeqPhhFEmHPfrXgw==}
 
-  '@octokit/webhooks@14.0.2':
-    resolution: {integrity: sha512-16TtZXNOfH8RaRsV+iag5dTYeJvdOdZDBcpEPCULdKS3eTRJqAYxBNZPFaDJ3cx3WNyvbaQ0IxsPpnaR/tgGFA==}
+  '@octokit/webhooks@14.1.0':
+    resolution: {integrity: sha512-X6zFa01TR6yLvgTepABozuQRAs7sDIr+M+Msk6z9RVH77RW8Lu06Q4FcH1tXVpTXR13BBrmN1Wez7LDofj46UQ==}
     engines: {node: '>= 20'}
 
   '@opentelemetry/api@1.9.0':
@@ -5829,7 +5829,7 @@ snapshots:
 
   '@octokit/webhooks-types@7.6.1': {}
 
-  '@octokit/webhooks@14.0.2':
+  '@octokit/webhooks@14.1.0':
     dependencies:
       '@octokit/openapi-webhooks-types': 12.0.3
       '@octokit/request-error': 7.0.0
