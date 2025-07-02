@@ -13,7 +13,7 @@ export async function Code(props: Props) {
         {...props}
         className="-my-1 rounded-md border border-gray-400/50 bg-white/30 px-1.5 py-1 font-mono
           text-[0.9em] font-semibold text-current shadow-purple-300/5 before:content-none
-          after:content-none dark:border-white/5 dark:bg-gray-950/30 dark:font-normal"
+          after:content-none dark:border-white/10 dark:bg-gray-600/25 dark:font-normal"
       />
     )
   }
