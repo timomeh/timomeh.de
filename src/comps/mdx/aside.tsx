@@ -7,7 +7,7 @@ export function Aside({ children, title }: Props) {
   return (
     <aside
       className="relative my-8 rounded-md border border-sky-400/50 bg-sky-400/20 px-4 text-sm
-        text-sky-950 md:-mx-4 dark:text-sky-200"
+        leading-6 text-sky-950 md:-mx-4 dark:text-sky-200"
     >
       {title && (
         <header
