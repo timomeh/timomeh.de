@@ -13,6 +13,7 @@ import { withMdxFootnotes } from '@/lib/remarkMdxFootnotes'
 import { remarkReadMore } from '@/lib/remarkReadMore'
 
 import { Anchor } from './anchor'
+import { Aside } from './aside'
 import { Blockquote } from './blockquote'
 import { Code } from './code'
 import { Definition } from './definition'
@@ -155,6 +156,7 @@ const baseComponents: MDXComponents = {
   Kbd,
   Lead,
   Figure,
+  Aside,
   DefinitionList,
   Definition,
 }

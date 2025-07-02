@@ -12,6 +12,7 @@ import {
   Footprints,
   Images,
   Keyboard,
+  MessageSquareText,
   ScrollText,
 } from 'lucide-react'
 
@@ -61,6 +62,26 @@ const components = {
       shadow: fields.checkbox({
         label: 'Shadow',
         defaultValue: true,
+      }),
+    },
+  }),
+  Aside: wrapper({
+    label: 'Aside',
+    icon: <MessageSquareText />,
+    ContentView: (props) => {
+      return (
+        <>
+          <div className="bold text-sm leading-tight text-gray-600">
+            {props.value.title}
+          </div>
+          {props.children}
+        </>
+      )
+    },
+    schema: {
+      title: fields.text({
+        label: 'Title',
+        multiline: false,
       }),
     },
   }),
