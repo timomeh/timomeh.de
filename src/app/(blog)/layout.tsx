@@ -66,7 +66,7 @@ export default async function RootLayout({ children, header, aside }: Props) {
         <ProgressBarProvider>
           <PrevPathProvider>
             <div className="relative">
-              <KeyboardNavLink href="#main">Skip header</KeyboardNavLink>
+              <KeyboardNavLink href="#main">Skip to main</KeyboardNavLink>
               {header}
               <div
                 className="mx-auto w-full gap-2 px-2 sm:grid sm:w-fit sm:max-w-full
@@ -75,7 +75,7 @@ export default async function RootLayout({ children, header, aside }: Props) {
               >
                 <div className="relative order-2">
                   <KeyboardNavLink href="#content" className="max-sm:hidden">
-                    Jump to content
+                    Skip to content
                   </KeyboardNavLink>
                   <div role="navigation" id="aside" className="sm:h-full">
                     <ResponsiveSidebar>{aside}</ResponsiveSidebar>
