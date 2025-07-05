@@ -1,7 +1,13 @@
 import { PostsList } from './posts-list'
+import { ReadMorePosts } from './read-more-posts'
 
 export default async function Page() {
-  return <PostsList />
+  return (
+    <>
+      <PostsList />
+      <ReadMorePosts />
+    </>
+  )
 }
 
 export async function generateMetadata() {

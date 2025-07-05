@@ -10,6 +10,7 @@ const log = baseLog.child().withContext({ module: 'data/posts' })
 
 type Filter = {
   sort?: 'asc' | 'desc'
+  limit?: number
 }
 
 export const listPublishedPosts = cache(async (filter: Filter = {}) => {
@@ -44,6 +45,7 @@ export const listPublishedPostsByYear = cache(
           ? q.asc(post.publishedAt)
           : q.desc(post.publishedAt),
       ],
+      limit: filter.limit,
       with: {
         postTags: {
           with: { tag: true },
