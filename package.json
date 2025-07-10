@@ -53,7 +53,7 @@
     "remove-markdown": "0.6.2",
     "serialize-error": "12.0.0",
     "server-only": "0.0.1",
-    "sharp": "0.34.2",
+    "sharp": "0.34.3",
     "shiki": "3.7.0",
     "unist-util-visit": "5.0.0"
   },
