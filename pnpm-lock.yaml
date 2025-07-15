@@ -124,8 +124,8 @@ importers:
         version: 5.0.0
     devDependencies:
       '@argos-ci/playwright':
-        specifier: 5.0.5
-        version: 5.0.5
+        specifier: 5.0.6
+        version: 5.0.6
       '@eslint/eslintrc':
         specifier: 3.3.1
         version: 3.3.1
@@ -234,16 +234,16 @@ packages:
     resolution: {integrity: sha512-OljPFzxSNndWSwMBxKGtN3p8lSbt73z+/0CIXbBVTQOPjPMErXWjgtrFL23xqtTq5wdds3uxGv7tjVDWJbgBYg==}
     engines: {node: '>=18.0.0'}
 
-  '@argos-ci/core@3.2.0':
-    resolution: {integrity: sha512-wraH5RGFpoU7zcKV2BVi4LvY+5bWR/Ds6OVhUtq3jtd7I3qJRFVFq2IX1TfPPvBBA7wX0OqcrqgIWAQwy+vsoA==}
+  '@argos-ci/core@3.2.1':
+    resolution: {integrity: sha512-P+tGofNLAtH0+e87M8sZc+juAtbOcnV6z2nA2MwB2OzUVVXGINJHAF2cK0ZUyXC9d8a7RL0+rQWkP4vXDA/gBw==}
     engines: {node: '>=18.0.0'}
 
-  '@argos-ci/playwright@5.0.5':
-    resolution: {integrity: sha512-ZqaqptjI8rVUjD2KQzpvI1olFDiiMjgDaIyFOMWo8531cB7CMCwPXDNsFw2psUfsz3a3LP91eH2OrJopmevEkQ==}
+  '@argos-ci/playwright@5.0.6':
+    resolution: {integrity: sha512-GvMmZJLHqmfDUD/IoWzQ8k47bpdbs/652mE6oZM3HJfkozZViRZOydRFLxQZ5bhl1GFYMxu4NIxzTpa7GlQXaw==}
     engines: {node: '>=18.16.0'}
 
-  '@argos-ci/util@2.3.1':
-    resolution: {integrity: sha512-kE61HU2480fbAnimmA4x9HK45ZJvkoqLdW5GxT5uvwhkclQykVd2S6WfGFUr3JokTXfZ5LZEEfoWgtGA316KSQ==}
+  '@argos-ci/util@2.3.2':
+    resolution: {integrity: sha512-xtNHJxpWYNst/sMNn4Jv/vkODuFsJ+APr4FBeoFUdIa+Izjl4ZFHsYA2PUyu+ygIpQCkof8yZLL9U1/VpiyyIw==}
     engines: {node: '>=18.0.0'}
 
   '@babel/code-frame@7.26.2':
@@ -4812,10 +4812,10 @@ snapshots:
 
   '@argos-ci/browser@4.1.2': {}
 
-  '@argos-ci/core@3.2.0':
+  '@argos-ci/core@3.2.1':
     dependencies:
       '@argos-ci/api-client': 0.8.1
-      '@argos-ci/util': 2.3.1
+      '@argos-ci/util': 2.3.2
       axios: 1.10.0(debug@4.4.1)
       convict: 6.2.4
       debug: 4.4.1
@@ -4825,17 +4825,17 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@argos-ci/playwright@5.0.5':
+  '@argos-ci/playwright@5.0.6':
     dependencies:
       '@argos-ci/browser': 4.1.2
-      '@argos-ci/core': 3.2.0
-      '@argos-ci/util': 2.3.1
+      '@argos-ci/core': 3.2.1
+      '@argos-ci/util': 2.3.2
       chalk: 5.4.1
       debug: 4.4.1
     transitivePeerDependencies:
       - supports-color
 
-  '@argos-ci/util@2.3.1': {}
+  '@argos-ci/util@2.3.2': {}
 
   '@babel/code-frame@7.26.2':
     dependencies:
