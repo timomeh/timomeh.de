@@ -30,7 +30,7 @@
     "@plaiceholder/next": "3.0.0",
     "@remark-embedder/core": "3.0.3",
     "@remark-embedder/transformer-oembed": "5.0.1",
-    "@shikijs/transformers": "3.7.0",
+    "@shikijs/transformers": "3.8.0",
     "date-fns": "4.1.0",
     "drizzle-orm": "0.44.2",
     "feed": "5.1.0",
@@ -54,7 +54,7 @@
     "serialize-error": "12.0.0",
     "server-only": "0.0.1",
     "sharp": "0.34.3",
-    "shiki": "3.7.0",
+    "shiki": "3.8.0",
     "unist-util-visit": "5.0.0"
   },
   "devDependencies": {
