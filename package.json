@@ -58,7 +58,7 @@
     "unist-util-visit": "5.0.0"
   },
   "devDependencies": {
-    "@argos-ci/playwright": "5.0.7",
+    "@argos-ci/playwright": "5.0.8",
     "@eslint/eslintrc": "3.3.1",
     "@eslint/js": "9.31.0",
     "@playwright/test": "1.54.1",
