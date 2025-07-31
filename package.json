@@ -102,8 +102,10 @@
       "jsonpath-plus": "npm:jsonpath-plus@10.3.0"
     },
     "onlyBuiltDependencies": [
+      "@tailwindcss/oxide",
       "esbuild",
-      "sharp"
+      "sharp",
+      "unrs-resolver"
     ]
   }
 }
