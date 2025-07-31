@@ -12,7 +12,10 @@ export function DownasaurIcon() {
         d="M20 4H6V6H4V8H2V20H14V12H22V6H20V4ZM10 10H8V8H10V10Z"
         fill="currentColor"
       />
-      <g className="origin-top-left group-hover/btn:translate-y-0.5 group-active/btn:-translate-y-px">
+      <g
+        className="origin-top-left group-hover/btn:translate-y-0.5
+          group-active/btn:-translate-y-px"
+      >
         <path d="M12 14V18H16V16H20V14H12Z" fill="currentColor" />
       </g>
     </svg>

@@ -20,7 +20,10 @@ export default async function Page(props: Props) {
           <div className="header-backdrop-signal" />
           <Suspense
             fallback={
-              <div className="aspect-[3/2] h-auto max-h-[356px] min-h-[156px] w-full max-w-[1024px]" />
+              <div
+                className="aspect-[3/2] h-auto max-h-[356px] min-h-[156px]
+                  w-full max-w-[1024px]"
+              />
             }
           >
             <HeaderBackdropImage
@@ -49,7 +52,8 @@ export default async function Page(props: Props) {
       {post?.darkBgColor && (
         <div
           style={{ background: post?.darkBgColor }}
-          className="absolute inset-0 -z-10 hidden mix-blend-exclusion dark:block"
+          className="absolute inset-0 -z-10 hidden mix-blend-exclusion
+            dark:block"
         />
       )}
     </>

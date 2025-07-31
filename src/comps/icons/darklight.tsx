@@ -4,7 +4,8 @@ export function DarkLightIcon() {
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="overflow-visible **:transition-[transform,translate,scale,rotate,opacity]
+      className="overflow-visible
+        **:transition-[transform,translate,scale,rotate,opacity]
         **:duration-300"
     >
       <g className="origin-center scale-[0.6] dark:scale-100">
@@ -26,8 +27,9 @@ export function DarkLightIcon() {
           <path
             d="M14 2H22V10H20V12H18V14H12V12H10V6H12V4H14V2Z"
             fill="black"
-            className="origin-top-right translate-x-3 -translate-y-1 dark:translate-x-0
-              dark:translate-y-0 dark:group-hover/btn:scale-90"
+            className="origin-top-right translate-x-3 -translate-y-1
+              dark:translate-x-0 dark:translate-y-0
+              dark:group-hover/btn:scale-90"
             id="crescent"
           />
           <rect
@@ -37,7 +39,8 @@ export function DarkLightIcon() {
             width="8"
             height="10"
             fill="black"
-            className="-translate-x-3 translate-y-3 group-data-[theme=system]/root:-translate-x-0.5
+            className="-translate-x-3 translate-y-3
+              group-data-[theme=system]/root:-translate-x-0.5
               group-data-[theme=system]/root:translate-y-0.5
               dark:group-data-[theme=system]/root:translate-x-0
               dark:group-data-[theme=system]/root:translate-y-0"
@@ -52,8 +55,8 @@ export function DarkLightIcon() {
       </g>
       <g
         id="rays"
-        className="group-hover/btn:animate-swing-spin origin-center rotate-0 opacity-100
-          dark:rotate-45 dark:opacity-0"
+        className="group-hover/btn:animate-swing-spin origin-center rotate-0
+          opacity-100 dark:rotate-45 dark:opacity-0"
       >
         <path d="M13 1H11V4H13V1Z" fill="currentColor" />
         <path d="M13 20H11V23H13V20Z" fill="currentColor" />
@@ -74,7 +77,8 @@ export function DarkLightIcon() {
         clipRule="evenodd"
         d="M1 15V23H3V21H5V23H7V15H1ZM5 19V17H3V19H5Z"
         fill="currentColor"
-        className="origin-bottom-left scale-75 opacity-0 group-data-[theme=system]/root:scale-100
+        className="origin-bottom-left scale-75 opacity-0
+          group-data-[theme=system]/root:scale-100
           group-data-[theme=system]/root:opacity-100"
       />
     </svg>

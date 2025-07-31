@@ -26,13 +26,15 @@ export async function ListedPost({ slug }: Props) {
         {post?.lightBgColor && (
           <div
             style={{ background: post.lightBgColor }}
-            className="absolute inset-0 -z-10 rounded-xl mix-blend-multiply dark:hidden"
+            className="absolute inset-0 -z-10 rounded-xl mix-blend-multiply
+              dark:hidden"
           />
         )}
         {post?.darkBgColor && (
           <div
             style={{ background: post.darkBgColor }}
-            className="absolute inset-0 -z-10 hidden rounded-xl mix-blend-exclusion dark:block"
+            className="absolute inset-0 -z-10 hidden rounded-xl
+              mix-blend-exclusion dark:block"
           />
         )}
         {(post.darkCover || post.lightCover) && (
@@ -113,8 +115,9 @@ export async function Cover({ light, dark, slug }: CoverProps) {
       {lightCover && (
         <div
           data-has-dark={!!darkCover}
-          className="relative isolate flex h-auto max-h-[400px] w-full items-end overflow-hidden
-            rounded-t-xl [mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%)]
+          className="relative isolate flex h-auto max-h-[400px] w-full items-end
+            overflow-hidden rounded-t-xl
+            [mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%)]
             mix-blend-darken dark:data-[has-dark=true]:hidden"
         >
           <FadeInImage
@@ -124,15 +127,17 @@ export async function Cover({ light, dark, slug }: CoverProps) {
             height={lightCover.img.height}
           />
           <div
-            className="absolute inset-0 -z-10 h-full w-full scale-110 transform blur-2xl filter"
+            className="absolute inset-0 -z-10 h-full w-full scale-110 transform
+              blur-2xl filter"
             style={lightCover.css}
           />
         </div>
       )}
       {darkCover && (
         <div
-          className="relative isolate hidden h-auto max-h-[400px] w-full items-end overflow-hidden
-            rounded-t-xl [mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%)]
+          className="relative isolate hidden h-auto max-h-[400px] w-full
+            items-end overflow-hidden rounded-t-xl
+            [mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%)]
             mix-blend-lighten dark:flex"
         >
           <FadeInImage
@@ -142,7 +147,8 @@ export async function Cover({ light, dark, slug }: CoverProps) {
             height={darkCover.img.height}
           />
           <div
-            className="absolute inset-0 -z-10 h-full w-full scale-110 transform blur-2xl filter"
+            className="absolute inset-0 -z-10 h-full w-full scale-110 transform
+              blur-2xl filter"
             style={darkCover.css}
           />
         </div>

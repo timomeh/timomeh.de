@@ -6,7 +6,10 @@ export function TagIcon() {
       xmlns="http://www.w3.org/2000/svg"
       className="h-full w-full overflow-visible **:transition **:duration-200"
     >
-      <g className="origin-[30%_30%] group-hover/btn:-rotate-12 group-active/btn:rotate-12">
+      <g
+        className="origin-[30%_30%] group-hover/btn:-rotate-12
+          group-active/btn:rotate-12"
+      >
         <path
           fillRule="evenodd"
           clipRule="evenodd"
