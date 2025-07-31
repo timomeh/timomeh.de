@@ -21,8 +21,8 @@ export async function HeaderBackdropImage({ lightSrc, darkSrc }: Props) {
       {lightCover && (
         <div
           data-has-dark={!!darkCover}
-          className="relative mx-auto -mb-36 block h-auto max-h-[500px] min-h-[300px] w-full
-            max-w-[1024px] overflow-hidden
+          className="relative mx-auto -mb-36 block h-auto max-h-[500px]
+            min-h-[300px] w-full max-w-[1024px] overflow-hidden
             [mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%)]
             [mask-composite:intersect]
             lg:[mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%),linear-gradient(to_left,#000_95%,transparent_100%),linear-gradient(to_right,#000_95%,transparent_100%)]
@@ -38,15 +38,16 @@ export async function HeaderBackdropImage({ lightSrc, darkSrc }: Props) {
             className="h-auto w-full max-w-full object-cover object-bottom"
           />
           <div
-            className="absolute inset-0 -z-10 h-full w-full transform blur-2xl filter"
+            className="absolute inset-0 -z-10 h-full w-full transform blur-2xl
+              filter"
             style={lightCover.css}
           />
         </div>
       )}
       {darkCover && (
         <div
-          className="relative mx-auto -mb-36 hidden h-auto max-h-[500px] min-h-[300px] w-full
-            max-w-[1024px] overflow-hidden
+          className="relative mx-auto -mb-36 hidden h-auto max-h-[500px]
+            min-h-[300px] w-full max-w-[1024px] overflow-hidden
             [mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%)]
             [mask-composite:intersect]
             lg:[mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%),linear-gradient(to_left,#000_95%,transparent_100%),linear-gradient(to_right,#000_95%,transparent_100%)]
@@ -60,7 +61,8 @@ export async function HeaderBackdropImage({ lightSrc, darkSrc }: Props) {
             className="h-auto w-full max-w-full object-cover object-bottom"
           />
           <div
-            className="absolute inset-0 -z-10 h-full w-full transform blur-2xl filter"
+            className="absolute inset-0 -z-10 h-full w-full transform blur-2xl
+              filter"
             style={darkCover.css}
           />
         </div>

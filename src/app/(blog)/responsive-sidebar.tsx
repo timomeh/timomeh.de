@@ -13,9 +13,10 @@ export function ResponsiveSidebar({ children }: Props) {
         <button
           type="button"
           aria-label="Open Menu"
-          className="flex items-center justify-center rounded-lg border border-gray-900/40
-            bg-[#FDFDFD]/60 shadow-md/20 backdrop-blur-sm hover:shadow-md/50
-            active:translate-y-px dark:border-white/20 dark:bg-[#191A22]/80"
+          className="flex items-center justify-center rounded-lg border
+            border-gray-900/40 bg-[#FDFDFD]/60 shadow-md/20 backdrop-blur-sm
+            hover:shadow-md/50 active:translate-y-px dark:border-white/20
+            dark:bg-[#191A22]/80"
           onClick={() => {
             const $dialog = document.getElementById(
               'mobile-sidebar',
@@ -56,11 +57,12 @@ export function ResponsiveSidebar({ children }: Props) {
             $dialog.removeEventListener('click', handleClick)
           }
         }}
-        className="m-auto scale-90 overflow-visible bg-transparent opacity-0 transition-all
-          backdrop:bg-white/50 backdrop:opacity-0 backdrop:backdrop-blur-xs
-          backdrop:transition-all open:scale-100 open:opacity-100
-          open:backdrop:opacity-100 sm:block sm:[all:unset] dark:backdrop:bg-gray-950/40
-          starting:open:scale-90 starting:open:opacity-0 starting:open:backdrop:opacity-0"
+        className="m-auto scale-90 overflow-visible bg-transparent opacity-0
+          transition-all backdrop:bg-white/50 backdrop:opacity-0
+          backdrop:backdrop-blur-xs backdrop:transition-all open:scale-100
+          open:opacity-100 open:backdrop:opacity-100 sm:block sm:[all:unset]
+          dark:backdrop:bg-gray-950/40 starting:open:scale-90
+          starting:open:opacity-0 starting:open:backdrop:opacity-0"
       >
         <div className="-mt-10 mb-1 flex justify-end sm:hidden">
           <button
@@ -74,7 +76,10 @@ export function ResponsiveSidebar({ children }: Props) {
               $dialog.close()
             }}
           >
-            <CircleXIcon className="size-6 drop-shadow-md drop-shadow-white/60 dark:drop-shadow-black/60" />
+            <CircleXIcon
+              className="size-6 drop-shadow-md drop-shadow-white/60
+                dark:drop-shadow-black/60"
+            />
           </button>
         </div>
         {children}

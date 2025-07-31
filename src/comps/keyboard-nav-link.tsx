@@ -10,8 +10,8 @@ export function KeyboardNavLink({ children, className, ...rest }: Props) {
         focus-visible:absolute focus-visible:block ${className || ''}`}
     >
       <div
-        className="rounded bg-[#a18570] p-1 text-center text-xs font-medium lg:text-sm
-          dark:bg-emerald-700"
+        className="rounded bg-[#a18570] p-1 text-center text-xs font-medium
+          lg:text-sm dark:bg-emerald-700"
       >
         {children}
       </div>

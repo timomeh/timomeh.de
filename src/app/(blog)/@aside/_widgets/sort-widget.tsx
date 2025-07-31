@@ -36,16 +36,18 @@ export function SortWidget({ sort }: Props) {
 function Item(props: { children: React.ReactNode; active: boolean }) {
   return (
     <div
-      className="rounded-md border border-transparent text-gray-900/80 transition
-        group-hover/btn:border-gray-900/10 group-hover/btn:bg-gray-900/5
-        group-hover/btn:text-gray-900 in-data-[current=true]:!border-blue-600/50
+      className="rounded-md border border-transparent text-gray-900/80
+        transition group-hover/btn:border-gray-900/10
+        group-hover/btn:bg-gray-900/5 group-hover/btn:text-gray-900
+        in-data-[current=true]:!border-blue-600/50
         in-data-[current=true]:!bg-blue-600/20 dark:text-white/80
         dark:group-hover/btn:border-white/10 dark:group-hover/btn:bg-white/5
         dark:group-hover/btn:text-white"
     >
       <div
-        className="@max-5xs:p-1.5 flex flex-col items-center justify-center gap-1 p-2
-          in-data-[current=true]:text-blue-900 dark:in-data-[current=true]:text-blue-50"
+        className="@max-5xs:p-1.5 flex flex-col items-center justify-center
+          gap-1 p-2 in-data-[current=true]:text-blue-900
+          dark:in-data-[current=true]:text-blue-50"
       >
         {props.children}
       </div>

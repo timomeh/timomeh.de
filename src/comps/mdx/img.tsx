@@ -24,8 +24,8 @@ export async function Img(props: Props) {
 
   return (
     <div
-      className="relative data-[image-theme=dark]:hidden dark:data-[image-theme=dark]:block
-        dark:data-[image-theme=light]:hidden
+      className="relative data-[image-theme=dark]:hidden
+        dark:data-[image-theme=dark]:block dark:data-[image-theme=light]:hidden
         in-data-[landmark=content-page]:md:[&:not(figure_&)]:-mx-4"
       data-image-theme={theme}
     >
@@ -39,7 +39,8 @@ export async function Img(props: Props) {
       />
       <div
         aria-hidden
-        className="absolute inset-0 z-[-1] group-data-[shadow=false]/figure:hidden"
+        className="absolute inset-0 z-[-1]
+          group-data-[shadow=false]/figure:hidden"
       >
         <div
           className="mx-auto h-full max-w-full opacity-20 blur-md"

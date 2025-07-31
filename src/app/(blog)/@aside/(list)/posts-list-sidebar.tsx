@@ -17,8 +17,9 @@ export async function PostsListSidebar({ params, sort }: Props) {
   return (
     <div className="top-0 max-h-dvh sm:sticky">
       <div
-        className="@container w-[220px] rounded-xl max-sm:bg-white/40 max-sm:shadow-lg/40
-          max-sm:backdrop-blur-sm sm:w-[86px] sm:py-2 lg:w-[220px] dark:max-sm:bg-black/40"
+        className="@container w-[220px] rounded-xl max-sm:bg-white/40
+          max-sm:shadow-lg/40 max-sm:backdrop-blur-sm sm:w-[86px] sm:py-2
+          lg:w-[220px] dark:max-sm:bg-black/40"
       >
         <Card>
           <div>
@@ -31,20 +32,22 @@ export async function PostsListSidebar({ params, sort }: Props) {
             </section>
             <section
               aria-label="Sort"
-              className="@max-5xs:p-1 border-t border-gray-400/30 p-2 dark:border-gray-600/30"
+              className="@max-5xs:p-1 border-t border-gray-400/30 p-2
+                dark:border-gray-600/30"
             >
               <SortWidget sort={sort} />
             </section>
             <section
               aria-label="Tags"
-              className="@max-5xs:hidden @max-5xs:p-1 border-t border-gray-400/30 p-2
-                dark:border-gray-600/30"
+              className="@max-5xs:hidden @max-5xs:p-1 border-t
+                border-gray-400/30 p-2 dark:border-gray-600/30"
             >
               <TagsWidget sort={sort} tagParam={tagParam} />
             </section>
             <section
               aria-label="Links"
-              className="@max-5xs:p-1 border-t border-gray-400/30 p-2 dark:border-gray-600/30"
+              className="@max-5xs:p-1 border-t border-gray-400/30 p-2
+                dark:border-gray-600/30"
             >
               <LinksWidget />
             </section>
