@@ -25,7 +25,7 @@ importers:
         version: 0.15.10
       '@loglayer/transport-pino':
         specifier: 2.2.1
-        version: 2.2.1(pino@9.7.0)
+        version: 2.2.1(pino@9.8.0)
       '@mdx-js/mdx':
         specifier: 3.1.0
         version: 3.1.0(acorn@8.15.0)
@@ -75,8 +75,8 @@ importers:
         specifier: 1.1.0
         version: 1.1.0(next@15.4.5(@opentelemetry/api@1.9.0)(@playwright/test@1.54.2)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
       pino:
-        specifier: 9.7.0
-        version: 9.7.0
+        specifier: 9.8.0
+        version: 9.8.0
       pino-pretty:
         specifier: 13.1.1
         version: 13.1.1
@@ -4001,8 +4001,8 @@ packages:
   pino-std-serializers@7.0.0:
     resolution: {integrity: sha512-e906FRY0+tV27iq4juKzSYPbUj2do2X2JX4EzSca1631EB2QJQUqGbDuERal7LCtOpxl6x3+nvo9NPZcmjkiFA==}
 
-  pino@9.7.0:
-    resolution: {integrity: sha512-vnMCM6xZTb1WDmLvtG2lE/2p+t9hDEIvTWJsu6FejkE62vB7gDhvzrpFR4Cw2to+9JNQxVnkAKVPA1KPB98vWg==}
+  pino@9.8.0:
+    resolution: {integrity: sha512-L5+rV1wL7vGAcxXP7sPpN5lrJ07Piruka6ArXr7EWBXxdVWjJshGVX8suFsiusJVcGKDGUFfbgbnKdg+VAC+0g==}
     hasBin: true
 
   plaiceholder@3.0.0:
@@ -5752,10 +5752,10 @@ snapshots:
 
   '@loglayer/shared@2.3.1': {}
 
-  '@loglayer/transport-pino@2.2.1(pino@9.7.0)':
+  '@loglayer/transport-pino@2.2.1(pino@9.8.0)':
     dependencies:
       '@loglayer/transport': 2.2.1
-      pino: 9.7.0
+      pino: 9.8.0
 
   '@loglayer/transport@2.2.1':
     dependencies:
@@ -9564,7 +9564,7 @@ snapshots:
 
   pino-std-serializers@7.0.0: {}
 
-  pino@9.7.0:
+  pino@9.8.0:
     dependencies:
       atomic-sleep: 1.0.0
       fast-redact: 3.5.0
