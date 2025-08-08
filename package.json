@@ -72,7 +72,7 @@
     "@types/remove-markdown": "0.3.4",
     "drizzle-kit": "0.31.4",
     "esbuild": "0.25.8",
-    "eslint": "9.32.0",
+    "eslint": "9.33.0",
     "eslint-config-next": "15.4.6",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-prettier": "5.5.4",
