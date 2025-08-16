@@ -15,10 +15,14 @@ jobs:
 
   publish-release:
     runs-on: ubuntu-latest
-    needs: ci
+    container: ghcr.io/railwayapp/cli:latest
     env:
       REGISTRY: ghcr.io
       IMAGE_NAME: ${{ github.repository }}
+      WEB_SERVICE_ID: 499392e1-8a16-4c4f-88b4-70fbf3ab76cc
+      MIGRATE_SERVICE_ID: b86ccf0b-266b-4332-8c09-46771bb230d1
+      RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+    needs: ci
     environment:
       name: production
       url: https://timomeh.de
@@ -33,13 +37,11 @@ jobs:
         with:
           name: docker-image
           path: /tmp
-      - run: docker load -i /tmp/docker-image.tar
-      - name: publish
+      - name: load image
+        run: docker load -i /tmp/docker-image.tar
+      - name: publish image
         run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-      # - name: release
-      #   run: ./bin/release-latest.sh
-      #   timeout-minutes: 10 # This should only take a few seconds
-      #   env:
-      #     COOLIFY_DEPLOY_WEBHOOK_URL: ${{ secrets.COOLIFY_WEBHOOK }}
-      #     COOLIFY_DEPLOY_STATUS_URL: ${{ secrets.COOLIFY_STATUS }}
-      #     COOLIFY_TOKEN: ${{ secrets.COOLIFY_TOKEN }}
+      - name: release service
+        run: railway redeploy -s ${{ env.WEB_SERVICE_ID }}
+      - name: migrate database
+        run: railway redeploy -s ${{ env.MIGRATE_SERVICE_ID }}
