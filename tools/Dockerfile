@@ -40,8 +40,6 @@ RUN mkdir -p /app/.next/cache /app/data && \
     ln -s /data/db-data /app/data/db-data
 RUN chown -h nextjs:nodejs /app/.next/cache/images /app/.next/cache/raw-content-images /app/data/db-data
 
-VOLUME ["/data"]
-
 USER nextjs
 EXPOSE 3000
 

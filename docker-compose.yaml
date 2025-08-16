@@ -5,6 +5,7 @@ services:
     image: ghcr.io/timomeh/timomeh.de:latest
     build:
       context: .
+      dockerfile: tools/Dockerfile
       target: runner
     ports:
       - 3000:3000
