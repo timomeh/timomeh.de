@@ -6,6 +6,6 @@ export default defineConfig({
   dialect: 'sqlite',
   casing: 'snake_case',
   dbCredentials: {
-    url: 'file:./data/db-data/blog.db',
+    url: process.env.DATABASE_URL || 'file:./data/db-data/blog.db',
   },
 })

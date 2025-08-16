@@ -3,6 +3,7 @@ import 'server-only'
 export const config = {
   siteUrl: process.env.SITE_URL!.split(',')[0],
   umamiWebsiteId: process.env.UMAMI_WEBSITE_ID,
+  umamiUrl: process.env.UMAMI_URL,
   logLevel: process.env.LOG_LEVEL || 'warn',
   internalUrl: process.env.INTERNAL_URL || 'http://localhost:3000',
   api: {

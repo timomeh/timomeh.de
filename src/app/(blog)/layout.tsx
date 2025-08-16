@@ -53,10 +53,10 @@ export default async function RootLayout({ children, header, aside }: Props) {
         ${bitter.variable} ${inter.variable}`}
     >
       <head>
-        {config.umamiWebsiteId && (
+        {config.umamiWebsiteId && config.umamiUrl && (
           <script
             defer
-            src="https://peekaboo.timo.wtf/script.js"
+            src={`${config.umamiUrl}/script.js`}
             data-website-id={config.umamiWebsiteId}
           />
         )}
