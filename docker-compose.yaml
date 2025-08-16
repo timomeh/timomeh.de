@@ -9,9 +9,7 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - .next/cache/raw-content-images:/app/.next/cache/raw-content-images
-      - .next/cache/images:/app/.next/cache/images
-      - ./db-data:/app/db-data
+      - ./data:/data
     env_file:
       - path: ./.env
         required: false

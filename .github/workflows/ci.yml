@@ -24,7 +24,7 @@ jobs:
         if: failure() || success()
 
   build:
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
       REGISTRY: ghcr.io
@@ -44,7 +44,6 @@ jobs:
         with:
           context: .
           file: Dockerfile
-          platforms: linux/arm64
           load: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache
@@ -59,7 +58,7 @@ jobs:
   test:
     needs: build
     timeout-minutes: 15
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -71,21 +70,13 @@ jobs:
       - run: pnpm exec playwright install --with-deps chromium --only-shell
 
       # Restore caches
-      - name: cache sqlite database
+      - name: cache data
         uses: actions/cache@v4
         with:
-          path: ./db-data
-          key: ${{ runner.os }}-sqlite-blogdb-${{ hashFiles('**/*.ts', '**/*.tsx') }}
-          restore-keys: ${{ runner.os }}-sqlite-blogdb-
-      - run: mkdir -p db-data .next/cache/{images,raw-content-images}
-      - name: cache nextjs cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            .next/cache/images
-            .next/cache/raw-content-images
-          key: ${{ runner.os }}-nextjs-cache-v3-${{ hashFiles('**/*.ts', '**/*.tsx') }}
-          restore-keys: ${{ runner.os }}-nextjs-cache-v3-
+          path: ./data
+          key: ${{ runner.os }}-data-${{ hashFiles('**/*.ts', '**/*.tsx') }}
+          restore-keys: ${{ runner.os }}-data-
+      - run: mkdir -p data/{db-data,images,raw-content-images}
 
       # Load docker image from previous build stage
       - name: download docker image to /tmp/docker-image.tar

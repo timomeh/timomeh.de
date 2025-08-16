@@ -32,8 +32,16 @@ RUN adduser --system --uid 1001 nextjs
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-RUN mkdir -p /app/db-data /app/.next/cache/images /app/.next/raw-content-images
-RUN chown -R nextjs:nodejs /app/.next/cache /app/.next/cache/images /app/.next/raw-content-images
+
+RUN mkdir -p /data/images /data/raw-content-images /data/db-data && \
+    rm -rf /app/.next/cache/images /app/.next/cache/raw-content-images /app/db-data
+RUN ln -s /data/images /app/.next/cache/images && \
+    ln -s /data/raw-content-images /app/.next/cache/raw-content-images && \
+    ln -s /data/db-data /app/db-data
+RUN chown -R nextjs:nodejs /data
+RUN chown -h nextjs:nodejs /app/.next/cache/images /app/.next/cache/raw-content-images /app/db-data
+
+VOLUME ["/data"]
 
 USER nextjs
 EXPOSE 3000

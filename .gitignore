@@ -1,5 +1,6 @@
 /db-data
 /dist
+/data
 
 # dependencies
 /node_modules
