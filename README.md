@@ -6,7 +6,7 @@ Source code from [timomeh.de](https://timomeh.de). Stack:
 - Content stored in a separate (private) GitHub Repo
 - [Keystatic](https://keystatic.com/) as CMS
 - [Drizzle](https://orm.drizzle.team) with SQLite for caching and querying the content from GitHub
-- Docker Compose to build, deploy and migrate
+- hosted on [Railway](https://railway.com/) 🚞
 
 Is this a bit overkill for a blog? Probably. Is it fun? Absolutely.
 
@@ -39,16 +39,22 @@ Videos are simply uploaded to YouTube, and YouTube links in posts are automatica
 
 ## Publish
 
-- The `main` branch automatically builds a release candidate, runs e2e tests against it, publishes it to ghcr.io, and then triggers a docker pull on the server, which then also executes any pending database migrations.
-- Pull Requests are automatically built and e2e tested.
+Pushing to the `main` brach automatically triggers a new release:
+
+- it builds a new docker image as release candidate
+- runs e2e tests against it
+- publishes the release it to ghcr.io
+- redeploys the Railway service
+- executes a database migration container
 
 ## Tech & Libraries used
 
 - [Next.js](https://nextjs.org/)
-- self-hosted on a [Hetzner VPS](https://www.hetzner.com/cloud/) with [Coolify](https://coolify.io/)
+- hosted on [Railway](https://railway.com/)
 - Cloudflare Proxy
 - [Keystatic](https://keystatic.com/)
 - SQLite and [Drizzle](https://orm.drizzle.team/)
+- a libSQL server on production, so I can connect to it to migrate the database
 - [Umami](https://umami.is/)
 - [Shiki](https://shiki.style/)
 - [mdx](https://mdxjs.com/packages/mdx) with cached rendered output
