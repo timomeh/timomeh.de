@@ -12,6 +12,7 @@ import { remarkImageSrcPrefix } from '@/lib/remarkImagePrefix'
 import { withMdxFootnotes } from '@/lib/remarkMdxFootnotes'
 import { remarkReadMore } from '@/lib/remarkReadMore'
 
+import imgproxyLoader from '../../lib/imgproxyLoader'
 import { Anchor } from './anchor'
 import { Aside } from './aside'
 import { Blockquote } from './blockquote'
@@ -30,7 +31,6 @@ import { Kbd } from './kbd'
 import { Lead } from './lead'
 import { ReadMore } from './read-more'
 import { Video } from './video'
-import imgproxyLoader from '../../lib/imgproxyLoader'
 
 type MDXComponents = Parameters<
   Awaited<ReturnType<typeof evaluate>>['default']

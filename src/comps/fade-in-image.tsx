@@ -1,8 +1,8 @@
-/* eslint-disable jsx-a11y/alt-text */
 'use client'
 
 import { ImageProps } from 'next/image'
 import { useState } from 'react'
+
 import { OptimImage } from './optim-image'
 
 export function FadeInImage(props: ImageProps) {
