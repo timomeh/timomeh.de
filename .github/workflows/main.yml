@@ -43,6 +43,6 @@ jobs:
       - name: publish image
         run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
       - name: release service
-        run: railway redeploy -s ${{ env.WEB_SERVICE_ID }}
+        run: railway redeploy -s ${{ env.WEB_SERVICE_ID }} -y
       - name: migrate database
-        run: railway redeploy -s ${{ env.MIGRATE_SERVICE_ID }}
+        run: railway redeploy -s ${{ env.MIGRATE_SERVICE_ID }} -y
