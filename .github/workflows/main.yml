@@ -15,7 +15,6 @@ jobs:
 
   publish-release:
     runs-on: ubuntu-latest
-    container: ghcr.io/railwayapp/cli:latest
     env:
       REGISTRY: ghcr.io
       IMAGE_NAME: ${{ github.repository }}
@@ -28,6 +27,8 @@ jobs:
       url: https://timomeh.de
     steps:
       - uses: actions/checkout@v4
+      - name: install railway cli
+        run: bash <(curl -fsSL cli.new)
       - uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
