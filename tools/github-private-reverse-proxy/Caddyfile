@@ -1,0 +1,34 @@
+# thx brody! https://github.com/railwayapp-templates/caddy-reverse-proxy/blob/74ca0b6430047002a20f6658a1a9ba63731fe573/Caddyfile
+{
+  admin off # theres no need for the admin api in railway's environment
+  persist_config off # storage isn't persistent anyway
+  auto_https off # railway handles https for us, this could in some cases cause issues if left enabled
+  # runtime logs
+  log {
+    format json
+  }
+  servers {
+    trusted_proxies static private_ranges # trust railway's proxy
+  }
+}
+
+:{$PORT} {
+  log {
+    format json
+  }
+
+  handle_path /raw-content/* {
+    rewrite * /{$GH_REPO}/main{uri}
+
+    reverse_proxy https://raw.githubusercontent.com {
+      header_up +Host {upstream_hostport}
+      header_up +Authorization "Bearer {$GH_TOKEN}"
+    }
+  }
+
+  log {
+    output stdout
+    format console
+    level DEBUG
+  }
+}
