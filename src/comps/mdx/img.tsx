@@ -1,8 +1,7 @@
-import Image from 'next/image'
-
 import { getPlaceholder } from '@/lib/placeholder'
 
 import { config } from '../../config'
+import { OptimImage } from '../optim-image'
 
 type Props = React.DetailedHTMLProps<
   React.ImgHTMLAttributes<HTMLImageElement>,
@@ -29,7 +28,7 @@ export async function Img(props: Props) {
         in-data-[landmark=content-page]:md:[&:not(figure_&)]:-mx-4"
       data-image-theme={theme}
     >
-      <Image
+      <OptimImage
         src={src}
         quality={90}
         width={img.width}

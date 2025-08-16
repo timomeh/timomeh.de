@@ -14,7 +14,9 @@ import { log as baseLog } from '@/lib/log'
 
 const log = baseLog.child().withContext({ module: 'imageproxy' })
 
-// public cached proxy for files in the private github repo
+// public cached proxy for files in the private github repo.
+// Deprecated in favor of imgproxy.
+// Just here for backwards compatibility to not break URLs. Too lazy to do a redirect lol.
 
 const baseCacheDir = path.join(process.cwd(), '.next/cache/raw-content-images')
 

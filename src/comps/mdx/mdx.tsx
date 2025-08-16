@@ -30,6 +30,7 @@ import { Kbd } from './kbd'
 import { Lead } from './lead'
 import { ReadMore } from './read-more'
 import { Video } from './video'
+import imgproxyLoader from '../../lib/imgproxyLoader'
 
 type MDXComponents = Parameters<
   Awaited<ReturnType<typeof evaluate>>['default']
@@ -180,8 +181,10 @@ const plainComponents: MDXComponents = {
       return null
     }
 
+    const src = imgproxyLoader({ src: props.src, width: 1200, quality: 90 })
+
     // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
-    return <img {...props} />
+    return <img {...props} src={src} />
   },
   Footnote: (props) => <span>&nbsp;[Footnote: {props.children}]</span>,
 }

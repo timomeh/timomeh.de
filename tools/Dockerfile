@@ -34,15 +34,13 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 RUN mkdir -p /app/.next/cache /app/data && \
-    rm -rf /app/.next/cache/images /app/.next/cache/raw-content-images /app/data/db-data && \
-    ln -s /data/images /app/.next/cache/images && \
-    ln -s /data/raw-content-images /app/.next/cache/raw-content-images && \
+    rm -rf /app/data/db-data && \
     ln -s /data/db-data /app/data/db-data
-RUN chown -h nextjs:nodejs /app/.next/cache/images /app/.next/cache/raw-content-images /app/data/db-data
+RUN chown -h nextjs:nodejs /app/data/db-data
 
 USER nextjs
 EXPOSE 3000
 
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
-CMD ["sh","-lc","mkdir -p /data/images /data/raw-content-images /data/db-data && exec node server.js"]
+CMD ["sh","-lc","mkdir -p /data/db-data && exec node server.js"]

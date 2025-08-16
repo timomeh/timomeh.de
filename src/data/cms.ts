@@ -111,8 +111,11 @@ export function contentAsset(
     : contentAssetUrl(`${type}/${slug}/${path}`)
 }
 
+const CONTENT_PROXY_URL =
+  'http://github-content-proxy.railway.internal/raw-content'
+
 export function contentAssetUrl(path: string) {
-  return `/content-assets/${path}`
+  return `${CONTENT_PROXY_URL}/${path}`
 }
 
 const sanitizePost = (

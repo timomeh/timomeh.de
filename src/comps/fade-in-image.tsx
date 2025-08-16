@@ -1,14 +1,15 @@
 /* eslint-disable jsx-a11y/alt-text */
 'use client'
 
-import Image, { ImageProps } from 'next/image'
+import { ImageProps } from 'next/image'
 import { useState } from 'react'
+import { OptimImage } from './optim-image'
 
 export function FadeInImage(props: ImageProps) {
   const [loaded, setLoaded] = useState(props.priority ? true : false)
 
   return (
-    <Image
+    <OptimImage
       quality={90}
       data-loaded={loaded}
       aria-busy={!loaded}

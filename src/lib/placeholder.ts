@@ -1,7 +1,7 @@
 import { memoize } from 'nextjs-better-unstable-cache'
 import { getPlaiceholder } from 'plaiceholder'
 
-import { config } from '../config'
+import imgproxyLoader from './imgproxyLoader'
 
 // turn images into blurry placeholders
 
@@ -12,9 +12,9 @@ export async function getPlaceholder(src: string) {
 
 const getCachedPlaceholder = memoize(
   async (src: string) => {
-    const res = await fetch(
-      src.startsWith('http') ? src : new URL(src, config.siteUrl).href,
-    )
+    const url = imgproxyLoader({ src })
+
+    const res = await fetch(url)
     const buffer = Buffer.from(await res.arrayBuffer())
 
     const {
