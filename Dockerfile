@@ -34,7 +34,7 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 RUN mkdir -p /data/images /data/raw-content-images /data/db-data && \
-    rm -rf /app/.next/cache/images /app/.next/cache/raw-content-images /app/db-data
+    mkdir -p /app/.next/cache/images /app/.next/cache/raw-content-images /app/db-data
 RUN ln -s /data/images /app/.next/cache/images && \
     ln -s /data/raw-content-images /app/.next/cache/raw-content-images && \
     ln -s /data/db-data /app/db-data
