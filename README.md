@@ -26,7 +26,7 @@ That's why I cache it. Caching it in a SQL database additionally gives me filter
 
 ### Serving images
 
-Images are also stored in the private GitHub repository. To make them publicly accessible, I proxy and cache those images in a Next.js route handler.
+Images are also stored in the private GitHub repository. To make them publicly accessible, I have a [reverse proxy](tools/github-private-reverse-proxy) on an private Railway service, with a public [imgproxy](https://imgproxy.net/) in front of it for image optimization.
 
 Videos are simply uploaded to YouTube, and YouTube links in posts are automatically converted to embeds.
 
@@ -49,12 +49,15 @@ Pushing to the `main` brach automatically triggers a new release:
 
 ## Tech & Libraries used
 
+This is total overkill and I do it because it's fun. You might not need what I used:
+
 - [Next.js](https://nextjs.org/)
 - hosted on [Railway](https://railway.com/)
-- Cloudflare Proxy
-- [Keystatic](https://keystatic.com/)
+- Cloudflare CDN
+- [imgproxy](https://imgproxy.net/) for image optimization
+- [Keystatic](https://keystatic.com/) as CMS
 - SQLite and [Drizzle](https://orm.drizzle.team/)
-- a libSQL server on production, so I can connect to it to migrate the database
+- a [libSQL](https://github.com/tursodatabase/libsql) server (only for production, so CI can connect to it during a deployment to migrate the database)
 - [Umami](https://umami.is/)
 - [Shiki](https://shiki.style/)
 - [mdx](https://mdxjs.com/packages/mdx) with cached rendered output
