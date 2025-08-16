@@ -37,6 +37,12 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.timomeh.de' }],
+        destination: 'https://timomeh.de/:path*',
+        permanent: true,
+      },
+      {
         source: '/offtopic/feed.atom',
         destination: '/posts/feed.atom',
         permanent: true,
