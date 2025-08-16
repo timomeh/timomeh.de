@@ -33,13 +33,12 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-RUN mkdir -p /data/images /data/raw-content-images /data/db-data && \
-    mkdir -p /app/.next/cache/images /app/.next/cache/raw-content-images /app/db-data
-RUN ln -s /data/images /app/.next/cache/images && \
+RUN mkdir -p /app/.next/cache /app/data && \
+    rm -rf /app/.next/cache/images /app/.next/cache/raw-content-images /app/data/db-data && \
+    ln -s /data/images /app/.next/cache/images && \
     ln -s /data/raw-content-images /app/.next/cache/raw-content-images && \
-    ln -s /data/db-data /app/db-data
-RUN chown -R nextjs:nodejs /data
-RUN chown -h nextjs:nodejs /app/.next/cache/images /app/.next/cache/raw-content-images /app/db-data
+    ln -s /data/db-data /app/data/db-data
+RUN chown -h nextjs:nodejs /app/.next/cache/images /app/.next/cache/raw-content-images /app/data/db-data
 
 VOLUME ["/data"]
 
@@ -48,4 +47,4 @@ EXPOSE 3000
 
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
-CMD ["node", "server.js"]
+CMD ["sh","-lc","mkdir -p /data/images /data/raw-content-images /data/db-data && exec node server.js"]
