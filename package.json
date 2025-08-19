@@ -23,7 +23,7 @@
     "@imgproxy/imgproxy-js-core": "1.4.0",
     "@keystatic/core": "0.5.48",
     "@keystatic/next": "5.0.4",
-    "@libsql/client": "0.15.11",
+    "@libsql/client": "0.15.12",
     "@loglayer/transport-pino": "2.2.1",
     "@mdx-js/mdx": "3.1.0",
     "@octokit/webhooks": "14.1.3",
