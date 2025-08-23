@@ -30,7 +30,7 @@ export async function Img(props: Props) {
     >
       <OptimImage
         src={src}
-        quality={90}
+        quality={80}
         width={img.width}
         height={img.height}
         alt={props.alt || ''}

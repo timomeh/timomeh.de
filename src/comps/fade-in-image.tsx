@@ -10,7 +10,7 @@ export function FadeInImage(props: ImageProps) {
 
   return (
     <OptimImage
-      quality={90}
+      quality={80}
       data-loaded={loaded}
       aria-busy={!loaded}
       {...props}

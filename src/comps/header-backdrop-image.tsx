@@ -35,6 +35,7 @@ export async function HeaderBackdropImage({ lightSrc, darkSrc }: Props) {
             alt=""
             fill
             src={lightCover.img.src}
+            sizes="(max-width: 1024px) 100vw, 1024px"
             className="h-auto w-full max-w-full object-cover object-bottom"
           />
           <div
@@ -58,6 +59,7 @@ export async function HeaderBackdropImage({ lightSrc, darkSrc }: Props) {
             alt=""
             fill
             src={darkCover.img.src}
+            sizes="(max-width: 1024px) 100vw, 1024px"
             className="h-auto w-full max-w-full object-cover object-bottom"
           />
           <div

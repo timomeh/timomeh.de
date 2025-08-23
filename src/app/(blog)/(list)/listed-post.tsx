@@ -122,6 +122,7 @@ export async function Cover({ light, dark, slug }: CoverProps) {
         >
           <FadeInImage
             alt=""
+            sizes="(max-width: 640px) 100vw, (max-width: 810px) 80vw, 700px"
             src={lightCover.img.src}
             width={lightCover.img.width}
             height={lightCover.img.height}
@@ -142,6 +143,7 @@ export async function Cover({ light, dark, slug }: CoverProps) {
         >
           <FadeInImage
             alt=""
+            sizes="(max-width: 640px) 100vw, (max-width: 810px) 80vw, 700px"
             src={darkCover.img.src}
             width={darkCover.img.width}
             height={darkCover.img.height}

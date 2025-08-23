@@ -181,7 +181,7 @@ const plainComponents: MDXComponents = {
       return null
     }
 
-    const src = imgproxyLoader({ src: props.src, width: 1200, quality: 90 })
+    const src = imgproxyLoader({ src: props.src, width: 680, quality: 80 })
 
     // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
     return <img {...props} src={src} />
