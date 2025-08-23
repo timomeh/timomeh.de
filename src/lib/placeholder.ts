@@ -13,8 +13,13 @@ export async function getPlaceholder(src: string) {
 
 const getCachedPlaceholder = unstable_cache(
   async (src: string) => {
-    const fullUrl = imgproxyLoader({ src, quality: 10 })
-    const thumbUrl = imgproxyLoader({ src, quality: 50, width: 120 })
+    const fullUrl = imgproxyLoader({ src, quality: 10, internal: true })
+    const thumbUrl = imgproxyLoader({
+      src,
+      quality: 50,
+      width: 120,
+      internal: true,
+    })
 
     const dimensions = await probe(fullUrl)
 
@@ -28,7 +33,7 @@ const getCachedPlaceholder = unstable_cache(
 
     return {
       css,
-      img: { src, height: dimensions.height, width: dimensions.width },
+      img: { height: dimensions.height, width: dimensions.width, src },
     }
   },
   [],
