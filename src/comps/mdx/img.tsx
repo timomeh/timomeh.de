@@ -34,6 +34,7 @@ export async function Img(props: Props) {
         width={img.width}
         height={img.height}
         alt={props.alt || ''}
+        sizes="(max-width: 640px) 100vw, 680px"
         className="relative mx-auto rounded-md"
       />
       <div

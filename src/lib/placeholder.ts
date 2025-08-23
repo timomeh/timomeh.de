@@ -1,5 +1,6 @@
-import { memoize } from 'nextjs-better-unstable-cache'
+import { unstable_cache } from 'next/cache'
 import { getPlaiceholder } from 'plaiceholder'
+import probe from 'probe-image-size'
 
 import imgproxyLoader from './imgproxyLoader'
 
@@ -10,21 +11,28 @@ export async function getPlaceholder(src: string) {
   return placeholder
 }
 
-const getCachedPlaceholder = memoize(
+const getCachedPlaceholder = unstable_cache(
   async (src: string) => {
-    const url = imgproxyLoader({ src })
+    const fullUrl = imgproxyLoader({ src, quality: 10 })
+    const thumbUrl = imgproxyLoader({ src, quality: 50, width: 120 })
 
-    const res = await fetch(url)
-    const buffer = Buffer.from(await res.arrayBuffer())
+    const dimensions = await probe(fullUrl)
 
-    const {
-      metadata: { height, width },
-      ...plaiceholder
-    } = await getPlaiceholder(buffer, { size: 10 })
+    const buffer = await fetch(thumbUrl).then(async (res) =>
+      Buffer.from(await res.arrayBuffer()),
+    )
 
-    return { css: plaiceholder.css, img: { src, height, width } }
+    const { css } = await getPlaiceholder(buffer as Buffer<ArrayBuffer>, {
+      size: 10,
+    })
+
+    return {
+      css,
+      img: { src, height: dimensions.height, width: dimensions.width },
+    }
   },
+  [],
   {
-    revalidateTags: (src) => ['placeholder', `placeholder:${src}`],
+    tags: ['placeholder'],
   },
 )

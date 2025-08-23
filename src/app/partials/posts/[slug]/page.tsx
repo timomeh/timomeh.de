@@ -7,6 +7,8 @@ import { config } from '@/config'
 import { contentAsset } from '@/data/cms'
 import { getPostBySlug } from '@/data/posts'
 
+export const fetchCache = 'force-no-store'
+
 type Props = {
   params: Promise<{ slug: string }>
 }

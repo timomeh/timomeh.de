@@ -23,6 +23,7 @@ const nextConfig: NextConfig = {
   compress: false,
 
   images: {
+    deviceSizes: [320, 420, 640, 750, 828, 1080],
     minimumCacheTTL: 31536000,
   },
 

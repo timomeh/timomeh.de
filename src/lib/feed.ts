@@ -32,6 +32,7 @@ export async function buildFeed(type: FeedType) {
             `${config.internalUrl}/partials/posts/${slug}`,
             {
               headers,
+              cache: 'no-store',
             },
           )
           const html = await res.text()
