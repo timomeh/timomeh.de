@@ -1,14 +1,14 @@
 /* Generate by @shikijs/codegen */
+import {
+  createdBundledHighlighter,
+  createSingletonShorthands,
+} from '@shikijs/core'
+import { createJavaScriptRegexEngine } from '@shikijs/engine-javascript'
 import type {
   DynamicImportLanguageRegistration,
   DynamicImportThemeRegistration,
   HighlighterGeneric,
 } from '@shikijs/types'
-import {
-  createSingletonShorthands,
-  createdBundledHighlighter,
-} from '@shikijs/core'
-import { createJavaScriptRegexEngine } from '@shikijs/engine-javascript'
 
 type BundledLanguage =
   | 'css'

@@ -7,6 +7,7 @@ import {
   transformerRenderWhitespace,
 } from '@shikijs/transformers'
 import { memoize } from 'nextjs-better-unstable-cache'
+
 import { codeToHtml } from './shiki.bundle'
 
 // basically smol wrapper around shiki
