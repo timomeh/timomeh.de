@@ -39,7 +39,7 @@
     "@shikijs/transformers": "3.11.0",
     "@shikijs/types": "3.11.0",
     "date-fns": "4.1.0",
-    "drizzle-orm": "0.44.4",
+    "drizzle-orm": "0.44.5",
     "feed": "5.1.0",
     "loglayer": "6.6.0",
     "lucide-react": "0.541.0",
