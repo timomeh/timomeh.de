@@ -80,7 +80,7 @@
     "drizzle-kit": "0.31.4",
     "esbuild": "0.25.9",
     "eslint": "9.34.0",
-    "eslint-config-next": "15.5.0",
+    "eslint-config-next": "15.5.1",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-prettier": "5.5.4",
     "eslint-plugin-simple-import-sort": "12.1.1",
