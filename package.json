@@ -75,7 +75,7 @@
     "@types/node": "24.3.0",
     "@types/probe-image-size": "7.2.5",
     "@types/react": "19.1.12",
-    "@types/react-dom": "19.1.8",
+    "@types/react-dom": "19.1.9",
     "@types/remove-markdown": "0.3.4",
     "drizzle-kit": "0.31.4",
     "esbuild": "0.25.9",
