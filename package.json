@@ -64,7 +64,7 @@
     "unist-util-visit": "5.0.0"
   },
   "devDependencies": {
-    "@argos-ci/playwright": "5.0.9",
+    "@argos-ci/playwright": "6.1.5",
     "@biomejs/biome": "2.2.4",
     "@playwright/test": "1.55.0",
     "@tailwindcss/postcss": "4.1.13",
