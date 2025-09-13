@@ -1,7 +1,7 @@
 'use client'
 
-import Link, { LinkProps } from 'next/link'
-import { JSX } from 'react'
+import Link, { type LinkProps } from 'next/link'
+import type { JSX } from 'react'
 
 import { usePrevPath } from './prev-path'
 

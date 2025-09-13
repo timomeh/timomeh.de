@@ -11,7 +11,6 @@ export function FootnotesSection(props: {
 
   return (
     <section
-      role="region"
       className="border-t border-white/10 pt-4"
       aria-labelledby={`fn-heading${scope || ''}-${startCount}`}
     >
@@ -24,6 +23,7 @@ export function FootnotesSection(props: {
         start={props.startCount || 1}
       >
         {footnotes.map((footnote, index) => {
+          // biome-ignore lint/suspicious/noArrayIndexKey: static list
           return <li key={index}>{footnote}</li>
         })}
       </ol>

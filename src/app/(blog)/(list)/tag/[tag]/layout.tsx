@@ -1,4 +1,4 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { contentAsset } from '@/data/cms'
@@ -33,8 +33,8 @@ export async function generateMetadata(props: Props) {
     },
   }
 
-  if (tag.metaImage) {
-    metadata.openGraph!.images = [
+  if (tag.metaImage && metadata.openGraph) {
+    metadata.openGraph.images = [
       { url: contentAsset('tags', tag.slug, tag.metaImage) },
     ]
   }

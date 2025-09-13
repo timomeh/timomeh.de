@@ -1,6 +1,6 @@
 'use client'
 
-import { JSX } from 'react'
+import type { JSX } from 'react'
 
 type Props = JSX.IntrinsicElements['button']
 

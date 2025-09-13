@@ -1,7 +1,7 @@
 import { Webhooks } from '@octokit/webhooks'
-import { EventPayloadMap, PushEvent } from '@octokit/webhooks-types'
+import type { EventPayloadMap, PushEvent } from '@octokit/webhooks-types'
 import { revalidatePath, revalidateTag } from 'next/cache'
-import { NextRequest, NextResponse } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
 
 import { config } from '@/config'
 import { updatePageCache } from '@/data/pages'
@@ -51,9 +51,9 @@ export async function POST(request: NextRequest) {
   if (event === 'push') {
     const data = JSON.parse(body) as PushEvent
 
-    const allModified = data.commits.map((commit) => commit.modified).flat()
-    const allAdded = data.commits.map((commit) => commit.added).flat()
-    const allRemoved = data.commits.map((commit) => commit.removed).flat()
+    const allModified = data.commits.flatMap((commit) => commit.modified)
+    const allAdded = data.commits.flatMap((commit) => commit.added)
+    const allRemoved = data.commits.flatMap((commit) => commit.removed)
 
     const changedFiles = Array.from(
       new Set([...allModified, ...allAdded, ...allRemoved]),

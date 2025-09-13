@@ -7,6 +7,7 @@ export function FeedIcon() {
       className="h-full w-full overflow-visible *:transition-all *:duration-500
         *:ease-[cubic-bezier(.3,.2,.17,3)]"
     >
+      <title>Feed</title>
       <g
         className="origin-bottom-left group-hover/btn:-translate-x-px
           group-hover/btn:translate-y-px"

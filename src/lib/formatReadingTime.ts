@@ -18,5 +18,5 @@ export function formatReadingTime(
 }
 
 function isNumeric(str: string) {
-  return !isNaN(+str) && !isNaN(parseFloat(str))
+  return !Number.isNaN(+str) && !Number.isNaN(parseFloat(str))
 }

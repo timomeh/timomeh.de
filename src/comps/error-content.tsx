@@ -18,6 +18,8 @@ export function ErrorContent({ reset, description }: Props) {
       <ol>
         {reset && (
           <li>
+            {/** biome-ignore lint/a11y/useSemanticElements: stupid inline text */}
+            {/** biome-ignore lint/a11y/useValidAnchor: stupid inline text */}
             <a role="button" onClick={() => reset()}>
               try to load this page again
             </a>

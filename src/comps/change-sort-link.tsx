@@ -1,8 +1,8 @@
 'use client'
 
-import Link, { LinkProps } from 'next/link'
+import Link, { type LinkProps } from 'next/link'
 import { usePathname } from 'next/navigation'
-import { JSX } from 'react'
+import type { JSX } from 'react'
 
 type Props = Omit<LinkProps, 'href'> &
   JSX.IntrinsicElements['a'] & {

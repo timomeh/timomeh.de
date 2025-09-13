@@ -116,7 +116,7 @@ export default config({
   ui: {
     brand: {
       name: 'timomeh.de',
-      // eslint-disable-next-line @next/next/no-img-element
+      // biome-ignore lint/performance/noImgElement: keystatic
       mark: () => <img alt="" src="/favicon-32x32.png" height={24} />,
     },
   },

@@ -16,7 +16,11 @@ export default function GlobalError({
   reset: () => void
 }) {
   return (
-    <html data-theme="system" className="page-bg text-gray-900 dark:text-white">
+    <html
+      data-theme="system"
+      className="page-bg text-gray-900 dark:text-white"
+      lang="en"
+    >
       <body>
         <div className="flex min-h-dvh flex-col items-center justify-center p-6">
           <div className="relative size-18 sm:size-24" data-force-shocked-mug>

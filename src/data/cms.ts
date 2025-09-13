@@ -1,6 +1,6 @@
 import 'server-only'
 
-import { EntryWithResolvedLinkedFiles } from '@keystatic/core/reader'
+import type { EntryWithResolvedLinkedFiles } from '@keystatic/core/reader'
 import { createGitHubReader } from '@keystatic/core/reader/github'
 
 import { config } from '@/config'

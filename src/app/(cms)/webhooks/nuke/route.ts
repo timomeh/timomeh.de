@@ -1,5 +1,5 @@
 import { revalidatePath, revalidateTag } from 'next/cache'
-import { NextRequest, NextResponse } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
 
 import { config } from '@/config'
 import { cacheAllPages } from '@/data/pages'

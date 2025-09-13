@@ -13,10 +13,10 @@ export function Anchor(props: Props) {
     props.href?.startsWith('#')
   const isFeedLink = /\.(json|atom|rss)$/.test(props.href || '')
 
-  if (isLocalLink && !isFeedLink) {
+  if (props.href && isLocalLink && !isFeedLink) {
     const { href, ref: _, children, ...rest } = props
     return (
-      <Link {...rest} href={href!.replace('https://timomeh.de', '')}>
+      <Link {...rest} href={href.replace('https://timomeh.de', '')}>
         {children}
       </Link>
     )
@@ -28,11 +28,13 @@ export function Anchor(props: Props) {
     <a {...props} rel="noopener noreferrer" target="_blank">
       {props.children}
       <span
-        aria-label="External link"
         className="external-link font-pixel ml-2 hidden text-[0.7em]
           leading-none font-normal opacity-50 sm:ml-3"
       >
-        <ExternalLinkIcon className="size-4 sm:size-6" />
+        <ExternalLinkIcon
+          className="size-4 sm:size-6"
+          aria-label="External link"
+        />
       </span>
     </a>
   )

@@ -1,5 +1,5 @@
 import withPlaiceholder from '@plaiceholder/next'
-import { NextConfig } from 'next'
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   // bypasses the file-system-cache's 2MB limit
@@ -17,6 +17,10 @@ const nextConfig: NextConfig = {
       './node_modules/@libsql/darwin*/**/*',
       './node_modules/@libsql/linux*/**/*',
     ],
+  },
+
+  eslint: {
+    ignoreDuringBuilds: true
   },
 
   poweredByHeader: false,

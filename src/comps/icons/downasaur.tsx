@@ -6,6 +6,7 @@ export function DownasaurIcon() {
       xmlns="http://www.w3.org/2000/svg"
       className="h-full w-full overflow-visible **:transition **:duration-200"
     >
+      <title>Dinosaur</title>
       <path
         fillRule="evenodd"
         clipRule="evenodd"

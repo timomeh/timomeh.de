@@ -1,4 +1,4 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { Prose } from '@/comps/prose'
@@ -11,20 +11,18 @@ export default async function Page() {
   return (
     <div className="relative">
       <div className="p-4 sm:p-6 md:p-8">
-        <>
-          <Prose>
-            <h1>Browse all tags</h1>
-            <ul>
-              {tags.map((tag) => (
-                <li key={tag.slug}>
-                  <Link href={`/tag/${tag.slug}`}>
-                    {tag.title} ({pluralizePosts(tag.postCount)})
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </Prose>
-        </>
+        <Prose>
+          <h1>Browse all tags</h1>
+          <ul>
+            {tags.map((tag) => (
+              <li key={tag.slug}>
+                <Link href={`/tag/${tag.slug}`}>
+                  {tag.title} ({pluralizePosts(tag.postCount)})
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Prose>
       </div>
     </div>
   )
