@@ -128,7 +128,6 @@ export async function MDX({
 
   const code = cacheKey ? await compileCached() : await compileUncached()
 
-  // @ts-expect-error
   const { default: MDXContent } = await run(code, {
     ...runtime,
     baseUrl: import.meta.url,
@@ -176,6 +175,14 @@ const plainComponents: MDXComponents = {
   Figure,
   DefinitionList,
   Definition,
+  Aside: ({ children, title }) => {
+    return (
+      <aside>
+        <h4>{title}</h4>
+        {children}
+      </aside>
+    )
+  },
   img: (props) => {
     if (props.src.includes('darkmode-')) {
       return null
