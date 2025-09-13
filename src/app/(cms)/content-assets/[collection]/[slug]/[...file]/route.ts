@@ -48,7 +48,7 @@ export async function GET(
       'Content-Disposition',
       `inline; filename="${params.file.at(-1)}"`,
     )
-    return new NextResponse(stream as unknown as any, {
+    return new NextResponse(stream as unknown as BodyInit, {
       headers,
     })
   }
@@ -104,15 +104,18 @@ export async function GET(
 
     await fsAsync.mkdir(baseCacheDir, { recursive: true })
     const writeStream = fsSync.createWriteStream(cachedPath)
+    // biome-ignore lint/suspicious/noExplicitAny: it's ok
     Readable.fromWeb(forDisk as unknown as any).pipe(writeStream)
   })
 
   // proxy the file
 
   const headers = new Headers()
-  headers.set('Content-Type', res.headers.get('content-type')!)
   headers.set('Cache-Control', 'public, max-age=15768000')
   headers.set('Content-Disposition', `inline; filename="${params.file.at(-1)}"`)
+
+  const contentType = res.headers.get('content-type')
+  if (contentType) headers.set('Content-Type', contentType)
 
   return new NextResponse(forClient, { headers })
 }

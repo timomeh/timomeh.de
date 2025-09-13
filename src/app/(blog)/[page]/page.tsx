@@ -1,4 +1,4 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { MDX } from '@/comps/mdx/mdx'
@@ -21,16 +21,14 @@ export default async function Page(props: Props) {
       className="relative"
       data-landmark="content-page"
     >
-      <>
-        <Prose>
-          <MDX
-            cacheKey={`page-${page.slug}`}
-            cacheTags={['mdx-type:page', `mdx-page:${page.slug}`]}
-            content={page.content}
-            assetPrefix={contentAsset('pages', page.slug, '')}
-          />
-        </Prose>
-      </>
+      <Prose>
+        <MDX
+          cacheKey={`page-${page.slug}`}
+          cacheTags={['mdx-type:page', `mdx-page:${page.slug}`]}
+          content={page.content}
+          assetPrefix={contentAsset('pages', page.slug, '')}
+        />
+      </Prose>
     </article>
   )
 }
@@ -50,8 +48,8 @@ export async function generateMetadata(props: Props) {
     openGraph: {},
   }
 
-  if (page.metaImage) {
-    metadata.openGraph!.images = [
+  if (page.metaImage && metadata.openGraph) {
+    metadata.openGraph.images = [
       { url: contentAsset('pages', page.slug, page.metaImage) },
     ]
   }

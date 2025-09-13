@@ -17,13 +17,13 @@ pre.shiki {
 }
 
 .shiki .tab::before {
-  content: '⇥';
+  content: "⇥";
   position: absolute;
   opacity: 0.2;
 }
 
 .shiki .space::before {
-  content: '·';
+  content: "·";
   position: absolute;
   opacity: 0.2;
 }
@@ -52,7 +52,7 @@ which discards empty lines at the end of the codeblock */
 
 .shiki .line.diff::after,
 .shiki .line.highlighted::after {
-  content: '';
+  content: "";
   user-select: none;
   position: absolute;
   pointer-events: none;
@@ -74,7 +74,7 @@ which discards empty lines at the end of the codeblock */
 }
 
 .shiki .line.diff.add::before {
-  content: '+';
+  content: "+";
   color: #3dd68c;
 }
 
@@ -84,12 +84,12 @@ which discards empty lines at the end of the codeblock */
 }
 
 .shiki .line.diff.add::before {
-  content: '+';
+  content: "+";
   color: #3dd68c;
 }
 
 .shiki .line.diff.remove::before {
-  content: '-';
+  content: "-";
   color: #cb7676;
 }
 
@@ -97,12 +97,12 @@ which discards empty lines at the end of the codeblock */
   background-color: rgba(125, 211, 252, 0.27);
 }
 
-html[data-theme='dark'] .shiki .line.highlighted::after {
+html[data-theme="dark"] .shiki .line.highlighted::after {
   background-color: rgba(81, 92, 126, 0.27);
 }
 
 @media (prefers-color-scheme: dark) {
-  .shiki .line.highlighted:not(html[data-theme='light'] *)::after {
+  .shiki .line.highlighted:not(html[data-theme="light"] *)::after {
     background-color: rgba(81, 92, 126, 0.27);
   }
 }
@@ -123,7 +123,7 @@ html[data-theme='dark'] .shiki .line.highlighted::after {
   border-radius: 4px;
 }
 
-html[data-theme='dark'] .shiki .highlighted-word {
+html[data-theme="dark"] .shiki .highlighted-word {
   background-color: #16161e;
   border: 1px solid #42465d;
   padding: 1px 3px;
@@ -132,7 +132,7 @@ html[data-theme='dark'] .shiki .highlighted-word {
 }
 
 @media (prefers-color-scheme: dark) {
-  .shiki .highlighted-word:not(html[data-theme='light'] *) {
+  .shiki .highlighted-word:not(html[data-theme="light"] *) {
     background-color: #16161e;
     border: 1px solid #42465d;
     padding: 1px 3px;

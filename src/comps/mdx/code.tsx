@@ -62,6 +62,7 @@ export async function Code(props: Props) {
         in-data-[landmark=content-page]:md:-mx-4 dark:border-white/10
         dark:shadow-purple-300/2"
     >
+      {/** biome-ignore lint/security/noDangerouslySetInnerHtml: html from shiki */}
       <div dangerouslySetInnerHTML={{ __html: html }} className="rounded-md" />
       {lang && !hiddenLangs.includes(lang) && (
         <span

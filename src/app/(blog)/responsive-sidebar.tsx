@@ -68,6 +68,7 @@ export function ResponsiveSidebar({ children }: Props) {
           <button
             aria-label="Close"
             autoFocus
+            type="button"
             className="-mx-2 p-2 text-gray-800 dark:text-gray-100"
             onClick={() => {
               const $dialog = document.getElementById(

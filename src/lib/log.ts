@@ -1,5 +1,5 @@
 import { PinoTransport } from '@loglayer/transport-pino'
-import { ILogLayer, LogLayer } from 'loglayer'
+import { type ILogLayer, LogLayer } from 'loglayer'
 import pino from 'pino'
 import pinoPretty from 'pino-pretty'
 import { serializeError } from 'serialize-error'
@@ -88,6 +88,7 @@ export function createConsoleMethod(
 // Source: https://loglayer.dev/example-integrations/nextjs.html#handling-server-side-uncaught-exceptions-and-rejections
 function stripAnsiCodes(str: string): string {
   return str.replace(
+    // biome-ignore lint/suspicious/noControlCharactersInRegex: nextjs logs
     /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g,
     '',
   )

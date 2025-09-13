@@ -1,8 +1,8 @@
 import '@/styles/main.css'
 
-import { Viewport } from 'next'
+import type { Viewport } from 'next'
 import { Bitter, IBM_Plex_Mono, Inter } from 'next/font/google'
-import React from 'react'
+import type React from 'react'
 
 import { PrevPathProvider } from '@/comps/prev-path'
 import { ProgressBarProvider } from '@/comps/progress-bar'
@@ -78,9 +78,9 @@ export default async function RootLayout({ children, header, aside }: Props) {
                   <KeyboardNavLink href="#content" className="max-sm:hidden">
                     Skip to content
                   </KeyboardNavLink>
-                  <div role="navigation" id="aside" className="sm:h-full">
+                  <nav id="aside" className="sm:h-full">
                     <ResponsiveSidebar>{aside}</ResponsiveSidebar>
-                  </div>
+                  </nav>
                 </div>
                 <div className="relative order-1">
                   <KeyboardNavLink href="#aside" className="max-sm:hidden">

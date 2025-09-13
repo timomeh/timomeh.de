@@ -1,3 +1,5 @@
+// biome-ignore-all lint: public non-bundled file
+
 // In case this is still cached on any devices. Like it was still cached
 // on my tablet.
 // https://timomeh.de/posts/astray-service-worker

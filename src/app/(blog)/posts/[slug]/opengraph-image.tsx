@@ -30,14 +30,12 @@ export default async function Image({ params }: Props) {
     : undefined
 
   return new ImageResponse(
-    (
-      <OpengraphBaseImage
-        title={[post.title]}
-        cover={cover}
-        date={post.publishedAt}
-        est={formatReadingTime(post.content, post.readingTime, 'read')}
-      />
-    ),
+    <OpengraphBaseImage
+      title={[post.title]}
+      cover={cover}
+      date={post.publishedAt}
+      est={formatReadingTime(post.content, post.readingTime, 'read')}
+    />,
     {
       ...size,
       ...(await getFonts()),

@@ -7,7 +7,7 @@ type Props = {
   error: Error & { digest?: string }
 }
 
-export default function Error({ reset }: Props) {
+export default function ErrorFragment({ reset }: Props) {
   return (
     <div className="p-4 sm:p-6 md:p-8">
       <ErrorContent reset={reset} />

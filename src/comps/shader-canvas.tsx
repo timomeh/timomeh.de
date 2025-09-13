@@ -31,6 +31,7 @@ export function ShaderCanvas({ fragmentShaderSource }: Props) {
         gl.attachShader(program, vs)
         gl.attachShader(program, fs)
         gl.linkProgram(program)
+        // biome-ignore lint/correctness/useHookAtTopLevel: this is not a hook
         gl.useProgram(program)
         gl.enable(gl.BLEND)
         gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
@@ -50,7 +51,7 @@ export function ShaderCanvas({ fragmentShaderSource }: Props) {
         let started = false
         let frameId = 0
 
-        let startTime = Math.random() * -10000000
+        const startTime = Math.random() * -10000000
 
         let lastFrame = performance.now()
         let slowFrames = 0
@@ -165,6 +166,7 @@ function cleanupWebGL(
   buffers: WebGLBuffer[],
 ) {
   // Delete shaders and program
+  // biome-ignore lint/correctness/useHookAtTopLevel: not a hook
   gl.useProgram(null)
   gl.deleteProgram(program)
 

@@ -2,15 +2,13 @@ import { BackLink } from '@/comps/back-link'
 
 export function BackWidget() {
   return (
-    <>
-      <div>
-        <BackLink className="group/btn">
-          <Item>
-            <div className="text-center text-xs font-medium">All posts</div>
-          </Item>
-        </BackLink>
-      </div>
-    </>
+    <div>
+      <BackLink className="group/btn">
+        <Item>
+          <div className="text-center text-xs font-medium">All posts</div>
+        </Item>
+      </BackLink>
+    </div>
   )
 }
 

@@ -8,56 +8,54 @@ import { SwitchThemeButton } from '@/comps/switch-theme-button'
 
 export function LinksWidget() {
   return (
-    <>
-      <div className="@max-5xs:grid-cols-1 grid grid-cols-3 gap-1">
-        <Link href="/tags" className="group/btn @max-5xs:block relative hidden">
-          <Item>
-            <div className="@max-5xs:size-3 size-4">
-              <TagIcon />
-            </div>
-            <div className="text-xs font-medium">Tags</div>
-          </Item>
-        </Link>
-        <SwitchThemeButton
-          aria-label="Switch color theme"
-          className="group/btn"
-          type="button"
-        >
-          <Item>
-            <div className="@max-5xs:size-3 size-4">
-              <DarkLightIcon />
-            </div>
-            <div className="text-xs font-medium">
-              <span className="hidden group-data-[theme=light]/root:inline">
-                Light
-              </span>
-              <span className="hidden group-data-[theme=dark]/root:inline">
-                Dark
-              </span>
-              <span className="hidden group-data-[theme=system]/root:inline">
-                System
-              </span>
-            </div>
-          </Item>
-        </SwitchThemeButton>
-        <Link href="/feeds" className="group/btn relative block">
-          <Item>
-            <div className="@max-5xs:size-3 size-4">
-              <FeedIcon />
-            </div>
-            <div className="text-xs font-medium">Feed</div>
-          </Item>
-        </Link>
-        <Link href="/about" className="group/btn relative block">
-          <Item>
-            <div className="@max-5xs:size-3 size-4">
-              <DownasaurIcon />
-            </div>
-            <div className="text-xs font-medium">About</div>
-          </Item>
-        </Link>
-      </div>
-    </>
+    <div className="@max-5xs:grid-cols-1 grid grid-cols-3 gap-1">
+      <Link href="/tags" className="group/btn @max-5xs:block relative hidden">
+        <Item>
+          <div className="@max-5xs:size-3 size-4">
+            <TagIcon />
+          </div>
+          <div className="text-xs font-medium">Tags</div>
+        </Item>
+      </Link>
+      <SwitchThemeButton
+        aria-label="Switch color theme"
+        className="group/btn"
+        type="button"
+      >
+        <Item>
+          <div className="@max-5xs:size-3 size-4">
+            <DarkLightIcon />
+          </div>
+          <div className="text-xs font-medium">
+            <span className="hidden group-data-[theme=light]/root:inline">
+              Light
+            </span>
+            <span className="hidden group-data-[theme=dark]/root:inline">
+              Dark
+            </span>
+            <span className="hidden group-data-[theme=system]/root:inline">
+              System
+            </span>
+          </div>
+        </Item>
+      </SwitchThemeButton>
+      <Link href="/feeds" className="group/btn relative block">
+        <Item>
+          <div className="@max-5xs:size-3 size-4">
+            <FeedIcon />
+          </div>
+          <div className="text-xs font-medium">Feed</div>
+        </Item>
+      </Link>
+      <Link href="/about" className="group/btn relative block">
+        <Item>
+          <div className="@max-5xs:size-3 size-4">
+            <DownasaurIcon />
+          </div>
+          <div className="text-xs font-medium">About</div>
+        </Item>
+      </Link>
+    </div>
   )
 }
 

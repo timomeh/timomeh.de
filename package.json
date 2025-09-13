@@ -9,11 +9,10 @@
     "prebuild": "pnpm build:cache-handler",
     "build:cache-handler": "esbuild src/cache-handler.ts --bundle --outfile=dist/cache-handler.js --platform=node --format=cjs",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "biome check",
+    "format": "biome check --write",
     "test": "playwright test",
     "typecheck": "tsc --noEmit",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
     "test:ui": "pnpm test --ui",
     "db:push": "mkdir -p data/db-data && drizzle-kit push --force",
     "db:studio": "drizzle-kit studio",
@@ -66,8 +65,7 @@
   },
   "devDependencies": {
     "@argos-ci/playwright": "5.0.9",
-    "@eslint/eslintrc": "3.3.1",
-    "@eslint/js": "9.35.0",
+    "@biomejs/biome": "2.2.4",
     "@playwright/test": "1.55.0",
     "@tailwindcss/postcss": "4.1.13",
     "@tailwindcss/typography": "0.5.16",
@@ -79,29 +77,10 @@
     "@types/remove-markdown": "0.3.4",
     "drizzle-kit": "0.31.4",
     "esbuild": "0.25.9",
-    "eslint": "9.35.0",
-    "eslint-config-next": "15.5.3",
-    "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-prettier": "5.5.4",
-    "eslint-plugin-simple-import-sort": "12.1.1",
-    "eslint-plugin-unused-imports": "4.2.0",
     "postcss": "8.5.6",
-    "prettier": "3.6.2",
-    "prettier-plugin-classnames": "0.8.3",
-    "prettier-plugin-merge": "0.8.0",
-    "prettier-plugin-tailwindcss": "0.6.14",
     "tailwindcss": "4.1.13",
     "tsx": "4.20.5",
     "typescript": "5.9.2"
-  },
-  "prettier": {
-    "semi": false,
-    "singleQuote": true,
-    "plugins": [
-      "prettier-plugin-tailwindcss",
-      "prettier-plugin-classnames",
-      "prettier-plugin-merge"
-    ]
   },
   "packageManager": "pnpm@10.8.0+sha512.0e82714d1b5b43c74610193cb20734897c1d00de89d0e18420aebc5977fa13d780a9cb05734624e81ebd81cc876cd464794850641c48b9544326b5622ca29971",
   "pnpm": {

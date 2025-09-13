@@ -7,7 +7,7 @@ type Props = {
   error: Error & { digest?: string }
 }
 
-export default function Error({ reset }: Props) {
+export default function ErrorFragment({ reset }: Props) {
   return (
     <ErrorContent
       reset={reset}

@@ -1,8 +1,8 @@
 // Inspired by:
 // https://github.com/stefanprobst/keystatic-footnotes/blob/main/lib/footnotes.js
 
-import { Root } from 'mdast'
-import {
+import type { Root } from 'mdast'
+import type {
   MdxJsxAttribute,
   MdxJsxFlowElement,
   MdxJsxTextElement,

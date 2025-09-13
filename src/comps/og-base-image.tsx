@@ -1,7 +1,7 @@
-/* eslint-disable @next/next/no-img-element */
+/** biome-ignore-all lint/performance/noImgElement: og image */
 
 import { unstable_noStore } from 'next/cache'
-import { ImageResponseOptions } from 'next/server'
+import type { ImageResponseOptions } from 'next/server'
 
 import { config } from '@/config'
 
@@ -78,6 +78,7 @@ export function OpengraphBaseImage({ cover, title, date, est }: Props) {
               style={{ textShadow: '0 5px 20px black' }}
             >
               {title.map((t, i) => (
+                // biome-ignore lint/suspicious/noArrayIndexKey: it's fine
                 <div key={i}>{t}</div>
               ))}
             </div>

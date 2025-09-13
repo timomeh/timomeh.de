@@ -1,5 +1,5 @@
-import { compile, evaluate, run } from '@mdx-js/mdx'
-import remarkEmbedder, { TransformerInfo } from '@remark-embedder/core'
+import { compile, type evaluate, run } from '@mdx-js/mdx'
+import remarkEmbedder, { type TransformerInfo } from '@remark-embedder/core'
 import oembedTransformer from '@remark-embedder/transformer-oembed'
 import { memoize } from 'nextjs-better-unstable-cache'
 import { Suspense } from 'react'
@@ -190,7 +190,8 @@ const plainComponents: MDXComponents = {
 
     const src = imgproxyLoader({ src: props.src, width: 680, quality: 80 })
 
-    // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
+    // biome-ignore lint/a11y/useAltText: props passed through
+    // biome-ignore lint/performance/noImgElement: plain image in feed
     return <img {...props} src={src} />
   },
   Footnote: (props) => <span>&nbsp;[Footnote: {props.children}]</span>,

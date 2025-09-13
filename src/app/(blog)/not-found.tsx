@@ -24,6 +24,7 @@ export default function NotFound() {
                 </a>
               </li>
               <li
+                // biome-ignore lint/security/noDangerouslySetInnerHtml: it's fine
                 dangerouslySetInnerHTML={{
                   __html: ' <a href="javascript:history.back()">go back</a>',
                 }}

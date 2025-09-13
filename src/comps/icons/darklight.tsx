@@ -8,6 +8,7 @@ export function DarkLightIcon() {
         **:transition-[transform,translate,scale,rotate,opacity]
         **:duration-300"
     >
+      <title>Brightness Mode Switcher</title>
       <g className="origin-center scale-[0.6] dark:scale-100">
         <mask
           id="moon-mask"

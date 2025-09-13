@@ -5,7 +5,7 @@ import { LinksWidget } from './_widgets/links-widget'
 
 export default function Default() {
   return (
-    <aside className="sm:h-full" aria-label="Naviation" role="navigation">
+    <nav className="sm:h-full" aria-label="Naviation">
       <div
         className="@container top-0 max-h-dvh w-[220px] rounded-xl
           max-sm:bg-white/40 max-sm:shadow-xl/20 max-sm:backdrop-blur-sm
@@ -26,6 +26,6 @@ export default function Default() {
           </div>
         </Card>
       </div>
-    </aside>
+    </nav>
   )
 }

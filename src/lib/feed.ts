@@ -1,4 +1,4 @@
-import { Feed, FeedOptions } from 'feed'
+import { Feed, type FeedOptions } from 'feed'
 import { memoize } from 'nextjs-better-unstable-cache'
 
 import { config } from '@/config'
