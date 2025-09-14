@@ -246,7 +246,7 @@ export default config({
         }),
         publishedAt: fields.datetime({
           label: 'Published at',
-          defaultValue: { kind: 'now' },
+          defaultValue: new Date().toISOString().slice(0, 16),
           validation: { isRequired: true },
         }),
 
