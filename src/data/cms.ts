@@ -83,22 +83,7 @@ export const cms = {
 
       return sanitizeSettings(settings)
     },
-  },
-  assets: {
-    async get(path: string) {
-      const res = await fetch(
-        `https://raw.githubusercontent.com/timomeh/timomeh.de-content/${branch}/${path}`,
-        {
-          headers: {
-            Authorization: `Bearer ${config.github.contentPat}`,
-          },
-          cache: 'no-store',
-        },
-      )
-
-      return res
-    },
-  },
+  }
 }
 
 export function contentAsset(
