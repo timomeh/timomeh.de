@@ -223,6 +223,70 @@ export default config({
       },
     }),
 
+    shorts: collection({
+      label: 'Shorts',
+      path: 'shorts/*/',
+      slugField: 'id',
+      format: { contentField: 'content' },
+      columns: ['id', 'publishedAt'],
+      schema: {
+        id: fields.text({
+          label: 'ID',
+          defaultValue: () => Date.now().toString(),
+          validation: { isRequired: true },
+        }),
+        content: fields.mdx({
+          label: 'Content',
+          components,
+          options: {
+            image: {
+              directory: 'shorts',
+            },
+          },
+        }),
+        publishedAt: fields.datetime({
+          label: 'Published at',
+          defaultValue: { kind: 'now' },
+          validation: { isRequired: true },
+        }),
+
+        attachments: fields.array(
+          fields.object({
+            attachment: fields.image({
+              label: 'Attachment',
+              validation: { isRequired: true },
+            }),
+            alt: fields.text({ label: 'Alt Text' }),
+          }),
+          {
+            label: 'Attachments',
+            itemLabel: (props) =>
+              props.fields.attachment.value?.filename ?? 'unknown file',
+          },
+        ),
+
+        frontmatter: fields.object(
+          {
+            kicker: fields.text({
+              label: 'Kicker',
+              description: 'smol text above header name',
+            }),
+          },
+          { label: 'Frontmatter' },
+        ),
+
+        meta: fields.object(
+          {
+            lang: fields.text({
+              label: 'Language',
+              defaultValue: 'en_US',
+            }),
+          },
+          { label: 'Meta' },
+        ),
+      },
+    }),
+
     tags: collection({
       label: 'Tags',
       slugField: 'title',
@@ -357,6 +421,11 @@ export default config({
             label: 'Fallback Kickers',
           },
         ),
+        shortsAvatar: fields.image({
+          label: 'Shorts Avatar',
+          description: 'The avatar to show next to shorts',
+          directory: 'settings',
+        }),
       },
     }),
   },

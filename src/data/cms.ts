@@ -18,6 +18,7 @@ const reader = createGitHubReader(keystaticConfig, {
 })
 
 export type Post = NonNullable<Awaited<ReturnType<typeof cms.posts.get>>>
+export type Short = NonNullable<Awaited<ReturnType<typeof cms.shorts.get>>>
 export type Page = NonNullable<Awaited<ReturnType<typeof cms.pages.get>>>
 export type Tag = NonNullable<Awaited<ReturnType<typeof cms.tags.get>>>
 export type Settings = NonNullable<Awaited<ReturnType<typeof cms.settings.get>>>
@@ -38,6 +39,26 @@ export const cms = {
       })
 
       return posts.map(({ slug, entry }) => ({ slug, ...sanitizePost(entry) }))
+    },
+  },
+  shorts: {
+    async get(id: string) {
+      const short = await reader.collections.shorts.read(id, {
+        resolveLinkedFiles: true,
+      })
+      if (!short) return null
+
+      return { id, ...sanitizeShort(short) }
+    },
+    async all() {
+      const shorts = await reader.collections.shorts.all({
+        resolveLinkedFiles: true,
+      })
+
+      return shorts.map(({ slug, entry }) => ({
+        id: slug,
+        ...sanitizeShort(entry),
+      }))
     },
   },
   tags: {
@@ -83,11 +104,11 @@ export const cms = {
 
       return sanitizeSettings(settings)
     },
-  }
+  },
 }
 
 export function contentAsset(
-  type: 'posts' | 'pages' | 'tags',
+  type: 'posts' | 'pages' | 'tags' | 'shorts',
   slug: string,
   path: string,
 ) {
@@ -123,6 +144,22 @@ const sanitizePost = (
     kicker: post.frontmatter.kicker || undefined,
     metaDdescription: post.meta.description || undefined,
     metaImage: post.meta.image || undefined,
+    metaLang: post.meta.lang || undefined,
+  })
+
+const sanitizeShort = (
+  post: EntryWithResolvedLinkedFiles<
+    (typeof keystaticConfig)['collections']['shorts']
+  >,
+) =>
+  cleanse({
+    content: post.content || undefined,
+    attachments: post.attachments.map((att) => ({
+      file: att.attachment,
+      alt: att.alt || undefined,
+    })),
+    publishedAt: new Date(post.publishedAt),
+    kicker: post.frontmatter.kicker || undefined,
     metaLang: post.meta.lang || undefined,
   })
 
@@ -167,4 +204,5 @@ const sanitizeSettings = (
   cleanse({
     tags: settings.tags.filter(Boolean),
     kickers: settings.kickers.filter(Boolean),
+    shortsAvatar: settings.shortsAvatar,
   })

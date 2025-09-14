@@ -30,6 +30,22 @@ export const posts = t.sqliteTable(
   ],
 )
 
+export const shorts = t.sqliteTable(
+  'shorts',
+  {
+    id: t.text().primaryKey(),
+    content: t.text(),
+    attachments: t
+      .text({ mode: 'json' })
+      .$type<{ file: string; alt?: string | null }[]>()
+      .default([]),
+    publishedAt: t.integer({ mode: 'timestamp' }).notNull(),
+    kicker: t.text(),
+    metaLang: t.text(),
+  },
+  (table) => [t.index('slug_published_at_idx').on(table.publishedAt)],
+)
+
 export const tags = t.sqliteTable(
   'tags',
   {
@@ -63,7 +79,7 @@ export const pages = t.sqliteTable(
 )
 
 export const settings = t.sqliteTable('settings', {
-  key: t.text({ enum: ['kickers'] }).primaryKey(),
+  key: t.text({ enum: ['kickers', 'shortsAvatar'] }).primaryKey(),
   value: t.text({ mode: 'json' }),
 })
 

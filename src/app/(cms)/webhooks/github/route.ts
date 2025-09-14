@@ -7,6 +7,7 @@ import { config } from '@/config'
 import { updatePageCache } from '@/data/pages'
 import { updatePostCache } from '@/data/posts'
 import { updateSettingsCache } from '@/data/settings'
+import { updateShortsCache } from '@/data/shorts'
 import { updateTagCache } from '@/data/tags'
 import { log as baseLog } from '@/lib/log'
 
@@ -83,6 +84,13 @@ export async function POST(request: NextRequest) {
         if (resource === 'tags') {
           await updateTagCache(slug)
           revalidatePath('/tags')
+          log.withMetadata({ resource, slug }).info('Updated cache')
+          return
+        }
+
+        if (resource === 'shorts') {
+          await updateShortsCache(slug)
+          revalidateTag(`mdx-short:${slug}`)
           log.withMetadata({ resource, slug }).info('Updated cache')
           return
         }

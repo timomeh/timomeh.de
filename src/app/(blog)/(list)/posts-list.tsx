@@ -2,16 +2,14 @@ import { notFound } from 'next/navigation'
 import { Fragment } from 'react'
 
 import { GlassPill } from '@/comps/glass-pill'
-import {
-  listPostYears,
-  listPublishedPostsByTag,
-  listPublishedPostsByYear,
-} from '@/data/posts'
+import { listPublishedPostsByTag } from '@/data/posts'
 import { getTagBySlug } from '@/data/tags'
 import { isMonthAgo, isWeekAgo, isYearAgo } from '@/lib/date'
 import { pluralizePosts } from '@/lib/plurals'
-
+import type { Post, Short } from '../../../data/cms'
+import { listEntriesByYear, listEntryYears } from '../../../data/entries'
 import { ListedPost } from './listed-post'
+import { ShortsTimeline } from './shorts-timeline'
 
 type Props = {
   sort?: 'asc' | 'desc'
@@ -45,42 +43,46 @@ export async function PostsList({ sort = 'desc', year, tagSlug }: Props) {
   }
 
   if (year) {
-    const postYears = await listPostYears()
-    const postYear = postYears.find((postYear) => postYear.year === year)
+    const entryYears = await listEntryYears()
+    const entryYear = entryYears.find((entryYear) => entryYear.year === year)
 
-    if (!postYear) {
+    if (!entryYear) {
       notFound()
     }
 
-    const posts = await listPublishedPostsByYear(postYear.year, { sort })
+    const entries = await listEntriesByYear(entryYear.year, { sort })
 
     return (
       <div className="space-y-10">
         <div className="mb-4 flex justify-center">
           <GlassPill>
             <h3>
-              {pluralizePosts(posts.length)} in {postYear.year}
+              {pluralizePosts(entries.length)} in {entryYear.year}
             </h3>
           </GlassPill>
         </div>
-        {posts.map((post) => (
-          <ListedPost slug={post.slug} key={post.slug} />
-        ))}
+        {timelineify(entries).map((entry) =>
+          entry.type === 'post' ? (
+            <ListedPost slug={entry.post.slug} key={entry.post.slug} />
+          ) : (
+            <ShortsTimeline key={entry.shorts[0].id} shorts={entry.shorts} />
+          ),
+        )}
       </div>
     )
   }
 
-  const postYears = await listPostYears()
-  const postYear = postYears[0]
-  const posts = postYear
-    ? await listPublishedPostsByYear(postYear.year, { sort })
+  const entryYears = await listEntryYears()
+  const entryYear = entryYears[0]
+  const entries = entryYear
+    ? await listEntriesByYear(entryYear.year, { sort })
     : []
 
-  const groupedPosts = groupPosts(posts)
+  const groupedEntries = groupEntries(entries)
 
   return (
     <div className="space-y-10">
-      {groupedPosts.map((group) => (
+      {groupedEntries.map((group) => (
         <Fragment key={group.marker}>
           <div className="mb-4 flex justify-center">
             <GlassPill>
@@ -89,16 +91,49 @@ export async function PostsList({ sort = 'desc', year, tagSlug }: Props) {
               </h3>
             </GlassPill>
           </div>
-          {group.posts.map((post) => (
-            <ListedPost key={post.slug} slug={post.slug} />
-          ))}
+          {timelineify(group.posts).map((entry) =>
+            entry.type === 'post' ? (
+              <ListedPost slug={entry.post.slug} key={entry.post.slug} />
+            ) : (
+              <ShortsTimeline key={entry.shorts[0].id} shorts={entry.shorts} />
+            ),
+          )}
         </Fragment>
       ))}
     </div>
   )
 }
 
-function groupPosts<T extends { publishedAt: Date }>(posts: T[]) {
+function timelineify<T extends { [slug: string]: unknown }>(entries: T[]) {
+  const out: (
+    | { type: 'post'; post: Post }
+    | { type: 'short-group'; shorts: Short[] }
+  )[] = []
+  let group: null | Short[] = null
+
+  for (const entry of entries) {
+    const isPost = 'slug' in entry
+
+    if (isPost) {
+      if (group) {
+        out.push({ type: 'short-group', shorts: group })
+        group = null
+      }
+      out.push({ type: 'post', post: entry as unknown as Post })
+    } else {
+      if (!group) group = []
+      group.push(entry as unknown as Short)
+    }
+  }
+
+  if (group) {
+    out.push({ type: 'short-group', shorts: group })
+  }
+
+  return out
+}
+
+function groupEntries<T extends { publishedAt: Date }>(posts: T[]) {
   return posts.reduce((groups, post) => {
     const date = post.publishedAt
     const currentGroup = groups.at(-1)

@@ -5,6 +5,7 @@ import { config } from '@/config'
 import { cacheAllPages } from '@/data/pages'
 import { cacheAllPostsAndTags, listPublishedPosts } from '@/data/posts'
 import { updateSettingsCache } from '@/data/settings'
+import { cacheAllShorts } from '@/data/shorts'
 import { log as baseLog } from '@/lib/log'
 
 const log = baseLog.child().withContext({ module: 'webhooks/nuke' })
@@ -41,6 +42,7 @@ export async function GET(request: NextRequest) {
 
   // TODO: this makes lots of requests to the same /git/trees/HEAD?recursive=1 URL
   await cacheAllPages()
+  await cacheAllShorts()
   await cacheAllPostsAndTags()
   await updateSettingsCache()
   revalidateTag('feed-pre')
