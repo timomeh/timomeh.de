@@ -1,13 +1,9 @@
 import { Card } from '@/comps/card'
 
-import { BackWidget } from '../../_widgets/back-widget'
-import { LinksWidget } from '../../_widgets/links-widget'
+import { BackWidget } from '../_widgets/back-widget'
+import { LinksWidget } from '../_widgets/links-widget'
 
-type Props = {
-  params: Promise<{ id: string }>
-}
-
-export default async function Page(_p: Props) {
+export default async function Page() {
   return (
     <div className="top-0 max-h-dvh sm:sticky">
       <div
@@ -32,8 +28,4 @@ export default async function Page(_p: Props) {
       </div>
     </div>
   )
-}
-
-export async function generateStaticParams() {
-  return []
 }

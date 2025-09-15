@@ -1,11 +1,17 @@
 import { BackLink } from '@/comps/back-link'
 
-export function BackWidget() {
+type Props = {
+  label?: React.ReactNode
+}
+
+export function BackWidget({ label }: Props) {
   return (
     <div>
       <BackLink className="group/btn">
         <Item>
-          <div className="text-center text-xs font-medium">All posts</div>
+          <div className="text-center text-xs font-medium">
+            {label || 'All posts'}
+          </div>
         </Item>
       </BackLink>
     </div>

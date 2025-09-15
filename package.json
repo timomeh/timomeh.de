@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "TZ=UTC next dev",
     "predev": "pnpm build:cache-handler --log-level=error",
     "build": "next build --experimental-build-mode compile",
     "prebuild": "pnpm build:cache-handler",

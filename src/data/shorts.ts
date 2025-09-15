@@ -11,6 +11,21 @@ type Filter = {
   limit?: number
 }
 
+export type Short = typeof schema.shorts.$inferSelect
+
+export const listShorts = cache(async (filter: Filter = {}) => {
+  const shorts = await db.query.shorts.findMany({
+    orderBy: (short, q) => [
+      filter.sort === 'asc'
+        ? q.asc(short.publishedAt)
+        : q.desc(short.publishedAt),
+    ],
+    limit: filter.limit,
+  })
+
+  return shorts
+})
+
 export const listShortsByYear = cache(
   async (year: number, filter: Filter = {}) => {
     const shorts = await db.query.shorts.findMany({

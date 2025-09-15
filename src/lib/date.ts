@@ -1,4 +1,5 @@
 import {
+  isBefore,
   isSameMonth,
   isSameWeek,
   isSameYear,
@@ -22,4 +23,8 @@ export function isYearAgo(date: Date, years: number) {
 
 export function formatRelativeDate(date: Date) {
   return relativeDate(date)
+}
+
+export function isMoreThanWeeksAgo(date: Date, weeks: number) {
+  return isBefore(date, subWeeks(new Date(), weeks))
 }

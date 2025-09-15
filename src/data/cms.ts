@@ -148,19 +148,19 @@ const sanitizePost = (
   })
 
 const sanitizeShort = (
-  post: EntryWithResolvedLinkedFiles<
+  short: EntryWithResolvedLinkedFiles<
     (typeof keystaticConfig)['collections']['shorts']
   >,
 ) =>
   cleanse({
-    content: post.content || undefined,
-    attachments: post.attachments.map((att) => ({
+    content: short.content || undefined,
+    attachments: short.attachments?.map((att) => ({
       file: att.attachment,
       alt: att.alt || undefined,
     })),
-    publishedAt: new Date(post.publishedAt),
-    kicker: post.frontmatter.kicker || undefined,
-    metaLang: post.meta.lang || undefined,
+    publishedAt: new Date(short.publishedAt),
+    kicker: short.frontmatter.kicker || undefined,
+    metaLang: short.meta.lang || undefined,
   })
 
 const sanitizeTag = (
