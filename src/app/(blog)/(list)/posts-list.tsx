@@ -80,12 +80,13 @@ export async function PostsList({ sort = 'desc', year, tagSlug }: Props) {
   const groupedPosts = groupPosts(posts)
   const shorts = await listShorts({ limit: 2 })
 
+  const hasShorts = shorts.length > 0
   const shortsAtTop =
     sort === 'asc' ? false : shorts[0]?.publishedAt > posts[0]?.publishedAt
 
   return (
     <div className="space-y-10">
-      {shortsAtTop && (
+      {shortsAtTop && hasShorts && (
         <div className="mt-11">
           <ShortsTeaser shorts={shorts} />
         </div>
@@ -101,9 +102,10 @@ export async function PostsList({ sort = 'desc', year, tagSlug }: Props) {
           </div>
           {group.posts.map((post, postIndex) => (
             <React.Fragment key={post.slug}>
-              {!shortsAtTop && groupIndex === 0 && postIndex === 1 && (
-                <ShortsTeaser shorts={shorts} />
-              )}
+              {!shortsAtTop &&
+                groupIndex === 0 &&
+                postIndex === 1 &&
+                hasShorts && <ShortsTeaser shorts={shorts} />}
               <ListedPost slug={post.slug} />
             </React.Fragment>
           ))}
