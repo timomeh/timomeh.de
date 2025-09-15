@@ -5,12 +5,16 @@ import { contentAsset } from '../data/cms'
 import { formatRelativeDate, isMoreThanWeeksAgo } from '../lib/date'
 import { LocalDateTime } from './local-date-time'
 import { MDX } from './mdx/mdx'
+import { MediaGrid } from './media-grid'
 import { OptimImage } from './optim-image'
 import { Prose } from './prose'
 
 type Props = {
   short: Short
 }
+
+// TODO: would be cool to only show e.g. max 2 images here and cut more images
+// off with a "+3 more" overlay
 
 export async function ListedShort({ short }: Props) {
   const avatar = await getShortsAvatar()
@@ -55,6 +59,11 @@ export async function ListedShort({ short }: Props) {
             content={short.content || ''}
             scope={short.id}
           />
+          {!!short.attachments && short.attachments.length > 0 && (
+            <div className="not-prose mb-4">
+              <MediaGrid images={short.attachments} shortId={short.id} />
+            </div>
+          )}
         </Prose>
       </div>
     </div>

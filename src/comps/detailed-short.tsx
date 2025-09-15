@@ -3,6 +3,7 @@ import { getShortsAvatar } from '@/data/settings'
 import type { Short } from '@/data/shorts'
 import { LocalDateTime } from './local-date-time'
 import { MDX } from './mdx/mdx'
+import { MediaGrid } from './media-grid'
 import { OptimImage } from './optim-image'
 import { Prose } from './prose'
 
@@ -35,6 +36,11 @@ export async function DetailedShort({ short }: Props) {
             assetPrefix={contentAsset('shorts', short.id, '')}
             content={short.content || ''}
           />
+          {!!short.attachments && short.attachments.length > 0 && (
+            <div className="not-prose mb-4">
+              <MediaGrid images={short.attachments} shortId={short.id} />
+            </div>
+          )}
           <time
             className="text-sm opacity-70"
             dateTime={short.publishedAt.toISOString()}
