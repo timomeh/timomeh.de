@@ -27,10 +27,10 @@ export async function ListedShort({ short }: Props) {
         width={40}
         height={40}
         alt="Timo’s avatar"
-        className="size-10 rounded-full mr-4"
+        className="size-6 mr-2 md:size-10 rounded-full md:mr-4"
       />
       <div className="[&_p]:first-of-type:mt-0">
-        <Prose>
+        <Prose size="sm">
           <div className="text-sm -mt-0.5">
             <Link href={`/shorts/${short.id}`} className="not-prose">
               <span className="font-bold inline-block mr-1">Timo</span>

@@ -24,7 +24,7 @@ export function ShortsTeaser({ shorts }: Prop) {
             </Link>
           </header>
           {shorts.map((short) => (
-            <div className="p-4 sm:p-6 md:p-8" key={short.id}>
+            <div className="px-2 py-4 xs:px-4 sm:p-6 md:p-8" key={short.id}>
               <ListedShort short={short} />
             </div>
           ))}

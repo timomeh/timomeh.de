@@ -18,7 +18,7 @@ export default async function Page(props: Props) {
     <article lang={short.metaLang?.split('_')[0]} className="relative mt-2">
       <Card>
         <div className="divide-y divide-gray-400/30 dark:divide-gray-600/30">
-          <div className="p-4 sm:p-6 md:p-8" key={short.id}>
+          <div className="px-2 py-4 xs:px-4 sm:p-6 md:p-8" key={short.id}>
             <DetailedShort short={short} />
           </div>
           <footer className="px-4 sm:px-6 md:px-8 py-3 flex justify-center items-center">

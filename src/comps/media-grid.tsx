@@ -34,12 +34,9 @@ export async function MediaGrid({ images, shortId }: Props) {
   if (images.length === 3) {
     return (
       <Lightbox>
-        <div className="grid xs:grid-cols-2 gap-1 rounded-xl overflow-hidden [grid-auto-rows:15rem] md:[grid-auto-rows:18rem]">
+        <div className="grid grid-cols-2 gap-1 rounded-xl overflow-hidden [grid-auto-rows:15rem] md:[grid-auto-rows:18rem]">
           {images.map((image, i) => (
-            <div
-              key={i}
-              className={i === 0 ? 'xs:row-span-2 min-h-0' : 'min-h-0'}
-            >
+            <div key={i} className={i === 0 ? 'row-span-2 min-h-0' : 'min-h-0'}>
               <MediaImage
                 src={contentAsset('shorts', shortId, image.file)}
                 alt={image.alt || ''}
@@ -54,7 +51,7 @@ export async function MediaGrid({ images, shortId }: Props) {
   // simple grid
   return (
     <Lightbox>
-      <div className="grid xs:grid-cols-2 gap-1 rounded-xl overflow-hidden [grid-auto-rows:15rem] md:[grid-auto-rows:18rem]">
+      <div className="grid grid-cols-2 gap-1 rounded-xl overflow-hidden [grid-auto-rows:15rem] md:[grid-auto-rows:18rem]">
         {images.map((image, i) => (
           <MediaImage
             key={i}
