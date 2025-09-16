@@ -84,8 +84,9 @@
     "tsx": "4.20.5",
     "typescript": "5.9.2"
   },
-  "packageManager": "pnpm@10.8.0+sha512.0e82714d1b5b43c74610193cb20734897c1d00de89d0e18420aebc5977fa13d780a9cb05734624e81ebd81cc876cd464794850641c48b9544326b5622ca29971",
+  "packageManager": "pnpm@10.16.1+sha512.0e155aa2629db8672b49e8475da6226aa4bdea85fdcdfdc15350874946d4f3c91faaf64cbdc4a5d1ab8002f473d5c3fcedcd197989cf0390f9badd3c04678706",
   "pnpm": {
+    "minimumReleaseAge": 1440,
     "overrides": {
       "jsonpath-plus": "npm:jsonpath-plus@10.3.0"
     },
