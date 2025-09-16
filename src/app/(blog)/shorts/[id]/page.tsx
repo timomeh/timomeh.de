@@ -2,8 +2,10 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Card } from '@/comps/card'
+import { DetailedShort } from '@/comps/detailed-short'
 import { getShortById } from '@/data/shorts'
-import { DetailedShort } from '../../../../comps/detailed-short'
+import { stripMarkdown } from '@/lib/markdown'
+import { metaTitle } from '@/lib/metaTitle'
 
 type Props = {
   params: Promise<{ id: string }>
@@ -45,6 +47,9 @@ export async function generateMetadata(props: Props) {
   if (!short) notFound()
 
   const metadata: Metadata = {
+    title: short.content
+      ? metaTitle(stripMarkdown(short.content))
+      : 'Timo thinks…',
     description: short.content,
     openGraph: {
       type: 'article',
