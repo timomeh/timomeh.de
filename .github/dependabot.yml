@@ -35,10 +35,7 @@ updates:
           - '@types/react-dom'
   - package-ecosystem: 'github-actions'
     cooldown:
-      default-days: 7
-      semver-major-days: 14
-      semver-minor-days: 7
-      semver-patch-days: 7
+      default-days: 14
     directory: '/'
     schedule:
       interval: 'weekly'
