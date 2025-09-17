@@ -1,6 +1,11 @@
 version: 2
 updates:
   - package-ecosystem: 'npm'
+    cooldown:
+      default-days: 7
+      semver-major-days: 14
+      semver-minor-days: 7
+      semver-patch-days: 7
     directory: '/'
     schedule:
       interval: 'daily'
@@ -29,6 +34,11 @@ updates:
           - '@types/react'
           - '@types/react-dom'
   - package-ecosystem: 'github-actions'
+    cooldown:
+      default-days: 7
+      semver-major-days: 14
+      semver-minor-days: 7
+      semver-patch-days: 7
     directory: '/'
     schedule:
       interval: 'weekly'
