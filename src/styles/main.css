@@ -118,6 +118,11 @@
     width: 100%;
     height: 100%;
   }
+
+  iframe {
+    color-scheme: light;
+    background-color: transparent;
+  }
 }
 
 /** biome-ignore-start lint/complexity/noImportantStyles: shiki */

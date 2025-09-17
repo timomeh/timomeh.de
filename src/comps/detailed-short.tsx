@@ -24,7 +24,7 @@ export async function DetailedShort({ short }: Props) {
         alt="Timo’s avatar"
         className="size-6 mr-2 md:size-10 rounded-full md:mr-4"
       />
-      <div className="[&_p]:first-of-type:mt-0">
+      <div className="[&_p]:first-of-type:mt-0 min-w-0">
         <Prose size="sm">
           <div className="text-sm -mt-0.5 not-prose">
             <span className="font-bold inline-block mr-1">Timo</span>

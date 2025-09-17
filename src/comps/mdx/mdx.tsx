@@ -1,6 +1,8 @@
 import { compile, type evaluate, run } from '@mdx-js/mdx'
 import remarkEmbedder, { type TransformerInfo } from '@remark-embedder/core'
-import oembedTransformer from '@remark-embedder/transformer-oembed'
+import oembedTransformer, {
+  type Config,
+} from '@remark-embedder/transformer-oembed'
 import { memoize } from 'nextjs-better-unstable-cache'
 import { Suspense } from 'react'
 import * as runtime from 'react/jsx-runtime'
@@ -13,6 +15,7 @@ import { withMdxFootnotes } from '@/lib/remarkMdxFootnotes'
 import { remarkReadMore } from '@/lib/remarkReadMore'
 
 import imgproxyLoader from '../../lib/imgproxyLoader'
+import { ClientSideOembed } from '../client-side-oembed'
 import { Anchor } from './anchor'
 import { Aside } from './aside'
 import { Blockquote } from './blockquote'
@@ -96,7 +99,12 @@ export async function MDX({
           // @ts-expect-error
           remarkEmbedder,
           {
-            transformers: [oembedTransformer],
+            transformers: [
+              oembedTransformer,
+              {
+                params: { dnt: true, theme: 'dark', omit_script: false },
+              } as Config,
+            ],
             handleHTML,
           },
         ],
@@ -147,7 +155,14 @@ const baseComponents: MDXComponents = {
   a: Anchor,
   del: Del,
   pre: (props) => <>{props.children}</>,
-  blockquote: Blockquote,
+  'timomeh-oembed': ClientSideOembed,
+  blockquote: (props) => {
+    if (props.className?.includes('oembed')) {
+      return <blockquote {...props} />
+    }
+
+    return <Blockquote {...props} />
+  },
   Footnote: () => null,
   FootnoteContent,
   FootnoteReference,
@@ -175,6 +190,7 @@ const plainComponents: MDXComponents = {
   Figure,
   DefinitionList,
   Definition,
+  'timomeh-oembed': (props) => <div {...props} />,
   Aside: ({ children, title }) => {
     return (
       <aside>
@@ -200,11 +216,20 @@ const plainComponents: MDXComponents = {
 function handleHTML(html: string, info: TransformerInfo) {
   const { url, transformer } = info
   if (
-    transformer.name === '@remark-embedder/transformer-oembed' ||
+    transformer.name === '@remark-embedder/transformer-oembed' &&
     url.includes('youtube.com')
   ) {
     const noCookieHtml = html.replace('youtube.com', 'youtube-nocookie.com')
-    return `<div className="oembed my-5 oembed-youtube aspect-video rounded-lg overflow-hidden in-data-[landmark=content-page]:md:-mx-4">${noCookieHtml}</div>`
+    return `<div className="not-prose oembed my-5 oembed-youtube aspect-video rounded-lg overflow-hidden in-data-[landmark=content-page]:md:-mx-4">${noCookieHtml}</div>`
   }
+
+  if (transformer.name === '@remark-embedder/transformer-oembed') {
+    html = html.replace(
+      '<blockquote class="',
+      '<blockquote data-theme="light" data-align="center" class="oembed ',
+    )
+    return `<div className="not-prose max-w-full min-w-0 oembed my-5 in-data-[landmark=content-page]:md:-mx-4"><timomeh-oembed>${html}</timomeh-oembed></div>`
+  }
+
   return html
 }
