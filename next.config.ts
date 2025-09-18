@@ -34,9 +34,12 @@ const nextConfig: NextConfig = {
 
   async rewrites() {
     return [
-      { source: '/posts/feed.rss', destination: '/feeds/rss' },
-      { source: '/posts/feed.atom', destination: '/feeds/atom' },
-      { source: '/posts/feed.json', destination: '/feeds/json' },
+      { source: '/posts/feed.rss', destination: '/feeds/posts/rss' },
+      { source: '/posts/feed.atom', destination: '/feeds/posts/atom' },
+      { source: '/posts/feed.json', destination: '/feeds/posts/json' },
+      { source: '/shorts/feed.rss', destination: '/feeds/shorts/rss' },
+      { source: '/shorts/feed.atom', destination: '/feeds/shorts/atom' },
+      { source: '/shorts/feed.json', destination: '/feeds/shorts/json' },
     ]
   },
 

@@ -3,10 +3,11 @@ import { memoize } from 'nextjs-better-unstable-cache'
 
 import { config } from '@/config'
 import { listPublishedPosts } from '@/data/posts'
+import { listShorts } from '../data/shorts'
 
 type FeedType = 'atom' | 'json' | 'rss'
 
-export async function buildFeed(type: FeedType) {
+export async function buildPostsFeed(type: FeedType) {
   const posts = await listPublishedPosts()
 
   const updated = new Date(
@@ -92,6 +93,92 @@ export async function buildFeed(type: FeedType) {
   throw error
 }
 
+export async function buildShortsFeed(type: FeedType) {
+  const shorts = await listShorts()
+
+  const updated = shorts[0]?.publishedAt
+
+  const feed = new Feed({
+    ...shortsOptions,
+    updated,
+  })
+
+  const compiledShorts = await Promise.all(
+    shorts.map(async (short) => {
+      const fetchRenderedHtml = memoize(
+        async (id: string) => {
+          const headers = new Headers()
+          headers.set('x-api-key', config.api.internalSecret)
+          const res = await fetch(
+            `${config.internalUrl}/partials/shorts/${id}`,
+            {
+              headers,
+              cache: 'no-store',
+            },
+          )
+          const html = await res.text()
+
+          // Extract the content from between <marker-begin> and <marker-end>
+          const match = html.match(
+            /<marker-begin><\/marker-begin>([\s\S]*?)<marker-end><\/marker-end>/,
+          )
+
+          // Extract and return only the content within the <article> tag
+          const articleContent = match?.[1]?.trim()
+          return articleContent
+        },
+        {
+          additionalCacheKey: ['feed-prerendered-short-html'],
+          revalidateTags: (id) => ['feed-pre', `feed-pre:short-${id}`],
+        },
+      )
+
+      return fetchRenderedHtml(short.id)
+    }),
+  )
+
+  shorts.forEach((short, i) => {
+    feed.addItem({
+      id: `${config.siteUrl}/shorts/${short.id}`,
+      published: short.publishedAt,
+      date: short.publishedAt,
+      link: `${config.siteUrl}/shorts/${short.id}?utm_source=rss`,
+      title: short.publishedAt.toLocaleString('en-US', {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true,
+        timeZoneName: 'short',
+      }),
+      content: compiledShorts[i],
+    })
+  })
+
+  if (type === 'atom') {
+    return feed.atom1()
+  }
+
+  if (type === 'rss') {
+    return feed
+      .rss2()
+      .replace(
+        '<?xml version="1.0" encoding="utf-8"?>',
+        (s) =>
+          s +
+          '<?xml-stylesheet href="/vendor/pretty-feed.xsl" type="text/xsl"?>',
+      )
+  }
+
+  if (type === 'json') {
+    return feed.json1()
+  }
+
+  const error = new Error(`Not a supported feed type: ${type}`)
+  throw error
+}
+
 const postsOptions: FeedOptions = {
   id: config.siteUrl,
   link: config.siteUrl,
@@ -106,6 +193,27 @@ const postsOptions: FeedOptions = {
     rss: `${config.siteUrl}/posts/feed.rss`,
     json: `${config.siteUrl}/posts/feed.json`,
     atom: `${config.siteUrl}/posts/feed.atom`,
+  },
+  author: {
+    name: 'Timo Mämecke',
+    link: 'https://timomeh.de',
+  },
+}
+
+const shortsOptions: FeedOptions = {
+  id: `${config.siteUrl}/shorts`,
+  link: `${config.siteUrl}/shorts`,
+  description:
+    'Timo’s own social media feed. A stream of thoughts and other shitposts.',
+  language: 'en',
+  favicon: `${config.siteUrl}/favicon.ico`,
+  title: 'timomeh.de Shorts',
+  copyright: '',
+  generator: 'timomeh.de',
+  feedLinks: {
+    rss: `${config.siteUrl}/shorts/feed.rss`,
+    json: `${config.siteUrl}/shorts/feed.json`,
+    atom: `${config.siteUrl}/shorts/feed.atom`,
   },
   author: {
     name: 'Timo Mämecke',

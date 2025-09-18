@@ -1,4 +1,4 @@
-import { buildFeed } from '@/lib/feed'
+import { buildShortsFeed } from '@/lib/feed'
 
 type Options = {
   params: Promise<{
@@ -16,7 +16,7 @@ export async function GET(_req: Request, props: Options) {
     return new Response('Not a supported feed type', { status: 400 })
   }
 
-  const feed = await buildFeed(params.type)
+  const feed = await buildShortsFeed(params.type)
 
   return new Response(feed, {
     headers: {
