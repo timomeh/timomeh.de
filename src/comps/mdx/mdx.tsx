@@ -100,10 +100,12 @@ export async function MDX({
           remarkEmbedder,
           {
             transformers: [
-              oembedTransformer,
-              {
-                params: { dnt: true, theme: 'dark', omit_script: false },
-              } as Config,
+              [
+                oembedTransformer,
+                {
+                  params: { dnt: true, theme: 'light', omit_script: false },
+                } as Config,
+              ],
             ],
             handleHTML,
           },
@@ -226,7 +228,7 @@ function handleHTML(html: string, info: TransformerInfo) {
   if (transformer.name === '@remark-embedder/transformer-oembed') {
     html = html.replace(
       '<blockquote class="',
-      '<blockquote data-theme="light" data-align="center" class="oembed ',
+      '<blockquote data-align="center" class="oembed ',
     )
     return `<div className="not-prose max-w-full min-w-0 oembed my-5 in-data-[landmark=content-page]:md:-mx-4"><timomeh-oembed>${html}</timomeh-oembed></div>`
   }
