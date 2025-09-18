@@ -29,6 +29,13 @@ export default async function Page() {
 export async function generateMetadata() {
   const metadata: Metadata = {
     title: 'Shorts',
+    alternates: {
+      types: {
+        'application/atom+xml': '/shorts/feed.atom',
+        'application/rss+xml': '/shorts/feed.rss',
+        'application/feed+json': '/shorts/feed.json',
+      },
+    },
   }
 
   return metadata

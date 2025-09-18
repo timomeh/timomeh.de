@@ -57,6 +57,13 @@ export async function generateMetadata(props: Props) {
       authors: ['Timo Mämecke'],
       locale: short.metaLang || undefined,
     },
+    alternates: {
+      types: {
+        'application/atom+xml': '/shorts/feed.atom',
+        'application/rss+xml': '/shorts/feed.rss',
+        'application/feed+json': '/shorts/feed.json',
+      },
+    },
   }
 
   return metadata
