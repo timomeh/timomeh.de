@@ -4,28 +4,36 @@ import { config } from '@/config'
 import { listPublicPages } from '@/data/pages'
 import { getLatestPublishedPostByTag, listPublishedPosts } from '@/data/posts'
 import { listTags } from '@/data/tags'
+import { listShorts } from '../data/shorts'
 
 export default async function sitemap() {
-  const [tags, years, posts, page] = await Promise.all([
+  const [tags, years, posts, page, shorts] = await Promise.all([
     generateTagsSitemap(),
     generateYearlySitemap(),
     generatePostsSitemap(),
     generatePageSitemap(),
+    generateShortsSitemap(),
   ])
 
-  const misc = [
+  const sites = [
     {
       url: fullUrl('/tags'),
       changeFrequency: 'weekly',
       priority: 0.7,
     },
+    {
+      url: fullUrl('/shorts'),
+      changeFrequency: 'daily',
+      priority: 1,
+    },
   ] satisfies MetadataRoute.Sitemap
 
   return [
     ...years,
+    ...sites,
     ...tags,
     ...posts,
-    ...misc,
+    ...shorts,
     ...page,
   ] satisfies MetadataRoute.Sitemap
 }
@@ -111,6 +119,19 @@ async function generatePageSitemap() {
       priority: 0.5,
       lastModified: new Date(),
     }))
+
+  return sitemap
+}
+
+async function generateShortsSitemap() {
+  const shorts = await listShorts()
+
+  const sitemap = shorts.map((short) => ({
+    url: fullUrl(`/shorts/${short.id}`),
+    changeFrequency: 'monthly' as const,
+    priority: 0.3,
+    lastModified: short.publishedAt,
+  }))
 
   return sitemap
 }
