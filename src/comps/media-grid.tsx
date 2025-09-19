@@ -83,6 +83,7 @@ async function MediaImage(props: {
         width={img.width}
         height={img.height}
         alt={props.alt || ''}
+        data-caption={props.alt}
         data-fancybox={`short-${props.shortId}-media`}
         sizes={
           props.full
