@@ -19,7 +19,7 @@ export async function MediaGrid({ images, shortId }: Props) {
   if (images.length === 1) {
     return (
       <Lightbox>
-        <div className="flex justify-center">
+        <div className="flex justify-start">
           <MediaImage
             shortId={shortId}
             src={contentAsset('shorts', shortId, images[0].file)}
@@ -76,7 +76,10 @@ async function MediaImage(props: {
   const { img, css } = await getPlaceholder(props.src)
 
   return (
-    <div className="relative rounded-md overflow-hidden h-full w-full">
+    <div 
+      data-single={!!props.full}
+      className="relative rounded-md overflow-hidden data-[single=false]:w-full data-[single=false]:h-full"
+    >
       <OptimImage
         src={img.src}
         quality={80}
