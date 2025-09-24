@@ -76,7 +76,7 @@ async function MediaImage(props: {
   const { img, css } = await getPlaceholder(props.src)
 
   return (
-    <div 
+    <div
       data-single={!!props.full}
       className="relative rounded-md overflow-hidden data-[single=false]:w-full data-[single=false]:h-full"
     >
