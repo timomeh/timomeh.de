@@ -70,7 +70,7 @@
     "@biomejs/biome": "2.2.4",
     "@playwright/test": "1.55.1",
     "@tailwindcss/postcss": "4.1.13",
-    "@tailwindcss/typography": "0.5.16",
+    "@tailwindcss/typography": "0.5.19",
     "@types/mdast": "4.0.4",
     "@types/node": "24.5.2",
     "@types/probe-image-size": "7.2.5",
