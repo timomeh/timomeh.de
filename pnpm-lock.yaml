@@ -72,8 +72,8 @@ importers:
         specifier: 4.1.0
         version: 4.1.0
       drizzle-orm:
-        specifier: 0.44.5
-        version: 0.44.5(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)
+        specifier: 0.44.6
+        version: 0.44.6(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)
       feed:
         specifier: 5.1.0
         version: 5.1.0
@@ -1003,10 +1003,6 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       pino: '*'
-
-  '@loglayer/transport@2.2.2':
-    resolution: {integrity: sha512-ABw3gqNVI/14uPqH5X7pgiSE2K/6sIi8we+i5t/iHgMmj35X3F2V0a+6y+NJAgK+fIbIwIQAKxPrhHGC+oDzwQ==}
-    engines: {node: '>=18'}
 
   '@loglayer/transport@2.3.0':
     resolution: {integrity: sha512-fAcyN1sHuJvGokhIskTwlwQ9qGr1HcNZK5ewdwOjLWztvhGpIBRhNMaatYVbsa1UgtYBATdFFqA6gLxitDb3ow==}
@@ -2129,8 +2125,8 @@ packages:
     resolution: {integrity: sha512-+CHgPFzuoTQTt7cOYCV6MOw2w8vqEn/ap1yv4bpZOWL03u7rlVRQhUY0WYT3rHsgVTXwYQDZaSUJSQrMBUKuWg==}
     hasBin: true
 
-  drizzle-orm@0.44.5:
-    resolution: {integrity: sha512-jBe37K7d8ZSKptdKfakQFdeljtu3P2Cbo7tJoJSVZADzIKOBo9IAJPOmMsH2bZl90bZgh8FQlD8BjxXA/zuBkQ==}
+  drizzle-orm@0.44.6:
+    resolution: {integrity: sha512-uy6uarrrEOc9K1u5/uhBFJbdF5VJ5xQ/Yzbecw3eAYOunv5FDeYkR2m8iitocdHBOHbvorviKOW5GVw0U1j4LQ==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
       '@cloudflare/workers-types': '>=4'
@@ -4359,10 +4355,6 @@ snapshots:
       '@loglayer/transport': 2.3.0
       pino: 9.12.0
 
-  '@loglayer/transport@2.2.2':
-    dependencies:
-      '@loglayer/shared': 2.4.0
-
   '@loglayer/transport@2.3.0':
     dependencies:
       '@loglayer/shared': 2.4.0
@@ -5845,7 +5837,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.44.5(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0):
+  drizzle-orm@0.44.6(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0):
     optionalDependencies:
       '@libsql/client': 0.15.15
       '@opentelemetry/api': 1.9.0
