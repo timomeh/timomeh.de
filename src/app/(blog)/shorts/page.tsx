@@ -1,13 +1,15 @@
 import type { Metadata } from 'next'
 import { Card } from '@/comps/card'
 import { listShorts } from '@/data/shorts'
+import { RandomDeco } from '../../../comps/deco'
 import { ListedShort } from '../../../comps/listed-short'
 
 export default async function Page() {
   const shorts = await listShorts()
 
   return (
-    <section className="mt-2">
+    <section className="mt-2 relative">
+      <RandomDeco seed={`shorts-${shorts[0].id}`} />
       <Card>
         <div className="divide-y divide-gray-400/30 dark:divide-gray-600/30">
           <header className="px-4 sm:px-6 md:px-8 py-3 flex justify-between items-center">

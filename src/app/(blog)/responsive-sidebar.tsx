@@ -1,6 +1,7 @@
 'use client'
 
 import { CircleXIcon, MenuIcon } from 'lucide-react'
+import { RandomDeco } from '../../comps/deco'
 
 type Props = {
   children: React.ReactNode
@@ -82,6 +83,9 @@ export function ResponsiveSidebar({ children }: Props) {
                 dark:drop-shadow-black/60"
             />
           </button>
+        </div>
+        <div className="sm:hidden">
+          <RandomDeco seed="nav" />
         </div>
         {children}
       </dialog>

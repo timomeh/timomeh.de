@@ -1,5 +1,5 @@
 import { Card } from '@/comps/card'
-
+import { RandomDeco } from '@/comps/deco'
 import { BackWidget } from '../../_widgets/back-widget'
 import { LinksWidget } from '../../_widgets/links-widget'
 
@@ -7,7 +7,9 @@ type Props = {
   params: Promise<{ id: string }>
 }
 
-export default async function Page(_p: Props) {
+export default async function Page({ params }: Props) {
+  const id = (await params).id
+
   return (
     <div className="top-0 max-h-dvh sm:sticky">
       <div
@@ -15,6 +17,9 @@ export default async function Page(_p: Props) {
           max-sm:shadow-xl/20 max-sm:backdrop-blur-sm sm:w-[86px] sm:py-2
           lg:w-[220px] dark:max-sm:bg-black/40"
       >
+        <div className="relative max-sm:hidden">
+          <RandomDeco seed={`nav-${id}`} />
+        </div>
         <Card>
           <div>
             <div className="@max-5xs:p-1 p-2">

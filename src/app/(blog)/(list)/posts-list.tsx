@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import React, { Fragment } from 'react'
-
+import { RandomAppearDeco, RandomDeco } from '@/comps/deco'
 import { GlassPill } from '@/comps/glass-pill'
 import {
   listPostYears,
@@ -31,15 +31,19 @@ export async function PostsList({ sort = 'desc', year, tagSlug }: Props) {
 
     return (
       <div className="space-y-10">
-        <div className="mb-4 flex justify-center">
+        <div className="mb-4 flex relative justify-center">
+          <RandomDeco seed={tagSlug} />
           <GlassPill>
             <h3>
               {pluralizePosts(posts.length)} in {tag.title}
             </h3>
           </GlassPill>
         </div>
-        {posts.map((post) => (
-          <ListedPost slug={post.slug} key={post.slug} />
+        {posts.map((post, i) => (
+          <div className="relative" key={post.slug}>
+            {i !== 0 && <RandomAppearDeco seed={post.slug} />}
+            <ListedPost slug={post.slug} />
+          </div>
         ))}
       </div>
     )
@@ -57,15 +61,19 @@ export async function PostsList({ sort = 'desc', year, tagSlug }: Props) {
 
     return (
       <div className="space-y-10">
-        <div className="mb-4 flex justify-center">
+        <div className="mb-4 flex justify-center relative">
+          <RandomDeco seed={postYear.year.toString()} />
           <GlassPill>
             <h3>
               {pluralizePosts(posts.length)} in {postYear.year}
             </h3>
           </GlassPill>
         </div>
-        {posts.map((post) => (
-          <ListedPost slug={post.slug} key={post.slug} />
+        {posts.map((post, i) => (
+          <div className="relative" key={post.slug}>
+            {i !== 0 && <RandomAppearDeco seed={post.slug} />}
+            <ListedPost slug={post.slug} />
+          </div>
         ))}
       </div>
     )
@@ -93,7 +101,8 @@ export async function PostsList({ sort = 'desc', year, tagSlug }: Props) {
       )}
       {groupedPosts.map((group, groupIndex) => (
         <Fragment key={group.marker}>
-          <div className="mb-4 flex justify-center">
+          <div className="mb-4 flex justify-center relative">
+            <RandomDeco seed={group.marker} />
             <GlassPill>
               <h3>
                 {pluralizePosts(group.posts.length)} {group.title}
@@ -106,7 +115,10 @@ export async function PostsList({ sort = 'desc', year, tagSlug }: Props) {
                 groupIndex === 0 &&
                 postIndex === 1 &&
                 hasShorts && <ShortsTeaser shorts={shorts} />}
-              <ListedPost slug={post.slug} />
+              <div className="relative" key={post.slug}>
+                {postIndex !== 0 && <RandomAppearDeco seed={post.slug} />}
+                <ListedPost slug={post.slug} />
+              </div>
             </React.Fragment>
           ))}
         </Fragment>
