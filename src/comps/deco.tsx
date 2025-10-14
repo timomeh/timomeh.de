@@ -9,6 +9,7 @@ function Deco({ img }: { img: string }) {
   return (
     <div
       style={{ backgroundImage: `url(/assets/deco/${img})`, marginTop }}
+      data-visual-test="removed"
       className="dark:brightness-90 pointer-events-none brightness-110 opacity-90 absolute h-[40px] w-[98px] -top-7 z-[2] bg-contain bg-no-repeat"
     />
   )
