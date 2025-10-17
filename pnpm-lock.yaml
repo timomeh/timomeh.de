@@ -30,8 +30,8 @@ importers:
         specifier: 0.15.15
         version: 0.15.15
       '@loglayer/transport-pino':
-        specifier: 2.2.4
-        version: 2.2.4(pino@9.13.1)
+        specifier: 2.2.5
+        version: 2.2.5(pino@9.13.1)
       '@mdx-js/mdx':
         specifier: 3.1.1
         version: 3.1.1
@@ -1001,14 +1001,22 @@ packages:
     resolution: {integrity: sha512-K/8KJ0cM/DKj9lpFlKdCxMQWTz14kLLTUe7F4cmpWP0RRouURgxmjm5PLCaLh05pf4yxsm4+4Nfxfglxc/6fOA==}
     engines: {node: '>=18'}
 
-  '@loglayer/transport-pino@2.2.4':
-    resolution: {integrity: sha512-k5rzxEN7UxrjI7eh0gU3YTfzxB48hsEvV+gTFLqOzcxy3rV+/e2wMUK2lTciG14zF2n/aoSxM+tRZ2jIOpguMw==}
+  '@loglayer/shared@2.5.0':
+    resolution: {integrity: sha512-XcCcp53YOPxZK62LOHrBsVrZjj7e3eyUvynqae38GWWja1huMrnOSoyflCFFfrav10udWoV7c+5tmtZqkqGhKg==}
+    engines: {node: '>=18'}
+
+  '@loglayer/transport-pino@2.2.5':
+    resolution: {integrity: sha512-attYHuTwTaV48r21SUtQQu+GfZA6BEedJ8i1JVJjttS0mKBie6QEWV2hfRbTgDJFAu58e+AkV0YNfHOa0dPTtQ==}
     engines: {node: '>=18'}
     peerDependencies:
       pino: '*'
 
   '@loglayer/transport@2.3.0':
     resolution: {integrity: sha512-fAcyN1sHuJvGokhIskTwlwQ9qGr1HcNZK5ewdwOjLWztvhGpIBRhNMaatYVbsa1UgtYBATdFFqA6gLxitDb3ow==}
+    engines: {node: '>=18'}
+
+  '@loglayer/transport@2.3.1':
+    resolution: {integrity: sha512-AqRwpwab2lxa80e+YqkGN2ybby+xVqBxzqgmmSPHKLtqab62bWXHPhZQPWZkgGCgWxdyUNEwK8HR4oAIM5Ip5A==}
     engines: {node: '>=18'}
 
   '@markdoc/markdoc@0.4.0':
@@ -4391,14 +4399,20 @@ snapshots:
 
   '@loglayer/shared@2.4.0': {}
 
-  '@loglayer/transport-pino@2.2.4(pino@9.13.1)':
+  '@loglayer/shared@2.5.0': {}
+
+  '@loglayer/transport-pino@2.2.5(pino@9.13.1)':
     dependencies:
-      '@loglayer/transport': 2.3.0
+      '@loglayer/transport': 2.3.1
       pino: 9.13.1
 
   '@loglayer/transport@2.3.0':
     dependencies:
       '@loglayer/shared': 2.4.0
+
+  '@loglayer/transport@2.3.1':
+    dependencies:
+      '@loglayer/shared': 2.5.0
 
   '@markdoc/markdoc@0.4.0(@types/react@19.2.2)(react@19.2.0)':
     optionalDependencies:
