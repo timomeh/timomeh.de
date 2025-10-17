@@ -41,7 +41,7 @@
     "date-fns": "4.1.0",
     "drizzle-orm": "0.44.6",
     "feed": "5.1.0",
-    "loglayer": "6.7.2",
+    "loglayer": "6.8.0",
     "lucide-react": "0.545.0",
     "mdast": "3.0.0",
     "mdast-util-mdx": "3.0.0",
