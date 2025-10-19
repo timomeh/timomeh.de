@@ -165,6 +165,11 @@ the image depicts: ${imagePromptRes.output_text}`,
 
   const lightImageBase64 = lightImageRes.data[0].b64_json
 
+  await storePrompt(
+    simulatedDate.getTime().toString(),
+    weatherReport + '\n\n' + imagePromptRes.output_text,
+  )
+
   console.log('Uploading images to bucket...')
   await Promise.all([
     s3client.send(
@@ -232,6 +237,17 @@ async function updateHistoricWeather(
       Bucket,
       Key: 'historic_weather.txt',
       Body: BodyWithoutBlankLines,
+      ContentType: 'text/plain; charset=utf-8',
+    }),
+  )
+}
+
+async function storePrompt(id: string, prompt: string) {
+  await s3client.send(
+    new PutObjectCommand({
+      Bucket,
+      Key: `season_prompts/${id}.txt`,
+      Body: prompt,
       ContentType: 'text/plain; charset=utf-8',
     }),
   )
