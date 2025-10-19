@@ -22,7 +22,7 @@ export default function Layout({ kicker, backdrop }: Props) {
 
       <div
         className="absolute right-0 left-0 -top-10 sm:-top-16 md:-top-28 -z-10 hidden
-          w-full group-has-[.header-no-backdrop-signal]/header:block opacity-80 mix-blend-color-burn dark:opacity-50 dark:mix-blend-lighten"
+          w-full group-has-[.header-no-backdrop-signal]/header:block opacity-30 mix-blend-darken dark:opacity-90 dark:mix-blend-lighten"
         data-visual-test="removed"
       >
         <Seasons />
@@ -38,8 +38,8 @@ export default function Layout({ kicker, backdrop }: Props) {
       </div> */}
 
       <div
-        className="relative z-20 overflow-hidden px-4 pt-12 pb-10 sm:pt-16
-          sm:pb-16"
+        className="relative z-20 overflow-hidden px-4 pt-14 pb-16 sm:pt-28
+          sm:pb-28"
       >
         <div className="flex w-full items-center justify-center">
           <div className="relative size-18 sm:size-24">

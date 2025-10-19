@@ -21,7 +21,7 @@ export async function HeaderBackdropImage({ lightSrc, darkSrc }: Props) {
       {lightCover && (
         <div
           data-has-dark={!!darkCover}
-          className="relative mx-auto -mb-36 block h-auto max-h-[500px]
+          className="relative mx-auto -mb-48 block h-auto max-h-[500px]
             min-h-[300px] w-full max-w-[1024px] overflow-hidden
             [mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%)]
             [mask-composite:intersect]
@@ -47,7 +47,7 @@ export async function HeaderBackdropImage({ lightSrc, darkSrc }: Props) {
       )}
       {darkCover && (
         <div
-          className="relative mx-auto -mb-36 hidden h-auto max-h-[500px]
+          className="relative mx-auto -mb-48 hidden h-auto max-h-[500px]
             min-h-[300px] w-full max-w-[1024px] overflow-hidden
             [mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%)]
             [mask-composite:intersect]
