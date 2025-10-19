@@ -177,11 +177,9 @@ the image depicts: ${imagePromptRes.output_text}`,
   }
 
   console.log('Force cache revalidation...')
-  await fetch(`${internalBlogUrl}/webhooks/revalidate?tag=season-images`, {
-    headers: {
-      'x-api-key': process.env.NUKE_SECRET!,
-    },
-  })
+  await fetch(
+    `${internalBlogUrl}/webhooks/revalidate?tag=season-images&secret=${process.env.NUKE_SECRET}`,
+  )
 
   console.log('Done.')
 }
