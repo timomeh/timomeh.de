@@ -162,6 +162,7 @@ the image depicts: ${imagePromptRes.output_text}`,
 
   const darkFileName = simulatedDate.getTime() + '_dark.webp'
   const lightFileName = simulatedDate.getTime() + '_light.webp'
+  const originalFileName = simulatedDate.getTime() + '_orig.webp'
 
   const lightImageBase64 = lightImageRes.data[0].b64_json
 
@@ -185,6 +186,14 @@ the image depicts: ${imagePromptRes.output_text}`,
         Bucket,
         Key: `seasons/light/${lightFileName}`,
         Body: Buffer.from(lightImageBase64, 'base64'),
+        ContentType: 'image/webp',
+      }),
+    ),
+    s3client.send(
+      new PutObjectCommand({
+        Bucket,
+        Key: `season_originals/${originalFileName}`,
+        Body: Buffer.from(unsafeDarkImageBase64, 'base64'),
         ContentType: 'image/webp',
       }),
     ),
