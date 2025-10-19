@@ -9,7 +9,7 @@ export async function Seasons() {
   const imageSrcs = await imageSrcCache()
 
   return (
-    <div className="absolute -z-10 h-full w-full">
+    <div className="absolute -z-10 h-full w-full select-none">
       {imageSrcs.lightSrc && (
         <div className="dark:hidden">
           <Suspense fallback={<div />}>
