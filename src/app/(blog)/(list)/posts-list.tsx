@@ -112,6 +112,10 @@ export async function PostsList({ sort = 'desc', year, tagSlug }: Props) {
               <div className="relative" key={post.slug}>
                 <ListedPost slug={post.slug} />
               </div>
+              {!shortsAtTop &&
+                groupIndex === 0 &&
+                group.posts.length === 1 &&
+                hasShorts && <ShortsTeaser shorts={shorts} />}
             </React.Fragment>
           ))}
         </Fragment>
