@@ -1,5 +1,4 @@
 import { Card } from '@/comps/card'
-import { RandomDeco } from '@/comps/deco'
 import { BackWidget } from '../../_widgets/back-widget'
 import { LinksWidget } from '../../_widgets/links-widget'
 import { PostNavigationWidget } from '../../_widgets/post-navigation-widget'
@@ -19,9 +18,6 @@ export default async function Page({ params }: Props) {
           max-sm:shadow-xl/20 max-sm:backdrop-blur-sm sm:w-[86px] sm:py-2
           lg:w-[220px] dark:max-sm:bg-black/40"
       >
-        <div className="relative max-sm:hidden">
-          <RandomDeco seed={`nav-${slug}`} />
-        </div>
         <Card>
           <div>
             <section

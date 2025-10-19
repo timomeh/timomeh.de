@@ -1,8 +1,9 @@
 import Link from 'next/link'
 
-import { Aurora } from '@/comps/aurora'
-import { Contours } from '@/comps/contours'
+// import { Aurora } from '@/comps/aurora'
+// import { Contours } from '@/comps/contours'
 import { Mug } from '@/comps/me/mug'
+import { Seasons } from '@/comps/seasons'
 
 type Props = {
   kicker: React.ReactNode
@@ -20,13 +21,21 @@ export default function Layout({ kicker, backdrop }: Props) {
       </div>
 
       <div
+        className="absolute right-0 left-0 -top-10 sm:-top-16 md:-top-28 -z-10 hidden
+          w-full group-has-[.header-no-backdrop-signal]/header:block opacity-80 mix-blend-color-burn dark:opacity-50 dark:mix-blend-lighten"
+        data-visual-test="removed"
+      >
+        <Seasons />
+      </div>
+
+      {/* <div
         className="absolute -top-[140px] right-0 left-0 -z-10 hidden h-[550px]
           w-full group-has-[.header-no-backdrop-signal]/header:block"
         data-visual-test="removed"
       >
         <Aurora />
         <Contours />
-      </div>
+      </div> */}
 
       <div
         className="relative z-20 overflow-hidden px-4 pt-12 pb-10 sm:pt-16

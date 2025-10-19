@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { Card } from '@/comps/card'
-import { RandomDeco } from '@/comps/deco'
 import { ListedShort } from '@/comps/listed-short'
 import type { Short } from '@/data/shorts'
 
@@ -11,7 +10,6 @@ type Prop = {
 export function ShortsTeaser({ shorts }: Prop) {
   return (
     <section className="relative">
-      <RandomDeco seed={shorts[0].id} />
       <Card>
         <div className="divide-y divide-gray-400/30 dark:divide-gray-600/30">
           <header className="px-4 sm:px-6 md:px-8 py-3 flex justify-between items-center">

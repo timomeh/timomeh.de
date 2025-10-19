@@ -1,7 +1,6 @@
 import Link from 'next/link'
 
 import { Card } from '../../../comps/card'
-import { RandomDeco } from '../../../comps/deco'
 import { Prose } from '../../../comps/prose'
 import { listPostYears, listPublishedPostsByYear } from '../../../data/posts'
 
@@ -28,7 +27,6 @@ export async function ReadMorePosts({ year }: Props) {
           dark:border-white/10"
       />
       <div className="relative">
-        <RandomDeco seed={`more-${year}`} />
         <Card>
           <div className="p-4 sm:p-6 md:p-8">
             <Prose>

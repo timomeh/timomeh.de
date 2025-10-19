@@ -15,7 +15,10 @@ export default function imgproxyLoader({
   quality?: number
   internal?: boolean
 }) {
-  if (!src.startsWith('http://github-content-proxy.railway.internal')) {
+  if (
+    !src.startsWith('http://github-content-proxy.railway.internal') &&
+    !src.startsWith('s3://')
+  ) {
     return src
   }
 
