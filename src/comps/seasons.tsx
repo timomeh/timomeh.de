@@ -65,6 +65,10 @@ async function Cover({ src }: { src: string }) {
 
 const imageSrcCache = memoize(
   async () => {
+    if (!config.buckets.generatedImages.bucket) {
+      return { lightSrc: undefined, darkSrc: undefined }
+    }
+
     const srcs = await getLatestSeasonImages()
     return srcs
   },
