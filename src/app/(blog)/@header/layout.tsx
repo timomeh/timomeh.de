@@ -22,7 +22,7 @@ export default function Layout({ kicker, backdrop }: Props) {
 
       <div
         className="absolute right-0 left-0 -top-10 sm:-top-16 md:-top-28 -z-10 hidden
-          w-full group-has-[.header-no-backdrop-signal]/header:block opacity-30 mix-blend-darken dark:opacity-90 dark:mix-blend-lighten"
+          w-full group-has-[.header-no-backdrop-signal]/header:block opacity-30 mix-blend-darken dark:opacity-100 dark:mix-blend-lighten"
         data-visual-test="removed"
       >
         <Seasons />

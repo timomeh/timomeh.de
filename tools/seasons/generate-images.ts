@@ -26,7 +26,7 @@ const s3client = new S3Client({
 async function doIt() {
   const historicWeather = await getHistoricWeather()
   const historicConditions = historicWeather.split('\n')
-  console.log(historicConditions.slice(-12).join('\n'))
+  console.log(historicConditions.slice(-20).join('\n'))
 
   // aim for a new image every 6 hours.
   // we always want to generate an image for the middle of this timerange.
@@ -39,7 +39,7 @@ async function doIt() {
     instructions: `You write a weather simulation for a ficticious city in germany.
 You are given a date and previous weather conditions and simulate the next condition by first writing temperature, wind and conditions and then a single additional short sentence which describes the weather more detailed with max 1 additional subordinate clause. No line breaks.
 You generate your response based on the previous weather conditions to simulate a weather progression.
-You simulate weather really stereotyped, sometimes romantisized and sometimes mixed in with more extreme but still reasonable weather events.
+You simulate weather realistically and stereotyped for the season, mixed with sometimes more extreme weather events typical for the season.
 You only respond with the simulated conditions in the form of sentences, do not include the date.
 Around a specific holiday, it's always the most beautiful weather for the season.
 Do not repeat the same descriptions.
@@ -59,14 +59,35 @@ Previous conditions: ${historicConditions.slice(-12).join('\n')}`,
     reasoning: { effort: 'low' },
     instructions: `You create prompts for image generation.
 You are given a date and the weather, which you use to depict a specific scene.
-The scene is in germany and you need to pick where: in a very urban city, a small city, a town, a village, or a landscape.
+The scene is in germany and you need to pick where, some examples:
+- a busy road with cars in a big city
+- a pedestrian area for shopping
+- a riverwalk
+- an avenue with trees
+- a park
+- a historic townsquare
+- an alleyway
+- a road through a forest
+- a real city or place you know
+- a market
+- a crossing
+- or anything else you can think of
 You describe it very moody: sometimes happy scenes, sometimes more melancholic.
-Your reponse MUST NOT contain the temperature, just a description of the temperature and weather conditions.
-Your reponse MUST NOT contain the date or day, but must include the daytime and ambiente.
+Your reponse MUST NOT include the temperature in degrees, just a description of the temperature and weather conditions.
+Your reponse MUST NOT include the specific date, but must include the daytime and ambiente.
 Around a specific holiday, make it cheerful and add details typical for the holiday.
-Add seasonal and daytime specific elements, like snow in winter, leaves in autumn, glowing fairy lights at night.
+Add seasonal and daytime specific elements, such as:
+- fairy lights at night
+- halloween decorations during halloween season
+- trees with yellow and golden leaves in autumn
+- leaves flying around or lying on the ground
+- storms or rain depending on the weather
+- bare trees in winter
+- or anything else you can think of
 
-You use the following template:
+Focus on one specific scene or setting, do not mix multiple small scenes.
+
+You use the following template to create the prompt:
 INSERT HERE THE SUBJECT AND SETTING
 art style: high-quality fine pixel art, detailed shading, soft gradients, smooth color transitions, professional indie game aesthetic, balanced palette, retro yet modern pixel art look`,
     input: weatherReport,
@@ -79,7 +100,7 @@ art style: high-quality fine pixel art, detailed shading, soft gradients, smooth
     model: 'gpt-image-1',
     output_format: 'webp',
     size: '1536x1024',
-    quality: 'high',
+    quality: 'auto',
     prompt: imagePromptRes.output_text,
   })
 
@@ -96,7 +117,7 @@ art style: high-quality fine pixel art, detailed shading, soft gradients, smooth
   const darkImageRes = await openai.images.edit({
     model: 'gpt-image-1',
     output_format: 'webp',
-    quality: 'high',
+    quality: 'auto',
     image: [
       await toFile(Buffer.from(unsafeDarkImageBase64, 'base64'), null, {
         type: 'image/webp',
@@ -122,7 +143,7 @@ art style: high-quality fine pixel art, detailed shading, soft gradients, smooth
   const lightImageRes = await openai.images.edit({
     model: 'gpt-image-1',
     output_format: 'webp',
-    quality: 'high',
+    quality: 'auto',
     image: [
       await toFile(Buffer.from(darkImageBase64, 'base64'), null, {
         type: 'image/webp',
