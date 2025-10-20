@@ -81,8 +81,8 @@ importers:
         specifier: 5.1.0
         version: 5.1.0
       loglayer:
-        specifier: 6.8.0
-        version: 6.8.0
+        specifier: 6.9.0
+        version: 6.9.0
       lucide-react:
         specifier: 0.545.0
         version: 0.545.0(react@19.2.0)
@@ -1147,16 +1147,20 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@loglayer/context-manager@1.1.3':
-    resolution: {integrity: sha512-7RF6QYDD82uA1UlmRFOMqYlaf+42es8FTt0Bui/aLk0BYkFMU4c/f30ZvYhUJnzt9inCQudr205dvrQTmW093A==}
+  '@loglayer/context-manager@1.1.5':
+    resolution: {integrity: sha512-puNUo6sMUr3aeUb0PGyIREI/yeAuEo5nPkLx2ZHYkCSzgdxPZVSXL4eViDTkZZM/6B4O1pcHzCtiY9QZcXJBQQ==}
     engines: {node: '>=18'}
 
-  '@loglayer/plugin@2.1.3':
-    resolution: {integrity: sha512-3birYf3Y/4JaxSGu8Otc+nKFfrGgLe5zVtBVb8ESveV0knotCyvYHJNQTuTXecglY8FB6e7kFR+WkCoAZ/JxHQ==}
+  '@loglayer/plugin@2.1.5':
+    resolution: {integrity: sha512-AXeRKoN3h3u08OSOS+NqYeUYAQGSNqEO6zgQ7C73GRawNosOmZYxiYTJCLPtqbtkUdsMA+iOR10j+vN/J80M7Q==}
     engines: {node: '>=18'}
 
   '@loglayer/shared@2.5.0':
     resolution: {integrity: sha512-XcCcp53YOPxZK62LOHrBsVrZjj7e3eyUvynqae38GWWja1huMrnOSoyflCFFfrav10udWoV7c+5tmtZqkqGhKg==}
+    engines: {node: '>=18'}
+
+  '@loglayer/shared@2.5.2':
+    resolution: {integrity: sha512-7z/6MWYc2bVzinxdj7ahotjTjmzAAmMGxi48gpPy/7SoSyneoRh8YYugL1TUSYc+qAi4TJ8Im2NdnkgF7FOgww==}
     engines: {node: '>=18'}
 
   '@loglayer/transport-pino@2.2.5':
@@ -1167,6 +1171,10 @@ packages:
 
   '@loglayer/transport@2.3.1':
     resolution: {integrity: sha512-AqRwpwab2lxa80e+YqkGN2ybby+xVqBxzqgmmSPHKLtqab62bWXHPhZQPWZkgGCgWxdyUNEwK8HR4oAIM5Ip5A==}
+    engines: {node: '>=18'}
+
+  '@loglayer/transport@2.3.3':
+    resolution: {integrity: sha512-0R+eznB+VI2uLT9XhwYMtwYh2Whr3GyDPGhhL52LJg7fHEtliSv2SqgwmvrPBmPFmjMkqMXbyUFn+Lq0FI+jWw==}
     engines: {node: '>=18'}
 
   '@markdoc/markdoc@0.4.0':
@@ -2985,8 +2993,8 @@ packages:
   lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
 
-  loglayer@6.8.0:
-    resolution: {integrity: sha512-DONPjxazyxROLhrjeVqErq5h80hrYmFUDfX3kl7y31e2W+sIlgGSLsh2o7bGYKqJcmcEyrw15FZZCEOw+XhcGw==}
+  loglayer@6.9.0:
+    resolution: {integrity: sha512-ZSIOphzDJSHqWJO7Icz7RAPfA4ur7T05M69ZEzs/ZVX3K9feYmf+QdwBYRD75ntumzQfe5u1GpoUMeNmPPJizQ==}
     engines: {node: '>=18'}
 
   longest-streak@3.1.0:
@@ -5207,15 +5215,17 @@ snapshots:
   '@libsql/win32-x64-msvc@0.5.22':
     optional: true
 
-  '@loglayer/context-manager@1.1.3':
+  '@loglayer/context-manager@1.1.5':
     dependencies:
-      '@loglayer/shared': 2.5.0
+      '@loglayer/shared': 2.5.2
 
-  '@loglayer/plugin@2.1.3':
+  '@loglayer/plugin@2.1.5':
     dependencies:
-      '@loglayer/shared': 2.5.0
+      '@loglayer/shared': 2.5.2
 
   '@loglayer/shared@2.5.0': {}
+
+  '@loglayer/shared@2.5.2': {}
 
   '@loglayer/transport-pino@2.2.5(pino@9.13.1)':
     dependencies:
@@ -5225,6 +5235,10 @@ snapshots:
   '@loglayer/transport@2.3.1':
     dependencies:
       '@loglayer/shared': 2.5.0
+
+  '@loglayer/transport@2.3.3':
+    dependencies:
+      '@loglayer/shared': 2.5.2
 
   '@markdoc/markdoc@0.4.0(@types/react@19.2.2)(react@19.2.0)':
     optionalDependencies:
@@ -7507,12 +7521,12 @@ snapshots:
 
   lodash@4.17.21: {}
 
-  loglayer@6.8.0:
+  loglayer@6.9.0:
     dependencies:
-      '@loglayer/context-manager': 1.1.3
-      '@loglayer/plugin': 2.1.3
-      '@loglayer/shared': 2.5.0
-      '@loglayer/transport': 2.3.1
+      '@loglayer/context-manager': 1.1.5
+      '@loglayer/plugin': 2.1.5
+      '@loglayer/shared': 2.5.2
+      '@loglayer/transport': 2.3.3
 
   longest-streak@3.1.0: {}
 
