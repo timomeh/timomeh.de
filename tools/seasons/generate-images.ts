@@ -125,6 +125,7 @@ art style: high-quality fine pixel art, detailed shading, soft gradients, smooth
     ],
     prompt: `Perform a zoom out on this image so all borders naturally fade to full black.
 The image must fade at all border to black like an organic vignette, with all four sides of the scene naturally fading and blending into a dark black background.
+Additionally change the image into a dark mode, by making the background scenery of the image in darker muted colors.
 art style: high-quality fine pixel art, detailed shading, soft gradients, smooth color transitions, professional indie game aesthetic, balanced palette, retro yet modern pixel art look`,
   })
 
