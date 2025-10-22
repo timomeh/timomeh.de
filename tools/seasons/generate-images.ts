@@ -89,7 +89,7 @@ Focus on one specific scene or setting, do not mix multiple small scenes.
 
 You use the following template to create the prompt:
 INSERT HERE THE SUBJECT AND SETTING
-art style: high-quality fine pixel art, 64x64 or 32x32 style, detailed shading, soft gradients, smooth color transitions, professional indie game aesthetic, balanced palette, retro yet modern pixel art look`,
+art style: high-quality fine pixel art, 64x64 style, detailed shading, soft gradients, smooth color transitions, professional indie game aesthetic, balanced palette, retro yet modern pixel art look`,
     input: weatherReport,
   })
 
@@ -124,9 +124,9 @@ art style: high-quality fine pixel art, 64x64 or 32x32 style, detailed shading, 
       }),
     ],
     prompt: `Perform a zoom out on this image so all borders naturally fade to full black.
-The image must fade at all border to pure black like an organic vignette, with all four sides of the scene naturally fading and blending into a dark black background.
-Additionally change the image into a dark mode, by keeping the center in soft light but changing the background scenery of the image in darker muted colors.
-keep the art style: high-quality fine pixel art, 64x64 or 32x32 style, detailed shading, soft gradients, smooth color transitions, professional indie game aesthetic, balanced palette, retro yet modern pixel art look`,
+The image must fade at all border to pure black with a oval vignette, with all four sides of the scene naturally fading and blending into a dark black background.
+If the image is bright, darken it just a bit.
+keep the art style: high-quality fine pixel art, 64x64 style, detailed shading, soft gradients, smooth color transitions, professional indie game aesthetic, balanced palette, retro yet modern pixel art look`,
   })
 
   if (!darkImageRes?.data?.[0]?.b64_json) {
@@ -150,9 +150,8 @@ keep the art style: high-quality fine pixel art, 64x64 or 32x32 style, detailed 
         type: 'image/webp',
       }),
     ],
-    prompt: `Change the image to be bright. All sides must fade to pure white.
-You must keep the natural fade at all sides, and it must fade to pure white.
-keep the art style: high-quality fine pixel art, 64x64 or 32x32 style, detailed shading, soft gradients, smooth color transitions, professional indie game aesthetic, balanced palette, retro yet modern pixel art look.
+    prompt: `Change this image to be bright.
+keep the art style: high-quality fine pixel art, 64x64 style, detailed shading, soft gradients, smooth color transitions, professional indie game aesthetic, balanced palette, retro yet modern pixel art look.
 the image depicts: ${imagePromptRes.output_text}`,
   })
 
