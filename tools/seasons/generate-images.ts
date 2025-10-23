@@ -150,7 +150,7 @@ keep the art style: high-quality fine pixel art, 64x64 style, detailed shading, 
         type: 'image/webp',
       }),
     ],
-    prompt: `Change this image to be bright.
+    prompt: `Change this image to be bright. The image must fade at all border to pure white with a oval vignette, with all four sides of the scene naturally fading and blending into a bright white background.
 keep the art style: high-quality fine pixel art, 64x64 style, detailed shading, soft gradients, smooth color transitions, professional indie game aesthetic, balanced palette, retro yet modern pixel art look.
 the image depicts: ${imagePromptRes.output_text}`,
   })
