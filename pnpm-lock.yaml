@@ -34,7 +34,7 @@ importers:
         version: 0.15.15
       '@loglayer/transport-pino':
         specifier: 2.2.8
-        version: 2.2.8(pino@9.13.1)
+        version: 2.2.8(pino@10.0.0)
       '@mdx-js/mdx':
         specifier: 3.1.1
         version: 3.1.1
@@ -102,8 +102,8 @@ importers:
         specifier: 6.6.0
         version: 6.6.0(ws@8.18.3)
       pino:
-        specifier: 9.13.1
-        version: 9.13.1
+        specifier: 10.0.0
+        version: 10.0.0
       pino-pretty:
         specifier: 13.1.2
         version: 13.1.2
@@ -3391,8 +3391,8 @@ packages:
   pino-std-serializers@7.0.0:
     resolution: {integrity: sha512-e906FRY0+tV27iq4juKzSYPbUj2do2X2JX4EzSca1631EB2QJQUqGbDuERal7LCtOpxl6x3+nvo9NPZcmjkiFA==}
 
-  pino@9.13.1:
-    resolution: {integrity: sha512-Szuj+ViDTjKPQYiKumGmEn3frdl+ZPSdosHyt9SnUevFosOkMY2b7ipxlEctNKPmMD/VibeBI+ZcZCJK+4DPuw==}
+  pino@10.0.0:
+    resolution: {integrity: sha512-eI9pKwWEix40kfvSzqEP6ldqOoBIN7dwD/o91TY5z8vQI12sAffpR/pOqAD1IVVwIVHDpHjkq0joBPdJD0rafA==}
     hasBin: true
 
   plaiceholder@3.0.0:
@@ -3644,8 +3644,8 @@ packages:
   slate@0.91.4:
     resolution: {integrity: sha512-aUJ3rpjrdi5SbJ5G1Qjr3arytfRkEStTmHjBfWq2A2Q8MybacIzkScSvGJjQkdTk3djCK9C9SEOt39sSeZFwTw==}
 
-  slow-redact@0.3.1:
-    resolution: {integrity: sha512-NvFvl1GuLZNW4U046Tfi8b26zXo8aBzgCAS2f7yVJR/fArN93mOqSA99cB9uITm92ajSz01bsu1K7SCVVjIMpQ==}
+  slow-redact@0.3.2:
+    resolution: {integrity: sha512-MseHyi2+E/hBRqdOi5COy6wZ7j7DxXRz9NkseavNYSvvWC06D8a5cidVZX3tcG5eCW3NIyVU4zT63hw0Q486jw==}
 
   sonic-boom@4.2.0:
     resolution: {integrity: sha512-INb7TM37/mAcsGmc9hyyI6+QR3rR1zVRu36B0NeGXKnOOLiZOfER5SA+N7X7k3yUYRzLWafduTDvJAfDswwEww==}
@@ -5195,10 +5195,10 @@ snapshots:
 
   '@loglayer/shared@2.5.3': {}
 
-  '@loglayer/transport-pino@2.2.8(pino@9.13.1)':
+  '@loglayer/transport-pino@2.2.8(pino@10.0.0)':
     dependencies:
       '@loglayer/transport': 2.3.4
-      pino: 9.13.1
+      pino: 10.0.0
 
   '@loglayer/transport@2.3.4':
     dependencies:
@@ -8300,7 +8300,7 @@ snapshots:
 
   pino-std-serializers@7.0.0: {}
 
-  pino@9.13.1:
+  pino@10.0.0:
     dependencies:
       atomic-sleep: 1.0.0
       on-exit-leak-free: 2.1.2
@@ -8310,7 +8310,7 @@ snapshots:
       quick-format-unescaped: 4.0.4
       real-require: 0.2.0
       safe-stable-stringify: 2.5.0
-      slow-redact: 0.3.1
+      slow-redact: 0.3.2
       sonic-boom: 4.2.0
       thread-stream: 3.1.0
 
@@ -8671,7 +8671,7 @@ snapshots:
       is-plain-object: 5.0.0
       tiny-warning: 1.0.3
 
-  slow-redact@0.3.1: {}
+  slow-redact@0.3.2: {}
 
   sonic-boom@4.2.0:
     dependencies:
