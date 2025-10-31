@@ -154,8 +154,8 @@ importers:
         version: 5.0.0
     devDependencies:
       '@argos-ci/playwright':
-        specifier: 6.1.8
-        version: 6.1.8
+        specifier: 6.1.10
+        version: 6.1.10
       '@biomejs/biome':
         specifier: 2.2.7
         version: 2.2.7
@@ -227,12 +227,12 @@ packages:
     resolution: {integrity: sha512-SKAD7EXoLX4u50dzTIT/ABnpD284+DnBfoJM0ZrTIav2eiiVJyknNKSznF5w118lYGnYvugTXbKMnukGPzJeOA==}
     engines: {node: '>=20.0.0'}
 
-  '@argos-ci/core@4.2.0':
-    resolution: {integrity: sha512-3RNyBZ84pYfQ8dn/Ivv5ls2x2rgqFuh8wA8e4ugggA5lx2dE7a6yghJw8cPzud+zbHrpOntl/HBM3akh2SXLkw==}
+  '@argos-ci/core@4.3.1':
+    resolution: {integrity: sha512-9K1AN8RLXNmhr9JscvKHV4wzCSkZ4dh+CIi88Wrj8KvS4+vSXfy62pqjzgqxQ9d2JPBKxPObDempA2MoOZrS5A==}
     engines: {node: '>=20.0.0'}
 
-  '@argos-ci/playwright@6.1.8':
-    resolution: {integrity: sha512-aEDMtcHCqJPqI2jf4wKvsAReYh7cXxAyWs5FATVKIbqNax1H+7/NOSzB2PirXhThJW/1P40O82ki6ELLDGF6oQ==}
+  '@argos-ci/playwright@6.1.10':
+    resolution: {integrity: sha512-DVvdBl0e420oCJtAE+wQFcMC2hnRGxo2az4puqYGYIv/gK9RJgvf4AJAJrgvAdVQ8UYke/eEwg8l8w1h4zrNVw==}
     engines: {node: '>=20.0.0'}
 
   '@argos-ci/util@3.1.1':
@@ -3927,7 +3927,7 @@ snapshots:
 
   '@argos-ci/browser@5.0.0': {}
 
-  '@argos-ci/core@4.2.0':
+  '@argos-ci/core@4.3.1':
     dependencies:
       '@argos-ci/api-client': 0.12.0
       '@argos-ci/util': 3.1.1
@@ -3939,10 +3939,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@argos-ci/playwright@6.1.8':
+  '@argos-ci/playwright@6.1.10':
     dependencies:
       '@argos-ci/browser': 5.0.0
-      '@argos-ci/core': 4.2.0
+      '@argos-ci/core': 4.3.1
       '@argos-ci/util': 3.1.1
       chalk: 5.6.2
       debug: 4.4.3
