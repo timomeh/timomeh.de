@@ -154,8 +154,8 @@ importers:
         version: 5.0.0
     devDependencies:
       '@argos-ci/playwright':
-        specifier: 6.1.10
-        version: 6.1.10
+        specifier: 6.2.0
+        version: 6.2.0
       '@biomejs/biome':
         specifier: 2.2.7
         version: 2.2.7
@@ -219,20 +219,20 @@ packages:
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
 
-  '@argos-ci/api-client@0.12.0':
-    resolution: {integrity: sha512-WfhI+StLJKIKERWQaIm7Kv1/k+YO/CYIp3djDVhZIU6mv/8yalyNXHnkRC6ofq1kPpmRvoag1KW79/C2WsB4Ag==}
+  '@argos-ci/api-client@0.13.0':
+    resolution: {integrity: sha512-/z1EaroMxTtDP+2loGoqcZFNfXElVwet3vGsTebek5x9ewNZ4bWb8meCLS7/L0caU6/1CBlXDL7lwGakRYHVow==}
     engines: {node: '>=20.0.0'}
 
   '@argos-ci/browser@5.0.0':
     resolution: {integrity: sha512-SKAD7EXoLX4u50dzTIT/ABnpD284+DnBfoJM0ZrTIav2eiiVJyknNKSznF5w118lYGnYvugTXbKMnukGPzJeOA==}
     engines: {node: '>=20.0.0'}
 
-  '@argos-ci/core@4.3.1':
-    resolution: {integrity: sha512-9K1AN8RLXNmhr9JscvKHV4wzCSkZ4dh+CIi88Wrj8KvS4+vSXfy62pqjzgqxQ9d2JPBKxPObDempA2MoOZrS5A==}
+  '@argos-ci/core@4.4.0':
+    resolution: {integrity: sha512-4Z9fpAGX/W9ym58C1wni1y1hKk5O3xVQh559957caJK8VmDgR1QPW26vvBerlKqUSb4KPhCxX+/jUJzkw4oycQ==}
     engines: {node: '>=20.0.0'}
 
-  '@argos-ci/playwright@6.1.10':
-    resolution: {integrity: sha512-DVvdBl0e420oCJtAE+wQFcMC2hnRGxo2az4puqYGYIv/gK9RJgvf4AJAJrgvAdVQ8UYke/eEwg8l8w1h4zrNVw==}
+  '@argos-ci/playwright@6.2.0':
+    resolution: {integrity: sha512-z/JJRqiUQq8EFmA205pRX9enAPInXAin4nzl3dMCRVEKJhjFMD4Hra0k0VZXKQMrVdoU5Bgl2ZnE+QkJNx2lhg==}
     engines: {node: '>=20.0.0'}
 
   '@argos-ci/util@3.1.1':
@@ -3338,8 +3338,8 @@ packages:
       zod:
         optional: true
 
-  openapi-fetch@0.14.1:
-    resolution: {integrity: sha512-l7RarRHxlEZYjMLd/PR0slfMVse2/vvIAGm75/F7J6MlQ8/b9uUQmUF2kCPrQhJqMXSxmYWObVgeYXbFYzZR+A==}
+  openapi-fetch@0.15.0:
+    resolution: {integrity: sha512-OjQUdi61WO4HYhr9+byCPMj0+bgste/LtSBEcV6FzDdONTs7x0fWn8/ndoYwzqCsKWIxEZwo4FN/TG1c1rI8IQ==}
 
   openapi-typescript-helpers@0.0.15:
     resolution: {integrity: sha512-opyTPaunsklCBpTK8JGef6mfPhLSnyy5a0IN9vKtx3+4aExf+KxEqYwIy3hqkedXIB97u357uLMJsOnm3GVjsw==}
@@ -3920,18 +3920,18 @@ snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
 
-  '@argos-ci/api-client@0.12.0':
+  '@argos-ci/api-client@0.13.0':
     dependencies:
       debug: 4.4.3
-      openapi-fetch: 0.14.1
+      openapi-fetch: 0.15.0
     transitivePeerDependencies:
       - supports-color
 
   '@argos-ci/browser@5.0.0': {}
 
-  '@argos-ci/core@4.3.1':
+  '@argos-ci/core@4.4.0':
     dependencies:
-      '@argos-ci/api-client': 0.12.0
+      '@argos-ci/api-client': 0.13.0
       '@argos-ci/util': 3.1.1
       convict: 6.2.4
       debug: 4.4.3
@@ -3941,10 +3941,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@argos-ci/playwright@6.1.10':
+  '@argos-ci/playwright@6.2.0':
     dependencies:
       '@argos-ci/browser': 5.0.0
-      '@argos-ci/core': 4.3.1
+      '@argos-ci/core': 4.4.0
       '@argos-ci/util': 3.1.1
       chalk: 5.6.2
       debug: 4.4.3
@@ -8220,7 +8220,7 @@ snapshots:
     optionalDependencies:
       ws: 8.18.3
 
-  openapi-fetch@0.14.1:
+  openapi-fetch@0.15.0:
     dependencies:
       openapi-typescript-helpers: 0.0.15
 
