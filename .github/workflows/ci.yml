@@ -70,7 +70,7 @@ jobs:
 
       # Load docker image from previous build stage
       - name: download docker image to /tmp/docker-image.tar
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: docker-image
           path: /tmp
