@@ -154,8 +154,8 @@ importers:
         version: 5.0.0
     devDependencies:
       '@argos-ci/playwright':
-        specifier: 6.2.0
-        version: 6.2.0
+        specifier: 6.3.1
+        version: 6.3.1
       '@biomejs/biome':
         specifier: 2.2.7
         version: 2.2.7
@@ -219,24 +219,24 @@ packages:
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
 
-  '@argos-ci/api-client@0.13.0':
-    resolution: {integrity: sha512-/z1EaroMxTtDP+2loGoqcZFNfXElVwet3vGsTebek5x9ewNZ4bWb8meCLS7/L0caU6/1CBlXDL7lwGakRYHVow==}
+  '@argos-ci/api-client@0.14.0':
+    resolution: {integrity: sha512-lVWN8MrRYEbCjcZcutTzdJEA9tNB1IBqjIUJyjxR1iHMXZJYVLQbWQcmlZz33sIHkicLgAKTKrSVUOjf34MXAA==}
     engines: {node: '>=20.0.0'}
 
   '@argos-ci/browser@5.0.0':
     resolution: {integrity: sha512-SKAD7EXoLX4u50dzTIT/ABnpD284+DnBfoJM0ZrTIav2eiiVJyknNKSznF5w118lYGnYvugTXbKMnukGPzJeOA==}
     engines: {node: '>=20.0.0'}
 
-  '@argos-ci/core@4.4.0':
-    resolution: {integrity: sha512-4Z9fpAGX/W9ym58C1wni1y1hKk5O3xVQh559957caJK8VmDgR1QPW26vvBerlKqUSb4KPhCxX+/jUJzkw4oycQ==}
+  '@argos-ci/core@4.5.0':
+    resolution: {integrity: sha512-jERRoj+da36Y9NwFyws00LKFmCLHBTklIE0DYRptrPUSf3aitly6KmllkKHGi2UU1XcIqAO2Pzy1l5shCs/FXw==}
     engines: {node: '>=20.0.0'}
 
-  '@argos-ci/playwright@6.2.0':
-    resolution: {integrity: sha512-z/JJRqiUQq8EFmA205pRX9enAPInXAin4nzl3dMCRVEKJhjFMD4Hra0k0VZXKQMrVdoU5Bgl2ZnE+QkJNx2lhg==}
+  '@argos-ci/playwright@6.3.1':
+    resolution: {integrity: sha512-E4zl8i/+l4v7eK8NUzp0J3clok+urHGe2WP/FRtOMPuQ9vmZ/FF4LTZ3obMhmeyu9/PMIdV545w4KPaTZl3Y5w==}
     engines: {node: '>=20.0.0'}
 
-  '@argos-ci/util@3.1.1':
-    resolution: {integrity: sha512-sGb9PS7yqdVVtxpxRD1Nfter3kaioC4nPPTknVmMSqo2GQKO1gdmjMJtwHY+Nf9FgiMfwpTCnk8Rrf0pjS3Sug==}
+  '@argos-ci/util@3.2.0':
+    resolution: {integrity: sha512-/Bn0qCH8VsdPv5WB9TUEf3oTgsIqsTMUEjPVDopHLzKK+j7nQYGOF3MnN7VhBow82BXeStBfJCS3UiZ6cgxRlw==}
     engines: {node: '>=20.0.0'}
 
   '@aws-crypto/crc32@5.2.0':
@@ -3234,6 +3234,14 @@ packages:
     resolution: {integrity: sha512-PXwfBhYu0hBCPw8Dn0E+WDYb7af3dSLVWKi3HGv84IdF4TyFoC0ysxFd0Goxw7nSv4T/PzEJQxsYsEiFCKo2BA==}
     engines: {node: '>=8.6'}
 
+  mime-db@1.54.0:
+    resolution: {integrity: sha512-aU5EJuIN2WDemCcAp2vFBfp/m4EAhWJnUNSSw0ixs7/kXbd6Pg64EmwJkNdFhB8aWt1sH2CTXrLxo/iAGV3oPQ==}
+    engines: {node: '>= 0.6'}
+
+  mime-types@3.0.1:
+    resolution: {integrity: sha512-xRc4oEhT6eaBpU1XF7AjpOFD+xQmXNB5OVKwp4tqCuBpHLS/ZbBDrc07mYTDqVMg6PfxUjjNp85O6Cd2Z/5HWA==}
+    engines: {node: '>= 0.6'}
+
   mime@2.5.2:
     resolution: {integrity: sha512-tqkh47FzKeCPD2PUiPB6pkbMzsCasjxAfC62/Wap5qrUWcb+sFasXUC5I3gYM5iBM8v/Qpn4UK0x+j0iHyFPDg==}
     engines: {node: '>=4.0.0'}
@@ -3920,7 +3928,7 @@ snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
 
-  '@argos-ci/api-client@0.13.0':
+  '@argos-ci/api-client@0.14.0':
     dependencies:
       debug: 4.4.3
       openapi-fetch: 0.15.0
@@ -3929,29 +3937,30 @@ snapshots:
 
   '@argos-ci/browser@5.0.0': {}
 
-  '@argos-ci/core@4.4.0':
+  '@argos-ci/core@4.5.0':
     dependencies:
-      '@argos-ci/api-client': 0.13.0
-      '@argos-ci/util': 3.1.1
+      '@argos-ci/api-client': 0.14.0
+      '@argos-ci/util': 3.2.0
       convict: 6.2.4
       debug: 4.4.3
       fast-glob: 3.3.3
+      mime-types: 3.0.1
       sharp: 0.34.4
       tmp: 0.2.5
     transitivePeerDependencies:
       - supports-color
 
-  '@argos-ci/playwright@6.2.0':
+  '@argos-ci/playwright@6.3.1':
     dependencies:
       '@argos-ci/browser': 5.0.0
-      '@argos-ci/core': 4.4.0
-      '@argos-ci/util': 3.1.1
+      '@argos-ci/core': 4.5.0
+      '@argos-ci/util': 3.2.0
       chalk: 5.6.2
       debug: 4.4.3
     transitivePeerDependencies:
       - supports-color
 
-  '@argos-ci/util@3.1.1': {}
+  '@argos-ci/util@3.2.0': {}
 
   '@aws-crypto/crc32@5.2.0':
     dependencies:
@@ -8128,6 +8137,12 @@ snapshots:
     dependencies:
       braces: 3.0.3
       picomatch: 2.3.1
+
+  mime-db@1.54.0: {}
+
+  mime-types@3.0.1:
+    dependencies:
+      mime-db: 1.54.0
 
   mime@2.5.2: {}
 
