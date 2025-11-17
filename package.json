@@ -19,7 +19,7 @@
     "generate:shiki": "npx shiki-codegen --langs css,docker,dotenv,elixir,fish,git-commit,git-rebase,go,graphql,html,js,json,json5,jsx,markdown,mdx,ruby,shellscript,shellsession,toml,tsx,typescript,yaml --themes one-light,tokyo-night --engine javascript ./src/lib/shiki.bundle.ts"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "3.927.0",
+    "@aws-sdk/client-s3": "3.928.0",
     "@bprogress/next": "3.2.12",
     "@fancyapps/ui": "6.1.4",
     "@imgproxy/imgproxy-js-core": "1.6.0",
