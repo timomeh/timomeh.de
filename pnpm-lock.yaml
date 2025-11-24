@@ -33,8 +33,8 @@ importers:
         specifier: 0.15.15
         version: 0.15.15
       '@loglayer/transport-pino':
-        specifier: 2.2.9
-        version: 2.2.9(pino@9.13.1)
+        specifier: 2.2.13
+        version: 2.2.13(pino@9.13.1)
       '@mdx-js/mdx':
         specifier: 3.1.1
         version: 3.1.1
@@ -1322,12 +1322,12 @@ packages:
     resolution: {integrity: sha512-KT8ic1wWstCKOjZNR6Vqpk9rK7PPx/QPjGhfqePGYjo6l9R94mSHry+zdtYjIrIPvQHbnzsp/wd6lj6IvD3MvQ==}
     engines: {node: '>=18'}
 
-  '@loglayer/shared@2.6.0':
-    resolution: {integrity: sha512-KBKU8gamgBSi8WCknfnIZMoZXcBzFiSdWwlG5k82iyODTdPw9q/fby4GDLkbt3h0NmFw+6fpwt5Cdqx3btPX6w==}
+  '@loglayer/shared@3.0.1':
+    resolution: {integrity: sha512-adHlZMjPLKwPWwyCPA/MMtDRuPDGn9vPQFmkRlwu4byAMpPNRVl04kywncUTGPMtxOl/bDnPIyfGgYu/y/LvrQ==}
     engines: {node: '>=18'}
 
-  '@loglayer/transport-pino@2.2.9':
-    resolution: {integrity: sha512-XWETjY/eexCMSsdbDBc4O1WSBeD8glTqKhQm+Yz6CLM666+L/rsez8Hkr5b9bfDapgVCvNPlpG8eIlzKe0Y7Xg==}
+  '@loglayer/transport-pino@2.2.13':
+    resolution: {integrity: sha512-1sOs4mGmlt5Fde2JkZ0OwLrL7t9D870wEgctPaTnrH6KNef/qd4apbjE2djN6Tz87uICBBMaJNmtZeOFQq45Xg==}
     engines: {node: '>=18'}
     peerDependencies:
       pino: '*'
@@ -1336,8 +1336,8 @@ packages:
     resolution: {integrity: sha512-SHvaex987nfqV9hNj/KEMEnE7SwtDa5YwxqXbZNEtWDSWimn6agHyce73/qJC86GVrtOJmLj2HMii9JdKeZozw==}
     engines: {node: '>=18'}
 
-  '@loglayer/transport@2.3.5':
-    resolution: {integrity: sha512-lWRf8Mu+6ORKgqh7K76QsuOIggXAsVkMZ5tz7adzJkdGSDdqjokalVykoXSI44wPsVqWDrAU6wFNzHN7hRVi9g==}
+  '@loglayer/transport@2.3.9':
+    resolution: {integrity: sha512-hytHalfX8AKrAhJHpS7SVQwLDpaJUCtpWO76dnkLsMcf12eQOzAERrDx1fITrqGCgjbPB8ruf8XIim9a7d0eTA==}
     engines: {node: '>=18'}
 
   '@markdoc/markdoc@0.4.0':
@@ -5469,20 +5469,20 @@ snapshots:
 
   '@loglayer/shared@2.5.3': {}
 
-  '@loglayer/shared@2.6.0': {}
+  '@loglayer/shared@3.0.1': {}
 
-  '@loglayer/transport-pino@2.2.9(pino@9.13.1)':
+  '@loglayer/transport-pino@2.2.13(pino@9.13.1)':
     dependencies:
-      '@loglayer/transport': 2.3.5
+      '@loglayer/transport': 2.3.9
       pino: 9.13.1
 
   '@loglayer/transport@2.3.4':
     dependencies:
       '@loglayer/shared': 2.5.3
 
-  '@loglayer/transport@2.3.5':
+  '@loglayer/transport@2.3.9':
     dependencies:
-      '@loglayer/shared': 2.6.0
+      '@loglayer/shared': 3.0.1
 
   '@markdoc/markdoc@0.4.0(@types/react@19.2.5)(react@19.2.0)':
     optionalDependencies:
