@@ -96,7 +96,6 @@ async function listSeasonFiles(prefix: string) {
   const s3client = new S3Client({
     region: config.buckets.generatedImages.region,
     endpoint: config.buckets.generatedImages.endpoint,
-    forcePathStyle: true,
     credentials: {
       accessKeyId: config.buckets.generatedImages.accessKeyId,
       secretAccessKey: config.buckets.generatedImages.secretAccessKey,
