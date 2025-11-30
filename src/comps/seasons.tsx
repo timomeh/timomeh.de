@@ -80,8 +80,8 @@ const imageSrcCache = memoize(
 
 async function getLatestSeasonImages() {
   const [lightFiles, darkFiles] = await Promise.all([
-    listSeasonFiles('seasons/light/'),
-    listSeasonFiles('seasons/dark/'),
+    listSeasonFiles('seasons/light/1'),
+    listSeasonFiles('seasons/dark/1'),
   ])
 
   const darkSrc = darkFiles.at(0)
