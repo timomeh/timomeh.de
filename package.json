@@ -70,7 +70,7 @@
   "devDependencies": {
     "@argos-ci/playwright": "6.3.3",
     "@biomejs/biome": "2.2.7",
-    "@playwright/test": "1.56.1",
+    "@playwright/test": "1.57.0",
     "@tailwindcss/postcss": "4.1.17",
     "@tailwindcss/typography": "0.5.19",
     "@types/mdast": "4.0.4",
