@@ -18,8 +18,8 @@ importers:
         specifier: 3.2.12
         version: 3.2.12(next@15.5.6(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@fancyapps/ui':
-        specifier: 6.1.4
-        version: 6.1.4
+        specifier: 6.1.6
+        version: 6.1.6
       '@imgproxy/imgproxy-js-core':
         specifier: 1.6.0
         version: 1.6.0
@@ -1010,8 +1010,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@fancyapps/ui@6.1.4':
-    resolution: {integrity: sha512-8Zy9L32nFdRUkg3HH3LzxTrJYIaZIqWoxX9F5qx3GaegWUPkiB4RDRaiZCaT/9ZSjxcNH1ZrkzYC/PkMRsyj+Q==}
+  '@fancyapps/ui@6.1.6':
+    resolution: {integrity: sha512-7kgvuufdwlT79rrveCq1s3O9WzLY6REKG2NOlWji5GL3aalRU2f+7kfppfpg29WQh6NFP/bXAAkWOzF5dd3GTg==}
 
   '@floating-ui/core@1.7.2':
     resolution: {integrity: sha512-wNB5ooIKHQc+Kui96jE/n69rHFWAVoxn5CAzL1Xdd8FG03cgY3MLO+GF9U3W737fYDSgPWA6MReKhBQBop6Pcw==}
@@ -3458,6 +3458,7 @@ packages:
   next@15.5.6:
     resolution: {integrity: sha512-zTxsnI3LQo3c9HSdSf91O1jMNsEzIXDShXd4wVdg9y5shwLqBXi4ZtUUJyB86KGVSJLZx0PFONvO54aheGX8QQ==}
     engines: {node: ^18.18.0 || ^19.8.0 || >= 20.0.0}
+    deprecated: This version has a security vulnerability. Please upgrade to a patched version. See https://nextjs.org/blog/CVE-2025-66478 for more details.
     hasBin: true
     peerDependencies:
       '@opentelemetry/api': ^1.1.0
@@ -5018,7 +5019,7 @@ snapshots:
   '@esbuild/win32-x64@0.27.0':
     optional: true
 
-  '@fancyapps/ui@6.1.4': {}
+  '@fancyapps/ui@6.1.6': {}
 
   '@floating-ui/core@1.7.2':
     dependencies:
