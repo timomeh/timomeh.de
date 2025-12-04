@@ -78,7 +78,6 @@ export function OpengraphBaseImage({ cover, title, date, est }: Props) {
               style={{ textShadow: '0 5px 20px black' }}
             >
               {title.map((t, i) => (
-                // biome-ignore lint/suspicious/noArrayIndexKey: it's fine
                 <div key={i}>{t}</div>
               ))}
             </div>

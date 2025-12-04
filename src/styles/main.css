@@ -3,7 +3,7 @@
 @import "./shiki-transformers.css" layer(base);
 @import "./bprogress.css";
 
-@config '../../typography.config.js';
+@config "../../typography.config.js";
 
 @custom-variant dark {
   &:where([data-theme="dark"] *, [data-theme="dark"]) {

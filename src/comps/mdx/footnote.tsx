@@ -23,7 +23,6 @@ export function FootnotesSection(props: {
         start={props.startCount || 1}
       >
         {footnotes.map((footnote, index) => {
-          // biome-ignore lint/suspicious/noArrayIndexKey: static list
           return <li key={index}>{footnote}</li>
         })}
       </ol>
