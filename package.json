@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "TZ=UTC next dev",
     "predev": "pnpm build:cache-handler --log-level=error",
-    "build": "next build --experimental-build-mode compile",
+    "build": "next build --experimental-build-mode compile --webpack",
     "prebuild": "pnpm build:cache-handler",
     "build:cache-handler": "esbuild src/cache-handler.ts --bundle --outfile=dist/cache-handler.js --platform=node --format=cjs",
     "start": "next start",
