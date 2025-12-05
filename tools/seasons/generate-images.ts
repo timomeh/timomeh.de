@@ -116,6 +116,7 @@ art style: high-quality fine pixel art, 64x64 style, detailed shading, soft grad
   const darkImageRes = await openai.images.edit({
     model: 'gpt-image-1',
     output_format: 'webp',
+    size: '1536x1024',
     quality: 'auto',
     image: [
       await toFile(Buffer.from(unsafeDarkImageBase64, 'base64'), null, {
@@ -143,6 +144,7 @@ keep the art style: high-quality fine pixel art, 64x64 style, detailed shading, 
   const lightImageRes = await openai.images.edit({
     model: 'gpt-image-1',
     output_format: 'webp',
+    size: '1536x1024',
     quality: 'auto',
     image: [
       await toFile(Buffer.from(darkImageBase64, 'base64'), null, {
