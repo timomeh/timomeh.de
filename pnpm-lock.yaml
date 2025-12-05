@@ -33,8 +33,8 @@ importers:
         specifier: 0.15.15
         version: 0.15.15
       '@loglayer/transport-pino':
-        specifier: 2.2.13
-        version: 2.2.13(pino@9.13.1)
+        specifier: 2.2.14
+        version: 2.2.14(pino@9.13.1)
       '@mdx-js/mdx':
         specifier: 3.1.1
         version: 3.1.1
@@ -1330,11 +1330,19 @@ packages:
     resolution: {integrity: sha512-adHlZMjPLKwPWwyCPA/MMtDRuPDGn9vPQFmkRlwu4byAMpPNRVl04kywncUTGPMtxOl/bDnPIyfGgYu/y/LvrQ==}
     engines: {node: '>=18'}
 
-  '@loglayer/transport-pino@2.2.13':
-    resolution: {integrity: sha512-1sOs4mGmlt5Fde2JkZ0OwLrL7t9D870wEgctPaTnrH6KNef/qd4apbjE2djN6Tz87uICBBMaJNmtZeOFQq45Xg==}
+  '@loglayer/shared@3.1.0':
+    resolution: {integrity: sha512-vKV0sWHFWb28mDIwl2Pesy8CPk+iWp0brLvxFe3SjYzUDnkgfUaFTOlHC7KEfK7K4vGszQKECG8hWrhkA/JQSQ==}
+    engines: {node: '>=18'}
+
+  '@loglayer/transport-pino@2.2.14':
+    resolution: {integrity: sha512-FBhS0XbXZrFgy9S7m7aZU5UfqhVLQ3rcGwwsiOX4KddS+MhM8+wnNFt8Ql4CCIhZNP8fmSQEvnG+MLbyodt3eQ==}
     engines: {node: '>=18'}
     peerDependencies:
       pino: '*'
+
+  '@loglayer/transport@2.3.10':
+    resolution: {integrity: sha512-ENTPEgmO+wZ4DFZItrTCcUfTqcyTkWqXOjsslTRLAJBayChIQexZeGxCUEhJg8S4LJN82dGmO5c88Tlc7B2QRQ==}
+    engines: {node: '>=18'}
 
   '@loglayer/transport@2.3.9':
     resolution: {integrity: sha512-hytHalfX8AKrAhJHpS7SVQwLDpaJUCtpWO76dnkLsMcf12eQOzAERrDx1fITrqGCgjbPB8ruf8XIim9a7d0eTA==}
@@ -5487,10 +5495,16 @@ snapshots:
 
   '@loglayer/shared@3.0.1': {}
 
-  '@loglayer/transport-pino@2.2.13(pino@9.13.1)':
+  '@loglayer/shared@3.1.0': {}
+
+  '@loglayer/transport-pino@2.2.14(pino@9.13.1)':
     dependencies:
-      '@loglayer/transport': 2.3.9
+      '@loglayer/transport': 2.3.10
       pino: 9.13.1
+
+  '@loglayer/transport@2.3.10':
+    dependencies:
+      '@loglayer/shared': 3.1.0
 
   '@loglayer/transport@2.3.9':
     dependencies:
