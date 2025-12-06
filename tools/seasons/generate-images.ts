@@ -57,8 +57,8 @@ Previous conditions: ${historicConditions.slice(-12).join('\n')}`,
     model: 'gpt-5-mini',
     reasoning: { effort: 'low' },
     instructions: `You create prompts for image generation.
-You are given a date and the weather, which you use to depict a specific scene.
-The scene is in an urban area.
+You are given a date and the weather, which you use to depict a specific scene. Ignore all location hints from the weather, like "riverside" or "quay" or "town" or "church" or similar. Only take the weather information from it.
+The scene you're creating is in an urban area.
 You describe it very moody: sometimes happy scenes, sometimes more melancholic.
 Your reponse MUST NOT include the temperature in degrees, just a description of the temperature and weather conditions.
 Your reponse MUST NOT include the specific date, but must include the daytime and ambiente.
