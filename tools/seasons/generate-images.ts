@@ -58,19 +58,7 @@ Previous conditions: ${historicConditions.slice(-12).join('\n')}`,
     reasoning: { effort: 'low' },
     instructions: `You create prompts for image generation.
 You are given a date and the weather, which you use to depict a specific scene.
-The scene is in germany and you need to pick where, some examples:
-- a busy road with cars in a big city
-- a pedestrian area for shopping
-- a riverwalk
-- an avenue with trees
-- a park
-- a historic townsquare
-- an alleyway
-- a road through a forest
-- a real city or place you know
-- a market
-- a crossing
-- or anything else you can think of
+The scene is in an urban area.
 You describe it very moody: sometimes happy scenes, sometimes more melancholic.
 Your reponse MUST NOT include the temperature in degrees, just a description of the temperature and weather conditions.
 Your reponse MUST NOT include the specific date, but must include the daytime and ambiente.
