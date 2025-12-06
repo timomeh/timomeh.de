@@ -35,7 +35,7 @@ async function doIt() {
   const weatherRes = await openai.responses.create({
     model: 'gpt-5-mini',
     reasoning: { effort: 'low' },
-    instructions: `You write a weather simulation for a ficticious city in germany.
+    instructions: `You write a weather simulation for a ficticious city in an urban area, with a central european climate.
 You are given a date and previous weather conditions and simulate the next condition by first writing temperature, wind and conditions and then a single additional short sentence which describes the weather more detailed with max 1 additional subordinate clause. No line breaks.
 You generate your response based on the previous weather conditions to simulate a weather progression.
 You simulate weather realistically and stereotyped for the season, mixed with sometimes more extreme weather events typical for the season.
