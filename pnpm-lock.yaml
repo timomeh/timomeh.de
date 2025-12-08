@@ -154,8 +154,8 @@ importers:
         version: 5.0.0
     devDependencies:
       '@argos-ci/playwright':
-        specifier: 6.3.3
-        version: 6.3.3
+        specifier: 6.3.4
+        version: 6.3.4
       '@biomejs/biome':
         specifier: 2.3.8
         version: 2.3.8
@@ -231,8 +231,8 @@ packages:
     resolution: {integrity: sha512-jERRoj+da36Y9NwFyws00LKFmCLHBTklIE0DYRptrPUSf3aitly6KmllkKHGi2UU1XcIqAO2Pzy1l5shCs/FXw==}
     engines: {node: '>=20.0.0'}
 
-  '@argos-ci/playwright@6.3.3':
-    resolution: {integrity: sha512-bnnTMdHlH2GPDWKZAamZ9g5htVE1KpJ5DU94PH00uxbzpIB6wlHX2c+DTxNchDxnPAqvyhT1T4xZT0LtAif57w==}
+  '@argos-ci/playwright@6.3.4':
+    resolution: {integrity: sha512-QI8JuMPS7+9xxs4akNBtw2NntzMT/NPP83s5ygmUK5xq8S+Pqudyh23YFpCa7ytn93E5L/1XyoAq2aVYgwbrag==}
     engines: {node: '>=20.0.0'}
 
   '@argos-ci/util@3.2.0':
@@ -4129,7 +4129,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@argos-ci/playwright@6.3.3':
+  '@argos-ci/playwright@6.3.4':
     dependencies:
       '@argos-ci/browser': 5.1.0
       '@argos-ci/core': 4.5.0
