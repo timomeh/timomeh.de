@@ -46,7 +46,7 @@
     "lucide-react": "0.555.0",
     "mdast": "3.0.0",
     "mdast-util-mdx": "3.0.0",
-    "next": "16.0.9",
+    "next": "16.0.10",
     "nextjs-better-unstable-cache": "1.1.0",
     "openai": "6.10.0",
     "pino": "9.13.1",
