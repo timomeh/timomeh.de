@@ -81,8 +81,8 @@ importers:
         specifier: 5.1.0
         version: 5.1.0
       loglayer:
-        specifier: 8.1.1
-        version: 8.1.1
+        specifier: 8.2.0
+        version: 8.2.0
       lucide-react:
         specifier: 0.561.0
         version: 0.561.0(react@19.2.3)
@@ -1314,20 +1314,24 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@loglayer/context-manager@1.1.13':
-    resolution: {integrity: sha512-lqe9bD0apkSulp7afC7849sNqdSSN6BYE/PlgB+nR4dSepJplD+rvPfSPRuEPGUvx2mgW4hbdGyl2/a4gJ1e5A==}
+  '@loglayer/context-manager@1.1.14':
+    resolution: {integrity: sha512-F99SKlG3yG33UKwGitT1Xq0ru/AyAQe6rgKDVgdrzF7nHPXAdOb2cW5+ycyixhqlrkAEuyI+jLwF6PPCFx2ktQ==}
     engines: {node: '>=18'}
 
-  '@loglayer/log-level-manager@1.0.3':
-    resolution: {integrity: sha512-Bi/eOdrzEDgabvNc5MgBaelJeSoxrXoLoBC2epZ92lSsJIfZqcdu3SAzMZEWfhrKVg0Uqvgv9YeuQy6jTiOGmA==}
+  '@loglayer/log-level-manager@1.0.4':
+    resolution: {integrity: sha512-CXXJtr40Gptntwy2mfJdwUF+IaNlf5373M9Vnalqk0e5AFFrVoTxqKcRIGQHnXi+ZHTiP62wOFwx3ahxO3leSA==}
     engines: {node: '>=18'}
 
-  '@loglayer/plugin@2.2.5':
-    resolution: {integrity: sha512-t8+EAVJ9o1SD488T0h214k9uSsmMEFHbHQ514mnEEC6fpie0WkzrwUy1uqjpA2mjiMKZ108XVYLQhziprEklgw==}
+  '@loglayer/plugin@2.2.6':
+    resolution: {integrity: sha512-HjUpCxdlvYVMvb7nVEg5xOs+R9RSe08DQ2/Zm3O3SjhKUk7hRrUDQj00eaudeqeem1kugyLJPsUN6Q4mFaBPFA==}
     engines: {node: '>=18'}
 
   '@loglayer/shared@3.1.1':
     resolution: {integrity: sha512-Q7S6kbf3Gb9Tk26H5K4ZMXdfErfmEtXv3sO/0UeLeynxAryh2lg7FOnE/W4owtqkj9q6dxdpVk3eYJsBji3Nbg==}
+    engines: {node: '>=18'}
+
+  '@loglayer/shared@3.2.0':
+    resolution: {integrity: sha512-HSqb/vF1I0TteulEPbfU5qBYuv3xRTOYJlWttNBNqR4XU8sqxw/0azqDuGsfr4J8aJTD018jJz09OrkrA8xoOw==}
     engines: {node: '>=18'}
 
   '@loglayer/transport-pino@2.2.15':
@@ -1338,6 +1342,10 @@ packages:
 
   '@loglayer/transport@2.3.11':
     resolution: {integrity: sha512-lctU4t8IbS+ES1EB+qlE2YfKu+4UZw8v1WprhKP31Le6H1X7CHqWyRGJWUbhzKwNdmOHLTk5iAI+S6rca7WmBA==}
+    engines: {node: '>=18'}
+
+  '@loglayer/transport@2.3.12':
+    resolution: {integrity: sha512-fnGRWGBRaO1yqhE8TXob0D42qWjihmpVCyP0nyyFYE6LibugvwScEvDW+w9xLlXunLbvCR0eYmzhdcF8ksVTYw==}
     engines: {node: '>=18'}
 
   '@markdoc/markdoc@0.4.0':
@@ -3159,8 +3167,8 @@ packages:
   lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
 
-  loglayer@8.1.1:
-    resolution: {integrity: sha512-O09tN0vRcdqE4aBWr9rwUsz0/eRuKUPPbWpVIpSwnV8DtcYwF+lc77OiW0CfZLXhZ1g2S4dQmWbUBDlmgWIDnw==}
+  loglayer@8.2.0:
+    resolution: {integrity: sha512-zN0MJxiz38rTv+xaZ5/nph9MMzCRer3jyOqDf5N1qBA118uTr+WVs8EboKmMUD9x3YpiiPWhB53qi8DWdl9Iig==}
     engines: {node: '>=18'}
 
   longest-streak@3.1.0:
@@ -5473,19 +5481,21 @@ snapshots:
   '@libsql/win32-x64-msvc@0.5.22':
     optional: true
 
-  '@loglayer/context-manager@1.1.13':
+  '@loglayer/context-manager@1.1.14':
     dependencies:
-      '@loglayer/shared': 3.1.1
+      '@loglayer/shared': 3.2.0
 
-  '@loglayer/log-level-manager@1.0.3':
+  '@loglayer/log-level-manager@1.0.4':
     dependencies:
-      '@loglayer/shared': 3.1.1
+      '@loglayer/shared': 3.2.0
 
-  '@loglayer/plugin@2.2.5':
+  '@loglayer/plugin@2.2.6':
     dependencies:
-      '@loglayer/shared': 3.1.1
+      '@loglayer/shared': 3.2.0
 
   '@loglayer/shared@3.1.1': {}
+
+  '@loglayer/shared@3.2.0': {}
 
   '@loglayer/transport-pino@2.2.15(pino@9.13.1)':
     dependencies:
@@ -5495,6 +5505,10 @@ snapshots:
   '@loglayer/transport@2.3.11':
     dependencies:
       '@loglayer/shared': 3.1.1
+
+  '@loglayer/transport@2.3.12':
+    dependencies:
+      '@loglayer/shared': 3.2.0
 
   '@markdoc/markdoc@0.4.0(@types/react@19.2.7)(react@19.2.3)':
     optionalDependencies:
@@ -7804,13 +7818,13 @@ snapshots:
 
   lodash@4.17.21: {}
 
-  loglayer@8.1.1:
+  loglayer@8.2.0:
     dependencies:
-      '@loglayer/context-manager': 1.1.13
-      '@loglayer/log-level-manager': 1.0.3
-      '@loglayer/plugin': 2.2.5
-      '@loglayer/shared': 3.1.1
-      '@loglayer/transport': 2.3.11
+      '@loglayer/context-manager': 1.1.14
+      '@loglayer/log-level-manager': 1.0.4
+      '@loglayer/plugin': 2.2.6
+      '@loglayer/shared': 3.2.0
+      '@loglayer/transport': 2.3.12
 
   longest-streak@3.1.0: {}
 
