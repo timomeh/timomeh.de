@@ -33,8 +33,8 @@ importers:
         specifier: 0.15.15
         version: 0.15.15
       '@loglayer/transport-pino':
-        specifier: 2.2.15
-        version: 2.2.15(pino@9.13.1)
+        specifier: 2.2.16
+        version: 2.2.16(pino@9.13.1)
       '@mdx-js/mdx':
         specifier: 3.1.1
         version: 3.1.1
@@ -1326,23 +1326,15 @@ packages:
     resolution: {integrity: sha512-HjUpCxdlvYVMvb7nVEg5xOs+R9RSe08DQ2/Zm3O3SjhKUk7hRrUDQj00eaudeqeem1kugyLJPsUN6Q4mFaBPFA==}
     engines: {node: '>=18'}
 
-  '@loglayer/shared@3.1.1':
-    resolution: {integrity: sha512-Q7S6kbf3Gb9Tk26H5K4ZMXdfErfmEtXv3sO/0UeLeynxAryh2lg7FOnE/W4owtqkj9q6dxdpVk3eYJsBji3Nbg==}
-    engines: {node: '>=18'}
-
   '@loglayer/shared@3.2.0':
     resolution: {integrity: sha512-HSqb/vF1I0TteulEPbfU5qBYuv3xRTOYJlWttNBNqR4XU8sqxw/0azqDuGsfr4J8aJTD018jJz09OrkrA8xoOw==}
     engines: {node: '>=18'}
 
-  '@loglayer/transport-pino@2.2.15':
-    resolution: {integrity: sha512-LjEpoM101AsRT8O6P4vn/5V9SUK65TIvzbEQrrfrw9MuI28pSAI2vZgqgd+drQtoSe3ChRor8m6XnqRpTP9P9Q==}
+  '@loglayer/transport-pino@2.2.16':
+    resolution: {integrity: sha512-VMukURdx2KhNb94qI2OwqMMvyABpIfVCgeNwlUPe47eI23bWDlqVK+cJk6XJIxAVsb4Qixuku55YuTVihvq6dA==}
     engines: {node: '>=18'}
     peerDependencies:
       pino: '*'
-
-  '@loglayer/transport@2.3.11':
-    resolution: {integrity: sha512-lctU4t8IbS+ES1EB+qlE2YfKu+4UZw8v1WprhKP31Le6H1X7CHqWyRGJWUbhzKwNdmOHLTk5iAI+S6rca7WmBA==}
-    engines: {node: '>=18'}
 
   '@loglayer/transport@2.3.12':
     resolution: {integrity: sha512-fnGRWGBRaO1yqhE8TXob0D42qWjihmpVCyP0nyyFYE6LibugvwScEvDW+w9xLlXunLbvCR0eYmzhdcF8ksVTYw==}
@@ -5497,18 +5489,12 @@ snapshots:
     dependencies:
       '@loglayer/shared': 3.2.0
 
-  '@loglayer/shared@3.1.1': {}
-
   '@loglayer/shared@3.2.0': {}
 
-  '@loglayer/transport-pino@2.2.15(pino@9.13.1)':
+  '@loglayer/transport-pino@2.2.16(pino@9.13.1)':
     dependencies:
-      '@loglayer/transport': 2.3.11
+      '@loglayer/transport': 2.3.12
       pino: 9.13.1
-
-  '@loglayer/transport@2.3.11':
-    dependencies:
-      '@loglayer/shared': 3.1.1
 
   '@loglayer/transport@2.3.12':
     dependencies:
