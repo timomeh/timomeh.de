@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
     })
   }
 
-  revalidateTag(tag)
+  revalidateTag(tag, 'max')
   log.info(`Successfully revalidated ${tag}`)
 
   return NextResponse.json({

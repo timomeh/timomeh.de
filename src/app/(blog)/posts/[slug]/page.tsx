@@ -1,13 +1,11 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
-import { notFound } from 'next/navigation'
 
 import { MDX } from '@/comps/mdx/mdx'
 import { PostHeader } from '@/comps/post-header'
 import { Prose } from '@/comps/prose'
 import { Tag } from '@/comps/tag'
-import { contentAsset } from '@/data/cms'
-import { getPostBySlug } from '@/data/posts'
+import { PostMetadata } from '@/data/actions/postMetadata'
+import { ShowPost } from '@/data/actions/showPost'
 import { formatReadingTime } from '@/lib/formatReadingTime'
 
 type Props = {
@@ -16,8 +14,7 @@ type Props = {
 
 export default async function Page(props: Props) {
   const params = await props.params
-  const post = await getPostBySlug(params.slug)
-  if (!post) notFound()
+  const { post, assetPrefix } = await ShowPost.invoke(params.slug)
 
   return (
     <article
@@ -49,7 +46,7 @@ export default async function Page(props: Props) {
           cacheKey={`post-${post.slug}`}
           cacheTags={['mdx-type:post', `mdx-post:${post.slug}`]}
           content={post.content}
-          assetPrefix={contentAsset('posts', post.slug, '')}
+          assetPrefix={assetPrefix}
         />
       </Prose>
     </article>
@@ -62,34 +59,5 @@ export async function generateStaticParams() {
 
 export async function generateMetadata(props: Props) {
   const params = await props.params
-  const post = await getPostBySlug(params.slug)
-  if (!post) notFound()
-
-  const metadata: Metadata = {
-    title: post.title,
-    description: post.metaDescription,
-    openGraph: {
-      type: 'article',
-      description: post.metaDescription || undefined,
-      publishedTime: post.publishedAt.toISOString(),
-      modifiedTime: post.updatedAt?.toISOString(),
-      authors: ['Timo Mämecke'],
-      locale: post.metaLang || undefined,
-    },
-    alternates: {
-      types: {
-        'application/atom+xml': '/posts/feed.atom',
-        'application/rss+xml': '/posts/feed.rss',
-        'application/feed+json': '/posts/feed.json',
-      },
-    },
-  }
-
-  if (post.metaImage && metadata.openGraph) {
-    metadata.openGraph.images = [
-      { url: contentAsset('posts', post.slug, post.metaImage) },
-    ]
-  }
-
-  return metadata
+  return PostMetadata.invoke(params.slug)
 }

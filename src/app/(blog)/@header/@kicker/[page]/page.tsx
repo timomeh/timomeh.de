@@ -1,5 +1,4 @@
-import { getPageBySlug } from '@/data/pages'
-
+import { GetPageKicker } from '@/data/actions/getPageKicker'
 import { DataKicker } from '../data-kicker'
 
 type Props = {
@@ -11,8 +10,7 @@ export default function Page(props: Props) {
     <DataKicker
       fetcher={async () => {
         const params = await props.params
-        const page = await getPageBySlug(params.page)
-        return page?.kicker
+        return GetPageKicker.invoke(params.page)
       }}
     />
   )

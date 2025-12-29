@@ -1,8 +1,7 @@
-import { notFound } from 'next/navigation'
 import { ImageResponse } from 'next/og'
 
 import { getFonts, OpengraphBaseImage } from '@/comps/og-base-image'
-import { getTagBySlug } from '@/data/tags'
+import { TagOgImage } from '@/data/actions/tagOgImage'
 
 export const size = {
   width: 1200,
@@ -16,14 +15,10 @@ type Props = {
 
 export default async function Image(props: Props) {
   const params = await props.params
-  const tag = await getTagBySlug(params.tag)
-  if (!tag) notFound()
+  const { title } = await TagOgImage.invoke(params.tag)
 
-  return new ImageResponse(
-    <OpengraphBaseImage title={[`Posts about ${tag.title}`]} />,
-    {
-      ...size,
-      ...(await getFonts()),
-    },
-  )
+  return new ImageResponse(<OpengraphBaseImage title={[title]} />, {
+    ...size,
+    ...(await getFonts()),
+  })
 }

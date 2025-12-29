@@ -1,14 +1,10 @@
 import { Webhooks } from '@octokit/webhooks'
 import type { EventPayloadMap, PushEvent } from '@octokit/webhooks-types'
-import { revalidatePath, revalidateTag } from 'next/cache'
 import { type NextRequest, NextResponse } from 'next/server'
 
 import { config } from '@/config'
-import { updatePageCache } from '@/data/pages'
-import { updatePostCache } from '@/data/posts'
-import { updateSettingsCache } from '@/data/settings'
-import { updateShortsCache } from '@/data/shorts'
-import { updateTagCache } from '@/data/tags'
+import { HandleGitPush } from '@/data/actions/handleGitPush'
+import { kernel } from '@/data/kernel'
 import { log as baseLog } from '@/lib/log'
 
 const log = baseLog.child().withContext({ module: 'webhooks/github' })
@@ -60,50 +56,7 @@ export async function POST(request: NextRequest) {
       new Set([...allModified, ...allAdded, ...allRemoved]),
     )
 
-    // update individuals
-    await Promise.allSettled(
-      changedFiles.map(async (file) => {
-        const [resource, slug] = file.split('/')
-
-        if (resource === 'posts') {
-          await updatePostCache(slug)
-          revalidateTag(`feed-pre:${slug}`)
-          revalidateTag(`mdx-post:${slug}`)
-          revalidatePath('/tags') // also update tags to update the post count
-          log.withMetadata({ resource, slug }).info('Updated cache')
-          return
-        }
-
-        if (resource === 'pages') {
-          await updatePageCache(slug)
-          revalidateTag(`mdx-page:${slug}`)
-          log.withMetadata({ resource, slug }).info('Updated cache')
-          return
-        }
-
-        if (resource === 'tags') {
-          await updateTagCache(slug)
-          revalidatePath('/tags')
-          log.withMetadata({ resource, slug }).info('Updated cache')
-          return
-        }
-
-        if (resource === 'shorts') {
-          await updateShortsCache(slug)
-          revalidateTag(`mdx-short:${slug}`)
-          log.withMetadata({ resource, slug }).info('Updated cache')
-          return
-        }
-
-        if (resource === 'settings') {
-          await updateSettingsCache()
-          log.withMetadata({ resource, slug }).info('Updated cache')
-          return
-        }
-
-        log.debug(`Nothing to update for ${file}`)
-      }),
-    )
+    await HandleGitPush.withKernel(kernel.scoped()).invoke(changedFiles)
 
     return NextResponse.json({
       revalidated: true,

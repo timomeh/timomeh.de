@@ -1,11 +1,7 @@
-import { notFound } from 'next/navigation'
 import { ImageResponse } from 'next/og'
 
 import { getFonts, OpengraphBaseImage } from '@/comps/og-base-image'
-import { config } from '@/config'
-import { contentAsset } from '@/data/cms'
-import { getPostBySlug } from '@/data/posts'
-import { formatReadingTime } from '@/lib/formatReadingTime'
+import { PostOgImage } from '@/data/actions/postOgImage'
 
 export const generateStaticParams = () => []
 export const size = {
@@ -20,21 +16,10 @@ type Props = {
 
 export default async function Image({ params }: Props) {
   const { slug } = await params
-  const post = await getPostBySlug(slug)
-  if (!post) notFound()
-
-  const cover = post.darkCover
-    ? new URL(contentAsset('posts', post.slug, post.darkCover), config.siteUrl)
-        .href
-    : undefined
+  const { title, cover, date, est } = await PostOgImage.invoke(slug)
 
   return new ImageResponse(
-    <OpengraphBaseImage
-      title={[post.title]}
-      cover={cover}
-      date={post.publishedAt}
-      est={formatReadingTime(post.content, post.readingTime, 'read')}
-    />,
+    <OpengraphBaseImage title={[title]} cover={cover} date={date} est={est} />,
     {
       ...size,
       ...(await getFonts()),

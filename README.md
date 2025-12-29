@@ -4,6 +4,7 @@ Source code from [timomeh.de](https://timomeh.de). Stack:
 
 - Next.js
 - Content stored in a separate (private) GitHub Repo
+- [Vla](https://vla.run) as data layer
 - [Keystatic](https://keystatic.com/) as CMS
 - [Drizzle](https://orm.drizzle.team) with SQLite for caching and querying the content from GitHub
 - hosted on [Railway](https://railway.com/) 🚞
@@ -52,6 +53,7 @@ Pushing to the `main` brach automatically triggers a new release:
 This is total overkill and I do it because it's fun. You might not need what I used:
 
 - [Next.js](https://nextjs.org/)
+- [Vla](https://vla.run/)
 - hosted on [Railway](https://railway.com/)
 - Cloudflare CDN
 - [imgproxy](https://imgproxy.net/) for image optimization

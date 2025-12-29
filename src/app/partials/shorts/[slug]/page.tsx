@@ -4,8 +4,7 @@ import { Suspense } from 'react'
 
 import { MDX } from '@/comps/mdx/mdx'
 import { config } from '@/config'
-import { contentAsset } from '@/data/cms'
-import { getShortById } from '@/data/shorts'
+import { ShowSimpleShort } from '@/data/actions/showSimpleShort'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -31,8 +30,7 @@ export async function generateStaticParams() {
 
 async function SimpleShort(props: Props) {
   const params = await props.params
-  const short = await getShortById(params.slug)
-  if (!short) notFound()
+  const short = await ShowSimpleShort.invoke(params.slug)
 
   // The content gets wrapped by <marker-start /> and <marker-end />, allowing
   // for easy parsing.
@@ -48,9 +46,7 @@ async function SimpleShort(props: Props) {
           short.content,
           '<FeedParseMarker name="end" />',
         ].join('\n')}
-        assetPrefix={
-          new URL(contentAsset('shorts', short.id, ''), config.siteUrl).href
-        }
+        assetPrefix={short.assetPrefix}
         components={{
           FeedParseMarker: (props: { name: string }) => {
             const Element = `marker-${props.name}`

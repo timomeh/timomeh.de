@@ -1,7 +1,6 @@
 import Link from 'next/link'
-import { getShortsAvatar } from '@/data/settings'
-import type { Short } from '@/data/shorts'
-import { contentAsset } from '../data/cms'
+import { DecorateShort } from '../data/actions/decorateShort'
+import type { Short } from '../data/repos/shorts.repo'
 import { formatRelativeDate, isMoreThanWeeksAgo } from '../lib/date'
 import { LocalDateTime } from './local-date-time'
 import { MDX } from './mdx/mdx'
@@ -17,7 +16,7 @@ type Props = {
 // off with a "+3 more" overlay
 
 export async function ListedShort({ short }: Props) {
-  const avatar = await getShortsAvatar()
+  const { avatar, assetPrefix } = await DecorateShort.invoke(short.id)
 
   return (
     <div className="flex">
@@ -55,7 +54,7 @@ export async function ListedShort({ short }: Props) {
           <MDX
             cacheTags={['mdx-type:short', `mdx-short:${short.id}`]}
             cacheKey={`short-${short.id}`}
-            assetPrefix={contentAsset('shorts', short.id, '')}
+            assetPrefix={assetPrefix}
             content={short.content || ''}
             scope={short.id}
           />

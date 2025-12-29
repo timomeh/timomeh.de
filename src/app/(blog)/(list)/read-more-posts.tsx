@@ -2,23 +2,16 @@ import Link from 'next/link'
 
 import { Card } from '../../../comps/card'
 import { Prose } from '../../../comps/prose'
-import { listPostYears, listPublishedPostsByYear } from '../../../data/posts'
+import { TeaseYearPosts } from '../../../data/actions/teaseYearPosts'
 
 type Props = {
   year?: number
 }
 
 export async function ReadMorePosts({ year }: Props) {
-  const fromYear = year || (await getLatestYear()) - 1
-
-  const posts = await listPublishedPostsByYear(fromYear, { limit: 4 })
-
-  if (posts.length < 1) {
-    return null
-  }
-
-  const postYears = await listPostYears()
-  const postYear = postYears.find((py) => py.year === fromYear)
+  const result = await TeaseYearPosts.invoke(year)
+  if (!result) return null
+  const { postYear, posts, fromYear } = result
 
   return (
     <section className="mt-10">
@@ -65,10 +58,4 @@ export async function ReadMorePosts({ year }: Props) {
       </div>
     </section>
   )
-}
-
-async function getLatestYear() {
-  const postYears = await listPostYears()
-  const postYear = postYears[0]
-  return postYear.year
 }

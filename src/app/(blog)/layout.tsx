@@ -12,6 +12,8 @@ import { config } from '@/config'
 import { KeyboardNavLink } from '../../comps/keyboard-nav-link'
 import { ResponsiveSidebar } from './responsive-sidebar'
 
+import '@/data/kernel'
+
 type Props = {
   children: React.ReactNode
   header: React.ReactNode

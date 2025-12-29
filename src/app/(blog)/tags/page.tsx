@@ -2,11 +2,10 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { Prose } from '@/comps/prose'
-import { listTags } from '@/data/tags'
-import { pluralizePosts } from '@/lib/plurals'
+import { ListAllTags } from '@/data/actions/listAllTags'
 
 export default async function Page() {
-  const tags = await listTags()
+  const tags = await ListAllTags.invoke()
 
   return (
     <div className="relative">
@@ -16,9 +15,7 @@ export default async function Page() {
           <ul>
             {tags.map((tag) => (
               <li key={tag.slug}>
-                <Link href={`/tag/${tag.slug}`}>
-                  {tag.title} ({pluralizePosts(tag.postCount)})
-                </Link>
+                <Link href={`/tag/${tag.slug}`}>{tag.titleAndCount}</Link>
               </li>
             ))}
           </ul>

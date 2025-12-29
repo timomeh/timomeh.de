@@ -1,4 +1,5 @@
-import { buildShortsFeed } from '@/lib/feed'
+import { BuildShortsFeed } from '@/data/actions/buildFeed'
+import { kernel } from '@/data/kernel'
 
 type Options = {
   params: Promise<{
@@ -16,7 +17,9 @@ export async function GET(_req: Request, props: Options) {
     return new Response('Not a supported feed type', { status: 400 })
   }
 
-  const feed = await buildShortsFeed(params.type)
+  const feed = await BuildShortsFeed.withKernel(kernel.scoped()).invoke(
+    params.type,
+  )
 
   return new Response(feed, {
     headers: {

@@ -152,6 +152,9 @@ importers:
       unist-util-visit:
         specifier: 5.0.0
         version: 5.0.0
+      vla:
+        specifier: 0.1.6
+        version: 0.1.6
     devDependencies:
       '@argos-ci/playwright':
         specifier: 6.3.8
@@ -3501,6 +3504,10 @@ packages:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
     engines: {node: '>=0.10.0'}
 
+  object-hash@3.0.0:
+    resolution: {integrity: sha512-RSn9F68PjH9HqtltsSnqYC1XXoWe9Bju5+213R98cNGttag9q9yAOTzdbsqvIa7aNm5WffBZFpWYr2aWrklWAw==}
+    engines: {node: '>= 6'}
+
   on-exit-leak-free@2.1.2:
     resolution: {integrity: sha512-0eJJY6hXLGf1udHwfNftBqH+g73EU4B504nZeKpz1sYRKafAghwxEJunB2O7rDZkL4PGfsMVnTXZ2EjibbqcsA==}
     engines: {node: '>=14.0.0'}
@@ -4031,6 +4038,9 @@ packages:
 
   vfile@6.0.3:
     resolution: {integrity: sha512-KzIbH/9tXat2u30jf+smMwFCsno4wHVdNmzFyL+T/L3UGqqk6JKfVqOFOZEpZSHADH1k40ab6NUIXZq422ov3Q==}
+
+  vla@0.1.6:
+    resolution: {integrity: sha512-bS5KpgszSKTmMZK0pDOoLIMiZ3CizuF9Ze7KSPD/v+EAf8llODEWB9dasOGBainvP5xZDXhZvU6RKwl8Wq3VnA==}
 
   w3c-keyname@2.2.8:
     resolution: {integrity: sha512-dpojBhNsCNN7T82Tm7k26A6G9ML3NkhDsnw9n/eoxSRlVBB4CEtIQ/KTCLI2Fwf3ataSXRhYFkQi3SlnFwPvPQ==}
@@ -8541,6 +8551,8 @@ snapshots:
 
   normalize-path@3.0.0: {}
 
+  object-hash@3.0.0: {}
+
   on-exit-leak-free@2.1.2: {}
 
   once@1.4.0:
@@ -9217,6 +9229,10 @@ snapshots:
     dependencies:
       '@types/unist': 3.0.3
       vfile-message: 4.0.3
+
+  vla@0.1.6:
+    dependencies:
+      object-hash: 3.0.0
 
   w3c-keyname@2.2.8: {}
 

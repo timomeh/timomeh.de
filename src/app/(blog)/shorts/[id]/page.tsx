@@ -1,11 +1,8 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
-import { notFound } from 'next/navigation'
 import { Card } from '@/comps/card'
 import { DetailedShort } from '@/comps/detailed-short'
-import { getShortById } from '@/data/shorts'
-import { stripMarkdown } from '@/lib/markdown'
-import { metaTitle } from '@/lib/metaTitle'
+import { ShowShort } from '@/data/actions/showShort'
+import { ShortMetadata } from '../../../../data/actions/shortMetadata'
 
 type Props = {
   params: Promise<{ id: string }>
@@ -13,8 +10,7 @@ type Props = {
 
 export default async function Page(props: Props) {
   const params = await props.params
-  const short = await getShortById(params.id)
-  if (!short) notFound()
+  const { short } = await ShowShort.invoke(params.id)
 
   return (
     <article lang={short.metaLang?.split('_')[0]} className="relative mt-2">
@@ -43,28 +39,5 @@ export async function generateStaticParams() {
 
 export async function generateMetadata(props: Props) {
   const params = await props.params
-  const short = await getShortById(params.id)
-  if (!short) notFound()
-
-  const metadata: Metadata = {
-    title: short.content
-      ? metaTitle(stripMarkdown(short.content))
-      : 'Timo thinks…',
-    description: short.content,
-    openGraph: {
-      type: 'article',
-      publishedTime: short.publishedAt.toISOString(),
-      authors: ['Timo Mämecke'],
-      locale: short.metaLang || undefined,
-    },
-    alternates: {
-      types: {
-        'application/atom+xml': '/shorts/feed.atom',
-        'application/rss+xml': '/shorts/feed.rss',
-        'application/feed+json': '/shorts/feed.json',
-      },
-    },
-  }
-
-  return metadata
+  return ShortMetadata.invoke(params.id)
 }

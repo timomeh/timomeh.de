@@ -4,8 +4,7 @@ import { Suspense } from 'react'
 
 import { MDX } from '@/comps/mdx/mdx'
 import { config } from '@/config'
-import { contentAsset } from '@/data/cms'
-import { getPostBySlug } from '@/data/posts'
+import { ShowSimplePost } from '../../../../data/actions/showSimplePost'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -31,14 +30,7 @@ export async function generateStaticParams() {
 
 async function SimplePost(props: Props) {
   const params = await props.params
-  const post = await getPostBySlug(params.slug)
-  if (!post) notFound()
-
-  // strip h1 but only if it isn't a link
-  const contentWithoutH1 = post.content.replace(
-    /^# (?!.*\[[^\]]+\]\([^)]+\)).+\n?/,
-    '',
-  )
+  const post = await ShowSimplePost.invoke(params.slug)
 
   // The content gets wrapped by <marker-start /> and <marker-end />, allowing
   // for easy parsing.
@@ -51,12 +43,10 @@ async function SimplePost(props: Props) {
         cacheTags={['mdx-type:simple-post', `mdx-post:${post.slug}`]}
         content={[
           '<FeedParseMarker name="begin" />',
-          contentWithoutH1,
+          post.contentWithoutH1,
           '<FeedParseMarker name="end" />',
         ].join('\n')}
-        assetPrefix={
-          new URL(contentAsset('posts', post.slug, ''), config.siteUrl).href
-        }
+        assetPrefix={post.assetPrefix}
         components={{
           FeedParseMarker: (props: { name: string }) => {
             const Element = `marker-${props.name}`

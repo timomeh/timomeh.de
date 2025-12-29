@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { listPostYears } from '@/data/posts'
+import { ListSidebarYears } from '@/data/actions/listSidebarYears'
 
 type Props = {
   yearParam?: string
@@ -9,12 +9,10 @@ type Props = {
 }
 
 export async function YearsWidget({ yearParam, tagParam, sort }: Props) {
-  const postYears = await listPostYears()
-  const activeYear = yearParam
-    ? Number(yearParam)
-    : tagParam
-      ? null
-      : postYears[0]?.year
+  const { activeYear, postYears } = await ListSidebarYears.invoke(
+    yearParam,
+    tagParam,
+  )
 
   return (
     <div className="@max-5xs:grid-cols-1 grid grid-cols-2 gap-1">

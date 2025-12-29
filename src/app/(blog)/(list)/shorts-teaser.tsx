@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Card } from '@/comps/card'
 import { ListedShort } from '@/comps/listed-short'
-import type { Short } from '@/data/shorts'
+import type { Short } from '@/data/repos/shorts.repo'
 
 type Prop = {
   shorts: Short[]

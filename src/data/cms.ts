@@ -2,109 +2,129 @@ import 'server-only'
 
 import type { EntryWithResolvedLinkedFiles } from '@keystatic/core/reader'
 import { createGitHubReader } from '@keystatic/core/reader/github'
-
+import { Vla } from 'vla'
 import { config } from '@/config'
 import keystaticConfig from '@/keystatic.config'
 import { cleanse } from '@/lib/cleanse'
 
 const branch = 'main'
 
-// everything related to fetching posts with keystatic
+type GitHubInstance = InstanceType<typeof GitHub>
 
-const reader = createGitHubReader(keystaticConfig, {
-  repo: 'timomeh/timomeh.de-content',
-  token: config.github.contentPat,
-  ref: branch,
-})
+export type Post = NonNullable<
+  Awaited<ReturnType<GitHubInstance['cms']['posts']['get']>>
+>
+export type Short = NonNullable<
+  Awaited<ReturnType<GitHubInstance['cms']['shorts']['get']>>
+>
+export type Page = NonNullable<
+  Awaited<ReturnType<GitHubInstance['cms']['pages']['get']>>
+>
+export type Tag = NonNullable<
+  Awaited<ReturnType<GitHubInstance['cms']['tags']['get']>>
+>
+export type Settings = NonNullable<
+  Awaited<ReturnType<GitHubInstance['cms']['settings']['get']>>
+>
 
-export type Post = NonNullable<Awaited<ReturnType<typeof cms.posts.get>>>
-export type Short = NonNullable<Awaited<ReturnType<typeof cms.shorts.get>>>
-export type Page = NonNullable<Awaited<ReturnType<typeof cms.pages.get>>>
-export type Tag = NonNullable<Awaited<ReturnType<typeof cms.tags.get>>>
-export type Settings = NonNullable<Awaited<ReturnType<typeof cms.settings.get>>>
+export class GitHub extends Vla.Resource {
+  static readonly unwrap = 'cms'
 
-export const cms = {
-  posts: {
-    async get(slug: string) {
-      const post = await reader.collections.posts.read(slug, {
-        resolveLinkedFiles: true,
-      })
-      if (!post) return null
+  reader = createGitHubReader(keystaticConfig, {
+    repo: 'timomeh/timomeh.de-content',
+    token: config.github.contentPat,
+    ref: branch,
+  })
 
-      return { slug, ...sanitizePost(post) }
+  cms = {
+    posts: {
+      get: async (slug: string) => {
+        const post = await this.reader.collections.posts.read(slug, {
+          resolveLinkedFiles: true,
+        })
+        if (!post) return null
+
+        return { slug, ...sanitizePost(post) }
+      },
+      all: async () => {
+        const posts = await this.reader.collections.posts.all({
+          resolveLinkedFiles: true,
+        })
+
+        return posts.map(({ slug, entry }) => ({
+          slug,
+          ...sanitizePost(entry),
+        }))
+      },
     },
-    async all() {
-      const posts = await reader.collections.posts.all({
-        resolveLinkedFiles: true,
-      })
+    shorts: {
+      get: async (id: string) => {
+        const short = await this.reader.collections.shorts.read(id, {
+          resolveLinkedFiles: true,
+        })
+        if (!short) return null
 
-      return posts.map(({ slug, entry }) => ({ slug, ...sanitizePost(entry) }))
-    },
-  },
-  shorts: {
-    async get(id: string) {
-      const short = await reader.collections.shorts.read(id, {
-        resolveLinkedFiles: true,
-      })
-      if (!short) return null
+        return { id, ...sanitizeShort(short) }
+      },
+      all: async () => {
+        const shorts = await this.reader.collections.shorts.all({
+          resolveLinkedFiles: true,
+        })
 
-      return { id, ...sanitizeShort(short) }
+        return shorts.map(({ slug, entry }) => ({
+          id: slug,
+          ...sanitizeShort(entry),
+        }))
+      },
     },
-    async all() {
-      const shorts = await reader.collections.shorts.all({
-        resolveLinkedFiles: true,
-      })
+    tags: {
+      get: async (slug: string) => {
+        const tag = await this.reader.collections.tags.read(slug, {
+          resolveLinkedFiles: true,
+        })
+        if (!tag) return null
 
-      return shorts.map(({ slug, entry }) => ({
-        id: slug,
-        ...sanitizeShort(entry),
-      }))
-    },
-  },
-  tags: {
-    async get(slug: string) {
-      const tag = await reader.collections.tags.read(slug, {
-        resolveLinkedFiles: true,
-      })
-      if (!tag) return null
+        return { slug, ...sanitizeTag(tag) }
+      },
+      all: async () => {
+        const tags = await this.reader.collections.tags.all({
+          resolveLinkedFiles: true,
+        })
 
-      return { slug, ...sanitizeTag(tag) }
+        return tags.map(({ slug, entry }) => ({ slug, ...sanitizeTag(entry) }))
+      },
     },
-    async all() {
-      const tags = await reader.collections.tags.all({
-        resolveLinkedFiles: true,
-      })
+    pages: {
+      get: async (slug: string) => {
+        const page = await this.reader.collections.pages.read(slug, {
+          resolveLinkedFiles: true,
+        })
+        if (!page) return null
 
-      return tags.map(({ slug, entry }) => ({ slug, ...sanitizeTag(entry) }))
-    },
-  },
-  pages: {
-    async get(slug: string) {
-      const page = await reader.collections.pages.read(slug, {
-        resolveLinkedFiles: true,
-      })
-      if (!page) return null
+        return { slug, ...sanitizePage(page) }
+      },
+      all: async () => {
+        const pages = await this.reader.collections.pages.all({
+          resolveLinkedFiles: true,
+        })
 
-      return { slug, ...sanitizePage(page) }
+        return pages.map(({ slug, entry }) => ({
+          slug,
+          ...sanitizePage(entry),
+        }))
+      },
     },
-    async all() {
-      const pages = await reader.collections.pages.all({
-        resolveLinkedFiles: true,
-      })
+    settings: {
+      get: async () => {
+        const settings = await this.reader.singletons.settings.read({
+          resolveLinkedFiles: true,
+        })
+        if (!settings) return null
 
-      return pages.map(({ slug, entry }) => ({ slug, ...sanitizePage(entry) }))
+        return sanitizeSettings(settings)
+      },
     },
-  },
-  settings: {
-    async get() {
-      const settings = await reader.singletons.settings.read({
-        resolveLinkedFiles: true,
-      })
-      if (!settings) return null
-
-      return sanitizeSettings(settings)
-    },
-  },
+  }
 }
 
 export function contentAsset(

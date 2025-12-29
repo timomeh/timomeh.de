@@ -2,8 +2,7 @@ import { Suspense } from 'react'
 
 import { HeaderBackdropEmpty } from '@/comps/header-backdrop-empty'
 import { HeaderBackdropImage } from '@/comps/header-backdrop-image'
-import { contentAsset } from '@/data/cms'
-import { getPostBySlug } from '@/data/posts'
+import { GetPostBackdrop } from '@/data/actions/getPostBackdrop'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -11,11 +10,11 @@ type Props = {
 
 export default async function Page(props: Props) {
   const params = await props.params
-  const post = await getPostBySlug(params.slug)
+  const backdrop = await GetPostBackdrop.invoke(params.slug)
 
   return (
     <>
-      {post?.lightCover || post?.darkCover ? (
+      {backdrop.lightCover || backdrop.darkCover ? (
         <div className="static">
           <div className="header-backdrop-signal" />
           <Suspense
@@ -27,31 +26,23 @@ export default async function Page(props: Props) {
             }
           >
             <HeaderBackdropImage
-              lightSrc={
-                post.lightCover
-                  ? contentAsset('posts', post.slug, post.lightCover)
-                  : undefined
-              }
-              darkSrc={
-                post.darkCover
-                  ? contentAsset('posts', post.slug, post.darkCover)
-                  : undefined
-              }
+              lightSrc={backdrop.lightCover}
+              darkSrc={backdrop.darkCover}
             />
           </Suspense>
         </div>
       ) : (
         <HeaderBackdropEmpty />
       )}
-      {post?.lightBgColor && (
+      {backdrop.lightBgColor && (
         <div
-          style={{ background: post?.lightBgColor }}
+          style={{ background: backdrop.lightBgColor }}
           className="absolute inset-0 -z-10 mix-blend-multiply dark:hidden"
         />
       )}
-      {post?.darkBgColor && (
+      {backdrop.darkBgColor && (
         <div
-          style={{ background: post?.darkBgColor }}
+          style={{ background: backdrop.darkBgColor }}
           className="absolute inset-0 -z-10 hidden mix-blend-exclusion
             dark:block"
         />

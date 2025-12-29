@@ -65,7 +65,8 @@
     "server-only": "0.0.1",
     "sharp": "0.34.5",
     "tiny-relative-date": "2.0.2",
-    "unist-util-visit": "5.0.0"
+    "unist-util-visit": "5.0.0",
+    "vla": "0.1.6"
   },
   "devDependencies": {
     "@argos-ci/playwright": "6.3.8",

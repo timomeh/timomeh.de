@@ -1,6 +1,5 @@
-import { contentAsset } from '@/data/cms'
-import { getShortsAvatar } from '@/data/settings'
-import type { Short } from '@/data/shorts'
+import { DecorateShort } from '../data/actions/decorateShort'
+import type { Short } from '../data/repos/shorts.repo'
 import { LocalDateTime } from './local-date-time'
 import { MDX } from './mdx/mdx'
 import { MediaGrid } from './media-grid'
@@ -12,7 +11,7 @@ type Props = {
 }
 
 export async function DetailedShort({ short }: Props) {
-  const avatar = await getShortsAvatar()
+  const { avatar, assetPrefix } = await DecorateShort.invoke(short.id)
 
   return (
     <div className="flex">
@@ -33,7 +32,7 @@ export async function DetailedShort({ short }: Props) {
           <MDX
             cacheTags={['mdx-type:short', `mdx-short:${short.id}`]}
             cacheKey={`short-${short.id}`}
-            assetPrefix={contentAsset('shorts', short.id, '')}
+            assetPrefix={assetPrefix}
             content={short.content || ''}
           />
           {!!short.attachments && short.attachments.length > 0 && (

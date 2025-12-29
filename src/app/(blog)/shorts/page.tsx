@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 import { Card } from '@/comps/card'
-import { listShorts } from '@/data/shorts'
+import { ListShorts } from '@/data/actions/listShorts'
 import { ListedShort } from '../../../comps/listed-short'
 
 export default async function Page() {
-  const shorts = await listShorts()
+  const shorts = await ListShorts.invoke()
 
   return (
     <section className="mt-2 relative">

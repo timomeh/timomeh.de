@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 import { Tag } from '@/comps/tag'
-import { listTags } from '@/data/tags'
+import { ListSidebarTags } from '@/data/actions/listSidebarTags'
 
 type Props = {
   sort?: 'asc' | 'desc' | null
@@ -9,8 +9,8 @@ type Props = {
 }
 
 export async function TagsWidget({ sort, tagParam }: Props) {
-  const tags = await listTags()
   const activeTag = tagParam
+  const tags = await ListSidebarTags.invoke()
 
   return (
     <div>
