@@ -15,6 +15,20 @@ export class ListLatestYearPosts extends Vla.Action {
     const posts = postYear
       ? await this.postsRepo.listPublishedByYear(postYear.year, { sort })
       : []
+
+    const MIN_POSTS_TO_DISPLAY = 7
+
+    if (posts.length < MIN_POSTS_TO_DISPLAY) {
+      const lastYearPosts = await this.postsRepo.listPublishedByYear(
+        postYear.year - 1,
+        {
+          sort,
+          limit: Math.max(2, MIN_POSTS_TO_DISPLAY - posts.length),
+        },
+      )
+      posts.push(...lastYearPosts)
+    }
+
     const groupedPosts = groupPosts(posts)
     const shorts = await this.shortsRepo.list({ limit: 2 })
 

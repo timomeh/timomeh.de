@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import { ListSidebarYears } from '@/data/actions/listSidebarYears'
+import { pluralizePosts } from '../../../../lib/plurals'
 
 type Props = {
   yearParam?: string
@@ -46,7 +47,7 @@ export async function YearsWidget({ yearParam, tagParam, sort }: Props) {
                 {postYear.year}
               </div>
               <div className="@max-5xs:sr-only text-xs font-medium">
-                {postYear.count} posts
+                {pluralizePosts(postYear.count)}
               </div>
             </div>
           </div>

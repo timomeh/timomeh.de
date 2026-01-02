@@ -70,9 +70,7 @@ export async function PostsList({ sort = 'desc', year, tagSlug }: Props) {
         <Fragment key={group.marker}>
           <div className="mb-4 flex justify-center relative">
             <GlassPill>
-              <h3>
-                {pluralizePosts(group.posts.length)} {group.title}
-              </h3>
+              <h3>{group.title}</h3>
             </GlassPill>
           </div>
           {group.posts.map((post, postIndex) => (
