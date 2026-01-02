@@ -1,9 +1,8 @@
 import Link from 'next/link'
 
-// import { Aurora } from '@/comps/aurora'
-// import { Contours } from '@/comps/contours'
+import { Aurora } from '@/comps/aurora'
+import { Contours } from '@/comps/contours'
 import { Mug } from '@/comps/me/mug'
-import { Seasons } from '@/comps/seasons'
 
 type Props = {
   kicker: React.ReactNode
@@ -14,28 +13,20 @@ export default function Layout({ kicker, backdrop }: Props) {
   return (
     <div className="group/header">
       <div
-        className="grid [grid-template-rows:0fr] transition-all duration-700
-          ease-in-out has-[.header-backdrop-signal]:[grid-template-rows:1fr]"
+        className="grid grid-rows-[0fr] transition-all duration-700
+          ease-in-out has-[.header-backdrop-signal]:grid-rows-[1fr]"
       >
         <div className="min-h-0">{backdrop}</div>
       </div>
 
       <div
-        className="absolute right-0 left-0 -top-10 sm:-top-16 md:-top-28 -z-10 hidden
-          w-full group-has-[.header-no-backdrop-signal]/header:block opacity-20 mix-blend-darken dark:opacity-40 dark:mix-blend-lighten"
-        data-visual-test="removed"
-      >
-        <Seasons />
-      </div>
-
-      {/* <div
         className="absolute -top-[140px] right-0 left-0 -z-10 hidden h-[550px]
           w-full group-has-[.header-no-backdrop-signal]/header:block"
         data-visual-test="removed"
       >
         <Aurora />
         <Contours />
-      </div> */}
+      </div>
 
       <div
         className="relative z-20 overflow-hidden px-4 pt-14 pb-16 sm:pt-28
