@@ -4,9 +4,8 @@ import { MDX } from '@/comps/mdx/mdx'
 import { PostHeader } from '@/comps/post-header'
 import { Prose } from '@/comps/prose'
 import { Tag } from '@/comps/tag'
-import { PostMetadata } from '@/data/actions/postMetadata'
-import { ShowPost } from '@/data/actions/showPost'
 import { formatReadingTime } from '@/lib/formatReadingTime'
+import { PostMetadata, ShowPost } from './data'
 
 type Props = {
   params: Promise<{ slug: string }>

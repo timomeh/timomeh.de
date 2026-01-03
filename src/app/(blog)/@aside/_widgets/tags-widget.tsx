@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 import { Tag } from '@/comps/tag'
-import { ListSidebarTags } from '@/data/actions/listSidebarTags'
+import { ListSidebarTags } from '../data'
 
 type Props = {
   sort?: 'asc' | 'desc' | null

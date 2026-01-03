@@ -1,14 +1,13 @@
 import { RedoIcon, UndoIcon } from 'lucide-react'
 import Link from 'next/link'
-
-import { SurroundingPosts } from '@/data/actions/surroundingPosts'
+import { GetSidebarPostNav } from '../data'
 
 type Props = {
   currentSlug: string
 }
 
 export async function PostNavigationWidget({ currentSlug }: Props) {
-  const { newerPost, olderPost } = await SurroundingPosts.invoke(currentSlug)
+  const { newerPost, olderPost } = await GetSidebarPostNav.invoke(currentSlug)
 
   return (
     <div className="@max-5xs:gap-1 flex flex-col items-stretch gap-2">

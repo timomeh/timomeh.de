@@ -1,7 +1,6 @@
 import Link from 'next/link'
-
-import { ListSidebarYears } from '@/data/actions/listSidebarYears'
 import { pluralizePosts } from '../../../../lib/plurals'
+import { ListSidebarYears } from '../data'
 
 type Props = {
   yearParam?: string

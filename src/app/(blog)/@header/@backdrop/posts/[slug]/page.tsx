@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 
 import { HeaderBackdropEmpty } from '@/comps/header-backdrop-empty'
 import { HeaderBackdropImage } from '@/comps/header-backdrop-image'
-import { GetPostBackdrop } from '@/data/actions/getPostBackdrop'
+import { ShowPostBackdrop } from './data'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -10,7 +10,7 @@ type Props = {
 
 export default async function Page(props: Props) {
   const params = await props.params
-  const backdrop = await GetPostBackdrop.invoke(params.slug)
+  const backdrop = await ShowPostBackdrop.invoke(params.slug)
 
   return (
     <>

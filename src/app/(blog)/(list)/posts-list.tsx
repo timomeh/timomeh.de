@@ -1,9 +1,11 @@
 import React, { Fragment } from 'react'
 import { GlassPill } from '@/comps/glass-pill'
 import { pluralizePosts } from '@/lib/plurals'
-import { ListLatestYearPosts } from '../../../data/actions/listLatestYearPosts'
-import { ListTaggedPosts } from '../../../data/actions/listTaggedPosts'
-import { ListYearPosts } from '../../../data/actions/listYearPosts'
+import {
+  ListPostsByTag,
+  ListPostsByYear,
+  ListPostsForCurrentYear,
+} from './data'
 import { ListedPost } from './listed-post'
 import { ShortsTeaser } from './shorts-teaser'
 
@@ -15,7 +17,7 @@ type Props = {
 
 export async function PostsList({ sort = 'desc', year, tagSlug }: Props) {
   if (tagSlug) {
-    const { tag, posts } = await ListTaggedPosts.invoke(tagSlug, sort)
+    const { tag, posts } = await ListPostsByTag.invoke(tagSlug, sort)
 
     return (
       <div className="space-y-10">
@@ -36,7 +38,7 @@ export async function PostsList({ sort = 'desc', year, tagSlug }: Props) {
   }
 
   if (year) {
-    const { postYear, posts } = await ListYearPosts.invoke(year, sort)
+    const { postYear, posts } = await ListPostsByYear.invoke(year, sort)
 
     return (
       <div className="space-y-10">
@@ -57,7 +59,7 @@ export async function PostsList({ sort = 'desc', year, tagSlug }: Props) {
   }
 
   const { groupedPosts, hasShorts, shorts, shortsAtTop } =
-    await ListLatestYearPosts.invoke(sort)
+    await ListPostsForCurrentYear.invoke(sort)
 
   return (
     <div className="space-y-10">

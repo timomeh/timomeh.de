@@ -1,4 +1,4 @@
-import { GetTagKicker } from '@/data/actions/getTagKicker'
+import { TagKicker } from '../../../data'
 import { DataKicker } from '../../../data-kicker'
 
 type Props = {
@@ -10,7 +10,7 @@ export default function Page(props: Props) {
     <DataKicker
       fetcher={async () => {
         const params = await props.params
-        return GetTagKicker.invoke(params.tag)
+        return TagKicker.invoke(params.tag)
       }}
     />
   )

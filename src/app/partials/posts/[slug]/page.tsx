@@ -4,7 +4,7 @@ import { Suspense } from 'react'
 
 import { MDX } from '@/comps/mdx/mdx'
 import { config } from '@/config'
-import { ShowSimplePost } from '../../../../data/actions/showSimplePost'
+import { ShowSimplifiedPost } from '../../data'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -30,7 +30,7 @@ export async function generateStaticParams() {
 
 async function SimplePost(props: Props) {
   const params = await props.params
-  const post = await ShowSimplePost.invoke(params.slug)
+  const post = await ShowSimplifiedPost.invoke(params.slug)
 
   // The content gets wrapped by <marker-start /> and <marker-end />, allowing
   // for easy parsing.

@@ -1,14 +1,14 @@
 import Link from 'next/link'
 
 import { Tag } from '@/comps/tag'
-import { ListPostTags } from '@/data/actions/listPostTags'
+import { ListSidebarPostTags } from '../data'
 
 type Props = {
   currentSlug: string
 }
 
 export async function PostTagsWidget({ currentSlug }: Props) {
-  const postTags = await ListPostTags.invoke(currentSlug)
+  const postTags = await ListSidebarPostTags.invoke(currentSlug)
   if (!postTags) return null
 
   return (

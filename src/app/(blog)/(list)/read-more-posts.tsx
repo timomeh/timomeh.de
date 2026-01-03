@@ -1,8 +1,7 @@
 import Link from 'next/link'
-
 import { Card } from '../../../comps/card'
 import { Prose } from '../../../comps/prose'
-import { TeaseYearPosts } from '../../../data/actions/teaseYearPosts'
+import { TeaseYearPosts } from './data'
 
 type Props = {
   year?: number
@@ -16,7 +15,7 @@ export async function ReadMorePosts({ year }: Props) {
   return (
     <section className="mt-10">
       <hr
-        className="border-beige/50 mx-auto mb-10 max-w-xs border-1
+        className="border-beige/50 mx-auto mb-10 max-w-xs border
           dark:border-white/10"
       />
       <div className="relative">

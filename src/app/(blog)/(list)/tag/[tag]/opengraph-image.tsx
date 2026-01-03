@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 import { getFonts, OpengraphBaseImage } from '@/comps/og-base-image'
-import { TagOgImage } from '@/data/actions/tagOgImage'
+import { TagOgImage } from './data'
 
 export const size = {
   width: 1200,

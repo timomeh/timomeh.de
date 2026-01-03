@@ -3,9 +3,9 @@ import type { EventPayloadMap, PushEvent } from '@octokit/webhooks-types'
 import { type NextRequest, NextResponse } from 'next/server'
 
 import { config } from '@/config'
-import { HandleGitPush } from '@/data/actions/handleGitPush'
 import { kernel } from '@/data/kernel'
 import { log as baseLog } from '@/lib/log'
+import { UpdateChangedFiles } from '../data'
 
 const log = baseLog.child().withContext({ module: 'webhooks/github' })
 
@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
       new Set([...allModified, ...allAdded, ...allRemoved]),
     )
 
-    await HandleGitPush.withKernel(kernel.scoped()).invoke(changedFiles)
+    await UpdateChangedFiles.withKernel(kernel.scoped()).invoke(changedFiles)
 
     return NextResponse.json({
       revalidated: true,

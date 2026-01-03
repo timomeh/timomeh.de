@@ -1,7 +1,6 @@
 import { MDX } from '@/comps/mdx/mdx'
 import { Prose } from '@/comps/prose'
-import { PageMetadata } from '@/data/actions/pageMetadata'
-import { ShowPage } from '@/data/actions/showPage'
+import { PageMetadata, ShowPage } from './data'
 
 type Props = {
   params: Promise<{ page: string }>

@@ -1,4 +1,4 @@
-import { TagMetadata } from '@/data/actions/tagMetadata'
+import { TagMetadata } from './data'
 
 type Props = {
   children: React.ReactNode

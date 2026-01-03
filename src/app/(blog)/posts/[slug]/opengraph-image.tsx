@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 import { getFonts, OpengraphBaseImage } from '@/comps/og-base-image'
-import { PostOgImage } from '@/data/actions/postOgImage'
+import { PostOgImage } from './data'
 
 export const generateStaticParams = () => []
 export const size = {

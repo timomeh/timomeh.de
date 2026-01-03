@@ -1,4 +1,4 @@
-import { GetPostKicker } from '@/data/actions/getPostKicker'
+import { PostKicker } from '../../data'
 import { DataKicker } from '../../data-kicker'
 
 type Props = {
@@ -10,7 +10,7 @@ export default function Page(props: Props) {
     <DataKicker
       fetcher={async () => {
         const params = await props.params
-        return GetPostKicker.invoke(params.slug)
+        return PostKicker.invoke(params.slug)
       }}
     />
   )

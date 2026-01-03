@@ -1,8 +1,8 @@
 import { type NextRequest, NextResponse } from 'next/server'
 
 import { config } from '@/config'
-import { NukeCaches } from '@/data/actions/nukeCaches'
 import { kernel } from '@/data/kernel'
+import { NukeCaches } from '../data'
 
 // yeet everything that's in the cache and re-cache it.
 

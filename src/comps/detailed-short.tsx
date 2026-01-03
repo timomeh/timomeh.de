@@ -1,5 +1,4 @@
-import { DecorateShort } from '../data/actions/decorateShort'
-import type { Short } from '../data/repos/shorts.repo'
+import type { EnrichedShort } from '@/data/shorts/shorts.service'
 import { LocalDateTime } from './local-date-time'
 import { MDX } from './mdx/mdx'
 import { MediaGrid } from './media-grid'
@@ -7,16 +6,14 @@ import { OptimImage } from './optim-image'
 import { Prose } from './prose'
 
 type Props = {
-  short: Short
+  short: EnrichedShort
 }
 
 export async function DetailedShort({ short }: Props) {
-  const { avatar, assetPrefix } = await DecorateShort.invoke(short.id)
-
   return (
     <div className="flex">
       <OptimImage
-        src={avatar}
+        src={short.avatar}
         quality={80}
         width={40}
         height={40}
@@ -32,7 +29,7 @@ export async function DetailedShort({ short }: Props) {
           <MDX
             cacheTags={['mdx-type:short', `mdx-short:${short.id}`]}
             cacheKey={`short-${short.id}`}
-            assetPrefix={assetPrefix}
+            assetPrefix={short.assetPrefix}
             content={short.content || ''}
           />
           {!!short.attachments && short.attachments.length > 0 && (

@@ -1,6 +1,5 @@
 import { Suspense } from 'react'
-
-import { RandomDefaultKicker } from '@/data/actions/randomDefaultKicker'
+import { DefaultKicker } from './data'
 
 export function RandomKicker() {
   return (
@@ -17,7 +16,7 @@ export function RandomKicker() {
 }
 
 async function RandomKickerSentence() {
-  const kicker = await RandomDefaultKicker.invoke()
+  const kicker = await DefaultKicker.invoke()
 
   return <span data-loaded="true">{kicker}</span>
 }

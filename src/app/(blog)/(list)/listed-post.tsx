@@ -7,10 +7,10 @@ import { Anchor } from '@/comps/mdx/anchor'
 import { MDX } from '@/comps/mdx/mdx'
 import { PostHeader } from '@/comps/post-header'
 import { Prose } from '@/comps/prose'
-import { ShowListedPost } from '@/data/actions/showListedPost'
 import { contentAsset } from '@/data/cms'
 import { formatReadingTime } from '@/lib/formatReadingTime'
 import { getPlaceholder } from '@/lib/placeholder'
+import { ShowListedPost } from './data'
 
 type Props = {
   slug: string

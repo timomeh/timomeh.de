@@ -1,5 +1,5 @@
-import { BuildPostsFeed } from '@/data/actions/buildFeed'
 import { kernel } from '@/data/kernel'
+import { BuildPostsFeed } from '../../data'
 
 type Options = {
   params: Promise<{

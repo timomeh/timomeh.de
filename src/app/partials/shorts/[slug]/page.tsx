@@ -4,7 +4,7 @@ import { Suspense } from 'react'
 
 import { MDX } from '@/comps/mdx/mdx'
 import { config } from '@/config'
-import { ShowSimpleShort } from '@/data/actions/showSimpleShort'
+import { ShowSimplifiedShort } from '../../data'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -30,7 +30,7 @@ export async function generateStaticParams() {
 
 async function SimpleShort(props: Props) {
   const params = await props.params
-  const short = await ShowSimpleShort.invoke(params.slug)
+  const short = await ShowSimplifiedShort.invoke(params.slug)
 
   // The content gets wrapped by <marker-start /> and <marker-end />, allowing
   // for easy parsing.

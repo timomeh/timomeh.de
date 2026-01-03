@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import { Card } from '@/comps/card'
 import { ListedShort } from '@/comps/listed-short'
-import type { Short } from '@/data/repos/shorts.repo'
+import type { EnrichedShort } from '@/data/shorts/shorts.service'
 
 type Prop = {
-  shorts: Short[]
+  shorts: EnrichedShort[]
 }
 
 export function ShortsTeaser({ shorts }: Prop) {

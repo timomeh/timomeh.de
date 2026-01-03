@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import { Card } from '@/comps/card'
 import { DetailedShort } from '@/comps/detailed-short'
-import { ShowShort } from '@/data/actions/showShort'
-import { ShortMetadata } from '../../../../data/actions/shortMetadata'
+import { ShortMetadata, ShowShort } from '../data'
 
 type Props = {
   params: Promise<{ id: string }>
@@ -10,7 +9,7 @@ type Props = {
 
 export default async function Page(props: Props) {
   const params = await props.params
-  const { short } = await ShowShort.invoke(params.id)
+  const short = await ShowShort.invoke(params.id)
 
   return (
     <article lang={short.metaLang?.split('_')[0]} className="relative mt-2">

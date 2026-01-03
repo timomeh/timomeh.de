@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Card } from '@/comps/card'
-import { ListShorts } from '@/data/actions/listShorts'
 import { ListedShort } from '../../../comps/listed-short'
+import { ListShorts } from './data'
 
 export default async function Page() {
   const shorts = await ListShorts.invoke()
