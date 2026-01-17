@@ -198,6 +198,9 @@ export class PostsRepo extends Vla.Repo {
   }
 
   async insertMany(posts: Post[]) {
+    this.bySlug.bustAll()
+    this.all.bustAll()
+
     return db.insert(schema.posts).values(posts).returning()
   }
 
@@ -210,6 +213,8 @@ export class PostsRepo extends Vla.Repo {
         set: post,
       })
       .returning()
+
+    this.bySlug.bustAll()
 
     return updated
   }
