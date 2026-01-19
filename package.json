@@ -41,7 +41,7 @@
     "@shikijs/types": "3.21.0",
     "date-fns": "4.1.0",
     "drizzle-orm": "0.45.1",
-    "feed": "5.1.0",
+    "feed": "5.2.0",
     "loglayer": "8.4.0",
     "lucide-react": "0.562.0",
     "mdast": "3.0.0",
