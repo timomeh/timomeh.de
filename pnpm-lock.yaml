@@ -157,8 +157,8 @@ importers:
         version: 0.1.6
     devDependencies:
       '@argos-ci/playwright':
-        specifier: 6.3.8
-        version: 6.3.8
+        specifier: 6.3.9
+        version: 6.3.9
       '@biomejs/biome':
         specifier: 2.3.11
         version: 2.3.11
@@ -226,16 +226,16 @@ packages:
     resolution: {integrity: sha512-LxEZZyn/PTgI8P5AEANufZ/K+gM2E4R78vySEvBK3wRQZ8qi4RkCWKUGWJEMauM1yQE1e2PdJ1Kitu56Of8yIg==}
     engines: {node: '>=20.0.0'}
 
-  '@argos-ci/browser@5.1.0':
-    resolution: {integrity: sha512-4UEM8MSPrlSKbzWMTa2KFXQ5SH/GB8tBl7TRXRk10McgzDwjNO3lG28KP10MTrWnn67cww7gzXPP8umSI048WQ==}
+  '@argos-ci/browser@5.1.1':
+    resolution: {integrity: sha512-HXxdpH7SIYdhEVnGHOauZefrb/7l8g6A6NONQXFAvSU2ArrHpL8TDXSiKYoNoAlOEqbW9RG5oam2nmbcbZpjRg==}
     engines: {node: '>=20.0.0'}
 
-  '@argos-ci/core@5.0.3':
-    resolution: {integrity: sha512-s/QmAowgfauJqn4v2dfTdNDkyMl5Cy2lv4AshdeQ3IRVUxaHBVQnIR45RkB/JIYsuDXiiYilxM7qzUmjr2WfhQ==}
+  '@argos-ci/core@5.0.4':
+    resolution: {integrity: sha512-tz5t/SrSO8Swc8haVbJkVfMTeTEgG7ex+p0j3PNru7vsFoy3Y4048zoYxoheMPDv9XXaiBJcxP2Cf58puT/WMw==}
     engines: {node: '>=20.0.0'}
 
-  '@argos-ci/playwright@6.3.8':
-    resolution: {integrity: sha512-aBmt0xBQPHEej4e1GR5pvBr0VwFaB5c5OxpEgJ0EzjkCPZ/jid3PU4EBpGqmUJrN2lp+NM9wuiyd/P77PobVQw==}
+  '@argos-ci/playwright@6.3.9':
+    resolution: {integrity: sha512-iUgyLLvd5EvG3fsiyryZMm9/2u0o2SfdfLVB/YKhSm4tMsBZ4j8iUAv4xc+1SPfgIEKHY0xpC5+pVcgSBST0cw==}
     engines: {node: '>=20.0.0'}
 
   '@argos-ci/util@3.2.0':
@@ -4151,9 +4151,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@argos-ci/browser@5.1.0': {}
+  '@argos-ci/browser@5.1.1': {}
 
-  '@argos-ci/core@5.0.3':
+  '@argos-ci/core@5.0.4':
     dependencies:
       '@argos-ci/api-client': 0.15.0
       '@argos-ci/util': 3.2.0
@@ -4166,10 +4166,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@argos-ci/playwright@6.3.8':
+  '@argos-ci/playwright@6.3.9':
     dependencies:
-      '@argos-ci/browser': 5.1.0
-      '@argos-ci/core': 5.0.3
+      '@argos-ci/browser': 5.1.1
+      '@argos-ci/core': 5.0.4
       '@argos-ci/util': 3.2.0
       chalk: 5.6.2
       debug: 4.4.3
