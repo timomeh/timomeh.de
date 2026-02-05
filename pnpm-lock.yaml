@@ -18,8 +18,8 @@ importers:
         specifier: 3.2.12
         version: 3.2.12(next@16.1.6(@opentelemetry/api@1.9.0)(@playwright/test@1.58.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@fancyapps/ui':
-        specifier: 6.1.9
-        version: 6.1.9
+        specifier: 6.1.10
+        version: 6.1.10
       '@imgproxy/imgproxy-js-core':
         specifier: 1.7.0
         version: 1.7.0
@@ -1045,8 +1045,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@fancyapps/ui@6.1.9':
-    resolution: {integrity: sha512-ui+p83lGIAl4s3RYTQhuM905LUoVOh+u9J7mJurC+2SeYekY9l69JUm7v90JW5gWCsUmuyaGNwjwVfMYeKLrfw==}
+  '@fancyapps/ui@6.1.10':
+    resolution: {integrity: sha512-sLiIk2jLPY10nzuZu5fMMaS5//8g44QrSREVnI4VXs4Kih+g2wMUyfgsOdTqw36BfVh6ghmMKadm+Mmxy5ynvw==}
 
   '@floating-ui/core@1.7.2':
     resolution: {integrity: sha512-wNB5ooIKHQc+Kui96jE/n69rHFWAVoxn5CAzL1Xdd8FG03cgY3MLO+GF9U3W737fYDSgPWA6MReKhBQBop6Pcw==}
@@ -5159,7 +5159,7 @@ snapshots:
   '@esbuild/win32-x64@0.27.2':
     optional: true
 
-  '@fancyapps/ui@6.1.9': {}
+  '@fancyapps/ui@6.1.10': {}
 
   '@floating-ui/core@1.7.2':
     dependencies:
