@@ -61,7 +61,7 @@
     "remark-gfm": "4.0.1",
     "remark-smartypants": "3.0.2",
     "remove-markdown": "0.6.3",
-    "serialize-error": "12.0.0",
+    "serialize-error": "13.0.1",
     "server-only": "0.0.1",
     "sharp": "0.34.5",
     "tiny-relative-date": "2.0.2",
