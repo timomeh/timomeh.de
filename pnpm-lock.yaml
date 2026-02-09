@@ -153,8 +153,8 @@ importers:
         specifier: 5.1.0
         version: 5.1.0
       vla:
-        specifier: 0.1.6
-        version: 0.1.6
+        specifier: 0.2.0
+        version: 0.2.0
     devDependencies:
       '@argos-ci/playwright':
         specifier: 6.4.0
@@ -4068,8 +4068,8 @@ packages:
   vfile@6.0.3:
     resolution: {integrity: sha512-KzIbH/9tXat2u30jf+smMwFCsno4wHVdNmzFyL+T/L3UGqqk6JKfVqOFOZEpZSHADH1k40ab6NUIXZq422ov3Q==}
 
-  vla@0.1.6:
-    resolution: {integrity: sha512-bS5KpgszSKTmMZK0pDOoLIMiZ3CizuF9Ze7KSPD/v+EAf8llODEWB9dasOGBainvP5xZDXhZvU6RKwl8Wq3VnA==}
+  vla@0.2.0:
+    resolution: {integrity: sha512-fmmYRdJl0io+10bBEXlFAwo1lcq4h3G/CNyqmJbjPgmmpwZf52vX/tvddaM6tLYCsCPS/WNCzOXJ2ZTp1S12Pw==}
 
   w3c-keyname@2.2.8:
     resolution: {integrity: sha512-dpojBhNsCNN7T82Tm7k26A6G9ML3NkhDsnw9n/eoxSRlVBB4CEtIQ/KTCLI2Fwf3ataSXRhYFkQi3SlnFwPvPQ==}
@@ -9296,7 +9296,7 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.3
 
-  vla@0.1.6:
+  vla@0.2.0:
     dependencies:
       object-hash: 3.0.0
 
