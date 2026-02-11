@@ -181,11 +181,11 @@ importers:
         specifier: 7.2.5
         version: 7.2.5
       '@types/react':
-        specifier: 19.2.10
-        version: 19.2.10
+        specifier: 19.2.11
+        version: 19.2.11
       '@types/react-dom':
         specifier: 19.2.3
-        version: 19.2.3(@types/react@19.2.10)
+        version: 19.2.3(@types/react@19.2.11)
       '@types/remove-markdown':
         specifier: 0.3.4
         version: 0.3.4
@@ -2417,8 +2417,8 @@ packages:
     peerDependencies:
       '@types/react': ^19.2.0
 
-  '@types/react@19.2.10':
-    resolution: {integrity: sha512-WPigyYuGhgZ/cTPRXB2EwUw+XvsRA3GqHlsP4qteqrnnjDrApbS7MxcGr/hke5iUoeB7E/gQtrs9I37zAJ0Vjw==}
+  '@types/react@19.2.11':
+    resolution: {integrity: sha512-tORuanb01iEzWvMGVGv2ZDhYZVeRMrw453DCSAIn/5yvcSVnMoUMTyf33nQJLahYEnv9xqrTNbgz4qY5EfSh0g==}
 
   '@types/remove-markdown@0.3.4':
     resolution: {integrity: sha512-i753EH/p02bw7bLlpfS/4CV1rdikbGiLabWyVsAvsFid3cA5RNU1frG7JycgY+NSnFwtoGlElvZVceCytecTDA==}
@@ -5375,7 +5375,7 @@ snapshots:
       '@react-types/switch': 3.5.13(react@19.2.4)
       '@react-types/table': 3.13.2(react@19.2.4)
       '@react-types/tabs': 3.3.17(react@19.2.4)
-      '@types/react': 19.2.10
+      '@types/react': 19.2.11
       emery: 1.4.4
       facepaint: 1.2.1
       react: 19.2.4
@@ -5393,7 +5393,7 @@ snapshots:
       '@floating-ui/react': 0.24.8(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@internationalized/string': 3.2.7
       '@keystar/ui': 0.7.19(next@16.1.6(@opentelemetry/api@1.9.0)(@playwright/test@1.58.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@markdoc/markdoc': 0.4.0(@types/react@19.2.10)(react@19.2.4)
+      '@markdoc/markdoc': 0.4.0(@types/react@19.2.11)(react@19.2.4)
       '@react-aria/focus': 3.21.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@react-aria/i18n': 3.12.11(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@react-aria/interactions': 3.25.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -5410,7 +5410,7 @@ snapshots:
       '@sindresorhus/slugify': 1.1.2
       '@toeverything/y-indexeddb': 0.10.0-canary.9(yjs@13.6.27)
       '@ts-gql/tag': 0.7.3(graphql@16.11.0)
-      '@types/react': 19.2.10
+      '@types/react': 19.2.11
       '@urql/core': 5.2.0(graphql@16.11.0)
       '@urql/exchange-auth': 2.2.1(@urql/core@5.2.0(graphql@16.11.0))
       '@urql/exchange-graphcache': 7.2.4(@urql/core@5.2.0(graphql@16.11.0))(graphql@16.11.0)
@@ -5467,7 +5467,7 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.26.9
       '@keystatic/core': 0.5.48(next@16.1.6(@opentelemetry/api@1.9.0)(@playwright/test@1.58.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@types/react': 19.2.10
+      '@types/react': 19.2.11
       chokidar: 3.6.0
       next: 16.1.6(@opentelemetry/api@1.9.0)(@playwright/test@1.58.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react: 19.2.4
@@ -5559,10 +5559,10 @@ snapshots:
     dependencies:
       '@loglayer/shared': 3.3.0
 
-  '@markdoc/markdoc@0.4.0(@types/react@19.2.10)(react@19.2.4)':
+  '@markdoc/markdoc@0.4.0(@types/react@19.2.11)(react@19.2.4)':
     optionalDependencies:
       '@types/markdown-it': 12.2.3
-      '@types/react': 19.2.10
+      '@types/react': 19.2.11
       react: 19.2.4
 
   '@mdx-js/mdx@3.1.1':
@@ -7144,11 +7144,11 @@ snapshots:
       '@types/needle': 3.3.0
       '@types/node': 25.2.0
 
-  '@types/react-dom@19.2.3(@types/react@19.2.10)':
+  '@types/react-dom@19.2.3(@types/react@19.2.11)':
     dependencies:
-      '@types/react': 19.2.10
+      '@types/react': 19.2.11
 
-  '@types/react@19.2.10':
+  '@types/react@19.2.11':
     dependencies:
       csstype: 3.2.3
 
