@@ -81,8 +81,8 @@ importers:
         specifier: 5.2.0
         version: 5.2.0
       loglayer:
-        specifier: 8.4.1
-        version: 8.4.1
+        specifier: 8.5.0
+        version: 8.5.0
       lucide-react:
         specifier: 0.563.0
         version: 0.563.0(react@19.2.4)
@@ -3179,8 +3179,8 @@ packages:
   lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
 
-  loglayer@8.4.1:
-    resolution: {integrity: sha512-Etc1Q9UOSWbqoZelVPvCT9SyOXFl3xxNftk9Cf22NYi/WB/3q4Kgynu7n3BxInGkYcnaL1pcR4Xw1DdDSb9Njw==}
+  loglayer@8.5.0:
+    resolution: {integrity: sha512-Dx8GGZffaJmAm18e7/BwgrwxLOmCHJe2TxC0Ja0+FdJjSjXCM60nsHpTD3FjQMzu0cVr7HPUAAmGJIz4b3qKQg==}
     engines: {node: '>=18'}
 
   longest-streak@3.1.0:
@@ -7887,7 +7887,7 @@ snapshots:
 
   lodash@4.17.21: {}
 
-  loglayer@8.4.1:
+  loglayer@8.5.0:
     dependencies:
       '@loglayer/context-manager': 1.2.0
       '@loglayer/log-level-manager': 1.0.5
