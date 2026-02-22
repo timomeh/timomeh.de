@@ -2,9 +2,10 @@
 
 type Props = {
   fragmentShaderSource: string
+  resolution?: number
 }
 
-export function ShaderCanvas({ fragmentShaderSource }: Props) {
+export function ShaderCanvas({ fragmentShaderSource, resolution = 1 }: Props) {
   return (
     <canvas
       className="h-full w-full transition-opacity duration-700"
@@ -19,9 +20,9 @@ export function ShaderCanvas({ fragmentShaderSource }: Props) {
         gl.clear(gl.COLOR_BUFFER_BIT)
 
         let { width, height } = canvas.getBoundingClientRect()
-        canvas.width = width
-        canvas.height = height
-        gl.viewport(0, 0, width, height)
+        canvas.width = width * resolution
+        canvas.height = height * resolution
+        gl.viewport(0, 0, canvas.width, canvas.height)
 
         const vs = compileShader(gl, vertexShaderSource, gl.VERTEX_SHADER)
         const fs = compileShader(gl, fragmentShaderSource, gl.FRAGMENT_SHADER)
@@ -75,7 +76,7 @@ export function ShaderCanvas({ fragmentShaderSource }: Props) {
           }
 
           gl.uniform1f(timeUniform, (startTime + performance.now()) * 0.002)
-          gl.uniform2f(resolutionUniform, width, height)
+          gl.uniform2f(resolutionUniform, canvas.width, canvas.height)
           gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
           if (started) frameId = requestAnimationFrame(render)
         }
@@ -96,9 +97,9 @@ export function ShaderCanvas({ fragmentShaderSource }: Props) {
         const resizeObserver = new ResizeObserver(([entry]) => {
           width = entry.contentRect.width
           height = entry.contentRect.height
-          canvas.width = width
-          canvas.height = height
-          gl.viewport(0, 0, width, height)
+          canvas.width = width * resolution
+          canvas.height = height * resolution
+          gl.viewport(0, 0, canvas.width, canvas.height)
         })
         resizeObserver.observe(canvas)
 

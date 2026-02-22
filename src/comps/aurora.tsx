@@ -3,7 +3,10 @@ import { ShaderCanvas } from './shader-canvas'
 export function Aurora() {
   return (
     <div className="absolute -z-10 hidden h-full w-full opacity-70 dark:block">
-      <ShaderCanvas fragmentShaderSource={fragmentShaderSource} />
+      <ShaderCanvas
+        fragmentShaderSource={fragmentShaderSource}
+        resolution={0.3}
+      />
     </div>
   )
 }
