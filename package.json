@@ -21,7 +21,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "3.995.0",
     "@bprogress/next": "3.2.12",
-    "@fancyapps/ui": "6.1.11",
+    "@fancyapps/ui": "6.1.12",
     "@imgproxy/imgproxy-js-core": "1.7.0",
     "@keystatic/core": "0.5.48",
     "@keystatic/next": "5.0.4",
