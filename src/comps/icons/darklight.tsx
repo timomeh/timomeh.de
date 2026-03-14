@@ -88,7 +88,8 @@ export function DarkLightIcon() {
         fill="currentColor"
         className="
           origin-bottom-left scale-75 opacity-0
-          group-data-[theme=system]/root:scale-100 group-data-[theme=system]/root:opacity-100
+          group-data-[theme=system]/root:scale-100
+          group-data-[theme=system]/root:opacity-100
         "
       />
     </svg>

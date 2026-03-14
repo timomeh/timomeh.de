@@ -36,8 +36,8 @@ export async function YearsWidget({ yearParam, tagParam, sort }: Props) {
               in-data-[current=true]:!border-emerald-600/70
               in-data-[current=true]:!bg-emerald-600/20
               dark:text-white/80
-              dark:group-hover/btn:border-white/10 dark:group-hover/btn:bg-white/5
-              dark:group-hover/btn:text-white
+              dark:group-hover/btn:border-white/10
+              dark:group-hover/btn:bg-white/5 dark:group-hover/btn:text-white
             "
           >
             <div

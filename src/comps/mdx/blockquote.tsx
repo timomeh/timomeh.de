@@ -8,7 +8,8 @@ export function Blockquote({ children, ...rest }: Props) {
     <blockquote
       {...rest}
       className="
-        relative border-l-2 border-l-gray-800/25 font-[weight:inherit] text-current
+        relative border-l-2 border-l-gray-800/25 font-[weight:inherit]
+        text-current
         dark:border-l-white/15
       "
     >

@@ -22,7 +22,11 @@ export default function Default() {
             </div>
             <section
               aria-label="Site Links"
-              className="@max-5xs:p-1 border-t border-gray-400/30 p-2 dark:border-gray-600/30"
+              className="
+                @max-5xs:p-1
+                border-t border-gray-400/30 p-2
+                dark:border-gray-600/30
+              "
             >
               <LinksWidget />
             </section>

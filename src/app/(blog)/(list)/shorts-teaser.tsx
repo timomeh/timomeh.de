@@ -13,13 +13,20 @@ export function ShortsTeaser({ shorts }: Prop) {
     <section className="relative">
       <Card>
         <div className="divide-y divide-gray-400/30 dark:divide-gray-600/30">
-          <header className="flex items-center justify-between px-4 py-3 sm:px-6 md:px-8">
+          <header className="
+            flex items-center justify-between px-4 py-3
+            sm:px-6
+            md:px-8
+          ">
             <h2 className="font-serif text-lg font-semibold md:text-xl">
               <Link href="/shorts">Shorts</Link>
             </h2>
             <Link
               href="/shorts"
-              className="text-sm font-normal whitespace-nowrap no-underline dark:text-blue-300"
+              className="
+                text-sm font-normal whitespace-nowrap no-underline
+                dark:text-blue-300
+              "
             >
               View all
             </Link>
@@ -29,10 +36,17 @@ export function ShortsTeaser({ shorts }: Prop) {
               <ListedShort short={short} />
             </div>
           ))}
-          <footer className="flex items-center justify-center px-4 py-3 sm:px-6 md:px-8">
+          <footer className="
+            flex items-center justify-center px-4 py-3
+            sm:px-6
+            md:px-8
+          ">
             <Link
               href="/shorts"
-              className="text-sm font-normal whitespace-nowrap no-underline dark:text-blue-300"
+              className="
+                text-sm font-normal whitespace-nowrap no-underline
+                dark:text-blue-300
+              "
             >
               Read more Shorts
             </Link>

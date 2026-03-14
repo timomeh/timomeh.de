@@ -35,7 +35,8 @@ export async function MediaGrid({ images, shortId }: Props) {
       <Lightbox>
         <div
           className="
-            grid [grid-auto-rows:15rem] grid-cols-2 gap-1 overflow-hidden rounded-xl
+            grid [grid-auto-rows:15rem] grid-cols-2 gap-1 overflow-hidden
+            rounded-xl
             md:[grid-auto-rows:18rem]
           "
         >
@@ -58,7 +59,8 @@ export async function MediaGrid({ images, shortId }: Props) {
     <Lightbox>
       <div
         className="
-          grid [grid-auto-rows:15rem] grid-cols-2 gap-1 overflow-hidden rounded-xl
+          grid [grid-auto-rows:15rem] grid-cols-2 gap-1 overflow-hidden
+          rounded-xl
           md:[grid-auto-rows:18rem]
         "
       >

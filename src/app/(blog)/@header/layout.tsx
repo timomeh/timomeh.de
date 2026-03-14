@@ -32,14 +32,18 @@ export default function Layout({ kicker, backdrop }: Props) {
         <Contours />
       </div>
 
-      <div className="relative z-20 overflow-hidden px-4 pt-14 pb-16 sm:pt-28 sm:pb-28">
+      <div className="
+        relative z-20 overflow-hidden px-4 pt-14 pb-16
+        sm:pt-28 sm:pb-28
+      ">
         <div className="flex w-full items-center justify-center">
           <div className="relative size-18 sm:size-24">
             <Link
               aria-label="Go to home"
               href="/"
               className="
-                group/link relative block size-full transition-transform ease-in-out select-none
+                group/link relative block size-full transition-transform
+                ease-in-out select-none
                 motion-safe:hover:scale-110 motion-safe:hover:-rotate-1
                 motion-safe:active:scale-105
               "
@@ -56,8 +60,10 @@ export default function Layout({ kicker, backdrop }: Props) {
             <span
               data-visual-test="removed"
               className="
-                text-2xs inline-block font-mono font-semibold opacity-40 blur-[2px] transition-all
-                has-[span[data-loaded=true]]:opacity-100 has-[span[data-loaded=true]]:blur-none
+                text-2xs inline-block font-mono font-semibold opacity-40
+                blur-[2px] transition-all
+                has-[span[data-loaded=true]]:opacity-100
+                has-[span[data-loaded=true]]:blur-none
                 sm:w-0 sm:text-xs sm:whitespace-nowrap
               "
             >

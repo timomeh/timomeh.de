@@ -53,7 +53,7 @@
       "rules": {
         "better-tailwindcss/enforce-consistent-line-wrapping": [
           "warn",
-          { "printWidth": 100, "preferSingleLine": true }
+          { "printWidth": 80, "preferSingleLine": true }
         ]
       }
     }

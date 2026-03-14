@@ -42,15 +42,19 @@ export function FootnoteReference(props: { count: number; scope?: string }) {
       <span
         aria-hidden
         className="
-          absolute -top-px -left-[3px] z-[-1] block h-4 w-4 rounded-full bg-sky-400/50 opacity-0
-          transition-opacity delay-300 ![animation-fill-mode:forwards]
-          ![animation-iteration-count:5]
-          group-target/footnoteref:animate-ping group-target/footnoteref:opacity-100
+          absolute -top-px -left-[3px] z-[-1] block h-4 w-4 rounded-full
+          bg-sky-400/50 opacity-0 transition-opacity delay-300
+          ![animation-fill-mode:forwards] ![animation-iteration-count:5]
+          group-target/footnoteref:animate-ping
+          group-target/footnoteref:opacity-100
           dark:bg-sky-200/10
         "
       />
       <a
-        className="font-pixel pl-0.5 text-[11px] break-words no-underline dark:text-white/50"
+        className="
+          font-pixel pl-0.5 text-[11px] break-words no-underline
+          dark:text-white/50
+        "
         aria-describedby={`fn-${props.count}-${props.scope || ''}label`}
         href={`#${createFootnoteContentId(props.count, props.scope)}`}
       >
@@ -73,7 +77,8 @@ export function FootnoteContent(props: {
       <span
         aria-hidden
         className="
-          absolute inset-0 -left-7 z-[-1] block bg-sky-400/20 opacity-0 transition-opacity delay-300
+          absolute inset-0 -left-7 z-[-1] block bg-sky-400/20 opacity-0
+          transition-opacity delay-300
           group-target/footnote:opacity-100
           dark:bg-sky-200/10
         "
@@ -88,7 +93,8 @@ export function FootnoteContent(props: {
       <a
         aria-label={`Back to reference ${props.count}`}
         className="
-          font-pixel text-opacity-50 pl-0.5 text-[13px] break-words text-current no-underline
+          font-pixel text-opacity-50 pl-0.5 text-[13px] break-words text-current
+          no-underline
         "
         href={`#${createFootnoteReferenceId(props.count, props.scope)}`}
       >

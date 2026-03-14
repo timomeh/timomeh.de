@@ -47,8 +47,8 @@ export default async function RootLayout({ children, header, aside }: Props) {
       group/root
       motion-safe:**:focus-visible:animate-outline-bounce
       page-bg h-full text-gray-900 scheme-light transition-colors duration-300
-      **:focus-visible:rounded-xs **:focus-visible:outline-2 **:focus-visible:outline-offset-4
-      **:focus-visible:outline-[#a18570]
+      **:focus-visible:rounded-xs **:focus-visible:outline-2
+      **:focus-visible:outline-offset-4 **:focus-visible:outline-[#a18570]
       dark:text-white dark:scheme-dark
       dark:**:focus-visible:outline-emerald-300
       ${fonts}
@@ -73,7 +73,8 @@ export default async function RootLayout({ children, header, aside }: Props) {
               <div
                 className="
                   mx-auto w-full gap-2 px-2
-                  sm:grid sm:w-fit sm:max-w-full sm:grid-cols-[minmax(0,700px)_auto]
+                  sm:grid sm:w-fit sm:max-w-full
+                  sm:grid-cols-[minmax(0,700px)_auto]
                 "
                 id="main"
               >

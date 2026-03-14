@@ -25,7 +25,8 @@ export function FeedIcon() {
       <g
         className="
           origin-bottom-left
-          group-hover/btn:-translate-x-[0.5px] group-hover/btn:translate-y-[0.5px]
+          group-hover/btn:-translate-x-[0.5px]
+          group-hover/btn:translate-y-[0.5px]
         "
       >
         <path

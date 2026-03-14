@@ -14,8 +14,8 @@ export function ResponsiveSidebar({ children }: Props) {
           type="button"
           aria-label="Open Menu"
           className="
-            flex items-center justify-center rounded-lg border border-gray-900/40 bg-[#FDFDFD]/60
-            shadow-md/20 backdrop-blur-sm
+            flex items-center justify-center rounded-lg border
+            border-gray-900/40 bg-[#FDFDFD]/60 shadow-md/20 backdrop-blur-sm
             hover:shadow-md/50
             active:translate-y-px
             dark:border-white/20 dark:bg-[#191A22]/80
@@ -61,8 +61,10 @@ export function ResponsiveSidebar({ children }: Props) {
           }
         }}
         className="
-          m-auto scale-90 overflow-visible bg-transparent opacity-0 transition-all
-          backdrop:bg-white/50 backdrop:opacity-0 backdrop:backdrop-blur-xs backdrop:transition-all
+          m-auto scale-90 overflow-visible bg-transparent opacity-0
+          transition-all
+          backdrop:bg-white/50 backdrop:opacity-0 backdrop:backdrop-blur-xs
+          backdrop:transition-all
           open:scale-100 open:opacity-100
           open:backdrop:opacity-100
           sm:block sm:[all:unset]
@@ -86,7 +88,6 @@ export function ResponsiveSidebar({ children }: Props) {
             }}
           >
             <CircleXIcon
-              // oxlint-disable-next-line better-tailwindcss/enforce-consistent-line-wrapping
               className="
                 size-6 drop-shadow-md drop-shadow-white/60
                 dark:drop-shadow-black/60

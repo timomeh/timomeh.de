@@ -43,7 +43,10 @@ export async function Img(props: Props) {
       />
       <div
         aria-hidden
-        className="absolute inset-0 z-[-1] group-data-[shadow=false]/figure:hidden"
+        className="
+          absolute inset-0 z-[-1]
+          group-data-[shadow=false]/figure:hidden
+        "
       >
         <div
           className="mx-auto h-full max-w-full opacity-20 blur-md"

@@ -4,7 +4,8 @@ export function Contours() {
   return (
     <div
       className="
-        block h-full w-full opacity-10 mix-blend-soft-light brightness-125 saturate-[0.3]
+        block h-full w-full opacity-10 mix-blend-soft-light brightness-125
+        saturate-[0.3]
         dark:hidden
       "
     >
