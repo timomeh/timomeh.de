@@ -32,10 +32,12 @@ export default function Layout({ kicker, backdrop }: Props) {
         <Contours />
       </div>
 
-      <div className="
-        relative z-20 overflow-hidden px-4 pt-14 pb-16
-        sm:pt-28 sm:pb-28
-      ">
+      <div
+        className="
+          relative z-20 overflow-hidden px-4 pt-14 pb-16
+          sm:pt-28 sm:pb-28
+        "
+      >
         <div className="flex w-full items-center justify-center">
           <div className="relative size-18 sm:size-24">
             <Link

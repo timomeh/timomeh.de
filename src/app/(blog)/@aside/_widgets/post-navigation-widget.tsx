@@ -111,10 +111,12 @@ function Item(props: { children: React.ReactNode }) {
         dark:group-hover/btn:text-white
       "
     >
-      <div className="
-        @max-5xs:items-center @max-5xs:gap-1 @max-5xs:justify-center
-        flex
-      ">
+      <div
+        className="
+          @max-5xs:items-center @max-5xs:gap-1 @max-5xs:justify-center
+          flex
+        "
+      >
         {props.children}
       </div>
     </div>

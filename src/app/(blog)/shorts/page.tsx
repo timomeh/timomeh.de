@@ -12,11 +12,13 @@ export default async function Page() {
     <section className="relative mt-2">
       <Card>
         <div className="divide-y divide-gray-400/30 dark:divide-gray-600/30">
-          <header className="
-            flex items-center justify-between px-4 py-3
-            sm:px-6
-            md:px-8
-          ">
+          <header
+            className="
+              flex items-center justify-between px-4 py-3
+              sm:px-6
+              md:px-8
+            "
+          >
             <h2 className="font-serif text-lg font-semibold md:text-xl">
               Shorts
             </h2>

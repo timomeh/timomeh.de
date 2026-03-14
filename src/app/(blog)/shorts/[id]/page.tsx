@@ -20,11 +20,13 @@ export default async function Page(props: Props) {
           <div className="xs:px-4 px-2 py-4 sm:p-6 md:p-8" key={short.id}>
             <DetailedShort short={short} />
           </div>
-          <footer className="
-            flex items-center justify-center px-4 py-3
-            sm:px-6
-            md:px-8
-          ">
+          <footer
+            className="
+              flex items-center justify-center px-4 py-3
+              sm:px-6
+              md:px-8
+            "
+          >
             <Link
               href="/shorts"
               className="

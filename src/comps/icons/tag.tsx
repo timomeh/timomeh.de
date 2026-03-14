@@ -7,11 +7,13 @@ export function TagIcon() {
       className="h-full w-full overflow-visible **:transition **:duration-200"
     >
       <title>Tag</title>
-      <g className="
-        origin-[30%_30%]
-        group-hover/btn:-rotate-12
-        group-active/btn:rotate-12
-      ">
+      <g
+        className="
+          origin-[30%_30%]
+          group-hover/btn:-rotate-12
+          group-active/btn:rotate-12
+        "
+      >
         <path
           fillRule="evenodd"
           clipRule="evenodd"

@@ -15,10 +15,12 @@ export async function ReadMorePosts({ year }: Props) {
 
   return (
     <section className="mt-10">
-      <hr className="
-        border-beige/50 mx-auto mb-10 max-w-xs border
-        dark:border-white/10
-      " />
+      <hr
+        className="
+          border-beige/50 mx-auto mb-10 max-w-xs border
+          dark:border-white/10
+        "
+      />
       <div className="relative">
         <Card>
           <div className="p-4 sm:p-6 md:p-8">

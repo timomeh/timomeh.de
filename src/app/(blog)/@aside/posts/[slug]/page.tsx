@@ -31,11 +31,13 @@ export default async function Page({ params }: Props) {
             >
               <PostNavigationWidget currentSlug={slug} />
             </section>
-            <div className="
-              @max-5xs:p-1
-              border-t border-gray-400/30 p-2
-              dark:border-gray-600/30
-            ">
+            <div
+              className="
+                @max-5xs:p-1
+                border-t border-gray-400/30 p-2
+                dark:border-gray-600/30
+              "
+            >
               <section
                 aria-label="Post’s Tags"
                 className="@max-5xs:hidden mb-2"
