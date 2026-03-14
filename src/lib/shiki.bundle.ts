@@ -1,6 +1,6 @@
 /* Generate by @shikijs/codegen */
 import {
-  createdBundledHighlighter,
+  createBundledHighlighter,
   createSingletonShorthands,
 } from '@shikijs/core'
 import { createJavaScriptRegexEngine } from '@shikijs/engine-javascript'
@@ -92,7 +92,7 @@ const bundledThemes = {
   'tokyo-night': () => import('@shikijs/themes/tokyo-night'),
 } as Record<BundledTheme, DynamicImportThemeRegistration>
 
-const createHighlighter = /* @__PURE__ */ createdBundledHighlighter<
+const createHighlighter = /* @__PURE__ */ createBundledHighlighter<
   BundledLanguage,
   BundledTheme
 >({
