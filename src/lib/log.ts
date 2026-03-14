@@ -88,7 +88,7 @@ export function createConsoleMethod(
 // Source: https://loglayer.dev/example-integrations/nextjs.html#handling-server-side-uncaught-exceptions-and-rejections
 function stripAnsiCodes(str: string): string {
   return str.replace(
-    // biome-ignore lint/suspicious/noControlCharactersInRegex: nextjs logs
+    // oxlint-disable-next-line no-control-regex
     /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g,
     '',
   )

@@ -1,5 +1,4 @@
 // remove all null and undefined from an object, recursively
-// biome-ignore lint/suspicious/noExplicitAny: sry
 export function cleanse<T extends Record<string, any>>(obj: T): T {
   return Object.fromEntries(
     Object.entries(obj)

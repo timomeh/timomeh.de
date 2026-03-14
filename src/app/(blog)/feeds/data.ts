@@ -1,6 +1,7 @@
 import { Feed, type FeedOptions } from 'feed'
 import { memoize } from 'nextjs-better-unstable-cache'
 import { Vla } from 'vla'
+
 import { config } from '@/config'
 import { PostsRepo } from '@/data/posts/posts.repo'
 import { ShortsRepo } from '@/data/shorts/shorts.repo'

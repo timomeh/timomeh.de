@@ -4,13 +4,17 @@ export function FeedIcon() {
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="h-full w-full overflow-visible *:transition-all *:duration-500
-        *:ease-[cubic-bezier(.3,.2,.17,3)]"
+      className="
+        h-full w-full overflow-visible
+        *:transition-all *:duration-500 *:ease-[cubic-bezier(.3,.2,.17,3)]
+      "
     >
       <title>Feed</title>
       <g
-        className="origin-bottom-left group-hover/btn:-translate-x-px
-          group-hover/btn:translate-y-px"
+        className="
+          origin-bottom-left
+          group-hover/btn:-translate-x-px group-hover/btn:translate-y-px
+        "
       >
         <path
           id="l"
@@ -19,8 +23,11 @@ export function FeedIcon() {
         />
       </g>
       <g
-        className="origin-bottom-left group-hover/btn:-translate-x-[0.5px]
-          group-hover/btn:translate-y-[0.5px]"
+        className="
+          origin-bottom-left
+          group-hover/btn:-translate-x-[0.5px]
+          group-hover/btn:translate-y-[0.5px]
+        "
       >
         <path
           id="m"

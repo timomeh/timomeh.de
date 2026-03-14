@@ -1,4 +1,5 @@
 import { Suspense } from 'react'
+
 import { DefaultKicker } from './data'
 
 export function RandomKicker() {

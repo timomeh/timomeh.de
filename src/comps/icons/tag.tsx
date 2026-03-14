@@ -8,8 +8,11 @@ export function TagIcon() {
     >
       <title>Tag</title>
       <g
-        className="origin-[30%_30%] group-hover/btn:-rotate-12
-          group-active/btn:rotate-12"
+        className="
+          origin-[30%_30%]
+          group-hover/btn:-rotate-12
+          group-active/btn:rotate-12
+        "
       >
         <path
           fillRule="evenodd"

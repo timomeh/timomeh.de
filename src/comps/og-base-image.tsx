@@ -1,4 +1,4 @@
-/** biome-ignore-all lint/performance/noImgElement: og image */
+// oxlint-disable nextjs/no-img-element
 
 import { unstable_noStore } from 'next/cache'
 import type { ImageResponseOptions } from 'next/server'
@@ -72,7 +72,6 @@ export function OpengraphBaseImage({ cover, title, date, est }: Props) {
             )}
           </div>
           <div tw="flex flex-col relative">
-            {false && <div tw="absolute -inset-4 bg-black opacity-50" />}
             <div
               tw="text-6xl text-violet-100 font-bold flex flex-col"
               style={{ textShadow: '0 5px 20px black' }}

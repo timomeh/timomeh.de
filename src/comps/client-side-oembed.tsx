@@ -20,7 +20,6 @@ export function ClientSideOembed(props: Props) {
 
         const checkIframeTheme = () => {
           if ('twttr' in window) {
-            // biome-ignore lint/suspicious/noExplicitAny: twitter global
             ;(window.twttr as any)?.widgets.load()
           }
 

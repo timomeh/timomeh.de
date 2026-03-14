@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import { Vla } from 'vla'
+
 import { PostsRepo } from '@/data/posts/posts.repo'
 import { ShortsService } from '@/data/shorts/shorts.service'
 import { TagsRepo } from '@/data/tags/tags.repo'

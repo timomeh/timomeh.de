@@ -1,4 +1,5 @@
 import type { EnrichedShort } from '@/data/shorts/shorts.service'
+
 import { LocalDateTime } from './local-date-time'
 import { MDX } from './mdx/mdx'
 import { MediaGrid } from './media-grid'
@@ -18,12 +19,12 @@ export async function DetailedShort({ short }: Props) {
         width={40}
         height={40}
         alt="Timo’s avatar"
-        className="size-6 mr-2 md:size-10 rounded-full md:mr-4"
+        className="mr-2 size-6 rounded-full md:mr-4 md:size-10"
       />
-      <div className="[&_p]:first-of-type:mt-0 min-w-0">
+      <div className="min-w-0 [&_p]:first-of-type:mt-0">
         <Prose size="sm">
-          <div className="text-sm -mt-0.5 not-prose">
-            <span className="font-bold inline-block mr-1">Timo</span>
+          <div className="not-prose -mt-0.5 text-sm">
+            <span className="mr-1 inline-block font-bold">Timo</span>
             <span className="inline-block opacity-70">@timomeh</span>
           </div>
           <MDX

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Vla } from 'vla'
+
 import { contentAsset } from '@/data/cms'
 import { TagsRepo } from '@/data/tags/tags.repo'
 

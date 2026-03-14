@@ -1,5 +1,7 @@
 import Link from 'next/link'
+
 import type { EnrichedShort } from '@/data/shorts/shorts.service'
+
 import { formatRelativeDate, isMoreThanWeeksAgo } from '../lib/date'
 import { LocalDateTime } from './local-date-time'
 import { MDX } from './mdx/mdx'
@@ -23,15 +25,15 @@ export async function ListedShort({ short }: Props) {
         width={40}
         height={40}
         alt="Timo’s avatar"
-        className="size-6 mr-2 md:size-10 rounded-full md:mr-4"
+        className="mr-2 size-6 rounded-full md:mr-4 md:size-10"
       />
-      <div className="[&_p]:first-of-type:mt-0 min-w-0">
+      <div className="min-w-0 [&_p]:first-of-type:mt-0">
         <Prose size="sm">
-          <div className="text-sm -mt-0.5">
+          <div className="-mt-0.5 text-sm">
             <Link href={`/shorts/${short.id}`} className="not-prose">
-              <span className="font-bold inline-block mr-1">Timo</span>
+              <span className="mr-1 inline-block font-bold">Timo</span>
               <span className="inline-block opacity-70">@timomeh</span>
-              <span className="inline-block mx-1 opacity-70">·</span>
+              <span className="mx-1 inline-block opacity-70">·</span>
               <time
                 className="inline-block opacity-70"
                 dateTime={short.publishedAt.toISOString()}

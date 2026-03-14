@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react'
+
 import { GlassPill } from '@/comps/glass-pill'
 import { pluralizePosts } from '@/lib/plurals'
+
 import {
   ListPostsByTag,
   ListPostsByYear,
@@ -21,7 +23,7 @@ export async function PostsList({ sort = 'desc', year, tagSlug }: Props) {
 
     return (
       <div className="space-y-10">
-        <div className="mb-4 flex relative justify-center">
+        <div className="relative mb-4 flex justify-center">
           <GlassPill>
             <h3>
               {pluralizePosts(posts.length)} in {tag.title}
@@ -42,7 +44,7 @@ export async function PostsList({ sort = 'desc', year, tagSlug }: Props) {
 
     return (
       <div className="space-y-10">
-        <div className="mb-4 flex justify-center relative">
+        <div className="relative mb-4 flex justify-center">
           <GlassPill>
             <h3>
               {pluralizePosts(posts.length)} in {postYear.year}
@@ -70,7 +72,7 @@ export async function PostsList({ sort = 'desc', year, tagSlug }: Props) {
       )}
       {groupedPosts.map((group, groupIndex) => (
         <Fragment key={group.marker}>
-          <div className="mb-4 flex justify-center relative">
+          <div className="relative mb-4 flex justify-center">
             <GlassPill>
               <h3>{group.title}</h3>
             </GlassPill>

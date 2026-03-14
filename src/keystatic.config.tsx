@@ -116,7 +116,7 @@ export default config({
   ui: {
     brand: {
       name: 'timomeh.de',
-      // biome-ignore lint/performance/noImgElement: keystatic
+      // oxlint-disable-next-line nextjs/no-img-element
       mark: () => <img alt="" src="/favicon-32x32.png" height={24} />,
     },
   },

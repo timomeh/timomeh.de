@@ -5,6 +5,7 @@ import { PostHeader } from '@/comps/post-header'
 import { Prose } from '@/comps/prose'
 import { Tag } from '@/comps/tag'
 import { formatReadingTime } from '@/lib/formatReadingTime'
+
 import { PostMetadata, ShowPost } from './data'
 
 type Props = {

@@ -1,5 +1,6 @@
 import { MDX } from '@/comps/mdx/mdx'
 import { Prose } from '@/comps/prose'
+
 import { PageMetadata, ShowPage } from './data'
 
 type Props = {

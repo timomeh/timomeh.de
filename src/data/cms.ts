@@ -1,8 +1,8 @@
 import 'server-only'
-
 import type { EntryWithResolvedLinkedFiles } from '@keystatic/core/reader'
 import { createGitHubReader } from '@keystatic/core/reader/github'
 import { Vla } from 'vla'
+
 import { config } from '@/config'
 import keystaticConfig from '@/keystatic.config'
 import { cleanse } from '@/lib/cleanse'

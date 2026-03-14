@@ -1,5 +1,3 @@
-/** biome-ignore-all lint/suspicious/noArrayIndexKey: it's fine */
-
 import { contentAsset } from '../data/cms'
 import { getPlaceholder } from '../lib/placeholder'
 import { Lightbox } from './lightbox'
@@ -35,7 +33,13 @@ export async function MediaGrid({ images, shortId }: Props) {
   if (images.length === 3) {
     return (
       <Lightbox>
-        <div className="grid grid-cols-2 gap-1 rounded-xl overflow-hidden [grid-auto-rows:15rem] md:[grid-auto-rows:18rem]">
+        <div
+          className="
+            grid [grid-auto-rows:15rem] grid-cols-2 gap-1 overflow-hidden
+            rounded-xl
+            md:[grid-auto-rows:18rem]
+          "
+        >
           {images.map((image, i) => (
             <div key={i} className={i === 0 ? 'row-span-2 min-h-0' : 'min-h-0'}>
               <MediaImage
@@ -53,7 +57,13 @@ export async function MediaGrid({ images, shortId }: Props) {
   // simple grid
   return (
     <Lightbox>
-      <div className="grid grid-cols-2 gap-1 rounded-xl overflow-hidden [grid-auto-rows:15rem] md:[grid-auto-rows:18rem]">
+      <div
+        className="
+          grid [grid-auto-rows:15rem] grid-cols-2 gap-1 overflow-hidden
+          rounded-xl
+          md:[grid-auto-rows:18rem]
+        "
+      >
         {images.map((image, i) => (
           <MediaImage
             shortId={shortId}
@@ -78,7 +88,10 @@ async function MediaImage(props: {
   return (
     <div
       data-single={!!props.full}
-      className="relative rounded-md overflow-hidden data-[single=false]:w-full data-[single=false]:h-full"
+      className="
+        relative overflow-hidden rounded-md
+        data-[single=false]:h-full data-[single=false]:w-full
+      "
     >
       <OptimImage
         src={img.src}
@@ -95,7 +108,7 @@ async function MediaImage(props: {
         }
         className={
           props.full
-            ? 'block max-h-80 md:max-h-[480px] w-auto rounded-md object-contain'
+            ? 'block max-h-80 w-auto rounded-md object-contain md:max-h-[480px]'
             : 'block h-full w-full object-cover'
         }
       />

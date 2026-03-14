@@ -1,4 +1,5 @@
 import Link from 'next/link'
+
 import { Card } from '../../../comps/card'
 import { Prose } from '../../../comps/prose'
 import { TeaseYearPosts } from './data'
@@ -15,8 +16,10 @@ export async function ReadMorePosts({ year }: Props) {
   return (
     <section className="mt-10">
       <hr
-        className="border-beige/50 mx-auto mb-10 max-w-xs border
-          dark:border-white/10"
+        className="
+          border-beige/50 mx-auto mb-10 max-w-xs border
+          dark:border-white/10
+        "
       />
       <div className="relative">
         <Card>
@@ -44,8 +47,10 @@ export async function ReadMorePosts({ year }: Props) {
               </ul>
               <p>
                 <Link
-                  className="font-normal whitespace-nowrap no-underline
-                  dark:text-blue-300"
+                  className="
+                    font-normal whitespace-nowrap no-underline
+                    dark:text-blue-300
+                  "
                   href={`/in/${fromYear}`}
                 >
                   and {postYear ? postYear.count - 4 : ''} more posts

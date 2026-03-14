@@ -66,17 +66,15 @@ export async function MDX({
     ? plainComponents
     : {
         ...baseComponents,
-        ...{
-          FootnoteContent: (props) => (
-            <FootnoteContent {...props} scope={scope} />
-          ),
-          FootnoteReference: (props) => (
-            <FootnoteReference {...props} scope={scope} />
-          ),
-          FootnotesSection: (props) => (
-            <FootnotesSection {...props} scope={scope} />
-          ),
-        },
+        FootnoteContent: (props) => (
+          <FootnoteContent {...props} scope={scope} />
+        ),
+        FootnoteReference: (props) => (
+          <FootnoteReference {...props} scope={scope} />
+        ),
+        FootnotesSection: (props) => (
+          <FootnotesSection {...props} scope={scope} />
+        ),
         ...(!!readMorePath && {
           ReadMore: () => <ReadMore href={readMorePath} />,
         }),
@@ -208,8 +206,7 @@ const plainComponents: MDXComponents = {
 
     const src = imgproxyLoader({ src: props.src, width: 680, quality: 80 })
 
-    // biome-ignore lint/a11y/useAltText: props passed through
-    // biome-ignore lint/performance/noImgElement: plain image in feed
+    // oxlint-disable-next-line jsx_a11y/alt-text nextjs/no-img-element
     return <img {...props} src={src} />
   },
   Footnote: (props) => <span>&nbsp;[Footnote: {props.children}]</span>,

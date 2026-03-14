@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 
 import { HeaderBackdropEmpty } from '@/comps/header-backdrop-empty'
 import { HeaderBackdropImage } from '@/comps/header-backdrop-image'
+
 import { ShowPostBackdrop } from './data'
 
 type Props = {
@@ -20,8 +21,10 @@ export default async function Page(props: Props) {
           <Suspense
             fallback={
               <div
-                className="aspect-[3/2] h-auto max-h-[356px] min-h-[156px]
-                  w-full max-w-[1024px]"
+                className="
+                  aspect-[3/2] h-auto max-h-[356px] min-h-[156px] w-full
+                  max-w-[1024px]
+                "
               />
             }
           >
@@ -43,8 +46,10 @@ export default async function Page(props: Props) {
       {backdrop.darkBgColor && (
         <div
           style={{ background: backdrop.darkBgColor }}
-          className="absolute inset-0 -z-10 hidden mix-blend-exclusion
-            dark:block"
+          className="
+            absolute inset-0 -z-10 hidden mix-blend-exclusion
+            dark:block
+          "
         />
       )}
     </>

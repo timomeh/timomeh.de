@@ -1,4 +1,5 @@
 import { Vla } from 'vla'
+
 import { PostsRepo } from '@/data/posts/posts.repo'
 import { TagsRepo } from '@/data/tags/tags.repo'
 
