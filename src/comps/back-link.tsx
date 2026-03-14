@@ -10,5 +10,6 @@ type Props = Omit<LinkProps, 'href'> & JSX.IntrinsicElements['a']
 export function BackLink({ ...rest }: Props) {
   const prevPath = usePrevPath()
 
+  // oxlint-disable-next-line jsx_a11y/anchor-has-content
   return <Link {...rest} href={prevPath || '/'} />
 }

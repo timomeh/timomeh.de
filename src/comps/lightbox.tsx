@@ -1,6 +1,7 @@
 'use client'
 
 import { Fancybox } from '@fancyapps/ui/dist/fancybox/'
+
 import '@fancyapps/ui/dist/fancybox/fancybox.css'
 
 type Props = {

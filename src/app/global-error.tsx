@@ -1,7 +1,6 @@
 'use client'
 
 import '@/styles/main.css'
-
 import Link from 'next/link'
 
 import { Mug } from '@/comps/me/mug'
@@ -27,10 +26,11 @@ export default function GlobalError({
             <Link
               aria-label="Go to home"
               href="/"
-              className="group/link relative block size-full
-                transition-transform ease-in-out select-none
+              className="
+                group/link relative block size-full transition-transform ease-in-out select-none
                 motion-safe:hover:scale-110 motion-safe:hover:-rotate-1
-                motion-safe:active:scale-105"
+                motion-safe:active:scale-105
+              "
             >
               <Mug />
             </Link>

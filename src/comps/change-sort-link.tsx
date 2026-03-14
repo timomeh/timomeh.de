@@ -14,6 +14,7 @@ export function ChangeSortLink({ sort, ...rest }: Props) {
   const base = pathname.replace(/\/asc\/?$/, '') || '/'
 
   return (
+    // oxlint-disable-next-line jsx_a11y/anchor-has-content
     <Link
       {...rest}
       href={sort === 'asc' ? `${base === '/' ? '' : base}/asc` : base}

@@ -1,6 +1,8 @@
 import { count, desc, eq } from 'drizzle-orm'
 import { Vla } from 'vla'
+
 import { db, schema } from '@/db/client'
+
 import type { Tag } from '../cms'
 
 export class TagsRepo extends Vla.Repo {

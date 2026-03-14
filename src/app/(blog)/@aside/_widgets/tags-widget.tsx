@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import { Tag } from '@/comps/tag'
+
 import { ListSidebarTags } from '../data'
 
 type Props = {
@@ -25,8 +26,7 @@ export async function TagsWidget({ sort, tagParam }: Props) {
       ))}
       <Link
         href="/tags"
-        className="group/btn inline-flex p-0.5 opacity-70 transition
-          hover:opacity-100"
+        className="group/btn inline-flex p-0.5 opacity-70 transition hover:opacity-100"
       >
         <Tag title="All tags…" />
       </Link>

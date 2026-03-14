@@ -4,6 +4,7 @@ import { Suspense } from 'react'
 
 import { MDX } from '@/comps/mdx/mdx'
 import { config } from '@/config'
+
 import { ShowSimplifiedShort } from '../../data'
 
 type Props = {

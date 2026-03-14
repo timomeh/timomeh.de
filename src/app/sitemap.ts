@@ -1,10 +1,12 @@
 import type { MetadataRoute } from 'next'
 import { Vla } from 'vla'
+
 import { config } from '@/config'
 import { PagesRepo } from '@/data/pages/pages.repo'
 import { PostsRepo } from '@/data/posts/posts.repo'
 import { ShortsRepo } from '@/data/shorts/shorts.repo'
 import { TagsRepo } from '@/data/tags/tags.repo'
+
 import { kernel } from '../data/kernel'
 
 export default async function sitemap() {

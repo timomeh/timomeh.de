@@ -28,8 +28,10 @@ export function Anchor(props: Props) {
     <a {...props} rel="noopener noreferrer" target="_blank">
       {props.children}
       <span
-        className="external-link font-pixel ml-2 hidden text-[0.7em]
-          leading-none font-normal opacity-50 sm:ml-3"
+        className="
+          external-link font-pixel ml-2 hidden text-[0.7em] leading-none font-normal opacity-50
+          sm:ml-3
+        "
       >
         <ExternalLinkIcon
           className="size-4 sm:size-6"

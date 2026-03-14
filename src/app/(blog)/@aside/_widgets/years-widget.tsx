@@ -1,4 +1,5 @@
 import Link from 'next/link'
+
 import { pluralizePosts } from '../../../../lib/plurals'
 import { ListSidebarYears } from '../data'
 
@@ -28,19 +29,24 @@ export async function YearsWidget({ yearParam, tagParam, sort }: Props) {
           data-current={postYear.year === activeYear}
         >
           <div
-            className="rounded-md border border-transparent text-gray-900/80
-              transition group-hover/btn:border-gray-900/10
-              group-hover/btn:bg-gray-900/5 group-hover/btn:text-gray-900
+            className="
+              rounded-md border border-transparent text-gray-900/80 transition
+              group-hover/btn:border-gray-900/10 group-hover/btn:bg-gray-900/5
+              group-hover/btn:text-gray-900
               in-data-[current=true]:!border-emerald-600/70
-              in-data-[current=true]:!bg-emerald-600/20 dark:text-white/80
-              dark:group-hover/btn:border-white/10
-              dark:group-hover/btn:bg-white/5 dark:group-hover/btn:text-white"
+              in-data-[current=true]:!bg-emerald-600/20
+              dark:text-white/80
+              dark:group-hover/btn:border-white/10 dark:group-hover/btn:bg-white/5
+              dark:group-hover/btn:text-white
+            "
           >
             <div
-              className="@max-5xs:p-1 @max-5xs:flex-row flex flex-col
-                items-center justify-center p-2
+              className="
+                @max-5xs:p-1 @max-5xs:flex-row
+                flex flex-col items-center justify-center p-2
                 in-data-[current=true]:text-emerald-900
-                dark:in-data-[current=true]:text-emerald-50"
+                dark:in-data-[current=true]:text-emerald-50
+              "
             >
               <div className="@max-5xs:text-xs font-mono text-sm font-medium">
                 {postYear.year}

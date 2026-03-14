@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { Prose } from '@/comps/prose'
+
 import { ListAllTags } from './data'
 
 export default async function Page() {

@@ -32,7 +32,6 @@ export function ShaderCanvas({ fragmentShaderSource, resolution = 1 }: Props) {
         gl.attachShader(program, vs)
         gl.attachShader(program, fs)
         gl.linkProgram(program)
-        // biome-ignore lint/correctness/useHookAtTopLevel: this is not a hook
         gl.useProgram(program)
         gl.enable(gl.BLEND)
         gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
@@ -167,7 +166,6 @@ function cleanupWebGL(
   buffers: WebGLBuffer[],
 ) {
   // Delete shaders and program
-  // biome-ignore lint/correctness/useHookAtTopLevel: not a hook
   gl.useProgram(null)
   gl.deleteProgram(program)
 

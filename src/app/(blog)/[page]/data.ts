@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Vla } from 'vla'
+
 import { contentAsset } from '@/data/cms'
 import { PagesRepo } from '@/data/pages/pages.repo'
 

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Vla } from 'vla'
+
 import { ShortsRepo } from '@/data/shorts/shorts.repo'
 import { ShortsService } from '@/data/shorts/shorts.service'
 import { stripMarkdown } from '@/lib/markdown'

@@ -1,7 +1,5 @@
-/** biome-ignore-all lint/style/noNonNullAssertion: envs */
-/** biome-ignore-all lint/style/useTemplate: just a script bro */
-
 import fs from 'node:fs'
+
 import {
   GetObjectCommand,
   PutObjectCommand,

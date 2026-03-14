@@ -1,4 +1,3 @@
-/** biome-ignore-all lint/style/noNonNullAssertion: would be nice to use zod here */
 import 'server-only'
 
 export const config = {

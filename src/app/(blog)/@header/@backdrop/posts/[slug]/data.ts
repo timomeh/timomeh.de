@@ -1,4 +1,5 @@
 import { Vla } from 'vla'
+
 import { contentAsset } from '@/data/cms'
 import { PostsRepo } from '@/data/posts/posts.repo'
 

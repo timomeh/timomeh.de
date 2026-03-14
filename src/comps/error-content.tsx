@@ -18,8 +18,7 @@ export function ErrorContent({ reset, description }: Props) {
       <ol>
         {reset && (
           <li>
-            {/** biome-ignore lint/a11y/useSemanticElements: stupid inline text */}
-            {/** biome-ignore lint/a11y/useValidAnchor: stupid inline text */}
+            {/* oxlint-disable-next-line jsx_a11y/anchor-is-valid  jsx_a11y/prefer-tag-over-role jsx_a11y/click-events-have-key-events */}
             <a role="button" onClick={() => reset()}>
               try to load this page again
             </a>
