@@ -46,7 +46,7 @@ jobs:
           cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache
           cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache,mode=max
       - run: docker save -o /tmp/docker-image.tar ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: docker-image
           path: /tmp/docker-image.tar
@@ -100,7 +100,7 @@ jobs:
           NUKE_SECRET: test
 
       # Post-test
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: test-results
