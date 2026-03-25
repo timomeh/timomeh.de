@@ -161,8 +161,8 @@ importers:
         version: 0.2.0
     devDependencies:
       '@argos-ci/playwright':
-        specifier: 6.4.2
-        version: 6.4.2
+        specifier: 6.5.0
+        version: 6.5.0
       '@playwright/test':
         specifier: 1.58.2
         version: 1.58.2
@@ -240,16 +240,16 @@ packages:
     resolution: {integrity: sha512-eQqtM54Vh83++Dac5+7ml4YXKW/KnUHRQWjTZ+VGeXfOJdjnZa4JjfVL6fnFG6CKrXjCK5dd9gcZRmbVpbt8rA==}
     engines: {node: '>=20.0.0'}
 
-  '@argos-ci/core@5.1.1':
-    resolution: {integrity: sha512-RI5pYb5wmWUoXzWefNCjKSqGA3BroUB2ac9awlYV3McJjSAW8nCGJUt2Eds90Shkp+i4S6KbMLnLG56slhTCsg==}
+  '@argos-ci/core@5.1.2':
+    resolution: {integrity: sha512-CIZWhd3JFgjaA8OGhraYS5UbJnBz2ZwaP3zpkF8xuDVvpsn92OgQACAtXszzAEjXNoHBXutTwCeedS89vAjUqQ==}
     engines: {node: '>=20.0.0'}
 
-  '@argos-ci/playwright@6.4.2':
-    resolution: {integrity: sha512-0HE4rmgx2/znlMUi3z0Bp8OD7u7zNls9SlljL+qTVoWQRW22sDvpmRdZpjzb4pEjoe6onqPTDOqm5/f8QYHMwg==}
+  '@argos-ci/playwright@6.5.0':
+    resolution: {integrity: sha512-LatFWSBzazG16PyeyY70OEso1uso/Q2DYOrd0ecBDBEmPQSLDuabXHExfbQz80j8aM2Z5IbAVawdft89PPanlg==}
     engines: {node: '>=20.0.0'}
 
-  '@argos-ci/util@3.2.0':
-    resolution: {integrity: sha512-/Bn0qCH8VsdPv5WB9TUEf3oTgsIqsTMUEjPVDopHLzKK+j7nQYGOF3MnN7VhBow82BXeStBfJCS3UiZ6cgxRlw==}
+  '@argos-ci/util@3.3.0':
+    resolution: {integrity: sha512-TeLTLCR4wiN+OqXPKeXvbgjIURNN4s9pLR3759lEVxWu7uUFKoWUFxewM2hHiCZ/A9FRJv4dSiKObpbOLHo3aw==}
     engines: {node: '>=20.0.0'}
 
   '@babel/code-frame@7.27.1':
@@ -2277,8 +2277,8 @@ packages:
   convert-source-map@1.9.0:
     resolution: {integrity: sha512-ASFBup0Mz1uyiIjANan1jzLQami9z1PoYSZCiiYW2FczPbenXc45FZdBZLzOT+r6+iciuEModtmCti+hjaAk0A==}
 
-  convict@6.2.4:
-    resolution: {integrity: sha512-qN60BAwdMVdofckX7AlohVJ2x9UvjTNoKVXCL2LxFk1l7757EJqf1nySdMkPQer0bt8kQ5lQiyZ9/2NvrFBuwQ==}
+  convict@6.2.5:
+    resolution: {integrity: sha512-JtXpxqDqJ8P0UwEHwhxLzCIXQy97vlYBZR222Sbzb1q1Erex9ASrztJ29SyhWFQjod1AeFBaPzEEC8YvtZMIYg==}
     engines: {node: '>=6'}
 
   cookie@1.0.2:
@@ -3302,6 +3302,10 @@ packages:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
     engines: {node: '>=8.6'}
 
+  picomatch@2.3.2:
+    resolution: {integrity: sha512-V7+vQEJ06Z+c5tSye8S+nHUfI51xoXIXjHQ99cQtKUkQqqO1kO/KCJUfZXuB47h/YBlDhah2H3hdUGXn8ie0oA==}
+    engines: {node: '>=8.6'}
+
   pino-abstract-transport@3.0.0:
     resolution: {integrity: sha512-wlfUczU+n7Hy/Ha5j9a/gZNy7We5+cXp8YL+X+PG8S0KXxw7n/JXA3c46Y0zQznIJ83URJiwy7Lh56WLokNuxg==}
 
@@ -3898,11 +3902,11 @@ snapshots:
 
   '@argos-ci/browser@5.1.2': {}
 
-  '@argos-ci/core@5.1.1':
+  '@argos-ci/core@5.1.2':
     dependencies:
       '@argos-ci/api-client': 0.16.0
-      '@argos-ci/util': 3.2.0
-      convict: 6.2.4
+      '@argos-ci/util': 3.3.0
+      convict: 6.2.5
       debug: 4.4.3
       fast-glob: 3.3.3
       mime-types: 3.0.2
@@ -3911,17 +3915,17 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@argos-ci/playwright@6.4.2':
+  '@argos-ci/playwright@6.5.0':
     dependencies:
       '@argos-ci/browser': 5.1.2
-      '@argos-ci/core': 5.1.1
-      '@argos-ci/util': 3.2.0
+      '@argos-ci/core': 5.1.2
+      '@argos-ci/util': 3.3.0
       chalk: 5.6.2
       debug: 4.4.3
     transitivePeerDependencies:
       - supports-color
 
-  '@argos-ci/util@3.2.0': {}
+  '@argos-ci/util@3.3.0': {}
 
   '@babel/code-frame@7.27.1':
     dependencies:
@@ -6226,7 +6230,7 @@ snapshots:
 
   convert-source-map@1.9.0: {}
 
-  convict@6.2.4:
+  convict@6.2.5:
     dependencies:
       lodash.clonedeep: 4.5.0
       yargs-parser: 20.2.9
@@ -7427,7 +7431,7 @@ snapshots:
   micromatch@4.0.8:
     dependencies:
       braces: 3.0.3
-      picomatch: 2.3.1
+      picomatch: 2.3.2
 
   mime-db@1.54.0: {}
 
@@ -7641,6 +7645,8 @@ snapshots:
   picocolors@1.1.1: {}
 
   picomatch@2.3.1: {}
+
+  picomatch@2.3.2: {}
 
   pino-abstract-transport@3.0.0:
     dependencies:
