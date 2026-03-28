@@ -25,7 +25,7 @@ export async function GET(_req: Request, props: Options) {
   return new Response(feed, {
     headers: {
       'content-type': contentTypes[params.type],
-      'Cache-Control': 'public, s-maxage=1',
+      'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=600',
       'CDN-Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=600',
     },
   })
