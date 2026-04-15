@@ -84,7 +84,7 @@
     "eslint-plugin-better-tailwindcss": "4.3.2",
     "oxfmt": "0.44.0",
     "oxlint": "1.59.0",
-    "postcss": "8.5.8",
+    "postcss": "8.5.9",
     "tailwindcss": "4.2.2",
     "tsx": "4.21.0",
     "typescript": "5.9.3"
