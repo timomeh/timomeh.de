@@ -81,7 +81,7 @@
     "@types/remove-markdown": "0.3.4",
     "drizzle-kit": "0.31.10",
     "esbuild": "0.28.0",
-    "eslint-plugin-better-tailwindcss": "4.3.2",
+    "eslint-plugin-better-tailwindcss": "4.4.0",
     "oxfmt": "0.44.0",
     "oxlint": "1.59.0",
     "postcss": "8.5.9",
