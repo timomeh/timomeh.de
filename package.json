@@ -83,7 +83,7 @@
     "esbuild": "0.28.0",
     "eslint-plugin-better-tailwindcss": "4.4.0",
     "oxfmt": "0.44.0",
-    "oxlint": "1.59.0",
+    "oxlint": "1.60.0",
     "postcss": "8.5.9",
     "tailwindcss": "4.2.2",
     "tsx": "4.21.0",
