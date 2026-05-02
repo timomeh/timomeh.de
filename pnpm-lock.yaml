@@ -28,8 +28,8 @@ importers:
         specifier: 6.1.13
         version: 6.1.13
       '@imgproxy/imgproxy-js-core':
-        specifier: 1.7.0
-        version: 1.7.0
+        specifier: 1.8.0
+        version: 1.8.0
       '@keystatic/core':
         specifier: 0.5.50
         version: 0.5.50(next@16.2.4(@opentelemetry/api@1.9.0)(@playwright/test@1.59.1)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -1020,8 +1020,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@imgproxy/imgproxy-js-core@1.7.0':
-    resolution: {integrity: sha512-NOitHDWUnlF/Co0bwotnFqAaUUXinrSB+pCLLXxpHVMpureWU5NgApeghoV/mRei1eBLnHRSdL7ZcjvlLWA06w==}
+  '@imgproxy/imgproxy-js-core@1.8.0':
+    resolution: {integrity: sha512-Gh0fO/MnRGAvHQqESLHn9bN3S7Z9peAm5dTcwTluFeAYPgFsr0QpIcyvClcThaz3YJKWEhk3up1Z13G6pk9Qww==}
 
   '@internationalized/date@3.12.0':
     resolution: {integrity: sha512-/PyIMzK29jtXaGU23qTvNZxvBXRtKbNnGDFD+PY6CZw/Y8Ex8pFUzkuCJCG9aOqmShjqhS9mPqP6Dk5onQY8rQ==}
@@ -4604,7 +4604,7 @@ snapshots:
   '@img/sharp-win32-x64@0.34.5':
     optional: true
 
-  '@imgproxy/imgproxy-js-core@1.7.0': {}
+  '@imgproxy/imgproxy-js-core@1.8.0': {}
 
   '@internationalized/date@3.12.0':
     dependencies:
