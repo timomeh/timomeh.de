@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@bprogress/next": "3.2.12",
-    "@fancyapps/ui": "6.1.13",
+    "@fancyapps/ui": "6.1.14",
     "@imgproxy/imgproxy-js-core": "1.8.0",
     "@keystatic/core": "0.5.50",
     "@keystatic/next": "5.0.4",
