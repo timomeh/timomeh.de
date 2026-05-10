@@ -28,7 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: install railway cli
-        run: bash <(curl -fsSL cli.new)
+        run: bash <(curl -fsSL cli.new) && source "$HOME/.railway/env"
       - uses: docker/login-action@v4
         with:
           registry: ${{ env.REGISTRY }}
