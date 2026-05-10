@@ -11,16 +11,16 @@ export default async function Page({ params }: Props) {
   const { title } = await GetTagTitle.invoke(tag)
 
   return (
-    <div className="flex py-1 flex-nowrap space-x-4">
-      <Link href="/" className="hover:underline font-bold">
+    <div className="flex flex-nowrap space-x-4 py-1">
+      <Link href="/" className="font-bold hover:underline">
         Posts
       </Link>
-      <span className="max-w-[200px] text-ellipsis overflow-hidden line-clamp-1">
+      <span className="line-clamp-1 max-w-[200px] overflow-hidden text-ellipsis">
         Tag: {title}
       </span>
       <Link
         href="/shorts"
-        className="hover:underline opacity-70 hover:opacity-100 transition-all"
+        className="opacity-70 transition-all hover:underline hover:opacity-100"
       >
         Shorts
       </Link>

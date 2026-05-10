@@ -36,14 +36,14 @@ export default function Layout({ kicker, backdrop }: Props) {
       <div
         className="
           relative z-20 overflow-hidden px-4 pt-14 pb-16
-          sm:pt-28 sm:pb-28
           group-has-[.header-backdrop-signal]/header:!pb-6
+          sm:pt-28 sm:pb-28
         "
       >
-        <div className="px-4 sm:px-6 md:px-8 max-w-2xl mx-auto">
+        <div className="mx-auto max-w-2xl px-4 sm:px-6 md:px-8">
           <ViewTransition name="mug">
-            <div className="flex w-full items-center justify-center flex-col">
-              <div className="relative size-20 -ml-3">
+            <div className="flex w-full flex-col items-center justify-center">
+              <div className="relative -ml-3 size-20">
                 <Link
                   aria-label="Go to home"
                   href="/"
@@ -59,20 +59,19 @@ export default function Layout({ kicker, backdrop }: Props) {
               </div>
               <div
                 className="
-                  mt-2 text-[#282220] text-shadow-sm text-shadow-white/20
+                  mt-2 text-center text-[#282220] text-shadow-sm
+                  text-shadow-white/20
                   dark:text-[#D9FEDB] dark:text-shadow-black/20
                   dark:text-shadow-md
-                  text-center
                 "
               >
                 <span
                   data-visual-test="removed"
                   className="
-                    text-xs inline-block font-mono font-semibold opacity-40
-                    blur-[2px] transition-all
+                    mb-1 inline-block font-mono text-xs font-semibold
+                    text-balance opacity-40 blur-[2px] transition-all
                     has-[span[data-loaded=true]]:opacity-80
                     has-[span[data-loaded=true]]:blur-none
-                    mb-1 text-balance
                   "
                 >
                   {kicker}

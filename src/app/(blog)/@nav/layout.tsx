@@ -13,21 +13,20 @@ export default function Layout({ children }: Props) {
   return (
     <div
       className="
-        border-b border-black/5 bg-[#f2f1f0]/60
+        sticky top-0 z-50 -mb-10 h-10 border-b border-black/5 bg-[#f2f1f0]/60
+        font-mono text-xs backdrop-blur-lg
         dark:border-white/10 dark:bg-[#0f0d0b]/70
-        sticky top-0 -mb-10 z-50 backdrop-blur-lg h-10 text-xs font-mono
       "
     >
-      <div className="max-w-2xl mx-auto px-3 sm:px-6 md:px-8">
-        <div className="flex justify-between flex-nowrap items-center h-10">
+      <div className="mx-auto max-w-2xl px-3 sm:px-6 md:px-8">
+        <div className="flex h-10 flex-nowrap items-center justify-between">
           {children}
           <div className="flex space-x-3">
             <Link
               href="/about"
               className="
-                group/btn relative block opacity-70
+                group/btn relative block opacity-70 transition-all
                 hover:opacity-100
-                transition-all
               "
             >
               <div className="size-4">
@@ -38,9 +37,8 @@ export default function Layout({ children }: Props) {
             <Link
               href="/feeds"
               className="
-                group/btn relative block opacity-70
+                group/btn relative block opacity-70 transition-all
                 hover:opacity-100
-                transition-all
               "
             >
               <div className="size-4">
@@ -50,7 +48,7 @@ export default function Layout({ children }: Props) {
 
             <SwitchThemeButton
               aria-label="Switch color theme"
-              className="group/btn opacity-70 hover:opacity-100 transition-all"
+              className="group/btn opacity-70 transition-all hover:opacity-100"
               type="button"
             >
               <div className="size-4">

@@ -14,7 +14,7 @@ export async function ReadMorePosts({ year }: Props) {
 
   return (
     <section className="mt-10">
-      <div className="relative max-w-2xl mx-auto">
+      <div className="relative mx-auto max-w-2xl">
         <div className="p-4 sm:p-6 md:p-8">
           <Prose>
             <h2>

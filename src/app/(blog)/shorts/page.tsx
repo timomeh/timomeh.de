@@ -8,7 +8,7 @@ export default async function Page() {
 
   return (
     <div className="relative">
-      <div className="p-4 sm:p-6 md:p-8 md:py-12 max-w-2xl mx-auto space-y-12">
+      <div className="mx-auto max-w-2xl space-y-12 p-4 sm:p-6 md:p-8 md:py-12">
         {shorts.map((short) => (
           <ListedShort short={short} key={short.id} />
         ))}

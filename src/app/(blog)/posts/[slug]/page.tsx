@@ -22,7 +22,7 @@ export default async function Page(props: Props) {
       className="relative"
       data-landmark="content-page"
     >
-      <div className="p-4 sm:p-6 md:p-8 md:py-12 max-w-2xl mx-auto">
+      <div className="mx-auto max-w-2xl p-4 sm:p-6 md:p-8 md:py-12">
         <Prose>
           <span className="not-prose inline-flex">
             <PostHeader publishedAt={post.publishedAt} />
@@ -41,11 +41,8 @@ export default async function Page(props: Props) {
                       <h1>{props.children}</h1>
                       <aside
                         className="
-                          -mt-4 text-sm
-                          dark:text-white/40
-                          border-b
-                          dark:border-white/15
-                          text-black/60 border-black/15
+                          -mt-4 border-b border-black/15 text-sm text-black/60
+                          dark:border-white/15 dark:text-white/40
                         "
                       >
                         <p className="mb-3">
@@ -55,10 +52,9 @@ export default async function Page(props: Props) {
                               <Link
                                 href={`/tag/${tag.slug}`}
                                 className="
-                                  text-current
-                                  dark:hover:text-white/80
+                                  text-current no-underline transition-colors
                                   hover:text-black/90
-                                  no-underline transition-colors
+                                  dark:hover:text-white/80
                                 "
                               >
                                 {tag.title}

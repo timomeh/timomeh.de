@@ -11,6 +11,7 @@ import { config } from '@/config'
 import { KeyboardNavLink } from '../../comps/keyboard-nav-link'
 
 import '@/data/kernel'
+
 import ScrollToTop from '../../comps/scroll-to-top'
 
 type Props = {

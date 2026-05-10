@@ -10,7 +10,7 @@ export default async function Page({ params }: Props) {
   const { year } = await params
 
   return (
-    <div className="flex py-1 flex-nowrap space-x-4">
+    <div className="flex flex-nowrap space-x-4 py-1">
       <Link href="/" className="font-medium hover:underline">
         Posts
       </Link>

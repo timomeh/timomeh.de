@@ -10,7 +10,7 @@ export default async function Page() {
 
   return (
     <div className="relative">
-      <div className="p-4 sm:p-6 md:p-8 md:py-12 max-w-2xl mx-auto">
+      <div className="mx-auto max-w-2xl p-4 sm:p-6 md:p-8 md:py-12">
         <Prose>
           <h1>Browse all tags</h1>
           <ul>

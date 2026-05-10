@@ -4,14 +4,14 @@ import { BackLink } from '../../../../../comps/back-link'
 
 export default async function Page() {
   return (
-    <div className="flex py-1 flex-nowrap space-x-4">
+    <div className="flex flex-nowrap space-x-4 py-1">
       <BackLink
         className="
+          back-link opacity-70 transition-all
           hover:underline hover:opacity-100
-          opacity-70 transition-all back-link
         "
       >
-        <ArrowLeft className="inline-block size-3 mr-1 -mt-0.5" />
+        <ArrowLeft className="-mt-0.5 mr-1 inline-block size-3" />
         <span>Back to Posts</span>
       </BackLink>
     </div>

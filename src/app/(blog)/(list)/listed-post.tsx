@@ -24,7 +24,7 @@ export async function ListedPost({ slug }: Props) {
     <article
       lang={post.metaLang?.split('_')[0]}
       id={slug}
-      className="relative border-b dark:border-white/10 border-black/10"
+      className="relative border-b border-black/10 dark:border-white/10"
     >
       {post?.lightBgColor && (
         <div
@@ -52,7 +52,7 @@ export async function ListedPost({ slug }: Props) {
           </Suspense>
         </div>
       )}
-      <div className="p-4 sm:p-6 md:p-8 md:py-12 max-w-2xl mx-auto">
+      <div className="mx-auto max-w-2xl p-4 sm:p-6 md:p-8 md:py-12">
         <Prose>
           <Link
             href={`/posts/${post.slug}`}
@@ -117,7 +117,7 @@ export async function Cover({ light, dark, slug }: CoverProps) {
         <div
           data-has-dark={!!darkCover}
           className="
-            relative isolate flex h-auto max-h-[400px] w-full max-w-2xl mx-auto
+            relative isolate mx-auto flex h-auto max-h-[400px] w-full max-w-2xl
             items-end overflow-hidden rounded-t-xl
             [mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%)]
             mix-blend-darken
@@ -143,8 +143,8 @@ export async function Cover({ light, dark, slug }: CoverProps) {
       {darkCover && (
         <div
           className="
-            relative isolate hidden h-auto max-h-[400px] w-full max-w-2xl
-            mx-auto items-end overflow-hidden rounded-t-xl
+            relative isolate mx-auto hidden h-auto max-h-[400px] w-full
+            max-w-2xl items-end overflow-hidden rounded-t-xl
             [mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%)]
             mix-blend-lighten
             dark:flex
