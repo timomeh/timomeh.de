@@ -1,6 +1,3 @@
-import Link from 'next/link'
-
-import { Card } from '@/comps/card'
 import { DetailedShort } from '@/comps/detailed-short'
 
 import { ShortMetadata, ShowShort } from '../data'
@@ -14,31 +11,10 @@ export default async function Page(props: Props) {
   const short = await ShowShort.invoke(params.id)
 
   return (
-    <article lang={short.metaLang?.split('_')[0]} className="relative mt-2">
-      <Card>
-        <div className="divide-y divide-gray-400/30 dark:divide-gray-600/30">
-          <div className="xs:px-4 px-2 py-4 sm:p-6 md:p-8" key={short.id}>
-            <DetailedShort short={short} />
-          </div>
-          <footer
-            className="
-              flex items-center justify-center px-4 py-3
-              sm:px-6
-              md:px-8
-            "
-          >
-            <Link
-              href="/shorts"
-              className="
-                text-sm font-normal whitespace-nowrap no-underline
-                dark:text-blue-300
-              "
-            >
-              Back to all Shorts
-            </Link>
-          </footer>
-        </div>
-      </Card>
+    <article lang={short.metaLang?.split('_')[0]} className="relative">
+      <div className="p-4 sm:p-6 md:p-8 md:py-12 max-w-2xl mx-auto">
+        <DetailedShort short={short} />
+      </div>
     </article>
   )
 }

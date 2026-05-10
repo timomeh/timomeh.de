@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { ViewTransition } from 'react'
 
 import { Aurora } from '@/comps/aurora'
 import { Contours } from '@/comps/contours'
@@ -14,7 +15,7 @@ export default function Layout({ kicker, backdrop }: Props) {
     <div className="group/header">
       <div
         className="
-          grid grid-rows-[0fr] transition-all duration-700 ease-in-out
+          grid grid-rows-[0fr]
           has-[.header-backdrop-signal]:grid-rows-[1fr]
         "
       >
@@ -36,53 +37,59 @@ export default function Layout({ kicker, backdrop }: Props) {
         className="
           relative z-20 overflow-hidden px-4 pt-14 pb-16
           sm:pt-28 sm:pb-28
+          group-has-[.header-backdrop-signal]/header:!pb-6
         "
       >
-        <div className="flex w-full items-center justify-center">
-          <div className="relative size-18 sm:size-24">
-            <Link
-              aria-label="Go to home"
-              href="/"
-              className="
-                group/link relative block size-full transition-transform
-                ease-in-out select-none
-                motion-safe:hover:scale-110 motion-safe:hover:-rotate-1
-                motion-safe:active:scale-105
-              "
-            >
-              <Mug />
-            </Link>
-          </div>
-          <div
-            className="
-              ml-2 text-[#282220] text-shadow-sm text-shadow-white/20
-              dark:text-[#D9FEDB] dark:text-shadow-black/20 dark:text-shadow-md
-            "
-          >
-            <span
-              data-visual-test="removed"
-              className="
-                text-2xs inline-block font-mono font-semibold opacity-40
-                blur-[2px] transition-all
-                has-[span[data-loaded=true]]:opacity-100
-                has-[span[data-loaded=true]]:blur-none
-                sm:w-0 sm:text-xs sm:whitespace-nowrap
-              "
-            >
-              {kicker}
-            </span>
-            <br />
-            <Link
-              href="/"
-              className="
-                font-serif text-xl leading-none font-semibold
-                sm:text-[1.7rem]
-                dark:font-normal
-              "
-            >
-              Timo Mämecke
-            </Link>
-          </div>
+        <div className="px-4 sm:px-6 md:px-8 max-w-2xl mx-auto">
+          <ViewTransition name="mug">
+            <div className="flex w-full items-center justify-center flex-col">
+              <div className="relative size-20 -ml-3">
+                <Link
+                  aria-label="Go to home"
+                  href="/"
+                  className="
+                    group/link relative block size-full transition-transform
+                    ease-in-out select-none
+                    motion-safe:hover:scale-110 motion-safe:hover:-rotate-1
+                    motion-safe:active:scale-105
+                  "
+                >
+                  <Mug />
+                </Link>
+              </div>
+              <div
+                className="
+                  mt-2 text-[#282220] text-shadow-sm text-shadow-white/20
+                  dark:text-[#D9FEDB] dark:text-shadow-black/20
+                  dark:text-shadow-md
+                  text-center
+                "
+              >
+                <span
+                  data-visual-test="removed"
+                  className="
+                    text-xs inline-block font-mono font-semibold opacity-40
+                    blur-[2px] transition-all
+                    has-[span[data-loaded=true]]:opacity-80
+                    has-[span[data-loaded=true]]:blur-none
+                    mb-1 text-balance
+                  "
+                >
+                  {kicker}
+                </span>
+                <br />
+                <Link
+                  href="/"
+                  className="
+                    font-serif text-2xl leading-none font-semibold
+                    dark:font-normal
+                  "
+                >
+                  Timo Mämecke
+                </Link>
+              </div>
+            </div>
+          </ViewTransition>
         </div>
       </div>
     </div>

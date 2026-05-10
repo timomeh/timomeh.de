@@ -75,6 +75,11 @@ export async function MDX({
         FootnotesSection: (props) => (
           <FootnotesSection {...props} scope={scope} />
         ),
+        img: (props) => (
+          <Suspense fallback={<div />}>
+            <Img {...props} scope={scope} />
+          </Suspense>
+        ),
         ...(!!readMorePath && {
           ReadMore: () => <ReadMore href={readMorePath} />,
         }),

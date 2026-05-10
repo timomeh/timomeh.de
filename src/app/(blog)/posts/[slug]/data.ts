@@ -13,7 +13,11 @@ export class ShowPost extends Vla.Action {
   async handle(slug: string) {
     const post = await this.postsRepo.bySlug(slug)
     if (!post) notFound()
-    return { post, assetPrefix: contentAsset('posts', post.slug, '') }
+    return {
+      post,
+      assetPrefix: contentAsset('posts', post.slug, ''),
+      est: formatReadingTime(post.content, post.readingTime, 'read'),
+    }
   }
 }
 

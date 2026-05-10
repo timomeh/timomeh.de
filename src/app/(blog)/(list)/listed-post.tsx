@@ -1,16 +1,15 @@
 import Link from 'next/link'
 import React, { Suspense } from 'react'
 
-import { Card } from '@/comps/card'
 import { FadeInImage } from '@/comps/fade-in-image'
 import { Anchor } from '@/comps/mdx/anchor'
 import { MDX } from '@/comps/mdx/mdx'
 import { PostHeader } from '@/comps/post-header'
 import { Prose } from '@/comps/prose'
 import { contentAsset } from '@/data/cms'
-import { formatReadingTime } from '@/lib/formatReadingTime'
 import { getPlaceholder } from '@/lib/placeholder'
 
+import { Lightbox } from '../../../comps/lightbox'
 import { ShowListedPost } from './data'
 
 type Props = {
@@ -22,27 +21,28 @@ export async function ListedPost({ slug }: Props) {
   if (!post) return null
 
   return (
-    <article lang={post.metaLang?.split('_')[0]} id={slug}>
-      <Card>
-        {post?.lightBgColor && (
-          <div
-            style={{ background: post.lightBgColor }}
-            className="
-              absolute inset-0 -z-10 rounded-xl mix-blend-multiply
-              dark:hidden
-            "
-          />
-        )}
-        {post?.darkBgColor && (
-          <div
-            style={{ background: post.darkBgColor }}
-            className="
-              absolute inset-0 -z-10 hidden rounded-xl mix-blend-exclusion
-              dark:block
-            "
-          />
-        )}
-        {(post.darkCover || post.lightCover) && (
+    <article
+      lang={post.metaLang?.split('_')[0]}
+      id={slug}
+      className="relative border-b dark:border-white/10 border-black/10"
+    >
+      {post?.lightBgColor && (
+        <div
+          style={{ background: post.lightBgColor }}
+          className="absolute inset-0 -z-10 mix-blend-multiply dark:hidden"
+        />
+      )}
+      {post?.darkBgColor && (
+        <div
+          style={{ background: post.darkBgColor }}
+          className="
+            absolute inset-0 -z-10 hidden mix-blend-exclusion
+            dark:block
+          "
+        />
+      )}
+      {(post.darkCover || post.lightCover) && (
+        <div className="-mb-4 sm:-mb-6 md:-mb-12">
           <Suspense fallback={<div className="aspect-3/2 max-h-[400px]" />}>
             <Cover
               slug={post.slug}
@@ -50,22 +50,18 @@ export async function ListedPost({ slug }: Props) {
               dark={post.darkCover}
             />
           </Suspense>
-        )}
-        <div className="p-4 sm:p-6 md:p-8">
-          <Prose>
-            <Link
-              href={`/posts/${post.slug}`}
-              className="not-prose inline-flex"
-            >
-              <PostHeader
-                publishedAt={post.publishedAt}
-                readingTime={formatReadingTime(
-                  post.content,
-                  post.readingTime,
-                  'read',
-                )}
-              />
-            </Link>
+        </div>
+      )}
+      <div className="p-4 sm:p-6 md:p-8 md:py-12 max-w-2xl mx-auto">
+        <Prose>
+          <Link
+            href={`/posts/${post.slug}`}
+            className="not-prose inline-flex"
+            aria-hidden={true}
+          >
+            <PostHeader publishedAt={post.publishedAt} />
+          </Link>
+          <Lightbox>
             <MDX
               components={{
                 h1: (props) => {
@@ -96,9 +92,9 @@ export async function ListedPost({ slug }: Props) {
               readMorePath={`/posts/${post.slug}`}
               scope={post.slug}
             />
-          </Prose>
-        </div>
-      </Card>
+          </Lightbox>
+        </Prose>
+      </div>
     </article>
   )
 }
@@ -121,8 +117,8 @@ export async function Cover({ light, dark, slug }: CoverProps) {
         <div
           data-has-dark={!!darkCover}
           className="
-            relative isolate flex h-auto max-h-[400px] w-full items-end
-            overflow-hidden rounded-t-xl
+            relative isolate flex h-auto max-h-[400px] w-full max-w-2xl mx-auto
+            items-end overflow-hidden rounded-t-xl
             [mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%)]
             mix-blend-darken
             dark:data-[has-dark=true]:hidden
@@ -147,8 +143,8 @@ export async function Cover({ light, dark, slug }: CoverProps) {
       {darkCover && (
         <div
           className="
-            relative isolate hidden h-auto max-h-[400px] w-full items-end
-            overflow-hidden rounded-t-xl
+            relative isolate hidden h-auto max-h-[400px] w-full max-w-2xl
+            mx-auto items-end overflow-hidden rounded-t-xl
             [mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%)]
             mix-blend-lighten
             dark:flex

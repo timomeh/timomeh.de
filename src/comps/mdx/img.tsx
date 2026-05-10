@@ -6,7 +6,7 @@ import { OptimImage } from '../optim-image'
 type Props = React.DetailedHTMLProps<
   React.ImgHTMLAttributes<HTMLImageElement>,
   HTMLImageElement
->
+> & { scope?: string }
 
 export async function Img(props: Props) {
   if (!props.src) return null
@@ -38,6 +38,7 @@ export async function Img(props: Props) {
         width={img.width}
         height={img.height}
         alt={props.alt || ''}
+        data-fancybox={props.scope ? `post-${props.scope}-media` : undefined}
         sizes="(max-width: 640px) 100vw, 680px"
         className="relative mx-auto rounded-md"
       />

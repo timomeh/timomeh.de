@@ -11,7 +11,7 @@ export function Prose({ children, size }: Props) {
         prose
         data-[size=sm]:prose-sm
         sm:data-[size=sm]:prose
-        prose-stone
+        prose-bw
         dark:prose-invert!
         prose-headings:text-balance prose-headings:font-serif
         prose-headings:font-semibold

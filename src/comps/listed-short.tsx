@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 import type { EnrichedShort } from '@/data/shorts/shorts.service'
 
-import { formatRelativeDate, isMoreThanWeeksAgo } from '../lib/date'
+import { formatRelativeDate } from '../lib/date'
 import { LocalDateTime } from './local-date-time'
 import { MDX } from './mdx/mdx'
 import { MediaGrid } from './media-grid'
@@ -39,14 +39,7 @@ export async function ListedShort({ short }: Props) {
                 dateTime={short.publishedAt.toISOString()}
                 title={short.publishedAt.toISOString()}
               >
-                {isMoreThanWeeksAgo(short.publishedAt, 10) ? (
-                  <LocalDateTime
-                    utc={short.publishedAt.toISOString()}
-                    showTime={false}
-                  />
-                ) : (
-                  formatRelativeDate(short.publishedAt)
-                )}
+                {formatRelativeDate(short.publishedAt)}
               </time>
             </Link>
           </div>
@@ -62,6 +55,15 @@ export async function ListedShort({ short }: Props) {
               <MediaGrid images={short.attachments} shortId={short.id} />
             </div>
           )}
+          <div className="text-xs">
+            <time
+              className="inline-block opacity-70"
+              dateTime={short.publishedAt.toISOString()}
+              title={short.publishedAt.toISOString()}
+            >
+              <LocalDateTime utc={short.publishedAt.toISOString()} />
+            </time>
+          </div>
         </Prose>
       </div>
     </div>

@@ -1,11 +1,10 @@
 type Props = {
   publishedAt: Date
-  readingTime: string
 }
 
-export function PostHeader({ publishedAt, readingTime }: Props) {
+export function PostHeader({ publishedAt }: Props) {
   return (
-    <div className="mb-2 text-sm">
+    <div className="text-sm opacity-70">
       <time>
         {new Date(publishedAt).toLocaleString('en-US', {
           month: 'short',
@@ -13,8 +12,6 @@ export function PostHeader({ publishedAt, readingTime }: Props) {
           year: 'numeric',
         })}
       </time>
-      <span>{' · '}</span>
-      <span>{readingTime}</span>
     </div>
   )
 }

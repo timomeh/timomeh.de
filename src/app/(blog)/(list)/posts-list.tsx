@@ -1,15 +1,9 @@
-import React, { Fragment } from 'react'
-
-import { GlassPill } from '@/comps/glass-pill'
-import { pluralizePosts } from '@/lib/plurals'
-
 import {
   ListPostsByTag,
   ListPostsByYear,
   ListPostsForCurrentYear,
 } from './data'
 import { ListedPost } from './listed-post'
-import { ShortsTeaser } from './shorts-teaser'
 
 type Props = {
   sort?: 'asc' | 'desc'
@@ -22,13 +16,9 @@ export async function PostsList({ sort = 'desc', year, tagSlug }: Props) {
     const { tag, posts } = await ListPostsByTag.invoke(tagSlug, sort)
 
     return (
-      <div className="space-y-10">
+      <div>
         <div className="relative mb-4 flex justify-center">
-          <GlassPill>
-            <h3>
-              {pluralizePosts(posts.length)} in {tag.title}
-            </h3>
-          </GlassPill>
+          <h3>Tagged {tag.title}</h3>
         </div>
         {posts.map((post) => (
           <div className="relative" key={post.slug}>
@@ -43,13 +33,9 @@ export async function PostsList({ sort = 'desc', year, tagSlug }: Props) {
     const { postYear, posts } = await ListPostsByYear.invoke(year, sort)
 
     return (
-      <div className="space-y-10">
+      <div>
         <div className="relative mb-4 flex justify-center">
-          <GlassPill>
-            <h3>
-              {pluralizePosts(posts.length)} in {postYear.year}
-            </h3>
-          </GlassPill>
+          <h3>Year {postYear.year}</h3>
         </div>
         {posts.map((post) => (
           <div className="relative" key={post.slug}>
@@ -60,39 +46,14 @@ export async function PostsList({ sort = 'desc', year, tagSlug }: Props) {
     )
   }
 
-  const { groupedPosts, hasShorts, shorts, shortsAtTop } =
-    await ListPostsForCurrentYear.invoke(sort)
+  const { posts } = await ListPostsForCurrentYear.invoke(sort)
 
   return (
-    <div className="space-y-10">
-      {shortsAtTop && hasShorts && (
-        <div className="mt-11">
-          <ShortsTeaser shorts={shorts} />
+    <div>
+      {posts.map((post) => (
+        <div className="relative" key={post.slug}>
+          <ListedPost slug={post.slug} />
         </div>
-      )}
-      {groupedPosts.map((group, groupIndex) => (
-        <Fragment key={group.marker}>
-          <div className="relative mb-4 flex justify-center">
-            <GlassPill>
-              <h3>{group.title}</h3>
-            </GlassPill>
-          </div>
-          {group.posts.map((post, postIndex) => (
-            <React.Fragment key={post.slug}>
-              {!shortsAtTop &&
-                groupIndex === 0 &&
-                postIndex === 1 &&
-                hasShorts && <ShortsTeaser shorts={shorts} />}
-              <div className="relative" key={post.slug}>
-                <ListedPost slug={post.slug} />
-              </div>
-              {!shortsAtTop &&
-                groupIndex === 0 &&
-                group.posts.length === 1 &&
-                hasShorts && <ShortsTeaser shorts={shorts} />}
-            </React.Fragment>
-          ))}
-        </Fragment>
       ))}
     </div>
   )

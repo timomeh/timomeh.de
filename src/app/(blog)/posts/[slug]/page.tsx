@@ -1,11 +1,11 @@
 import Link from 'next/link'
+import React from 'react'
 
 import { MDX } from '@/comps/mdx/mdx'
 import { PostHeader } from '@/comps/post-header'
 import { Prose } from '@/comps/prose'
-import { Tag } from '@/comps/tag'
-import { formatReadingTime } from '@/lib/formatReadingTime'
 
+import { Lightbox } from '../../../../comps/lightbox'
 import { PostMetadata, ShowPost } from './data'
 
 type Props = {
@@ -14,7 +14,7 @@ type Props = {
 
 export default async function Page(props: Props) {
   const params = await props.params
-  const { post, assetPrefix } = await ShowPost.invoke(params.slug)
+  const { post, assetPrefix, est } = await ShowPost.invoke(params.slug)
 
   return (
     <article
@@ -22,33 +22,60 @@ export default async function Page(props: Props) {
       className="relative"
       data-landmark="content-page"
     >
-      <Prose>
-        <PostHeader
-          publishedAt={post.publishedAt}
-          readingTime={formatReadingTime(
-            post.content,
-            post.readingTime,
-            'read',
-          )}
-        />
-        <div className="not-prose -m-0.5 mb-2 hidden sm:block lg:hidden">
-          {post.postTags.map(({ tag }) => (
-            <Link
-              key={tag.slug}
-              href={`/tag/${tag.slug}`}
-              className="group/btn inline-flex p-0.5"
-            >
-              <Tag title={tag.title} />
-            </Link>
-          ))}
-        </div>
-        <MDX
-          cacheKey={`post-${post.slug}`}
-          cacheTags={['mdx-type:post', `mdx-post:${post.slug}`]}
-          content={post.content}
-          assetPrefix={assetPrefix}
-        />
-      </Prose>
+      <div className="p-4 sm:p-6 md:p-8 md:py-12 max-w-2xl mx-auto">
+        <Prose>
+          <span className="not-prose inline-flex">
+            <PostHeader publishedAt={post.publishedAt} />
+          </span>
+          <Lightbox>
+            <MDX
+              cacheKey={`post-${post.slug}`}
+              cacheTags={['mdx-type:post', `mdx-post:${post.slug}`]}
+              content={post.content}
+              assetPrefix={assetPrefix}
+              scope="post"
+              components={{
+                h1: (props) => {
+                  return (
+                    <>
+                      <h1>{props.children}</h1>
+                      <aside
+                        className="
+                          -mt-4 text-sm
+                          dark:text-white/40
+                          border-b
+                          dark:border-white/15
+                          text-black/60 border-black/15
+                        "
+                      >
+                        <p className="mb-3">
+                          {est}. Tagged{' '}
+                          {post.postTags.map(({ tag }, i) => (
+                            <React.Fragment key={tag.slug}>
+                              <Link
+                                href={`/tag/${tag.slug}`}
+                                className="
+                                  text-current
+                                  dark:hover:text-white/80
+                                  hover:text-black/90
+                                  no-underline transition-colors
+                                "
+                              >
+                                {tag.title}
+                              </Link>
+                              {i < post.postTags.length - 1 && <span>, </span>}
+                            </React.Fragment>
+                          ))}
+                        </p>
+                      </aside>
+                    </>
+                  )
+                },
+              }}
+            />
+          </Lightbox>
+        </Prose>
+      </div>
     </article>
   )
 }

@@ -9,14 +9,14 @@ import { ThemeSwitchScript } from '@/comps/theme-switch-script'
 import { config } from '@/config'
 
 import { KeyboardNavLink } from '../../comps/keyboard-nav-link'
-import { ResponsiveSidebar } from './responsive-sidebar'
 
 import '@/data/kernel'
+import ScrollToTop from '../../comps/scroll-to-top'
 
 type Props = {
   children: React.ReactNode
   header: React.ReactNode
-  aside: React.ReactNode
+  nav: React.ReactNode
 }
 
 const inter = Inter({
@@ -41,7 +41,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 
 const fonts = `${ibmPlexMono.variable} ${bitter.variable} ${inter.variable}`
 
-export default async function RootLayout({ children, header, aside }: Props) {
+export default async function RootLayout({ children, header, nav }: Props) {
   return (
     <html lang="en" data-theme="system" suppressHydrationWarning className={`
       group/root
@@ -68,26 +68,12 @@ export default async function RootLayout({ children, header, aside }: Props) {
         <ProgressBarProvider>
           <PrevPathProvider>
             <div className="relative">
+              {nav}
               <KeyboardNavLink href="#main">Skip to main</KeyboardNavLink>
               {header}
-              <div
-                className="
-                  mx-auto w-full gap-2 px-2
-                  sm:grid sm:w-fit sm:max-w-full
-                  sm:grid-cols-[minmax(0,700px)_auto]
-                "
-                id="main"
-              >
-                <div className="relative order-2">
-                  <KeyboardNavLink href="#content" className="max-sm:hidden">
-                    Skip to content
-                  </KeyboardNavLink>
-                  <nav id="aside" className="sm:h-full">
-                    <ResponsiveSidebar>{aside}</ResponsiveSidebar>
-                  </nav>
-                </div>
+              <div id="main">
                 <div className="relative order-1">
-                  <KeyboardNavLink href="#aside" className="max-sm:hidden">
+                  <KeyboardNavLink href="#nav" className="max-sm:hidden">
                     Jump to navigation
                   </KeyboardNavLink>
                   <div id="content" className="h-full">
@@ -98,6 +84,7 @@ export default async function RootLayout({ children, header, aside }: Props) {
             </div>
           </PrevPathProvider>
         </ProgressBarProvider>
+        <ScrollToTop />
       </body>
     </html>
   )

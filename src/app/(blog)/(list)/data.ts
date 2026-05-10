@@ -2,9 +2,7 @@ import { notFound } from 'next/navigation'
 import { Vla } from 'vla'
 
 import { PostsRepo } from '@/data/posts/posts.repo'
-import { ShortsService } from '@/data/shorts/shorts.service'
 import { TagsRepo } from '@/data/tags/tags.repo'
-import { groupPosts } from '@/lib/groupPosts'
 
 export class ListPostsByTag extends Vla.Action {
   tagsRepo = this.inject(TagsRepo)
@@ -28,7 +26,6 @@ export class ShowListedPost extends Vla.Action {
 }
 
 export class ListPostsByYear extends Vla.Action {
-  tagsRepo = this.inject(TagsRepo)
   postsRepo = this.inject(PostsRepo)
 
   async handle(year: number, sort: 'asc' | 'desc') {
@@ -44,9 +41,7 @@ export class ListPostsByYear extends Vla.Action {
 }
 
 export class ListPostsForCurrentYear extends Vla.Action {
-  tagsRepo = this.inject(TagsRepo)
   postsRepo = this.inject(PostsRepo)
-  shortsService = this.inject(ShortsService)
 
   async handle(sort: 'asc' | 'desc') {
     const postYears = await this.postsRepo.listYears()
@@ -68,14 +63,7 @@ export class ListPostsForCurrentYear extends Vla.Action {
       posts.push(...lastYearPosts)
     }
 
-    const groupedPosts = groupPosts(posts)
-    const shorts = await this.shortsService.listEnriched(3)
-
-    const hasShorts = shorts.length > 0
-    const shortsAtTop =
-      sort === 'asc' ? false : shorts[0]?.publishedAt > posts[0]?.publishedAt
-
-    return { groupedPosts, shortsAtTop, hasShorts, shorts }
+    return { posts }
   }
 }
 
@@ -85,7 +73,7 @@ export class TeaseYearPosts extends Vla.Action {
   async handle(year: number | undefined) {
     const fromYear = year || (await this.latestYear()) - 1
     const posts = await this.postsRepo.listPublishedByYear(fromYear, {
-      limit: 4,
+      limit: 7,
     })
 
     if (posts.length < 1) {
@@ -94,8 +82,9 @@ export class TeaseYearPosts extends Vla.Action {
 
     const postYears = await this.postsRepo.listYears()
     const postYear = postYears.find((py) => py.year === fromYear)
+    const moreCount = postYear ? String(postYear.count - 7) : ''
 
-    return { posts, postYear, fromYear }
+    return { posts, postYear, fromYear, moreCount }
   }
 
   private async latestYear() {

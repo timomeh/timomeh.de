@@ -17,14 +17,16 @@ export default async function Page(props: Props) {
       className="relative"
       data-landmark="content-page"
     >
-      <Prose>
-        <MDX
-          cacheKey={`page-${page.slug}`}
-          cacheTags={['mdx-type:page', `mdx-page:${page.slug}`]}
-          content={page.content}
-          assetPrefix={assetPrefix}
-        />
-      </Prose>
+      <div className="p-4 sm:p-6 md:p-8 md:py-12 max-w-2xl mx-auto">
+        <Prose>
+          <MDX
+            cacheKey={`page-${page.slug}`}
+            cacheTags={['mdx-type:page', `mdx-page:${page.slug}`]}
+            content={page.content}
+            assetPrefix={assetPrefix}
+          />
+        </Prose>
+      </div>
     </article>
   )
 }
