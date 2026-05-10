@@ -22,7 +22,7 @@ export default async function Page(props: Props) {
       className="relative"
       data-landmark="content-page"
     >
-      <div className="mx-auto max-w-2xl p-4 sm:p-6 md:p-8 md:py-12">
+      <div className="mx-auto max-w-2xl p-4 !py-12 sm:p-6 md:p-8">
         <Prose>
           <span className="not-prose inline-flex">
             <PostHeader publishedAt={post.publishedAt} />
