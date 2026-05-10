@@ -3,7 +3,7 @@ import Link from 'next/link'
 export function Footer() {
   return (
     <footer className="relative z-30 font-mono">
-      <div className="mx-auto max-w-2xl p-4 sm:p-6 md:p-8 md:py-12">
+      <div className="mx-auto max-w-2xl p-4 !py-12 sm:p-6 md:p-8">
         <div
           className="
             text-2xs font-semibold text-gray-900 uppercase
