@@ -18,7 +18,9 @@ export async function PostsList({ sort = 'desc', year, tagSlug }: Props) {
     return (
       <div>
         <div className="relative mb-4 flex justify-center">
-          <h3>Tagged {tag.title}</h3>
+          <h3 className="text-md font-mono font-medium">
+            🏷️ Viewing posts tagged {tag.title}
+          </h3>
         </div>
         {posts.map((post) => (
           <div className="relative" key={post.slug}>
@@ -35,7 +37,9 @@ export async function PostsList({ sort = 'desc', year, tagSlug }: Props) {
     return (
       <div>
         <div className="relative mb-4 flex justify-center">
-          <h3>Year {postYear.year}</h3>
+          <h3 className="text-md font-mono font-medium">
+            📅 Viewing posts from {postYear.year}
+          </h3>
         </div>
         {posts.map((post) => (
           <div className="relative" key={post.slug}>
