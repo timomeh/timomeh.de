@@ -120,7 +120,8 @@ export async function Cover({ light, dark, slug }: CoverProps) {
             relative isolate mx-auto flex h-auto max-h-[400px] w-full max-w-2xl
             items-end overflow-hidden rounded-t-xl
             [mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%)]
-            mix-blend-darken
+            [mask-composite:intersect] mix-blend-darken
+            lg:[mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%),linear-gradient(to_left,#000_95%,transparent_100%),linear-gradient(to_right,#000_95%,transparent_100%)]
             dark:data-[has-dark=true]:hidden
           "
         >
@@ -146,7 +147,8 @@ export async function Cover({ light, dark, slug }: CoverProps) {
             relative isolate mx-auto hidden h-auto max-h-[400px] w-full
             max-w-2xl items-end overflow-hidden rounded-t-xl
             [mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%)]
-            mix-blend-lighten
+            [mask-composite:intersect] mix-blend-lighten
+            lg:[mask-image:linear-gradient(to_bottom,#000_95%,transparent_100%),linear-gradient(to_left,#000_95%,transparent_100%),linear-gradient(to_right,#000_95%,transparent_100%)]
             dark:flex
           "
         >
