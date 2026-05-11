@@ -70,7 +70,7 @@ export default async function RootLayout({ children, header, nav }: Props) {
           <PrevPathProvider>
             <div className="relative">
               <KeyboardNavLink href="#main">Skip to main</KeyboardNavLink>
-              <div id="nav">{nav}</div>
+              {nav}
               {header}
               <div id="main">
                 <div className="relative order-1">

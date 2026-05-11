@@ -12,6 +12,7 @@ type Props = {
 export default function Layout({ children }: Props) {
   return (
     <div
+      id="nav"
       className="
         sticky top-0 z-50 -mb-10 h-10 border-b border-black/5 bg-[#f2f1f0]/60
         font-mono text-xs backdrop-blur-lg
