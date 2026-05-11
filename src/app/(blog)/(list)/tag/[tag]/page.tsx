@@ -6,6 +6,7 @@ type Props = {
 
 export default async function Page({ params }: Props) {
   const tagSlug = (await params).tag
+
   return <PostsList tagSlug={tagSlug} />
 }
 
