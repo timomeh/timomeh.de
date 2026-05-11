@@ -11,11 +11,14 @@ export default async function Page({ params }: Props) {
 
   return (
     <div className="flex flex-nowrap space-x-4 py-1">
-      <Link href="/" className="font-medium hover:underline">
+      <Link href="/" className="font-bold hover:underline">
         Posts
       </Link>
       <PostYearNav year={year} />
-      <Link href="/shorts" className="font-medium hover:underline">
+      <Link
+        href="/shorts"
+        className="opacity-70 transition-all hover:underline hover:opacity-100"
+      >
         Shorts
       </Link>
     </div>

@@ -21,7 +21,7 @@ export default function Layout({ children }: Props) {
       <div className="mx-auto max-w-2xl px-3 sm:px-6 md:px-8">
         <div className="flex h-10 flex-nowrap items-center justify-between">
           {children}
-          <div className="flex space-x-3">
+          <nav aria-label="Shortcuts" className="flex space-x-3">
             <Link
               href="/about"
               className="
@@ -55,7 +55,7 @@ export default function Layout({ children }: Props) {
                 <DarkLightIcon />
               </div>
             </SwitchThemeButton>
-          </div>
+          </nav>
         </div>
       </div>
     </div>

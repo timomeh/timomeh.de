@@ -131,7 +131,7 @@ export async function MDX({
     {
       additionalCacheKey: [
         'compiled-mdx',
-        'cached-version:v3', // increase this version if rendered mdx updated
+        'cached-version:v4', // increase this version if rendered mdx updated
         assetPrefix || 'mdx-no-asset-prefix',
         cacheKey || 'mdx-no-cache-key',
       ],
@@ -224,7 +224,7 @@ function handleHTML(html: string, info: TransformerInfo) {
     (url.includes('youtube.com') || url.includes('youtu.be'))
   ) {
     const noCookieHtml = html.replace('youtube.com', 'youtube-nocookie.com')
-    return `<div className="not-prose oembed my-5 oembed-youtube aspect-video rounded-lg overflow-hidden in-data-[landmark=content-page]:md:-mx-4">${noCookieHtml}</div>`
+    return `<div className="not-prose oembed my-5 oembed-youtube aspect-video rounded-lg overflow-hidden md:-mx-4">${noCookieHtml}</div>`
   }
 
   if (transformer.name === '@remark-embedder/transformer-oembed') {
@@ -232,7 +232,7 @@ function handleHTML(html: string, info: TransformerInfo) {
       '<blockquote class="',
       '<blockquote data-align="center" class="oembed ',
     )
-    return `<div className="not-prose max-w-full min-w-0 oembed my-5 in-data-[landmark=content-page]:md:-mx-4"><timomeh-oembed>${html}</timomeh-oembed></div>`
+    return `<div className="not-prose oembed my-5 md:-mx-4"><timomeh-oembed>${html}</timomeh-oembed></div>`
   }
 
   return html

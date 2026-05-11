@@ -63,7 +63,7 @@ export async function Code(props: Props) {
         not-prose border-beige/30 shadow-beige/20 relative my-8 rounded-md
         border text-sm leading-6 font-normal
         [box-shadow:0_0_24px_var(--tw-shadow-color)]
-        in-data-[landmark=content-page]:md:-mx-4
+        md:-mx-4
         dark:border-white/10 dark:shadow-purple-300/2
       "
     >

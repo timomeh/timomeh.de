@@ -5,7 +5,7 @@ type Props = JSX.IntrinsicElements['a']
 export function KeyboardNavLink({ children, className, ...rest }: Props) {
   return (
     <a {...rest} className={`
-      sr-only top-0 left-0 z-50 w-auto
+      sr-only top-0 left-0 z-100 w-auto
       focus-visible:not-sr-only focus-visible:absolute focus-visible:block
       ${className || ''}
       `}>

@@ -8,7 +8,7 @@ export async function PostYearNav({ year }: { year?: string | null }) {
     await GetPostYearsNav.invoke(year ?? undefined)
 
   return (
-    <div>
+    <nav aria-label="Publication years">
       {futureYearLink ? (
         <Link href={futureYearLink} aria-label="Future Year">
           <ArrowLeft className="-mt-0.5 mr-1 inline-block size-3" />
@@ -24,6 +24,6 @@ export async function PostYearNav({ year }: { year?: string | null }) {
       ) : (
         <ArrowRight className="-mt-0.5 ml-1 inline-block size-3 opacity-50" />
       )}
-    </div>
+    </nav>
   )
 }

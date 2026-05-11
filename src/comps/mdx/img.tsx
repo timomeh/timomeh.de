@@ -28,7 +28,7 @@ export async function Img(props: Props) {
         data-[image-theme=dark]:hidden
         dark:data-[image-theme=dark]:block
         dark:data-[image-theme=light]:hidden
-        in-data-[landmark=content-page]:md:[&:not(figure_&)]:-mx-4
+        md:[&:not(figure_&)]:-mx-4
       "
       data-image-theme={theme}
     >
