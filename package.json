@@ -44,7 +44,7 @@
     "drizzle-orm": "0.45.2",
     "feed": "5.2.1",
     "loglayer": "9.1.0",
-    "lucide-react": "1.11.0",
+    "lucide-react": "1.14.0",
     "mdast": "3.0.0",
     "mdast-util-mdx": "3.0.0",
     "next": "16.2.6",
