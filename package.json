@@ -82,7 +82,7 @@
     "drizzle-kit": "0.31.10",
     "esbuild": "0.28.0",
     "eslint-plugin-better-tailwindcss": "4.5.0",
-    "oxfmt": "0.47.0",
+    "oxfmt": "0.48.0",
     "oxlint": "1.63.0",
     "postcss": "8.5.14",
     "tailwindcss": "4.2.4",
