@@ -168,10 +168,9 @@ html:has(dialog:modal) .mug {
   view-transition-name: none !important;
 }
 
-html:has(dialog:modal) [style*="view-transition-name"] {
+html:has(dialog:modal) [style*='view-transition-name'] {
   view-transition-name: none !important;
 }
-
 
 .oembed {
   iframe {

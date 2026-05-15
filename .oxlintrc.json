@@ -41,7 +41,7 @@
     },
     "vitest": {
       "typecheck": false
-    },
+    }
   },
   "env": {
     "builtin": true
