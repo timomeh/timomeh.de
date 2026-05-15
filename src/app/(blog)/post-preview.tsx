@@ -107,7 +107,7 @@ async function Cover({
   ])
 
   return (
-    <div>
+    <div className="select-none">
       {lightCover && (
         <div
           data-has-dark={!!darkCover}

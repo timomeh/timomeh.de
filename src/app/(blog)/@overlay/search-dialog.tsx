@@ -25,11 +25,6 @@ export function SearchDialog({ children }: Props) {
       onClose={() => {
         router.back()
       }}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter') {
-          location.reload()
-        }
-      }}
     >
       {children}
     </dialog>

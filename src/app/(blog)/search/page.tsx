@@ -4,6 +4,7 @@ import { SearchControls } from '@/app/(blog)/search/search-controls'
 import { PageFooter } from '@/comps/layout/page-footer'
 import { PageMain } from '@/comps/layout/page-main'
 import { PageNav } from '@/comps/layout/page-nav'
+import { PageNavBack } from '@/comps/layout/page-nav-back'
 
 import { SearchInput } from './search-input'
 import { SearchResults } from './search-results'
@@ -17,7 +18,9 @@ export default async function Page({ searchParams }: Props) {
 
   return (
     <>
-      <PageNav>search page</PageNav>
+      <PageNav>
+        <PageNavBack href="/" />
+      </PageNav>
       <PageMain>
         <div className="mx-auto max-w-2xl p-4 !py-12 sm:p-6 md:p-8">
           <SearchControls>

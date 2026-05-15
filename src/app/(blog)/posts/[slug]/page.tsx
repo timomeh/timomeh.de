@@ -1,13 +1,12 @@
-import React from 'react'
-
 import { PostEyebrow } from '@/app/(blog)/post-eyebrow'
 import { PageFooter } from '@/comps/layout/page-footer'
 import { PageMain } from '@/comps/layout/page-main'
 import { PageNav } from '@/comps/layout/page-nav'
+import { PageNavBack } from '@/comps/layout/page-nav-back'
+import { Lightbox } from '@/comps/lightbox'
 import { MDX } from '@/comps/mdx/mdx'
 import { Prose } from '@/comps/prose'
 
-import { Lightbox } from '../../../../comps/lightbox'
 import { PostMetadata, ShowPost } from './data'
 
 type Props = {
@@ -20,7 +19,9 @@ export default async function Page(props: Props) {
 
   return (
     <>
-      <PageNav>single post</PageNav>
+      <PageNav>
+        <PageNavBack href="/" />
+      </PageNav>
       <PageMain>
         <article
           lang={post.metaLang?.split('_')[0]}

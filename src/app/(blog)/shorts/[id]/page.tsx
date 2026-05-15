@@ -2,6 +2,7 @@ import { ShortEntry } from '@/app/(blog)/short-entry'
 import { PageFooter } from '@/comps/layout/page-footer'
 import { PageMain } from '@/comps/layout/page-main'
 import { PageNav } from '@/comps/layout/page-nav'
+import { PageNavBack } from '@/comps/layout/page-nav-back'
 
 import { ShortMetadata, ShowShort } from '../data'
 
@@ -15,7 +16,9 @@ export default async function Page(props: Props) {
 
   return (
     <>
-      <PageNav>single short</PageNav>
+      <PageNav>
+        <PageNavBack href={`/shorts#short-${short.id}`} />
+      </PageNav>
       <PageMain>
         <article lang={short.metaLang?.split('_')[0]} className="relative">
           <div className="mx-auto max-w-2xl p-4 !py-12 sm:p-6 md:p-8">

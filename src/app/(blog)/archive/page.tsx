@@ -17,7 +17,7 @@ export default async function Page() {
 
   return (
     <>
-      <PageNav>archive</PageNav>
+      <PageNav />
       <PageMain>
         <div className="mx-auto max-w-2xl p-4 !py-12 sm:p-6 md:p-8">
           <Prose>

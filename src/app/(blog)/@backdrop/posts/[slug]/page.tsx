@@ -16,7 +16,7 @@ export default async function Page(props: Props) {
   return (
     <>
       {backdrop.lightCover || backdrop.darkCover ? (
-        <div className="static">
+        <div className="static select-none">
           <div className="header-backdrop-signal" />
           <Suspense
             fallback={

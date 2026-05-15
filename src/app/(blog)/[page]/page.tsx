@@ -16,7 +16,7 @@ export default async function Page(props: Props) {
 
   return (
     <>
-      <PageNav>single page</PageNav>
+      <PageNav />
       <PageMain>
         <article
           lang={page.metaLang?.split('_')[0]}

@@ -7,7 +7,7 @@ import { PostsList } from './posts-list'
 export default async function Page() {
   return (
     <>
-      <PageNav>on Posts</PageNav>
+      <PageNav />
       <PageMain>
         <PostsList />
       </PageMain>

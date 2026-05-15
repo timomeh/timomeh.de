@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { PageFooter } from '@/comps/layout/page-footer'
 import { PageMain } from '@/comps/layout/page-main'
 import { PageNav } from '@/comps/layout/page-nav'
+import { PageNavBack } from '@/comps/layout/page-nav-back'
 import { Prose } from '@/comps/prose'
 import { pluralizePosts } from '@/lib/plurals'
 
@@ -14,7 +15,9 @@ export default async function Page() {
 
   return (
     <>
-      <PageNav>tags</PageNav>
+      <PageNav>
+        <PageNavBack href="/" />
+      </PageNav>
       <PageMain>
         <div className="mx-auto max-w-2xl p-4 !py-12 sm:p-6 md:p-8">
           <Prose>
