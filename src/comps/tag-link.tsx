@@ -4,14 +4,17 @@ export function TagLink({
   slug,
   title,
   color,
+  prefetch,
 }: {
   slug: string
   title: string
   color: string | null
+  prefetch?: boolean
 }) {
   return (
     <Link
       href={`/tags/${slug}`}
+      prefetch={prefetch}
       style={
         color
           ? {

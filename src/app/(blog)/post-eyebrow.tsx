@@ -7,9 +7,11 @@ import { formatReadingTime } from '@/lib/formatReadingTime'
 export function PostEyebrow({
   post,
   linked,
+  prefetch,
 }: {
   post: Omit<ListedPost, 'type'>
   linked?: boolean
+  prefetch?: boolean
 }) {
   const $published = (
     <time
@@ -29,14 +31,18 @@ export function PostEyebrow({
       <div>
         {post.postTags.map(({ tag }, i) => (
           <span key={tag.slug}>
-            <TagLink {...tag} />
+            <TagLink {...tag} prefetch={prefetch} />
             {i <= post.postTags.length - 2 && ', '}
           </span>
         ))}
       </div>
       <div>
         {linked ? (
-          <Link href={`/posts/${post.slug}`} className="hover:underline">
+          <Link
+            href={`/posts/${post.slug}`}
+            className="hover:underline"
+            prefetch={prefetch}
+          >
             {$published}
           </Link>
         ) : (

@@ -26,6 +26,7 @@ export async function SearchResults({ query }: Props) {
                   href={`/posts/${post.slug}`}
                   className="no-underline hover:underline"
                   data-search-result
+                  prefetch={false}
                 >
                   {post.title}
                 </Link>
