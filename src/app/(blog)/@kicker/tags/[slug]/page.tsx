@@ -2,7 +2,7 @@ import { TagKicker } from '../../data'
 import { DataKicker } from '../../data-kicker'
 
 type Props = {
-  params: Promise<{ tag: string }>
+  params: Promise<{ slug: string }>
 }
 
 export default function Page(props: Props) {
@@ -10,7 +10,7 @@ export default function Page(props: Props) {
     <DataKicker
       fetcher={async () => {
         const params = await props.params
-        return TagKicker.invoke(params.tag)
+        return TagKicker.invoke(params.slug)
       }}
     />
   )
