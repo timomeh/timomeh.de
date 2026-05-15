@@ -17,7 +17,7 @@ type ShortGroup = {
   items: ListedShort[]
 }
 
-type Readable = ListedPost | ShortGroup
+export type Readable = ListedPost | ShortGroup
 
 export class ListReadables extends Vla.Action {
   postsRepo = this.inject(PostsRepo)
