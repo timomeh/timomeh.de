@@ -102,16 +102,17 @@ export class UpdateChangedFiles extends Vla.Action {
   search = this.inject(Search)
 
   async handle(changedFiles: string[]) {
-    let needsReindex = false
+    const reindexPostSlugs: string[] = []
+    const reindexTagSlugs: string[] = []
 
     await Promise.allSettled(
       changedFiles.map(async (file) => {
         const [resource, slug] = file.split('/')
 
         if (resource === 'posts') {
-          needsReindex = true
           await this.postsCache.update(slug)
           await this.postTagsCache.updateByPost(slug)
+          reindexPostSlugs.push(slug)
           revalidateTag(`feed-pre:${slug}`, 'max')
           revalidateTag(`mdx-post:${slug}`, 'max')
           revalidatePath('/tags') // also update tags to update the post count
@@ -127,8 +128,8 @@ export class UpdateChangedFiles extends Vla.Action {
         }
 
         if (resource === 'tags') {
-          needsReindex = true
           await this.tagsCache.update(slug)
+          reindexTagSlugs.push(slug)
           revalidatePath('/tags')
           log.withMetadata({ resource, slug }).info('Updated cache')
           return
@@ -151,8 +152,9 @@ export class UpdateChangedFiles extends Vla.Action {
       }),
     )
 
-    if (needsReindex) {
-      this.search.reindex()
-    }
+    await this.search.reindexPosts({
+      postSlugs: reindexPostSlugs,
+      tagSlugs: reindexTagSlugs,
+    })
   }
 }

@@ -57,6 +57,13 @@ export class PostsSearchRepo extends Vla.Repo {
     await db.run(sql`DELETE FROM posts_fts WHERE rowid = ${id}`)
   }
 
+  async deleteByIds(ids: number[]) {
+    if (!ids.length) return
+    await db.run(
+      sql`DELETE FROM posts_fts WHERE rowid IN (${sql.join(ids, sql`, `)})`,
+    )
+  }
+
   async deleteAll() {
     await db.run(sql`INSERT INTO posts_fts(posts_fts) VALUES('delete-all')`)
   }
@@ -73,10 +80,10 @@ export class PostsSearchRepo extends Vla.Repo {
   async insertMany(posts: PostSearch[]) {
     if (!posts.length) return
 
-    const CHUNK_SIZE = 10
+    const CHUNK_SIZE = 50
     for (let i = 0; i < posts.length; i += CHUNK_SIZE) {
-      log.info(`Reindexing batch ${i + 1}`)
       const chunk = posts.slice(i, i + CHUNK_SIZE)
+      log.info(`Reindexing ${i + 1}-${i + chunk.length} of ${posts.length}`)
       const values = sql.join(
         chunk.map((post) => {
           const { search, tags } = this.toRow(post)
@@ -90,7 +97,7 @@ export class PostsSearchRepo extends Vla.Repo {
         VALUES ${values}
       `)
       log.info(`Done. Calm down...`)
-      await sleep(1_000)
+      await sleep(500)
     }
   }
 

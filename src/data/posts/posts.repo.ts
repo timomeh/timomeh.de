@@ -144,6 +144,41 @@ export class PostsRepo extends Vla.Repo {
     return post
   })
 
+  bySlugs = this.memo(async (slugs: string[]) => {
+    const posts = await db.query.posts.findMany({
+      where: (p, q) => q.inArray(p.slug, slugs),
+      with: { postTags: { with: { tag: true } } },
+    })
+
+    return posts
+  })
+
+  byTag = this.memo(async (tagId: number) => {
+    const posts = await db.query.posts.findMany({
+      where: (post, q) =>
+        q.and(
+          q.exists(
+            db
+              .select()
+              .from(schema.postTags)
+              .where(
+                and(
+                  eq(schema.postTags.postId, post.id),
+                  eq(schema.postTags.tagId, tagId),
+                ),
+              ),
+          ),
+        ),
+      with: {
+        postTags: {
+          with: { tag: true },
+        },
+      },
+    })
+
+    return posts
+  })
+
   findOlder = this.memo(async (slug: string) => {
     const currentPost = await db.query.posts.findFirst({
       where: (post, q) =>
