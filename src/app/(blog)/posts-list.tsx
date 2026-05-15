@@ -15,7 +15,7 @@ export async function PostsList() {
   return (
     <ul>
       {initial.map(renderItem)}
-      <Suspense fallback={<li>Loading more...</li>}>
+      <Suspense fallback={<LoadingFallback />}>
         <RestOfReadables readables={rest} />
       </Suspense>
     </ul>
@@ -42,4 +42,18 @@ function renderItem(readable: Readable) {
     )
   }
   return null
+}
+
+function LoadingFallback() {
+  return (
+    <li>
+      <div className="relative border-b border-black/10 dark:border-white/10">
+        <div className="mx-auto max-w-2xl p-4 !py-12 sm:p-6 md:p-8">
+          <p className="mb-40 animate-pulse text-center">
+            Hang on, loading more…
+          </p>
+        </div>
+      </div>
+    </li>
+  )
 }

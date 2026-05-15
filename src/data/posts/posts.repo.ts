@@ -5,11 +5,6 @@ import { db, schema } from '@/db/client'
 
 import type { Post } from '../cms'
 
-type Filter = {
-  sort?: 'asc' | 'desc'
-  limit?: number
-}
-
 export class PostsRepo extends Vla.Repo {
   all = this.memo(async () => {
     const posts = await db.query.posts.findMany({
@@ -41,7 +36,7 @@ export class PostsRepo extends Vla.Repo {
     return posts
   })
 
-  listPublishedByYear = this.memo(async (year: number, filter: Filter = {}) => {
+  listPublishedByYear = this.memo(async (year: number) => {
     const posts = await db.query.posts.findMany({
       where: (post, q) =>
         q.and(
@@ -49,12 +44,7 @@ export class PostsRepo extends Vla.Repo {
           q.gte(post.publishedAt, new Date(`${year}-01-01`)),
           q.lt(post.publishedAt, new Date(`${year + 1}-01-01`)),
         ),
-      orderBy: (post, q) => [
-        filter.sort === 'asc'
-          ? q.asc(post.publishedAt)
-          : q.desc(post.publishedAt),
-      ],
-      limit: filter.limit,
+      orderBy: (post, q) => q.desc(post.publishedAt),
       with: {
         postTags: {
           with: { tag: true },
@@ -65,7 +55,7 @@ export class PostsRepo extends Vla.Repo {
     return posts
   })
 
-  listPublishedByTag = this.memo(async (tagId: number, filter: Filter = {}) => {
+  listPublishedByTag = this.memo(async (tagId: number) => {
     const posts = await db.query.posts.findMany({
       where: (post, q) =>
         q.and(
@@ -82,11 +72,7 @@ export class PostsRepo extends Vla.Repo {
               ),
           ),
         ),
-      orderBy: (post, q) => [
-        filter.sort === 'asc'
-          ? q.asc(post.publishedAt)
-          : q.desc(post.publishedAt),
-      ],
+      orderBy: (post, q) => q.desc(post.publishedAt),
       with: {
         postTags: {
           with: { tag: true },
