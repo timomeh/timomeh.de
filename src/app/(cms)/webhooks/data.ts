@@ -11,6 +11,7 @@ import { SettingsCache } from '@/data/settings/settingsCache.service'
 import { ShortsCache } from '@/data/shorts/shortsCache.service'
 import { TagsCache } from '@/data/tags/tagsCache.service'
 import { log as baseLog } from '@/lib/log'
+import { sleep } from '@/lib/sleep'
 
 const log = baseLog.child().withContext({ module: 'webhooks/nuke' })
 
@@ -44,12 +45,37 @@ export class NukeCaches extends Vla.Action {
     log.info('Nuking all caches...')
 
     await this.pagesCache.cacheAll()
+    log.info('✅ Nuked pages cache')
+
+    await sleep(1_000)
+
     await this.shortsCache.cacheAll()
+    log.info('✅ Nuked shorts cache')
+
+    await sleep(1_000)
+
     await this.postsCache.cacheAll()
+    log.info('✅ Nuked posts cache')
+
+    await sleep(1_000)
+
     await this.tagsCache.cacheAll()
+    log.info('✅ Nuked tags cache')
+
+    await sleep(1_000)
+
     await this.postTagsCache.cacheAll()
+    log.info('✅ Nuked postTags cache')
+
+    await sleep(1_000)
+
     await this.settingsCache.update()
+    log.info('✅ Nuked settings cache')
+
+    await sleep(1_000)
+
     await this.search.reindex()
+    log.info('✅ Reindexed search')
 
     revalidateTag('feed-pre', 'max')
     revalidateTag('mdx', 'max')

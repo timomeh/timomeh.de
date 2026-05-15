@@ -2,6 +2,8 @@ import { sql } from 'drizzle-orm'
 import { Vla } from 'vla'
 
 import { db } from '@/db/client'
+import { log as baseLog } from '@/lib/log'
+import { sleep } from '@/lib/sleep'
 
 type PostSearch = {
   id: number
@@ -15,6 +17,8 @@ type PostSearch = {
     }
   }[]
 }
+
+const log = baseLog.child().withContext({ module: 'search/repo' })
 
 export class PostsSearchRepo extends Vla.Repo {
   async list(query: string) {
@@ -69,8 +73,9 @@ export class PostsSearchRepo extends Vla.Repo {
   async insertMany(posts: PostSearch[]) {
     if (!posts.length) return
 
-    const CHUNK_SIZE = 50
+    const CHUNK_SIZE = 10
     for (let i = 0; i < posts.length; i += CHUNK_SIZE) {
+      log.info(`Reindexing batch ${i + 1}`)
       const chunk = posts.slice(i, i + CHUNK_SIZE)
       const values = sql.join(
         chunk.map((post) => {
@@ -84,6 +89,8 @@ export class PostsSearchRepo extends Vla.Repo {
         INSERT INTO posts_fts (rowid, title, content, search, tags)
         VALUES ${values}
       `)
+      log.info(`Done. Calm down...`)
+      await sleep(1_000)
     }
   }
 

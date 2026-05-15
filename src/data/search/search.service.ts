@@ -2,6 +2,10 @@ import { Vla } from 'vla'
 
 import { PostsRepo } from '@/data/posts/posts.repo'
 import { PostsSearchRepo } from '@/data/search/postsSearch.repo'
+import { log as baseLog } from '@/lib/log'
+import { sleep } from '@/lib/sleep'
+
+const log = baseLog.child().withContext({ module: 'search/service' })
 
 export class Search extends Vla.Service {
   postsRepo = this.inject(PostsRepo)
@@ -9,7 +13,11 @@ export class Search extends Vla.Service {
 
   async reindex() {
     const freshPosts = await this.postsRepo.all.fresh()
+
     await this.postsSearchRepo.deleteAll()
+    await sleep(1_000)
+    log.info('✅ Cleared search index')
+
     await this.postsSearchRepo.insertMany(freshPosts)
   }
 
