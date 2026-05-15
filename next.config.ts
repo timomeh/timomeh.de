@@ -6,10 +6,6 @@ const nextConfig: NextConfig = {
   cacheHandler: require.resolve('./dist/cache-handler.js'),
   cacheMaxMemorySize: 0,
 
-  experimental: {
-    viewTransition: true,
-  },
-
   output: 'standalone',
   outputFileTracingIncludes: {
     './**/*': [

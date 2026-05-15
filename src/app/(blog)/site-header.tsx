@@ -15,6 +15,8 @@ export function SiteHeader({ kicker, backdrop }: Props) {
       <div
         className="
           grid grid-rows-[0fr]
+          transition-[grid-template-rows]
+          duration-1200 ease-[cubic-bezier(0.4,0,0.05,1)]
           has-[.header-backdrop-signal]:grid-rows-[1fr]
         "
       >
@@ -33,7 +35,6 @@ export function SiteHeader({ kicker, backdrop }: Props) {
       </div>
 
       <div
-        style={{ viewTransitionName: 'mug' }}
         className="
           mug relative z-20 overflow-hidden px-4 pt-20 pb-8
           group-has-[.header-backdrop-signal]/header:!pb-6

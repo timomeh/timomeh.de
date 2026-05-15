@@ -2,7 +2,6 @@ import '@/styles/main.css'
 import type { Viewport } from 'next'
 import { Bitter, IBM_Plex_Mono, Inter } from 'next/font/google'
 import type React from 'react'
-import { ViewTransition } from 'react'
 
 import { PrevPathProvider } from '@/comps/prev-path'
 import { ProgressBarProvider } from '@/comps/progress-bar'
@@ -92,11 +91,6 @@ export default async function RootLayout({
             </div>
           </PrevPathProvider>
         </ProgressBarProvider>
-
-        {/* just some element that does nothing but initializes crossfades */}
-        <ViewTransition name="stupid-init">
-          <div />
-        </ViewTransition>
       </body>
     </html>
   )
