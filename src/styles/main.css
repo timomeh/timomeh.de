@@ -48,6 +48,8 @@
   --animate-fade-in: fade-in 0.2s linear;
   --animate-outline-bounce: outline-bounce 0.3s;
   --animate-swing-spin: swing-spin 1.5s infinite alternate ease-in-out;
+  --animate-archive-tip: archive-tip 0.6s cubic-bezier(0.3, 0.2, 0.17, 3)
+    forwards;
   --animate-flap: flap 0.2s linear 3;
 
   @keyframes fade-in {
@@ -87,10 +89,22 @@
       transform: scaleX(0.85);
     }
   }
+
+  @keyframes archive-tip {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(2px);
+    }
+    100% {
+      transform: translateY(0) rotate(8deg);
+    }
+  }
 }
 
 @utility prose-bw {
-  --tw-prose-body: var(--color-stone-700);
+  --tw-prose-body: var(--color-stone-800);
   --tw-prose-headings: var(--color-stone-900);
   --tw-prose-lead: var(--color-stone-600);
   --tw-prose-links: var(--color-stone-900);
@@ -147,6 +161,18 @@
   background-size: 200px 200px;
 }
 
+/* disable all view transitions while a modal is open.
+   this prevents that view transitions flash in front of the modal. */
+html:has(dialog:modal),
+html:has(dialog:modal) .mug {
+  view-transition-name: none !important;
+}
+
+html:has(dialog:modal) [style*="view-transition-name"] {
+  view-transition-name: none !important;
+}
+
+
 .oembed {
   iframe {
     color-scheme: light;
@@ -193,12 +219,4 @@ html[data-theme='dark'] .shiki span {
 
 :root {
   interpolate-size: allow-keywords;
-}
-
-::view-transition-group(root) {
-  animation-duration: 0s;
-}
-
-html {
-  view-transition-name: none;
 }

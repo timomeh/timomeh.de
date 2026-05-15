@@ -42,22 +42,7 @@
     "vitest": {
       "typecheck": false
     },
-    "better-tailwindcss": {
-      "entryPoint": "src/styles/main.css"
-    }
   },
-  "overrides": [
-    {
-      "files": ["**/*.{js,cjs,mjs,ts,tsx,cts,mts}"],
-      "jsPlugins": ["eslint-plugin-better-tailwindcss"],
-      "rules": {
-        "better-tailwindcss/enforce-consistent-line-wrapping": [
-          "warn",
-          { "printWidth": 80, "preferSingleLine": true }
-        ]
-      }
-    }
-  ],
   "env": {
     "builtin": true
   },

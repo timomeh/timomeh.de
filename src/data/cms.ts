@@ -191,6 +191,7 @@ const sanitizeTag = (
   cleanse({
     title: tag.title || '',
     color: tag.color || undefined,
+    description: tag.description || '',
     frontmatter: {
       kicker: tag.frontmatter.kicker || undefined,
     },

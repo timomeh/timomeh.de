@@ -16,8 +16,8 @@ export function Aside({ children, title }: Props) {
       {title && (
         <header
           className="
-            text-2xs absolute -top-2 rounded bg-sky-300 px-1.5 py-1 leading-none
-            font-semibold tracking-wider uppercase
+            text-2xs absolute -top-2 rounded bg-sky-300 px-1.5 py-1 font-mono
+            leading-none font-semibold tracking-wider uppercase
             dark:bg-sky-800
           "
         >

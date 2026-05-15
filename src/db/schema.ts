@@ -53,6 +53,8 @@ export const tags = t.sqliteTable(
     title: t.text().notNull(),
     slug: t.text().notNull(),
     kicker: t.text(),
+    color: t.text(),
+    description: t.text(),
     metaDescription: t.text(),
     metaImage: t.text(),
   },

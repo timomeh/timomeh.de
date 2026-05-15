@@ -29,10 +29,10 @@ export function Footer() {
             </li>
             <li>
               <Link
-                href="/tags"
+                href="/archive"
                 className="opacity-40 transition-opacity hover:opacity-60"
               >
-                Tags
+                Archive
               </Link>
             </li>
             <li>

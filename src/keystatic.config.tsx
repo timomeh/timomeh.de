@@ -304,6 +304,7 @@ export default config({
           label: 'Color',
           validation: { isRequired: true },
         }),
+        description: fields.text({ label: 'Description', multiline: true }),
         frontmatter: fields.object(
           {
             kicker: fields.text({

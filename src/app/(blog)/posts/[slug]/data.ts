@@ -16,7 +16,6 @@ export class ShowPost extends Vla.Action {
     return {
       post,
       assetPrefix: contentAsset('posts', post.slug, ''),
-      est: formatReadingTime(post.content, post.readingTime, 'read'),
     }
   }
 }

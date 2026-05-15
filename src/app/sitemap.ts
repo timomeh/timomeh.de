@@ -61,7 +61,7 @@ class GenerateSitemap extends Vla.Action {
         if (!post) return null
 
         return {
-          url: fullUrl(`/tag/${tag.slug}`),
+          url: fullUrl(`/tags/${tag.slug}`),
           changeFrequency: 'daily' as const,
           priority: 0.8,
           lastModified: post?.publishedAt || new Date(),

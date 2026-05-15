@@ -1,8 +1,10 @@
-import Link from 'next/link'
 import React from 'react'
 
+import { PostEyebrow } from '@/app/(blog)/post-eyebrow'
+import { PageFooter } from '@/comps/layout/page-footer'
+import { PageMain } from '@/comps/layout/page-main'
+import { PageNav } from '@/comps/layout/page-nav'
 import { MDX } from '@/comps/mdx/mdx'
-import { PostHeader } from '@/comps/post-header'
 import { Prose } from '@/comps/prose'
 
 import { Lightbox } from '../../../../comps/lightbox'
@@ -13,66 +15,38 @@ type Props = {
 }
 
 export default async function Page(props: Props) {
-  const params = await props.params
-  const { post, assetPrefix, est } = await ShowPost.invoke(params.slug)
+  const { slug } = await props.params
+  const { post, assetPrefix } = await ShowPost.invoke(slug)
 
   return (
-    <article
-      lang={post.metaLang?.split('_')[0]}
-      className="relative"
-      data-landmark="content-page"
-    >
-      <div className="mx-auto max-w-2xl p-4 !py-12 sm:p-6 md:p-8">
-        <Prose>
-          <span className="not-prose inline-flex">
-            <PostHeader publishedAt={post.publishedAt} />
-          </span>
-          <Lightbox>
-            <MDX
-              cacheKey={`post-${post.slug}`}
-              cacheTags={['mdx-type:post', `mdx-post:${post.slug}`]}
-              content={post.content}
-              assetPrefix={assetPrefix}
-              scope="post"
-              components={{
-                h1: (props) => {
-                  return (
-                    <>
-                      <h1>{props.children}</h1>
-                      <aside
-                        className="
-                          -mt-4 border-b border-black/15 text-sm text-black/60
-                          dark:border-white/15 dark:text-white/40
-                        "
-                      >
-                        <p className="mb-3">
-                          {est}. Tagged{' '}
-                          {post.postTags.map(({ tag }, i) => (
-                            <React.Fragment key={tag.slug}>
-                              <Link
-                                href={`/tag/${tag.slug}`}
-                                className="
-                                  text-current no-underline transition-colors
-                                  hover:text-black/90
-                                  dark:hover:text-white/80
-                                "
-                              >
-                                {tag.title}
-                              </Link>
-                              {i < post.postTags.length - 1 && <span>, </span>}
-                            </React.Fragment>
-                          ))}
-                        </p>
-                      </aside>
-                    </>
-                  )
-                },
-              }}
-            />
-          </Lightbox>
-        </Prose>
-      </div>
-    </article>
+    <>
+      <PageNav>single post</PageNav>
+      <PageMain>
+        <article
+          lang={post.metaLang?.split('_')[0]}
+          className="relative"
+          data-landmark="content-page"
+        >
+          <div className="mx-auto max-w-2xl p-4 !py-12 sm:p-6 md:p-8">
+            <div className="mb-3">
+              <PostEyebrow post={post} />
+            </div>
+            <Prose>
+              <Lightbox>
+                <MDX
+                  cacheKey={`post-${post.slug}`}
+                  cacheTags={['mdx-type:post', `mdx-post:${post.slug}`]}
+                  content={post.content}
+                  assetPrefix={assetPrefix}
+                  scope="post"
+                />
+              </Lightbox>
+            </Prose>
+          </div>
+        </article>
+      </PageMain>
+      <PageFooter />
+    </>
   )
 }
 

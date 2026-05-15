@@ -1,11 +1,14 @@
-import { Footer } from '@/comps/footer'
+import { PageFooter } from '@/comps/layout/page-footer'
+import { PageMain } from '@/comps/layout/page-main'
+import { PageNav } from '@/comps/layout/page-nav'
 import { Prose } from '@/comps/prose'
 import { ReportBrokenLink } from '@/comps/report-broken-link'
 
 export default function NotFound() {
   return (
     <>
-      <div className="relative">
+      <PageNav>wow error</PageNav>
+      <PageMain>
         <div className="mx-auto max-w-2xl p-4 !py-12 sm:p-6 md:p-8">
           <Prose>
             <h1>Page not found</h1>
@@ -31,8 +34,8 @@ export default function NotFound() {
             </ol>
           </Prose>
         </div>
-      </div>
-      <Footer />
+      </PageMain>
+      <PageFooter />
     </>
   )
 }

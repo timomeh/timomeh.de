@@ -29,14 +29,33 @@ const nextConfig: NextConfig = {
   },
 
   async rewrites() {
-    return [
-      { source: '/posts/feed.rss', destination: '/feeds/posts/rss' },
-      { source: '/posts/feed.atom', destination: '/feeds/posts/atom' },
-      { source: '/posts/feed.json', destination: '/feeds/posts/json' },
-      { source: '/shorts/feed.rss', destination: '/feeds/shorts/rss' },
-      { source: '/shorts/feed.atom', destination: '/feeds/shorts/atom' },
-      { source: '/shorts/feed.json', destination: '/feeds/shorts/json' },
-    ]
+    return {
+      beforeFiles: [
+        {
+          source: '/search',
+          destination: '/search-modal',
+          has: [
+            {
+              type: 'header',
+              key: 'next-url',
+              value: '(?<url>^(?!/search$).*)',
+            },
+          ],
+        },
+      ],
+      afterFiles: [
+        // nice feed urls
+        { source: '/posts/feed.rss', destination: '/feeds/posts/rss' },
+        { source: '/posts/feed.atom', destination: '/feeds/posts/atom' },
+        { source: '/posts/feed.json', destination: '/feeds/posts/json' },
+        { source: '/shorts/feed.rss', destination: '/feeds/shorts/rss' },
+        { source: '/shorts/feed.atom', destination: '/feeds/shorts/atom' },
+        { source: '/shorts/feed.json', destination: '/feeds/shorts/json' },
+
+        // renamed tag/[slug] -> tags/[slug]
+        { source: '/tag/:slug*', destination: '/tags/:slug*' },
+      ],
+    }
   },
 
   async redirects() {

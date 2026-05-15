@@ -10,7 +10,6 @@ export function Prose({ children, size }: Props) {
       className="
         prose
         data-[size=sm]:prose-sm
-        sm:data-[size=sm]:prose
         prose-bw
         dark:prose-invert!
         prose-headings:text-balance prose-headings:font-serif

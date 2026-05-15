@@ -1,4 +1,4 @@
-import { and, desc, eq, sql } from 'drizzle-orm'
+import { and, desc, eq, like, sql } from 'drizzle-orm'
 import { Vla } from 'vla'
 
 import { db, schema } from '@/db/client'
@@ -219,5 +219,44 @@ export class PostsRepo extends Vla.Repo {
     this.bySlug.bustAll()
 
     return updated
+  }
+
+  async search(query: string) {
+    const q = query.trim()
+
+    const pattern = `%${q.replaceAll('%', '\\%').replaceAll('_', '\\_')}%`
+
+    const posts = await db.query.posts.findMany({
+      where: (post, q) =>
+        q.and(
+          q.eq(post.status, 'published'),
+          q.or(
+            q.like(post.title, pattern),
+            q.like(post.content, pattern),
+            q.exists(
+              db
+                .select()
+                .from(schema.postTags)
+                .innerJoin(
+                  schema.tags,
+                  eq(schema.tags.id, schema.postTags.tagId),
+                )
+                .where(
+                  and(
+                    eq(schema.postTags.postId, post.id),
+                    like(schema.tags.title, pattern),
+                  ),
+                ),
+            ),
+          ),
+        ),
+      orderBy: (post, qb) => [qb.desc(post.publishedAt)],
+      limit: 20,
+      with: {
+        postTags: { with: { tag: true } },
+      },
+    })
+
+    return posts
   }
 }
