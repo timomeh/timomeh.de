@@ -6,6 +6,7 @@ import { PagesCache } from '@/data/pages/pagesCache.service'
 import { PostsRepo } from '@/data/posts/posts.repo'
 import { PostsCache } from '@/data/posts/postsCache.service'
 import { PostTagsCache } from '@/data/postTags/postTagsCache.service'
+import { Search } from '@/data/search/search.service'
 import { SettingsCache } from '@/data/settings/settingsCache.service'
 import { ShortsCache } from '@/data/shorts/shortsCache.service'
 import { TagsCache } from '@/data/tags/tagsCache.service'
@@ -21,6 +22,7 @@ export class NukeCaches extends Vla.Action {
   tagsCache = this.inject(TagsCache)
   shortsCache = this.inject(ShortsCache)
   settingsCache = this.inject(SettingsCache)
+  search = this.inject(Search)
 
   async handle({ soft }: { soft?: boolean }) {
     if (soft) {
@@ -47,6 +49,7 @@ export class NukeCaches extends Vla.Action {
     await this.tagsCache.cacheAll()
     await this.postTagsCache.cacheAll()
     await this.settingsCache.update()
+    await this.search.reindex()
 
     revalidateTag('feed-pre', 'max')
     revalidateTag('mdx', 'max')
@@ -70,13 +73,17 @@ export class UpdateChangedFiles extends Vla.Action {
   tagsCache = this.inject(TagsCache)
   shortsCache = this.inject(ShortsCache)
   settingsCache = this.inject(SettingsCache)
+  search = this.inject(Search)
 
   async handle(changedFiles: string[]) {
+    let needsReindex = false
+
     await Promise.allSettled(
       changedFiles.map(async (file) => {
         const [resource, slug] = file.split('/')
 
         if (resource === 'posts') {
+          needsReindex = true
           await this.postsCache.update(slug)
           await this.postTagsCache.updateByPost(slug)
           revalidateTag(`feed-pre:${slug}`, 'max')
@@ -94,6 +101,7 @@ export class UpdateChangedFiles extends Vla.Action {
         }
 
         if (resource === 'tags') {
+          needsReindex = true
           await this.tagsCache.update(slug)
           revalidatePath('/tags')
           log.withMetadata({ resource, slug }).info('Updated cache')
@@ -116,5 +124,9 @@ export class UpdateChangedFiles extends Vla.Action {
         log.debug(`Nothing to update for ${file}`)
       }),
     )
+
+    if (needsReindex) {
+      this.search.reindex()
+    }
   }
 }

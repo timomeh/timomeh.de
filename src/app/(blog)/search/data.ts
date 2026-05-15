@@ -1,15 +1,15 @@
 import { Vla } from 'vla'
 
-import { PostsRepo } from '../../../data/posts/posts.repo'
+import { Search } from '@/data/search/search.service'
 
 export class SearchPosts extends Vla.Action {
-  postsRepo = this.inject(PostsRepo)
+  search = this.inject(Search)
 
   async handle(query: string) {
     const q = query.trim()
     if (q.length < 1) return []
 
-    const posts = await this.postsRepo.search(query)
+    const posts = await this.search.fuzzyPosts(query)
     return posts
   }
 }

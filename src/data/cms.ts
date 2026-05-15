@@ -156,13 +156,14 @@ const sanitizePost = (
     publishedAt: new Date(post.publishedAt),
     updatedAt: post.updatedAt ? new Date(post.updatedAt) : undefined,
     tags: post.tags.filter(Boolean),
+    search: post.frontmatter.search || undefined,
     lightCover: post.frontmatter.lightCover || undefined,
     darkCover: post.frontmatter.darkCover || undefined,
     lightBgColor: post.frontmatter.lightBgColor || undefined,
     darkBgColor: post.frontmatter.darkBgColor || undefined,
     readingTime: post.frontmatter.readingTime || undefined,
     kicker: post.frontmatter.kicker || undefined,
-    metaDdescription: post.meta.description || undefined,
+    metaDescription: post.meta.description || undefined,
     metaImage: post.meta.image || undefined,
     metaLang: post.meta.lang || undefined,
   })
@@ -191,9 +192,10 @@ const sanitizeTag = (
   cleanse({
     title: tag.title || '',
     color: tag.color || undefined,
-    description: tag.description || '',
+    description: tag.description || undefined,
     frontmatter: {
       kicker: tag.frontmatter.kicker || undefined,
+      search: tag.frontmatter.search || undefined,
     },
     meta: {
       description: tag.meta.description || undefined,

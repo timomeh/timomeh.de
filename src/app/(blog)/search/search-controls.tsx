@@ -2,6 +2,8 @@
 
 export function SearchControls({ children }: { children: React.ReactNode }) {
   function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+    if (e.key === 'Escape') return
+
     const $root = e.currentTarget
     if (!$root) return
 

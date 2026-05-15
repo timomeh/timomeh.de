@@ -16,7 +16,7 @@
     "test": "playwright test",
     "typecheck": "tsc --noEmit",
     "test:ui": "pnpm test --ui",
-    "db:push": "mkdir -p data/db-data && drizzle-kit push --force",
+    "db:push": "mkdir -p data/db-data && drizzle-kit push --force && tsx scripts/post-db-push.ts",
     "db:studio": "drizzle-kit studio",
     "generate:shiki": "npx shiki-codegen --langs css,docker,dotenv,elixir,fish,git-commit,git-rebase,go,graphql,html,js,json,json5,jsx,markdown,mdx,ruby,shellscript,shellsession,toml,tsx,typescript,yaml --themes one-light,tokyo-night --engine javascript ./src/lib/shiki.bundle.ts"
   },

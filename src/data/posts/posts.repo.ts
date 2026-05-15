@@ -12,7 +12,18 @@ type Filter = {
 
 export class PostsRepo extends Vla.Repo {
   all = this.memo(async () => {
-    const posts = await db.query.posts.findMany()
+    const posts = await db.query.posts.findMany({
+      with: { postTags: { with: { tag: true } } },
+    })
+    return posts
+  })
+
+  listPublishedByIds = this.memo(async (ids: number[]) => {
+    const posts = await db.query.posts.findMany({
+      where: (p, q) => q.and(q.inArray(p.id, ids), q.eq(p.status, 'published')),
+      with: { postTags: { with: { tag: true } } },
+    })
+
     return posts
   })
 
@@ -233,6 +244,7 @@ export class PostsRepo extends Vla.Repo {
           q.or(
             q.like(post.title, pattern),
             q.like(post.content, pattern),
+            q.like(post.search, pattern),
             q.exists(
               db
                 .select()

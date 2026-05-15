@@ -22,6 +22,7 @@ export class TagsRepo extends Vla.Repo {
         metaImage: schema.tags.metaImage,
         color: schema.tags.color,
         description: schema.tags.description,
+        search: schema.tags.search,
         postCount: count(schema.postTags.postId),
       })
       .from(schema.tags)
