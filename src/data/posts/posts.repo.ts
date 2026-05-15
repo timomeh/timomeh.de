@@ -27,14 +27,10 @@ export class PostsRepo extends Vla.Repo {
     return posts
   })
 
-  listPublished = this.memo(async (filter: Filter = {}) => {
+  listPublished = this.memo(async () => {
     const posts = await db.query.posts.findMany({
       where: (post, q) => q.eq(post.status, 'published'),
-      orderBy: (post, q) => [
-        filter.sort === 'asc'
-          ? q.asc(post.publishedAt)
-          : q.desc(post.publishedAt),
-      ],
+      orderBy: (post, q) => q.desc(post.publishedAt),
       with: {
         postTags: {
           with: { tag: true },
