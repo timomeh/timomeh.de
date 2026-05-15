@@ -30,19 +30,19 @@ const nextConfig: NextConfig = {
 
   async rewrites() {
     return {
-      beforeFiles: [
-        {
-          source: '/search',
-          destination: '/search-modal',
-          has: [
-            {
-              type: 'header',
-              key: 'next-url',
-              value: '(?<url>^(?!/search$).*)',
-            },
-          ],
-        },
-      ],
+      // beforeFiles: [
+      //   {
+      //     source: '/search',
+      //     destination: '/search-modal',
+      //     has: [
+      //       {
+      //         type: 'header',
+      //         key: 'next-url',
+      //         value: '(?<url>^(?!/search$).*)',
+      //       },
+      //     ],
+      //   },
+      // ],
       afterFiles: [
         // nice feed urls
         { source: '/posts/feed.rss', destination: '/feeds/posts/rss' },
