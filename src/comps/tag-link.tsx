@@ -22,7 +22,7 @@ export function TagLink({
             }
           : undefined
       }
-      className="brightness-90 saturate-150 hover:underline dark:brightness-125"
+      className="brightness-90 saturate-200 hover:underline dark:brightness-110"
     >
       {title}
     </Link>
