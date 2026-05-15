@@ -16,37 +16,49 @@ export function ShaderCanvas({ fragmentShaderSource, resolution = 1 }: Props) {
         const gl = canvas.getContext('webgl2', { alpha: true })
         if (!gl) return
 
-        gl.clearColor(0.0, 0.0, 0.0, 0.0)
-        gl.clear(gl.COLOR_BUFFER_BIT)
-
         let { width, height } = canvas.getBoundingClientRect()
         canvas.width = width * resolution
         canvas.height = height * resolution
-        gl.viewport(0, 0, canvas.width, canvas.height)
 
-        const vs = compileShader(gl, vertexShaderSource, gl.VERTEX_SHADER)
-        const fs = compileShader(gl, fragmentShaderSource, gl.FRAGMENT_SHADER)
-        if (!vs || !fs) return
+        let program: WebGLProgram | null = null
+        let buffer: WebGLBuffer | null = null
+        let timeUniform: WebGLUniformLocation | null = null
+        let resolutionUniform: WebGLUniformLocation | null = null
+        let glReady = false
 
-        const program = gl.createProgram()
-        gl.attachShader(program, vs)
-        gl.attachShader(program, fs)
-        gl.linkProgram(program)
-        gl.useProgram(program)
-        gl.enable(gl.BLEND)
-        gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
+        const initGL = () => {
+          gl.clearColor(0.0, 0.0, 0.0, 0.0)
+          gl.clear(gl.COLOR_BUFFER_BIT)
+          gl.viewport(0, 0, canvas.width, canvas.height)
 
-        const quad = new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1])
-        const buffer = gl.createBuffer()
-        gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
-        gl.bufferData(gl.ARRAY_BUFFER, quad, gl.STATIC_DRAW)
+          const vs = compileShader(gl, vertexShaderSource, gl.VERTEX_SHADER)
+          const fs = compileShader(gl, fragmentShaderSource, gl.FRAGMENT_SHADER)
+          if (!vs || !fs) return false
 
-        const pos = gl.getAttribLocation(program, 'a_position')
-        gl.enableVertexAttribArray(pos)
-        gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0)
+          program = gl.createProgram()
+          gl.attachShader(program, vs)
+          gl.attachShader(program, fs)
+          gl.linkProgram(program)
+          gl.useProgram(program)
+          gl.enable(gl.BLEND)
+          gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
 
-        const timeUniform = gl.getUniformLocation(program, 'u_time')
-        const resolutionUniform = gl.getUniformLocation(program, 'u_resolution')
+          const quad = new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1])
+          buffer = gl.createBuffer()
+          gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
+          gl.bufferData(gl.ARRAY_BUFFER, quad, gl.STATIC_DRAW)
+
+          const pos = gl.getAttribLocation(program, 'a_position')
+          gl.enableVertexAttribArray(pos)
+          gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0)
+
+          timeUniform = gl.getUniformLocation(program, 'u_time')
+          resolutionUniform = gl.getUniformLocation(program, 'u_resolution')
+          glReady = true
+          return true
+        }
+
+        if (!initGL()) return
 
         let started = false
         let frameId = 0
@@ -57,6 +69,8 @@ export function ShaderCanvas({ fragmentShaderSource, resolution = 1 }: Props) {
         let slowFrames = 0
 
         const render = () => {
+          if (!glReady || gl.isContextLost()) return
+
           const now = performance.now()
           const renderDuration = now - lastFrame
           lastFrame = now
@@ -81,7 +95,10 @@ export function ShaderCanvas({ fragmentShaderSource, resolution = 1 }: Props) {
         }
 
         const start = () => {
+          if (!glReady) return
           started = true
+          lastFrame = performance.now()
+          slowFrames = 0
           render()
         }
 
@@ -89,6 +106,23 @@ export function ShaderCanvas({ fragmentShaderSource, resolution = 1 }: Props) {
           started = false
           cancelAnimationFrame(frameId)
         }
+
+        const onContextLost = (event: Event) => {
+          event.preventDefault()
+          glReady = false
+          stop()
+          canvas.style.opacity = '0'
+        }
+
+        const onContextRestored = () => {
+          if (initGL()) {
+            start()
+            canvas.style.opacity = '1'
+          }
+        }
+
+        canvas.addEventListener('webglcontextlost', onContextLost)
+        canvas.addEventListener('webglcontextrestored', onContextRestored)
 
         start()
         canvas.style.opacity = '1'
@@ -98,7 +132,7 @@ export function ShaderCanvas({ fragmentShaderSource, resolution = 1 }: Props) {
           height = entry.contentRect.height
           canvas.width = width * resolution
           canvas.height = height * resolution
-          gl.viewport(0, 0, canvas.width, canvas.height)
+          if (glReady) gl.viewport(0, 0, canvas.width, canvas.height)
         })
         resizeObserver.observe(canvas)
 
@@ -129,7 +163,9 @@ export function ShaderCanvas({ fragmentShaderSource, resolution = 1 }: Props) {
           resizeObserver.disconnect()
           inViewObserver.disconnect()
           mediaQuery.removeEventListener('change', onReducedMotionChange)
-          cleanupWebGL(gl, program, [buffer])
+          canvas.removeEventListener('webglcontextlost', onContextLost)
+          canvas.removeEventListener('webglcontextrestored', onContextRestored)
+          if (program) cleanupWebGL(gl, program, buffer ? [buffer] : [])
         }
       }}
     />
