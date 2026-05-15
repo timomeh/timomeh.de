@@ -58,15 +58,41 @@ export class PostsSearchRepo extends Vla.Repo {
   }
 
   async insert(post: PostSearch) {
-    const search = [
-      post.search ?? '',
-      post.postTags.map(({ tag }) => tag.search ?? ''),
-    ].join(' ')
-    const tags = post.postTags.map(({ tag }) => tag.title).join(' ')
+    const { search, tags } = this.toRow(post)
 
     await db.run(sql`
       INSERT INTO posts_fts (rowid, title, content, search, tags)
       VALUES (${post.id}, ${post.title}, ${post.content}, ${search}, ${tags})
     `)
+  }
+
+  async insertMany(posts: PostSearch[]) {
+    if (!posts.length) return
+
+    const CHUNK_SIZE = 50
+    for (let i = 0; i < posts.length; i += CHUNK_SIZE) {
+      const chunk = posts.slice(i, i + CHUNK_SIZE)
+      const values = sql.join(
+        chunk.map((post) => {
+          const { search, tags } = this.toRow(post)
+          return sql`(${post.id}, ${post.title}, ${post.content}, ${search}, ${tags})`
+        }),
+        sql`, `,
+      )
+
+      await db.run(sql`
+        INSERT INTO posts_fts (rowid, title, content, search, tags)
+        VALUES ${values}
+      `)
+    }
+  }
+
+  private toRow(post: PostSearch) {
+    const search = [
+      post.search ?? '',
+      post.postTags.map(({ tag }) => tag.search ?? ''),
+    ].join(' ')
+    const tags = post.postTags.map(({ tag }) => tag.title).join(' ')
+    return { search, tags }
   }
 }

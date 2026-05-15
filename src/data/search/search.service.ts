@@ -10,9 +10,7 @@ export class Search extends Vla.Service {
   async reindex() {
     const freshPosts = await this.postsRepo.all.fresh()
     await this.postsSearchRepo.deleteAll()
-    await Promise.all(
-      freshPosts.map((post) => this.postsSearchRepo.insert(post)),
-    )
+    await this.postsSearchRepo.insertMany(freshPosts)
   }
 
   async fuzzyPosts(query: string) {
