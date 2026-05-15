@@ -15,8 +15,8 @@ export function FadeInImage(props: ImageProps) {
       aria-busy={!loaded}
       {...props}
       className={`
-        opacity-0 transition-opacity duration-1000
-        [transform:translateZ(0)] [will-change:opacity]
+        [transform:translateZ(0)] opacity-0 transition-opacity
+        duration-1000 [will-change:opacity]
         data-[loaded=true]:opacity-100
         ${props.className || ''}
       `}
