@@ -4,6 +4,10 @@ import { Vla } from 'vla'
 import { PostsRepo } from '@/data/posts/posts.repo'
 import { saneParseInt } from '@/lib/saneParseInt'
 
+export type YearListedPost = Awaited<
+  ReturnType<PostsRepo['listPublishedByYear']>
+>[0]
+
 export class ListPostsByYear extends Vla.Action {
   postsRepo = this.inject(PostsRepo)
 

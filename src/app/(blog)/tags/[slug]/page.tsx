@@ -1,5 +1,11 @@
+import { Suspense } from 'react'
+
 import { PostPreview } from '@/app/(blog)/post-preview'
-import { ListPostsByTag, TagMetadata } from '@/app/(blog)/tags/data'
+import {
+  ListPostsByTag,
+  TagListedPost,
+  TagMetadata,
+} from '@/app/(blog)/tags/data'
 import { PageFooter } from '@/comps/layout/page-footer'
 import { PageMain } from '@/comps/layout/page-main'
 import { PageNav } from '@/comps/layout/page-nav'
@@ -11,9 +17,13 @@ type Props = {
   params: Promise<{ slug: string }>
 }
 
+const BLOCKING_RENDERED_AMOUNT = 5
+
 export default async function Page(props: Props) {
   const { slug } = await props.params
   const { posts, tag } = await ListPostsByTag.invoke(slug)
+  const initial = posts.slice(0, BLOCKING_RENDERED_AMOUNT)
+  const rest = posts.slice(BLOCKING_RENDERED_AMOUNT)
 
   return (
     <>
@@ -34,15 +44,40 @@ export default async function Page(props: Props) {
         </div>
 
         <ul>
-          {posts.map((post) => (
-            <li key={post.id}>
-              <PostPreview post={post} />
-            </li>
-          ))}
+          {initial.map(renderItem)}
+          <Suspense fallback={<LoadingFallback />}>
+            <RestOfPosts posts={rest} />
+          </Suspense>
         </ul>
       </PageMain>
       <PageFooter />
     </>
+  )
+}
+
+async function RestOfPosts({ posts }: { posts: TagListedPost[] }) {
+  return <>{posts.map(renderItem)}</>
+}
+
+function renderItem(post: TagListedPost) {
+  return (
+    <li key={post.id}>
+      <PostPreview post={post} />
+    </li>
+  )
+}
+
+function LoadingFallback() {
+  return (
+    <li>
+      <div className="relative border-b border-black/10 dark:border-white/10">
+        <div className="mx-auto max-w-2xl p-4 !py-12 sm:p-6 md:p-8">
+          <p className="mb-40 animate-pulse text-center">
+            Hang on, loading more…
+          </p>
+        </div>
+      </div>
+    </li>
   )
 }
 

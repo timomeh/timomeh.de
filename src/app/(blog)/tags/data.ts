@@ -21,6 +21,10 @@ export class ListAllTags extends Vla.Action {
   }
 }
 
+export type TagListedPost = Awaited<
+  ReturnType<PostsRepo['listPublishedByTag']>
+>[0]
+
 export class ListPostsByTag extends Vla.Action {
   postsRepo = this.inject(PostsRepo)
   tagsRepo = this.inject(TagsRepo)
