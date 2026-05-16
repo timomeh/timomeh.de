@@ -14,10 +14,7 @@ export function PostEyebrow({
   prefetch?: boolean
 }) {
   const $published = (
-    <time
-      dateTime={post.publishedAt.toISOString()}
-      title={post.publishedAt.toISOString()}
-    >
+    <time dateTime={post.publishedAt.toISOString()}>
       {new Date(post.publishedAt).toLocaleString('en-US', {
         month: 'short',
         day: '2-digit',

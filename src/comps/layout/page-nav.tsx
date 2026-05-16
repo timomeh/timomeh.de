@@ -28,6 +28,9 @@ export function PageNav({ children }: Props) {
           {children || <div />}
           <nav aria-label="Shortcuts" className="flex space-x-3">
             <Link
+              aria-label="About me"
+              data-tooltip-id="page-tt"
+              data-tooltip-content="About me"
               href="/about"
               className="
                 group/btn relative block opacity-70 transition-all
@@ -40,6 +43,9 @@ export function PageNav({ children }: Props) {
             </Link>
 
             <Link
+              aria-label="Feed"
+              data-tooltip-id="page-tt"
+              data-tooltip-content="Feed"
               href="/feeds"
               className="
                 group/btn relative block opacity-70 transition-all
@@ -52,6 +58,9 @@ export function PageNav({ children }: Props) {
             </Link>
 
             <Link
+              aria-label="Archive"
+              data-tooltip-id="page-tt"
+              data-tooltip-content="Archive"
               href="/archive"
               className="
                 group/btn relative block opacity-70 transition-all
@@ -64,6 +73,9 @@ export function PageNav({ children }: Props) {
             </Link>
 
             <Link
+              aria-label="Search"
+              data-tooltip-id="page-tt"
+              data-tooltip-content="Search"
               href="/search"
               scroll={false}
               className="
@@ -78,6 +90,8 @@ export function PageNav({ children }: Props) {
 
             <SwitchThemeButton
               aria-label="Switch color theme"
+              data-tooltip-id="page-tt"
+              data-tooltip-content="Change theme"
               className="group/btn opacity-70 transition-all hover:opacity-100"
               type="button"
             >

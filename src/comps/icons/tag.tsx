@@ -6,7 +6,6 @@ export function TagIcon() {
       xmlns="http://www.w3.org/2000/svg"
       className="h-full w-full overflow-visible **:transition **:duration-200"
     >
-      <title>Tag</title>
       <g
         className="
           origin-[30%_30%]

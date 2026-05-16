@@ -5,8 +5,9 @@ import type React from 'react'
 
 import { PrevPathProvider } from '@/comps/prev-path'
 import { ProgressBarProvider } from '@/comps/progress-bar'
-import { config } from '@/config'
 import '@/data/kernel'
+import { TooltipInit } from '@/comps/tooltip-init'
+import { config } from '@/config'
 
 import { KeyboardNavLink } from '../../comps/keyboard-nav-link'
 import { SiteHeader } from './site-header'
@@ -91,6 +92,7 @@ export default async function RootLayout({
             </div>
           </PrevPathProvider>
         </ProgressBarProvider>
+        <TooltipInit />
       </body>
     </html>
   )

@@ -146,6 +146,31 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
+
+  :root {
+    --rt-color-white: #fff;
+    --rt-color-dark: #222;
+    --rt-opacity: 0.9;
+    --rt-transition-show-delay: 0.15s;
+    --rt-transition-closing-delay: 0.15s;
+  }
+
+  .page-tooltip {
+    z-index: 9999;
+
+    @apply dark:!bg-[#0f0d0b] !bg-[#f2f1f0];
+    @apply dark:!border-white/10 !border-black/15 !border;
+    @apply !text-stone-800 dark:!text-stone-100;
+    @apply !text-xs !p-0 !font-medium;
+  }
+
+  .page-tooltip .react-tooltip-content-wrapper {
+    @apply !px-2.5 !py-1.5;
+  }
+
+  .page-tooltip .react-tooltip-arrow {
+    @apply dark:!text-white/10 !text-black/15;
+  }
 }
 
 @utility bg-grainy {

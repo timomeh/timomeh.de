@@ -39,10 +39,7 @@ export function ShortEntry({
                 md:text-xs
               "
           >
-            <time
-              dateTime={short.publishedAt.toISOString()}
-              title={short.publishedAt.toISOString()}
-            >
+            <time dateTime={short.publishedAt.toISOString()}>
               {formatRelativeDate(short.publishedAt)}
             </time>
           </Link>

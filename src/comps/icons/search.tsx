@@ -9,7 +9,6 @@ export function SearchIcon() {
         **:transition-[transform,translate,scale,rotate,opacity] **:duration-300
       "
     >
-      <title>Magnifying Glass</title>
       <g className="">
         <mask
           id="glare-mask"

@@ -9,7 +9,6 @@ export function FeedIcon() {
         *:transition-all *:duration-500 *:ease-[cubic-bezier(.3,.2,.17,3)]
       "
     >
-      <title>Feed</title>
       <g
         className="
           origin-bottom-left
