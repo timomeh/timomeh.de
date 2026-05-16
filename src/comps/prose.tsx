@@ -20,7 +20,6 @@ export function Prose({ children, size }: Props) {
         prose-em:text-[var(--tw-prose-bold)]
         prose-kbd:bg-white/30
         dark:prose-kbd:bg-black/20
-        prose-h1:[&_a[href^='https://']>.external-link]:inline-block
         prose-headings:[&_a]:font-semibold prose-headings:[&_a]:decoration-beige
         prose-headings:[&_a]:underline-offset-4
         dark:prose-headings:[&_a]:decoration-purple-300

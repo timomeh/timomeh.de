@@ -1,5 +1,6 @@
-import { ExternalLinkIcon } from 'lucide-react'
 import Link from 'next/link'
+
+import { ArrowBoxUpIcon } from '@/comps/icons/arrow-box-up'
 
 type Props = React.DetailedHTMLProps<
   React.AnchorHTMLAttributes<HTMLAnchorElement>,
@@ -11,7 +12,7 @@ export function Anchor(props: Props) {
     props.href?.startsWith('https://timomeh.de') ||
     props.href?.startsWith('/') ||
     props.href?.startsWith('#')
-  const isFeedLink = /\.(json|atom|rss)$/.test(props.href || '')
+  const isFeedLink = /\.(json|atom|rss|xml)$/.test(props.href || '')
 
   if (props.href && isLocalLink && !isFeedLink) {
     const { href, ref: _, children, ...rest } = props
@@ -25,20 +26,14 @@ export function Anchor(props: Props) {
   // external links. shows an external link indicator, but only for h1's
 
   return (
-    <a {...props} rel="noopener noreferrer" target="_blank">
+    <a
+      {...props}
+      className="group/link [&>.external-link]:hidden [&[href^='https://']>.external-link]:inline"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
       {props.children}
-      <span
-        className="
-          external-link font-pixel ml-2 hidden text-[0.7em] leading-none
-          font-normal opacity-50
-          sm:ml-3
-        "
-      >
-        <ExternalLinkIcon
-          className="size-4 sm:size-6"
-          aria-label="External link"
-        />
-      </span>
+      <ArrowBoxUpIcon aria-label="External link" />
     </a>
   )
 }
