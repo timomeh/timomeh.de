@@ -150,9 +150,6 @@ importers:
       sharp:
         specifier: 0.34.5
         version: 0.34.5
-      tiny-relative-date:
-        specifier: 2.0.2
-        version: 2.0.2
       unist-util-visit:
         specifier: 5.1.0
         version: 5.1.0
@@ -3744,9 +3741,6 @@ packages:
 
   tiny-invariant@1.0.6:
     resolution: {integrity: sha512-FOyLWWVjG+aC0UqG76V53yAWdXfH8bO6FNmyZOuUrzDzK8DI3/JRY25UD7+g49JWM1LXwymsKERB+DzI0dTEQA==}
-
-  tiny-relative-date@2.0.2:
-    resolution: {integrity: sha512-rGxAbeL9z3J4pI2GtBEoFaavHdO4RKAU54hEuOef5kfx5aPqiQtbhYktMOTL5OA33db8BjsDcLXuNp+/v19PHw==}
 
   tiny-warning@1.0.3:
     resolution: {integrity: sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA==}
@@ -8183,8 +8177,6 @@ snapshots:
       real-require: 0.2.0
 
   tiny-invariant@1.0.6: {}
-
-  tiny-relative-date@2.0.2: {}
 
   tiny-warning@1.0.3: {}
 

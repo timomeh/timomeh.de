@@ -5,6 +5,7 @@ import { MDX } from '@/comps/mdx/mdx'
 import { MediaGrid } from '@/comps/media-grid'
 import { OptimImage } from '@/comps/optim-image'
 import { Prose } from '@/comps/prose'
+import { formatRelativeDate } from '@/lib/date'
 
 export function ShortEntry({
   short,
@@ -42,11 +43,7 @@ export function ShortEntry({
               dateTime={short.publishedAt.toISOString()}
               title={short.publishedAt.toISOString()}
             >
-              {new Date(short.publishedAt).toLocaleString('en-US', {
-                month: 'short',
-                day: '2-digit',
-                year: 'numeric',
-              })}
+              {formatRelativeDate(short.publishedAt)}
             </time>
           </Link>
         </div>

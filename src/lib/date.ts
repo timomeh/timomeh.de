@@ -1,4 +1,6 @@
 import {
+  differenceInHours,
+  differenceInMinutes,
   isBefore,
   isSameMonth,
   isSameWeek,
@@ -7,7 +9,6 @@ import {
   subWeeks,
   subYears,
 } from 'date-fns'
-import relativeDate from 'tiny-relative-date'
 
 export function isWeekAgo(date: Date, weeks: number) {
   return isSameWeek(date, subWeeks(new Date(), weeks), { weekStartsOn: 1 })
@@ -22,7 +23,24 @@ export function isYearAgo(date: Date, years: number) {
 }
 
 export function formatRelativeDate(date: Date) {
-  return relativeDate(date)
+  const now = new Date()
+
+  const minutes = differenceInMinutes(now, date)
+  if (minutes < 3) return 'just now'
+  if (minutes < 60) return `${minutes} minutes ago`
+
+  const hours = differenceInHours(now, date)
+  if (hours < 36) return `${hours} ${hours === 1 ? 'hour' : 'hours'} ago`
+
+  return new Date(date).toLocaleString('en-US', {
+    month: 'short',
+    day: '2-digit',
+    hour12: false,
+    year: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    timeZone: 'Europe/Berlin',
+  })
 }
 
 export function isMoreThanWeeksAgo(date: Date, weeks: number) {
