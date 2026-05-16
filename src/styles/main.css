@@ -158,10 +158,10 @@
   .page-tooltip {
     z-index: 9999;
 
-    @apply dark:!bg-[#0f0d0b] !bg-[#f2f1f0];
-    @apply dark:!border-white/10 !border-black/15 !border;
+    @apply !bg-[#f2f1f0] dark:!bg-[#0f0d0b];
+    @apply !border !border-black/15 dark:!border-white/10;
     @apply !text-stone-800 dark:!text-stone-100;
-    @apply !text-xs !p-0 !font-medium;
+    @apply !p-0 !text-xs !font-medium;
   }
 
   .page-tooltip .react-tooltip-content-wrapper {
@@ -169,7 +169,7 @@
   }
 
   .page-tooltip .react-tooltip-arrow {
-    @apply dark:!text-white/10 !text-black/15;
+    @apply !text-black/15 dark:!text-white/10;
   }
 }
 
