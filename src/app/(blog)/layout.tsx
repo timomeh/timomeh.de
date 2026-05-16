@@ -60,6 +60,16 @@ export default async function RootLayout({
       ${fonts}
     `}>
       <head>
+        <meta
+          name="theme-color"
+          content="#E8E7E4"
+          media="(prefers-color-scheme: light)"
+        />
+        <meta
+          name="theme-color"
+          content="#0D0D0B"
+          media="(prefers-color-scheme: dark)"
+        />
         {config.umamiWebsiteId && config.umamiUrl && (
           <script
             defer
@@ -74,6 +84,26 @@ export default async function RootLayout({
               const supp = ['dark', 'light'];
               theme = supp.includes(theme) ? theme : null;
               document.documentElement.setAttribute('data-theme', theme || 'system');
+              if (theme) {
+                const color = theme === 'light' ? '#E8E7E4' : '#0D0D0B';
+                document.querySelectorAll('meta[name="theme-color"]').forEach(el => el.remove());
+                const meta = document.createElement('meta');
+                meta.name = 'theme-color';
+                meta.content = color;
+                document.head.appendChild(meta);
+              } else {
+                const light = Object.assign(document.createElement('meta'), {
+                  name: 'theme-color', content: '#E8E7E4'
+                });
+                light.setAttribute('media', '(prefers-color-scheme: light)');
+
+                const dark = Object.assign(document.createElement('meta'), {
+                  name: 'theme-color', content: '#0D0D0B'
+                });
+                dark.setAttribute('media', '(prefers-color-scheme: dark)');
+
+                document.head.append(light, dark);
+              }
             })();`,
           }}
         />
@@ -131,6 +161,5 @@ export const metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#1C1C1C',
   colorScheme: 'light dark',
 }

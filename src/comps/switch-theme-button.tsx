@@ -23,11 +23,45 @@ export function SwitchThemeButton(props: Props) {
 
         if (newTheme !== 'system') {
           localStorage.setItem('theme', newTheme)
+          setThemeColor(newTheme)
         } else {
           localStorage.removeItem('theme')
+          resetThemeColor()
         }
       }}
       {...props}
     />
   )
+}
+
+function setThemeColor(theme: string) {
+  const color = theme === 'light' ? '#E8E7E4' : '#0D0D0B'
+
+  document
+    .querySelectorAll('meta[name="theme-color"]')
+    .forEach((el) => el.remove())
+  const meta = document.createElement('meta')
+  meta.name = 'theme-color'
+  meta.content = color
+  document.head.appendChild(meta)
+}
+
+function resetThemeColor() {
+  document
+    .querySelectorAll('meta[name="theme-color"]')
+    .forEach((el) => el.remove())
+
+  const light = Object.assign(document.createElement('meta'), {
+    name: 'theme-color',
+    content: '#E8E7E4',
+  })
+  light.setAttribute('media', '(prefers-color-scheme: light)')
+
+  const dark = Object.assign(document.createElement('meta'), {
+    name: 'theme-color',
+    content: '#0D0D0B',
+  })
+  dark.setAttribute('media', '(prefers-color-scheme: dark)')
+
+  document.head.append(light, dark)
 }
