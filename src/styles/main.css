@@ -172,6 +172,10 @@ html:has(dialog:modal) [style*='view-transition-name'] {
   view-transition-name: none !important;
 }
 
+button {
+  cursor: pointer;
+}
+
 .oembed {
   iframe {
     color-scheme: light;
