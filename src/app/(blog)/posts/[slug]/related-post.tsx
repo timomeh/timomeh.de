@@ -12,7 +12,7 @@ export async function RelatedPosts({ forSlug }: { forSlug: string }) {
     <section>
       <div className="mx-auto max-w-2xl p-4 !pb-12 sm:p-6 md:p-8">
         <h2 className="mb-6 font-serif text-2xl font-semibold">
-          Related posts
+          More like this
         </h2>
 
         <ul className="space-y-5">
