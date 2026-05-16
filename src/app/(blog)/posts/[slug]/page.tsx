@@ -1,4 +1,7 @@
+import { Suspense } from 'react'
+
 import { PostEyebrow } from '@/app/(blog)/post-eyebrow'
+import { RelatedPosts } from '@/app/(blog)/posts/[slug]/related-post'
 import { PageFooter } from '@/comps/layout/page-footer'
 import { PageMain } from '@/comps/layout/page-main'
 import { PageNav } from '@/comps/layout/page-nav'
@@ -43,8 +46,21 @@ export default async function Page(props: Props) {
                 />
               </Lightbox>
             </Prose>
+            <div className="mt-10">
+              <span className="font-mono text-xs text-current/60">
+                Published at{' '}
+                <time dateTime={post.publishedAt.toISOString()}>
+                  {post.publishedAt.toISOString()}
+                </time>
+              </span>
+            </div>
           </div>
         </article>
+        {post.relatedPosts.length > 0 && (
+          <Suspense>
+            <RelatedPosts forSlug={slug} />
+          </Suspense>
+        )}
       </PageMain>
       <PageFooter />
     </>

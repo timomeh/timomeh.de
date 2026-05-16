@@ -156,6 +156,7 @@ const sanitizePost = (
     publishedAt: new Date(post.publishedAt),
     updatedAt: post.updatedAt ? new Date(post.updatedAt) : undefined,
     tags: post.tags.filter(Boolean),
+    relatedPosts: post.relatedPosts.filter(Boolean),
     search: post.frontmatter.search || undefined,
     lightCover: post.frontmatter.lightCover || undefined,
     darkCover: post.frontmatter.darkCover || undefined,

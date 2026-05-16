@@ -173,6 +173,17 @@ export default config({
             label: 'Tags',
           },
         ),
+        relatedPosts: fields.array(
+          fields.relationship({
+            label: 'Related Posts',
+            collection: 'posts',
+            validation: { isRequired: true },
+          }),
+          {
+            itemLabel: (props) => props.value || 'NULL',
+            label: 'Related Posts',
+          },
+        ),
 
         frontmatter: fields.object(
           {

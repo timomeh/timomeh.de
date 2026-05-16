@@ -6,6 +6,7 @@ import { config } from '@/config'
 import { contentAsset } from '@/data/cms'
 import { PostsRepo } from '@/data/posts/posts.repo'
 import { formatReadingTime } from '@/lib/formatReadingTime'
+import { shuffle } from '@/lib/shuffle'
 
 export class ShowPost extends Vla.Action {
   postsRepo = this.inject(PostsRepo)
@@ -17,6 +18,22 @@ export class ShowPost extends Vla.Action {
       post,
       assetPrefix: contentAsset('posts', post.slug, ''),
     }
+  }
+}
+
+export class ListRelatedPosts extends Vla.Action {
+  postsRepo = this.inject(PostsRepo)
+
+  async handle(slug: string) {
+    const post = await this.postsRepo.bySlug(slug)
+    if (!post) return null
+    if (post.relatedPosts.length < 1) return null
+
+    const posts = await this.postsRepo.bySlugs(post.relatedPosts)
+    const shuffledPosts = shuffle(posts)
+    const fewPosts = shuffledPosts.slice(0, 5)
+
+    return fewPosts
   }
 }
 

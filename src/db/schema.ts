@@ -14,6 +14,11 @@ export const posts = t.sqliteTable(
     publishedAt: t.integer({ mode: 'timestamp' }).notNull(),
     updatedAt: t.integer({ mode: 'timestamp' }),
     search: t.text(),
+    relatedPosts: t
+      .text({ mode: 'json' })
+      .$type<string[]>()
+      .notNull()
+      .default([]),
     lightCover: t.text(),
     darkCover: t.text(),
     lightBgColor: t.text(),
