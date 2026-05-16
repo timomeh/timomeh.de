@@ -19,7 +19,8 @@ export default async function Page() {
           <Prose size="sm">
             <h1 className="!mb-1">Shorts</h1>
             <p className="!mt-1">
-              A collection of short-form posts. Like Twitter, but it's just me.
+              A collection of short-form posts. Like Twitter with just one
+              idiot: me.
             </p>
           </Prose>
 
