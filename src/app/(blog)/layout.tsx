@@ -91,18 +91,6 @@ export default async function RootLayout({
                 meta.name = 'theme-color';
                 meta.content = color;
                 document.head.appendChild(meta);
-              } else {
-                const light = Object.assign(document.createElement('meta'), {
-                  name: 'theme-color', content: '#E8E7E4'
-                });
-                light.setAttribute('media', '(prefers-color-scheme: light)');
-
-                const dark = Object.assign(document.createElement('meta'), {
-                  name: 'theme-color', content: '#0D0D0B'
-                });
-                dark.setAttribute('media', '(prefers-color-scheme: dark)');
-
-                document.head.append(light, dark);
               }
             })();`,
           }}
