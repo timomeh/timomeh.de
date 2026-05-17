@@ -2,6 +2,7 @@ import { ArrowDownFromLine } from 'lucide-react'
 
 import { ListedShort } from '@/app/(blog)/data'
 import { ShortEntry } from '@/app/(blog)/short-entry'
+import { PreventScrollLink } from '@/comps/prevent-scroll-link'
 
 type Props = {
   shorts: ListedShort[]
@@ -11,16 +12,14 @@ export async function ShortsGroup({ shorts }: Props) {
   return (
     <div className="relative border-b border-black/10 dark:border-white/10">
       <div className="mx-auto max-w-2xl p-4 !py-12 sm:p-6 md:p-8">
-        <ul className="space-y-10">
+        <ul className="group/shorts space-y-10">
           {shorts.map((short, i) => (
             <li
               key={short.id}
-              id={`short-${short.id}`}
               data-overflow={shorts.length > 5 && i > 3}
               className="
-                peer
                 data-[overflow=true]:hidden
-                data-[overflow=true]:peer-target:block
+                data-[overflow=true]:group-has-target/shorts:block
               "
             >
               <ShortEntry short={short} linkTo="detail" />
@@ -32,12 +31,12 @@ export async function ShortsGroup({ shorts }: Props) {
             <li
               className="
                 flex justify-center
-                peer-target:invisible peer-target:-mb-10 peer-target:h-0
+                group-has-target/shorts:invisible group-has-target/shorts:-mb-10 group-has-target/shorts:h-0
                 md:justify-start
               "
             >
-              <a
-                href={`#short-${shorts[5].id}`}
+              <PreventScrollLink
+                href={`#short-${shorts[4].id}`}
                 className="group/link inline-flex hover:underline"
               >
                 <div
@@ -58,7 +57,7 @@ export async function ShortsGroup({ shorts }: Props) {
                     show {shorts.length - 4} more shorts
                   </div>
                 </div>
-              </a>
+              </PreventScrollLink>
             </li>
           )}
         </ul>

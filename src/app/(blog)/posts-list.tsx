@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 
 import { PostPreview } from '@/app/(blog)/post-preview'
 import { ShortsGroup } from '@/app/(blog)/shorts-group'
+import { ScrollToHash } from '@/comps/scroll-to-hash'
 
 import { ListReadables, Readable } from './data'
 
@@ -14,6 +15,7 @@ export async function PostsList() {
 
   return (
     <ul>
+      <ScrollToHash />
       {initial.map(renderItem)}
       <Suspense fallback={<LoadingFallback />}>
         <RestOfReadables readables={rest} />
@@ -23,7 +25,12 @@ export async function PostsList() {
 }
 
 async function RestOfReadables({ readables }: { readables: Readable[] }) {
-  return <>{readables.map(renderItem)}</>
+  return (
+    <>
+      <ScrollToHash />
+      {readables.map(renderItem)}
+    </>
+  )
 }
 
 function renderItem(readable: Readable) {
@@ -46,10 +53,10 @@ function renderItem(readable: Readable) {
 
 function LoadingFallback() {
   return (
-    <li>
+    <li id="loading-anchor">
       <div className="relative border-b border-black/10 dark:border-white/10">
         <div className="mx-auto max-w-2xl p-4 !py-12 sm:p-6 md:p-8">
-          <p className="mb-40 animate-pulse text-center">
+          <p className="mb-[800px] animate-pulse text-center">
             Hang on, loading more…
           </p>
         </div>

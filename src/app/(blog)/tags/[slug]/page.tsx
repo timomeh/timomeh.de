@@ -11,6 +11,7 @@ import { PageMain } from '@/comps/layout/page-main'
 import { PageNav } from '@/comps/layout/page-nav'
 import { PageNavBack } from '@/comps/layout/page-nav-back'
 import { Prose } from '@/comps/prose'
+import { ScrollToHash } from '@/comps/scroll-to-hash'
 import { pluralizePosts } from '@/lib/plurals'
 
 type Props = {
@@ -43,6 +44,7 @@ export default async function Page(props: Props) {
           </Prose>
         </div>
 
+        <ScrollToHash />
         <ul>
           {initial.map(renderItem)}
           <Suspense fallback={<LoadingFallback />}>
@@ -56,7 +58,12 @@ export default async function Page(props: Props) {
 }
 
 async function RestOfPosts({ posts }: { posts: TagListedPost[] }) {
-  return <>{posts.map(renderItem)}</>
+  return (
+    <>
+      <ScrollToHash />
+      {posts.map(renderItem)}
+    </>
+  )
 }
 
 function renderItem(post: TagListedPost) {
@@ -69,10 +76,10 @@ function renderItem(post: TagListedPost) {
 
 function LoadingFallback() {
   return (
-    <li>
+    <li id="loading-anchor">
       <div className="relative border-b border-black/10 dark:border-white/10">
         <div className="mx-auto max-w-2xl p-4 !py-12 sm:p-6 md:p-8">
-          <p className="mb-40 animate-pulse text-center">
+          <p className="mb-[800px] animate-pulse text-center">
             Hang on, loading more…
           </p>
         </div>

@@ -20,7 +20,6 @@ export async function PostPreview({
   return (
     <article
       lang={post.metaLang?.split('_')[0]}
-      id={post.slug}
       className="relative border-b border-black/10 dark:border-white/10"
     >
       {post.lightBgColor && (
@@ -64,10 +63,15 @@ export async function PostPreview({
                     hasLink = child.type === Anchor
                   })
 
-                  if (hasLink) return <h1>{props.children}</h1>
+                  if (hasLink)
+                    return (
+                      <h1 id={post.slug} className="scroll-mt-16">
+                        {props.children}
+                      </h1>
+                    )
 
                   return (
-                    <h1>
+                    <h1 id={post.slug} className="scroll-mt-16">
                       <Link
                         href={`/posts/${post.slug}`}
                         className="no-underline hover:underline"

@@ -28,6 +28,7 @@ export function ShortEntry({
         <div className="mb-1 flex flex-nowrap items-baseline gap-x-3 gap-y-1">
           <span className="font-bold">Timo</span>
           <Link
+            id={`short-${short.id}`}
             href={
               linkTo === 'detail'
                 ? `/shorts/${short.id}`
