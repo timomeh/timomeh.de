@@ -24,9 +24,11 @@ export function PageNav({ children }: Props) {
     >
       <KeyboardNavLink href="#main">Skip navigation to main</KeyboardNavLink>
       <div className="mx-auto max-w-2xl px-3 sm:px-6 md:px-8">
-        <div className="flex h-10 flex-nowrap items-center justify-between">
-          <div className="relative flex items-center gap-4">{children}</div>
-          <nav aria-label="Shortcuts" className="flex space-x-3">
+        <div className="flex h-10 min-w-0 flex-nowrap items-center justify-between">
+          <div className="relative flex min-w-0 flex-1 items-center gap-4 ">
+            {children}
+          </div>
+          <nav aria-label="Shortcuts" className="flex shrink-0 space-x-3">
             <Link
               aria-label="About me"
               data-tooltip-id="page-tt"

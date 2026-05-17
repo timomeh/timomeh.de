@@ -38,7 +38,7 @@ export function PostNavScrollTitle() {
     entries[entries.length - 1].text
 
   return (
-    <div className="relative mr-4 h-10 font-semibold md:mr-6">
+    <div className="relative mr-4 h-10 w-full font-semibold md:mr-6">
       <span className="invisible">{visibleText}</span>
       {entries.map((e) => (
         <span
