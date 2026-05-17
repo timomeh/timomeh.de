@@ -33,6 +33,7 @@ import { Img } from './img'
 import { Kbd } from './kbd'
 import { Lead } from './lead'
 import { ReadMore } from './read-more'
+import { TrackedHeading } from './tracked-heading'
 import { Video } from './video'
 
 type MDXComponents = Parameters<
@@ -48,6 +49,7 @@ type Props = {
   cacheTags?: string[]
   readMorePath?: string
   scope?: string
+  trackHeadings?: boolean
   components?: MDXComponents
 }
 
@@ -60,6 +62,7 @@ export async function MDX({
   cacheKey,
   cacheTags,
   scope,
+  trackHeadings,
   components = {},
 }: Props) {
   const comps: MDXComponents = plain
@@ -82,6 +85,14 @@ export async function MDX({
         ),
         ...(!!readMorePath && {
           ReadMore: () => <ReadMore href={readMorePath} />,
+        }),
+        ...(trackHeadings && {
+          h1: (props) => <TrackedHeading level={1} {...props} />,
+          h2: (props) => <TrackedHeading level={2} {...props} />,
+          h3: (props) => <TrackedHeading level={3} {...props} />,
+          h4: (props) => <TrackedHeading level={4} {...props} />,
+          h5: (props) => <TrackedHeading level={5} {...props} />,
+          h6: (props) => <TrackedHeading level={6} {...props} />,
         }),
         ...(inline && inlineComponents),
       }

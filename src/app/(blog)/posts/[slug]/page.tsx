@@ -1,12 +1,14 @@
 import { Suspense } from 'react'
 
 import { PostEyebrow } from '@/app/(blog)/post-eyebrow'
+import { PostNavScrollTitle } from '@/app/(blog)/posts/[slug]/post-nav-scroll-title'
 import { RelatedPosts } from '@/app/(blog)/posts/[slug]/related-post'
 import { PageFooter } from '@/comps/layout/page-footer'
 import { PageMain } from '@/comps/layout/page-main'
 import { PageNav } from '@/comps/layout/page-nav'
 import { PageNavBack } from '@/comps/layout/page-nav-back'
 import { Lightbox } from '@/comps/lightbox'
+import { ActiveHeadingProvider } from '@/comps/mdx/active-heading-context'
 import { MDX } from '@/comps/mdx/mdx'
 import { Prose } from '@/comps/prose'
 
@@ -21,9 +23,10 @@ export default async function Page(props: Props) {
   const { post, assetPrefix } = await ShowPost.invoke(slug)
 
   return (
-    <>
+    <ActiveHeadingProvider>
       <PageNav>
         <PageNavBack href="/" />
+        <PostNavScrollTitle />
       </PageNav>
       <PageMain>
         <article
@@ -43,6 +46,7 @@ export default async function Page(props: Props) {
                   content={post.content}
                   assetPrefix={assetPrefix}
                   scope="post"
+                  trackHeadings
                 />
               </Lightbox>
             </Prose>
@@ -63,7 +67,7 @@ export default async function Page(props: Props) {
         )}
       </PageMain>
       <PageFooter />
-    </>
+    </ActiveHeadingProvider>
   )
 }
 

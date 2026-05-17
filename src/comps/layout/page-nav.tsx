@@ -25,7 +25,7 @@ export function PageNav({ children }: Props) {
       <KeyboardNavLink href="#main">Skip navigation to main</KeyboardNavLink>
       <div className="mx-auto max-w-2xl px-3 sm:px-6 md:px-8">
         <div className="flex h-10 flex-nowrap items-center justify-between">
-          {children || <div />}
+          <div className="relative flex items-center gap-4">{children}</div>
           <nav aria-label="Shortcuts" className="flex space-x-3">
             <Link
               aria-label="About me"
