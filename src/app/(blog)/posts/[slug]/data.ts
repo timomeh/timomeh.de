@@ -30,7 +30,8 @@ export class ListRelatedPosts extends Vla.Action {
     if (post.relatedPosts.length < 1) return null
 
     const posts = await this.postsRepo.bySlugs(post.relatedPosts)
-    const shuffledPosts = shuffle(posts)
+    const publishedPosts = posts.filter((p) => p.status === 'published')
+    const shuffledPosts = shuffle(publishedPosts)
     const fewPosts = shuffledPosts.slice(0, 5)
 
     return fewPosts
