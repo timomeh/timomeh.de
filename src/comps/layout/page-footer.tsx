@@ -21,6 +21,10 @@ export function PageFooter() {
             Feeds
           </Link>
           {', '}
+          <Link href="/ai" className="hover:underline">
+            AI Usage
+          </Link>
+          {', '}
           <Link href="/impressum" className="hover:underline">
             Imprint
           </Link>
