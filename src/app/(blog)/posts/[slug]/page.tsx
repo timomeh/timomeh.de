@@ -58,6 +58,9 @@ export default async function Page(props: Props) {
                 </time>
               </span>
             </div>
+            <p className="font-mono text-xs text-current/60">
+              Comment: <a href="mailto:hello@timomeh.de">hello@timomeh.de</a>
+            </p>
           </div>
         </article>
         {post.relatedPosts.length > 0 && (
