@@ -69,7 +69,7 @@
     "vla": "0.2.0"
   },
   "devDependencies": {
-    "@argos-ci/playwright": "6.6.4",
+    "@argos-ci/playwright": "7.0.0",
     "@playwright/test": "1.60.0",
     "@tailwindcss/postcss": "4.3.0",
     "@tailwindcss/typography": "0.5.19",
