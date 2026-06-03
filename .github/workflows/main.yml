@@ -26,7 +26,7 @@ jobs:
       name: production
       url: https://timomeh.de
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.2
       - name: install railway cli
         run: bash <(curl -fsSL cli.new)
       - run: source "$HOME/.railway/env"
