@@ -40,8 +40,8 @@ importers:
         specifier: 0.17.3
         version: 0.17.3
       '@loglayer/transport-pino':
-        specifier: 3.0.2
-        version: 3.0.2(pino@10.3.1)
+        specifier: 3.2.0
+        version: 3.2.0(pino@10.3.1)
       '@mdx-js/mdx':
         specifier: 3.1.1
         version: 3.1.1
@@ -984,26 +984,26 @@ packages:
     resolution: {integrity: sha512-gL4K7J31Fk+8VkRJZOcxvVxQwH/0/e7uzOAVVLOKpZDdqcsAtSNpAnXcqEQOCLA1cqKe1u7ODCk6XGJY4732oQ==}
     engines: {node: '>=18'}
 
-  '@loglayer/shared@4.1.0':
-    resolution: {integrity: sha512-hGSWhLhMF9L7sB0rXippvKhku9D9dT8imZ5OFpa4VHAVnclY0DQ+3wIPE37rzu0QAiBbyR3/HH03Q1Cgik8zYA==}
-    engines: {node: '>=18'}
-
   '@loglayer/shared@4.2.0':
     resolution: {integrity: sha512-DJlibZzcPqJWJDQroLSxyHKhVYyKMwwvUzpCNi9I0GWINl71qZB0cJoIYvPths+mjcmHVV/7zBVOjjPqZnfVhQ==}
     engines: {node: '>=18'}
 
-  '@loglayer/transport-pino@3.0.2':
-    resolution: {integrity: sha512-JQnYQRctO0nI5L0Mk26uwngK52fMpkRs9qb7N3tCgSoAjFd3DQZyxV2FhcAsgpp45utJzczWNxmlB5788PJEXA==}
+  '@loglayer/shared@4.3.0':
+    resolution: {integrity: sha512-jlNeh0+uOGlKMhKk1Sx9Qdk7ni+I3hHZz2LB7Lp8BmUnqHD0TGRhsp2rV/zMiszSYUwI8XGvNrZttpxBL05U5A==}
+    engines: {node: '>=18'}
+
+  '@loglayer/transport-pino@3.2.0':
+    resolution: {integrity: sha512-Hg8ogflMZy/v7ogkbRPHzUEp4LSlLkEaNk2Qh5Q8NCBUBGPj496Xb5pBnWfg3f00Vz1A4Rg53pka1REMHRfXYw==}
     engines: {node: '>=18'}
     peerDependencies:
       pino: '*'
 
-  '@loglayer/transport@3.0.2':
-    resolution: {integrity: sha512-5t0lj/ibQQxGPpghNta8u10zl8owU0my/i2fHF/LdcCAtpw/IHblmpKSgOzdH9XE19Ub/i0VYj0JrFrFv8/NXw==}
-    engines: {node: '>=18'}
-
   '@loglayer/transport@3.1.0':
     resolution: {integrity: sha512-5bvbfaInIQCg/k9A60TyxfQeQuNUO5fstStHcpMJH+tYnTZn5mgzPOvqe/+9DYJhEiZhx0IWZidqygL1gnmvvQ==}
+    engines: {node: '>=18'}
+
+  '@loglayer/transport@3.2.0':
+    resolution: {integrity: sha512-UMnlJggWIAYzZv8PN9dR3v7qMDG7vKVyPJjyfypBa8Y2yLk/4XzDp2fAvSd1OJKWQh03lO7GfGpo87SSYoIANg==}
     engines: {node: '>=18'}
 
   '@markdoc/markdoc@0.4.0':
@@ -4564,22 +4564,22 @@ snapshots:
     dependencies:
       '@loglayer/shared': 4.2.0
 
-  '@loglayer/shared@4.1.0': {}
-
   '@loglayer/shared@4.2.0': {}
 
-  '@loglayer/transport-pino@3.0.2(pino@10.3.1)':
-    dependencies:
-      '@loglayer/transport': 3.0.2
-      pino: 10.3.1
+  '@loglayer/shared@4.3.0': {}
 
-  '@loglayer/transport@3.0.2':
+  '@loglayer/transport-pino@3.2.0(pino@10.3.1)':
     dependencies:
-      '@loglayer/shared': 4.1.0
+      '@loglayer/transport': 3.2.0
+      pino: 10.3.1
 
   '@loglayer/transport@3.1.0':
     dependencies:
       '@loglayer/shared': 4.2.0
+
+  '@loglayer/transport@3.2.0':
+    dependencies:
+      '@loglayer/shared': 4.3.0
 
   '@markdoc/markdoc@0.4.0(@types/react@19.2.16)(react@19.2.7)':
     optionalDependencies:
