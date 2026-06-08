@@ -30,7 +30,7 @@ jobs:
       - name: install railway cli
         run: bash <(curl -fsSL cli.new)
       - run: source "$HOME/.railway/env"
-      - uses: docker/login-action@v4.1.0
+      - uses: docker/login-action@v4.2.0
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
