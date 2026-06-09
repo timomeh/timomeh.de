@@ -127,8 +127,8 @@ importers:
         specifier: 19.2.7
         version: 19.2.7(react@19.2.7)
       react-tooltip:
-        specifier: 6.0.5
-        version: 6.0.5(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        specifier: 6.0.6
+        version: 6.0.6(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       reading-time:
         specifier: 1.5.0
         version: 1.5.0
@@ -3338,8 +3338,8 @@ packages:
     peerDependencies:
       react: ^19.2.7
 
-  react-tooltip@6.0.5:
-    resolution: {integrity: sha512-ExlIuWZWMB1yB7XHqZ6EUOyL4vCR9Qca2U9jtnvSGvoq32L3dVUG0Kdgh9fJooiAqFO+luljNKBmaivF6VcJyQ==}
+  react-tooltip@6.0.6:
+    resolution: {integrity: sha512-lVTkfNeswvos9VUdV0McdsnVYczxWQXFG2I15sHvXHEmudYXCSwHKrsbJH1j+WmawrB+83tS28vJYSz5m/Fa7g==}
     peerDependencies:
       react: '>=16.14.0'
       react-dom: '>=16.14.0'
@@ -7607,7 +7607,7 @@ snapshots:
       react: 19.2.7
       scheduler: 0.27.0
 
-  react-tooltip@6.0.5(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
+  react-tooltip@6.0.6(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
     dependencies:
       '@floating-ui/dom': 1.7.6
       clsx: 2.1.1
