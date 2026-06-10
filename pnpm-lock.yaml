@@ -88,8 +88,8 @@ importers:
         specifier: 5.2.1
         version: 5.2.1
       loglayer:
-        specifier: 9.2.0
-        version: 9.2.0
+        specifier: 9.3.0
+        version: 9.3.0
       lucide-react:
         specifier: 1.17.0
         version: 1.17.0(react@19.2.7)
@@ -972,20 +972,16 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@loglayer/context-manager@2.1.0':
-    resolution: {integrity: sha512-LCohf1MeDGHL5pvSl2TcmQZmyx/xfMozgmRt2zCjNC3yLymWjyHZYrkzaZ6Uv3fCy3o8wKhfj9Z+Yqln51ucBA==}
+  '@loglayer/context-manager@2.2.0':
+    resolution: {integrity: sha512-rnAXJIMRCUFuMtWNDK1F9vyh29SQQA659LVHHVv6AxvyQ/5DJpIkM7VhfuPVFV2EfnZXv343zbxDr29La5SOyA==}
     engines: {node: '>=18'}
 
-  '@loglayer/log-level-manager@2.1.0':
-    resolution: {integrity: sha512-c7WzwuUllVIxF51AR/OZ5eetqGLM+O8WUVyKbyUBZJ+k7qN4K/3i4civnZVHqLqrh7LSwYcFzn6CkUIoI66iaQ==}
+  '@loglayer/log-level-manager@2.2.0':
+    resolution: {integrity: sha512-ifJ6i2Tc0vwNhPS8Ugr/Y5iabNmcX+QnXnPzjz2aKxgNQQGYZ6qWlAI7WI75tINRr9S+4xxbvim9hNjQ42z7Lw==}
     engines: {node: '>=18'}
 
-  '@loglayer/plugin@3.1.0':
-    resolution: {integrity: sha512-gL4K7J31Fk+8VkRJZOcxvVxQwH/0/e7uzOAVVLOKpZDdqcsAtSNpAnXcqEQOCLA1cqKe1u7ODCk6XGJY4732oQ==}
-    engines: {node: '>=18'}
-
-  '@loglayer/shared@4.2.0':
-    resolution: {integrity: sha512-DJlibZzcPqJWJDQroLSxyHKhVYyKMwwvUzpCNi9I0GWINl71qZB0cJoIYvPths+mjcmHVV/7zBVOjjPqZnfVhQ==}
+  '@loglayer/plugin@3.2.0':
+    resolution: {integrity: sha512-yBqmZeY0+5uFzbUkSrH82tzDfo1YhzCyBx+ZEvikkYAkOlAlQHEFda4Ue+il4Km2FrCCCG0qPgMEd3Mz8kIITg==}
     engines: {node: '>=18'}
 
   '@loglayer/shared@4.3.0':
@@ -997,10 +993,6 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       pino: '*'
-
-  '@loglayer/transport@3.1.0':
-    resolution: {integrity: sha512-5bvbfaInIQCg/k9A60TyxfQeQuNUO5fstStHcpMJH+tYnTZn5mgzPOvqe/+9DYJhEiZhx0IWZidqygL1gnmvvQ==}
-    engines: {node: '>=18'}
 
   '@loglayer/transport@3.2.0':
     resolution: {integrity: sha512-UMnlJggWIAYzZv8PN9dR3v7qMDG7vKVyPJjyfypBa8Y2yLk/4XzDp2fAvSd1OJKWQh03lO7GfGpo87SSYoIANg==}
@@ -2815,8 +2807,8 @@ packages:
   lodash@4.18.1:
     resolution: {integrity: sha512-dMInicTPVE8d1e5otfwmmjlxkZoUpiVLwyeTdUsi/Caj/gfzzblBcCE5sRHV/AsjuCmxWrte2TNGSYuCeCq+0Q==}
 
-  loglayer@9.2.0:
-    resolution: {integrity: sha512-1sruHFki9WS89rzsb8lCeldfnpdzg5b6Z8csSwvzDRPyytIz20GlATbTlXGSyQWWRp84XuHNe56ulJUpVzvhaA==}
+  loglayer@9.3.0:
+    resolution: {integrity: sha512-xiZFMbUCcy8mC+/uV0EzkZV6nbo3qweQjKKQSGkcrug2VpOHudzcoWR0DOl9edr8oS+BwyEjimpG3sF2CW8sww==}
     engines: {node: '>=18'}
 
   longest-streak@3.1.0:
@@ -4552,19 +4544,17 @@ snapshots:
   '@libsql/win32-x64-msvc@0.5.29':
     optional: true
 
-  '@loglayer/context-manager@2.1.0':
+  '@loglayer/context-manager@2.2.0':
     dependencies:
-      '@loglayer/shared': 4.2.0
+      '@loglayer/shared': 4.3.0
 
-  '@loglayer/log-level-manager@2.1.0':
+  '@loglayer/log-level-manager@2.2.0':
     dependencies:
-      '@loglayer/shared': 4.2.0
+      '@loglayer/shared': 4.3.0
 
-  '@loglayer/plugin@3.1.0':
+  '@loglayer/plugin@3.2.0':
     dependencies:
-      '@loglayer/shared': 4.2.0
-
-  '@loglayer/shared@4.2.0': {}
+      '@loglayer/shared': 4.3.0
 
   '@loglayer/shared@4.3.0': {}
 
@@ -4572,10 +4562,6 @@ snapshots:
     dependencies:
       '@loglayer/transport': 3.2.0
       pino: 10.3.1
-
-  '@loglayer/transport@3.1.0':
-    dependencies:
-      '@loglayer/shared': 4.2.0
 
   '@loglayer/transport@3.2.0':
     dependencies:
@@ -6616,13 +6602,13 @@ snapshots:
 
   lodash@4.18.1: {}
 
-  loglayer@9.2.0:
+  loglayer@9.3.0:
     dependencies:
-      '@loglayer/context-manager': 2.1.0
-      '@loglayer/log-level-manager': 2.1.0
-      '@loglayer/plugin': 3.1.0
-      '@loglayer/shared': 4.2.0
-      '@loglayer/transport': 3.1.0
+      '@loglayer/context-manager': 2.2.0
+      '@loglayer/log-level-manager': 2.2.0
+      '@loglayer/plugin': 3.2.0
+      '@loglayer/shared': 4.3.0
+      '@loglayer/transport': 3.2.0
 
   longest-streak@3.1.0: {}
 
