@@ -56,7 +56,7 @@
     "probe-image-size": "7.3.0",
     "react": "19.2.7",
     "react-dom": "19.2.7",
-    "react-tooltip": "6.0.6",
+    "react-tooltip": "6.0.7",
     "reading-time": "1.5.0",
     "rehype-unwrap-images": "1.0.0",
     "remark-gfm": "4.0.1",
