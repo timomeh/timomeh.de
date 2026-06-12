@@ -1,14 +1,16 @@
 # thx brody! https://github.com/railwayapp-templates/caddy-reverse-proxy/blob/74ca0b6430047002a20f6658a1a9ba63731fe573/Caddyfile
 {
-  admin off # theres no need for the admin api in railway's environment
-  persist_config off # storage isn't persistent anyway
-  auto_https off # railway handles https for us, this could in some cases cause issues if left enabled
+  admin off
+  persist_config off
+  auto_https off
+
   # runtime logs
   log {
     format json
   }
+
   servers {
-    trusted_proxies static private_ranges # trust railway's proxy
+    trusted_proxies static private_ranges # trust private proxies
   }
 }
 
