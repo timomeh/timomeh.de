@@ -80,7 +80,7 @@
     "@types/react-dom": "19.2.3",
     "@types/remove-markdown": "0.3.4",
     "drizzle-kit": "0.31.10",
-    "esbuild": "0.28.0",
+    "esbuild": "0.28.1",
     "oxfmt": "0.53.0",
     "oxlint": "1.68.0",
     "postcss": "8.5.15",
