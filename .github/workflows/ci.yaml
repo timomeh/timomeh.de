@@ -93,6 +93,9 @@ jobs:
           echo "SITE_URL=http://localhost:3000" >> .env.local
           echo "NUKE_SECRET=test" >> .env.local
           echo "DATABASE_URL=postgres://user:pass@db:5432/blog" >> .env.production
+          echo "NEXT_PUBLIC_CONTENT_PROXY_URL=http://content_proxy/raw-content" >> .env.production
+          echo "NEXT_PUBLIC_IMGPROXY_URL=http://localhost:3033" >> .env.production
+          echo "IMGPROXY_INTERNAL_URL=http://images:8080" >> .env.production
       - run: docker compose --profile e2e up -d --wait
       - run: pnpm db:push
       - name: Restore Postgres data
@@ -128,7 +131,7 @@ jobs:
           name: test-results
           path: test-results/
           retention-days: 30
-      - run: docker compose logs
+      - run: docker compose logs --no-color --timestamps app db content_proxy images
         if: always()
       - run: docker compose --profile dev --profile e2e down
         if: failure() || success()
