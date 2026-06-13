@@ -47,10 +47,10 @@ export class ShortsRepo extends Vla.Repo {
   listYears = this.memo(async () => {
     const shortYears = await db
       .select({
-        year: sql<number>`CAST(strftime('%Y', datetime(${schema.shorts.publishedAt}, 'unixepoch')) AS INTEGER)`.as(
+        year: sql<number>`extract(year from ${schema.shorts.publishedAt})::integer`.as(
           'year',
         ),
-        count: sql<number>`count(*)`.as('count'),
+        count: sql<number>`count(*)::integer`.as('count'),
       })
       .from(schema.shorts)
       .groupBy(sql`year`)

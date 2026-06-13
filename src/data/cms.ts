@@ -138,6 +138,7 @@ export function contentAsset(
 }
 
 const CONTENT_PROXY_URL =
+  process.env.NEXT_PUBLIC_CONTENT_PROXY_URL ||
   'http://github-content-proxy.railway.internal/raw-content'
 
 export function contentAssetUrl(path: string) {

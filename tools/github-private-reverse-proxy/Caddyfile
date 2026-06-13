@@ -24,7 +24,7 @@
 
     reverse_proxy https://raw.githubusercontent.com {
       header_up +Host {upstream_hostport}
-      header_up +Authorization "Bearer {$GH_TOKEN}"
+      header_up +Authorization "Bearer {$GITHUB_CONTENT_PAT}"
     }
   }
 

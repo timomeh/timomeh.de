@@ -45,7 +45,6 @@ export default async function RootLayout({
   children,
   kicker,
   backdrop,
-  overlay,
 }: Props) {
   return (
     <html lang="en" data-theme="system" suppressHydrationWarning className={`
@@ -105,7 +104,6 @@ export default async function RootLayout({
                 Skip header to navigation
               </KeyboardNavLink>
               <SiteHeader kicker={kicker} backdrop={backdrop} />
-              {overlay}
               {children}
             </div>
           </PrevPathProvider>

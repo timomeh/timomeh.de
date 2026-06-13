@@ -1,10 +1,10 @@
-import { drizzle } from 'drizzle-orm/libsql'
+import { drizzle } from 'drizzle-orm/node-postgres'
 
 import * as schema from './schema'
 
 export const db = drizzle({
   connection: {
-    url: process.env.DATABASE_URL || 'file:./data/db-data/blog.db',
+    connectionString: process.env.DATABASE_URL!,
   },
   casing: 'snake_case',
   schema,

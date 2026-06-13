@@ -2,18 +2,10 @@ import withPlaiceholder from '@plaiceholder/next'
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  // bypasses the file-system-cache's 2MB limit
   cacheHandler: require.resolve('./dist/cache-handler.js'),
   cacheMaxMemorySize: 0,
 
   output: 'standalone',
-  outputFileTracingIncludes: {
-    './**/*': [
-      // required so that @libsql's pre-built binaries are included
-      './node_modules/@libsql/darwin*/**/*',
-      './node_modules/@libsql/linux*/**/*',
-    ],
-  },
 
   poweredByHeader: false,
   compress: false,
@@ -26,19 +18,6 @@ const nextConfig: NextConfig = {
 
   async rewrites() {
     return {
-      // beforeFiles: [
-      //   {
-      //     source: '/search',
-      //     destination: '/search-modal',
-      //     has: [
-      //       {
-      //         type: 'header',
-      //         key: 'next-url',
-      //         value: '(?<url>^(?!/search$).*)',
-      //       },
-      //     ],
-      //   },
-      // ],
       afterFiles: [
         // nice feed urls
         { source: '/posts/feed.rss', destination: '/feeds/posts/rss' },

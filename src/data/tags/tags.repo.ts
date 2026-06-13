@@ -69,7 +69,7 @@ export class TagsRepo extends Vla.Repo {
       .insert(schema.tags)
       .values(tag)
       .onConflictDoUpdate({
-        target: schema.posts.slug,
+        target: schema.tags.slug,
         set: tag,
       })
       .returning()

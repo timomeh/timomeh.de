@@ -1,9 +1,8 @@
-import { sql } from 'drizzle-orm'
+import { desc, eq, inArray, sql } from 'drizzle-orm'
 import { Vla } from 'vla'
 
-import { db } from '@/db/client'
+import { db, schema } from '@/db/client'
 import { log as baseLog } from '@/lib/log'
-import { sleep } from '@/lib/sleep'
 
 type PostSearch = {
   id: number
@@ -26,7 +25,7 @@ export class PostsSearchRepo extends Vla.Repo {
     const tokens = query
       .trim()
       .toLowerCase()
-      .replace(/[^\p{L}\p{N}\s]/gu, ' ') // strip FTS5 syntax from string
+      .replace(/[^\p{L}\p{N}\s]/gu, ' ')
       .split(/\s+/)
       .filter(Boolean)
 
@@ -35,46 +34,50 @@ export class PostsSearchRepo extends Vla.Repo {
     // prefix match each token. `AND` them together
     // Example:
     //   search is:    foo bar
-    //   query is:     foo* bar*
+    //   query is:     foo:* & bar:*
     //   which means:  foo* AND bar*
-    const ftsQuery = tokens.map((t) => `${t}*`).join(' ')
+    const ftsQuery = tokens.map((t) => `${t}:*`).join(' & ')
+    const tsQuery = sql`to_tsquery('simple', ${ftsQuery})`
+    const rank = sql<number>`ts_rank_cd(ARRAY[0.2, 0.4, 0.6, 1.0]::real[], ${schema.postsSearch.document}, ${tsQuery})`
 
     // table:   | title | content | search | tags |
-    // scores:  | 5.0   | 3.0     | 2.0    | 1.0 |
+    // weights: | 1.0   | 0.6     | 0.4    | 0.2 |
 
-    const rows = await db.all<{ id: number; rank: number }>(sql`
-      SELECT rowid AS id, bm25(posts_fts, 5.0, 3.0, 2.0, 1.0) AS rank
-      FROM posts_fts
-      WHERE posts_fts MATCH ${ftsQuery}
-      ORDER BY rank
-      LIMIT 40
-    `)
+    const rows = await db
+      .select({ id: schema.postsSearch.postId, rank })
+      .from(schema.postsSearch)
+      .where(sql`${schema.postsSearch.document} @@ ${tsQuery}`)
+      .orderBy(desc(rank))
+      .limit(40)
 
     return rows
   }
 
   async deleteById(id: number) {
-    await db.run(sql`DELETE FROM posts_fts WHERE rowid = ${id}`)
+    await db.delete(schema.postsSearch).where(eq(schema.postsSearch.postId, id))
   }
 
   async deleteByIds(ids: number[]) {
     if (!ids.length) return
-    await db.run(
-      sql`DELETE FROM posts_fts WHERE rowid IN (${sql.join(ids, sql`, `)})`,
-    )
+    await db
+      .delete(schema.postsSearch)
+      .where(inArray(schema.postsSearch.postId, ids))
   }
 
   async deleteAll() {
-    await db.run(sql`INSERT INTO posts_fts(posts_fts) VALUES('delete-all')`)
+    await db.delete(schema.postsSearch)
   }
 
   async insert(post: PostSearch) {
-    const { search, tags } = this.toRow(post)
+    const document = this.toDocument(post)
 
-    await db.run(sql`
-      INSERT INTO posts_fts (rowid, title, content, search, tags)
-      VALUES (${post.id}, ${post.title}, ${post.content}, ${search}, ${tags})
-    `)
+    await db
+      .insert(schema.postsSearch)
+      .values({ postId: post.id, document })
+      .onConflictDoUpdate({
+        target: schema.postsSearch.postId,
+        set: { document },
+      })
   }
 
   async insertMany(posts: PostSearch[]) {
@@ -84,29 +87,34 @@ export class PostsSearchRepo extends Vla.Repo {
     for (let i = 0; i < posts.length; i += CHUNK_SIZE) {
       const chunk = posts.slice(i, i + CHUNK_SIZE)
       log.info(`Reindexing ${i + 1}-${i + chunk.length} of ${posts.length}`)
-      const values = sql.join(
-        chunk.map((post) => {
-          const { search, tags } = this.toRow(post)
-          return sql`(${post.id}, ${post.title}, ${post.content}, ${search}, ${tags})`
-        }),
-        sql`, `,
-      )
+      const values = chunk.map((post) => ({
+        postId: post.id,
+        document: this.toDocument(post),
+      }))
 
-      await db.run(sql`
-        INSERT INTO posts_fts (rowid, title, content, search, tags)
-        VALUES ${values}
-      `)
-      log.info(`Done. Calm down...`)
-      await sleep(500)
+      await db
+        .insert(schema.postsSearch)
+        .values(values)
+        .onConflictDoUpdate({
+          target: schema.postsSearch.postId,
+          set: { document: sql`excluded.document` },
+        })
+      log.info(`Done.`)
     }
   }
 
-  private toRow(post: PostSearch) {
+  private toDocument(post: PostSearch) {
     const search = [
       post.search ?? '',
-      post.postTags.map(({ tag }) => tag.search ?? ''),
+      ...post.postTags.map(({ tag }) => tag.search ?? ''),
     ].join(' ')
     const tags = post.postTags.map(({ tag }) => tag.title).join(' ')
-    return { search, tags }
+
+    return sql`
+      setweight(to_tsvector('simple', ${post.title}), 'A') ||
+      setweight(to_tsvector('simple', ${post.content}), 'B') ||
+      setweight(to_tsvector('simple', ${search}), 'C') ||
+      setweight(to_tsvector('simple', ${tags}), 'D')
+    `
   }
 }

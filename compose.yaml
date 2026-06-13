@@ -1,0 +1,73 @@
+services:
+  app:
+    image: ghcr.io/timomeh/timomeh.de:latest
+    build:
+      context: .
+      dockerfile: tools/Dockerfile
+      target: runner
+    ports:
+      - 3000:3000
+    profiles: [e2e]
+    depends_on:
+      db:
+        condition: service_healthy
+      content_proxy:
+        condition: service_started
+      images:
+        condition: service_started
+    env_file:
+      - path: ./.env
+        required: false
+      - path: ./.env.local
+        required: false
+      - path: ./.env.production
+        required: false
+
+  db:
+    image: postgres:18
+    ports:
+      - 3031:5432
+    profiles: [dev, e2e]
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: blog
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U user -d blog']
+      interval: 2s
+      timeout: 5s
+      retries: 20
+    volumes:
+      - ./data/db/:/var/lib/postgresql/
+
+  content_proxy:
+    image: ghcr.io/timomeh/timomeh.de-content-proxy:latest
+    pull_policy: build
+    build:
+      context: ./tools/github-private-reverse-proxy
+    ports:
+      - 3032:80
+    profiles: [dev, e2e]
+    environment:
+      GH_REPO: timomeh/timomeh.de-content
+      PORT: '80'
+    env_file:
+      - path: ./.env
+        required: false
+      - path: ./.env.local
+        required: false
+      - path: ./.env.production
+        required: false
+
+  images:
+    image: ghcr.io/imgproxy/imgproxy:v4
+    ports:
+      - 3033:8080
+    profiles: [dev, e2e]
+    environment:
+      IMGPROXY_ALLOWED_PROCESSING_OPTIONS: 'w,q'
+      IMGPROXY_ALLOWED_SOURCES: http://content_proxy/
+      IMGPROXY_AUTO_AVIF: 'true'
+      IMGPROXY_AUTO_WEBP: 'true'
+      IMGPROXY_MAX_RESULT_DIMENSION: '2000'
+      IMGPROXY_SKIP_PROCESSING_FORMATS: 'gif'

@@ -6,7 +6,8 @@ Source code from [timomeh.de](https://timomeh.de). Stack:
 - Content stored in a separate (private) GitHub Repo
 - [Vla](https://vla.run) as data layer
 - [Keystatic](https://keystatic.com/) as CMS
-- [Drizzle](https://orm.drizzle.team) with SQLite for caching and querying the content from GitHub
+- [Drizzle](https://orm.drizzle.team) with Postgres for caching and querying the
+  content from GitHub
 - hosted on [Railway](https://railway.com/) 🚞
 
 Is this a bit overkill for a blog? Probably. Is it fun? Absolutely.
@@ -15,28 +16,58 @@ Is this a bit overkill for a blog? Probably. Is it fun? Absolutely.
 
 ### Where do I store content?
 
-All posts and pages, including images, are stored in a private GitHub repository as MDX. I use [Keystatic](https://keystatic.com/) as a CMS to manage this content. I enjoy the editing experience in a WYSIWYG editor in my browser, with support for drag-and-drop file uploads. Keeping the content repository private allows me to work on drafts in private.
+All posts and pages, including images, are stored in a private GitHub repository
+as MDX. I use [Keystatic](https://keystatic.com/) as a CMS to manage this
+content. I enjoy the editing experience in a WYSIWYG editor in my browser, with
+support for drag-and-drop file uploads. Keeping the content repository private
+allows me to work on drafts in private.
 
-### Why cache in SQLite?
+### Why cache in Postgres?
 
-[Keystatic](https://keystatic.com/) only supports fetching content by a slug or fetching everything. No filtering, no joins, no sort—you have to do that in JavaScript. This can result in a bunch of requests to the GitHub API.
+[Keystatic](https://keystatic.com/) only supports fetching content by a slug or
+fetching everything. No filtering, no joins, no sort. You have to do that in
+JavaScript. This can result in a bunch of requests to the GitHub API.
 
-A fetch cache could fix that, but _in theory_ I could still hit the GitHub API Rate Limits—especially when dependabot opens or rebases a bunch of PRs, and E2E tests constantly fetch new data from GitHub.
+A fetch cache could fix that, but I could still hit the GitHub API Rate Limits,
+especially when dependabot opens or rebases a bunch of PRs, and E2E tests
+constantly fetch new data from GitHub. Also I can have nice weighted full-text
+search.
 
-That's why I cache it. Caching it in a SQL database additionally gives me filters, joins, sort. Whenever content in the private repository changes, GitHub triggers a webhook that updates the corresponding caches.
+Whenever content in the private repository changes, GitHub triggers a webhook
+that updates the corresponding caches.
 
 ### Serving images
 
-Images are also stored in the private GitHub repository. To make them publicly accessible, I have a [reverse proxy](tools/github-private-reverse-proxy) on an private Railway service, with a public [imgproxy](https://imgproxy.net/) in front of it for image optimization.
+Images are also stored in the private GitHub repository. To make them publicly
+accessible, I have a [reverse proxy](tools/github-private-reverse-proxy) on an
+private docker service, with a public [imgproxy](https://imgproxy.net/) in
+front of it for image optimization.
 
-Videos are simply uploaded to YouTube, and YouTube links in posts are automatically converted to embeds.
+Videos are simply uploaded to YouTube, and YouTube links in posts are
+automatically converted to embeds.
 
 ## Getting Started
 
 1. Fill in env variables
-2. `pnpm db:push` to prepare database
-3. `pnpm dev`
+2. `pnpm dev` will start the next dev server and docker containers (db, proxies)
+3. `pnpm db:push` to prepare database
 4. Visit https://localhost:3000/webhooks/nuke to populate database
+
+### Docker Logs
+
+To view the logs of docker services running in the background:
+
+```sh
+pnpm dev:logs
+```
+
+### Inspect Postgres
+
+You can use Drizzle Kit Studio to work with the postgres db.
+
+```sh
+pnpm db:studio
+```
 
 ## Publish
 
@@ -50,7 +81,8 @@ Pushing to the `main` brach automatically triggers a new release:
 
 ## Tech & Libraries used
 
-This is total overkill and I do it because it's fun. You might not need what I used:
+This is total overkill and I do it because it's fun. You might not need what I
+used:
 
 - [Next.js](https://nextjs.org/)
 - [Vla](https://vla.run/)
@@ -58,8 +90,7 @@ This is total overkill and I do it because it's fun. You might not need what I u
 - Cloudflare CDN
 - [imgproxy](https://imgproxy.net/) for image optimization
 - [Keystatic](https://keystatic.com/) as CMS
-- SQLite and [Drizzle](https://orm.drizzle.team/)
-- a [libSQL](https://github.com/tursodatabase/libsql) server (only for production, so CI can connect to it during a deployment to migrate the database)
+- Postgres and [Drizzle](https://orm.drizzle.team/)
 - [Umami](https://umami.is/)
 - [Shiki](https://shiki.style/)
 - [mdx](https://mdxjs.com/packages/mdx) with cached rendered output
