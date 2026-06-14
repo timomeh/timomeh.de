@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - .github/workflows/publish-github-proxy.yml
+      - .github/workflows/publish-github-proxy.yaml
       - tools/github-private-reverse-proxy/**
 
 permissions:
