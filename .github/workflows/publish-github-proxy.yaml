@@ -53,3 +53,16 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Trigger deploy
+        env:
+          GH_TOKEN: ${{ secrets.HILLSIDE_DISPATCH_TOKEN }}
+          IMAGE: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build.outputs.digest }}
+        run: |
+          gh api \
+            --method POST \
+            /repos/timomeh/hillside/dispatches \
+            -f event_type=deploy-app \
+            -f client_payload[app]=timomeh \
+            -f client_payload[environment]=prod \
+            -f client_payload[image]="$IMAGE"

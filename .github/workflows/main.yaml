@@ -18,32 +18,41 @@ jobs:
     env:
       REGISTRY: ghcr.io
       IMAGE_NAME: ${{ github.repository }}
-      WEB_SERVICE_ID: 499392e1-8a16-4c4f-88b4-70fbf3ab76cc
-      MIGRATE_SERVICE_ID: b86ccf0b-266b-4332-8c09-46771bb230d1
-      RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
     needs: ci
     environment:
       name: production
       url: https://timomeh.de
     steps:
       - uses: actions/checkout@v6.0.2
-      - name: install railway cli
-        run: bash <(curl -fsSL cli.new)
-      - run: source "$HOME/.railway/env"
       - uses: docker/login-action@v4.2.0
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: actions/download-artifact@v8
         with:
           name: docker-image
           path: /tmp
       - name: load image
         run: docker load -i /tmp/docker-image.tar
+      - name: resolve image digest
+        id: image
+        run: |
+          digest=$(docker buildx imagetools inspect ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest --format '{{json .Manifest.Digest}}' | tr -d '"')
+          echo "digest=$digest" >> "$GITHUB_OUTPUT"
       - name: publish image
         run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-      - name: release service
-        run: railway redeploy -s ${{ env.WEB_SERVICE_ID }} -y
-      - name: migrate database
-        run: railway redeploy -s ${{ env.MIGRATE_SERVICE_ID }} -y
+
+      - name: release
+        env:
+          GH_TOKEN: ${{ secrets.HILLSIDE_DISPATCH_TOKEN }}
+          IMAGE: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.image.outputs.digest }}
+        run: |
+          gh api \
+            --method POST \
+            /repos/timomeh/hillside/dispatches \
+            -f event_type=deploy-app \
+            -f client_payload[app]=timomeh \
+            -f client_payload[environment]=prod \
+            -f client_payload[image]="$IMAGE"
