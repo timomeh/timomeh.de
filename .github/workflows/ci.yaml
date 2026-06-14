@@ -26,7 +26,6 @@ jobs:
     env:
       REGISTRY: ghcr.io
       IMAGE_NAME: ${{ github.repository }}
-      JOB_IMAGE_NAME: ${{ github.repository }}-job
     permissions:
       contents: read
       packages: write
@@ -46,25 +45,11 @@ jobs:
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache
           cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache,mode=max
-      - uses: docker/build-push-action@v7
-        with:
-          context: .
-          file: tools/Dockerfile
-          target: job
-          load: true
-          tags: ${{ env.REGISTRY }}/${{ env.JOB_IMAGE_NAME }}:latest
-          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache
       - run: docker save -o /tmp/docker-image.tar ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-      - run: docker save -o /tmp/docker-job-image.tar ${{ env.REGISTRY }}/${{ env.JOB_IMAGE_NAME }}:latest
       - uses: actions/upload-artifact@v7
         with:
           name: docker-image
           path: /tmp/docker-image.tar
-          retention-days: 1
-      - uses: actions/upload-artifact@v7
-        with:
-          name: docker-job-image
-          path: /tmp/docker-job-image.tar
           retention-days: 1
 
   test:

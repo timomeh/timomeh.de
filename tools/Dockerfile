@@ -9,13 +9,6 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml* .npmrc* ./
 RUN corepack enable pnpm && pnpm i --frozen-lockfile
 
-# Job image for one-off tasks like database migrations
-FROM deps AS job
-WORKDIR /app
-COPY . .
-
-ENV NEXT_TELEMETRY_DISABLED=1
-
 # Build app
 FROM base AS builder
 WORKDIR /app
