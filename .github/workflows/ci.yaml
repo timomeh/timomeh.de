@@ -104,13 +104,8 @@ jobs:
       # Start the server
       - name: Export secrets
         run: |
+          echo "" >> .env.local
           echo "GITHUB_CONTENT_PAT=${{ secrets.BLOG_GH_ACCESS_TOKEN }}" >> .env.local
-          echo "SITE_URL=http://localhost:3000" >> .env.local
-          echo "NUKE_SECRET=test" >> .env.local
-          echo "DATABASE_URL=postgres://user:pass@db:5432/blog" >> .env.production
-          echo "NEXT_PUBLIC_CONTENT_PROXY_URL=http://content_proxy/raw-content" >> .env.production
-          echo "NEXT_PUBLIC_IMGPROXY_URL=http://localhost:3033" >> .env.production
-          echo "IMGPROXY_INTERNAL_URL=http://images:8080" >> .env.production
       - run: docker compose --profile e2e up -d --wait
       - run: pnpm db:push
       - name: Restore Postgres data

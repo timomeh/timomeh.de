@@ -22,6 +22,8 @@ services:
         required: false
       - path: ./.env.production
         required: false
+      - path: ./.env.test
+        required: false
 
   db:
     image: postgres:18
