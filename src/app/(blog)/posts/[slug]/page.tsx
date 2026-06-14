@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import { Suspense } from 'react'
 
 import { PostEyebrow } from '@/app/(blog)/post-eyebrow'
@@ -34,7 +35,7 @@ export default async function Page(props: Props) {
           className="relative"
           data-landmark="content-page"
         >
-          <div className="mx-auto max-w-2xl p-4 !py-12 sm:p-6 md:p-8">
+          <div className="mx-auto max-w-2xl p-4 py-12! sm:p-6 md:p-8">
             <div className="mb-3">
               <PostEyebrow post={post} />
             </div>
@@ -78,7 +79,7 @@ export async function generateStaticParams() {
   return []
 }
 
-export async function generateMetadata(props: Props) {
+export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params
   return PostMetadata.invoke(params.slug)
 }
