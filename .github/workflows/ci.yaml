@@ -76,7 +76,9 @@ jobs:
         uses: actions/cache/restore@v5.0.5
         with:
           path: ${{ env.POSTGRES_DUMP_PATH }}
-          key: ${{ runner.os }}-postgres-${{ hashFiles('src/db/schema.ts', 'drizzle.config.ts') }}-v1
+          key: ${{ runner.os }}-postgres-v3-${{ hashFiles('drizzle/**/*.sql', 'drizzle/meta/*.json') }}
+          restore-keys: |
+            ${{ runner.os }}-postgres-v3-
 
       # Load docker image from previous build stage
       - name: download docker image to /tmp/docker-image.tar
@@ -92,13 +94,12 @@ jobs:
           echo "" >> .env.local
           echo "GITHUB_CONTENT_PAT=${{ secrets.BLOG_GH_ACCESS_TOKEN }}" >> .env.local
       - run: docker compose --profile e2e up -d --wait
-      - run: pnpm db:push
-      - name: Restore Postgres data
-        if: steps.postgres-cache.outputs.cache-hit == 'true'
+      - name: Restore Postgres dump
+        if: steps.postgres-cache.outputs.cache-matched-key != ''
         run: |
           docker cp "${POSTGRES_DUMP_PATH}" "$(docker compose ps -q db):/tmp/postgres.dump"
-          docker compose exec -T db pg_restore --data-only --no-owner -U user -d blog /tmp/postgres.dump
-
+          docker compose exec -T db pg_restore --clean --if-exists --no-owner -U user -d blog /tmp/postgres.dump
+      - run: pnpm db:migrate
       # Run tests
       - run: pnpm test
         env:
@@ -110,7 +111,7 @@ jobs:
       - name: Dump Postgres data
         if: success() && steps.postgres-cache.outputs.cache-hit != 'true'
         run: |
-          docker compose exec -T db pg_dump -U user -d blog --data-only --format=custom --file=/tmp/postgres.dump
+          docker compose exec -T db pg_dump -U user -d blog --format=custom --no-owner --no-privileges --file=/tmp/postgres.dump
           docker cp "$(docker compose ps -q db):/tmp/postgres.dump" "${POSTGRES_DUMP_PATH}"
       - name: Save Postgres dump
         if: success() && steps.postgres-cache.outputs.cache-hit != 'true'

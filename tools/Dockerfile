@@ -30,6 +30,8 @@ RUN chown node:node .next
 
 COPY --from=builder --chown=node:node /app/.next/standalone ./
 COPY --from=builder --chown=node:node /app/.next/static ./.next/static
+COPY --from=builder --chown=node:node /app/dist ./dist
+COPY --from=builder --chown=node:node /app/drizzle ./drizzle
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
