@@ -36,13 +36,13 @@ jobs:
           path: /tmp
       - name: load image
         run: docker load -i /tmp/docker-image.tar
+      - name: publish image
+        run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
       - name: resolve image digest
         id: image
         run: |
           digest=$(docker buildx imagetools inspect ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest --format '{{json .Manifest.Digest}}' | tr -d '"')
           echo "digest=$digest" >> "$GITHUB_OUTPUT"
-      - name: publish image
-        run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 
       - name: release
         env:
