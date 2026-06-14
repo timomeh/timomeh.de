@@ -22,7 +22,7 @@ export default async function Page({ searchParams }: Props) {
         <PageNavBack href="/" />
       </PageNav>
       <PageMain>
-        <div className="mx-auto max-w-2xl p-4 !py-12 sm:p-6 md:p-8">
+        <div className="mx-auto max-w-2xl p-4 py-12! sm:p-6 md:p-8">
           <SearchControls>
             <SearchInput defaultValue={query ?? ''} />
             <div className="h-4" />
@@ -35,7 +35,7 @@ export default async function Page({ searchParams }: Props) {
   )
 }
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
   const metadata: Metadata = {
     title: 'Search',
   }

@@ -19,7 +19,7 @@ export default async function Page() {
         <PageNavBack href="/" />
       </PageNav>
       <PageMain>
-        <div className="mx-auto max-w-2xl p-4 !py-12 sm:p-6 md:p-8">
+        <div className="mx-auto max-w-2xl p-4 py-12! sm:p-6 md:p-8">
           <Prose>
             <h1>Browse all tags</h1>
             <ul>
@@ -39,7 +39,7 @@ export default async function Page() {
   )
 }
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
   const metadata: Metadata = {
     title: 'Tags',
   }

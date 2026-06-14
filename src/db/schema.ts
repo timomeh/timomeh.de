@@ -1,24 +1,26 @@
 import { relations } from 'drizzle-orm'
-import * as t from 'drizzle-orm/sqlite-core'
+import * as t from 'drizzle-orm/pg-core'
 
-export const posts = t.sqliteTable(
+const tsvector = t.customType<{ data: string }>({
+  dataType() {
+    return 'tsvector'
+  },
+})
+
+export const posts = t.pgTable(
   'posts',
   {
-    id: t.integer().primaryKey({ autoIncrement: true }),
+    id: t.integer().primaryKey().generatedAlwaysAsIdentity(),
     slug: t.text().notNull(),
     title: t.text().notNull(),
     status: t
       .text({ enum: ['draft', 'published', 'unlisted', 'archived'] })
       .notNull(),
     content: t.text().notNull(),
-    publishedAt: t.integer({ mode: 'timestamp' }).notNull(),
-    updatedAt: t.integer({ mode: 'timestamp' }),
+    publishedAt: t.timestamp({ withTimezone: true }).notNull(),
+    updatedAt: t.timestamp({ withTimezone: true }),
     search: t.text(),
-    relatedPosts: t
-      .text({ mode: 'json' })
-      .$type<string[]>()
-      .notNull()
-      .default([]),
+    relatedPosts: t.jsonb().$type<string[]>().notNull().default([]),
     lightCover: t.text(),
     darkCover: t.text(),
     lightBgColor: t.text(),
@@ -36,26 +38,26 @@ export const posts = t.sqliteTable(
   ],
 )
 
-export const shorts = t.sqliteTable(
+export const shorts = t.pgTable(
   'shorts',
   {
     id: t.text().primaryKey(),
     content: t.text(),
     attachments: t
-      .text({ mode: 'json' })
+      .jsonb()
       .$type<{ file: string; alt?: string | null }[]>()
       .default([]),
-    publishedAt: t.integer({ mode: 'timestamp' }).notNull(),
+    publishedAt: t.timestamp({ withTimezone: true }).notNull(),
     kicker: t.text(),
     metaLang: t.text(),
   },
   (table) => [t.index('slug_published_at_idx').on(table.publishedAt)],
 )
 
-export const tags = t.sqliteTable(
+export const tags = t.pgTable(
   'tags',
   {
-    id: t.integer().primaryKey({ autoIncrement: true }),
+    id: t.integer().primaryKey().generatedAlwaysAsIdentity(),
     title: t.text().notNull(),
     slug: t.text().notNull(),
     kicker: t.text(),
@@ -68,10 +70,10 @@ export const tags = t.sqliteTable(
   (table) => [t.uniqueIndex('tag_slug_idx').on(table.slug)],
 )
 
-export const pages = t.sqliteTable(
+export const pages = t.pgTable(
   'pages',
   {
-    id: t.integer().primaryKey({ autoIncrement: true }),
+    id: t.integer().primaryKey().generatedAlwaysAsIdentity(),
     slug: t.text().notNull(),
     title: t.text().notNull(),
     visibility: t.text({ enum: ['public', 'private'] }).notNull(),
@@ -87,12 +89,12 @@ export const pages = t.sqliteTable(
   ],
 )
 
-export const settings = t.sqliteTable('settings', {
+export const settings = t.pgTable('settings', {
   key: t.text({ enum: ['kickers', 'shortsAvatar'] }).primaryKey(),
-  value: t.text({ mode: 'json' }),
+  value: t.jsonb(),
 })
 
-export const postTags = t.sqliteTable(
+export const postTags = t.pgTable(
   'post_tags',
   {
     postId: t
@@ -105,6 +107,20 @@ export const postTags = t.sqliteTable(
       .references(() => tags.id, { onDelete: 'cascade' }),
   },
   (table) => [t.primaryKey({ columns: [table.postId, table.tagId] })],
+)
+
+export const postsSearch = t.pgTable(
+  'posts_search',
+  {
+    postId: t
+      .integer()
+      .primaryKey()
+      .references(() => posts.id, { onDelete: 'cascade' }),
+    document: tsvector().notNull(),
+  },
+  (table) => [
+    t.index('posts_search_document_idx').using('gin', table.document),
+  ],
 )
 
 export const postsRelations = relations(posts, ({ many }) => ({
@@ -126,11 +142,11 @@ export const postTagsRelations = relations(postTags, ({ one }) => ({
   }),
 }))
 
-export const dataCaches = t.sqliteTable('data_caches', {
+export const dataCaches = t.pgTable('data_caches', {
   key: t.text().primaryKey(),
   value: t.text().notNull(),
-  tags: t.text({ mode: 'json' }).$type<string[]>().default([]),
-  createdAt: t.integer({ mode: 'timestamp' }).$default(() => new Date()),
-  updatedAt: t.integer({ mode: 'timestamp' }),
-  expiredAt: t.integer({ mode: 'timestamp' }),
+  tags: t.jsonb().$type<string[]>().default([]),
+  createdAt: t.timestamp({ withTimezone: true }).defaultNow(),
+  updatedAt: t.timestamp({ withTimezone: true }),
+  expiredAt: t.timestamp({ withTimezone: true }),
 })

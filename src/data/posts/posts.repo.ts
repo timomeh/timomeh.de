@@ -1,4 +1,4 @@
-import { and, desc, eq, like, sql } from 'drizzle-orm'
+import { and, desc, eq, ilike, sql } from 'drizzle-orm'
 import { Vla } from 'vla'
 
 import { db, schema } from '@/db/client'
@@ -114,10 +114,10 @@ export class PostsRepo extends Vla.Repo {
   listYears = this.memo(async () => {
     const postYears = await db
       .select({
-        year: sql<number>`CAST(strftime('%Y', datetime(${schema.posts.publishedAt}, 'unixepoch')) AS INTEGER)`.as(
+        year: sql<number>`extract(year from ${schema.posts.publishedAt})::integer`.as(
           'year',
         ),
-        count: sql<number>`count(*)`.as('count'),
+        count: sql<number>`count(*)::integer`.as('count'),
       })
       .from(schema.posts)
       .where(eq(schema.posts.status, 'published'))
@@ -259,9 +259,9 @@ export class PostsRepo extends Vla.Repo {
         q.and(
           q.eq(post.status, 'published'),
           q.or(
-            q.like(post.title, pattern),
-            q.like(post.content, pattern),
-            q.like(post.search, pattern),
+            q.ilike(post.title, pattern),
+            q.ilike(post.content, pattern),
+            q.ilike(post.search, pattern),
             q.exists(
               db
                 .select()
@@ -273,7 +273,7 @@ export class PostsRepo extends Vla.Repo {
                 .where(
                   and(
                     eq(schema.postTags.postId, post.id),
-                    like(schema.tags.title, pattern),
+                    ilike(schema.tags.title, pattern),
                   ),
                 ),
             ),

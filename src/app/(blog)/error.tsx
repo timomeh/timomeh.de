@@ -15,7 +15,7 @@ export default function ErrorFragment({ reset }: Props) {
     <>
       <PageNav>wow error</PageNav>
       <PageMain>
-        <div className="mx-auto max-w-2xl p-4 !py-12 sm:p-6 md:p-8">
+        <div className="mx-auto max-w-2xl p-4 py-12! sm:p-6 md:p-8">
           <ErrorContent reset={reset} />
         </div>
       </PageMain>

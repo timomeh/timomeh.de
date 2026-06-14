@@ -2,7 +2,7 @@ import { sql } from 'drizzle-orm'
 
 import { db, schema } from './db/client'
 
-export default class SQLiteCacheHandler {
+export default class PostgresCacheHandler {
   async get(key: string) {
     try {
       const cached = await db.query.dataCaches.findFirst({
@@ -54,10 +54,9 @@ export default class SQLiteCacheHandler {
   async revalidateTag(unsafeTags: string[] | string) {
     const tags = [unsafeTags].flat()
 
-    await db.delete(schema.dataCaches).where(sql`exists (
-      select 1 from json_each(${schema.dataCaches.tags})
-      where json_each.value in (${sql.join(tags, sql`, `)})
-    )`)
+    await db
+      .delete(schema.dataCaches)
+      .where(sql`${schema.dataCaches.tags} ?| ${tags}`)
   }
 
   resetRequestCache() {

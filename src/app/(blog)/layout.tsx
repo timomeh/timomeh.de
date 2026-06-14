@@ -1,5 +1,5 @@
 import '@/styles/main.css'
-import type { Viewport } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Bitter, IBM_Plex_Mono, Inter } from 'next/font/google'
 import type React from 'react'
 
@@ -45,7 +45,6 @@ export default async function RootLayout({
   children,
   kicker,
   backdrop,
-  overlay,
 }: Props) {
   return (
     <html lang="en" data-theme="system" suppressHydrationWarning className={`
@@ -105,7 +104,6 @@ export default async function RootLayout({
                 Skip header to navigation
               </KeyboardNavLink>
               <SiteHeader kicker={kicker} backdrop={backdrop} />
-              {overlay}
               {children}
             </div>
           </PrevPathProvider>
@@ -116,7 +114,7 @@ export default async function RootLayout({
   )
 }
 
-export const metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL(config.siteUrl),
   icons: {
     icon: [

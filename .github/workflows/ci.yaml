@@ -26,6 +26,7 @@ jobs:
     env:
       REGISTRY: ghcr.io
       IMAGE_NAME: ${{ github.repository }}
+      JOB_IMAGE_NAME: ${{ github.repository }}-job
     permissions:
       contents: read
       packages: write
@@ -45,17 +46,34 @@ jobs:
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache
           cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache,mode=max
+      - uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: tools/Dockerfile
+          target: job
+          load: true
+          tags: ${{ env.REGISTRY }}/${{ env.JOB_IMAGE_NAME }}:latest
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache
       - run: docker save -o /tmp/docker-image.tar ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+      - run: docker save -o /tmp/docker-job-image.tar ${{ env.REGISTRY }}/${{ env.JOB_IMAGE_NAME }}:latest
       - uses: actions/upload-artifact@v7
         with:
           name: docker-image
           path: /tmp/docker-image.tar
+          retention-days: 1
+      - uses: actions/upload-artifact@v7
+        with:
+          name: docker-job-image
+          path: /tmp/docker-job-image.tar
           retention-days: 1
 
   test:
     needs: build
     timeout-minutes: 15
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: postgres://user:pass@localhost:3031/blog
+      POSTGRES_DUMP_PATH: data/ci/postgres.dump
     steps:
       - uses: actions/checkout@v6.0.2
       - uses: pnpm/action-setup@v6.0.5
@@ -67,13 +85,13 @@ jobs:
       - run: pnpm exec playwright install --with-deps chromium --only-shell
 
       # Restore caches
-      - name: cache data
-        uses: actions/cache@v5.0.5
+      - run: mkdir -p data/ci
+      - name: Restore cached Postgres dump
+        id: postgres-cache
+        uses: actions/cache/restore@v5.0.5
         with:
-          path: ./data
-          key: ${{ runner.os }}-data-${{ hashFiles('**/*.ts', '**/*.tsx') }}
-          restore-keys: ${{ runner.os }}-data-
-      - run: mkdir -p data/{db-data,images,raw-content-images}
+          path: ${{ env.POSTGRES_DUMP_PATH }}
+          key: ${{ runner.os }}-postgres-${{ hashFiles('src/db/schema.ts', 'drizzle.config.ts') }}-v1
 
       # Load docker image from previous build stage
       - name: download docker image to /tmp/docker-image.tar
@@ -86,11 +104,15 @@ jobs:
       # Start the server
       - name: Export secrets
         run: |
+          echo "" >> .env.local
           echo "GITHUB_CONTENT_PAT=${{ secrets.BLOG_GH_ACCESS_TOKEN }}" >> .env.local
-          echo "SITE_URL=http://localhost:3000" >> .env.local
-          echo "NUKE_SECRET=test" >> .env.local
+      - run: docker compose --profile e2e up -d --wait
       - run: pnpm db:push
-      - run: docker compose up -d
+      - name: Restore Postgres data
+        if: steps.postgres-cache.outputs.cache-hit == 'true'
+        run: |
+          docker cp "${POSTGRES_DUMP_PATH}" "$(docker compose ps -q db):/tmp/postgres.dump"
+          docker compose exec -T db pg_restore --data-only --no-owner -U user -d blog /tmp/postgres.dump
 
       # Run tests
       - run: pnpm test
@@ -99,6 +121,19 @@ jobs:
           UPLOAD_TO_ARGOS: 1
           NUKE_SECRET: test
 
+      # Save caches
+      - name: Dump Postgres data
+        if: success() && steps.postgres-cache.outputs.cache-hit != 'true'
+        run: |
+          docker compose exec -T db pg_dump -U user -d blog --data-only --format=custom --file=/tmp/postgres.dump
+          docker cp "$(docker compose ps -q db):/tmp/postgres.dump" "${POSTGRES_DUMP_PATH}"
+      - name: Save Postgres dump
+        if: success() && steps.postgres-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5.0.5
+        with:
+          path: ${{ env.POSTGRES_DUMP_PATH }}
+          key: ${{ steps.postgres-cache.outputs.cache-primary-key }}
+
       # Post-test
       - uses: actions/upload-artifact@v7
         if: always()
@@ -106,7 +141,7 @@ jobs:
           name: test-results
           path: test-results/
           retention-days: 30
-      - run: docker compose logs
+      - run: docker compose logs --no-color --timestamps app db content_proxy images
         if: always()
-      - run: docker compose down
+      - run: docker compose --profile dev --profile e2e down
         if: failure() || success()
