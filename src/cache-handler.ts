@@ -53,10 +53,13 @@ export default class PostgresCacheHandler {
 
   async revalidateTag(unsafeTags: string[] | string) {
     const tags = [unsafeTags].flat()
+    if (!tags.length) return
 
     await db
       .delete(schema.dataCaches)
-      .where(sql`${schema.dataCaches.tags} ?| ${tags}`)
+      .where(
+        sql`${schema.dataCaches.tags} ?| ARRAY[${sql.join(tags, sql`, `)}]::text[]`,
+      )
   }
 
   resetRequestCache() {
