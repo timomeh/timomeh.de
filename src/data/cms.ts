@@ -139,7 +139,7 @@ export function contentAsset(
 
 const CONTENT_PROXY_URL =
   process.env.NEXT_PUBLIC_CONTENT_PROXY_URL ||
-  'http://github-content-proxy.railway.internal/raw-content'
+  'http://timomeh-content-proxy/raw-content'
 
 export function contentAssetUrl(path: string) {
   return `${CONTENT_PROXY_URL}/${path}`

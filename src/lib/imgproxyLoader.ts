@@ -15,12 +15,7 @@ export default function imgproxyLoader({
   quality?: number
   internal?: boolean
 }) {
-  if (
-    !src.startsWith(
-      process.env.NEXT_PUBLIC_CONTENT_PROXY_URL ||
-        'http://github-content-proxy.railway.internal/raw-content',
-    )
-  ) {
+  if (!src.startsWith('http://content_proxy/')) {
     return src
   }
 

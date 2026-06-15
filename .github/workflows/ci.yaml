@@ -127,7 +127,7 @@ jobs:
           name: test-results
           path: test-results/
           retention-days: 30
-      - run: docker compose logs --no-color --timestamps app db content_proxy images
+      - run: docker compose logs --no-color --timestamps app db timomeh-content-proxy images
         if: always()
       - run: docker compose --profile dev --profile e2e down
         if: failure() || success()
