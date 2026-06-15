@@ -74,6 +74,7 @@ export default async function RootLayout({
             defer
             src={`${config.umamiUrl}/script.js`}
             data-website-id={config.umamiWebsiteId}
+            data-performance="true"
           />
         )}
         <script
