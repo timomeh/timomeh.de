@@ -58,5 +58,4 @@ jobs:
             -f client_payload[image]="$IMAGE" \
             -f client_payload[job]=premigrate \
             -f client_payload[source_repository]="${{ github.repository }}" \
-            -f client_payload[source_sha]="${{ github.sha }}" \
-            -f client_payload[job]=premigrate
+            -f client_payload[source_sha]="${{ github.sha }}"
