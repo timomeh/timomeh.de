@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Vla } from 'vla'
 
-import { config } from '@/config'
 import { contentAsset } from '@/data/cms'
 import { PostsRepo } from '@/data/posts/posts.repo'
+import { getEnv } from '@/env'
 import { formatReadingTime } from '@/lib/formatReadingTime'
 import { shuffle } from '@/lib/shuffle'
 
@@ -48,7 +48,7 @@ export class PostOgImage extends Vla.Action {
     const cover = post.darkCover
       ? new URL(
           contentAsset('posts', post.slug, post.darkCover),
-          config.siteUrl,
+          getEnv('SITE_PUBLIC_URL'),
         ).href
       : undefined
 

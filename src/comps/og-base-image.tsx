@@ -3,9 +3,7 @@
 import { unstable_noStore } from 'next/cache'
 import type { ImageResponseOptions } from 'next/server'
 
-import { config } from '@/config'
-
-const basePath = config.siteUrl
+import { getEnv } from '@/env'
 
 type Props = {
   cover?: string
@@ -16,6 +14,7 @@ type Props = {
 
 export function OpengraphBaseImage({ cover, title, date, est }: Props) {
   unstable_noStore()
+  const basePath = getEnv('SITE_PUBLIC_URL')
 
   return (
     <div
@@ -88,6 +87,8 @@ export function OpengraphBaseImage({ cover, title, date, est }: Props) {
 }
 
 export async function getFonts() {
+  const basePath = getEnv('SITE_PUBLIC_URL')
+
   const [outbold, outmed, pix] = await Promise.all([
     fetch(`${basePath}/assets/OutfitBold.woff`).then((res) =>
       res.arrayBuffer(),

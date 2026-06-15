@@ -4,23 +4,21 @@ import pino from 'pino'
 import pinoPretty from 'pino-pretty'
 import { serializeError } from 'serialize-error'
 
-import { config } from '@/config'
+import { env } from '@/env'
 
 const pinoLogger = pino(
   {
     // for LOG_LEVEL "none", choose another log level.
     // LOG_LEVEL "none" is completely disabled in LogLayer's transport.
-    level: config.logLevel === 'none' ? 'fatal' : config.logLevel,
+    level: env.LOG_LEVEL === 'none' ? 'fatal' : env.LOG_LEVEL,
   },
   // Print logs pretty in development
-  process.env.NODE_ENV === 'development'
-    ? pinoPretty({ colorize: true })
-    : undefined,
+  env.NODE_ENV === 'development' ? pinoPretty({ colorize: true }) : undefined,
 )
 
 export const log = new LogLayer({
   // don't print logs for LOG_LEVEL "none"
-  enabled: config.logLevel !== 'none',
+  enabled: env.LOG_LEVEL !== 'none',
   errorSerializer: serializeError,
   transport: [
     new PinoTransport({

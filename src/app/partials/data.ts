@@ -1,10 +1,10 @@
 import { notFound } from 'next/navigation'
 import { Vla } from 'vla'
 
-import { config } from '@/config'
 import { contentAsset } from '@/data/cms'
 import { PostsRepo } from '@/data/posts/posts.repo'
 import { ShortsRepo } from '@/data/shorts/shorts.repo'
+import { getEnv } from '@/env'
 
 export class ShowSimplifiedPost extends Vla.Action {
   postsRepo = this.inject(PostsRepo)
@@ -22,8 +22,10 @@ export class ShowSimplifiedPost extends Vla.Action {
     return {
       slug: post.slug,
       contentWithoutH1,
-      assetPrefix: new URL(contentAsset('posts', post.slug, ''), config.siteUrl)
-        .href,
+      assetPrefix: new URL(
+        contentAsset('posts', post.slug, ''),
+        getEnv('SITE_PUBLIC_URL'),
+      ).href,
     }
   }
 }
@@ -38,8 +40,10 @@ export class ShowSimplifiedShort extends Vla.Action {
     return {
       id: short.id,
       content: short.content,
-      assetPrefix: new URL(contentAsset('shorts', short.id, ''), config.siteUrl)
-        .href,
+      assetPrefix: new URL(
+        contentAsset('shorts', short.id, ''),
+        getEnv('SITE_PUBLIC_URL'),
+      ).href,
     }
   }
 }

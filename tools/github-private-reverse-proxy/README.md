@@ -11,4 +11,4 @@ Reverse Proxy to read a file in a private github repo. Should never be public to
 
 - `PORT` the port on which this thing runs
 - `GH_REPO` the private GitHub Repo to proxy, in format `owner/name`, e.g. `timomeh/timomeh.de-content`
-- `GH_TOKEN` a token that has read access to those files.
+- `GITHUB_CONTENT_PAT` a token that has read access to those files.

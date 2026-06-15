@@ -1,13 +1,14 @@
 import '@/styles/main.css'
 import type { Metadata, Viewport } from 'next'
 import { Bitter, IBM_Plex_Mono, Inter } from 'next/font/google'
+import Script from 'next/script'
 import type React from 'react'
 
 import { PrevPathProvider } from '@/comps/prev-path'
-import { ProgressBarProvider } from '@/comps/progress-bar'
 import '@/data/kernel'
+import { ProgressBarProvider } from '@/comps/progress-bar'
 import { TooltipInit } from '@/comps/tooltip-init'
-import { config } from '@/config'
+import { env, getEnv } from '@/env'
 
 import { KeyboardNavLink } from '../../comps/keyboard-nav-link'
 import { SiteHeader } from './site-header'
@@ -38,7 +39,6 @@ type Props = {
   children: React.ReactNode
   kicker: React.ReactNode
   backdrop: React.ReactNode
-  overlay: React.ReactNode
 }
 
 export default async function RootLayout({
@@ -69,14 +69,32 @@ export default async function RootLayout({
           content="#0D0D0B"
           media="(prefers-color-scheme: dark)"
         />
-        {config.umamiWebsiteId && config.umamiUrl && (
+        {env.UMAMI_PUBLIC_URL && env.UMAMI_WEBSITE_ID && (
           <script
             defer
-            src={`${config.umamiUrl}/script.js`}
-            data-website-id={config.umamiWebsiteId}
+            src={`${env.UMAMI_PUBLIC_URL}/script.js`}
+            data-website-id={env.UMAMI_WEBSITE_ID}
             data-performance="true"
           />
         )}
+        <Script
+          id="env-vars"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `(function () {
+              window.__timomeh_env = {
+                CONTENT_PROXY_PRIVATE_URL: ${JSON.stringify(env.CONTENT_PROXY_PRIVATE_URL)},
+                IMAGE_PROXY_PUBLIC_URL: ${JSON.stringify(env.IMAGE_PROXY_PUBLIC_URL)},
+                IMAGE_PROXY_PRIVATE_URL: ${JSON.stringify(env.IMAGE_PROXY_PRIVATE_URL)},
+                SITE_PUBLIC_URL: ${JSON.stringify(env.SITE_PUBLIC_URL)},
+                SITE_PRIVATE_URL: ${JSON.stringify(env.SITE_PRIVATE_URL)},
+                CMS_REPO: ${JSON.stringify(env.CMS_REPO)},
+                UMAMI_PUBLIC_URL: ${JSON.stringify(env.UMAMI_PUBLIC_URL)},
+                UMAMI_WEBSITE_ID: ${JSON.stringify(env.UMAMI_WEBSITE_ID)},
+              };
+            })();`,
+          }}
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `(function () {
@@ -116,7 +134,7 @@ export default async function RootLayout({
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(config.siteUrl),
+  metadataBase: new URL(getEnv('SITE_PUBLIC_URL')),
   icons: {
     icon: [
       { url: '/favicon-32x32.png', sizes: '32x32' },

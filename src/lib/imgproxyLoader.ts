@@ -1,8 +1,6 @@
 import { generateUrl } from '@imgproxy/imgproxy-js-core'
 
-const imgproxyUrl =
-  process.env.NEXT_PUBLIC_IMGPROXY_URL || 'https://images.timomeh.de'
-const imgproxyInternalUrl = process.env.IMGPROXY_INTERNAL_URL
+import { getEnv } from '@/env'
 
 export default function imgproxyLoader({
   src,
@@ -15,7 +13,10 @@ export default function imgproxyLoader({
   quality?: number
   internal?: boolean
 }) {
-  if (!src.startsWith('http://timomeh-content-proxy/')) {
+  const imgproxyUrl = getEnv('IMAGE_PROXY_PUBLIC_URL')
+  const imgproxyInternalUrl = getEnv('IMAGE_PROXY_PRIVATE_URL')
+
+  if (!src.startsWith(getEnv('CONTENT_PROXY_PRIVATE_URL'))) {
     return src
   }
 

@@ -11,7 +11,7 @@ services:
     depends_on:
       db:
         condition: service_healthy
-      timomeh-content-proxy:
+      content-proxy:
         condition: service_started
       images:
         condition: service_started
@@ -19,8 +19,6 @@ services:
       - path: ./.env
         required: false
       - path: ./.env.local
-        required: false
-      - path: ./.env.production
         required: false
       - path: ./.env.test
         required: false
@@ -42,7 +40,7 @@ services:
     volumes:
       - ./data/db/:/var/lib/postgresql/
 
-  timomeh-content-proxy:
+  content-proxy:
     image: ghcr.io/timomeh/timomeh.de-content-proxy:latest
     pull_policy: build
     build:
@@ -58,8 +56,6 @@ services:
         required: false
       - path: ./.env.local
         required: false
-      - path: ./.env.production
-        required: false
 
   images:
     image: ghcr.io/imgproxy/imgproxy:v4
@@ -68,7 +64,7 @@ services:
     profiles: [dev, e2e]
     environment:
       IMGPROXY_ALLOWED_PROCESSING_OPTIONS: 'w,q'
-      IMGPROXY_ALLOWED_SOURCES: http://timomeh-content-proxy/
+      IMGPROXY_ALLOWED_SOURCES: http://content-proxy/
       IMGPROXY_AUTO_AVIF: 'true'
       IMGPROXY_AUTO_WEBP: 'true'
       IMGPROXY_MAX_RESULT_DIMENSION: '2000'

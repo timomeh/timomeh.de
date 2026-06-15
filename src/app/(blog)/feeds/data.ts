@@ -2,9 +2,9 @@ import { Feed, type FeedOptions } from 'feed'
 import { memoize } from 'nextjs-better-unstable-cache'
 import { Vla } from 'vla'
 
-import { config } from '@/config'
 import { PostsRepo } from '@/data/posts/posts.repo'
 import { ShortsRepo } from '@/data/shorts/shorts.repo'
+import { getEnv } from '@/env'
 
 export class BuildPostsFeed extends Vla.Action {
   postsRepo = this.inject(PostsRepo)
@@ -30,9 +30,9 @@ export class BuildPostsFeed extends Vla.Action {
         const fetchRenderedHtml = memoize(
           async (slug: string) => {
             const headers = new Headers()
-            headers.set('x-api-key', config.api.internalSecret)
+            headers.set('x-api-key', getEnv('INTERNAL_SECRET'))
             const res = await fetch(
-              `${config.internalUrl}/partials/posts/${slug}`,
+              `${getEnv('SITE_PRIVATE_URL')}/partials/posts/${slug}`,
               {
                 headers,
                 cache: 'no-store',
@@ -61,12 +61,12 @@ export class BuildPostsFeed extends Vla.Action {
 
     posts.forEach((post, i) => {
       feed.addItem({
-        id: `${config.siteUrl}/posts/${post.slug}`,
+        id: `${getEnv('SITE_PUBLIC_URL')}/posts/${post.slug}`,
         published: new Date(post.publishedAt),
         date: post.updatedAt
           ? new Date(post.updatedAt)
           : new Date(post.publishedAt),
-        link: `${config.siteUrl}/posts/${post.slug}?utm_source=rss`,
+        link: `${getEnv('SITE_PUBLIC_URL')}/posts/${post.slug}?utm_source=rss`,
         title: post.title,
         content: compiledPosts[i],
       })
@@ -114,9 +114,9 @@ export class BuildShortsFeed extends Vla.Action {
         const fetchRenderedHtml = memoize(
           async (id: string) => {
             const headers = new Headers()
-            headers.set('x-api-key', config.api.internalSecret)
+            headers.set('x-api-key', getEnv('INTERNAL_SECRET'))
             const res = await fetch(
-              `${config.internalUrl}/partials/shorts/${id}`,
+              `${getEnv('SITE_PRIVATE_URL')}/partials/shorts/${id}`,
               {
                 headers,
                 cache: 'no-store',
@@ -145,10 +145,10 @@ export class BuildShortsFeed extends Vla.Action {
 
     shorts.forEach((short, i) => {
       feed.addItem({
-        id: `${config.siteUrl}/shorts/${short.id}`,
+        id: `${getEnv('SITE_PUBLIC_URL')}/shorts/${short.id}`,
         published: short.publishedAt,
         date: short.publishedAt,
-        link: `${config.siteUrl}/shorts/${short.id}?utm_source=rss`,
+        link: `${getEnv('SITE_PUBLIC_URL')}/shorts/${short.id}?utm_source=rss`,
         title: short.publishedAt.toLocaleString('en-US', {
           weekday: 'long',
           month: 'long',
@@ -187,19 +187,19 @@ export class BuildShortsFeed extends Vla.Action {
 }
 
 const postsOptions: FeedOptions = {
-  id: config.siteUrl,
-  link: config.siteUrl,
+  id: getEnv('SITE_PUBLIC_URL'),
+  link: getEnv('SITE_PUBLIC_URL'),
   description:
     'About software development and other thoughts I wanted to elaborate on.',
   language: 'en',
-  favicon: `${config.siteUrl}/favicon.ico`,
+  favicon: `${getEnv('SITE_PUBLIC_URL')}/favicon.ico`,
   title: 'timomeh.de',
   copyright: '',
   generator: 'timomeh.de',
   feedLinks: {
-    rss: `${config.siteUrl}/posts/feed.rss`,
-    json: `${config.siteUrl}/posts/feed.json`,
-    atom: `${config.siteUrl}/posts/feed.atom`,
+    rss: `${getEnv('SITE_PUBLIC_URL')}/posts/feed.rss`,
+    json: `${getEnv('SITE_PUBLIC_URL')}/posts/feed.json`,
+    atom: `${getEnv('SITE_PUBLIC_URL')}/posts/feed.atom`,
   },
   author: {
     name: 'Timo Mämecke',
@@ -208,19 +208,19 @@ const postsOptions: FeedOptions = {
 }
 
 const shortsOptions: FeedOptions = {
-  id: `${config.siteUrl}/shorts`,
-  link: `${config.siteUrl}/shorts`,
+  id: `${getEnv('SITE_PUBLIC_URL')}/shorts`,
+  link: `${getEnv('SITE_PUBLIC_URL')}/shorts`,
   description:
     'Timo’s own social media feed. A stream of thoughts and other shitposts.',
   language: 'en',
-  favicon: `${config.siteUrl}/favicon.ico`,
+  favicon: `${getEnv('SITE_PUBLIC_URL')}/favicon.ico`,
   title: 'timomeh.de Shorts',
   copyright: '',
   generator: 'timomeh.de',
   feedLinks: {
-    rss: `${config.siteUrl}/shorts/feed.rss`,
-    json: `${config.siteUrl}/shorts/feed.json`,
-    atom: `${config.siteUrl}/shorts/feed.atom`,
+    rss: `${getEnv('SITE_PUBLIC_URL')}/shorts/feed.rss`,
+    json: `${getEnv('SITE_PUBLIC_URL')}/shorts/feed.json`,
+    atom: `${getEnv('SITE_PUBLIC_URL')}/shorts/feed.atom`,
   },
   author: {
     name: 'Timo Mämecke',

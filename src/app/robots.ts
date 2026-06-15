@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 
-import { config } from '@/config'
+import { getEnv } from '@/env'
 
 export default function robots() {
   return {
@@ -38,6 +38,6 @@ export default function robots() {
         disallow: '*',
       },
     ],
-    sitemap: `${config.siteUrl}/sitemap.xml`,
+    sitemap: `${getEnv('SITE_PUBLIC_URL')}/sitemap.xml`,
   } satisfies MetadataRoute.Robots
 }

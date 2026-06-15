@@ -3,7 +3,7 @@ import type { EntryWithResolvedLinkedFiles } from '@keystatic/core/reader'
 import { createGitHubReader } from '@keystatic/core/reader/github'
 import { Vla } from 'vla'
 
-import { config } from '@/config'
+import { getEnv } from '@/env'
 import keystaticConfig from '@/keystatic.config'
 import { cleanse } from '@/lib/cleanse'
 
@@ -32,7 +32,7 @@ export class GitHub extends Vla.Resource {
 
   reader = createGitHubReader(keystaticConfig, {
     repo: 'timomeh/timomeh.de-content',
-    token: config.github.contentPat,
+    token: getEnv('GITHUB_CONTENT_PAT'),
     ref: branch,
   })
 
@@ -137,12 +137,8 @@ export function contentAsset(
     : contentAssetUrl(`${type}/${slug}/${path}`)
 }
 
-const CONTENT_PROXY_URL =
-  process.env.NEXT_PUBLIC_CONTENT_PROXY_URL ||
-  'http://timomeh-content-proxy/raw-content'
-
 export function contentAssetUrl(path: string) {
-  return `${CONTENT_PROXY_URL}/${path}`
+  return `${getEnv('CONTENT_PROXY_PRIVATE_URL')}/${path}`
 }
 
 const sanitizePost = (

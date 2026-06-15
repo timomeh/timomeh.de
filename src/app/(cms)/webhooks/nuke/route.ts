@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 
-import { config } from '@/config'
 import { kernel } from '@/data/kernel'
+import { env } from '@/env'
 
 import { NukeCaches } from '../data'
 
@@ -9,8 +9,8 @@ import { NukeCaches } from '../data'
 
 export async function GET(request: NextRequest) {
   if (
-    process.env.NODE_ENV === 'production' &&
-    request.nextUrl.searchParams.get('secret') !== config.api.nukeSecret
+    env.NODE_ENV === 'production' &&
+    request.nextUrl.searchParams.get('secret') !== env.NUKE_SECRET
   ) {
     return NextResponse.json({ message: 'Unverified' }, { status: 401 })
   }

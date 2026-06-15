@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
 
 import { MDX } from '@/comps/mdx/mdx'
-import { config } from '@/config'
+import { env } from '@/env'
 
 import { ShowSimplifiedShort } from '../../data'
 
@@ -62,8 +62,8 @@ async function SimpleShort(props: Props) {
 async function Access(props: { children: React.ReactNode }) {
   const h = await headers()
   if (
-    process.env.NODE_ENV === 'production' &&
-    h.get('x-api-key') !== config.api.internalSecret
+    env.NODE_ENV === 'production' &&
+    h.get('x-api-key') !== env.INTERNAL_SECRET
   ) {
     notFound()
   }

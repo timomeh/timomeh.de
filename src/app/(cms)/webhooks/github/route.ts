@@ -2,8 +2,8 @@ import { Webhooks } from '@octokit/webhooks'
 import type { EventPayloadMap, PushEvent } from '@octokit/webhooks-types'
 import { type NextRequest, NextResponse } from 'next/server'
 
-import { config } from '@/config'
 import { kernel } from '@/data/kernel'
+import { getEnv } from '@/env'
 import { log as baseLog } from '@/lib/log'
 
 import { UpdateChangedFiles } from '../data'
@@ -14,7 +14,7 @@ const log = baseLog.child().withContext({ module: 'webhooks/github' })
 
 export async function POST(request: NextRequest) {
   const webhooks = new Webhooks({
-    secret: config.github.webhookSecret,
+    secret: getEnv('GITHUB_WEBHOOK_SECRET'),
   })
 
   const body = await request.text()

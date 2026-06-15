@@ -1,7 +1,7 @@
 import { revalidateTag } from 'next/cache'
 import { type NextRequest, NextResponse } from 'next/server'
 
-import { config } from '@/config'
+import { env } from '@/env'
 import { log as baseLog } from '@/lib/log'
 
 const log = baseLog.child().withContext({ module: 'webhooks/revalidate' })
@@ -10,8 +10,8 @@ const log = baseLog.child().withContext({ module: 'webhooks/revalidate' })
 
 export async function GET(request: NextRequest) {
   if (
-    process.env.NODE_ENV === 'production' &&
-    request.nextUrl.searchParams.get('secret') !== config.api.nukeSecret
+    env.NODE_ENV === 'production' &&
+    request.nextUrl.searchParams.get('secret') !== env.NUKE_SECRET
   ) {
     return NextResponse.json({ message: 'Unverified' }, { status: 401 })
   }

@@ -1,11 +1,11 @@
 import type { MetadataRoute } from 'next'
 import { Vla } from 'vla'
 
-import { config } from '@/config'
 import { PagesRepo } from '@/data/pages/pages.repo'
 import { PostsRepo } from '@/data/posts/posts.repo'
 import { ShortsRepo } from '@/data/shorts/shorts.repo'
 import { TagsRepo } from '@/data/tags/tags.repo'
+import { getEnv } from '@/env'
 
 import { kernel } from '../data/kernel'
 
@@ -151,5 +151,5 @@ class GenerateSitemap extends Vla.Action {
 }
 
 function fullUrl(path: string) {
-  return `${config.siteUrl}${path}`
+  return `${getEnv('SITE_PUBLIC_URL')}${path}`
 }

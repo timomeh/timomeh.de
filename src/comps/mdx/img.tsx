@@ -1,6 +1,6 @@
+import { getEnv } from '@/env'
 import { getPlaceholder } from '@/lib/placeholder'
 
-import { config } from '../../config'
 import { OptimImage } from '../optim-image'
 
 type Props = React.DetailedHTMLProps<
@@ -14,7 +14,9 @@ export async function Img(props: Props) {
   const src = props.src as string
 
   const { img, css } = await getPlaceholder(src)
-  const filename = new URL(src, config.siteUrl).pathname.split('/').pop()
+  const filename = new URL(src, getEnv('SITE_PUBLIC_URL')).pathname
+    .split('/')
+    .pop()
   const theme = filename?.startsWith('darkmode-')
     ? 'dark'
     : filename?.startsWith('lightmode-')
