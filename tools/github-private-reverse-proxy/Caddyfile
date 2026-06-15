@@ -19,6 +19,8 @@
     format json
   }
 
+  respond /health 200
+
   handle_path /raw-content/* {
     rewrite * /{$GH_REPO}/main{uri}
 
