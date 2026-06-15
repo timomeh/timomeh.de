@@ -15,7 +15,7 @@ export default function imgproxyLoader({
   quality?: number
   internal?: boolean
 }) {
-  if (!src.startsWith('http://content_proxy/')) {
+  if (!src.startsWith('http://timomeh-content-proxy/')) {
     return src
   }
 
