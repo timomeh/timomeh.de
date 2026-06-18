@@ -5,7 +5,8 @@ import { PostsRepo } from '@/data/posts/posts.repo'
 import { SettingsRepo } from '@/data/settings/settings.repo'
 import { ShortsRepo } from '@/data/shorts/shorts.repo'
 import { TagsRepo } from '@/data/tags/tags.repo'
-import { sample } from '@/lib/sample'
+import { env } from '@/env'
+import { sample } from '@/lib/random'
 
 export class PageKicker extends Vla.Action {
   pagesRepo = this.inject(PagesRepo)
@@ -49,7 +50,8 @@ export class DefaultKicker extends Vla.Action {
   async handle() {
     const kickers = await this.settingsRepo.getDefaultKickers()
     const fallback = 'a head full of milk foam by'
-    const kicker = kickers.length > 0 ? sample(kickers) : fallback
+    const kicker =
+      kickers.length > 0 ? sample(kickers, env.RANDOM_SEED) : fallback
 
     return kicker
   }

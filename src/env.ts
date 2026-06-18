@@ -13,6 +13,11 @@ export const env = {
   NUKE_SECRET: process.env.NUKE_SECRET,
   DATABASE_URL: process.env.DATABASE_URL,
 
+  // for testing, anything that's random but needs to be stable in tests
+  RANDOM_SEED: process.env.RANDOM_SEED
+    ? Number(process.env.RANDOM_SEED)
+    : undefined,
+
   // only required by keystatic. here for documentation purposes
   KEYSTATIC_GITHUB_CLIENT_ID: process.env.KEYSTATIC_GITHUB_CLIENT_ID,
   KEYSTATIC_GITHUB_CLIENT_SECRET: process.env.KEYSTATIC_GITHUB_CLIENT_SECRET,
@@ -33,10 +38,10 @@ export const env = {
 
 export type Env = typeof env
 
-export function getEnv(name: keyof Env) {
+export function getEnv<K extends keyof Env>(name: K) {
   const value = env[name]
   invariant(value != null, `Environment variable ${name} is missing`)
-  return value
+  return value as Exclude<Env[K], undefined>
 }
 
 declare global {

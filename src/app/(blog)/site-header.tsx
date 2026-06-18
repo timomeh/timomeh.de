@@ -37,7 +37,7 @@ export function SiteHeader({ kicker, backdrop }: Props) {
       <div
         className="
           mug relative z-20 overflow-hidden px-4 pt-20 pb-8
-          group-has-[.header-backdrop-signal]/header:!pb-6
+          group-has-[.header-backdrop-signal]/header:pb-6!
           sm:pt-28 sm:pb-28
         "
       >
@@ -66,7 +66,6 @@ export function SiteHeader({ kicker, backdrop }: Props) {
               "
             >
               <span
-                data-visual-test="removed"
                 className="
                   mb-1 inline-block font-mono text-xs font-semibold text-balance
                   opacity-40 blur-[2px] transition-all

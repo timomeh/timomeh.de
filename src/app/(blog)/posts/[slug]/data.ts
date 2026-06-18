@@ -4,9 +4,9 @@ import { Vla } from 'vla'
 
 import { contentAsset } from '@/data/cms'
 import { PostsRepo } from '@/data/posts/posts.repo'
-import { getEnv } from '@/env'
+import { env, getEnv } from '@/env'
 import { formatReadingTime } from '@/lib/formatReadingTime'
-import { shuffle } from '@/lib/shuffle'
+import { shuffle } from '@/lib/random'
 
 export class ShowPost extends Vla.Action {
   postsRepo = this.inject(PostsRepo)
@@ -31,7 +31,7 @@ export class ListRelatedPosts extends Vla.Action {
 
     const posts = await this.postsRepo.bySlugs(post.relatedPosts)
     const publishedPosts = posts.filter((p) => p.status === 'published')
-    const shuffledPosts = shuffle(publishedPosts)
+    const shuffledPosts = shuffle(publishedPosts, env.RANDOM_SEED)
     const fewPosts = shuffledPosts.slice(0, 5)
 
     return fewPosts
