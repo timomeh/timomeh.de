@@ -24,7 +24,7 @@ jobs:
       url: https://timomeh.de
     steps:
       - uses: actions/checkout@v6.0.3
-      - uses: docker/login-action@v4.2.0
+      - uses: docker/login-action@v4
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
