@@ -161,8 +161,8 @@ importers:
         version: 0.2.1
     devDependencies:
       '@argos-ci/playwright':
-        specifier: 7.0.9
-        version: 7.0.9(@types/node@25.9.4)
+        specifier: 7.1.0
+        version: 7.1.0(@types/node@25.9.4)
       '@playwright/test':
         specifier: 1.61.1
         version: 1.61.1
@@ -236,16 +236,16 @@ packages:
     resolution: {integrity: sha512-RnJvhCcdHJb0h5HoLSlGWnmRnRn2zgY0jq6ynS2506sd2drAeYJV03dSi3tX5TN7janQOPfMDR9DJeFudiyeqw==}
     engines: {node: '>=22.0.0'}
 
-  '@argos-ci/browser@6.1.0':
-    resolution: {integrity: sha512-9R508bY/qzZ14ZkddAfRL9Oq5K9gPRlLaUfv3SFGoKGSWlufsHnVvTTeHAAO9kLIXxJ3/bTW0MxLQD93Fs9DqQ==}
+  '@argos-ci/browser@6.2.0':
+    resolution: {integrity: sha512-AZUI5mDQ+XWa29Bcj23bW6UbFwMLfwItmR4QClgcjt/5auW57fwnRN7p0enOetx+v5DNz4jG4ZhgLFM/1P4kFQ==}
     engines: {node: '>=22.0.0'}
 
   '@argos-ci/core@6.2.2':
     resolution: {integrity: sha512-Ch7f8ZQ2qrA/0egmywPyUUqWO1uES3TxSQMxB5gvkK633zGEMAtG3ghl6XxlwdpkXH8wfg2NZyJaFcs/sEgPxg==}
     engines: {node: '>=22.0.0'}
 
-  '@argos-ci/playwright@7.0.9':
-    resolution: {integrity: sha512-GtIDgGbTbi6vf+QYoXxdg9E+hld/2DnsShojA3RYbMOwKHFVEjcn6fyJqFMBfKKUU8lV/SK9mwehDL/kVJJTfg==}
+  '@argos-ci/playwright@7.1.0':
+    resolution: {integrity: sha512-Mep0mkqtJeLPq6KT3l/mnPVqMtRaJnIKc+oGziSBc4MAUyWyzM1qxFT8azNR4kg8eQD4+eBkAwJbkxXGNTjdCA==}
     engines: {node: '>=22.0.0'}
 
   '@argos-ci/util@4.0.0':
@@ -323,8 +323,8 @@ packages:
   '@drizzle-team/brocli@0.10.2':
     resolution: {integrity: sha512-z33Il7l5dKjUgGULTqBsQBQwckHh5AbIuxhdsIxDDiZAzBOrZO6q9ogcWC65kU382AfynTfgNumVcNIjuIua6w==}
 
-  '@emnapi/runtime@1.11.1':
-    resolution: {integrity: sha512-vgj7R3y3Wgx24IQaGPA/R6YFXLHVMOZ0uVEyIQPaWs+rd1AzfEMXlAC22FYwO1XkKR6NPsq7mUandH8oIRdZFw==}
+  '@emnapi/runtime@1.11.2':
+    resolution: {integrity: sha512-kyOl3X0DuTiT1h2ft8r2fYO8JYtU9a9Xis/zBSiGArNaagCOWx90N1k2wxp18czFDH+OgcWGb5ZP/XMt3dcyPA==}
 
   '@emnapi/runtime@1.7.0':
     resolution: {integrity: sha512-oAYoQnCYaQZKVS53Fq23ceWMRxq5EhQsE0x0RdQ55jT7wagMu5k+fS39v1fiSLrtrLQlXwVINenqhLMtTrV/1Q==}
@@ -3923,7 +3923,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@argos-ci/browser@6.1.0': {}
+  '@argos-ci/browser@6.2.0': {}
 
   '@argos-ci/core@6.2.2(@types/node@25.9.4)':
     dependencies:
@@ -3940,9 +3940,9 @@ snapshots:
       - '@types/node'
       - supports-color
 
-  '@argos-ci/playwright@7.0.9(@types/node@25.9.4)':
+  '@argos-ci/playwright@7.1.0(@types/node@25.9.4)':
     dependencies:
-      '@argos-ci/browser': 6.1.0
+      '@argos-ci/browser': 6.2.0
       '@argos-ci/core': 6.2.2(@types/node@25.9.4)
       '@argos-ci/util': 4.0.0
       chalk: 5.6.2
@@ -4031,7 +4031,7 @@ snapshots:
 
   '@drizzle-team/brocli@0.10.2': {}
 
-  '@emnapi/runtime@1.11.1':
+  '@emnapi/runtime@1.11.2':
     dependencies:
       tslib: 2.8.1
     optional: true
@@ -4496,7 +4496,7 @@ snapshots:
 
   '@img/sharp-wasm32@0.35.3':
     dependencies:
-      '@emnapi/runtime': 1.11.1
+      '@emnapi/runtime': 1.11.2
     optional: true
 
   '@img/sharp-webcontainers-wasm32@0.35.3':
