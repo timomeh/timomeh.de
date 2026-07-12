@@ -23,7 +23,7 @@ jobs:
       name: production
       url: https://timomeh.de
     steps:
-      - uses: actions/checkout@v6.0.3
+      - uses: actions/checkout@v7.0.0
       - uses: docker/login-action@v4.2.0
         with:
           registry: ${{ env.REGISTRY }}
