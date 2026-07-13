@@ -161,8 +161,8 @@ importers:
         version: 0.2.1
     devDependencies:
       '@argos-ci/playwright':
-        specifier: 7.2.0
-        version: 7.2.0(@types/node@25.9.4)
+        specifier: 7.3.0
+        version: 7.3.0(@types/node@25.9.4)
       '@playwright/test':
         specifier: 1.61.1
         version: 1.61.1
@@ -236,16 +236,16 @@ packages:
     resolution: {integrity: sha512-pWEkmqVyD2CbGGG9KsTQgufWIYRzMsZVWyLY4d3lI2pUbuTlv0W0pvvmJybmKkIk3Tcn1T5vMBjT2DYuUiZbqQ==}
     engines: {node: '>=22.0.0'}
 
-  '@argos-ci/browser@6.3.0':
-    resolution: {integrity: sha512-quTww/Yhm2jv+Y6q6dD4xEpm9Bb/SrZNFJaXgncAnCvW8jNnCrmDE2+8zAuGUh41Wkq1JQNDYKlBCO/RpY6A8Q==}
+  '@argos-ci/browser@6.4.0':
+    resolution: {integrity: sha512-Gfo2LZ9ONLgyKhYM0/tUs1RxIOgWFgDp6nhYFAX+WfvkqTttpaxTPbhH/E3O37S73XVc1xWTWcRLu48ec1SX5g==}
     engines: {node: '>=22.0.0'}
 
   '@argos-ci/core@6.4.0':
     resolution: {integrity: sha512-YUySBUbjHpI8GZKe96n4VzgPPXl90hjw/GCHLQ3U6xbbIEZczCBCHeHB/MDjyXCHyk+9T7FUJSE0ddWnpDRI8Q==}
     engines: {node: '>=22.0.0'}
 
-  '@argos-ci/playwright@7.2.0':
-    resolution: {integrity: sha512-YkZswuc+hZLC8sUUp6QPzZJSfZsxnbt+sfyZr5DWSHuz5g2XRxJ8oEsXJwFraDMYku5jwfAtqXvza1J3WUo6qA==}
+  '@argos-ci/playwright@7.3.0':
+    resolution: {integrity: sha512-JyV6YkZebo+msahgW8mSx5TIm99tLmejbcrHguhcq8WQDRYzdUXjRBeadGRpoMEhUIdW+uEUQ5Ye7i0DaACmOA==}
     engines: {node: '>=22.0.0'}
 
   '@argos-ci/util@4.0.0':
@@ -364,11 +364,11 @@ packages:
 
   '@esbuild-kit/core-utils@3.3.2':
     resolution: {integrity: sha512-sPRAnw9CdSsRmEtnsl2WXWdyquogVpB3yZ3dgwJfe8zrOzTsV7cJvmwrKVa+0ma5BoiGJ+BoqkMvawbayKUsqQ==}
-    deprecated: 'Merged into tsx: https://tsx.is'
+    deprecated: 'Merged into tsx: https://tsx.hirok.io'
 
   '@esbuild-kit/esm-loader@2.6.5':
     resolution: {integrity: sha512-FxEMIkJKnodyA1OaCUoEvbYRkoZlLZ4d/eXFu9Fh8CbBBgP5EmZxrfTRyN0qpXZ4vOvqnE5YdRdcrmUUXuU+dA==}
-    deprecated: 'Merged into tsx: https://tsx.is'
+    deprecated: 'Merged into tsx: https://tsx.hirok.io'
 
   '@esbuild/aix-ppc64@0.25.12':
     resolution: {integrity: sha512-Hhmwd6CInZ3dwpuGTF8fJG6yoWmsToE+vYgD4nytZVxcu1ulHpUQRAB1UJ8+N1Am3Mz4+xOByoQoSZf4D+CpkA==}
@@ -3926,7 +3926,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@argos-ci/browser@6.3.0': {}
+  '@argos-ci/browser@6.4.0': {}
 
   '@argos-ci/core@6.4.0(@types/node@25.9.4)':
     dependencies:
@@ -3943,9 +3943,9 @@ snapshots:
       - '@types/node'
       - supports-color
 
-  '@argos-ci/playwright@7.2.0(@types/node@25.9.4)':
+  '@argos-ci/playwright@7.3.0(@types/node@25.9.4)':
     dependencies:
-      '@argos-ci/browser': 6.3.0
+      '@argos-ci/browser': 6.4.0
       '@argos-ci/core': 6.4.0(@types/node@25.9.4)
       '@argos-ci/util': 4.0.0
       chalk: 5.6.2
