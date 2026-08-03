@@ -76,7 +76,7 @@
   },
   "devDependencies": {
     "@argos-ci/playwright": "7.3.7",
-    "@playwright/test": "1.61.1",
+    "@playwright/test": "1.62.0",
     "@tailwindcss/postcss": "4.3.3",
     "@tailwindcss/typography": "0.5.20",
     "@types/mdast": "4.0.4",
