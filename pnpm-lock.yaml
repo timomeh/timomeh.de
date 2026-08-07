@@ -185,11 +185,11 @@ importers:
         specifier: 7.2.5
         version: 7.2.5
       '@types/react':
-        specifier: 19.2.17
-        version: 19.2.17
+        specifier: 19.2.18
+        version: 19.2.18
       '@types/react-dom':
-        specifier: 19.2.3
-        version: 19.2.3(@types/react@19.2.17)
+        specifier: 19.2.4
+        version: 19.2.4(@types/react@19.2.18)
       '@types/remove-markdown':
         specifier: 0.3.4
         version: 0.3.4
@@ -2327,13 +2327,13 @@ packages:
   '@types/probe-image-size@7.2.5':
     resolution: {integrity: sha512-9Bg6d/GNnjmhMMxadDstwrSlquuuLf0jQuPszbU6n3QUfybif3V/ryD3J2i9iaiC5JB/FU/8E41n88SM/UB+Tg==}
 
-  '@types/react-dom@19.2.3':
-    resolution: {integrity: sha512-jp2L/eY6fn+KgVVQAOqYItbF0VY/YApe5Mz2F0aykSO8gx31bYCZyvSeYxCHKvzHG5eZjc+zyaS5BrBWya2+kQ==}
+  '@types/react-dom@19.2.4':
+    resolution: {integrity: sha512-Bsc+QHgp+P/F02XDzNCY9jnZNCUuLki36KT7VKrTXXLdHf+vHMNZnW1rVu5DNW/rCK+fya3DATySbLM4yhtKUw==}
     peerDependencies:
       '@types/react': ^19.2.0
 
-  '@types/react@19.2.17':
-    resolution: {integrity: sha512-MXfmqaVPEVgkBT/aY0aGCkRWWtByiYQXo3xdQ8r5RzuFrPiRn8Gar2tQdXSUQ2GKV3bkXckek89V8wQBY2Q/Aw==}
+  '@types/react@19.2.18':
+    resolution: {integrity: sha512-AnzbBERsrLKtk2XSfTbYRLjQPdy116Sty4q+T+Bp3IC4l6jNBvreVPAHmpq9qhXQM7CXZPjLVmGMw9sy+hxQ3w==}
 
   '@types/remove-markdown@0.3.4':
     resolution: {integrity: sha512-i753EH/p02bw7bLlpfS/4CV1rdikbGiLabWyVsAvsFid3cA5RNU1frG7JycgY+NSnFwtoGlElvZVceCytecTDA==}
@@ -4929,7 +4929,7 @@ snapshots:
       '@react-types/switch': 3.6.0(@react-spectrum/provider@3.11.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@react-types/table': 3.14.0(@react-spectrum/provider@3.11.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@react-types/tabs': 3.4.0(@react-spectrum/provider@3.11.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      '@types/react': 19.2.17
+      '@types/react': 19.2.18
       emery: 1.4.4
       facepaint: 1.2.1
       react: 19.2.8
@@ -4950,12 +4950,12 @@ snapshots:
       '@internationalized/date': 3.12.2
       '@internationalized/number': 3.6.7
       '@internationalized/string': 3.2.9
-      '@markdoc/markdoc': 0.4.0(@types/react@19.2.17)(react@19.2.8)
+      '@markdoc/markdoc': 0.4.0(@types/react@19.2.18)(react@19.2.8)
       '@react-types/shared': 3.36.0(react@19.2.8)
       '@sindresorhus/slugify': 1.1.2
       '@toeverything/y-indexeddb': 0.10.0-canary.9(yjs@13.6.31)
       '@ts-gql/tag': 0.7.3(graphql@16.14.2)
-      '@types/react': 19.2.17
+      '@types/react': 19.2.18
       '@urql/core': 5.2.0(graphql@16.14.2)
       '@urql/exchange-auth': 2.2.1(@urql/core@5.2.0(graphql@16.14.2))
       '@urql/exchange-graphcache': 7.2.4(@urql/core@5.2.0(graphql@16.14.2))(graphql@16.14.2)
@@ -5015,7 +5015,7 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.27.6
       '@keystatic/core': 0.6.0(@keystar/ui@0.7.22(@react-spectrum/provider@3.11.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(next@16.2.11(@opentelemetry/api@1.9.0)(@playwright/test@1.62.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-aria@3.50.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react-stately@3.48.0(react@19.2.8))(react@19.2.8)
-      '@types/react': 19.2.17
+      '@types/react': 19.2.18
       chokidar: 3.6.0
       next: 16.2.11(@opentelemetry/api@1.9.0)(@playwright/test@1.62.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       react: 19.2.8
@@ -5045,10 +5045,10 @@ snapshots:
     dependencies:
       '@loglayer/shared': 4.4.0
 
-  '@markdoc/markdoc@0.4.0(@types/react@19.2.17)(react@19.2.8)':
+  '@markdoc/markdoc@0.4.0(@types/react@19.2.18)(react@19.2.8)':
     optionalDependencies:
       '@types/markdown-it': 12.2.3
-      '@types/react': 19.2.17
+      '@types/react': 19.2.18
       react: 19.2.8
 
   '@mdx-js/mdx@3.1.1':
@@ -6359,11 +6359,11 @@ snapshots:
       '@types/needle': 3.3.0
       '@types/node': 25.9.4
 
-  '@types/react-dom@19.2.3(@types/react@19.2.17)':
+  '@types/react-dom@19.2.4(@types/react@19.2.18)':
     dependencies:
-      '@types/react': 19.2.17
+      '@types/react': 19.2.18
 
-  '@types/react@19.2.17':
+  '@types/react@19.2.18':
     dependencies:
       csstype: 3.2.3
 
