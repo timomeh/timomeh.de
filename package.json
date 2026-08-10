@@ -89,7 +89,7 @@
     "drizzle-kit": "0.31.10",
     "esbuild": "0.28.1",
     "oxfmt": "0.61.0",
-    "oxlint": "1.75.0",
+    "oxlint": "1.77.0",
     "postcss": "8.5.25",
     "tailwindcss": "4.3.3",
     "tsx": "4.23.1",
