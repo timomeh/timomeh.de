@@ -90,7 +90,7 @@
     "esbuild": "0.28.1",
     "oxfmt": "0.62.0",
     "oxlint": "1.77.0",
-    "postcss": "8.5.25",
+    "postcss": "8.5.26",
     "tailwindcss": "4.3.3",
     "tsx": "4.23.5",
     "typescript": "6.0.3"
