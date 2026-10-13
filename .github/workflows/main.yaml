@@ -44,18 +44,7 @@ jobs:
           digest=$(docker buildx imagetools inspect ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest --format '{{json .Manifest.Digest}}' | tr -d '"')
           echo "digest=$digest" >> "$GITHUB_OUTPUT"
 
-      - name: release
-        env:
-          GH_TOKEN: ${{ secrets.HILLSIDE_DISPATCH_TOKEN }}
-          IMAGE: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.image.outputs.digest }}
+      - name: Trigger deploy
         run: |
-          gh api \
-            --method POST \
-            /repos/timomeh/hillside/dispatches \
-            -f event_type=deploy-app \
-            -f client_payload[app]=timomeh \
-            -f client_payload[environment]=prod \
-            -f client_payload[image]="$IMAGE" \
-            -f client_payload[job]=premigrate \
-            -f client_payload[source_repository]="${{ github.repository }}" \
-            -f client_payload[source_sha]="${{ github.sha }}"
+          curl --fail --request POST '${{ secrets.DEPLOY_WEBHOOK_BLOG }}' \
+            --header 'Authorization: Bearer ${{ secrets.DEPLOY_TOKEN }}'
