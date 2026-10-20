@@ -62,6 +62,12 @@ services:
     ports:
       - 3033:8080
     profiles: [dev, e2e]
+    healthcheck:
+      test: ['CMD', 'imgproxy', 'health']
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
     environment:
       IMGPROXY_ALLOWED_PROCESSING_OPTIONS: 'w,q'
       IMGPROXY_ALLOWED_SOURCES: http://content-proxy/
