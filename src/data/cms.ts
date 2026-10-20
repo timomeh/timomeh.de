@@ -4,7 +4,7 @@ import { createGitHubReader } from '@keystatic/core/reader/github'
 import { Vla } from 'vla'
 
 import { getEnv } from '@/env'
-import keystaticConfig from '@/keystatic.config'
+import keystaticConfig, { cmsConfig } from '@/keystatic.config'
 import { cleanse } from '@/lib/cleanse'
 
 const branch = 'main'
@@ -30,7 +30,7 @@ export type Settings = NonNullable<
 export class GitHub extends Vla.Resource {
   static readonly unwrap = 'cms'
 
-  reader = createGitHubReader(keystaticConfig, {
+  reader = createGitHubReader(cmsConfig as unknown as typeof keystaticConfig, {
     repo: 'timomeh/timomeh.de-content',
     token: getEnv('GITHUB_CONTENT_PAT'),
     ref: branch,

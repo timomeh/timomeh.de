@@ -108,7 +108,7 @@ const components = {
   }),
 }
 
-export default config({
+const keystaticConfig = config({
   storage: {
     kind: 'github',
     repo: 'timomeh/timomeh.de-content',
@@ -444,3 +444,37 @@ export default config({
     }),
   },
 })
+
+export default keystaticConfig
+
+// The content repository stores timestamps with seconds and a timezone, while
+// Keystatic's datetime field only accepts minute precision when reading data.
+// Keep the datetime fields in the editor, but use text fields for the server
+// reader. The CMS sanitizers convert these values to Date instances.
+export const cmsConfig = {
+  ...keystaticConfig,
+  collections: {
+    ...keystaticConfig.collections,
+    posts: {
+      ...keystaticConfig.collections.posts,
+      schema: {
+        ...keystaticConfig.collections.posts.schema,
+        publishedAt: fields.text({
+          label: 'Published at',
+          validation: { isRequired: true },
+        }),
+        updatedAt: fields.text({ label: 'Updated at' }),
+      },
+    },
+    shorts: {
+      ...keystaticConfig.collections.shorts,
+      schema: {
+        ...keystaticConfig.collections.shorts.schema,
+        publishedAt: fields.text({
+          label: 'Published at',
+          validation: { isRequired: true },
+        }),
+      },
+    },
+  },
+}
