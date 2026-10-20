@@ -125,7 +125,6 @@ export async function MDX({
           },
         ],
         !plain ? withMdxFootnotes : () => {},
-        // @ts-expect-error
         remarkSmartypants,
         readMorePath ? remarkReadMore : () => {},
       ],
