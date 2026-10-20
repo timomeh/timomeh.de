@@ -1,4 +1,4 @@
-import { ShortKicker } from '../../data'
+import { getCachedShortKicker } from '../../data'
 import { DataKicker } from '../../data-kicker'
 
 type Props = {
@@ -10,12 +10,8 @@ export default function Page(props: Props) {
     <DataKicker
       fetcher={async () => {
         const params = await props.params
-        return ShortKicker.invoke(params.id)
+        return getCachedShortKicker(params.id)
       }}
     />
   )
-}
-
-export async function generateStaticParams() {
-  return []
 }

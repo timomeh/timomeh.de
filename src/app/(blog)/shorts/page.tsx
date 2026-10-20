@@ -9,12 +9,12 @@ import { Prose } from '@/comps/prose'
 import { ScrollToHash } from '@/comps/scroll-to-hash'
 import { EnrichedShort } from '@/data/shorts/shorts.service'
 
-import { ListShorts } from './data'
+import { getCachedShorts } from './data'
 
 const BLOCKING_RENDERED_AMOUNT = 20
 
 export default async function Page() {
-  const shorts = await ListShorts.invoke()
+  const shorts = await getCachedShorts()
   const initial = shorts.slice(0, BLOCKING_RENDERED_AMOUNT)
   const rest = shorts.slice(BLOCKING_RENDERED_AMOUNT)
 

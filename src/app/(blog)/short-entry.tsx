@@ -5,7 +5,7 @@ import { MDX } from '@/comps/mdx/mdx'
 import { MediaGrid } from '@/comps/media-grid'
 import { OptimImage } from '@/comps/optim-image'
 import { Prose } from '@/comps/prose'
-import { formatRelativeDate } from '@/lib/date'
+import { RelativeDate } from '@/comps/relative-date'
 
 export function ShortEntry({
   short,
@@ -34,6 +34,7 @@ export function ShortEntry({
                 ? `/shorts/${short.id}`
                 : `/shorts#short-${short.id}`
             }
+            prefetch={linkTo === 'detail'}
             className="
                 font-mono text-sm font-medium text-current/60
                 hover:underline
@@ -41,7 +42,7 @@ export function ShortEntry({
               "
           >
             <time dateTime={short.publishedAt.toISOString()}>
-              {formatRelativeDate(short.publishedAt)}
+              <RelativeDate date={short.publishedAt} />
             </time>
           </Link>
         </div>

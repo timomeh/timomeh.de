@@ -1,3 +1,4 @@
+import { cacheLife, cacheTag } from 'next/cache'
 import { Vla } from 'vla'
 
 import { Search } from '@/data/search/search.service'
@@ -12,4 +13,12 @@ export class SearchPosts extends Vla.Action {
     const posts = await this.search.fuzzyPosts(query)
     return posts
   }
+}
+
+export async function getCachedSearchPosts(query: string) {
+  'use cache'
+  cacheLife('minutes')
+  cacheTag('content:search')
+
+  return SearchPosts.invoke(query)
 }

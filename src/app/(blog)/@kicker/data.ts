@@ -1,3 +1,4 @@
+import { cacheLife, cacheTag } from 'next/cache'
 import { Vla } from 'vla'
 
 import { PagesRepo } from '@/data/pages/pages.repo'
@@ -17,6 +18,14 @@ export class PageKicker extends Vla.Action {
   }
 }
 
+export async function getCachedPageKicker(slug: string) {
+  'use cache'
+  cacheLife('days')
+  cacheTag('content:pages', `content:page:${slug}`)
+
+  return PageKicker.invoke(slug)
+}
+
 export class PostKicker extends Vla.Action {
   postsRepo = this.inject(PostsRepo)
 
@@ -24,6 +33,14 @@ export class PostKicker extends Vla.Action {
     const post = await this.postsRepo.bySlug(slug)
     return post?.kicker
   }
+}
+
+export async function getCachedPostKicker(slug: string) {
+  'use cache'
+  cacheLife('days')
+  cacheTag('content:posts', `content:post:${slug}`)
+
+  return PostKicker.invoke(slug)
 }
 
 export class ShortKicker extends Vla.Action {
@@ -35,6 +52,14 @@ export class ShortKicker extends Vla.Action {
   }
 }
 
+export async function getCachedShortKicker(id: string) {
+  'use cache'
+  cacheLife('days')
+  cacheTag('content:shorts', `content:short:${id}`)
+
+  return ShortKicker.invoke(id)
+}
+
 export class TagKicker extends Vla.Action {
   tagsRepo = this.inject(TagsRepo)
 
@@ -42,6 +67,14 @@ export class TagKicker extends Vla.Action {
     const tag = await this.tagsRepo.bySlug(slug)
     return tag?.kicker
   }
+}
+
+export async function getCachedTagKicker(slug: string) {
+  'use cache'
+  cacheLife('days')
+  cacheTag('content:tags', `content:tag:${slug}`)
+
+  return TagKicker.invoke(slug)
 }
 
 export class DefaultKicker extends Vla.Action {
@@ -55,4 +88,12 @@ export class DefaultKicker extends Vla.Action {
 
     return kicker
   }
+}
+
+export async function getCachedDefaultKicker() {
+  'use cache'
+  cacheLife('days')
+  cacheTag('content:settings')
+
+  return DefaultKicker.invoke()
 }

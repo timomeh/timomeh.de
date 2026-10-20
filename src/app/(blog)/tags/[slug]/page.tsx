@@ -2,11 +2,12 @@ import { Suspense } from 'react'
 
 import { PostPreview } from '@/app/(blog)/post-preview'
 import {
-  ListPostsByTag,
+  getCachedPostsByTag,
   TagListedPost,
   TagMetadata,
 } from '@/app/(blog)/tags/data'
 import { PageFooter } from '@/comps/layout/page-footer'
+import { PageLoading } from '@/comps/layout/page-loading'
 import { PageMain } from '@/comps/layout/page-main'
 import { PageNav } from '@/comps/layout/page-nav'
 import { PageNavBack } from '@/comps/layout/page-nav-back'
@@ -20,40 +21,48 @@ type Props = {
 
 const BLOCKING_RENDERED_AMOUNT = 5
 
-export default async function Page(props: Props) {
-  const { slug } = await props.params
-  const { posts, tag } = await ListPostsByTag.invoke(slug)
-  const initial = posts.slice(0, BLOCKING_RENDERED_AMOUNT)
-  const rest = posts.slice(BLOCKING_RENDERED_AMOUNT)
-
+export default function Page(props: Props) {
   return (
     <>
       <PageNav>
         <PageNavBack href="/" />
       </PageNav>
-      <PageMain>
-        <div className="mx-auto max-w-2xl p-4 !pt-12 sm:p-6 md:p-8">
-          <Prose size="sm">
-            <h1 className="!mb-1">
-              {pluralizePosts(posts.length)} tagged {tag.title}
-            </h1>
-            <p className="!mt-1">
-              {tag.description ||
-                `More or less coherent thoughts about ${tag.title}.`}
-            </p>
-          </Prose>
-        </div>
-
-        <ScrollToHash />
-        <ul>
-          {initial.map(renderItem)}
-          <Suspense fallback={<LoadingFallback />}>
-            <RestOfPosts posts={rest} />
-          </Suspense>
-        </ul>
-      </PageMain>
+      <Suspense fallback={<PageLoading variant="list" />}>
+        <TagPage {...props} />
+      </Suspense>
       <PageFooter />
     </>
+  )
+}
+
+async function TagPage(props: Props) {
+  const { slug } = await props.params
+  const { posts, tag } = await getCachedPostsByTag(slug)
+  const initial = posts.slice(0, BLOCKING_RENDERED_AMOUNT)
+  const rest = posts.slice(BLOCKING_RENDERED_AMOUNT)
+
+  return (
+    <PageMain>
+      <div className="mx-auto max-w-2xl p-4 !pt-12 sm:p-6 md:p-8">
+        <Prose size="sm">
+          <h1 className="!mb-1">
+            {pluralizePosts(posts.length)} tagged {tag.title}
+          </h1>
+          <p className="!mt-1">
+            {tag.description ||
+              `More or less coherent thoughts about ${tag.title}.`}
+          </p>
+        </Prose>
+      </div>
+
+      <ScrollToHash />
+      <ul>
+        {initial.map(renderItem)}
+        <Suspense fallback={<LoadingFallback />}>
+          <RestOfPosts posts={rest} />
+        </Suspense>
+      </ul>
+    </PageMain>
   )
 }
 
@@ -86,10 +95,6 @@ function LoadingFallback() {
       </div>
     </li>
   )
-}
-
-export async function generateStaticParams() {
-  return []
 }
 
 export async function generateMetadata(props: Props) {

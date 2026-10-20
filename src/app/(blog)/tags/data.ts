@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { cacheLife, cacheTag } from 'next/cache'
 import { notFound } from 'next/navigation'
 import { Vla } from 'vla'
 
@@ -21,6 +22,14 @@ export class ListAllTags extends Vla.Action {
   }
 }
 
+export async function getCachedAllTags() {
+  'use cache'
+  cacheLife('days')
+  cacheTag('content:tags')
+
+  return ListAllTags.invoke()
+}
+
 export type TagListedPost = Awaited<
   ReturnType<PostsRepo['listPublishedByTag']>
 >[0]
@@ -37,6 +46,14 @@ export class ListPostsByTag extends Vla.Action {
 
     return { posts, tag }
   }
+}
+
+export async function getCachedPostsByTag(slug: string) {
+  'use cache'
+  cacheLife('days')
+  cacheTag('content:posts', 'content:tags', `content:tag:${slug}`)
+
+  return ListPostsByTag.invoke(slug)
 }
 
 export class TagOgImage extends Vla.Action {

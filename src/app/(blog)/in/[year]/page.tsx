@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 
 import { PostPreview } from '@/app/(blog)/post-preview'
 import { PageFooter } from '@/comps/layout/page-footer'
+import { PageLoading } from '@/comps/layout/page-loading'
 import { PageMain } from '@/comps/layout/page-main'
 import { PageNav } from '@/comps/layout/page-nav'
 import { PageNavBack } from '@/comps/layout/page-nav-back'
@@ -9,7 +10,7 @@ import { Prose } from '@/comps/prose'
 import { ScrollToHash } from '@/comps/scroll-to-hash'
 import { pluralizePosts } from '@/lib/plurals'
 
-import { ListPostsByYear, YearListedPost } from './data'
+import { getCachedPostsByYear, YearListedPost } from './data'
 
 type Props = {
   params: Promise<{ year: string }>
@@ -17,36 +18,44 @@ type Props = {
 
 const BLOCKING_RENDERED_AMOUNT = 5
 
-export default async function Page(props: Props) {
-  const { year } = await props.params
-  const { posts } = await ListPostsByYear.invoke(year)
-  const initial = posts.slice(0, BLOCKING_RENDERED_AMOUNT)
-  const rest = posts.slice(BLOCKING_RENDERED_AMOUNT)
-
+export default function Page(props: Props) {
   return (
     <>
       <PageNav>
         <PageNavBack href="/" />
       </PageNav>
-      <PageMain>
-        <div className="mx-auto max-w-2xl p-4 !pt-12 sm:p-6 md:p-8">
-          <Prose size="sm">
-            <h1 className="!mb-1">
-              {pluralizePosts(posts.length)} in {year}
-            </h1>
-          </Prose>
-        </div>
-
-        <ScrollToHash />
-        <ul>
-          {initial.map(renderItem)}
-          <Suspense fallback={<LoadingFallback />}>
-            <RestOfPosts posts={rest} />
-          </Suspense>
-        </ul>
-      </PageMain>
+      <Suspense fallback={<PageLoading variant="list" />}>
+        <YearPage {...props} />
+      </Suspense>
       <PageFooter />
     </>
+  )
+}
+
+async function YearPage(props: Props) {
+  const { year } = await props.params
+  const { posts } = await getCachedPostsByYear(year)
+  const initial = posts.slice(0, BLOCKING_RENDERED_AMOUNT)
+  const rest = posts.slice(BLOCKING_RENDERED_AMOUNT)
+
+  return (
+    <PageMain>
+      <div className="mx-auto max-w-2xl p-4 !pt-12 sm:p-6 md:p-8">
+        <Prose size="sm">
+          <h1 className="!mb-1">
+            {pluralizePosts(posts.length)} in {year}
+          </h1>
+        </Prose>
+      </div>
+
+      <ScrollToHash />
+      <ul>
+        {initial.map(renderItem)}
+        <Suspense fallback={<LoadingFallback />}>
+          <RestOfPosts posts={rest} />
+        </Suspense>
+      </ul>
+    </PageMain>
   )
 }
 
@@ -79,8 +88,4 @@ function LoadingFallback() {
       </div>
     </li>
   )
-}
-
-export async function generateStaticParams() {
-  return []
 }

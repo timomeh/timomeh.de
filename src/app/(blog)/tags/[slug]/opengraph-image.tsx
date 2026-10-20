@@ -3,7 +3,6 @@ import { ImageResponse } from 'next/og'
 import { TagOgImage } from '@/app/(blog)/tags/data'
 import { getFonts, OpengraphBaseImage } from '@/comps/og-base-image'
 
-export const generateStaticParams = () => []
 export const size = {
   width: 1200,
   height: 630,

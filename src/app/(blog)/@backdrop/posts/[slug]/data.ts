@@ -1,3 +1,4 @@
+import { cacheLife, cacheTag } from 'next/cache'
 import { Vla } from 'vla'
 
 import { contentAsset } from '@/data/cms'
@@ -20,4 +21,12 @@ export class ShowPostBackdrop extends Vla.Action {
         : undefined,
     }
   }
+}
+
+export async function getCachedPostBackdrop(slug: string) {
+  'use cache'
+  cacheLife('days')
+  cacheTag('content:posts', `content:post:${slug}`)
+
+  return ShowPostBackdrop.invoke(slug)
 }

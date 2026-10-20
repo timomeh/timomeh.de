@@ -25,10 +25,6 @@ export default async function Page(props: Props) {
   )
 }
 
-export async function generateStaticParams() {
-  return []
-}
-
 async function SimplePost(props: Props) {
   const params = await props.params
   const post = await ShowSimplifiedPost.invoke(params.slug)

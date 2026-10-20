@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 
-import { RandomKicker } from './random-kicker'
+import { getCachedDefaultKicker } from './data'
 
 type Props = {
   fetcher: () => Promise<string | undefined | null>
@@ -25,5 +25,10 @@ async function FetchedKickerSentence(props: Props) {
 
   if (kicker) return <span data-loaded="true">{kicker}</span>
 
-  return <RandomKicker />
+  return <DefaultKicker />
+}
+
+async function DefaultKicker() {
+  const kicker = await getCachedDefaultKicker()
+  return <span data-loaded="true">{kicker}</span>
 }

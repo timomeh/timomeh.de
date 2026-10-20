@@ -3,15 +3,23 @@ import { Suspense } from 'react'
 import { HeaderBackdropEmpty } from '@/comps/header-backdrop-empty'
 import { HeaderBackdropImage } from '@/comps/header-backdrop-image'
 
-import { ShowPostBackdrop } from './data'
+import { getCachedPostBackdrop } from './data'
 
 type Props = {
   params: Promise<{ slug: string }>
 }
 
-export default async function Page(props: Props) {
+export default function Page(props: Props) {
+  return (
+    <Suspense fallback={<HeaderBackdropEmpty />}>
+      <BackdropContent {...props} />
+    </Suspense>
+  )
+}
+
+async function BackdropContent(props: Props) {
   const params = await props.params
-  const backdrop = await ShowPostBackdrop.invoke(params.slug)
+  const backdrop = await getCachedPostBackdrop(params.slug)
 
   return (
     <>
@@ -54,8 +62,4 @@ export default async function Page(props: Props) {
       )}
     </>
   )
-}
-
-export async function generateStaticParams() {
-  return []
 }

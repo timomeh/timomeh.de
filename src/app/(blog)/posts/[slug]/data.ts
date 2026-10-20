@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { cacheLife, cacheTag } from 'next/cache'
 import { notFound } from 'next/navigation'
 import { Vla } from 'vla'
 
@@ -21,6 +22,14 @@ export class ShowPost extends Vla.Action {
   }
 }
 
+export async function getCachedPost(slug: string) {
+  'use cache'
+  cacheLife('days')
+  cacheTag('content:posts', `content:post:${slug}`)
+
+  return ShowPost.invoke(slug)
+}
+
 export class ListRelatedPosts extends Vla.Action {
   postsRepo = this.inject(PostsRepo)
 
@@ -36,6 +45,14 @@ export class ListRelatedPosts extends Vla.Action {
 
     return fewPosts
   }
+}
+
+export async function getCachedRelatedPosts(slug: string) {
+  'use cache'
+  cacheLife('days')
+  cacheTag('content:posts', `content:post:${slug}`)
+
+  return ListRelatedPosts.invoke(slug)
 }
 
 export class PostOgImage extends Vla.Action {

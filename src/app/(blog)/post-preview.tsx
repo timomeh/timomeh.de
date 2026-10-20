@@ -50,7 +50,7 @@ export async function PostPreview({
       )}
       <div className="mx-auto max-w-2xl p-4 !py-12 sm:p-6 md:p-8">
         <div className="mb-3">
-          <PostEyebrow post={post} linked />
+          <PostEyebrow post={post} linked prefetch />
         </div>
         <Prose>
           <Lightbox>
@@ -74,6 +74,7 @@ export async function PostPreview({
                     <h1 id={post.slug} className="scroll-mt-16">
                       <Link
                         href={`/posts/${post.slug}`}
+                        prefetch
                         className="no-underline hover:underline"
                       >
                         {props.children}

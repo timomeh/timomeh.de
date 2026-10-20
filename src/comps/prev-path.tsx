@@ -1,7 +1,7 @@
 'use client'
 
 import { useSelectedLayoutSegments } from 'next/navigation'
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, Suspense, useContext, useEffect, useState } from 'react'
 
 const PrevPathContext = createContext<string | null>(null)
 
@@ -10,6 +10,20 @@ type Props = {
 }
 
 export function PrevPathProvider({ children }: Props) {
+  return (
+    <Suspense
+      fallback={
+        <PrevPathContext.Provider value={null}>
+          {children}
+        </PrevPathContext.Provider>
+      }
+    >
+      <PrevPathTracker>{children}</PrevPathTracker>
+    </Suspense>
+  )
+}
+
+function PrevPathTracker({ children }: Props) {
   const layoutSegments = useSelectedLayoutSegments()
   const [prevPath, setPrevPath] = useState<string | null>(() => {
     if (layoutSegments[0] === '(list)' && typeof window !== 'undefined') {

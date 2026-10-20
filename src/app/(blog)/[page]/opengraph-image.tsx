@@ -4,7 +4,6 @@ import { getFonts, OpengraphBaseImage } from '@/comps/og-base-image'
 
 import { PageOgImage } from './data'
 
-export const generateStaticParams = () => []
 export const size = {
   width: 1200,
   height: 630,

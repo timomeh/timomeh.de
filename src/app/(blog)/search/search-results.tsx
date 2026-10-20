@@ -3,14 +3,14 @@ import Link from 'next/link'
 import { PostEyebrow } from '@/app/(blog)/post-eyebrow'
 import { Prose } from '@/comps/prose'
 
-import { SearchPosts } from './data'
+import { getCachedSearchPosts } from './data'
 
 type Props = {
   query: string
 }
 
 export async function SearchResults({ query }: Props) {
-  const posts = await SearchPosts.invoke(query)
+  const posts = await getCachedSearchPosts(query)
 
   return (
     <>
@@ -26,7 +26,7 @@ export async function SearchResults({ query }: Props) {
                   href={`/posts/${post.slug}`}
                   className="no-underline hover:underline"
                   data-search-result
-                  prefetch={false}
+                  prefetch
                 >
                   {post.title}
                 </Link>

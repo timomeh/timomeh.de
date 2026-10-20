@@ -2,7 +2,13 @@ import withPlaiceholder from '@plaiceholder/next'
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  cacheComponents: true,
+  partialPrefetching: true,
+
   cacheHandler: require.resolve('./dist/cache-handler.js'),
+  cacheHandlers: {
+    default: require.resolve('./dist/cache-handlers.js'),
+  },
   cacheMaxMemorySize: 0,
 
   experimental: {

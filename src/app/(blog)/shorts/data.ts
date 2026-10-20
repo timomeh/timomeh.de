@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { cacheLife, cacheTag } from 'next/cache'
 import { notFound } from 'next/navigation'
 import { Vla } from 'vla'
 
@@ -57,4 +58,20 @@ export class ListShorts extends Vla.Action {
 
     return enrichedShorts
   }
+}
+
+export async function getCachedShorts() {
+  'use cache'
+  cacheLife('days')
+  cacheTag('content:shorts', 'content:settings')
+
+  return ListShorts.invoke()
+}
+
+export async function getCachedShort(id: string) {
+  'use cache'
+  cacheLife('days')
+  cacheTag('content:shorts', 'content:settings', `content:short:${id}`)
+
+  return ShowShort.invoke(id)
 }

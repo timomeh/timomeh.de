@@ -1,3 +1,4 @@
+import { cacheLife, cacheTag } from 'next/cache'
 import { Vla } from 'vla'
 
 import { PostsRepo } from '@/data/posts/posts.repo'
@@ -50,4 +51,12 @@ export class ListReadables extends Vla.Action {
 
     return redables
   }
+}
+
+export async function getCachedReadables() {
+  'use cache'
+  cacheLife('days')
+  cacheTag('content:posts', 'content:shorts', 'content:settings')
+
+  return ListReadables.invoke()
 }

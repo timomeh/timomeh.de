@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import React from 'react'
 
-import { ListPostsGroupedByYear } from '@/app/(blog)/archive/data'
+import { getCachedPostsGroupedByYear } from '@/app/(blog)/archive/data'
 import { PostEyebrow } from '@/app/(blog)/post-eyebrow'
-import { ListAllTags } from '@/app/(blog)/tags/data'
+import { getCachedAllTags } from '@/app/(blog)/tags/data'
 import { PageFooter } from '@/comps/layout/page-footer'
 import { PageMain } from '@/comps/layout/page-main'
 import { PageNav } from '@/comps/layout/page-nav'
@@ -12,8 +12,8 @@ import { Prose } from '@/comps/prose'
 import { TagLink } from '@/comps/tag-link'
 
 export default async function Page() {
-  const tags = await ListAllTags.invoke()
-  const { groupedPosts } = await ListPostsGroupedByYear.invoke()
+  const tags = await getCachedAllTags()
+  const { groupedPosts } = await getCachedPostsGroupedByYear()
 
   return (
     <>
@@ -47,7 +47,7 @@ export default async function Page() {
                 {group.posts.map((post) => (
                   <li key={post.id}>
                     <div className="mb-1">
-                      <PostEyebrow post={post} linked />
+                      <PostEyebrow post={post} linked prefetch />
                     </div>
                     <Prose>
                       <h4>

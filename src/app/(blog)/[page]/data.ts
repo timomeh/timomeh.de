@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { cacheLife, cacheTag } from 'next/cache'
 import { notFound } from 'next/navigation'
 import { Vla } from 'vla'
 
@@ -13,6 +14,14 @@ export class ShowPage extends Vla.Action {
     if (!page) notFound()
     return { page, assetPrefix: contentAsset('pages', page.slug, '') }
   }
+}
+
+export async function getCachedPage(slug: string) {
+  'use cache'
+  cacheLife('days')
+  cacheTag('content:pages', `content:page:${slug}`)
+
+  return ShowPage.invoke(slug)
 }
 
 export class PageMetadata extends Vla.Action {

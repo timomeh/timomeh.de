@@ -4,12 +4,12 @@ import { PostPreview } from '@/app/(blog)/post-preview'
 import { ShortsGroup } from '@/app/(blog)/shorts-group'
 import { ScrollToHash } from '@/comps/scroll-to-hash'
 
-import { ListReadables, Readable } from './data'
+import { getCachedReadables, Readable } from './data'
 
 const BLOCKING_RENDERED_AMOUNT = 5
 
 export async function PostsList() {
-  const readables = await ListReadables.invoke()
+  const readables = await getCachedReadables()
   const initial = readables.slice(0, BLOCKING_RENDERED_AMOUNT)
   const rest = readables.slice(BLOCKING_RENDERED_AMOUNT)
 

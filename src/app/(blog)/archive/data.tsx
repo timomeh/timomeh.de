@@ -1,3 +1,4 @@
+import { cacheLife, cacheTag } from 'next/cache'
 import { Vla } from 'vla'
 
 import { PostsRepo } from '@/data/posts/posts.repo'
@@ -23,4 +24,12 @@ export class ListPostsGroupedByYear extends Vla.Action {
 
     return { groupedPosts }
   }
+}
+
+export async function getCachedPostsGroupedByYear() {
+  'use cache'
+  cacheLife('days')
+  cacheTag('content:posts')
+
+  return ListPostsGroupedByYear.invoke()
 }

@@ -1,4 +1,4 @@
-import { PageKicker } from '../data'
+import { getCachedPageKicker } from '../data'
 import { DataKicker } from '../data-kicker'
 
 type Props = {
@@ -10,12 +10,8 @@ export default function Page(props: Props) {
     <DataKicker
       fetcher={async () => {
         const params = await props.params
-        return PageKicker.invoke(params.page)
+        return getCachedPageKicker(params.page)
       }}
     />
   )
-}
-
-export async function generateStaticParams() {
-  return []
 }

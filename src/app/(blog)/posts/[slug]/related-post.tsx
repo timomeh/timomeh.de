@@ -1,11 +1,11 @@
 import Link from 'next/link'
 
 import { PostEyebrow } from '@/app/(blog)/post-eyebrow'
-import { ListRelatedPosts } from '@/app/(blog)/posts/[slug]/data'
+import { getCachedRelatedPosts } from '@/app/(blog)/posts/[slug]/data'
 import { Prose } from '@/comps/prose'
 
 export async function RelatedPosts({ forSlug }: { forSlug: string }) {
-  const posts = await ListRelatedPosts.invoke(forSlug)
+  const posts = await getCachedRelatedPosts(forSlug)
   if (!posts) return null
 
   return (
@@ -26,7 +26,7 @@ export async function RelatedPosts({ forSlug }: { forSlug: string }) {
                   <Link
                     href={`/posts/${post.slug}`}
                     className="no-underline hover:underline"
-                    prefetch={false}
+                    prefetch
                   >
                     {post.title}
                   </Link>

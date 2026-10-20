@@ -1,3 +1,4 @@
+import { cacheLife, cacheTag } from 'next/cache'
 import { notFound } from 'next/navigation'
 import { Vla } from 'vla'
 
@@ -18,4 +19,12 @@ export class ListPostsByYear extends Vla.Action {
 
     return { posts }
   }
+}
+
+export async function getCachedPostsByYear(year: string) {
+  'use cache'
+  cacheLife('days')
+  cacheTag('content:posts', `content:posts:year:${year}`)
+
+  return ListPostsByYear.invoke(year)
 }

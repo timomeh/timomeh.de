@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 
 import { SearchControls } from '@/app/(blog)/search/search-controls'
 import { PageFooter } from '@/comps/layout/page-footer'
+import { PageLoading } from '@/comps/layout/page-loading'
 import { PageMain } from '@/comps/layout/page-main'
 import { PageNav } from '@/comps/layout/page-nav'
 import { PageNavBack } from '@/comps/layout/page-nav-back'
@@ -13,7 +15,15 @@ type Props = {
   searchParams: Promise<{ query?: string }>
 }
 
-export default async function Page({ searchParams }: Props) {
+export default function Page(props: Props) {
+  return (
+    <Suspense fallback={<PageLoading chrome />}>
+      <SearchPage {...props} />
+    </Suspense>
+  )
+}
+
+async function SearchPage({ searchParams }: Props) {
   const { query } = await searchParams
 
   return (

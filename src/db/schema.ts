@@ -150,3 +150,9 @@ export const dataCaches = t.pgTable('data_caches', {
   updatedAt: t.timestamp({ withTimezone: true }),
   expiredAt: t.timestamp({ withTimezone: true }),
 })
+
+export const cacheTagInvalidations = t.pgTable('cache_tag_invalidations', {
+  tag: t.text().primaryKey(),
+  staleAt: t.timestamp({ withTimezone: true }).notNull(),
+  expiredAt: t.timestamp({ withTimezone: true }).notNull(),
+})

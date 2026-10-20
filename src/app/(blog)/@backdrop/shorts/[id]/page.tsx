@@ -7,7 +7,3 @@ type Props = {
 export default async function Page(_props: Props) {
   return <HeaderBackdropEmpty />
 }
-
-export async function generateStaticParams() {
-  return []
-}

@@ -8,10 +8,10 @@ import { PageNavBack } from '@/comps/layout/page-nav-back'
 import { Prose } from '@/comps/prose'
 import { pluralizePosts } from '@/lib/plurals'
 
-import { ListAllTags } from './data'
+import { getCachedAllTags } from './data'
 
 export default async function Page() {
-  const tags = await ListAllTags.invoke()
+  const tags = await getCachedAllTags()
 
   return (
     <>

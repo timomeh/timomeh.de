@@ -79,6 +79,12 @@ export class NukeCaches extends Vla.Action {
 
     revalidateTag('feed-pre', 'max')
     revalidateTag('mdx', 'max')
+    revalidateTag('content:posts', 'max')
+    revalidateTag('content:pages', 'max')
+    revalidateTag('content:tags', 'max')
+    revalidateTag('content:shorts', 'max')
+    revalidateTag('content:settings', 'max')
+    revalidateTag('content:search', 'max')
     revalidatePath('/tags')
     revalidatePath('/posts/[slug]', 'page')
     revalidatePath('/[page]', 'page')
@@ -115,6 +121,10 @@ export class UpdateChangedFiles extends Vla.Action {
           reindexPostSlugs.push(slug)
           revalidateTag(`feed-pre:${slug}`, 'max')
           revalidateTag(`mdx-post:${slug}`, 'max')
+          revalidateTag('content:posts', 'max')
+          revalidateTag(`content:post:${slug}`, 'max')
+          revalidateTag('content:tags', 'max')
+          revalidateTag('content:search', 'max')
           revalidatePath('/tags') // also update tags to update the post count
           log.withMetadata({ resource, slug }).info('Updated cache')
           return
@@ -123,6 +133,8 @@ export class UpdateChangedFiles extends Vla.Action {
         if (resource === 'pages') {
           await this.pagesCache.update(slug)
           revalidateTag(`mdx-page:${slug}`, 'max')
+          revalidateTag('content:pages', 'max')
+          revalidateTag(`content:page:${slug}`, 'max')
           log.withMetadata({ resource, slug }).info('Updated cache')
           return
         }
@@ -130,6 +142,10 @@ export class UpdateChangedFiles extends Vla.Action {
         if (resource === 'tags') {
           await this.tagsCache.update(slug)
           reindexTagSlugs.push(slug)
+          revalidateTag('content:tags', 'max')
+          revalidateTag(`content:tag:${slug}`, 'max')
+          revalidateTag('content:posts', 'max')
+          revalidateTag('content:search', 'max')
           revalidatePath('/tags')
           log.withMetadata({ resource, slug }).info('Updated cache')
           return
@@ -138,12 +154,15 @@ export class UpdateChangedFiles extends Vla.Action {
         if (resource === 'shorts') {
           await this.shortsCache.update(slug)
           revalidateTag(`mdx-short:${slug}`, 'max')
+          revalidateTag('content:shorts', 'max')
+          revalidateTag(`content:short:${slug}`, 'max')
           log.withMetadata({ resource, slug }).info('Updated cache')
           return
         }
 
         if (resource === 'settings') {
           await this.settingsCache.update()
+          revalidateTag('content:settings', 'max')
           log.withMetadata({ resource, slug }).info('Updated cache')
           return
         }
