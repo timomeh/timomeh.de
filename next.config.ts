@@ -5,6 +5,19 @@ const nextConfig: NextConfig = {
   cacheHandler: require.resolve('./dist/cache-handler.js'),
   cacheMaxMemorySize: 0,
 
+  experimental: {
+    agentUpgrade: 'latest',
+    turbopackGc: true,
+    turbopackLazyDynamicImports: true,
+  },
+
+  // The app's feed-only routes intentionally live outside the main route
+  // tree. Keep their existing behavior while the route structure is migrated
+  // to strict matching.
+  deprecated: {
+    looseRouteMatching: true,
+  },
+
   output: 'standalone',
 
   poweredByHeader: false,
