@@ -23,20 +23,23 @@ uniform highp float u_time;
 mat2 mm2(in float a){float c = cos(a), s = sin(a);return mat2(c,s,-s,c);}
 mat2 m2 = mat2(0.95534, 0.29552, -0.29552, 0.95534);
 float tri(in float x){return clamp(abs(fract(x)-.5),0.01,0.49);}
-vec2 tri2(in vec2 p){return vec2(tri(p.x)+tri(p.y),tri(p.y+tri(p.x)));}
 
 float triNoise2d(in vec2 p, float spd) {
   float z = 1.8;
-  float z2 = 2.5;
+  float invZ2 = 0.4;
   float rz = 0.0;
   p *= mm2(p.x * 0.06);
   vec2 bp = p;
-  for (float i = 0.0; i < 5.0; i++) {
-    vec2 dg = tri2(bp * 1.85) * 0.75;
-    dg *= mm2(u_time * spd);
-    p -= dg / z2;
+  mat2 timeRotation = mm2(u_time * spd);
+  for (int i = 0; i < 5; i++) {
+    vec2 tp = bp * 1.85;
+    float tx = tri(tp.x);
+    float ty = tri(tp.y);
+    vec2 dg = vec2(tx + ty, tri(tp.y + tx)) * 0.75;
+    dg *= timeRotation;
+    p -= dg * invZ2;
     bp *= 1.3;
-    z2 *= 0.45;
+    invZ2 *= 2.2222222;
     z *= 0.42;
     p *= 1.21 + (rz - 1.0) * 0.02;
     rz += tri(p.x + tri(p.y)) * z;
@@ -50,24 +53,34 @@ float hash21(in vec2 n){ return fract(sin(dot(n, vec2(12.9898, 4.1414))) * 43758
 vec4 aurora(vec3 ro, vec3 rd) {
   vec4 col = vec4(0);
   vec4 avgCol = vec4(0);
+  float fragHash = hash21(gl_FragCoord.xy);
+  float sampleScale = 1.0 / (rd.y * 2.0 + 0.4);
+  float sampleWeight = exp2(-2.5);
+  float sampleWeightDecay = exp2(-0.065);
 
-  for(float i = 0.0; i < 50.0; i++) {
-    float of = 0.006 * hash21(gl_FragCoord.xy) * smoothstep(0.,15., i);
-    float zoom = 0.4;
-    float pt = ((0.8 + pow(i,1.4) * 0.002) - ro.y) / (rd.y * 2. + zoom);
+  vec3 colorSin = sin(1.0 - vec3(2.15, -0.5, 1.2));
+  vec3 colorCos = cos(1.0 - vec3(2.15, -0.5, 1.2));
+  float colorStepSin = sin(0.043);
+  float colorStepCos = cos(0.043);
+
+  for (int i = 0; i < 50; i++) {
+    float fi = float(i);
+    float of = 0.006 * fragHash * smoothstep(0., 15., fi);
+    float pt = ((0.8 + pow(fi, 1.4) * 0.002) - ro.y) * sampleScale;
     pt -= of;
     vec3 bpos = ro + pt * rd;
     vec2 p = bpos.zx;
-    float speed = 0.06;
-    float rzt = triNoise2d(p, speed);
-    vec4 col2 = vec4(0,0,0, rzt);
+    float rzt = triNoise2d(p, 0.06);
+    vec3 baseColor = colorSin * 0.5 + 0.5;
+    vec4 col2 = vec4(baseColor * rzt, rzt);
 
-    vec3 green = sin(1.0 - vec3(2.15, -0.5, 1.2) + i * 0.043) * 0.5 + 0.5;
-    vec3 baseColor = green;
-    col2.rgb = baseColor * rzt;
+    vec3 nextColorSin = colorSin * colorStepCos + colorCos * colorStepSin;
+    colorCos = colorCos * colorStepCos - colorSin * colorStepSin;
+    colorSin = nextColorSin;
 
-    avgCol = mix(avgCol, col2, .5);
-    col += avgCol * exp2(-i * 0.065 - 2.5) * smoothstep(0.,5., i);
+    avgCol = (avgCol + col2) * 0.5;
+    col += avgCol * sampleWeight * smoothstep(0., 5., fi);
+    sampleWeight *= sampleWeightDecay;
   }
   col *= (clamp(rd.y*15.0 + 0.4, 0.0, 1.0));
   return col * 1.8;
@@ -90,11 +103,8 @@ void main() {
   rd.xz *= mm2(sin(u_time * 0.01) * 0.02 + u_time * 0.003);
 
   // draw the aurora
-  vec3 col = vec3(0.);
-  vec3 brd = rd;
-  float fade = smoothstep(0., 0.01, abs(brd.y)) * 0.3 + 0.9;
+  float fade = smoothstep(0., 0.01, abs(rd.y)) * 0.3 + 0.9;
   vec4 aur = smoothstep(0., 1.4, aurora(ro, rd)) * fade;
-  col = col * (1. - aur.a) + aur.rgb;
 
-  fragColor = vec4(col, aur.a);
+  fragColor = aur;
 }`
