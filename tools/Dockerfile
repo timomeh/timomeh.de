@@ -1,13 +1,16 @@
 # syntax=docker.io/docker/dockerfile:1
 
-FROM node:24.16.0-alpine AS base
+FROM node:26-alpine AS base
+
+RUN npm install --global corepack@latest \
+    && corepack enable pnpm
 
 # Install dependencies
 FROM base AS deps
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml* .npmrc* ./
-RUN corepack enable pnpm && pnpm i --frozen-lockfile
+RUN pnpm i --frozen-lockfile
 
 # Build app
 FROM base AS builder
@@ -16,7 +19,6 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 RUN --mount=type=cache,id=next-cache,target=/app/.next/cache \
-    corepack enable pnpm && \
     SITE_URL="https://timomeh.de" pnpm run build
 
 # Production image
