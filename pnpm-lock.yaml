@@ -142,8 +142,8 @@ importers:
         specifier: 3.0.3
         version: 3.0.3
       remove-markdown:
-        specifier: 0.6.4
-        version: 0.6.4
+        specifier: 0.8.0
+        version: 0.8.0
       serialize-error:
         specifier: 13.0.2
         version: 13.0.2
@@ -3767,8 +3767,8 @@ packages:
   remove-accents@0.5.0:
     resolution: {integrity: sha512-8g3/Otx1eJaVD12e31UbJj1YzdtVvzH85HV7t+9MJYk/u3XmkOUJ5Ys9wQrf9PCPK8+xn4ymzqYCiZl6QWKn+A==}
 
-  remove-markdown@0.6.4:
-    resolution: {integrity: sha512-BompiLClzjfh46irZmzv+1Q61jZYlKN3iq/hzae9EOUwf7ctr/5wpD4qwgn/FWDAYE18RORO7z/yr+HXZJCY8Q==}
+  remove-markdown@0.8.0:
+    resolution: {integrity: sha512-VP1v6BYAa6VlLPHzr3JpVDV+f2IHqLKBauXZm08alrB9rJC4mQ1IoePsWOzpJx8GTfFwF+j6fmCtI8DLh1qIdA==}
 
   resolve-from@4.0.0:
     resolution: {integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==}
@@ -8262,7 +8262,7 @@ snapshots:
 
   remove-accents@0.5.0: {}
 
-  remove-markdown@0.6.4: {}
+  remove-markdown@0.8.0: {}
 
   resolve-from@4.0.0:
     optional: true
