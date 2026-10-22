@@ -89,7 +89,7 @@
     "@types/remove-markdown": "0.3.4",
     "drizzle-kit": "0.31.10",
     "esbuild": "0.28.1",
-    "oxfmt": "0.62.0",
+    "oxfmt": "0.73.0",
     "oxlint": "1.77.0",
     "postcss": "8.5.26",
     "tailwindcss": "4.3.3",
