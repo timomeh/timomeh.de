@@ -28,8 +28,8 @@ importers:
         specifier: 6.1.15
         version: 6.1.15
       '@imgproxy/imgproxy-js-core':
-        specifier: 1.8.0
-        version: 1.8.0
+        specifier: 1.9.0
+        version: 1.9.0
       '@keystatic/core':
         specifier: 0.6.0
         version: 0.6.0(@keystar/ui@0.7.22(@react-spectrum/provider@3.11.1(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(next@16.4.2(@opentelemetry/api@1.9.0)(@playwright/test@1.62.0)(@types/node@26.6.3)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-aria@3.50.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react-stately@3.48.0(react@19.3.1))(react@19.3.1)
@@ -908,8 +908,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@imgproxy/imgproxy-js-core@1.8.0':
-    resolution: {integrity: sha512-Gh0fO/MnRGAvHQqESLHn9bN3S7Z9peAm5dTcwTluFeAYPgFsr0QpIcyvClcThaz3YJKWEhk3up1Z13G6pk9Qww==}
+  '@imgproxy/imgproxy-js-core@1.9.0':
+    resolution: {integrity: sha512-bfnl6sLt7qoimwd9dx8QLOH5C69tir2KGcx+g51IxGZWVJk32RUk/8+1oUh+T+H6MPrN9ts//V8a7fQ6bUlXow==}
 
   '@internationalized/date@3.12.2':
     resolution: {integrity: sha512-FY1Y+H64NDs+HAF6omlnWxm3mEpfgaCSWtL5l551ZZfImA+kGjPFgrnJrGjH6lfmLL0g8Z/mBu1R3kufeCp6Jw==}
@@ -4709,7 +4709,7 @@ snapshots:
   '@img/sharp-win32-x64@0.35.5':
     optional: true
 
-  '@imgproxy/imgproxy-js-core@1.8.0': {}
+  '@imgproxy/imgproxy-js-core@1.9.0': {}
 
   '@internationalized/date@3.12.2':
     dependencies:
