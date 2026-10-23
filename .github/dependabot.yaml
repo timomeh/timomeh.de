@@ -33,6 +33,18 @@ updates:
           - 'react-dom'
           - '@types/react'
           - '@types/react-dom'
+
+  - package-ecosystem: 'docker'
+    directory: '/tools'
+    schedule:
+      interval: 'daily'
+    allow:
+      - dependency-name: 'node'
+    ignore:
+      - dependency-name: 'node'
+        update-types:
+          - 'version-update:semver-major'
+
   - package-ecosystem: 'github-actions'
     cooldown:
       default-days: 14
