@@ -50,7 +50,7 @@
     "drizzle-orm": "0.45.4",
     "feed": "6.0.0",
     "loglayer": "9.4.0",
-    "lucide-react": "1.60.0",
+    "lucide-react": "1.61.0",
     "mdast": "3.0.0",
     "mdast-util-mdx": "3.0.0",
     "next": "16.4.2",
