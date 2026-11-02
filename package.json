@@ -72,7 +72,7 @@
     "serialize-error": "13.0.2",
     "server-only": "0.0.1",
     "sharp": "0.35.5",
-    "unist-util-visit": "5.1.0",
+    "unist-util-visit": "5.2.0",
     "vla": "0.2.1"
   },
   "devDependencies": {
