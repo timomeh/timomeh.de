@@ -23,11 +23,19 @@
     <link rel="alternate" type="application/rss+xml" title="Shorts RSS" href="/shorts/feed.rss">
     <link rel="alternate" type="application/atom+xml" title="Shorts Atom" href="/shorts/feed.atom">
     <link rel="alternate" type="application/feed+json" title="Shorts JSON Feed" href="/shorts/feed.json">
-    <link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="/fonts/bitter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="preload" href="{{ 'inter-latin-wght-normal.woff2' | assetUrl }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ 'bitter-latin-wght-normal.woff2' | assetUrl }}" as="font" type="font/woff2" crossorigin>
+    {% css %}@layer vendor {
+      {% for style in bundleSources.vendorCss %}{{ style }}{% endfor %}
+    }{% endcss %}
+    {% for style in bundleSources.styles %}{% css %}{{ style }}{% endcss %}{% endfor %}
+    {% for script in bundleSources.vendorJs %}{% js %};{{ script }}{% endjs %}{% endfor %}
+    {% for script in bundleSources.scripts %}{% js %};(() => {
+{{ script }}
+})();{% endjs %}{% endfor %}
+    <link rel="stylesheet" href="{% getBundleFileUrl 'css' %}">
     <script defer src="https://oralytik.timo.wtf/script.js" data-website-id="ba2c9033-714b-4daf-acdb-a07a577f5bec" data-performance="true"></script>
-    <script src="/app.js" defer></script>
+    <script src="{% getBundleFileUrl 'js' %}" defer></script>
   </head>
   <body>
     <a class="SkipLink" href="#page-content" data-no-swup>Skip to main content</a>
@@ -99,8 +107,8 @@
     <header class="SiteHeader">
       <div class="SiteHeader-identity">
         <a class="SiteHeader-mug" href="/" aria-label="Go to home">
-          <img class="SiteHeader-regularMug" src="/assets/comic.png" width="80" height="80" alt="">
-          <img class="SiteHeader-surprisedMug" src="/assets/comic-o-overlay.png" width="80" height="80" alt="" aria-hidden="true" draggable="false">
+          <img class="SiteHeader-regularMug" src="{{ 'comic.png' | assetUrl }}" width="80" height="80" alt="">
+          <img class="SiteHeader-surprisedMug" src="{{ 'comic-o-overlay.png' | assetUrl }}" width="80" height="80" alt="" aria-hidden="true" draggable="false">
         </a>
         {% assign kicker = post.frontmatter.kicker | default: pageContent.frontmatter.kicker | default: short.frontmatter.kicker | default: category.frontmatter.kicker %}
         <div id="header-kicker" class="SiteHeader-kicker">

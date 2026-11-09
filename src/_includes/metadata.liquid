@@ -19,6 +19,6 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="{{ pageMetadata.title | escape }}">
 {% if pageMetadata.description != blank %}<meta name="twitter:description" content="{{ pageMetadata.description | escape }}">{% endif %}
-<link rel="icon" href="/assets/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="/assets/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="icon" href="{{ 'favicon-32x32.png' | assetUrl }}" sizes="32x32" type="image/png">
+<link rel="icon" href="{{ 'favicon-16x16.png' | assetUrl }}" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="{{ 'apple-touch-icon.png' | assetUrl }}">

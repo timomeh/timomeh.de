@@ -1,11 +1,11 @@
 :root {
   font-family: "Inter Variable", system-ui, sans-serif;
   color: #242121;
-  background: #f2f1f0 url("/assets/grainy-light.svg") repeat 0 0 / 200px 200px;
+  background: #f2f1f0 url("/static/grainy-light.svg") repeat 0 0 / 200px 200px;
   line-height: 1.65;
   color-scheme: light;
   --page-bg: #f2f1f0;
-  --page-grain: url("/assets/grainy-light.svg");
+  --page-grain: url("/static/grainy-light.svg");
   --muted: #666;
   --border: #ddd;
   --link: #6950aa;
@@ -60,9 +60,9 @@ img {
 :root[data-color-scheme="dark"] {
   color-scheme: dark;
   color: #f0efeb;
-  background: #0f0d0b url("/assets/grainy-dark.svg") repeat 0 0 / 200px 200px;
+  background: #0f0d0b url("/static/grainy-dark.svg") repeat 0 0 / 200px 200px;
   --page-bg: #0f0d0b;
-  --page-grain: url("/assets/grainy-dark.svg");
+  --page-grain: url("/static/grainy-dark.svg");
   --muted: #b5b2ad;
   --border: #403f3b;
   --link: #c5aeff;
