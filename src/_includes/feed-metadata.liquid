@@ -1,0 +1,8 @@
+{%- assign entries = blog[kind] -%}
+{%- if kind == 'shorts' -%}
+  {%- assign feed_title = 'timomeh.de Shorts' -%}
+  {%- assign feed_subtitle = 'Timo’s own social media feed. A stream of thoughts and other shitposts.' -%}
+{%- else -%}
+  {%- assign feed_title = 'timomeh.de' -%}
+  {%- assign feed_subtitle = 'About software development and other thoughts I wanted to elaborate on.' -%}
+{%- endif -%}

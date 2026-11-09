@@ -1,0 +1,141 @@
+.ShortEntry {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.ShortEntry-avatar {
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.ShortEntry-content {
+  min-width: 0;
+  flex: 1;
+}
+
+.ShortEntry-header {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.ShortEntry-author {
+  font-weight: 700;
+}
+
+.ShortEntry-permalink {
+  color: color-mix(in srgb, currentColor 60%, transparent);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-family: var(--font-mono);
+}
+
+.ShortEntry-permalink::before {
+  content: "·";
+  display: inline-block;
+  margin-right: 0.5rem;
+  text-decoration: none;
+}
+
+.ShortEntry-permalink:hover {
+  text-decoration: underline;
+}
+
+.ShortEntry-date {
+  color: inherit;
+  font: inherit;
+}
+
+.ShortEntry-body {
+  font-size: 0.875rem;
+  line-height: 1.7143;
+}
+
+.ShortEntry-body > :first-child {
+  margin-top: 0;
+}
+
+.ShortEntry-body > :last-child {
+  margin-bottom: 0;
+}
+
+.ShortEntry-media {
+  margin: 1rem 0 0;
+}
+
+.ShortEntry-contentImage {
+  margin: 0;
+}
+
+.ShortEntry-contentImagePicture {
+  margin: 0;
+}
+
+.ShortEntry-media[data-amount="1"] .ShortEntry-contentImage {
+  max-width: min(100%, var(--image-width), 20rem * var(--image-ratio));
+}
+
+.ShortEntry-media[data-amount="1"] img {
+  width: auto;
+  max-height: 20rem;
+  object-fit: contain;
+}
+
+.ShortEntry-media:not([data-amount="1"]) {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: 15rem;
+  gap: 0.25rem;
+  overflow: hidden;
+  border-radius: 0.75rem;
+}
+
+.ShortEntry-media[data-amount="3"] > :first-child {
+  grid-row: span 2;
+}
+
+.ShortEntry-media:not([data-amount="1"]) .ShortEntry-contentImage,
+.ShortEntry-media:not([data-amount="1"]) .ShortEntry-contentImagePicture {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+}
+
+.ShortEntry-media:not([data-amount="1"]) > img,
+.ShortEntry-media:not([data-amount="1"]) .ShortEntry-contentImageImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  object-fit: cover;
+}
+
+@media (min-width: 768px) {
+  .ShortEntry-permalink {
+    font-size: 0.75rem;
+  }
+
+  .ShortEntry-contentImage {
+    margin: 0;
+  }
+
+  .ShortEntry-media[data-amount="1"] img {
+    max-height: 30rem;
+  }
+
+  .ShortEntry-media[data-amount="1"] .ShortEntry-contentImage {
+    max-width: min(100%, var(--image-width), 30rem * var(--image-ratio));
+  }
+
+  .ShortEntry-media:not([data-amount="1"]) {
+    grid-auto-rows: 18rem;
+  }
+}

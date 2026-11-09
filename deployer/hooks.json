@@ -1,0 +1,45 @@
+[
+  {
+    "id": "content-push",
+    "http-methods": ["POST"],
+    "execute-command": "/bin/sh",
+    "command-working-directory": "/app",
+    "pass-arguments-to-command": [
+      { "source": "string", "name": "/app/deployer/request-build.sh" }
+    ],
+    "success-http-response-code": 202,
+    "response-message": "Build requested",
+    "trigger-rule": {
+      "and": [
+        {
+          "match": {
+            "type": "payload-hmac-sha256",
+            "secret": "{{ getenv "GITHUB_WEBHOOK_SECRET" | js }}",
+            "parameter": { "source": "header", "name": "X-Hub-Signature-256" }
+          }
+        },
+        {
+          "match": {
+            "type": "value",
+            "value": "push",
+            "parameter": { "source": "header", "name": "X-GitHub-Event" }
+          }
+        },
+        {
+          "match": {
+            "type": "value",
+            "value": "{{ getenv "CONTENT_REPOSITORY" | js }}",
+            "parameter": { "source": "payload", "name": "repository.full_name" }
+          }
+        },
+        {
+          "match": {
+            "type": "value",
+            "value": "refs/heads/{{ getenv "CONTENT_BRANCH" | js }}",
+            "parameter": { "source": "payload", "name": "ref" }
+          }
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,78 @@
+.ThemeToggle {
+  display: block;
+}
+
+.ThemeToggle-button {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0.625rem;
+  margin-block: -0.625rem;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.ThemeToggle-icon {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.ThemeToggle-button:hover {
+  background: rgb(255 255 255 / 45%);
+}
+
+.ThemeToggle-iconBody,
+.ThemeToggle-iconRays,
+.ThemeToggle-iconAuto {
+  transform-origin: center;
+}
+.ThemeToggle-iconBody {
+  transform: scale(0.6);
+}
+.ThemeToggle-iconCrescent {
+  transform: translate(12px, -4px);
+}
+.ThemeToggle-iconAuto {
+  opacity: 0;
+  transform: scale(0.75);
+  transform-origin: bottom left;
+  stroke: var(--page-bg);
+  stroke-width: 1.5px;
+  paint-order: stroke;
+}
+:root[data-theme="system"] .ThemeToggle-iconAuto {
+  opacity: 1;
+  transform: scale(1);
+}
+:root[data-color-scheme="dark"] .ThemeToggle-iconBody {
+  transform: scale(1);
+}
+:root[data-color-scheme="dark"] .ThemeToggle-iconCrescent {
+  transform: translate(0, 0);
+}
+:root[data-color-scheme="dark"] .ThemeToggle-iconRays {
+  transform: rotate(45deg);
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ThemeToggle-iconBody,
+  .ThemeToggle-iconCrescent,
+  .ThemeToggle-iconRays,
+  .ThemeToggle-iconAuto {
+    transition: transform 300ms, opacity 300ms;
+  }
+
+  .ThemeToggle-button:hover .ThemeToggle-iconRays {
+    transform: rotate(45deg);
+  }
+}
+
+:root[data-color-scheme="dark"] .ThemeToggle-button:hover {
+  background: rgb(255 255 255 / 9%);
+}

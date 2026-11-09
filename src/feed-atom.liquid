@@ -1,0 +1,31 @@
+---
+feedKinds: [posts, shorts]
+pagination:
+  data: feedKinds
+  size: 1
+  alias: kind
+permalink: "/{{ kind }}/feed.atom"
+layout: false
+eleventyExcludeFromCollections: true
+---
+{%- include 'feed-metadata.liquid' -%}
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+  <title>{{ feed_title | escape }}</title>
+  <subtitle>{{ feed_subtitle | escape }}</subtitle>
+  <link href="{{ page.url | absoluteUrl | escape }}" rel="self"/>
+  <link href="{{ site.url | escape }}"/>
+  {% if entries.size > 0 %}<updated>{{ entries[0].publishedAt | dateToRfc3339 }}</updated>{% endif %}
+  <id>{{ site.url | escape }}</id>
+  <author><name>Timo Mämecke</name></author>
+  {% for entry in entries %}
+    {% include 'feed-entry.liquid' %}
+    <entry>
+      <title>{{ entry_title | escape }}</title>
+      <link href="{{ entry_url | escape }}?utm_source=rss"/>
+      <updated>{{ entry.publishedAt | dateToRfc3339 }}</updated>
+      <id>{{ entry_id | escape }}</id>
+      <content type="html">{{ entry_body | escape }}</content>
+    </entry>
+  {% endfor %}
+</feed>

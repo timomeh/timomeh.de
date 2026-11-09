@@ -1,0 +1,15 @@
+---
+pagination:
+  data: blog.categories
+  size: 1
+  alias: category
+permalink: "{{ category.url }}index.html"
+layout: base.liquid
+eleventyComputed:
+  title: "{{ category.title }}"
+---
+<div class="u-burrito Prose">
+  <h1>{{ category.posts.size }} {{ category.posts.size | pluralize: 'post', 'posts' }} tagged {{ category.title | escape }}</h1>
+  <p>{{ category.description | escape }}</p>
+</div>
+{% include 'post-list.liquid', posts: category.posts %}

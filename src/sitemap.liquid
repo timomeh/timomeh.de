@@ -1,0 +1,27 @@
+---
+permalink: /sitemap.xml
+layout: false
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>{{ '/' | absoluteUrl | escape }}</loc></url>
+  <url><loc>{{ '/posts/' | absoluteUrl | escape }}</loc></url>
+  <url><loc>{{ '/shorts/' | absoluteUrl | escape }}</loc></url>
+  <url><loc>{{ '/archive/' | absoluteUrl | escape }}</loc></url>
+  {% for entry in blog.categories %}
+    <url><loc>{{ entry.url | absoluteUrl | escape }}</loc></url>
+  {% endfor %}
+  {% for entry in blog.years %}
+    {% capture url %}/in/{{ entry.year }}/{% endcapture %}
+    <url><loc>{{ url | absoluteUrl | escape }}</loc></url>
+  {% endfor %}
+  {% assign entries = blog.posts | concat: blog.shorts | concat: blog.pages %}
+  {% for entry in entries %}
+    {% assign prefix = entry.slug | slice: 0, 4 %}
+    {% unless prefix == 'vrt-' %}
+      {% assign last_modified = entry.updatedAt | default: entry.publishedAt %}
+      <url><loc>{{ entry.url | absoluteUrl | escape }}</loc>{% if last_modified %}<lastmod>{{ last_modified | dateIso }}</lastmod>{% endif %}</url>
+    {% endunless %}
+  {% endfor %}
+</urlset>

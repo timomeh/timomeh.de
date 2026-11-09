@@ -1,0 +1,7 @@
+<ol class="PostList">
+  {% for post in posts %}
+    <li class="PostList-item">
+      {% include 'post-preview.liquid', post: post %}
+    </li>
+  {% endfor %}
+</ol>

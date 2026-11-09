@@ -1,0 +1,11 @@
+---
+pagination:
+  data: blog.pages
+  size: 1
+  alias: pageContent
+permalink: "{{ pageContent.url }}index.html"
+layout: base.liquid
+eleventyComputed:
+  title: "{{ pageContent.title }}"
+---
+<article class="u-burrito Prose">{{ pageContent.html }}</article>

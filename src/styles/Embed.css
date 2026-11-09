@@ -1,0 +1,25 @@
+.Embed {
+  margin: 1.25rem 0;
+}
+
+.Embed-iframe {
+  display: block;
+  width: 100%;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  color-scheme: light;
+}
+
+.Embed-iframe[data-embed-kind="video"] {
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
+.Embed-iframe[data-embed-kind="audio"] {
+  height: 352px;
+}
+
+.Embed-iframe[data-embed-kind="compact"] {
+  height: 166px;
+}

@@ -1,0 +1,32 @@
+.PostAside {
+  position: relative;
+  margin: 2rem 0;
+  padding: 0 1rem;
+  border: 1px solid rgb(56 189 248 / 50%);
+  border-radius: 0.375rem;
+  background: rgb(56 189 248 / 20%);
+  color: #082f49;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+}
+
+.PostAside-title {
+  position: absolute;
+  top: -0.5rem;
+  padding: 0.25rem 0.375rem;
+  border-radius: 0.25rem;
+  background: #7dd3fc;
+  font: 600 0.6875rem/1 "IBM Plex Mono", ui-monospace, monospace;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+:root[data-color-scheme="dark"] {
+  .PostAside {
+    color: #bae6fd;
+  }
+
+  .PostAside-title {
+    background: #075985;
+  }
+}

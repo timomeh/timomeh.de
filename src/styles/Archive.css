@@ -1,0 +1,75 @@
+/*.Archive {}*/
+
+.Archive-section {
+  margin-top: 2.5rem;
+}
+
+.Archive-categories {
+  margin-top: 1em;
+  color: color-mix(in srgb, currentColor 60%, transparent);
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.75;
+  font-family: var(--font-mono);
+}
+
+.Archive-categoryLink {
+  color: color-mix(in srgb, var(--tag-color, currentColor), currentColor 40%);
+  filter: brightness(0.9) saturate(2);
+  text-decoration: none;
+}
+
+.Archive-categoryLink:hover {
+  text-decoration: underline;
+}
+
+.Archive-year {
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 1.3333;
+  font-family: "Bitter Variable", Georgia, serif;
+}
+
+.Archive-yearLink {
+  color: inherit;
+  text-decoration-line: none;
+  text-decoration-color: oklch(0.8111 0.0308 59.21);
+  text-underline-offset: 0.25em;
+}
+
+.Archive-yearLink:hover {
+  text-decoration-line: underline;
+}
+
+.Archive-posts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.Archive-postItem + .Archive-postItem {
+  margin-top: 1.25rem;
+}
+
+.Archive-postTitle {
+  margin: 0;
+}
+
+.Archive-postPermalink {
+  color: inherit;
+  text-decoration-line: none;
+}
+
+.Archive-postPermalink:hover {
+  text-decoration-line: underline;
+}
+
+:root[data-color-scheme="dark"] {
+  .Archive-yearLink {
+    text-decoration-color: #d8b4fe;
+  }
+
+  .Archive-categoryLink {
+    filter: brightness(1.1) saturate(2);
+  }
+}

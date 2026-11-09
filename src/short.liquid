@@ -1,0 +1,12 @@
+---
+pagination:
+  data: blog.shorts
+  size: 1
+  alias: short
+permalink: "{{ short.url }}index.html"
+layout: base.liquid
+title: Short
+---
+<div class="u-burrito">
+  {% include 'short-entry.liquid', short_detail: true %}
+</div>

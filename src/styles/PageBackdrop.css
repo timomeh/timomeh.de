@@ -1,0 +1,18 @@
+.PageBackdrop::before {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  inset: 0 calc(50% - 50vw);
+  background-color: var(--post-light-bg, var(--page-bg));
+  background-image: var(--page-grain);
+  background-size: 200px 200px;
+  background-blend-mode: var(--post-light-blend, normal);
+  pointer-events: none;
+}
+
+:root[data-color-scheme="dark"] {
+  .PageBackdrop::before {
+    background-color: var(--post-dark-bg, var(--page-bg));
+    background-blend-mode: var(--post-dark-blend, normal);
+  }
+}

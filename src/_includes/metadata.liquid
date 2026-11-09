@@ -1,0 +1,24 @@
+<title>{{ pageMetadata.documentTitle | escape }}</title>
+{% if pageMetadata.description != blank %}<meta name="description" content="{{ pageMetadata.description | escape }}">{% endif %}
+<meta name="author" content="Timo Mämecke">
+<link rel="author" href="https://timomeh.de/">
+<meta name="publisher" content="Timo Mämecke">
+<meta name="robots" content="max-image-preview:large">
+<link rel="canonical" href="{{ page.url | absoluteUrl | escape }}">
+<meta property="og:site_name" content="timomeh.de">
+<meta property="og:type" content="{{ pageMetadata.type }}">
+<meta property="og:title" content="{{ pageMetadata.title | escape }}">
+<meta property="og:url" content="{{ page.url | absoluteUrl | escape }}">
+<meta property="og:locale" content="{{ pageMetadata.locale | escape }}">
+{% if pageMetadata.description != blank %}<meta property="og:description" content="{{ pageMetadata.description | escape }}">{% endif %}
+{% if pageMetadata.article %}
+  <meta property="article:published_time" content="{{ pageMetadata.article.publishedAt | dateIso }}">
+  {% if pageMetadata.article.updatedAt %}<meta property="article:modified_time" content="{{ pageMetadata.article.updatedAt | dateIso }}">{% endif %}
+  <meta property="article:author" content="Timo Mämecke">
+{% endif %}
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{{ pageMetadata.title | escape }}">
+{% if pageMetadata.description != blank %}<meta name="twitter:description" content="{{ pageMetadata.description | escape }}">{% endif %}
+<link rel="icon" href="/assets/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/assets/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">

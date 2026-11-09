@@ -1,0 +1,15 @@
+.SiteFooter {
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  opacity: 0.7;
+}
+
+.SiteFooter-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.SiteFooter-link:hover {
+  text-decoration: underline;
+}

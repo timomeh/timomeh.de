@@ -1,0 +1,9 @@
+<div class="ShortsGroup u-burrito">
+  <ol class="ShortsGroup-list">
+    {% for short in shorts %}
+      <li class="ShortsGroup-item">
+        {% include 'short-entry.liquid', short_detail: false %}
+      </li>
+    {% endfor %}
+  </ol>
+</div>

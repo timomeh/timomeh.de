@@ -1,0 +1,72 @@
+.PostCover {
+  pointer-events: none;
+  user-select: none;
+  overflow: hidden;
+  opacity: 0.9;
+  mix-blend-mode: darken;
+  mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
+}
+
+.PostCover-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: bottom;
+}
+
+.PostCover[data-context="page"] {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 50%;
+  width: min(100vw, 1024px);
+  height: clamp(300px, 42vw, 500px);
+  transform: translateX(-50%);
+}
+
+.PostCover[data-context="page"] .PostCover-picture {
+  display: block;
+  height: 100%;
+}
+
+.PostCover[data-context="preview"] {
+  width: 100%;
+  max-height: 400px;
+  max-width: 40rem;
+  margin: 0 auto -1rem;
+  border-radius: 0.75rem 0.75rem 0 0;
+  mask-image: linear-gradient(to bottom, #000 95%, transparent);
+}
+.PostCover[data-context="preview"] .PostCover-image {
+  height: auto;
+  max-height: 400px;
+  object-fit: cover;
+}
+
+@media (min-width: 640px) {
+  .PostCover[data-context="preview"] {
+    margin-bottom: -1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .PostCover[data-context="preview"] {
+    margin-bottom: -3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .PostCover {
+    mask-image:
+      linear-gradient(to bottom, #000 70%, transparent 100%),
+      linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+    mask-composite: intersect;
+  }
+}
+
+:root[data-color-scheme="dark"] {
+  .PostCover {
+    mix-blend-mode: lighten;
+  }
+}

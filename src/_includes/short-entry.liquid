@@ -1,0 +1,27 @@
+<article class="ShortEntry">
+  <img class="ShortEntry-avatar" src="/assets/shorts-avatar.webp" width="40" height="40" alt="" loading="lazy" decoding="async">
+  <div class="ShortEntry-content">
+    <div class="ShortEntry-header">
+      <span class="ShortEntry-author">Timo</span>
+      <a
+        class="ShortEntry-permalink"
+        id="short-{{ short.slug | escape }}"
+        href="{% if short_detail %}/#short-{{ short.slug | escape }}{% else %}{{ short.url }}{% endif %}"
+      ><time class="ShortEntry-date" datetime="{{ short.publishedAt | dateIso }}">{{ short.publishedAt | shortDateTime }}</time></a>
+    </div>
+
+    <div class="Prose ShortEntry-body">{{ short.html }}</div>
+
+    {% if short.attachments.size > 0 %}
+      <div
+        class="Prose ShortEntry-media"
+        data-context="short-media"
+        data-amount="{{ short.attachments.size }}"
+      >
+        {% for attachment in short.attachments %}
+          {% include 'short-attachment.liquid' %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</article>

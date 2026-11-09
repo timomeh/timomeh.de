@@ -1,0 +1,14 @@
+---
+pagination:
+  data: blog.years
+  size: 1
+  alias: yearGroup
+permalink: "/in/{{ yearGroup.year }}/index.html"
+layout: base.liquid
+eleventyComputed:
+  title: "Posts in {{ yearGroup.year }}"
+---
+<div class="u-burrito Prose">
+  <h1>{{ yearGroup.posts.size }} {{ yearGroup.posts.size | pluralize: 'post', 'posts' }} in {{ yearGroup.year }}</h1>
+</div>
+{% include 'post-list.liquid', posts: yearGroup.posts %}

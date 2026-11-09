@@ -1,0 +1,53 @@
+.HeaderEffects {
+  position: absolute;
+  z-index: -1;
+  top: -140px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 550px;
+  overflow: hidden;
+  pointer-events: none;
+  mask-image: linear-gradient(to bottom, #000 65%, transparent);
+}
+
+.HeaderEffects-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  mix-blend-mode: soft-light;
+  filter: brightness(1.25) saturate(0.3);
+  transition: opacity 0.7s;
+}
+
+.HeaderEffects-canvas[data-ready="true"] {
+  opacity: 0.1;
+}
+
+.HeaderEffects[data-has-cover="true"] {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .HeaderEffects {
+    transition: opacity 0.45s ease-in-out;
+  }
+}
+
+:root[data-color-scheme="dark"] {
+  .HeaderEffects {
+    background: radial-gradient(
+      ellipse at 50% 45%,
+      #15372d 0%,
+      transparent 65%
+    );
+  }
+  .HeaderEffects-canvas {
+    mix-blend-mode: normal;
+    filter: blur(2px);
+  }
+  .HeaderEffects-canvas[data-ready="true"] {
+    opacity: 0.7;
+  }
+}

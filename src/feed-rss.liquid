@@ -1,0 +1,32 @@
+---
+feedKinds: [posts, shorts]
+pagination:
+  data: feedKinds
+  size: 1
+  alias: kind
+permalink: "/{{ kind }}/feed.rss"
+layout: false
+eleventyExcludeFromCollections: true
+---
+{%- include 'feed-metadata.liquid' -%}
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ feed_title | escape }}</title>
+    <link>{{ site.url | escape }}</link>
+    <atom:link href="{{ page.url | absoluteUrl | escape }}" rel="self" type="application/rss+xml"/>
+    <description>{{ feed_subtitle | escape }}</description>
+    <language>en</language>
+    {% for entry in entries %}
+      {% include 'feed-entry.liquid' %}
+      <item>
+        <title>{{ entry_title | escape }}</title>
+        <link>{{ entry_url | escape }}?utm_source=rss</link>
+        <description>{{ entry_body | escape }}</description>
+        <pubDate>{{ entry.publishedAt | dateToRfc822 }}</pubDate>
+        <dc:creator>Timo Mämecke</dc:creator>
+        <guid>{{ entry_id | escape }}</guid>
+      </item>
+    {% endfor %}
+  </channel>
+</rss>

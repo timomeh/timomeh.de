@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en" data-theme="system" data-color-scheme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#E8E7E4" data-swup-theme>
+    <script>
+      (() => {
+        let preference = 'system';
+        try { preference = localStorage.getItem('theme') || 'system'; } catch {}
+        if (!['light', 'dark', 'system'].includes(preference)) preference = 'system';
+        const root = document.documentElement;
+        root.dataset.theme = preference;
+        root.dataset.colorScheme = preference === 'system'
+          ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : preference;
+        document.querySelector('meta[name="theme-color"]').content = root.dataset.colorScheme === 'dark' ? '#0D0D0B' : '#E8E7E4';
+      })();
+    </script>
+    {% include 'metadata.liquid' %}
+    <link rel="alternate" type="application/rss+xml" title="Posts RSS" href="/posts/feed.rss">
+    <link rel="alternate" type="application/atom+xml" title="Posts Atom" href="/posts/feed.atom">
+    <link rel="alternate" type="application/feed+json" title="Posts JSON Feed" href="/posts/feed.json">
+    <link rel="alternate" type="application/rss+xml" title="Shorts RSS" href="/shorts/feed.rss">
+    <link rel="alternate" type="application/atom+xml" title="Shorts Atom" href="/shorts/feed.atom">
+    <link rel="alternate" type="application/feed+json" title="Shorts JSON Feed" href="/shorts/feed.json">
+    <link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/bitter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/style.css">
+    <script defer src="https://oralytik.timo.wtf/script.js" data-website-id="ba2c9033-714b-4daf-acdb-a07a577f5bec" data-performance="true"></script>
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <a class="SkipLink" href="#page-content" data-no-swup>Skip to main content</a>
+    <div
+      id="page-backdrop"
+      class="PageBackdrop"
+      data-has-cover="{% if post.cover.light or post.cover.dark %}true{% else %}false{% endif %}"
+      style="
+        {% if post.cover.lightColor %}
+          --post-light-bg: {{ post.cover.lightColor | escape }};
+          --post-light-blend: multiply;
+        {% endif %}
+        {% if post.cover.darkColor %}
+          --post-dark-bg: {{ post.cover.darkColor | escape }};
+          --post-dark-blend: exclusion;
+        {% endif %}"
+      >
+      {% if post %}
+        {% include 'post-cover.liquid', cover_context: 'page' %}
+      {% endif %}
+    </div>
+
+    <div class="HeaderEffects" data-has-cover="{% if post.cover.light or post.cover.dark %}true{% else %}false{% endif %}" aria-hidden="true">
+      <animated-header-cover>
+        <canvas class="HeaderEffects-canvas" data-ready="false"></canvas>
+      </animated-header-cover>
+    </div>
+
+    <nav id="site-nav" class="SiteNav" aria-label="Main navigation" tabindex="-1">
+      <div class="SiteNav-backdrop u-glass"></div>
+      <div class="SiteNav-items">
+        <a class="SiteNav-link" href="/" data-nav="home"{% if page.url == '/' %} aria-current="page"{% endif %}>Home</a>
+        <a class="SiteNav-link" href="/posts/" data-nav="posts"{% if post or page.url == '/posts/' %} aria-current="page"{% endif %}>Posts</a>
+        <a class="SiteNav-link" href="/shorts/" data-nav="shorts"{% if short or page.url == '/shorts/' %} aria-current="page"{% endif %}>Shorts</a>
+        <theme-toggle class="ThemeToggle">
+          <button class="ThemeToggle-button" type="button" aria-label="Change color theme" title="Change color theme">
+            <svg class="ThemeToggle-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <g class="ThemeToggle-iconBody">
+                <mask id="theme-moon-mask">
+                  <rect width="24" height="24" fill="white"/>
+                  <path class="ThemeToggle-iconCrescent" d="M14 2H22V10H20V12H18V14H12V12H10V6H12V4H14V2Z" fill="black"/>
+                </mask>
+                <path mask="url(#theme-moon-mask)" d="M6 2V4H4V6H2V18H4V20H6V22H18V20H20V18H22V6H20V4H18V2H6Z" fill="currentColor"/>
+              </g>
+              <g class="ThemeToggle-iconRays" fill="currentColor">
+                <path d="M13 1H11V4H13V1ZM13 20H11V23H13V20ZM1 11H4V13H1V11ZM23 11H20V13H23V11ZM4 4H6V6H4V4ZM20 18H18V20H20V18ZM4 18H6V20H4V18ZM20 4H18V6H20V4Z"/>
+              </g>
+              <path class="ThemeToggle-iconAuto" d="M1 15V23H3V21H5V23H7V15H1ZM5 19V17H3V19H5Z" fill="currentColor" fill-rule="evenodd"/>
+            </svg>
+          </button>
+        </theme-toggle>
+
+        <details class="SiteMenu" id="site-menu">
+          <summary class="SiteMenu-trigger" aria-label="More navigation links" title="More navigation links">
+            <svg class="SiteMenu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M4 7h16M4 12h16M4 17h16"/>
+            </svg>
+          </summary>
+          <nav class="SiteMenu-items u-glass" aria-label="More navigation">
+            <a class="SiteMenu-link" href="/about/"{% if page.url == '/about/' %} aria-current="page"{% endif %}>About</a>
+            <a class="SiteMenu-link" href="/archive/"{% if category or yearGroup or page.url == '/archive/' %} aria-current="page"{% endif %}>Archive</a>
+            <a class="SiteMenu-link" href="/feeds/"{% if page.url == '/feeds/' %} aria-current="page"{% endif %}>Feeds</a>
+            <a class="SiteMenu-link" href="/ai/"{% if page.url == '/ai/' %} aria-current="page"{% endif %}>AI Usage</a>
+          </nav>
+        </details>
+      </div>
+    </nav>
+
+    <header class="SiteHeader">
+      <div class="SiteHeader-identity">
+        <a class="SiteHeader-mug" href="/" aria-label="Go to home">
+          <img class="SiteHeader-regularMug" src="/assets/comic.png" width="80" height="80" alt="">
+          <img class="SiteHeader-surprisedMug" src="/assets/comic-o-overlay.png" width="80" height="80" alt="" aria-hidden="true" draggable="false">
+        </a>
+        {% assign kicker = post.frontmatter.kicker | default: pageContent.frontmatter.kicker | default: short.frontmatter.kicker | default: category.frontmatter.kicker %}
+        <div id="header-kicker" class="SiteHeader-kicker">
+        {% if kicker %}
+          <span class="SiteHeader-kickerText">{{ kicker | escape }}</span>
+        {% else %}
+          <span class="SiteHeader-kickerText" data-blog-kicker>{{ blog.kickers.first | default: 'a head full of milk foam by' | escape }}</span>
+          {% for option in blog.kickers %}<span hidden data-blog-kicker-option>{{ option | escape }}</span>{% endfor %}
+        {% endif %}
+        </div>
+        <a class="SiteHeader-title" href="/">Timo Mämecke</a>
+      </div>
+    </header>
+    <main class="PageContent" id="page-content" tabindex="-1">
+      <a class="SkipLink" href="#site-nav" data-no-swup>Skip to navigation</a>
+      {{ content }}
+    </main>
+    <footer class="SiteFooter u-burrito">
+      <span>2022&ndash;{{ 'now' | date: '%Y' }} Timo Mämecke &middot; Cologne &middot;</span>
+      <a class="SiteFooter-link" href="/impressum/">Imprint</a>,
+      <a class="SiteFooter-link" href="/datenschutz/">Privacy Policy</a>
+    </footer>
+  </body>
+</html>

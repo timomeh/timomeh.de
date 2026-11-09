@@ -1,0 +1,34 @@
+---
+feedKinds: [posts, shorts]
+pagination:
+  data: feedKinds
+  size: 1
+  alias: kind
+permalink: "/{{ kind }}/feed.json"
+layout: false
+eleventyExcludeFromCollections: true
+---
+{%- include 'feed-metadata.liquid' -%}
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": {{ feed_title | json }},
+  "language": "en",
+  "home_page_url": {{ site.url | json }},
+  "feed_url": {{ page.url | absoluteUrl | json }},
+  "description": {{ feed_subtitle | json }},
+  "authors": [{ "name": "Timo Mämecke" }],
+  "items": [
+    {% for entry in entries %}
+      {% include 'feed-entry.liquid' %}
+      {% assign tracked_url = entry_url | append: '?utm_source=rss' %}
+      {% unless forloop.first %},{% endunless %}
+      {
+        "id": {{ entry_id | json }},
+        "url": {{ tracked_url | json }},
+        "title": {{ entry_title | json }},
+        "content_html": {{ entry_body | json }},
+        "date_published": {{ entry.publishedAt | dateToRfc3339 | json }}
+      }
+    {% endfor %}
+  ]
+}

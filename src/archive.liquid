@@ -1,0 +1,44 @@
+---
+permalink: /archive/index.html
+layout: base.liquid
+title: The Archive
+---
+<div class="u-burrito Archive">
+  <div class="Prose"><h1>The Archive</h1></div>
+
+  <section class="Archive-section">
+    <div class="Prose"><h2>Categories</h2></div>
+    <p class="Archive-categories">
+      {% for category in blog.categories %}
+        <a
+          class="Archive-categoryLink"
+          href="{{ category.url | escape }}"
+          {% if category.color %}
+            style="--tag-color: {{ category.color | escape }}"
+          {% endif %}
+        >{{ category.title | escape }}</a>
+        {%- unless forloop.last %}, {% endunless %}
+      {% endfor %}
+    </p>
+  </section>
+
+  {% for yearGroup in blog.years %}
+    <section class="Archive-section">
+      <h2 class="Archive-year">
+        <a class="Archive-yearLink" href="/in/{{ yearGroup.year }}/">{{ yearGroup.year }}</a>
+      </h2>
+      <ol class="Archive-posts">
+        {% for post in yearGroup.posts %}
+        <li class="Archive-postItem">
+          {% include 'post-eyebrow.liquid', eyebrow_linked: true %}
+          <div class="Prose">
+            <h4 class="Archive-postTitle">
+              <a class="Archive-postPermalink" href="{{ post.url | escape }}">{{ post.title | escape }}</a>
+            </h4>
+          </div>
+        </li>
+        {% endfor %}
+      </ol>
+    </section>
+  {% endfor %}
+</div>

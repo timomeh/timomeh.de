@@ -1,0 +1,43 @@
+{% if attachment.image %}
+  {% if short.attachments.size > 1 %}
+    {% assign attachment_sizes = '(max-width: 474px) 100vw, 300px' %}
+  {% else %}
+    {% assign attachment_sizes = '(max-width: 600px) 100vw, 500px' %}
+  {% endif %}
+
+  <div class="ContentImage ShortEntry-contentImage" style="--image-placeholder: url('{{ attachment.image.placeholder | escape }}'); --image-width: {{ attachment.image.width }}px; --image-ratio: {{ attachment.image.width | times: 1.0 | divided_by: attachment.image.height }}">
+    <picture class="ContentImage-picture ShortEntry-contentImagePicture">
+      {% if attachment.image.webp %}<source srcset="{{ attachment.image.webp | escape }}" sizes="{{ attachment_sizes }}" type="image/webp">{% endif %}
+      <img
+        class="ContentImage-image ShortEntry-contentImageImage"
+        src="{{ attachment.image.src | escape }}"
+        srcset="{{ attachment.image.srcset | escape }}"
+        sizes="{{ attachment_sizes }}"
+        width="{{ attachment.image.width }}"
+        height="{{ attachment.image.height }}"
+        alt="{{ attachment.alt | escape }}"
+        data-fancybox="short-{{ short.slug | escape }}-media"
+        data-src="{{ attachment.image.src | escape }}"
+        data-caption="{{ attachment.alt | escape }}"
+        aria-label="{% if attachment.alt %}Open image: {{ attachment.alt | escape }}{% else %}Open image{% endif %}"
+        role="button"
+        tabindex="0"
+        loading="lazy"
+        decoding="async"
+      >
+    </picture>
+  </div>
+{% else %}
+  <img
+    src="{{ attachment.attachment | escape }}"
+    alt="{{ attachment.alt | escape }}"
+    data-fancybox="short-{{ short.slug | escape }}-media"
+    data-src="{{ attachment.attachment | escape }}"
+    data-caption="{{ attachment.alt | escape }}"
+    aria-label="{% if attachment.alt %}Open image: {{ attachment.alt | escape }}{% else %}Open image{% endif %}"
+    role="button"
+    tabindex="0"
+    loading="lazy"
+    decoding="async"
+  >
+{% endif %}

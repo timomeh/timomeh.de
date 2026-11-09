@@ -1,0 +1,36 @@
+.ContentImage {
+  position: relative;
+  isolation: isolate;
+  width: max-content;
+  max-width: min(100%, var(--image-width));
+}
+
+.ContentImage::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: var(--image-placeholder) center / cover no-repeat;
+  border-radius: 0.375rem;
+  filter: blur(8px);
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+figure[data-shadow="false"] .ContentImage::before {
+  display: none;
+}
+
+.ContentImage .ContentImage-picture {
+  display: block;
+  margin: 0;
+}
+
+.ContentImage-image {
+  position: relative;
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}

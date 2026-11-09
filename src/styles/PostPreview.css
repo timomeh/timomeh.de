@@ -1,0 +1,47 @@
+.PostPreview {
+  position: relative;
+  isolation: isolate;
+}
+
+.PostPreview::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0 calc(50% - 50vw);
+  background-color: var(--post-light-bg, transparent);
+  background-image: var(--post-light-grain, none);
+  background-size: 200px 200px;
+  background-blend-mode: multiply;
+  pointer-events: none;
+}
+
+:root[data-color-scheme="dark"] .PostPreview::before {
+  background-color: var(--post-dark-bg, transparent);
+  background-image: var(--post-dark-grain, none);
+  background-blend-mode: exclusion;
+}
+
+.PostPreview-body .PostPreview-title {
+  font-size: 1.5rem;
+  line-height: 1.12;
+  margin: 0 0 0.8889em;
+}
+
+@media (min-width: 640px) {
+  .PostPreview-body .PostPreview-title {
+    font-size: 1.875rem;
+  }
+}
+
+.PostPreview-body {
+  margin-top: 0.75rem;
+}
+
+.PostPreview-body, .PostPreview-title, .PostPreview-permalink {
+  font-weight: inherit;
+  text-decoration-line: none;
+}
+
+.PostPreview-body .PostPreview-title .PostPreview-permalink:hover {
+  text-decoration-line: underline;
+}

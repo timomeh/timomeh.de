@@ -1,0 +1,18 @@
+<article
+  class="PostPreview"
+  style="
+    {% if post.cover.lightColor %}
+      --post-light-bg: {{ post.cover.lightColor | escape }};
+      --post-light-grain: var(--page-grain);
+    {% endif %}
+    {% if post.cover.darkColor %}
+      --post-dark-bg: {{ post.cover.darkColor | escape }};
+      --post-dark-grain: var(--page-grain);
+    {% endif %}"
+  >
+  {% include 'post-cover.liquid', cover_context: 'preview' %}
+  <div class="u-burrito">
+    {% include 'post-eyebrow.liquid', eyebrow_linked: true %}
+    <div class="Prose PostPreview-body">{{ post.excerptHtml }}</div>
+  </div>
+</article>

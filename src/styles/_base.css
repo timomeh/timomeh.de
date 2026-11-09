@@ -1,0 +1,71 @@
+:root {
+  font-family: "Inter Variable", system-ui, sans-serif;
+  color: #242121;
+  background: #f2f1f0 url("/assets/grainy-light.svg") repeat 0 0 / 200px 200px;
+  line-height: 1.65;
+  color-scheme: light;
+  --page-bg: #f2f1f0;
+  --page-grain: url("/assets/grainy-light.svg");
+  --muted: #666;
+  --border: #ddd;
+  --link: #6950aa;
+  --code-bg: #eeece7;
+  --focus-ring: #a18570;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+:root[data-color-scheme="light"] [data-image-theme="dark"],
+:root[data-color-scheme="dark"] [data-image-theme="light"] {
+  display: none;
+}
+
+body {
+  position: relative;
+  isolation: isolate;
+  max-width: 48rem;
+  min-height: 100vh;
+  margin: auto;
+}
+
+a {
+  color: var(--link);
+  text-underline-offset: 0.2em;
+}
+
+:focus-visible:not(.PageContent):not(.SiteNav) {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 4px;
+}
+
+main {
+  padding: 0;
+}
+
+h1, h2, h3 {
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: clamp(2rem, 6vw, 3rem);
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+img {
+  max-width: 100%;
+}
+
+:root[data-color-scheme="dark"] {
+  color-scheme: dark;
+  color: #f0efeb;
+  background: #0f0d0b url("/assets/grainy-dark.svg") repeat 0 0 / 200px 200px;
+  --page-bg: #0f0d0b;
+  --page-grain: url("/assets/grainy-dark.svg");
+  --muted: #b5b2ad;
+  --border: #403f3b;
+  --link: #c5aeff;
+  --code-bg: #22221f;
+  --focus-ring: #6ee7b7;
+}

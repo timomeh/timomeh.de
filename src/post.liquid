@@ -1,0 +1,19 @@
+---
+pagination:
+  data: blog.posts
+  size: 1
+  alias: post
+permalink: "{{ post.url }}index.html"
+layout: base.liquid
+eleventyComputed:
+  title: "{{ post.title }}"
+---
+<article
+  class="u-burrito Post"
+  {% if post.meta.lang %}
+    lang="{{ post.meta.lang | split: '_' | first | escape }}"
+  {% endif %}
+>
+  {% include 'post-eyebrow.liquid', eyebrow_linked: false %}
+  <div class="Prose Post-body">{{ post.html }}</div>
+</article>

@@ -1,0 +1,14 @@
+{% assign entry_url = entry.url | absoluteUrl %}
+{% assign entry_id = entry_url %}
+{% assign last_character = entry_id | slice: -1, 1 %}
+{% if last_character == '/' %}
+  {% assign id_length = entry_id.size | minus: 1 %}
+  {% assign entry_id = entry_id | slice: 0, id_length %}
+{% endif %}
+{% if kind == 'shorts' %}
+  {% assign entry_title = entry.publishedAt | feedShortTitle %}
+{% else %}
+  {% assign entry_title = entry.title %}
+{% endif %}
+{% capture entry_body %}{{ entry.feedHtml }}{% if kind == 'shorts' %}{% for attachment in entry.attachments %}{% assign attachment_src = attachment.image.feed | default: attachment.attachment %}<p><img src="{{ attachment_src | escape }}" alt="{{ attachment.alt | escape }}"></p>{% endfor %}{% endif %}{% endcapture %}
+{% assign entry_body = entry_body | transformWithHtmlBase: site.url, entry.url %}

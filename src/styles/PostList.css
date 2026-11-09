@@ -1,0 +1,23 @@
+.PostList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.PostList-item {
+  position: relative;
+}
+
+.PostList-item::after {
+  content: "";
+  position: absolute;
+  right: calc(50% - 50vw);
+  bottom: 0;
+  left: calc(50% - 50vw);
+  border-bottom: 1px solid rgb(0 0 0 / 10%);
+  pointer-events: none;
+}
+
+:root[data-color-scheme="dark"] .PostList-item::after {
+  border-color: rgb(255 255 255 / 10%);
+}

@@ -1,0 +1,44 @@
+<picture
+  class="PostCover-picture"
+  {% if theme %}
+    data-image-theme="{{ theme }}"
+  {% endif %}
+>
+  {% if image %}
+    {% if image.webp %}
+      <source
+        srcset="{{ image.webp | escape }}"
+        sizes="{{ cover_sizes }}"
+        type="image/webp"
+      >
+    {% endif %}
+
+    <img
+      class="PostCover-image"
+      src="{{ image.src | escape }}"
+      srcset="{{ image.srcset | escape }}"
+      sizes="{{ cover_sizes }}"
+      width="{{ image.width }}"
+      height="{{ image.height }}"
+      alt=""
+      decoding="async"
+      {% if cover_context == 'preview' %}
+        loading="lazy"
+      {% else %}
+        fetchpriority="high"
+      {% endif %}
+    >
+
+  {% else %}
+    <img
+      class="PostCover-image"
+      src="{{ src | escape }}"
+      alt=""
+      {% if cover_context == 'preview' %}
+        loading="lazy"
+      {% else %}
+        fetchpriority="high"
+      {% endif %}
+    >
+  {% endif %}
+</picture>

@@ -1,0 +1,14 @@
+.ReadMore {
+  color: #35945e;
+  font-weight: 400;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.ReadMore:hover {
+  text-decoration: underline;
+}
+
+:root[data-color-scheme="dark"] .ReadMore {
+  color: #93c5fd;
+}

@@ -1,104 +1,45 @@
-## [timomeh.de](https://timomeh.de)
+# [timomeh.de](https://timomeh.de)
 
-Source code from [timomeh.de](https://timomeh.de). Stack:
+Source code for [timomeh.de](https://timomeh.de). Stack:
 
-- Next.js
+- [Eleventy](https://www.11ty.dev/)
 - Content stored in a separate (private) GitHub Repo
-- [Vla](https://vla.run) as data layer
-- [Keystatic](https://keystatic.com/) as CMS
-- [Drizzle](https://orm.drizzle.team) with Postgres for caching and querying the
-  content from GitHub
+- no compilers, no bundlers
 
-Is this a bit overkill for a blog? Probably. Is it fun? Absolutely.
-
-## Implementation details
-
-### Where do I store content?
-
-All posts and pages, including images, are stored in a private GitHub repository
-as MDX. I use [Keystatic](https://keystatic.com/) as a CMS to manage this
-content. I enjoy the editing experience in a WYSIWYG editor in my browser, with
-support for drag-and-drop file uploads. Keeping the content repository private
-allows me to work on drafts in private.
-
-### Why Postgres?
-
-I have a requirement for myself: the blog should not rebuild when content
-changes. When I fix a typo or publish a post, it should be available
-immediately, not after a few minutes.
-
-[Keystatic](https://keystatic.com/) has an API client to fetch content from
-GitHub dynamically. But it only supports fetching a whole collection or a single
-entry by it slug. No filtering, no pagination, no joins, no sort. You have to do
-that in JavaScript. This will result in a lot of requests to the GitHub API. And
-while a fetch cache could fix that, I could still hit the GitHub API Rate
-Limits.
-
-That's why I additionally store the content in Postgres. It's basically a cache.
-The database could be wiped and I can recreate it from the content in GitHub.
-And whenever content in the private repository changes, GitHub will trigger a
-webhook that updates the corresponding caches.
-
-### Serving images
-
-Images are also stored in the private GitHub repository. To make them publicly
-accessible, I have a private [reverse proxy](tools/github-private-reverse-proxy)
-to fetch images from the private repo, with a public
-[imgproxy](https://imgproxy.net/) in front of it for image optimization.
-
-Videos are simply uploaded to YouTube, and YouTube links in posts are
-automatically converted to embeds.
+I'm sick of taming dependencies, security issues, and upgrade paths to maintain a blog. So I'm using plain CSS, vanilla JavaScript, and only a few dependencies.
 
 ## Development
 
-You need mise and docker with docker compose. Docker is used for additional
-services (like the private content proxy and imgproxy).
-
-1. Copy `.env` to `.env.local`, fill in missing values as necessary
-2. `pnpm dev` will start the next dev server and docker containers (db, proxies)
-3. `pnpm db:migrate` to prepare the database
-4. Visit https://localhost:3000/webhooks/nuke to populate database
-
-### Docker Logs
-
-To view the logs of docker services running in the background:
+- Requires Node.js (`mise install`)
+- Requires the content repository to be checked out at `../timomeh.de-content`
 
 ```sh
-pnpm dev:logs
+npm install
+npm start
 ```
 
-### Inspect Postgres
+## Deployment
 
-You can use Drizzle Kit Studio to work with the postgres db.
+This is a static site, but I don't want to wait for a whole CI run after I fix a typo. Waiting for a worker, installing dependencies, and doing a fresh build... it all takes way too long just to fix a typo. I want it to be done in a second, not 10 seconds.
+
+`deployer/` is a small service that listenes to GitHub webhooks from the content repository, rebuilds the site, and uploads it using [`git-pages`](https://codeberg.org/git-pages/git-pages).
+
+### Getting rid of old, cached images
+
+To speed up the eleventy build, images are cached. This means that old, unused images are still cached and will be available.
+
+To get rid of them, trigger a fresh build:
 
 ```sh
-pnpm db:studio
+/bin/sh /app/deployer/request-build.sh --fresh
 ```
 
-## Publish
+### Deploy manually
 
-Pushing to the `main` brach automatically triggers a new release:
+Make sure the checked out content repo is up-to-date.
 
-- builds a new docker image
-- runs e2e tests against it
-- publishes the image it to ghcr.io
-- releases the image to be deployed
-- executes a database migration job
-
-## Tech & Libraries used
-
-This is total overkill and I do it because it's fun. You might not need what I
-used:
-
-- [Next.js](https://nextjs.org/)
-- [Vla](https://vla.run/)
-- Docker & docker compose
-- Cloudflare CDN
-- [imgproxy](https://imgproxy.net/) for image optimization
-- [Keystatic](https://keystatic.com/) as CMS
-- Postgres and [Drizzle](https://orm.drizzle.team/)
-- [Shiki](https://shiki.style/)
-- [mdx](https://mdxjs.com/packages/mdx) with cached rendered output
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Playwright](https://playwright.dev/) & [Argos CI](https://argos-ci.com)
-- [LogLayer](https://loglayer.dev/)
+```sh
+rm -rf _site
+npm run build
+SITE_URL=https://timomeh.de GIT_PAGES_PASSWORD=... bash scripts/deploy.sh
+```

@@ -1,0 +1,350 @@
+/* Adapted from @tailwindcss/typography (MIT, Tailwind Labs, Inc.) */
+
+.Prose {
+  --prose-body: #292524;
+  --prose-heading: #1c1917;
+  --prose-muted: #78716c;
+  --prose-bullet: #d1bdae;
+  --prose-rule: #e7e5e4;
+  --prose-code-bg: #292524;
+  --prose-code-text: #e7e5e4;
+  color: var(--prose-body);
+  font-size: 1rem;
+  line-height: 1.75;
+  overflow-wrap: break-word;
+}
+
+.Prose :where(h1, h2, h3, h4, h5, h6) {
+  color: var(--prose-heading);
+  font-family: "Bitter Variable", Georgia, serif;
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+.Prose h1 {
+  font-size: 1.5rem;
+  line-height: 1.12;
+  margin: 0 0 0.8889em;
+}
+
+.Prose h2 {
+  font-size: 1.5em;
+  line-height: 1.3333;
+  margin: 2em 0 1em;
+}
+
+.Prose h3 {
+  font-size: 1.25em;
+  line-height: 1.6;
+  margin: 1.6em 0 0.6em;
+}
+
+.Prose h4 {
+  font-size: 1em;
+  line-height: 1.5;
+  margin: 1.5em 0 0.5em;
+}
+
+@media (min-width: 640px) {
+  .Prose h1 {
+    font-size: 1.875rem;
+  }
+}
+
+.Prose :is(h1, h2, h3, h4, h5, h6) a {
+  font-weight: 600;
+  text-decoration-color: oklch(0.8111 0.0308 59.21);
+  text-underline-offset: 0.25em;
+}
+
+.Prose p {
+  margin: 1.25em 0;
+}
+
+.Prose a {
+  color: var(--prose-heading);
+  font-weight: 500;
+  overflow-wrap: anywhere;
+  text-underline-offset: 0.125em;
+}
+
+.Prose :where(strong, em) {
+  color: var(--prose-heading);
+}
+
+.Prose strong {
+  font-weight: 600;
+}
+
+.Prose .lead {
+  color: var(--prose-muted);
+  font-size: 1.25em;
+  line-height: 1.6;
+  margin: 1.2em 0;
+}
+
+@media (min-width: 768px) {
+  .Prose .embed {
+    margin-inline: -1rem;
+  }
+}
+
+.Prose blockquote {
+  position: relative;
+  color: inherit;
+  font-weight: inherit;
+  font-style: normal;
+  border-inline-start: 2px solid rgb(31 41 55 / 25%);
+  margin: 1.6em 0;
+  padding-inline-start: 1em;
+}
+
+.Prose blockquote p:first-of-type::before,
+.Prose blockquote p:last-of-type::after {
+  content: none;
+}
+
+.Prose :where(ul, ol) {
+  margin: 1.25em 0;
+  padding-inline-start: 1.625em;
+}
+
+.Prose li {
+  margin: 0.5em 0;
+  padding-inline-start: 0.375em;
+}
+
+.Prose li::marker {
+  color: var(--prose-bullet);
+}
+
+.Prose :where(ul ul, ul ol, ol ul, ol ol) {
+  margin: 0.75em 0;
+}
+
+.Prose dl {
+  margin: 1.25em 0;
+}
+
+.Prose dt {
+  color: var(--prose-heading);
+  font-weight: 600;
+  margin-top: 1.25em;
+}
+
+.Prose dd {
+  margin: 0.5em 0 0;
+  padding-inline-start: 1.625em;
+}
+
+.Prose hr {
+  width: 100%;
+  max-width: 120px;
+  border: 0;
+  border-top: 2px solid rgba(145, 145, 145, 0.3);
+  margin: 40px auto;
+}
+
+.Prose :where(hr, h2, h3, h4) + * {
+  margin-top: 0;
+}
+
+.Prose :where(img, video, picture) {
+  max-width: 100%;
+  height: auto;
+  margin: 2em 0;
+}
+
+.Prose img {
+  border-radius: 0.375rem;
+}
+
+.Prose .content-image {
+  margin: 2em auto;
+}
+
+.Prose img[data-fancybox] {
+  cursor: zoom-in;
+}
+
+:root[data-color-scheme="dark"] {
+  .Prose .content-image::before {
+    background-image: var(--image-placeholder-dark, var(--image-placeholder));
+  }
+
+  .Prose .content-image {
+    max-width: min(100%, var(--image-width-dark, var(--image-width)));
+  }
+}
+
+.Prose .aside,
+.Prose figure {
+  margin: 2em 0;
+}
+
+@media (min-width: 768px) {
+  .Prose .aside,
+  .Prose figure {
+    margin-inline: -1rem;
+  }
+}
+
+.Prose figure > *,
+.Prose picture > img {
+  margin: 0;
+}
+
+.Prose figure > .content-image {
+  margin: 0 auto;
+}
+
+.Prose figcaption {
+  color: var(--prose-muted);
+  font-size: 0.875em;
+  line-height: 1.4286;
+  margin-top: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .Prose figure:not(:has(code)),
+  .Prose:not([data-context="short-media"]) .content-image:not(figure .content-image) {
+    margin-inline: -1rem;
+  }
+
+  .Prose figure:not(:has(code)) > figcaption {
+    padding-inline: 1rem;
+  }
+}
+
+.Prose :where(code, kbd, pre, samp) {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+.Prose code {
+  color: var(--prose-heading);
+  font-size: 0.875em;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.Prose :not(pre) > code {
+  margin-block: -0.25rem;
+  padding: 0.25rem 0.375rem;
+  border: 1px solid rgb(156 163 175 / 50%);
+  border-radius: 0.375rem;
+  background: rgb(255 255 255 / 30%);
+  color: inherit;
+  font-size: 0.9em;
+  font-weight: 600;
+}
+
+:root[data-color-scheme="dark"] {
+  .Prose :not(pre) > code {
+    border-color: rgb(255 255 255 / 10%);
+    background: rgb(75 85 99 / 25%);
+    font-weight: 400;
+  }
+}
+
+.Prose pre {
+  color: var(--prose-code-text);
+  background: var(--prose-code-bg);
+  font-size: 0.875em;
+  line-height: 1.7143;
+  border-radius: 0.375rem;
+  margin: 1.7143em 0;
+  padding: 0.8571em 1.1429em;
+  overflow-x: auto;
+}
+
+.Prose pre code {
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  overflow-wrap: normal;
+}
+
+.Prose kbd {
+  color: var(--prose-heading);
+  background: rgb(255 255 255 / 0.3);
+  border-radius: 0.3125rem;
+  box-shadow:
+    0 0 0 1px rgb(0 0 0 / 0.1),
+    0 3px 0 rgb(0 0 0 / 0.1);
+  font-size: 0.875em;
+  font-weight: 500;
+  padding: 0.1875em 0.375em;
+}
+
+.Prose table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.875em;
+  line-height: 1.7143;
+}
+
+.Prose thead {
+  border-bottom: 1px solid var(--prose-rule);
+}
+
+.Prose th {
+  color: var(--prose-heading);
+  font-weight: 600;
+  text-align: start;
+}
+
+.Prose :where(th, td) {
+  padding: 0.5714em;
+  vertical-align: top;
+}
+
+.Prose :where(th, td):first-child {
+  padding-inline-start: 0;
+}
+
+.Prose :where(th, td):last-child {
+  padding-inline-end: 0;
+}
+
+.Prose tbody tr {
+  border-bottom: 1px solid var(--prose-rule);
+}
+
+.Prose tbody tr:last-child {
+  border-bottom: 0;
+}
+
+.Prose > :first-child:not(.embed) {
+  margin-top: 0;
+}
+
+.Prose > :last-child:not(.embed) {
+  margin-bottom: 0;
+}
+
+:root[data-color-scheme="dark"] {
+  .Prose {
+    --prose-body: #f5f5f4;
+    --prose-heading: #fff;
+    --prose-muted: #a8a29e;
+    --prose-bullet: #988698;
+    --prose-rule: #44403c;
+    --prose-code-bg: rgb(0 0 0 / 0.5);
+    --prose-code-text: #d6d3d1;
+  }
+
+  .Prose :is(h1, h2, h3, h4, h5, h6) a {
+    text-decoration-color: #d8b4fe;
+  }
+
+  .Prose blockquote {
+    border-color: rgb(255 255 255 / 15%);
+  }
+
+  .Prose kbd {
+    background: rgb(0 0 0 / 0.2);
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / 0.1),
+      0 3px 0 rgb(255 255 255 / 0.1);
+  }
+}
