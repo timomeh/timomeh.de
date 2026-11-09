@@ -1,8 +1,33 @@
 #!/bin/sh
 set -eu
 
+workdir=
+finish() {
+  status=$?
+  trap - EXIT
+  if [ -n "$workdir" ]; then
+    rm -rf "$workdir" || echo "Failed to remove build directory" >&2
+  fi
+  if [ "$status" -eq 0 ]; then
+    message="🚀 Released Blog changes"
+  else
+    message="😢 Releasing Blog changes failed"
+  fi
+  message="${message}
+Content: ${CONTENT_REPOSITORY} (${CONTENT_BRANCH})"
+  if [ -n "${CONTENT_COMMIT:-}" ]; then
+    message="${message}
+Commit: ${CONTENT_COMMIT}"
+  fi
+  if ! jq -n --arg content "$message" '{content: $content, allowed_mentions: {parse: []}}' |
+    curl --fail --silent --show-error --max-time 10 -o /dev/null \
+      -H 'Content-Type: application/json' -d @- "$DISCORD_WEBHOOK_URL"; then
+    echo "Failed to send Discord notification" >&2
+  fi
+  exit "$status"
+}
+trap finish EXIT
 workdir=$(mktemp -d "${TMPDIR:-/tmp}/blog-build.XXXXXXXX")
-trap 'rm -rf "$workdir"' EXIT
 
 export GIT_TERMINAL_PROMPT=0
 export GIT_ASKPASS=/app/deployer/git-askpass.sh
@@ -30,7 +55,9 @@ if [ "${1:-}" != "--fresh" ] && [ -d "$image_cache" ]; then
   cp -a "$image_cache" "$OUTPUT_DIR/img"
 fi
 
-echo "Building content commit $(git -C "$CONTENT_DIR" rev-parse HEAD)"
+CONTENT_COMMIT=$(git -C "$CONTENT_DIR" rev-parse HEAD)
+export CONTENT_COMMIT
+echo "Building content commit $CONTENT_COMMIT"
 npm run build
 
 if [ "${1:-}" = "--fresh" ]; then

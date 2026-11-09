@@ -4,7 +4,7 @@ FROM codeberg.org/git-pages/git-pages-cli:1.13.1 AS git-pages
 FROM node:26-bookworm-slim
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends ca-certificates git tini util-linux \
+    && apt-get install -y --no-install-recommends ca-certificates curl git jq tini util-linux \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
