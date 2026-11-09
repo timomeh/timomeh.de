@@ -1,0 +1,24 @@
+/*.PostOverview {}*/
+
+.PostOverview-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.PostOverview-item + .PostOverview-item {
+  margin-top: 1.25rem;
+}
+
+.PostOverview-title {
+  margin: 0;
+}
+
+.PostOverview-permalink {
+  color: inherit;
+  text-decoration-line: none;
+}
+
+.PostOverview-permalink:hover {
+  text-decoration-line: underline;
+}

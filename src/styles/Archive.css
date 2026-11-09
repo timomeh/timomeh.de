@@ -41,29 +41,6 @@
   text-decoration-line: underline;
 }
 
-.Archive-posts {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.Archive-postItem + .Archive-postItem {
-  margin-top: 1.25rem;
-}
-
-.Archive-postTitle {
-  margin: 0;
-}
-
-.Archive-postPermalink {
-  color: inherit;
-  text-decoration-line: none;
-}
-
-.Archive-postPermalink:hover {
-  text-decoration-line: underline;
-}
-
 :root[data-color-scheme="dark"] {
   .Archive-yearLink {
     text-decoration-color: #d8b4fe;

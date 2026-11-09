@@ -27,18 +27,7 @@ title: The Archive
       <h2 class="Archive-year">
         <a class="Archive-yearLink" href="/in/{{ yearGroup.year }}/">{{ yearGroup.year }}</a>
       </h2>
-      <ol class="Archive-posts">
-        {% for post in yearGroup.posts %}
-        <li class="Archive-postItem">
-          {% include 'post-eyebrow.liquid', eyebrow_linked: true %}
-          <div class="Prose">
-            <h4 class="Archive-postTitle">
-              <a class="Archive-postPermalink" href="{{ post.url | escape }}">{{ post.title | escape }}</a>
-            </h4>
-          </div>
-        </li>
-        {% endfor %}
-      </ol>
+      {% include 'post-overview.liquid', posts: yearGroup.posts %}
     </section>
   {% endfor %}
 </div>

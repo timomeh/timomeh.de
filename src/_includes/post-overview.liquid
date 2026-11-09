@@ -1,0 +1,12 @@
+<ol class="PostOverview-list">
+  {% for post in posts %}
+  <li class="PostOverview-item">
+    {% include 'post-eyebrow.liquid', eyebrow_linked: true %}
+    <div class="Prose">
+      <h4 class="PostOverview-title">
+        <a class="PostOverview-permalink" href="{{ post.url | escape }}">{{ post.title | escape }}</a>
+      </h4>
+    </div>
+  </li>
+  {% endfor %}
+</ol>

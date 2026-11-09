@@ -17,3 +17,7 @@ eleventyComputed:
   {% include 'post-eyebrow.liquid', eyebrow_linked: false %}
   <div class="Prose Post-body">{{ post.html }}</div>
 </article>
+<section class="RelatedPosts u-burrito">
+  <div class="RelatedPosts-title Prose"><h2>More like this</h2></div>
+  {% include 'post-overview.liquid', posts: post.relatedPosts %}
+</section>
