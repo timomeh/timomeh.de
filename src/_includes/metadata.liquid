@@ -11,12 +11,26 @@
 <meta property="og:url" content="{{ page.url | absoluteUrl | escape }}">
 <meta property="og:locale" content="{{ pageMetadata.locale | escape }}">
 {% if pageMetadata.description != blank %}<meta property="og:description" content="{{ pageMetadata.description | escape }}">{% endif %}
+{% assign ogEntry = post | default: short | default: pageContent %}
+{% assign ogImage = ogEntry.ogImage %}
+{% assign ogImageAlt = ogEntry.plainText | default: ogEntry.title | default: pageMetadata.title %}
+{% if ogImage == blank and pageMetadata.title != blank %}
+  {% capture ogImage %}{% overviewOgImage pageMetadata.title %}{% endcapture %}
+{% endif %}
+{% if ogImage != blank %}
+  <meta property="og:image" content="{{ ogImage | absoluteUrl | escape }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{ ogImageAlt | escape }}">
+  <meta name="twitter:image" content="{{ ogImage | absoluteUrl | escape }}">
+  <meta name="twitter:image:alt" content="{{ ogImageAlt | escape }}">
+{% endif %}
 {% if pageMetadata.article %}
   <meta property="article:published_time" content="{{ pageMetadata.article.publishedAt | dateIso }}">
   {% if pageMetadata.article.updatedAt %}<meta property="article:modified_time" content="{{ pageMetadata.article.updatedAt | dateIso }}">{% endif %}
   <meta property="article:author" content="Timo Mämecke">
 {% endif %}
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="{% if ogImage != blank %}summary_large_image{% else %}summary{% endif %}">
 <meta name="twitter:title" content="{{ pageMetadata.title | escape }}">
 {% if pageMetadata.description != blank %}<meta name="twitter:description" content="{{ pageMetadata.description | escape }}">{% endif %}
 <link rel="icon" href="{{ 'favicon-32x32.png' | assetUrl }}" sizes="32x32" type="image/png">
