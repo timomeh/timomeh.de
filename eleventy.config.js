@@ -4,11 +4,13 @@ import { configureAssets } from "./lib/assets.js";
 import { generateOgImage } from "./lib/og-image.js";
 import { reportBuildTiming } from "./lib/build-timing.js";
 import { clearImageCache } from "./lib/imageoptim.js";
+import { clearFileHashes } from "./lib/file-hash.js";
 
 export default function (eleventyConfig) {
   const output = process.env.OUTPUT_DIR || "_site";
   configureAssets(eleventyConfig, output);
   eleventyConfig.on("eleventy.before", clearImageCache);
+  eleventyConfig.on("eleventy.before", clearFileHashes);
   eleventyConfig.on("eleventy.after", reportBuildTiming);
   eleventyConfig.addGlobalData("site", { url: new URL("/", site).href });
   eleventyConfig.addPlugin(rssPlugin);
