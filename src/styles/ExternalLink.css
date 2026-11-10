@@ -1,0 +1,32 @@
+.ExternalLink-end {
+  white-space: nowrap;
+}
+
+.ExternalLink-icon {
+  position: relative;
+  top: -0.1ex;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  max-width: 24px;
+  max-height: 24px;
+  margin-left: 0.2ch;
+  margin-right: -0.125rem;
+  overflow: visible;
+  color: color-mix(in srgb, currentColor 60%, transparent);
+  vertical-align: middle;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ExternalLink-arrow {
+    transition: transform 200ms;
+  }
+
+  .ExternalLink:hover .ExternalLink-arrow {
+    transform: translate(1px, -1px);
+  }
+
+  .ExternalLink:active .ExternalLink-arrow {
+    transform: translate(-1px, 1px);
+  }
+}

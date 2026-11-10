@@ -31,32 +31,3 @@
     padding-inline: 2rem;
   }
 }
-
-.u-externalLink-icon {
-  position: relative;
-  top: -0.1ex;
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  max-width: 24px;
-  max-height: 24px;
-  margin-left: 0.2ch;
-  margin-right: -0.125rem;
-  overflow: visible;
-  color: color-mix(in srgb, currentColor 60%, transparent);
-  vertical-align: middle;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .u-externalLink-arrow {
-    transition: transform 200ms;
-  }
-
-  .u-externalLink:hover .u-externalLink-arrow {
-    transform: translate(1px, -1px);
-  }
-
-  .u-externalLink:active .u-externalLink-arrow {
-    transform: translate(-1px, 1px);
-  }
-}
