@@ -1,0 +1,39 @@
+.cms-footnote {
+  color: #79716b;
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-color: #d6d3d1;
+}
+
+.cms-footnote::before {
+  content: ' (Footnote: ';
+}
+
+.cms-footnote::after {
+  content: ')';
+}
+
+.cms-kbd {
+  border: 1px solid #79716b;
+  border-bottom-width: 2px;
+  border-radius: 0.375rem;
+  padding-inline: 0.25rem;
+  background-color: #f5f5f4;
+}
+
+.cms-figure-caption,
+.cms-aside-title {
+  color: #57534d;
+  font-size: 0.875rem;
+  line-height: 1.25;
+}
+
+.cms-figure-caption {
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+.cms-definition-term {
+  display: block;
+  margin-bottom: 0.25rem;
+}

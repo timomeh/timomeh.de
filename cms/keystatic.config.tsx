@@ -1,0 +1,468 @@
+import { collection, config, fields, singleton } from "@keystatic/core";
+import "./editor.css";
+import { inline, mark, repeating, wrapper } from "@keystatic/core/content-components";
+import {
+  BetweenHorizonalStart,
+  BookOpen,
+  BookOpenText,
+  Footprints,
+  Images,
+  Keyboard,
+  MessageSquareText,
+  ScrollText,
+} from "lucide-react";
+
+const components = {
+  ReadMore: inline({
+    label: "Read more",
+    icon: <BetweenHorizonalStart />,
+    ContentView: () => <> Read more ... </>,
+    schema: {},
+  }),
+  Footnote: mark({
+    label: "Footnote",
+    icon: <Footprints />,
+    className: "cms-footnote",
+    schema: {},
+  }),
+  Kbd: mark({
+    label: "<kbd>",
+    icon: <Keyboard />,
+    className: "cms-kbd",
+    schema: {},
+  }),
+  Lead: wrapper({
+    label: "Lead",
+    icon: <ScrollText />,
+    schema: {},
+  }),
+  Figure: wrapper({
+    label: "Figure",
+    icon: <Images />,
+    ContentView: (props) => {
+      return (
+        <>
+          {props.children}
+          <div className="cms-figure-caption">{props.value.caption}</div>
+        </>
+      );
+    },
+    schema: {
+      caption: fields.text({
+        label: "Caption",
+        multiline: true,
+      }),
+      shadow: fields.checkbox({
+        label: "Shadow",
+        defaultValue: true,
+      }),
+    },
+  }),
+  Aside: wrapper({
+    label: "Aside",
+    icon: <MessageSquareText />,
+    ContentView: (props) => {
+      return (
+        <>
+          <div className="cms-aside-title">{props.value.title}</div>
+          {props.children}
+        </>
+      );
+    },
+    schema: {
+      title: fields.text({
+        label: "Title",
+        multiline: false,
+      }),
+    },
+  }),
+  DefinitionList: repeating({
+    label: "Definition List",
+    children: ["Definition"],
+    icon: <BookOpen />,
+    schema: {},
+  }),
+  Definition: wrapper({
+    label: "Definition",
+    icon: <BookOpenText />,
+    ContentView: (props) => {
+      return (
+        <>
+          <strong className="cms-definition-term">{props.value.term}</strong>
+          {props.children}
+        </>
+      );
+    },
+    schema: {
+      term: fields.text({ label: "Term", validation: { isRequired: true } }),
+    },
+  }),
+};
+
+const keystaticConfig = config({
+  storage: {
+    kind: "github",
+    repo: "timomeh/timomeh.de-content",
+  },
+  ui: {
+    brand: {
+      name: "timomeh.de",
+    },
+  },
+  collections: {
+    posts: collection({
+      label: "Posts",
+      slugField: "title",
+      entryLayout: "content",
+      path: "posts/*/",
+      format: { contentField: "content" },
+      columns: ["title", "status", "publishedAt"],
+      schema: {
+        status: fields.select({
+          label: "Status",
+          options: [
+            { label: "Draft", value: "draft" },
+            { label: "Published", value: "published" },
+            { label: "Unlisted", value: "unlisted" },
+            { label: "Archived", value: "archived" },
+          ],
+          defaultValue: "published",
+        }),
+        title: fields.slug({
+          name: {
+            label: "Title",
+            validation: { isRequired: true },
+          },
+        }),
+        content: fields.mdx({
+          label: "Content",
+          components,
+          options: {
+            image: {
+              directory: "posts",
+            },
+          },
+        }),
+        publishedAt: fields.datetime({
+          label: "Published at",
+          defaultValue: { kind: "now" },
+          validation: { isRequired: true },
+        }),
+        updatedAt: fields.datetime({
+          label: "Updated at",
+        }),
+        tags: fields.array(
+          fields.relationship({
+            label: "Tags",
+            collection: "tags",
+            validation: { isRequired: true },
+          }),
+          {
+            itemLabel: (props) => props.value || "NULL",
+            label: "Tags",
+          },
+        ),
+        relatedPosts: fields.array(
+          fields.relationship({
+            label: "Related Posts",
+            collection: "posts",
+            validation: { isRequired: true },
+          }),
+          {
+            itemLabel: (props) => props.value || "NULL",
+            label: "Related Posts",
+          },
+        ),
+
+        frontmatter: fields.object(
+          {
+            cover: fields.ignored(),
+            lightCover: fields.image({
+              label: "Cover Image",
+              directory: "posts",
+            }),
+            lightBgColor: fields.text({
+              label: "Background Color",
+              description: "tinted background of the post",
+            }),
+            darkCover: fields.image({
+              label: "Dark Cover Image",
+              directory: "posts",
+            }),
+            darkBgColor: fields.text({
+              label: "Dark Background Color",
+              description: "tinted background of the post",
+            }),
+            readingTime: fields.text({
+              label: "Reading time",
+              description: "Number will show as minutes. Text allowed.",
+            }),
+            kicker: fields.text({
+              label: "Kicker",
+              description: "smol text above header name",
+            }),
+            search: fields.text({ label: "Search", multiline: true }),
+          },
+          { label: "Frontmatter" },
+        ),
+
+        meta: fields.object(
+          {
+            description: fields.text({ label: "Description", multiline: true }),
+            image: fields.image({
+              label: "Open Graph Image",
+              description: "Will override the autogenerated image (1200x630)",
+              directory: "posts",
+            }),
+            lang: fields.text({
+              label: "Language",
+              defaultValue: "en_US",
+            }),
+          },
+          { label: "Meta" },
+        ),
+      },
+    }),
+
+    shorts: collection({
+      label: "Shorts",
+      path: "shorts/*/",
+      slugField: "id",
+      format: { contentField: "content" },
+      columns: ["id", "publishedAt"],
+      schema: {
+        id: fields.text({
+          label: "ID",
+          defaultValue: () => Date.now().toString(),
+          validation: { isRequired: true },
+        }),
+        content: fields.mdx({
+          label: "Content",
+          components,
+          options: {
+            image: {
+              directory: "shorts",
+            },
+          },
+        }),
+        publishedAt: fields.datetime({
+          label: "Published at",
+          defaultValue: new Date().toISOString().slice(0, 16),
+          validation: { isRequired: true },
+        }),
+
+        attachments: fields.array(
+          fields.object({
+            attachment: fields.image({
+              label: "Attachment",
+              validation: { isRequired: true },
+            }),
+            alt: fields.text({ label: "Alt Text" }),
+          }),
+          {
+            label: "Attachments",
+            itemLabel: (props) => props.fields.attachment.value?.filename ?? "unknown file",
+          },
+        ),
+
+        frontmatter: fields.object(
+          {
+            kicker: fields.text({
+              label: "Kicker",
+              description: "smol text above header name",
+            }),
+          },
+          { label: "Frontmatter" },
+        ),
+
+        meta: fields.object(
+          {
+            lang: fields.text({
+              label: "Language",
+              defaultValue: "en_US",
+            }),
+          },
+          { label: "Meta" },
+        ),
+      },
+    }),
+
+    tags: collection({
+      label: "Tags",
+      slugField: "title",
+      entryLayout: "form",
+      path: "tags/*/",
+      columns: ["title"],
+      schema: {
+        title: fields.slug({
+          name: {
+            label: "Title",
+            validation: { isRequired: true },
+          },
+        }),
+        color: fields.text({
+          label: "Color",
+          validation: { isRequired: true },
+        }),
+        description: fields.text({ label: "Description", multiline: true }),
+        frontmatter: fields.object(
+          {
+            kicker: fields.text({
+              label: "Kicker",
+              description: "smol text above header name",
+            }),
+            search: fields.text({ label: "Search", multiline: true }),
+          },
+          { label: "Frontmatter" },
+        ),
+        meta: fields.object(
+          {
+            description: fields.text({ label: "Description", multiline: true }),
+            image: fields.image({
+              label: "Open Graph Image",
+              description: "Will override the autogenerated image (1200x630)",
+              directory: "tags",
+            }),
+          },
+          { label: "Meta" },
+        ),
+      },
+    }),
+
+    pages: collection({
+      label: "Pages",
+      slugField: "title",
+      entryLayout: "content",
+      path: "pages/*/",
+      format: { contentField: "content" },
+      columns: ["title", "path"],
+      schema: {
+        title: fields.slug({
+          name: {
+            label: "Title",
+            validation: { isRequired: true },
+          },
+        }),
+        path: fields.text({
+          label: "URL Path",
+          // see https://github.com/vercel/next.js/issues/57349
+          // og images can't deal with dynamic catch-all segments
+          description: "unimplemented!",
+          validation: { isRequired: true },
+        }),
+        visibility: fields.select({
+          label: "Visibility",
+          options: [
+            { label: "Public", value: "public" },
+            { label: "Private", value: "private" },
+          ],
+          defaultValue: "public",
+        }),
+        content: fields.mdx({
+          label: "Content",
+          components,
+          options: {
+            image: {
+              directory: "pages",
+            },
+          },
+        }),
+
+        frontmatter: fields.object(
+          {
+            kicker: fields.text({
+              label: "Kicker",
+              description: "smol text above header name",
+            }),
+          },
+          { label: "Frontmatter" },
+        ),
+
+        meta: fields.object(
+          {
+            description: fields.text({ label: "Description", multiline: true }),
+            image: fields.image({
+              label: "Open Graph Image",
+              description: "Will override the autogenerated image (1200x630)",
+              directory: "pages",
+            }),
+            lang: fields.text({
+              label: "Language",
+              defaultValue: "en_US",
+            }),
+          },
+          { label: "Meta" },
+        ),
+      },
+    }),
+  },
+
+  singletons: {
+    settings: singleton({
+      label: "Settings",
+      schema: {
+        tags: fields.array(
+          fields.relationship({
+            label: "Navigation Tags",
+            collection: "tags",
+            validation: { isRequired: true },
+          }),
+          {
+            itemLabel: (props) => props.value || "NULL",
+            label: "Tags",
+          },
+        ),
+        kickers: fields.array(
+          fields.text({
+            label: "Random Kicker",
+            description: 'usually "a head full of [...] by"',
+            validation: { isRequired: true },
+          }),
+          {
+            itemLabel: (props) => props.value || "NULL",
+            label: "Fallback Kickers",
+          },
+        ),
+        shortsAvatar: fields.image({
+          label: "Shorts Avatar",
+          description: "The avatar to show next to shorts",
+          directory: "settings",
+        }),
+      },
+    }),
+  },
+});
+
+export default keystaticConfig;
+
+// The content repository stores timestamps with seconds and a timezone, while
+// Keystatic's datetime field only accepts minute precision when reading data.
+// Keep the datetime fields in the editor, but use text fields for the server
+// reader. The CMS sanitizers convert these values to Date instances.
+export const cmsConfig = {
+  ...keystaticConfig,
+  collections: {
+    ...keystaticConfig.collections,
+    posts: {
+      ...keystaticConfig.collections.posts,
+      schema: {
+        ...keystaticConfig.collections.posts.schema,
+        publishedAt: fields.text({
+          label: "Published at",
+          validation: { isRequired: true },
+        }),
+        updatedAt: fields.text({ label: "Updated at" }),
+      },
+    },
+    shorts: {
+      ...keystaticConfig.collections.shorts,
+      schema: {
+        ...keystaticConfig.collections.shorts.schema,
+        publishedAt: fields.text({
+          label: "Published at",
+          validation: { isRequired: true },
+        }),
+      },
+    },
+  },
+};
