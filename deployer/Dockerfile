@@ -18,7 +18,9 @@ COPY lib ./lib
 COPY src ./src
 COPY deployer ./deployer
 RUN chmod +x /app/deployer/git-askpass.sh
+RUN chown node:node /app
 
 USER node
+ENV CONTENT_DIR=/app/content
 EXPOSE 9000
 ENTRYPOINT ["/usr/bin/tini", "-g", "--", "/bin/sh", "/app/deployer/start.sh"]

@@ -42,17 +42,17 @@ I don't want to wait for a whole CI run after I fix a typo. Waiting for a worker
 
 > **Philosophy:** If I don't want this builder/deployer anymore, I could just delete the `deployer/` folder and nothing would change, other than the fact that I don't have the same auto-deploy behavior anymore. I could still manually trigegr a build and deploy, or use another way.
 
-### Getting rid of old, cached images
+### Getting rid of old output
 
-The deployer caches some files, like generated and optimized images, to speed up the eleventy build. But this also means that old, unused images are still cached, and will still be publicly available.
+The deployer keeps the `_site` folder (the generated site) between builds in the container to speed up image generator. But old pages and images can remain publicly available until a fresh build.
 
-To get rid of them, trigger a fresh build inside the deployer:
+To get rid of those leftovers, trigger a fresh build inside the deployer:
 
 ```sh
-/bin/sh /app/deployer/request-build.sh --fresh
+/bin/sh /app/deployer/fresh-build.sh
 ```
 
-I've configured this command to run regularly as a cron, so it cleans itself up from time to time.
+This removes `_site`, rebuilds, and publishes the site. I also run it in a cron so it eventually cleans up leftover artifacts.
 
 ## Deploy manually
 
