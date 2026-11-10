@@ -38,7 +38,7 @@ npm run dev
 
 The small service under `deployer/` is watching for content changes, rebuilds and uploads the static site.
 
-I don't want to wait for a whole CI run after I fix a typo. Waiting for a worker, installing dependencies, and doing a fresh build... it all takes way too long just to fix a typo.
+I don't want to wait for a whole CI run after I fix a typo. Waiting for a worker, installing dependencies, and doing a fresh build... it all takes way too long just to fix a typo. I want it to be refreshed in 5 seconds, not 5 minutes.
 
 > **Philosophy:** If I don't want this builder/deployer anymore, I could just delete the `deployer/` folder and nothing would change, other than the fact that I don't have the same auto-deploy behavior anymore. I could still manually trigegr a build and deploy, or use another way.
 
