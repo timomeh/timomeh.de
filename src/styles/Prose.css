@@ -118,6 +118,32 @@
   color: var(--prose-bullet);
 }
 
+.Prose .footnotes {
+  border-top: 1px solid var(--prose-rule);
+  padding-top: 1rem;
+  font-size: 0.875em;
+}
+
+.Prose .footnotes ol {
+  margin: 0 0 1.25em;
+}
+
+.Prose .footnote-ref a,
+.Prose .footnotes li > a:last-child {
+  font-family: var(--font-mono);
+  text-decoration: none;
+}
+
+.Prose .footnote-ref a {
+  color: var(--prose-muted);
+  font-size: 0.875em;
+  font-weight: 400;
+}
+
+.Prose :is(.footnote-ref, .footnotes li):target {
+  background: rgb(56 189 248 / 0.2);
+}
+
 .Prose :where(ul ul, ul ol, ol ul, ol ol) {
   margin: 0.75em 0;
 }
