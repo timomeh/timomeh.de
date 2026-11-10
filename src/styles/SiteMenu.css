@@ -75,6 +75,7 @@
 .SiteMenu-link:hover,
 .SiteMenu-link[aria-current="page"] {
   background: rgb(255 255 255 / 80%);
+  box-shadow: 0 1px 4px rgb(41 37 36 / 12%);
 }
 
 :root[data-color-scheme="dark"] .SiteMenu-trigger:hover,
@@ -84,4 +85,5 @@
 :root[data-color-scheme="dark"] .SiteMenu-link:hover,
 :root[data-color-scheme="dark"] .SiteMenu-link[aria-current="page"] {
   background: rgb(255 255 255 / 16%);
+  box-shadow: 0 1px 4px rgb(0 0 0 / 30%);
 }
