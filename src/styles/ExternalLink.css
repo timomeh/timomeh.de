@@ -1,3 +1,7 @@
+.ExternalLink {
+  overflow-wrap: anywhere;
+}
+
 .ExternalLink-end {
   white-space: nowrap;
 }
