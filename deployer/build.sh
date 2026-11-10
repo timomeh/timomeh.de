@@ -41,7 +41,7 @@ else
 fi
 
 if [ "${1:-}" = "--fresh" ]; then
-  rm -rf "$OUTPUT_DIR"
+  rm -rf "$OUTPUT_DIR" /app/.cache
 fi
 
 CONTENT_COMMIT=$(git -C "$CONTENT_DIR" rev-parse HEAD)
