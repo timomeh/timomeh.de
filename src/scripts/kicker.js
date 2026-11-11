@@ -1,11 +1,20 @@
+window.BlogApp ||= {};
+
 class RandomKicker extends HTMLElement {
   connectedCallback() {
     this.el = document.querySelector("[data-blog-kicker]");
     this.options = [...document.querySelectorAll("[data-blog-kicker-option]")];
-    this.shuffle();
+    this.#shuffle();
+    this.#setupListeners();
   }
 
-  shuffle() {
+  #setupListeners() {
+    window.BlogApp.swup?.hooks.on("content:replace", () => {
+      this.#shuffle();
+    });
+  }
+
+  #shuffle() {
     const random = this.#pickRandom();
     if (random) {
       this.#setCurrent(random);

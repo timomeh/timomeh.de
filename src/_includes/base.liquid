@@ -64,7 +64,7 @@
       </animated-header-cover>
     </div>
 
-    <nav id="site-nav" class="SiteNav" aria-label="Main navigation" tabindex="-1">
+    <nav-bar role="navigation" id="site-nav" class="SiteNav" aria-label="Main navigation" tabindex="-1">
       <div class="SiteNav-backdrop u-glass"></div>
       <div class="SiteNav-items">
         <a class="SiteNav-link" href="/" data-nav="home"{% if page.url == '/' %} aria-current="page"{% endif %}>Home</a>
@@ -88,21 +88,23 @@
           </button>
         </theme-toggle>
 
-        <details class="SiteMenu" id="site-menu">
-          <summary class="SiteMenu-trigger" aria-label="More navigation links" title="More navigation links">
-            <svg class="SiteMenu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M4 7h16M4 12h16M4 17h16"/>
-            </svg>
-          </summary>
-          <nav class="SiteMenu-items u-glass" aria-label="More navigation">
-            <a class="SiteMenu-link" href="/about/"{% if page.url == '/about/' %} aria-current="page"{% endif %}>About</a>
-            <a class="SiteMenu-link" href="/archive/"{% if category or yearGroup or page.url == '/archive/' %} aria-current="page"{% endif %}>Archive</a>
-            <a class="SiteMenu-link" href="/feeds/"{% if page.url == '/feeds/' %} aria-current="page"{% endif %}>Feeds</a>
-            <a class="SiteMenu-link" href="/ai/"{% if page.url == '/ai/' %} aria-current="page"{% endif %}>AI Usage</a>
-          </nav>
-        </details>
+        <nav-bar-menu class="SiteMenu">
+          <details class="SiteMenu-details">
+            <summary class="SiteMenu-trigger" aria-label="More navigation links" title="More navigation links">
+              <svg class="SiteMenu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M4 7h16M4 12h16M4 17h16"/>
+              </svg>
+            </summary>
+            <nav class="SiteMenu-items u-glass" aria-label="More navigation">
+              <a class="SiteMenu-link" href="/about/"{% if page.url == '/about/' %} aria-current="page"{% endif %}>About</a>
+              <a class="SiteMenu-link" href="/archive/"{% if category or yearGroup or page.url == '/archive/' %} aria-current="page"{% endif %}>Archive</a>
+              <a class="SiteMenu-link" href="/feeds/"{% if page.url == '/feeds/' %} aria-current="page"{% endif %}>Feeds</a>
+              <a class="SiteMenu-link" href="/ai/"{% if page.url == '/ai/' %} aria-current="page"{% endif %}>AI Usage</a>
+            </nav>
+          </details>
+        </nav-bar-menu>
       </div>
-    </nav>
+    </nav-bar>
 
     <header class="SiteHeader">
       <div class="SiteHeader-identity">
