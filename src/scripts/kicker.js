@@ -1,16 +1,30 @@
-window.BlogApp ||= {};
-BlogApp.Kicker ||= {};
-
-BlogApp.Kicker.randomize = () => {
-  const el = document.querySelector("[data-blog-kicker]");
-  const options = [...document.querySelectorAll("[data-blog-kicker-option]")];
-  if (el && options.length) {
-    el.textContent = randomItem(options).textContent;
+class RandomKicker extends HTMLElement {
+  connectedCallback() {
+    this.el = document.querySelector("[data-blog-kicker]");
+    this.options = [...document.querySelectorAll("[data-blog-kicker-option]")];
+    this.shuffle();
   }
-};
 
-function randomItem(options) {
-  return options[Math.floor(Math.random() * options.length)];
+  shuffle() {
+    const random = this.#pickRandom();
+    if (random) {
+      this.#setCurrent(random);
+    }
+  }
+
+  #pickRandom() {
+    if (this.options.length) {
+      return this.options[Math.floor(Math.random() * this.options.length)].textContent;
+    }
+
+    return null;
+  }
+
+  #setCurrent(text) {
+    if (this.el) {
+      this.el.textContent = text;
+    }
+  }
 }
 
-BlogApp.Kicker.randomize();
+customElements.define("random-kicker", RandomKicker);

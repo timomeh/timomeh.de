@@ -2,12 +2,12 @@ window.BlogApp ||= {};
 
 if (window.Swup && window.SwupHeadPlugin && window.SwupA11yPlugin) {
   const swup = new window.Swup({
-    containers: ["#page-backdrop", "#site-nav", "#header-kicker", "#page-content"],
+    containers: ["#page-backdrop", "#site-nav", "random-kicker", "#page-content"],
     plugins: [new window.SwupHeadPlugin(), new window.SwupA11yPlugin()],
   });
 
   swup.hooks.on("content:replace", () => {
-    window.BlogApp.Kicker?.randomize();
+    document.querySelector("random-kicker")?.shuffle();
   });
 
   swup.hooks.on("content:replace", () => {

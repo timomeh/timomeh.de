@@ -111,14 +111,14 @@
           <img class="SiteHeader-surprisedMug" src="{{ 'comic-o-overlay.png' | assetUrl }}" width="80" height="80" alt="" aria-hidden="true" draggable="false">
         </a>
         {% assign kicker = post.frontmatter.kicker | default: pageContent.frontmatter.kicker | default: short.frontmatter.kicker | default: category.frontmatter.kicker %}
-        <div id="header-kicker" class="SiteHeader-kicker">
+        <random-kicker class="SiteHeader-kicker">
         {% if kicker %}
           <span class="SiteHeader-kickerText">{{ kicker | escape }}</span>
         {% else %}
           <span class="SiteHeader-kickerText" data-blog-kicker>{{ blog.kickers.first | default: 'a head full of milk foam by' | escape }}</span>
           {% for option in blog.kickers %}<span hidden data-blog-kicker-option>{{ option | escape }}</span>{% endfor %}
         {% endif %}
-        </div>
+        </random-kicker>
         <a class="SiteHeader-title" href="/">Timo Mämecke</a>
       </div>
     </header>
