@@ -1,4 +1,5 @@
 /* Adapted from @tailwindcss/typography (MIT, Tailwind Labs, Inc.) */
+/* The Prose component doesn't closely follow my SUIT CSS rules, but it works. */
 
 .Prose {
   --prose-body: #292524;

@@ -7,6 +7,14 @@ const state = {
   scrollY: Math.max(0, window.scrollY),
 };
 
+/*
+- `scrollFloating` switches the nav from its normal position at the top of the
+   page to a fixed position above the viewport. On its own, the floating nav is hidden.
+- `scrollVisible` moves the floating nav into view. Removing it moves the nav back off-screen.
+- `scrollReady` enables the transform transition, so subsequent show/hide changes animate.
+   It's added after the initial move off-screen, so that move doesn't animate.
+*/
+
 BlogApp.Navbar.render = () => {
   const nav = document.querySelector("#site-nav");
   if (!nav) return;
@@ -80,9 +88,3 @@ document.addEventListener("keydown", (event) => {
     menu.querySelector("summary").focus();
   }
 });
-
-/*
-- is-scroll-floating switches the nav from its normal position at the top of the page to a fixed position above the viewport. On its own, the floating nav is hidden.
-- is-scroll-visible moves the floating nav into view. Removing it moves the nav back off-screen.
-- is-scroll-ready enables the transform transition, so subsequent show/hide changes animate. It’s added after the initial move off-screen, so that move doesn’t animate.
-*/
