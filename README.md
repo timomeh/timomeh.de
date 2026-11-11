@@ -87,7 +87,7 @@ CSS uses my own flavor of [SUIT CSS](https://suitcss.github.io/).
 
 ### JavaScript
 
-Since there's no module bundler or compiler. All client-side JS files are concatenated into a single file. To make sure there are no overspill between files, each file is wrapped into an IIFE.
+There's no module bundler or compiler. Just plain unminified vanilla JS. All client-side JS files are concatenated into a single file. To make sure there are no overspill between files, each file is wrapped into an IIFE.
 
 - Use Custom Elements wherever possible
 - Use modern web tech where possible
