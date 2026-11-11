@@ -1,9 +1,5 @@
 {% if post.cover.light or post.cover.dark %}
-  {% if cover_context == 'preview' %}
-    {% assign cover_sizes = '(max-width: 640px) 100vw, 640px' %}
-  {% else %}
-    {% assign cover_sizes = '(max-width: 1024px) 100vw, 1024px' %}
-  {% endif %}
+  {% assign cover_sizes = '(max-width: 1024px) 100vw, 1024px' %}
   <div class="PostCover" data-context="{{ cover_context }}" aria-hidden="true">
     {% if post.cover.light and post.cover.dark %}
       {% include 'post-cover-picture.liquid', image: post.cover.lightImage, src: post.cover.light, theme: 'light' %}

@@ -21,6 +21,10 @@
   background-blend-mode: exclusion;
 }
 
+.PostPreview-content {
+  position: relative;
+}
+
 .PostPreview-body .PostPreview-title {
   font-size: 1.5rem;
   line-height: 1.12;
