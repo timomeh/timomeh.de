@@ -57,6 +57,19 @@
   text-underline-offset: 0.25em;
 }
 
+.Prose .heading-anchor {
+  margin-inline-start: 0.35em;
+  color: color-mix(in srgb, var(--prose-muted) 60%, transparent);
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.Prose .heading-anchor:hover,
+.Prose .heading-anchor:focus-visible {
+  color: var(--prose-heading);
+  text-decoration: underline;
+}
+
 .Prose p {
   margin: 1.25em 0;
 }
@@ -140,7 +153,7 @@
   font-weight: 400;
 }
 
-.Prose :is(.footnote-ref, .footnotes li):target {
+.Prose :is(.footnote-ref, .footnotes li, h2, h3, h4, h5, h6):target {
   background: rgb(56 189 248 / 0.2);
 }
 
