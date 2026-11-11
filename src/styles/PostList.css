@@ -8,16 +8,26 @@
   position: relative;
 }
 
-.PostList-item::after {
+.PostList-item::after,
+.PostList-item:first-child:has(.PostCover)::before {
   content: "";
   position: absolute;
   right: calc(50% - 50vw);
-  bottom: 0;
   left: calc(50% - 50vw);
   border-bottom: 1px solid rgb(0 0 0 / 10%);
   pointer-events: none;
 }
 
-:root[data-color-scheme="dark"] .PostList-item::after {
+.PostList-item::after {
+  bottom: 0;
+}
+
+.PostList-item:first-child:has(.PostCover)::before {
+  top: 0;
+  z-index: 1;
+}
+
+:root[data-color-scheme="dark"] .PostList-item::after,
+:root[data-color-scheme="dark"] .PostList-item:first-child:has(.PostCover)::before {
   border-color: rgb(255 255 255 / 10%);
 }
