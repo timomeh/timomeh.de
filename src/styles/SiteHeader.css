@@ -10,12 +10,6 @@
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .SiteHeader {
-    transition: padding-top 0.45s ease-in-out;
-  }
-}
-
 .SiteHeader-identity {
   display: flex;
   flex-direction: column;
