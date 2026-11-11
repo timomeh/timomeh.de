@@ -200,9 +200,9 @@ void main() {
   fragColor = vec4(sqrt(clamp(col, 0.0, 1.0)), alpha);
 }`;
 
-const reducedMotionQuery = matchMedia("(prefers-reduced-motion: reduce)");
-
 class AnimatedHeaderCover extends HTMLElement {
+  #reducedMotionQuery = matchMedia("(prefers-reduced-motion: reduce)");
+
   connectedCallback() {
     const canvas = this.querySelector("canvas");
     if (!canvas) return;
@@ -235,7 +235,7 @@ class AnimatedHeaderCover extends HTMLElement {
     }).observe(this.canvas);
 
     window.addEventListener("theme:change", () => this.initialize());
-    reducedMotionQuery.addEventListener("change", () => this.draw());
+    this.#reducedMotionQuery.addEventListener("change", () => this.draw());
     document.addEventListener("visibilitychange", () => this.draw());
     this.canvas.addEventListener("webglcontextlost", (event) => {
       event.preventDefault();
@@ -252,7 +252,7 @@ class AnimatedHeaderCover extends HTMLElement {
     try {
       if (this.gl.isContextLost()) return;
 
-      const shaderSource = getCurrentShader();
+      const shaderSource = this.#getCurrentShader();
       const vertexShader = this.compileShader(
         this.gl.VERTEX_SHADER,
         `#version 300 es
@@ -304,7 +304,7 @@ class AnimatedHeaderCover extends HTMLElement {
 
   setCanvasSize() {
     const bounds = this.canvas.getBoundingClientRect();
-    const scale = isDark() ? 0.2 : 1;
+    const scale = this.#isDark() ? 0.2 : 1;
     this.canvas.width = Math.max(1, Math.round(bounds.width * scale));
     this.canvas.height = Math.max(1, Math.round(bounds.height * scale));
     this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
@@ -335,7 +335,7 @@ class AnimatedHeaderCover extends HTMLElement {
     this.gl.clear(this.gl.COLOR_BUFFER_BIT);
     this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, 4);
 
-    if (!reducedMotionQuery.matches) {
+    if (!this.#isReducedMotion()) {
       this.state.frame = requestAnimationFrame(() => this.draw());
     }
   }
@@ -351,14 +351,18 @@ class AnimatedHeaderCover extends HTMLElement {
 
     return shader;
   }
+
+  #getCurrentShader() {
+    return this.#isDark() ? auroraShader : contoursShader;
+  }
+
+  #isDark() {
+    return document.documentElement.dataset.colorScheme === "dark";
+  }
+
+  #isReducedMotion() {
+    return this.#reducedMotionQuery.matches;
+  }
 }
 
 customElements.define("animated-header-cover", AnimatedHeaderCover);
-
-function getCurrentShader() {
-  return isDark() ? auroraShader : contoursShader;
-}
-
-function isDark() {
-  return document.documentElement.dataset.colorScheme === "dark";
-}
