@@ -17,6 +17,17 @@
   object-position: bottom;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .is-changing .PostCover[data-context="page"] {
+    transition: opacity 350ms ease-in-out;
+  }
+
+  .PostCover[data-context="page"].is-next-container,
+  .PostCover[data-context="page"].is-previous-container {
+    opacity: 0;
+  }
+}
+
 .PostCover[data-context="page"] {
   position: absolute;
   z-index: -1;

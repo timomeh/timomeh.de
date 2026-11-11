@@ -19,6 +19,7 @@
     "@sindresorhus/slugify": "4.0.1",
     "@swup/a11y-plugin": "5.2.1",
     "@swup/head-plugin": "2.3.1",
+    "@swup/parallel-plugin": "0.4.0",
     "@twemoji/svg": "15.0.0",
     "fontkit": "2.0.4",
     "gray-matter": "4.0.3",

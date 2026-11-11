@@ -1,9 +1,14 @@
 window.BlogApp ||= {};
 
-if (window.Swup && window.SwupHeadPlugin && window.SwupA11yPlugin) {
+if (window.Swup && window.SwupHeadPlugin && window.SwupA11yPlugin && window.SwupParallelPlugin) {
   const swup = new window.Swup({
-    containers: ["#page-backdrop", "nav-bar", "random-kicker", "#page-content"],
-    plugins: [new window.SwupHeadPlugin(), new window.SwupA11yPlugin()],
+    containers: ["#page-backdrop", "#page-cover", "nav-bar", "random-kicker", "#page-content"],
+    animationSelector: '.PostCover[data-context="page"]',
+    plugins: [
+      new window.SwupHeadPlugin(),
+      new window.SwupA11yPlugin(),
+      new window.SwupParallelPlugin({ containers: ["#page-cover"] }),
+    ],
   });
 
   window.BlogApp.swup = swup;
@@ -16,13 +21,5 @@ if (window.Swup && window.SwupHeadPlugin && window.SwupA11yPlugin) {
 
   swup.hooks.on("visit:start", () => {
     window.Fancybox?.close();
-  });
-
-  swup.hooks.before("content:replace", () => {
-    window.BlogApp.Cover?.prepareCrossfade();
-  });
-
-  swup.hooks.on("content:replace", () => {
-    window.BlogApp.Cover?.crossfade();
   });
 }

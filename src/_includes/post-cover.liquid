@@ -1,12 +1,12 @@
-{% if post.cover.light or post.cover.dark %}
+{% if cover_context == 'page' or post.cover.light or post.cover.dark %}
   {% assign cover_sizes = '(max-width: 1024px) 100vw, 1024px' %}
-  <div class="PostCover" data-context="{{ cover_context }}" aria-hidden="true">
+  <div class="PostCover" data-context="{{ cover_context }}"{% if cover_context == 'page' %} id="page-cover"{% endif %} aria-hidden="true">
     {% if post.cover.light and post.cover.dark %}
       {% include 'post-cover-picture.liquid', image: post.cover.lightImage, src: post.cover.light, theme: 'light' %}
       {% include 'post-cover-picture.liquid', image: post.cover.darkImage, src: post.cover.dark, theme: 'dark' %}
     {% elsif post.cover.light %}
       {% include 'post-cover-picture.liquid', image: post.cover.lightImage, src: post.cover.light %}
-    {% else %}
+    {% elsif post.cover.dark %}
       {% include 'post-cover-picture.liquid', image: post.cover.darkImage, src: post.cover.dark %}
     {% endif %}
   </div>

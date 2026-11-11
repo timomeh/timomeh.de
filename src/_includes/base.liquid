@@ -52,11 +52,9 @@
           --post-dark-bg: {{ post.cover.darkColor | escape }};
           --post-dark-blend: exclusion;
         {% endif %}"
-      >
-      {% if post %}
-        {% include 'post-cover.liquid', cover_context: 'page' %}
-      {% endif %}
-    </div>
+      ></div>
+
+    {% include 'post-cover.liquid', cover_context: 'page' %}
 
     <div class="HeaderEffects" data-has-cover="{% if post.cover.light or post.cover.dark %}true{% else %}false{% endif %}" aria-hidden="true">
       <animated-header-cover>
