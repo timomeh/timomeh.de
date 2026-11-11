@@ -87,14 +87,10 @@ CSS uses my own flavor of [SUIT CSS](https://suitcss.github.io/).
 
 ### JavaScript
 
-Since there's no module bundler or compiler, I'm using the global namespace pattern and web components. All JS files are concatenated into a single file. To make sure there are no hidden dependencies, each file is wrapped into an IIFE.
+Since there's no module bundler or compiler. All client-side JS files are concatenated into a single file. To make sure there are no overspill between files, each file is wrapped into an IIFE.
 
-```js
-window.BlogApp ||= {};
-BlogApp.SomeModule ||= {};
-
-BlogApp.SomeModule.sharedFunction = () => {};
-```
+- Use Custom Elements wherever possible
+- Use modern web tech where possible
 
 ## Repo Structure
 
