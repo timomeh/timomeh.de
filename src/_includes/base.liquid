@@ -107,8 +107,10 @@
     <header class="SiteHeader">
       <div class="SiteHeader-identity">
         <a class="SiteHeader-mug" href="/" aria-label="Go to home">
-          <img class="SiteHeader-regularMug" src="{{ 'comic.png' | assetUrl }}" width="80" height="80" alt="">
-          <img class="SiteHeader-surprisedMug" src="{{ 'comic-o-overlay.png' | assetUrl }}" width="80" height="80" alt="" aria-hidden="true" draggable="false">
+          {% assign mug = 'comic.png' | optimizedAsset: 80 %}
+          {% assign mug_overlay = 'comic-o-overlay.png' | optimizedAsset: 80 %}
+          <img class="SiteHeader-regularMug" src="{{ mug.src }}" srcset="{{ mug.srcset }}" sizes="80px" width="80" height="80" alt="">
+          <img class="SiteHeader-surprisedMug" src="{{ mug_overlay.src }}" srcset="{{ mug_overlay.srcset }}" sizes="80px" width="80" height="80" alt="" aria-hidden="true" draggable="false">
         </a>
         {% assign kicker = post.frontmatter.kicker | default: pageContent.frontmatter.kicker | default: short.frontmatter.kicker | default: category.frontmatter.kicker %}
         <random-kicker class="SiteHeader-kicker">
