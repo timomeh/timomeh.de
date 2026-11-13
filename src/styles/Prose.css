@@ -73,6 +73,7 @@
 
 .Prose p {
   margin: 1.25em 0;
+  text-wrap: pretty;
 }
 
 .Prose a {
