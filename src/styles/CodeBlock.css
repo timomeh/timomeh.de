@@ -10,14 +10,6 @@
   font-family: var(--font-mono);
 }
 
-figure > .CodeBlock {
-  margin-block: 2rem;
-}
-
-figure > .CodeBlock + figcaption {
-  margin-top: -1.25rem;
-}
-
 @media (min-width: 768px) {
   .CodeBlock {
     margin-inline: -1rem;
