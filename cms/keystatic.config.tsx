@@ -1,5 +1,4 @@
 import { collection, config, fields, singleton } from "@keystatic/core";
-import "./editor.css";
 import { inline, mark, repeating, wrapper } from "@keystatic/core/content-components";
 import {
   BetweenHorizonalStart,
