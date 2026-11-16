@@ -247,12 +247,11 @@
 }
 
 @media (min-width: 768px) {
-  .Prose figure:not(:has(code)),
   .Prose:not([data-context="short-media"]) .content-image:not(figure .content-image) {
     margin-inline: -1rem;
   }
 
-  .Prose figure:not(:has(code)) > figcaption {
+  .Prose figure > figcaption {
     padding-inline: 1rem;
   }
 }
