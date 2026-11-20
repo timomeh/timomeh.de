@@ -1,0 +1,65 @@
+@layer components {
+  @scope (blog-content-image) to ([data-component]) {
+    :scope {
+      display: block;
+      position: relative;
+      isolation: isolate;
+      width: max-content;
+      max-height: 100%;
+      max-width: min(100%, var(--image-width));
+
+      &::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        background: var(--image-placeholder) center / cover no-repeat;
+        border-radius: 0.375rem;
+        filter: blur(8px);
+        opacity: 0.2;
+        pointer-events: none;
+      }
+
+      figure[data-shadow="false"] &::before {
+        display: none;
+      }
+    }
+
+    :scope[data-single-attachment] {
+      max-width: min(100%, var(--image-width), 20rem * var(--image-ratio));
+
+      @media (min-width: 768px) {
+        max-width: min(100%, var(--image-width), 30rem * var(--image-ratio));
+      }
+    }
+
+    :scope[data-single-attachment="false"] {
+      height: 100%;
+
+      picture,
+      img {
+        display: block;
+        width: 100%;
+        max-width: none;
+        height: 100%;
+        margin: 0;
+        object-fit: cover;
+      }
+    }
+
+    picture {
+      display: block;
+      margin: 0;
+    }
+
+    img {
+      position: relative;
+      display: block;
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto;
+      border-radius: 0.375rem;
+    }
+  }
+}

@@ -1,0 +1,44 @@
+@layer components {
+  @scope (blog-post-cover) to ([data-component]) {
+    :scope {
+      display: block;
+      pointer-events: none;
+      user-select: none;
+      overflow: hidden;
+      opacity: 0.9;
+      mix-blend-mode: darken;
+      mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
+      width: min(100vw, 1024px);
+      height: clamp(300px, 42vw, 500px);
+
+      @media (min-width: 1024px) {
+        mask-image:
+          linear-gradient(to bottom, #000 70%, transparent 100%),
+          linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+        mask-composite: intersect;
+      }
+
+      :root[data-color-scheme="dark"] & {
+        mix-blend-mode: lighten;
+      }
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: bottom;
+    }
+
+    picture {
+      display: block;
+      height: 100%;
+
+      :root[data-color-scheme="light"] &[data-image-theme="dark"],
+      :root[data-color-scheme="dark"] &[data-image-theme="light"] {
+        display: none;
+      }
+    }
+  }
+}

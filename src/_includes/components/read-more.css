@@ -1,0 +1,18 @@
+@layer components {
+  @scope (blog-read-more) to ([data-component]) {
+    a {
+      color: #35945e;
+      font-weight: 500;
+      white-space: nowrap;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      :root[data-color-scheme="dark"] & {
+        color: #93c5fd;
+      }
+    }
+  }
+}

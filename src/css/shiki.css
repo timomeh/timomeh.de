@@ -1,0 +1,151 @@
+@layer vendor {
+  .shiki {
+    :root[data-color-scheme="dark"] & {
+      color: var(--shiki-dark) !important;
+      background-color: var(--shiki-dark-bg) !important;
+      font-style: var(--shiki-dark-font-style) !important;
+      font-weight: var(--shiki-dark-font-weight) !important;
+      text-decoration: var(--shiki-dark-text-decoration) !important;
+
+      span {
+        color: var(--shiki-dark) !important;
+        font-style: var(--shiki-dark-font-style) !important;
+        font-weight: var(--shiki-dark-font-weight) !important;
+        text-decoration: var(--shiki-dark-text-decoration) !important;
+      }
+    }
+
+    code {
+      display: block;
+      box-sizing: border-box;
+      width: fit-content;
+      min-width: 100%;
+      padding: 16px;
+      font: inherit;
+    }
+
+    .tab,
+    .space {
+      position: relative;
+
+      &::before {
+        position: absolute;
+        opacity: 0.2;
+      }
+    }
+
+    .tab::before {
+      content: "⇥";
+    }
+
+    .space::before {
+      content: "·";
+    }
+
+    .line {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+
+      &:empty,
+      &::has(> span:only-child:empty) {
+        display: inline;
+      }
+
+      > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* diff plugin */
+      .diff {
+        &::after {
+          content: "";
+          position: absolute;
+          inset: 0 -24px;
+          display: block;
+          pointer-events: none;
+          user-select: none;
+          transition: background-color 0.5s;
+        }
+
+        &::before {
+          position: absolute;
+          left: -12px;
+        }
+
+        &.add::before {
+          content: "+";
+          color: #3dd68c;
+        }
+        &.remove::after {
+          background: rgb(244 63 94 / 16%);
+          opacity: 0.7;
+        }
+        &.remove::before {
+          content: "-";
+          color: #cb7676;
+        }
+      }
+
+      /* highlight plugin */
+      .highlighted {
+        &::after {
+          content: "";
+          position: absolute;
+          inset: 0 -24px;
+          display: block;
+          pointer-events: none;
+          user-select: none;
+          transition: background-color 0.5s;
+          background: rgb(125 211 252 / 27%);
+        }
+
+        :root[data-color-scheme="dark"] &::after {
+          background: rgb(81 92 126 / 27%);
+        }
+
+        &.error::after {
+          background: rgb(244 63 94 / 16%);
+        }
+
+        &.warning::after {
+          background: rgb(234 179 8 / 16%);
+        }
+      }
+    }
+
+    /* highlight word plugin */
+    .highlighted-word {
+      margin: -1px -3px;
+      padding: 1px 3px;
+      border: 1px solid rgb(125 211 252);
+      border-radius: 4px;
+      background: rgb(125 211 252 / 27%);
+
+      :root[data-color-scheme="dark"] & {
+        background: #16161e;
+        border-color: #42465d;
+      }
+    }
+
+    /* focus plugin */
+    &.has-focused {
+      .line:not(.focused) {
+        opacity: 1;
+        transition:
+          filter 0.35s,
+          opacity 0.35s;
+
+        @media (prefers-reduced-motion: reduce) {
+          transition: none;
+        }
+      }
+
+      &:not(:hover) .line:not(.focused) {
+        opacity: 0.7;
+        filter: blur(0.095rem);
+      }
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{% linkCSS 'src/_includes/components/post-cover/post-cover.css' %}
+
+{% assign cover_sizes = '(max-width: 1024px) 100vw, 1024px' %}
+<blog-post-cover aria-hidden="true">
+  {% if light %}
+    <picture data-image-theme="light">
+      {% if light.webp %}
+        <source
+          srcset="{{ light.webp | escape }}"
+          sizes="{{ cover_sizes }}"
+          type="image/webp"
+        >
+      {% endif %}
+
+      <img
+        src="{{ light.src | escape }}"
+        srcset="{{ light.srcset | escape }}"
+        sizes="{{ cover_sizes }}"
+        width="{{ light.width }}"
+        height="{{ light.height }}"
+        alt=""
+        decoding="async"
+        {% if lazy %}
+          loading="lazy"
+        {% else %}
+          fetchpriority="high"
+        {% endif %}
+      >
+    </picture>
+  {% endif %}
+  {% if post.cover.dark %}
+    <picture data-image-theme="dark">
+      {% if dark.webp %}
+        <source
+          srcset="{{ dark.webp | escape }}"
+          sizes="{{ cover_sizes }}"
+          type="image/webp"
+        >
+      {% endif %}
+
+      <img
+        src="{{ dark.src | escape }}"
+        srcset="{{ dark.srcset | escape }}"
+        sizes="{{ cover_sizes }}"
+        width="{{ dark.width }}"
+        height="{{ dark.height }}"
+        alt=""
+        decoding="async"
+        {% if lazy %}
+          loading="lazy"
+        {% else %}
+          fetchpriority="high"
+        {% endif %}
+      >
+    </picture>
+  {% endif %}
+</blog-post-cover>

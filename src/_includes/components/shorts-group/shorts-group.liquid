@@ -1,0 +1,11 @@
+{% linkCSS 'src/_includes/components/shorts-group/shorts-group.css' %}
+
+<blog-shorts-group data-component>
+  <ol class="u-burrito">
+    {% for short in shorts %}
+      <li>
+        {% include 'components/short-entry/short-entry', details: false %}
+      </li>
+    {% endfor %}
+  </ol>
+</blog-shorts-group>

@@ -1,0 +1,15 @@
+{% linkCSS 'src/_includes/components/post-view/post-view.css' %}
+
+<blog-post-view>
+  <article
+    class="u-burrito"
+    {% if post.meta.lang %}
+      lang="{{ post.meta.lang | split: '_' | first | escape }}"
+    {% endif %}
+  >
+    {% include 'components/post-eyebrow/post-eyebrow', tags: post.tags, linked: false %}
+    <div class="body">
+      <blog-prose>{{ post.html }}</blog-prose>
+    </div>
+  </article>
+</blog-post-view>

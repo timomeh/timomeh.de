@@ -1,0 +1,24 @@
+{% linkCSS 'src/_includes/components/short-entry/short-entry.css' %}
+
+<blog-short-entry data-component>
+  {% assign avatar = 'src/assets/shorts-avatar.webp' | imageUrl: 40 %}
+  <img class="avatar" src="{{ avatar.src }}" srcset="{{ avatar.srcset }}" sizes="40px" width="40" height="40" alt="" loading="lazy" decoding="async">
+  <div class="content">
+    <div class="header">
+      <span class="author">Timo</span>
+      <a
+        class="permalink"
+        id="short-{{ short.slug | escape }}"
+        href="{% if short_detail %}/#short-{{ short.slug | escape }}{% else %}{{ short.url }}{% endif %}"
+      ><time class="published" datetime="{{ short.publishedAt | dateIso }}">{{ short.publishedAt | shortDateTime }}</time></a>
+    </div>
+
+    <blog-prose data-component data-size="small">{{ short.html }}</blog-prose>
+
+    {% if short.attachments.size > 0 %}
+      <div class="attachments">
+        {% include 'components/short-attachments/short-attachments', attachments: short.attachments %}
+      </div>
+    {% endif %}
+  </div>
+</blog-short-entry>

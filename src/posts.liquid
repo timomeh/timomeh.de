@@ -2,5 +2,6 @@
 permalink: /posts/index.html
 layout: base.liquid
 title: Posts
+currentNav: /posts/
 ---
-{% include 'post-list.liquid', posts: blog.posts %}
+{% include 'components/post-timeline/post-timeline', items: blog.posts %}

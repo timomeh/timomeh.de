@@ -1,5 +1,5 @@
 <article class="ShortEntry">
-  {% assign avatar = 'shorts-avatar.webp' | optimizedAsset: 40 %}
+  {% assign avatar = 'src/assets/shorts-avatar.webp' | imageUrl: 40 %}
   <img class="ShortEntry-avatar" src="{{ avatar.src }}" srcset="{{ avatar.srcset }}" sizes="40px" width="40" height="40" alt="" loading="lazy" decoding="async">
   <div class="ShortEntry-content">
     <div class="ShortEntry-header">

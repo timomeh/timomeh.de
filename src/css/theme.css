@@ -1,0 +1,28 @@
+@layer theme {
+  :root {
+    --color-scheme: light;
+    --page-bg: #f2f1f0;
+    --page-grain: url("/static/grainy-light-v20261119.svg");
+    --text: #242121;
+    --muted: #666;
+    --border: #ddd;
+    --link: #6950aa;
+    --code-bg: #eeece7;
+    --focus-ring: #a18570;
+    --font-serif: "Bitter Variable", Georgia, serif;
+    --font-sans: "Inter Variable", system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  }
+
+  :root[data-color-scheme="dark"] {
+    --color-scheme: dark;
+    --page-bg: #0f0d0b;
+    --page-grain: url("/static/grainy-dark-v20261119.svg");
+    --text: #f0efeb;
+    --muted: #b5b2ad;
+    --border: #403f3b;
+    --link: #c5aeff;
+    --code-bg: #22221f;
+    --focus-ring: #6ee7b7;
+  }
+}

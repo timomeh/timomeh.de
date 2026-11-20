@@ -3,7 +3,7 @@ window.BlogApp ||= {};
 if (window.Swup && window.SwupHeadPlugin && window.SwupA11yPlugin && window.SwupParallelPlugin) {
   const swup = new window.Swup({
     containers: ["#page-backdrop", "#page-cover", "nav-bar", "random-kicker", "#page-content"],
-    animationSelector: '.PostCover[data-context="page"]',
+    animationSelector: "#page-cover",
     plugins: [
       new window.SwupHeadPlugin(),
       new window.SwupA11yPlugin(),

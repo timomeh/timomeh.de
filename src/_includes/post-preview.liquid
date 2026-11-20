@@ -10,7 +10,7 @@
       --post-dark-grain: var(--page-grain);
     {% endif %}"
   >
-  {% include 'post-cover.liquid', cover_context: 'preview' %}
+  {%# include 'post-cover.liquid', cover_context: 'preview' %}
   <div class="PostPreview-content u-burrito">
     {% include 'post-eyebrow.liquid', eyebrow_linked: true %}
     <div class="Prose PostPreview-body">{{ post.excerptHtml }}</div>

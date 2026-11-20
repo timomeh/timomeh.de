@@ -1,0 +1,11 @@
+@layer components {
+  @scope (blog-post-view) to ([data-component]) {
+    :scope {
+      display: block;
+    }
+
+    .body {
+      margin-top: 0.75rem;
+    }
+  }
+}

@@ -1,0 +1,66 @@
+@layer components {
+  @scope (blog-base-layout) to ([data-component]) {
+    :scope {
+      display: block;
+    }
+
+    #page-backdrop {
+      &::before {
+        content: "";
+        position: absolute;
+        z-index: -2;
+        inset: 0 calc(50% - 50vw);
+        background-color: var(--post-light-bg, var(--page-bg));
+        background-image: var(--page-grain);
+        background-size: 200px 200px;
+        background-blend-mode: var(--post-light-blend, normal);
+        pointer-events: none;
+      }
+
+      :root[data-color-scheme="dark"] &::before {
+        background-color: var(--post-dark-bg, var(--page-bg));
+        background-blend-mode: var(--post-dark-blend, normal);
+      }
+    }
+
+    #page-cover {
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      mix-blend-mode: darken;
+
+      :root[data-color-scheme="dark"] & {
+        mix-blend-mode: lighten;
+      }
+
+      blog-post-cover {
+        mix-blend-mode: normal;
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .is-changing & {
+          transition: opacity 350ms ease-in-out;
+        }
+
+        &:is(.is-next-container, .is-previous-container) {
+          opacity: 0;
+        }
+      }
+    }
+
+    .top-backdrop {
+      position: absolute;
+      z-index: -1;
+      top: -140px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100vw;
+      height: 550px;
+      overflow: hidden;
+      pointer-events: none;
+      mask-image: linear-gradient(to bottom, #000 65%, transparent);
+    }
+  }
+}

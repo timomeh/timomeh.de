@@ -1,71 +1,108 @@
-import { rssPlugin, dateToRfc3339, dateToRfc822 } from "@11ty/eleventy-plugin-rss";
-import { contentDir, site } from "./lib/constants.js";
-import { configureAssets } from "./lib/assets.js";
-import { generateOgImage } from "./lib/og-image.js";
-import { reportBuildTiming } from "./lib/build-timing.js";
-import { clearImageCache } from "./lib/imageoptim.js";
-import { clearFileHashes } from "./lib/file-hash.js";
+import path from "node:path";
+import { dateToRfc3339, dateToRfc822, rssPlugin } from "@11ty/eleventy-plugin-rss";
+
+import blogDataPlugin from "./config/blog-data.js";
+import filtersPlugin from "./config/filters.js";
+import fingerprintPlugin from "./config/fingerprint.js";
+import optimizedImagesPlugin from "./config/optimized-images.js";
+import openGraphPlugin from "./config/open-graph.js";
+
+import { site } from "./config/lib/constants.js";
 
 export default function (eleventyConfig) {
   const output = process.env.OUTPUT_DIR || "_site";
-  configureAssets(eleventyConfig, output);
-  eleventyConfig.on("eleventy.before", clearImageCache);
-  eleventyConfig.on("eleventy.before", clearFileHashes);
-  eleventyConfig.on("eleventy.after", reportBuildTiming);
   eleventyConfig.addGlobalData("site", { url: new URL("/", site).href });
+
+  // RSS Plugin and necessary filters for it
   eleventyConfig.addPlugin(rssPlugin);
-
-  eleventyConfig.addWatchTarget(contentDir);
-  eleventyConfig.addPassthroughCopy("src/_headers");
-
-  eleventyConfig.addFilter("absoluteUrl", (url) => new URL(url, site).href);
-  eleventyConfig.addLiquidShortcode("overviewOgImage", (title) =>
-    generateOgImage({ title }, null, "pages"),
-  );
   eleventyConfig.addLiquidFilter("dateToRfc3339", dateToRfc3339);
   eleventyConfig.addLiquidFilter("dateToRfc822", dateToRfc822);
-  eleventyConfig.addFilter("dateIso", (date) => new Date(date).toISOString());
+  eleventyConfig.addFilter("absoluteUrl", (url) => new URL(url, site).href);
 
-  const feedShortTitle = new Intl.DateTimeFormat("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-    timeZone: "UTC",
-    timeZoneName: "short",
+  // Adds all css files for all components to the head
+  eleventyConfig.addBundle("componentStyles");
+  eleventyConfig.addShortcode("linkCSS", function (sourcePath) {
+    if (!this.page?.url) {
+      throw new Error("linkCSS needs access to page.url");
+    }
+
+    const url = eleventyConfig.getFilter("cssUrl")(sourcePath);
+    const escapedUrl = url.replaceAll("&", "&amp;").replaceAll('"', "&quot;");
+    const link = `<link rel="stylesheet" href="${escapedUrl}">`;
+
+    eleventyConfig.getBundleManagers().componentStyles.addToPage(this.page.url, link);
+    return "";
   });
-  eleventyConfig.addFilter("feedShortTitle", (date) => feedShortTitle.format(new Date(date)));
 
-  const dateLabel = new Intl.DateTimeFormat("en", {
-    dateStyle: "long",
-    timeZone: "UTC",
+  // Lifecycle helpers for _data/blog.js
+  eleventyConfig.addPlugin(blogDataPlugin);
+
+  // Custom filters
+  eleventyConfig.addPlugin(filtersPlugin);
+
+  // Open Graph Images for overview pages etc
+  eleventyConfig.addPlugin(openGraphPlugin);
+
+  // Add fingerprinted URLs for css files:
+  // <link rel="stylesheet" href="{{ 'src/css/foo.css' | cssUrl }}">
+  // Doesn't rewrite urls used inside CSS files!
+  eleventyConfig.addPlugin(fingerprintPlugin, {
+    pattern: "src/{css,_includes}/**/*.css",
+    outputDir: path.join(output, "static"),
+    urlPath: "/static",
+    filterName: "cssUrl",
   });
-  eleventyConfig.addFilter("dateLabel", (date) => dateLabel.format(new Date(date)));
 
-  eleventyConfig.addFilter("pluralize", (count, singular, plural) =>
-    Number(count) === 1 ? singular : plural,
-  );
-
-  const shortDateTime = new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-    timeZone: "UTC",
-    timeZoneName: "short",
+  // Copy all static files used in css into the static dir.
+  // They must be manually fingerprinted. They're not automatically fingerprinted.
+  eleventyConfig.addPassthroughCopy({
+    "src/css/fonts/*.woff2": "static",
+    "src/css/assets/*.svg": "static",
   });
-  eleventyConfig.addFilter("shortDateTime", (date) => shortDateTime.format(new Date(date)));
 
-  const postDate = new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    day: "2-digit",
-    year: "numeric",
-    timeZone: "UTC",
+  // Add fingerprinted URLs for js files:
+  // <script type="module" src="{{ 'src/js/foo.mjs' | jsUrl }}"></script>
+  // Doesn't rewrite urls used inside JS files!
+  eleventyConfig.addPlugin(fingerprintPlugin, {
+    pattern: "src/js/**/*.{js,mjs}",
+    outputDir: path.join(output, "static"),
+    urlPath: "/static",
+    filterName: "jsUrl",
   });
-  eleventyConfig.addFilter("postDate", (date) => postDate.format(new Date(date)));
+
+  // Add fingerprinted URLs for misc assets:
+  // <link rel="apple-touch-icon" href="{{ 'apple-touch-icon.png' | assetUrl }}">
+  eleventyConfig.addPlugin(fingerprintPlugin, {
+    pattern: "src/assets/**/*",
+    outputDir: path.join(output, "static"),
+    urlPath: "/static",
+    filterName: "assetUrl",
+  });
+
+  // Copy all public files to the root output dir.
+  // For robots.txt, favicons etc.
+  eleventyConfig.addPassthroughCopy({
+    "src/public": "/",
+  });
+
+  // Add optimized images for static images:
+  // {% assign foo = 'src/images/foo.png' | imageUrl: 80 %}
+  // <img
+  //   src="{{ foo.src }}"
+  //   srcset="{{ foo.srcset }}"
+  //   sizes="80px"
+  //   width="80"
+  //   height="80"
+  //   alt=""
+  // >
+  eleventyConfig.addPlugin(optimizedImagesPlugin, {
+    pattern: "src/assets/**/*",
+    outputDir: path.join(output, "img"),
+    urlPath: "/img/",
+    filterName: "imageUrl",
+    sizes: (width) => [width, width * 2, width * 3],
+    formats: ["webp"],
+  });
 
   return { dir: { input: "src", output } };
 }

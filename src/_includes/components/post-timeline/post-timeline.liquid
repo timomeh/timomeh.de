@@ -1,0 +1,15 @@
+{% linkCSS 'src/_includes/components/post-timeline/post-timeline.css' %}
+
+<blog-post-timeline>
+  <ol>
+    {% for item in items %}
+      <li>
+        {% if item.type == 'shorts-group' %}
+          {% include 'components/shorts-group/shorts-group', shorts: item.items %}
+        {% else %}
+          {% include 'components/post-preview/post-preview', post: item %}
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ol>
+</blog-post-timeline>

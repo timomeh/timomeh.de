@@ -7,17 +7,15 @@ permalink: "{{ post.url }}index.html"
 layout: base.liquid
 eleventyComputed:
   title: "{{ post.title }}"
+currentNav: /posts/
 ---
-<article
-  class="u-burrito Post"
-  {% if post.meta.lang %}
-    lang="{{ post.meta.lang | split: '_' | first | escape }}"
-  {% endif %}
->
-  {% include 'post-eyebrow.liquid', eyebrow_linked: false %}
-  <div class="Prose Post-body">{{ post.html }}</div>
-</article>
-<section class="RelatedPosts u-burrito">
-  <div class="RelatedPosts-title Prose"><h2>More like this</h2></div>
-  {% include 'post-overview.liquid', posts: post.relatedPosts %}
+{% include 'components/post-view/post-view', post: post %}
+
+<section class="u-burrito">
+  {% capture related_posts_title %}
+    <h2>More like this</h2>
+  {% endcapture %}
+  {% include 'components/post-overview/post-overview',
+    posts: post.relatedPosts,
+    title: related_posts_title %}
 </section>

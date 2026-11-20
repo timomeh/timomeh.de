@@ -1,0 +1,19 @@
+{% linkCSS 'src/_includes/components/theme-toggle/theme-toggle.css' %}
+
+<blog-theme-toggle data-component>
+  <button type="button" aria-label="Change color theme" title="Change color theme">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <g class="icon-center">
+        <mask id="theme-moon-mask">
+          <rect width="24" height="24" fill="white"/>
+          <path class="icon-crescent" d="M14 2H22V10H20V12H18V14H12V12H10V6H12V4H14V2Z" fill="black"/>
+        </mask>
+        <path mask="url(#theme-moon-mask)" d="M6 2V4H4V6H2V18H4V20H6V22H18V20H20V18H22V6H20V4H18V2H6Z" fill="currentColor"/>
+      </g>
+      <g class="icon-rays" fill="currentColor">
+        <path d="M13 1H11V4H13V1ZM13 20H11V23H13V20ZM1 11H4V13H1V11ZM23 11H20V13H23V11ZM4 4H6V6H4V4ZM20 18H18V20H20V18ZM4 18H6V20H4V18ZM20 4H18V6H20V4Z"/>
+      </g>
+      <path class="icon-auto" d="M1 15V23H3V21H5V23H7V15H1ZM5 19V17H3V19H5Z" fill="currentColor" fill-rule="evenodd"/>
+    </svg>
+  </button>
+</blog-theme-toggle>

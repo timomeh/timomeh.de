@@ -1,0 +1,27 @@
+{% linkCSS 'src/_includes/components/nav-bar/nav-bar.css' %}
+
+<blog-nav-bar data-component id="site-nav">
+  <div class="backdrop u-glass"></div>
+  <nav class="items" aria-label="Main navigation" tabindex="-1">
+    <a class="link" href="/" {% if currentNav == '/' %} aria-current="page"{% endif %}>Home</a>
+    <a class="link" href="/posts/" {% if currentNav == '/posts/' %} aria-current="page"{% endif %}>Posts</a>
+    <a class="link" href="/shorts/" {% if currentNav == '/shorts/' %} aria-current="page"{% endif %}>Shorts</a>
+    {% include 'components/theme-toggle/theme-toggle' %}
+
+    <blog-nav-bar-menu class="menu">
+      <details class="menu-details">
+        <summary class="menu-trigger" aria-label="More navigation links" title="More navigation links">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16"/>
+          </svg>
+        </summary>
+        <nav class="menu-items u-glass" aria-label="More navigation">
+          <a class="menu-link" href="/about/"{% if currentNav == '/about/' %} aria-current="page"{% endif %}>About</a>
+          <a class="menu-link" href="/archive/"{% if currentNav == '/archive/' %} aria-current="page"{% endif %}>Archive</a>
+          <a class="menu-link" href="/feeds/"{% if currentNav == '/feeds/' %} aria-current="page"{% endif %}>Feeds</a>
+          <a class="menu-link" href="/ai/"{% if currentNav == '/ai/' %} aria-current="page"{% endif %}>AI Usage</a>
+        </nav>
+      </details>
+    </blog-nav-bar-menu>
+  </nav>
+</blog-nav-bar>

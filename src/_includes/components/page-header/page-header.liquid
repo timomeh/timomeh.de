@@ -1,0 +1,21 @@
+{% linkCSS 'src/_includes/components/page-header/page-header.css' %}
+
+<blog-page-header data-component>
+  <a class="mug" href="/" aria-label="Go to home">
+    {% assign mug = 'src/assets/comic.png' | imageUrl: 80 %}
+    {% assign mug_overlay = 'src/assets/comic-o-overlay.png' | imageUrl: 80 %}
+    <img class="regular" src="{{ mug.src }}" srcset="{{ mug.srcset }}" sizes="80px" width="80" height="80" alt="">
+    <img class="surprised" src="{{ mug_overlay.src }}" srcset="{{ mug_overlay.srcset }}" sizes="80px" width="80" height="80" alt="" aria-hidden="true" draggable="false">
+  </a>
+  <random-kicker class="kicker">
+    {% if kicker %}
+      <span>{{ kicker | escape }}</span>
+    {% else %}
+      <span data-blog-kicker>{{ blog.kickers.first | default: 'a head full of milk foam by' | escape }}</span>
+      {% for option in blog.kickers %}
+        <span hidden data-blog-kicker-option>{{ option | escape }}</span>
+      {% endfor %}
+    {% endif %}
+  </random-kicker>
+  <a class="title" href="/">Timo Mämecke</a>
+</blog-page-header>

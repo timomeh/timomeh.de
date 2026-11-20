@@ -7,8 +7,11 @@ permalink: "/in/{{ yearGroup.year }}/index.html"
 layout: base.liquid
 eleventyComputed:
   title: "Posts in {{ yearGroup.year }}"
+currentNav: /archive/
 ---
-<div class="u-burrito Prose">
-  <h1>{{ yearGroup.posts.size }} {{ yearGroup.posts.size | pluralize: 'post', 'posts' }} in {{ yearGroup.year }}</h1>
+<div class="u-burrito">
+  <blog-prose data-component>
+    <h1>{{ yearGroup.posts.size }} {{ yearGroup.posts.size | pluralize: 'post', 'posts' }} in {{ yearGroup.year }}</h1>
+  </blog-prose>
 </div>
-{% include 'post-list.liquid', posts: yearGroup.posts %}
+{% include 'components/post-timeline/post-timeline', items: yearGroup.posts %}

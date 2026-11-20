@@ -1,0 +1,17 @@
+{% linkCSS 'src/_includes/components/post-eyebrow/post-eyebrow.css' %}
+
+<blog-post-eyebrow data-component>
+  {% if tags.size > 0 %}
+    <div>
+      {% include 'components/post-tags/post-tags', tags: tags %}
+    </div>
+  {% endif %}
+  <div>
+    {% if linked %}
+      <a class="permalink" href="{{ post.url }}">
+    {% endif %}
+    <time class="published" datetime="{{ post.publishedAt | dateIso }}">{{ post.publishedAt | postDate }}</time>
+    {%- if linked %}</a>{% endif %},
+    {{ post.readingTime | escape }}
+  </div>
+</blog-post-eyebrow>

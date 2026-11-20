@@ -1,0 +1,15 @@
+{% linkCSS 'src/_includes/components/post-tags/post-tags.css' %}
+
+<blog-post-tags data-component data-size="{{ size }}">
+  {% for tag in tags %}
+    {% assign tag_data = blog.categories | where: 'slug', tag | first %}
+    <a
+      href="/categories/{{ tag | url_encode }}/"
+      {% if tag_data.color %}
+        style="--tag-color: {{ tag_data.color | escape }}"
+      {% endif %}
+    >
+      {{ tag_data.title | default: tag | escape }}</a>
+    {%- unless forloop.last %}, {% endunless %}
+  {% endfor %}
+</blog-post-tags>

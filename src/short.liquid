@@ -6,7 +6,8 @@ pagination:
 permalink: "{{ short.url }}index.html"
 layout: base.liquid
 title: Short
+currentNav: /shorts/
 ---
 <div class="u-burrito">
-  {% include 'short-entry.liquid', short_detail: true %}
+  {% include 'components/short-entry/short-entry', details: true %}
 </div>

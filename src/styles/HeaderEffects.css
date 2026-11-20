@@ -1,4 +1,4 @@
-.HeaderEffects {
+/*.HeaderEffects {
   position: absolute;
   z-index: -1;
   top: -140px;
@@ -9,7 +9,7 @@
   overflow: hidden;
   pointer-events: none;
   mask-image: linear-gradient(to bottom, #000 65%, transparent);
-}
+}*/
 
 .HeaderEffects-canvas {
   display: block;

@@ -1,0 +1,7 @@
+{% linkCSS 'src/_includes/components/header-backdrop/header-backdrop.css' %}
+
+<blog-header-backdrop data-component data-has-cover="{{ hasCover | default: false }}" aria-hidden="true">
+  <animated-header-cover>
+    <canvas data-ready="false"></canvas>
+  </animated-header-cover>
+</blog-header-backdrop>

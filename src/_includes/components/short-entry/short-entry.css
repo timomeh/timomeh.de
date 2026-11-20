@@ -1,0 +1,80 @@
+@layer components {
+  @scope (blog-short-entry) to ([data-component]) {
+    :scope {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .avatar {
+      flex: none;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .content {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .header {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.25rem 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .author {
+      font-weight: 700;
+    }
+
+    .permalink {
+      color: color-mix(in srgb, currentColor 60%, transparent);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+      font-family: var(--font-mono);
+
+      @media (min-width: 768px) {
+        font-size: 0.75rem;
+      }
+
+      &::before {
+        content: "·";
+        display: inline-block;
+        margin-right: 0.5rem;
+        text-decoration: none;
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .published {
+      color: inherit;
+      font: inherit;
+    }
+
+    .body {
+      font-size: 0.875rem;
+      line-height: 1.7143;
+
+      > :first-child {
+        margin-top: 0;
+      }
+
+      > :last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .attachments {
+      margin: 1rem 0 0;
+    }
+  }
+}

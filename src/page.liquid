@@ -7,5 +7,8 @@ permalink: "{{ pageContent.url }}index.html"
 layout: base.liquid
 eleventyComputed:
   title: "{{ pageContent.title }}"
+  currentNav: "{{ pageContent.url }}"
 ---
-<article class="u-burrito Prose">{{ pageContent.html }}</article>
+<article class="u-burrito">
+  <blog-prose>{{ pageContent.html }}</blog-prose>
+</article>

@@ -1,15 +1,6 @@
 ---
 layout: base.liquid
 title: Posts
+currentNav: /
 ---
-<ol class="PostList">
-  {% for item in blog.timeline %}
-    <li class="PostList-item">
-      {% if item.type == 'post' %}
-        {% include 'post-preview.liquid', post: item.entry %}
-      {% else %}
-        {% include 'shorts-group.liquid', shorts: item.items %}
-      {% endif %}
-    </li>
-  {% endfor %}
-</ol>
+{% include 'components/post-timeline/post-timeline', items: blog.timeline %}

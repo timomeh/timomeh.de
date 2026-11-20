@@ -1,0 +1,53 @@
+@layer base {
+  :root {
+    color-scheme: var(--color-scheme);
+    color: var(--text);
+    background: var(--page-bg) var(--page-grain) repeat 0 0 / 200px 200px;
+    font-family: var(--font-sans);
+    line-height: 1.65;
+  }
+
+  body {
+    position: relative;
+    isolation: isolate;
+    max-width: 48rem;
+    min-height: 100vh;
+    margin: auto;
+  }
+
+  a {
+    color: var(--link);
+    text-underline-offset: 0.2em;
+  }
+
+  main {
+    padding: 0;
+  }
+
+  h1, h2, h3 {
+    line-height: 1.2;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 6vw, 3rem);
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 4px;
+  }
+
+  /* TODO: that's prose stuff. Maybe shouldn't be in base styles? */
+  :root[data-color-scheme="light"] [data-image-theme="dark"],
+  :root[data-color-scheme="dark"] [data-image-theme="light"] {
+    display: none;
+  }
+}

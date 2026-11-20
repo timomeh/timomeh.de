@@ -1,0 +1,90 @@
+@layer components {
+  @scope (blog-theme-toggle) to ([data-component]) {
+    :scope {
+      display: block;
+    }
+
+    button {
+      display: grid;
+      place-items: center;
+      width: 2.25rem;
+      height: 2.25rem;
+      padding: 0.625rem;
+      margin-block: -0.625rem;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      color: inherit;
+      cursor: pointer;
+
+      &:hover {
+        background: rgb(255 255 255 / 45%);
+
+        :root[data-color-scheme="dark"] & {
+          background: rgb(255 255 255 / 9%);
+        }
+      }
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .icon-center,
+    .icon-rays,
+    .icon-crescent,
+    .icon-auto {
+      @media (prefers-reduced-motion: no-preference) {
+        transition: transform 300ms, opacity 300ms;
+      }
+    }
+
+    .icon-center {
+      transform: scale(0.6);
+      transform-origin: center;
+
+      :root[data-color-scheme="dark"] & {
+        transform: scale(1);
+      }
+    }
+
+    .icon-crescent {
+      transform: translate(12px, -4px);
+
+      :root[data-color-scheme="dark"] & {
+        transform: translate(0, 0);
+      }
+    }
+
+    .icon-rays {
+      transform-origin: center;
+
+      :root[data-color-scheme="dark"] & {
+        transform: rotate(45deg);
+        opacity: 0;
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        button:hover & {
+          transform: rotate(45deg);
+        }
+      }
+    }
+
+    .icon-auto {
+      opacity: 0;
+      transform: scale(0.75);
+      transform-origin: bottom left;
+      stroke: var(--page-bg);
+      stroke-width: 1.5px;
+      paint-order: stroke;
+
+      :root[data-theme="system"] & {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  }
+}

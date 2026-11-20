@@ -1,0 +1,45 @@
+{% linkCSS 'src/_includes/components/short-attachments/short-attachments.css' %}
+
+{% if attachments.size > 1 %}
+  {% assign sizes = '(max-width: 474px) 100vw, 300px' %}
+{% else %}
+  {% assign sizes = '(max-width: 600px) 100vw, 500px' %}
+{% endif %}
+
+<blog-short-attachments data-component>
+  <ul data-amount="{{ attachments.size }}">
+    {% for attachment in attachments %}
+      <li>
+        <blog-content-image
+          data-component
+          data-single-attachment="{% if attachments.size > 1 %}true{% else %}false{% endif %}"
+          style="
+            --image-placeholder: url('{{ attachment.image.placeholder | escape }}');
+            --image-width: {{ attachment.image.width }}px;
+            --image-ratio: {{ attachment.image.width | times: 1.0 | divided_by: attachment.image.height }}
+          "
+        >
+          <picture>
+            {% if attachment.image.webp %}<source srcset="{{ attachment.image.webp | escape }}" sizes="{{ attachment_sizes }}" type="image/webp">{% endif %}
+            <img
+              src="{{ attachment.image.src | escape }}"
+              srcset="{{ attachment.image.srcset | escape }}"
+              sizes="{{ attachment_sizes }}"
+              width="{{ attachment.image.width }}"
+              height="{{ attachment.image.height }}"
+              alt="{{ attachment.alt | escape }}"
+              data-fancybox="short-{{ short.slug | escape }}-media"
+              data-src="{{ attachment.image.src | escape }}"
+              data-caption="{{ attachment.alt | escape }}"
+              aria-label="{% if attachment.alt %}Open image: {{ attachment.alt | escape }}{% else %}Open image{% endif %}"
+              role="button"
+              tabindex="0"
+              loading="lazy"
+              decoding="async"
+            >
+          </picture>
+        </blog-content-image>
+      </li>
+    {% endfor %}
+  </ul>
+</blog-short-attachments>

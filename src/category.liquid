@@ -7,9 +7,12 @@ permalink: "{{ category.url }}index.html"
 layout: base.liquid
 eleventyComputed:
   title: "{{ category.title }}"
+currentNav: /archive/
 ---
-<div class="u-burrito Prose">
-  <h1>{{ category.posts.size }} {{ category.posts.size | pluralize: 'post', 'posts' }} tagged {{ category.title | escape }}</h1>
-  <p>{{ category.description | escape }}</p>
+<div class="u-burrito">
+  <blog-prose data-component>
+    <h1>{{ category.posts.size }} {{ category.posts.size | pluralize: 'post', 'posts' }} tagged {{ category.title | escape }}</h1>
+    <p>{{ category.description | escape }}</p>
+  </blog-prose>
 </div>
-{% include 'post-list.liquid', posts: category.posts %}
+{% include 'components/post-timeline/post-timeline', items: category.posts %}

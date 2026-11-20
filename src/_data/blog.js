@@ -1,3 +1,3 @@
-import { loadContent } from '../../lib/content.js';
+import { loadContent } from '../../config/lib/content.js';
 
 export default loadContent;

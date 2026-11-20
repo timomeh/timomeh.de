@@ -1,0 +1,43 @@
+@layer components {
+  @scope (blog-post-preview) to ([data-component]) {
+    :scope {
+      display: block;
+      position: relative;
+      isolation: isolate;
+
+      &::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        inset: 0 calc(50% - 50vw);
+        background-color: var(--post-light-bg, transparent);
+        background-image: var(--post-light-grain, none);
+        background-size: 200px 200px;
+        background-blend-mode: multiply;
+        pointer-events: none;
+      }
+
+      :root[data-color-scheme="dark"] &::before {
+        background-color: var(--post-dark-bg, transparent);
+        background-image: var(--post-dark-grain, none);
+        background-blend-mode: exclusion;
+      }
+    }
+
+    blog-post-cover {
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-bottom: -6rem;
+      width: min(100vw, 1024px);
+    }
+
+    .content {
+      position: relative;
+    }
+
+    .body {
+      margin-top: 0.75rem;
+    }
+  }
+}

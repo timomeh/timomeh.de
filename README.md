@@ -35,67 +35,55 @@ There are no linters and formatters. I've got a linter and formatter in my code 
 
 ### CSS
 
-CSS uses my own flavor of [SUIT CSS](https://suitcss.github.io/).
+CSS uses custom elements as UI components, together with some global utilities. Custom elements have only have scoped styling and by default cannot leak into other components. The custom elements work without JavaScript, and most of them have no interactivity anyways.
 
-- UI components are built as CSS classes.
-- UI components should behave like they're isolated. One component shouldn't affect another component.
-- There should be a blank line between each declaration block.
-- No dynamic class concatenation in HTML (like `classNames()` or `clsx()` does in JSX). For variants, I'm using data attributes, which removes the need for class concatenation.
-- I don't always follow these rules strictly, but try to.
+```html
+<div class="u-someUtility">
+  <link rel="stylesheet" href="src/components/some-component.css" />
+  <blog-some-component data-component>
+    <h2>Foo bar!</h2>
+
+    <link rel="stylesheet" href="src/components/nested-component.css" />
+    <blog-nested-component data-component>...</blog-nested-component>
+  </blog-some-component>
+</div>
+```
 
 ```css
-/* Components, one per file */
-.MyComponent {
-}
-.MyComponent--staticVariant {
-}
-.MyComponent-someElement {
-}
-.MyComponent-someElement--staticVariant {
-}
-.MyComponent-someElement[data-dynamic-variant="something"] {
-}
-.MyComponent-someElement:pseudo {
-}
+@layer components {
+  @scope (blog-some-component) to ([data-component]) {
+    :scope {
+      /* Styles for the component root. */
+    }
 
-/* Utilities, all in one _utilities.css file */
-.u-someThing {
-}
-.u-someThing--staticVariant {
-}
-.u-someThing[data-dynamic-variant="something"] {
-}
-.u-someThing:pseudo {
-}
-
-/* Example anti-patterns, do not do these: */
-.MyComponent .SomeOtherComponent {
-}
-.MyComponent-someElement .SomeOtherComponent {
-}
-.MyComponent-someElement.SomeOtherComponent {
-}
-.MyComponent-someElement .MyComponent-anotherElement {
-}
-.MyComponent .u-someThing {
-}
-.u-someThing-element {
-}
-.u-someThing .MyComponent {
+    h2 {
+      /* Any selectors within the component. */
+      /* These styles are scoped to this component. */
+      /* It will not leak into nested components who also have a h2,
+         due to the `to ([data-component])` scope limit. */
+    }
+  }
 }
 ```
 
+- Custom components have no semantic roles: they don't replace a button or a section. Instead, any semantic elements are wrapped outside of the component, or used inside it (depending on what makes sense).
+- All custom element components have a `data-component` attribute. In combination with the `to (<scope-end>)` scope limit, this effectively results in style isolation.
+- Each component ships its own css file.
+- Each component has a `<link>` element to load its CSS. This effectively causes that CSS is only loaded when it's actually needed.
+- When components get used multiple time on the same page, the `<link>` element repeats. I tested it and couldn't find any issues with that.
+- Putting the `<link>` before the component code causes that there's no flash of unstyled content (FOUC): the CSS file loads first, and then it continues to render.
+- Because we ship many CSS files instead of one large CSS file, changing the styling of one component doesn't invalidate the cache of all other CSS files. With HTTP/2 and HTTP/3, that's fine.
+
 ### JavaScript
 
-There's no module bundler or compiler. Just plain unminified vanilla JS. All client-side JS files are concatenated into a single file. To make sure there is no overspill between files, each file is wrapped into an IIFE.
+There's no module bundler or compiler. Just plain unminified vanilla JS modules, and a few vendored libraries as umd.
 
-- Use Custom Elements wherever possible
-- Use modern web tech where possible
+In theory, I could only load these files when they're actually used. In practice, I don't have any interactivity that's only used on certain pages.
 
 ## Repo Structure
 
 - `src/` is the actual Eleventy blog (templates, CSS, JS, assets)
-- `lib/` are eleventy-related libs (TODO: probably should be inside src)
+- `config/` contains Eleventy plugins and shared build code in `config/lib/`
 - `cms/` is the standalone CMS
 - `deployer/` is a small service that watches for content changes, then rebuilds and deploys them
 
