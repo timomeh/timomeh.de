@@ -1,3 +1,8 @@
+/**
+ * @interface
+ * var(--post-tags-size: large) - makes the text larger
+ */
+
 @layer components {
   @scope (blog-post-tags) to ([data-component]) {
     :scope {
@@ -12,7 +17,7 @@
         font-size: 0.75rem;
       }
 
-      &[data-size="large"] {
+      @container style(--post-tags-size: large) {
         font-size: 1rem;
         line-height: 1.75;
       }

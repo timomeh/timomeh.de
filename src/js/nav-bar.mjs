@@ -6,24 +6,37 @@ class NavBar extends HTMLElement {
     isVisible: false,
     scrollY: Math.max(0, window.scrollY),
   };
+  #disconnectedController = new AbortController();
 
   connectedCallback() {
     this.#setupListeners();
     this.#update();
   }
 
+  disconnectedCallback() {
+    this.#disconnectedController.abort();
+  }
+
   #setupListeners() {
+    const { signal } = this.#disconnectedController;
+
     window.addEventListener(
       "scroll",
       () => {
         this.#update();
       },
-      { passive: true },
+      { passive: true, signal },
     );
 
-    swup?.hooks.on("content:replace", () => {
-      this.#render();
-    });
+    const handleReplace = () => this.#render();
+    swup?.hooks.on("content:replace", handleReplace);
+    signal.addEventListener(
+      "abort",
+      () => {
+        swup?.hooks.off("content:replace", handleReplace);
+      },
+      { once: true },
+    );
   }
 
   #render() {

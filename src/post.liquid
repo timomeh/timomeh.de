@@ -12,10 +12,10 @@ currentNav: /posts/
 {% include 'components/post-view/post-view', post: post %}
 
 <section class="u-burrito">
-  {% capture related_posts_title %}
+  <blog-prose data-component>
     <h2>More like this</h2>
-  {% endcapture %}
-  {% include 'components/post-overview/post-overview',
-    posts: post.relatedPosts,
-    title: related_posts_title %}
+
+    {% include 'components/post-overview/post-overview',
+       posts: post.relatedPosts %}
+  </blog-prose>
 </section>

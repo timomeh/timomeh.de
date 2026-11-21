@@ -1,37 +1,38 @@
 {% linkCSS 'src/_includes/components/short-attachments/short-attachments.css' %}
 
 {% if attachments.size > 1 %}
-  {% assign sizes = '(max-width: 474px) 100vw, 300px' %}
+  {% assign image_sizes = '(max-width: 640px) 50vw, 320px' %}
 {% else %}
-  {% assign sizes = '(max-width: 600px) 100vw, 500px' %}
+  {% assign image_sizes = '(max-width: 640px) 100vw, 640px' %}
 {% endif %}
+{% assign remainder = attachments.size | modulo: 2 %}
 
-<blog-short-attachments data-component>
-  <ul data-amount="{{ attachments.size }}">
+<blog-short-attachments data-component style="
+  {% if attachments.size > 1 %}--short-attachments-multiple: true;{% endif %}
+  {% if attachments.size > 2 and remainder == 1 %}--short-attachments-featured: true;{% endif %}
+">
+  <ul class="gallery" role="list" aria-label="Photos in this short">
     {% for attachment in attachments %}
       <li>
-        <blog-content-image
-          data-component
-          data-single-attachment="{% if attachments.size > 1 %}true{% else %}false{% endif %}"
+        <blog-content-image data-component
           style="
             --image-placeholder: url('{{ attachment.image.placeholder | escape }}');
             --image-width: {{ attachment.image.width }}px;
-            --image-ratio: {{ attachment.image.width | times: 1.0 | divided_by: attachment.image.height }}
           "
         >
           <picture>
-            {% if attachment.image.webp %}<source srcset="{{ attachment.image.webp | escape }}" sizes="{{ attachment_sizes }}" type="image/webp">{% endif %}
+            {% if attachment.image.webp %}<source srcset="{{ attachment.image.webp | escape }}" sizes="{{ image_sizes }}" type="image/webp">{% endif %}
             <img
               src="{{ attachment.image.src | escape }}"
               srcset="{{ attachment.image.srcset | escape }}"
-              sizes="{{ attachment_sizes }}"
+              sizes="{{ image_sizes }}"
               width="{{ attachment.image.width }}"
               height="{{ attachment.image.height }}"
               alt="{{ attachment.alt | escape }}"
               data-fancybox="short-{{ short.slug | escape }}-media"
               data-src="{{ attachment.image.src | escape }}"
               data-caption="{{ attachment.alt | escape }}"
-              aria-label="{% if attachment.alt %}Open image: {{ attachment.alt | escape }}{% else %}Open image{% endif %}"
+              aria-label="{% if attachment.alt %}Open image: {{ attachment.alt | escape }}{% else %}Open image {{ forloop.index }} of {{ attachments.size }}{% endif %}"
               role="button"
               tabindex="0"
               loading="lazy"

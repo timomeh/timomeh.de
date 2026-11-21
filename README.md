@@ -61,6 +61,10 @@ CSS uses custom elements as UI components, together with some global utilities. 
       /* These styles are scoped to this component. */
       /* It will not leak into nested components who also have a h2,
          due to the `to ([data-component])` scope limit. */
+
+      @container style(--some-component-size: large) {
+        /* Allows you to use CSS variables as an interface for variants */
+      }
     }
   }
 }
@@ -69,16 +73,15 @@ CSS uses custom elements as UI components, together with some global utilities. 
 - Custom components have no semantic roles: they don't replace a button or a section. Instead, any semantic elements are wrapped outside of the component, or used inside it (depending on what makes sense).
 - All custom element components have a `data-component` attribute. In combination with the `to (<scope-end>)` scope limit, this effectively results in style isolation.
 - Each component ships its own css file.
-- Each component has a `<link>` element to load its CSS. This effectively causes that CSS is only loaded when it's actually needed.
-- When components get used multiple time on the same page, the `<link>` element repeats. I tested it and couldn't find any issues with that.
-- Putting the `<link>` before the component code causes that there's no flash of unstyled content (FOUC): the CSS file loads first, and then it continues to render.
-- Because we ship many CSS files instead of one large CSS file, changing the styling of one component doesn't invalidate the cache of all other CSS files. With HTTP/2 and HTTP/3, that's fine.
+- Each component has a `<link>` element to load its CSS. This effectively causes that CSS is only loaded when it's actually needed. 11ty automatically puts them into the `<head>` of the page.
+- Use CSS variables and `@container style()` queries to define variants of a component. CSS variables inherit into the scoped component. So it's basically an interface into a scoped component.
+- Because we ship many CSS files instead of one large CSS file, changing the styling of one component doesn't invalidate the cache of all other CSS files.
 
 ### JavaScript
 
 There's no module bundler or compiler. Just plain unminified vanilla JS modules, and a few vendored libraries as umd.
 
-In theory, I could only load these files when they're actually used. In practice, I don't have any interactivity that's only used on certain pages.
+In theory, I could only load these files when they're actually used. In practice, I currently don't have any interactivity that's only used on certain pages.
 
 ## Repo Structure
 

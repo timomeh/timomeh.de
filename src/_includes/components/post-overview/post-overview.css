@@ -2,17 +2,7 @@
   @scope (blog-post-overview) to ([data-component]) {
     :scope {
       display: block;
-    }
-
-    h2 {
-      margin-bottom: 1em;
-      color: var(--prose-heading);
-      font-family: "Bitter Variable", Georgia, serif;
-      font-weight: 600;
-      text-wrap: balance;
-      font-size: 1.5em;
-      line-height: 1.3333;
-      margin-bottom: 1em;
+      --prose-linked-heading: h3;
     }
 
     ol {

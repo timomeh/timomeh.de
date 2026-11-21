@@ -1,7 +1,7 @@
 {% linkCSS 'src/_includes/components/post-preview/post-preview.css' %}
 {% linkCSS 'src/_includes/components/read-more.css' %}
 
-<blog-post-preview style="
+<blog-post-preview data-component style="
   {% if post.cover.lightColor %}
     --post-light-bg: {{ post.cover.lightColor | escape }};
     --post-light-grain: var(--page-grain);
@@ -13,15 +13,17 @@
 >
   <article>
     {% if post.cover.lightImage or post.cover.darkImage %}
-      {% include 'components/post-cover/post-cover',
-          lazy: true,
-          light: post.cover.lightImage,
-          dark: post.cover.darkImage %}
+      <div class="cover">
+        {% include 'components/post-cover/post-cover',
+            lazy: true,
+            light: post.cover.lightImage,
+            dark: post.cover.darkImage %}
+      </div>
     {% endif %}
     <div class="content u-burrito">
       {% include 'components/post-eyebrow/post-eyebrow', linked: true, tags: post.tags %}
       <div class="body">
-        <blog-prose data-component data-links-to-post>
+        <blog-prose data-component>
           {{ post.excerptHtml }}
         </blog-prose>
       </div>

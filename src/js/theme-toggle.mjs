@@ -1,6 +1,7 @@
 class ThemeToggle extends HTMLElement {
   #systemThemeQuery = matchMedia("(prefers-color-scheme: dark)");
   #themeRoot = document.documentElement;
+  #disconnectedController = new AbortController();
 
   connectedCallback() {
     const toggleButton = this.querySelector("button");
@@ -13,6 +14,10 @@ class ThemeToggle extends HTMLElement {
     this.#applyTheme(this.#getTheme());
   }
 
+  disconnectedCallback() {
+    this.#disconnectedController.abort();
+  }
+
   toggle() {
     const theme = this.#nextTheme();
     this.#storeTheme(theme);
@@ -20,18 +25,30 @@ class ThemeToggle extends HTMLElement {
   }
 
   #setupListeners() {
-    this.#systemThemeQuery.addEventListener("change", () => {
-      if (this.#getTheme() === "system") {
-        this.#applyTheme("system");
-      }
-    });
+    const { signal } = this.#disconnectedController;
 
-    window.addEventListener("storage", (event) => {
-      if (event.key !== "theme") return;
+    this.#systemThemeQuery.addEventListener(
+      "change",
+      () => {
+        if (this.#getTheme() === "system") {
+          this.#applyTheme("system");
+        }
+      },
+      { signal },
+    );
 
-      const sanitizedTheme = ["light", "dark"].includes(event.newValue) ? event.newValue : "system";
-      this.#applyTheme(sanitizedTheme);
-    });
+    window.addEventListener(
+      "storage",
+      (event) => {
+        if (event.key !== "theme") return;
+
+        const sanitizedTheme = ["light", "dark"].includes(event.newValue)
+          ? event.newValue
+          : "system";
+        this.#applyTheme(sanitizedTheme);
+      },
+      { signal },
+    );
   }
 
   #nextTheme() {

@@ -5,7 +5,6 @@ import remarkGfm from "remark-gfm";
 import remarkSmartypants from "remark-smartypants";
 import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
-import { visit } from "unist-util-visit";
 
 import { renderMdxComponents } from "./components.js";
 import { embedMedia } from "./embeds.js";
@@ -100,9 +99,22 @@ export function extractPlainText(tree) {
     .use(renderMdxComponents)
     .use(markImageThemes);
   tree = processor.runSync(structuredClone(tree));
-  const parts = [];
-  visit(tree, (node) => {
-    if (["text", "inlineCode", "code"].includes(node.type)) parts.push(node.value);
-  });
-  return parts.join(" ").replace(/\s+/g, " ").trim();
+
+  function text(node) {
+    if (["text", "inlineCode", "code"].includes(node.type)) return node.value;
+    if (node.type === "break") return "\n";
+    if (!node.children) return "";
+    const separator =
+      node.type === "root" || node.type === "blockquote"
+        ? "\n\n"
+        : node.type === "list" || node.type === "listItem"
+          ? "\n"
+          : "";
+    return node.children.map(text).filter(Boolean).join(separator);
+  }
+
+  return text(tree)
+    .replace(/\r\n?/g, "\n")
+    .replace(/[\t ]+/g, " ")
+    .trim();
 }

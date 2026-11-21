@@ -1,6 +1,8 @@
 import { swup } from "site/swup";
 
 class RandomKicker extends HTMLElement {
+  #disconnectedController = new AbortController();
+
   connectedCallback() {
     this.el = document.querySelector("[data-blog-kicker]");
     this.options = [...document.querySelectorAll("[data-blog-kicker-option]")];
@@ -8,10 +10,23 @@ class RandomKicker extends HTMLElement {
     this.#setupListeners();
   }
 
+  disconnectedCallback() {
+    this.#disconnectedController.abort();
+  }
+
   #setupListeners() {
-    swup?.hooks.on("content:replace", () => {
-      this.#shuffle();
-    });
+    const { signal } = this.#disconnectedController;
+
+    const handleReplace = () => this.#shuffle();
+
+    swup?.hooks.on("content:replace", handleReplace);
+    signal.addEventListener(
+      "abort",
+      () => {
+        swup?.hooks.off("content:replace", handleReplace);
+      },
+      { once: true },
+    );
   }
 
   #shuffle() {

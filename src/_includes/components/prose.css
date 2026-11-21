@@ -1,3 +1,9 @@
+/**
+ * @interface
+ * var(--prose-size: small) - smaller prose font size
+ * var(--linked-heading: {h2,h3}) - styles h2 or h3 as linked main titles
+ */
+
 @layer components {
   @scope (blog-prose) to ([data-component]) {
     :scope {
@@ -9,7 +15,7 @@
       --prose-code-bg: #292524;
       --prose-code-text: #e7e5e4;
       color: var(--prose-body);
-      font-size: 1rem;
+      font-size: 1em;
       line-height: 1.75;
       overflow-wrap: break-word;
 
@@ -22,46 +28,26 @@
         --prose-code-bg: rgb(0 0 0 / 0.5);
         --prose-code-text: #d6d3d1;
       }
-    }
 
-    :scope[data-links-to-post] {
-      h2, h3, h4 {
-        font-weight: inherit;
-
-        a {
-          text-decoration-line: none;
-
-          &:hover {
-            text-decoration-line: underline;
-          }
-        }
-      }
-
-      h2 {
-        font-size: 1.5rem;
-        line-height: 1.12;
-        margin: 0 0 0.8889em;
-
-        @media (min-width: 640px) {
-          font-size: 1.875rem;
-        }
-      }
-
-      h3 {
-        font-size: 1.5em;
-        line-height: 1.6;
-        margin: 1.6em 0 0.6em;
+      @container style(--prose-size: small) {
+        font-size: 0.875rem;
+        line-height: 1.7143;
       }
     }
 
-    :scope[data-size="small"] {
-      font-size: 0.875rem;
-      line-height: 1.7143;
+    @container style(--prose-linked-heading) {
+      :is(h1, h2, h3, h4, h5, h6) a:not(.external) {
+        text-decoration-line: none;
+
+        &:hover {
+          text-decoration-line: underline;
+        }
+      }
     }
 
     :where(h1, h2, h3, h4, h5, h6) {
       color: var(--prose-heading);
-      font-family: "Bitter Variable", Georgia, serif;
+      font-family: var(--font-serif);
       font-weight: 600;
       text-wrap: balance;
     }
@@ -80,6 +66,16 @@
       font-size: 1.5em;
       line-height: 1.3333;
       margin: 2em 0 1em;
+
+      @container style(--prose-linked-heading: h2) {
+        font-size: 1.5rem;
+        line-height: 1.12;
+        margin: 0 0 0.8889em;
+
+        @media (min-width: 640px) {
+          font-size: 1.875rem;
+        }
+      }
     }
 
     h3 {
@@ -115,6 +111,10 @@
         color: var(--prose-heading);
         text-decoration: underline;
       }
+    }
+
+    section {
+      margin: 2.5em 0;
     }
 
     p {
@@ -461,108 +461,83 @@
     > :last-child:not(.embed) {
       margin-bottom: 0;
     }
-  }
 
-  .CodeBlock {
-    position: relative;
-    margin: 2rem 0;
-    border: 1px solid rgb(209 189 174 / 30%);
-    border-radius: 0.375rem;
-    box-shadow: 0 0 24px rgb(209 189 174 / 20%);
-    font-weight: 400;
-    font-size: 0.875rem;
-    line-height: 1.5rem;
-    font-family: var(--font-mono);
-  }
-
-  @media (min-width: 768px) {
-    .CodeBlock {
-      margin-inline: -1rem;
-    }
-  }
-
-  :root[data-color-scheme="dark"] {
-    .CodeBlock {
-      border-color: rgb(255 255 255 / 10%);
-      box-shadow: 0 0 24px rgb(216 180 254 / 2%);
-    }
-  }
-
-  .code-block {
-    position: relative;
-    border: 1px solid rgb(209 189 174 / 30%);
-    border-radius: 0.375rem;
-    box-shadow: 0 0 24px rgb(209 189 174 / 20%);
-    font-weight: 400;
-    font-size: 0.875rem;
-    line-height: 1.5rem;
-    font-family: var(--font-mono);
-
-    &:not(figure .code-block) {
-      margin: 2rem 0;
-    }
-
-    @media (min-width: 768px) {
-      &:not(figure .code-block) {
-        margin-inline: -1rem;
-      }
-    }
-
-    :root[data-color-scheme="dark"] & {
-      border-color: rgb(255 255 255 / 10%);
-      box-shadow: 0 0 24px rgb(216 180 254 / 2%);
-    }
-
-    pre.shiki {
+    .code-block {
       position: relative;
-      overflow: auto;
-      margin: 0;
-      padding: 0;
+      border: 1px solid rgb(209 189 174 / 30%);
       border-radius: 0.375rem;
-      font: inherit;
-    }
+      box-shadow: 0 0 24px rgb(209 189 174 / 20%);
+      font-weight: 400;
+      font-size: 0.875rem;
+      line-height: 1.5rem;
+      font-family: var(--font-mono);
 
-    .code-block-lang {
-      position: absolute;
-      top: 0;
-      right: 0;
-      padding: 0.25rem 0.375rem;
-      border-radius: 0 0.25rem 0 0.25rem;
-      background: rgb(187 154 247 / 80%);
-      color: #1a1b26;
-      font-weight: 700;
-      font-size: 0.625rem;
-      line-height: 1;
-      font-family: "Inter Variable", system-ui, sans-serif;
-      text-transform: uppercase;
-      user-select: none;
-
-      &[data-language="css"] {
-        background: rebeccapurple;
-        color: #d2b7ed;
+      &:not(figure .code-block) {
+        margin: 2rem 0;
       }
 
-      &[data-language="html"] {
-        background: #f06529;
+      @media (min-width: 768px) {
+        &:not(figure .code-block) {
+          margin-inline: -1rem;
+        }
       }
 
-      &:is(
-        [data-language="js"],
-        [data-language="jsx"],
-        [data-language="ts"],
-        [data-language="tsx"]
-      ) {
-        background: #f7df1e;
+      :root[data-color-scheme="dark"] & {
+        border-color: rgb(255 255 255 / 10%);
+        box-shadow: 0 0 24px rgb(216 180 254 / 2%);
       }
 
-      &:is([data-language="ruby"], [data-language="rb"]) {
-        background: #a91401;
-        color: #f2d6d3;
+      pre.shiki {
+        position: relative;
+        overflow: auto;
+        margin: 0;
+        padding: 0;
+        border-radius: 0.375rem;
+        font: inherit;
       }
 
-      &[data-language="elixir"] {
-        background: #48205d;
-        color: #e1c5f0;
+      .code-block-lang {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 0.25rem 0.375rem;
+        border-radius: 0 0.25rem 0 0.25rem;
+        background: rgb(187 154 247 / 80%);
+        color: #1a1b26;
+        font-weight: 700;
+        font-size: 0.625rem;
+        line-height: 1;
+        font-family: "Inter Variable", system-ui, sans-serif;
+        text-transform: uppercase;
+        user-select: none;
+
+        &[data-language="css"] {
+          background: rebeccapurple;
+          color: #d2b7ed;
+        }
+
+        &[data-language="html"] {
+          background: #f06529;
+        }
+
+        &:is(
+          [data-language="js"],
+          [data-language="jsx"],
+          [data-language="ts"],
+          [data-language="tsx"]
+        ) {
+          background: #f7df1e;
+        }
+
+        &:is([data-language="ruby"], [data-language="rb"]) {
+          background: #a91401;
+          color: #f2d6d3;
+        }
+
+        &[data-language="elixir"] {
+          background: #48205d;
+          color: #e1c5f0;
+        }
       }
     }
   }

@@ -1,52 +1,40 @@
+/**
+ * @interface
+ * var(--short-attachments-multiple: true) - arrange images in a grid
+ * var(--short-attachments-featured: true) - feature the first image across two rows
+ */
+
 @layer components {
   @scope (blog-short-attachments) to ([data-component]) {
     :scope {
       display: block;
+      min-width: 0;
+      --content-image-layout: bounded;
     }
 
-    ul {
+    .gallery {
       list-style: none;
       margin: 0;
       padding: 0;
 
-      &[data-amount="1"] {
-        li {
-          max-height: 20rem;
-
-          @media (min-width: 768px) {
-            max-height: 30rem;
-          }
-        }
-      }
-
-      &:not([data-amount="1"]) {
+      @container style(--short-attachments-multiple: true) {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        grid-auto-rows: 15rem;
+        grid-auto-rows: clamp(7rem, 27vw, 15rem);
         gap: 0.25rem;
-        overflow: hidden;
-
-        @media (min-width: 768px) {
-          grid-auto-rows: 18rem;
-        }
-
-        li {
-          width: 100%;
-          max-width: none;
-          height: 100%;
-        }
-      }
-
-      &[data-amount="3"] {
-        :first-child {
-          grid-row: span 2;
-        }
+        --content-image-layout: fill;
       }
     }
 
     li {
-      display: block;
-      position: relative;
+      min-width: 0;
+      min-height: 0;
+
+      @container style(--short-attachments-featured: true) {
+        &:first-child {
+          grid-row: span 2;
+        }
+      }
     }
   }
 }

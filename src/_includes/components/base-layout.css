@@ -1,10 +1,15 @@
+/**
+ * @interface
+ * var(--base-layout-hide-header-backdrop: true) - hides the default header animation
+ */
+
 @layer components {
   @scope (blog-base-layout) to ([data-component]) {
     :scope {
       display: block;
     }
 
-    #page-backdrop {
+    .layout-backdrop {
       &::before {
         content: "";
         position: absolute;
@@ -23,7 +28,7 @@
       }
     }
 
-    #page-cover {
+    .layout-cover {
       position: absolute;
       z-index: -1;
       top: 0;
@@ -33,10 +38,6 @@
 
       :root[data-color-scheme="dark"] & {
         mix-blend-mode: lighten;
-      }
-
-      blog-post-cover {
-        mix-blend-mode: normal;
       }
 
       @media (prefers-reduced-motion: no-preference) {
@@ -61,6 +62,14 @@
       overflow: hidden;
       pointer-events: none;
       mask-image: linear-gradient(to bottom, #000 65%, transparent);
+
+      @media (prefers-reduced-motion: no-preference) {
+        transition: opacity 0.45s ease-in-out;
+      }
+
+      @container style(--base-layout-hide-header-backdrop: true) {
+        opacity: 0;
+      }
     }
   }
 }

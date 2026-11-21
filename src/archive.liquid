@@ -4,31 +4,28 @@ layout: base.liquid
 title: The Archive
 currentNav: /archive/
 ---
-<div class="u-burrito">
+<div class="u-burrito" style="--prose-linked-heading: h2">
   <blog-prose data-component>
     <h1>The Archive</h1>
-    <h2>Categories</h2>
-  </blog-prose>
-
-  <section>
-    <p>
-      {% assign tags = blog.categories | map: 'slug' %}
-      {% include 'components/post-tags/post-tags', tags: tags, size: 'large' %}
-    </p>
-  </section>
-
-  {% for yearGroup in blog.years %}
-    {% capture year_title %}
-      <blog-prose data-component data-links-to-post>
-        <h3>
-          <a href="/in/{{ yearGroup.year }}/">{{ yearGroup.year }}</a>
-        </h3>
-      </blog-prose>
-    {% endcapture %}
     <section>
-      {% include 'components/post-overview/post-overview',
-        posts: yearGroup.posts,
-        title: year_title %}
+      <h2 id="categories">
+        Categories
+        <a href="#categories" class="heading-anchor" aria-label="Link to categories">#</a>
+      </h2>
+      <p style="--post-tags-size: large">
+        {% assign tags = blog.categories | map: 'slug' %}
+        {% include 'components/post-tags/post-tags', tags: tags %}
+      </p>
     </section>
-  {% endfor %}
+
+    {% for yearGroup in blog.years %}
+      <section>
+        <h2 id="{{ yearGroup.year }}">
+          <a href="/in/{{ yearGroup.year }}/">{{ yearGroup.year }}</a>
+          <a href="#{{ yearGroup.year }}" class="heading-anchor" aria-label="Link to {{ yearGroup.year }}">#</a>
+        </h2>
+        {% include 'components/post-overview/post-overview', posts: yearGroup.posts %}
+      </section>
+    {% endfor %}
+  </blog-prose>
 </div>

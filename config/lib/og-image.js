@@ -6,6 +6,8 @@ import * as fontkit from "fontkit";
 import { contentDir } from "./constants.js";
 import { hashFile } from "./file-hash.js";
 
+// holy vibecoded slop
+
 const output = process.env.OUTPUT_DIR || "_site";
 // SVG rasterizers don't reliably load web fonts via @font-face. Turn the same
 // fonts used by the site into paths, including their language subsets.
@@ -84,42 +86,49 @@ function shapeText(line, fonts, fontSize, render = false) {
   return { paths, width: cursor };
 }
 
-function textPath(line, fonts, x, y, fontSize) {
+function textPath(line, fonts, x, y, fontSize, maxWidth = 1040) {
   const { paths, width } = shapeText(line, fonts, fontSize, true);
   // Only scale down, uniformly, if a line is wider than the available space.
-  const fit = Math.min(1, 1040 / (width || 1));
+  const fit = Math.min(1, maxWidth / (width || 1));
   return `<g transform="translate(${x} ${y}) scale(${fit})">${paths}</g>`;
 }
 
 // Fit all of a short's text in the space between the identity and the date.
-function shortLayout(text) {
-  const words = text.trim().split(/\s+/).filter(Boolean);
+function shortLayout(text, maxWidth = 1040) {
+  const paragraphs = text.trim().split(/\r\n|\r|\n/);
   const widths = new Map();
   const width = (value) => {
     if (!widths.has(value)) widths.set(value, shapeText(value, titleFonts, 1).width);
     return widths.get(value);
   };
   function wrap(size) {
-    const max = 1040 / size;
+    const max = maxWidth / size;
     const lines = [];
-    let line = "";
-    for (const word of words) {
-      const candidate = line ? `${line} ${word}` : word;
-      if (width(candidate) <= max) {
-        line = candidate;
+    for (const paragraph of paragraphs) {
+      const words = paragraph.trim().split(/\s+/).filter(Boolean);
+      if (!words.length) {
+        lines.push("");
         continue;
       }
-      if (line) lines.push(line);
-      line = "";
-      for (const { segment } of graphemes.segment(word)) {
-        if (line && width(line + segment) > max) {
-          lines.push(line);
-          line = "";
+      let line = "";
+      for (const word of words) {
+        const candidate = line ? `${line} ${word}` : word;
+        if (width(candidate) <= max) {
+          line = candidate;
+          continue;
         }
-        line += segment;
+        if (line) lines.push(line);
+        line = "";
+        for (const { segment } of graphemes.segment(word)) {
+          if (line && width(line + segment) > max) {
+            lines.push(line);
+            line = "";
+          }
+          line += segment;
+        }
       }
+      if (line) lines.push(line);
     }
-    if (line) lines.push(line);
     return lines;
   }
   let low = 0;
@@ -134,7 +143,9 @@ function shortLayout(text) {
 
 export async function generateOgImage(entry, sourceDir, kind = "posts") {
   const cover = kind === "posts" && (entry.cover.dark || entry.cover.light);
-  const cache = await getOgImageCache(entry, sourceDir, kind, cover);
+  const attachment =
+    kind === "shorts" && entry.attachments?.[0]?.image ? entry.attachments[0].attachment : null;
+  const cache = await getOgImageCache(entry, sourceDir, kind, cover, attachment);
   if (cache.url) return cache.url;
 
   const grain = await Image("src/css/assets/grainy-dark-v20261119.svg", {
@@ -169,13 +180,29 @@ export async function generateOgImage(entry, sourceDir, kind = "posts") {
     <ellipse cx="600" cy="0" rx="800" ry="460" fill="url(#aurora)"/>`;
   }
 
-  const layout = kind === "shorts" ? shortLayout(entry.plainText || "Timo thinks…") : null;
+  let shortImage = "";
+  if (attachment) {
+    const file = resolveContentImage(attachment, sourceDir);
+    const image = await Image(file, {
+      widths: [1200],
+      formats: ["png"],
+      dryRun: true,
+      fixOrientation: true,
+    });
+    const data = image.png[0].buffer.toString("base64");
+    shortImage = `<image href="data:image/png;base64,${data}" x="700" y="110" width="420" height="390" preserveAspectRatio="xMidYMid meet"/>`;
+  }
+  const textWidth = attachment ? 580 : 1040;
+  const layout =
+    kind === "shorts" ? shortLayout(entry.plainText?.trim() || "Timo thinks…", textWidth) : null;
   const lines = layout?.lines || titleLines(entry.title);
   const fontSize = layout?.fontSize || Math.min(70, 300 / Math.max(lines.length, 1));
   const lineHeight = fontSize * (layout ? 1.25 : 1.2);
   const startY = (layout ? 318 : 300) - ((lines.length - 1) * lineHeight) / 2;
   const title = lines
-    .map((line, index) => textPath(line, titleFonts, 80, startY + index * lineHeight, fontSize))
+    .map((line, index) =>
+      textPath(line, titleFonts, 80, startY + index * lineHeight, fontSize, textWidth),
+    )
     .join("");
   const date =
     kind === "pages"
@@ -186,9 +213,13 @@ export async function generateOgImage(entry, sourceDir, kind = "posts") {
           year: "numeric",
           timeZone: "UTC",
         }).format(new Date(entry.publishedAt));
+  let footerText = date;
+  if (kind === "posts") footerText = `${date} · ${entry.readingTime}`;
+  if (attachment && entry.attachments.length > 1)
+    footerText = `${date} · 1 / ${entry.attachments.length}`;
   const footer = date
     ? `<path d="M80 520H1120" stroke="#b5b2ad" stroke-opacity="0.45"/>
-    <g fill="#d7d4cf">${textPath(kind === "posts" ? `${date} · ${entry.readingTime}` : date, monoFonts, 80, 565, 22)}</g>`
+    <g fill="#d7d4cf">${textPath(footerText, monoFonts, 80, 565, 22)}</g>`
     : "";
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
     <defs><pattern id="grain" width="200" height="200" patternUnits="userSpaceOnUse"><image href="data:image/png;base64,${grainData}" width="200" height="200"/></pattern></defs>
@@ -198,6 +229,7 @@ export async function generateOgImage(entry, sourceDir, kind = "posts") {
     <rect width="1200" height="630" fill="url(#grain)"/>
     <g fill="#d9fedb">${textPath("timomeh.de / Timo Mämecke", monoFonts, 80, 88, 25)}</g>
     <g fill="#f0efeb">${title}</g>
+    ${shortImage}
     ${footer}
   </svg>`;
   const result = await Image(Buffer.from(svg), {
@@ -229,7 +261,14 @@ function getRendererHash() {
   return rendererHash;
 }
 
-async function getOgImageCache(entry, sourceDir, kind, cover) {
+function resolveContentImage(url, sourceDir) {
+  const file = path.resolve(sourceDir, decodeURIComponent(url.split(/[?#]/)[0]));
+  if (!file.startsWith(`${contentDir}${path.sep}`))
+    throw new Error(`Image path outside content directory: ${url}`);
+  return file;
+}
+
+async function getOgImageCache(entry, sourceDir, kind, cover, attachment) {
   if (cover && /^https?:\/\//i.test(cover)) return {};
 
   const hash = createHash("sha256");
@@ -242,6 +281,8 @@ async function getOgImageCache(entry, sourceDir, kind, cover) {
       entry.publishedAt,
       entry.readingTime,
       cover,
+      attachment,
+      attachment ? entry.attachments.length : null,
     ]),
   );
   for (const { segment } of graphemes.segment(
@@ -251,11 +292,9 @@ async function getOgImageCache(entry, sourceDir, kind, cover) {
     if (emoji) hash.update(emoji);
   }
   if (cover && !/^(?:[a-z][a-z\d+.-]*:|\/|#)/i.test(cover)) {
-    const file = path.resolve(sourceDir, decodeURIComponent(cover.split(/[?#]/)[0]));
-    if (!file.startsWith(`${contentDir}${path.sep}`))
-      throw new Error(`Image path outside content directory: ${cover}`);
-    hash.update(await hashFile(file));
+    hash.update(await hashFile(resolveContentImage(cover, sourceDir)));
   }
+  if (attachment) hash.update(await hashFile(resolveContentImage(attachment, sourceDir)));
   const filename = `og_${hash.digest("hex")}.jpeg`;
   const url = existsSync(path.join(output, "img", filename)) ? `/img/${filename}` : null;
   return { filename, url };

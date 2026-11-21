@@ -1,6 +1,6 @@
 {% linkCSS 'src/_includes/components/post-view/post-view.css' %}
 
-<blog-post-view>
+<blog-post-view data-component>
   <article
     class="u-burrito"
     {% if post.meta.lang %}
@@ -9,7 +9,7 @@
   >
     {% include 'components/post-eyebrow/post-eyebrow', tags: post.tags, linked: false %}
     <div class="body">
-      <blog-prose>{{ post.html }}</blog-prose>
+      <blog-prose data-component>{{ post.html }}</blog-prose>
     </div>
   </article>
 </blog-post-view>

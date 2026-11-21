@@ -57,6 +57,12 @@
     <script type="module" src="{{ 'src/js/nav-bar-menu.mjs' | jsUrl }}"></script>
     <script type="module" src="{{ 'src/js/theme-toggle.mjs' | jsUrl }}"></script>
     <script defer src="https://oralytik.timo.wtf/script.js" data-website-id="ba2c9033-714b-4daf-acdb-a07a577f5bec" data-performance="true"></script>
+
+    <style>
+      :root {
+        --base-layout-hide-header-backdrop: {{ post.hasCover | default: false }}
+      }
+    </style>
   </head>
   <body>
     {% linkCSS 'src/_includes/components/prose.css' %}
@@ -66,7 +72,7 @@
       <a class="u-skipLink" href="#page-content" data-no-swup>Skip to main content</a>
       <div
         id="page-backdrop"
-        data-has-cover="{% if post.cover.light or post.cover.dark %}true{% else %}false{% endif %}"
+        class="layout-backdrop"
         style="
           {% if post.cover.lightColor %}
             --post-light-bg: {{ post.cover.lightColor | escape }};
@@ -75,10 +81,11 @@
           {% if post.cover.darkColor %}
             --post-dark-bg: {{ post.cover.darkColor | escape }};
             --post-dark-blend: exclusion;
-          {% endif %}"
-        ></div>
+          {% endif %}
+        "
+      ></div>
 
-      <div id="page-cover">
+      <div class="layout-cover" id="page-cover">
         {% if post.cover.lightImage or post.cover.darkImage %}
           {% include 'components/post-cover/post-cover',
              dark: post.cover.darkImage,
@@ -87,7 +94,7 @@
       </div>
 
       <div class="top-backdrop">
-        {% include 'components/header-backdrop/header-backdrop', hasCover: post.hasCover %}
+        {% include 'components/header-backdrop/header-backdrop' %}
       </div>
 
       {% include 'components/nav-bar/nav-bar', currentNav: currentNav %}

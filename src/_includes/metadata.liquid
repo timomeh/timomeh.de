@@ -14,6 +14,9 @@
 {% assign ogEntry = post | default: short | default: pageContent %}
 {% assign ogImage = ogEntry.ogImage %}
 {% assign ogImageAlt = ogEntry.plainText | default: ogEntry.title | default: pageMetadata.title %}
+{% if short and short.plainText == blank and short.attachments[0].image %}
+  {% assign ogImageAlt = short.attachments[0].alt | default: "Image from Timo's short" %}
+{% endif %}
 {% if ogImage == blank and pageMetadata.title != blank %}
   {% capture ogImage %}{% overviewOgImage pageMetadata.title %}{% endcapture %}
 {% endif %}

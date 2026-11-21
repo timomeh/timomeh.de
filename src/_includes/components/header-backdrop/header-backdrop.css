@@ -4,14 +4,6 @@
       display: block;
       height: 100%;
 
-      @media (prefers-reduced-motion: no-preference) {
-        transition: opacity 0.45s ease-in-out;
-      }
-
-      &[data-has-cover="true"] {
-        opacity: 0;
-      }
-
       :root[data-color-scheme="dark"] & {
         background: radial-gradient(
           ellipse at 50% 45%,

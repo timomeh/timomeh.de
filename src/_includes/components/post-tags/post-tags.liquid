@@ -1,6 +1,6 @@
 {% linkCSS 'src/_includes/components/post-tags/post-tags.css' %}
 
-<blog-post-tags data-component data-size="{{ size }}">
+<blog-post-tags data-component>
   {% for tag in tags %}
     {% assign tag_data = blog.categories | where: 'slug', tag | first %}
     <a

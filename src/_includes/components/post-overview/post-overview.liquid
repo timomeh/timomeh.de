@@ -1,15 +1,14 @@
 {% linkCSS 'src/_includes/components/post-overview/post-overview.css' %}
 
 <blog-post-overview data-component>
-  {{ title }}
   <ol>
     {% for post in posts %}
       <li>
         {% include 'components/post-eyebrow/post-eyebrow', linked: true, tags: post.tags %}
-        <blog-prose data-links-to-post>
-          <h4>
+        <blog-prose data-component>
+          <h3>
             <a href="{{ post.url | escape }}">{{ post.title | escape }}</a>
-          </h4>
+          </h3>
         </blog-prose>
       </li>
     {% endfor %}

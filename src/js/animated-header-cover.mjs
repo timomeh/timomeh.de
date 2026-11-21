@@ -9,6 +9,7 @@ class AnimatedHeaderCover extends HTMLElement {
     isVisible: true,
     startTime: Math.random() * -10000000,
   };
+  #disconnectedController = new AbortController();
 
   connectedCallback() {
     const canvas = this.querySelector("canvas");
@@ -21,28 +22,70 @@ class AnimatedHeaderCover extends HTMLElement {
     this.#initialize();
   }
 
+  disconnectedCallback() {
+    this.#disconnectedController.abort();
+  }
+
   #setupListeners() {
-    new ResizeObserver(() => {
+    const { signal } = this.#disconnectedController;
+
+    const resizeObserver = new ResizeObserver(() => {
       if (this.#state.program) {
         this.#setCanvasSize();
         this.#draw();
       }
-    }).observe(this.canvas);
+    });
+    resizeObserver.observe(this.canvas);
+    signal.addEventListener("abort", () => resizeObserver.disconnect(), { once: true });
 
-    new IntersectionObserver(([entry]) => {
+    const intersectionObserver = new IntersectionObserver(([entry]) => {
       this.#state.isVisible = entry.isIntersecting;
       this.#draw();
-    }).observe(this.canvas);
-
-    window.addEventListener("theme:change", () => this.#initialize());
-    this.#reducedMotionQuery.addEventListener("change", () => this.#draw());
-    document.addEventListener("visibilitychange", () => this.#draw());
-    this.canvas.addEventListener("webglcontextlost", (event) => {
-      event.preventDefault();
-      cancelAnimationFrame(this.#state.frame);
-      this.canvas.dataset.ready = true;
     });
-    this.canvas.addEventListener("webglcontextrestored", () => this.#initialize());
+    intersectionObserver.observe(this.canvas);
+    signal.addEventListener("abort", () => intersectionObserver.disconnect(), { once: true });
+
+    window.addEventListener(
+      "theme:change",
+      () => {
+        this.#initialize();
+      },
+      { signal },
+    );
+
+    this.#reducedMotionQuery.addEventListener(
+      "change",
+      () => {
+        this.#draw();
+      },
+      { signal },
+    );
+
+    document.addEventListener(
+      "visibilitychange",
+      () => {
+        this.#draw();
+      },
+      { signal },
+    );
+
+    this.canvas.addEventListener(
+      "webglcontextlost",
+      (event) => {
+        event.preventDefault();
+        cancelAnimationFrame(this.#state.frame);
+        this.canvas.dataset.ready = true;
+      },
+      { signal },
+    );
+
+    this.canvas.addEventListener(
+      "webglcontextrestored",
+      () => {
+        this.#initialize();
+      },
+      { signal },
+    );
   }
 
   #initialize() {

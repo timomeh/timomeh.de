@@ -1,3 +1,8 @@
+/**
+ * @interface
+ * var(--post-timeline-cover-divider: '') - show a top divider for a covered first item
+ */
+
 @layer components {
   @scope (blog-post-timeline) to ([data-component]) {
     :scope {
@@ -14,7 +19,7 @@
       position: relative;
 
       &::after,
-      &:first-child:has(blog-post-cover picture)::before {
+      &:first-child::before {
         content: "";
         position: absolute;
         right: calc(50% - 50vw);
@@ -23,52 +28,22 @@
         pointer-events: none;
       }
 
-      /* can't be nested inside &::after because just doesn't work */
       :root[data-color-scheme="dark"] & {
         &::after,
-        &:first-child:has(blog-post-cover picture)::before {
+        &:first-child::before {
           border-color: rgb(255 255 255 / 10%);
         }
+      }
+
+      &:first-child::before {
+        content: var(--post-timeline-cover-divider, none);
+        top: 0;
+        z-index: 1;
       }
 
       &::after {
         bottom: 0;
       }
-
-      &:first-child:has(blog-post-cover picture)::before {
-        top: 0;
-        z-index: 1;
-      }
     }
   }
-}
-
-.PostList
-
-.PostList-item {
-  position: relative;
-}
-
-.PostList-item::after,
-.PostList-item:first-child:has(.PostCover)::before {
-  content: "";
-  position: absolute;
-  right: calc(50% - 50vw);
-  left: calc(50% - 50vw);
-  border-bottom: 1px solid rgb(0 0 0 / 10%);
-  pointer-events: none;
-}
-
-.PostList-item::after {
-  bottom: 0;
-}
-
-.PostList-item:first-child:has(.PostCover)::before {
-  top: 0;
-  z-index: 1;
-}
-
-:root[data-color-scheme="dark"] .PostList-item::after,
-:root[data-color-scheme="dark"] .PostList-item:first-child:has(.PostCover)::before {
-  border-color: rgb(255 255 255 / 10%);
 }

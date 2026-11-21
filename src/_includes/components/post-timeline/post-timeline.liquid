@@ -1,9 +1,9 @@
 {% linkCSS 'src/_includes/components/post-timeline/post-timeline.css' %}
 
-<blog-post-timeline>
+<blog-post-timeline data-component>
   <ol>
     {% for item in items %}
-      <li>
+      <li{% if item.type != 'shorts-group' %}{% if item.cover.lightImage or item.cover.darkImage or item.cover.lightColor or item.cover.darkColor %} style="--post-timeline-cover-divider: '';"{% endif %}{% endif %}>
         {% if item.type == 'shorts-group' %}
           {% include 'components/shorts-group/shorts-group', shorts: item.items %}
         {% else %}

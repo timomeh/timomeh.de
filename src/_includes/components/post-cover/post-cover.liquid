@@ -1,7 +1,7 @@
 {% linkCSS 'src/_includes/components/post-cover/post-cover.css' %}
 
 {% assign cover_sizes = '(max-width: 1024px) 100vw, 1024px' %}
-<blog-post-cover aria-hidden="true">
+<blog-post-cover data-component aria-hidden="true">
   {% if light %}
     <picture data-image-theme="light">
       {% if light.webp %}
