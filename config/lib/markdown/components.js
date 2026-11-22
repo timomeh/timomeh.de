@@ -28,7 +28,7 @@ export function renderMdxComponents() {
             attrs.shadow?.type === "mdxJsxAttributeValueExpression"
               ? attrs.shadow.value.trim()
               : attrs.shadow;
-          const properties = shadow === "false" ? { "data-shadow": "false" } : {};
+          const properties = shadow === "false" ? { style: "--content-image-shadow: none" } : {};
           replacement = element(
             "figure",
             [

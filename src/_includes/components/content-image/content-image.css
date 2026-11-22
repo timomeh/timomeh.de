@@ -2,6 +2,7 @@
  * @interface
  * var(--content-image-layout: bounded) - limit image height and align it to the start
  * var(--content-image-layout: fill) - fill and crop to the containing area
+ * var(--content-image-shadow: none) - hide the blurred image background
  */
 
 @layer components {
@@ -21,7 +22,7 @@
       }
 
       &::before {
-        content: "";
+        content: var(--content-image-shadow, "");
         position: absolute;
         z-index: -1;
         inset: 0;
@@ -30,16 +31,22 @@
         filter: blur(8px);
         opacity: 0.2;
         pointer-events: none;
+
+        :root[data-color-scheme="dark"] & {
+          background-image: var(--image-placeholder-dark, var(--image-placeholder));
+        }
       }
 
-      figure[data-shadow="false"] &::before {
-        display: none;
-      }
     }
 
     picture {
       display: block;
       margin: 0;
+
+      :root[data-color-scheme="light"] &[data-image-theme="dark"],
+      :root[data-color-scheme="dark"] &[data-image-theme="light"] {
+        display: none;
+      }
 
       @container style(--content-image-layout: fill) {
         width: 100%;
