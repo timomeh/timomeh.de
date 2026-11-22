@@ -14,7 +14,7 @@ RUN npm ci --omit=dev
 COPY --from=webhook /usr/local/bin/webhook /usr/local/bin/webhook
 COPY --from=git-pages /bin/git-pages-cli /usr/local/bin/git-pages-cli
 COPY eleventy.config.js ./
-COPY lib ./lib
+COPY config ./config
 COPY src ./src
 COPY deployer ./deployer
 RUN chmod +x /app/deployer/git-askpass.sh
