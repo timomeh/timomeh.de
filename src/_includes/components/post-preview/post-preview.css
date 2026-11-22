@@ -27,8 +27,7 @@
 
     .cover {
       position: relative;
-      left: 50%;
-      transform: translateX(-50%);
+      margin-inline: calc((100% - min(100vw, 1024px)) / 2);
       margin-bottom: -6rem;
       width: min(100vw, 1024px);
     }
