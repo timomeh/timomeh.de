@@ -1,0 +1,49 @@
+<style>
+  .browser-warning {
+    box-sizing: border-box;
+    margin: 1rem;
+    padding: 1rem 1.25rem;
+    border: 2px solid #805500;
+    border-radius: 0.375rem;
+    background: #fff2c7;
+    color: #302000;
+    font: 1rem/1.5 sans-serif;
+  }
+  .browser-warning[hidden] { display: none; }
+</style>
+<aside class="browser-warning" id="browser-warning" hidden>
+  Your browser seems outdated and may not support all the features needed to view this page.
+  You should really consider keeping your browser up to date for a better browsing experience
+  and to prevent security issues (especially nowadays, am I right? lol).
+</aside>
+<script>
+  (function () {
+    var probe = document.createElement('div');
+    var style = document.createElement('style');
+    var warning = document.getElementById('browser-warning');
+    probe.className = 'browser-feature-probe';
+    probe.style.cssText = 'position:absolute;visibility:hidden;--browser-probe:yes';
+    probe.innerHTML = '<div class="browser-feature-target"></div>';
+    style.textContent = '@layer browser-probe {' +
+      '@scope (.browser-feature-probe) { .browser-feature-target { --scope-supported: yes; } }' +
+      '@container style(--browser-probe: yes) { .browser-feature-target { --style-query-supported: yes; } }' +
+      '.browser-feature-probe { & .browser-feature-target { --nesting-supported: yes; } }' +
+      '}';
+    try {
+      document.body.appendChild(style);
+      document.body.appendChild(probe);
+      var result = getComputedStyle(probe.firstChild);
+      if (result.getPropertyValue('--scope-supported').trim() !== 'yes' ||
+          result.getPropertyValue('--style-query-supported').trim() !== 'yes' ||
+          result.getPropertyValue('--nesting-supported').trim() !== 'yes' ||
+          !window.CSS || !CSS.supports('selector(:has(*))') ||
+          !CSS.supports('color', 'color-mix(in srgb, red, blue)')) {
+        warning.hidden = false;
+      }
+    } catch (error) {
+      warning.hidden = false;
+    }
+    if (probe.parentNode) probe.parentNode.removeChild(probe);
+    if (style.parentNode) style.parentNode.removeChild(style);
+  })();
+</script>

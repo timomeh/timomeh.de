@@ -105,6 +105,8 @@
       {% assign kicker = post.frontmatter.kicker | default: pageContent.frontmatter.kicker | default: short.frontmatter.kicker | default: category.frontmatter.kicker %}
       {% include 'components/page-header/page-header', kicker: kicker %}
 
+      {% include 'browser-warning' %}
+
       <main id="page-content" tabindex="-1">
         <a class="u-skipLink" href="#site-nav" data-no-swup>Skip to navigation</a>
         {{ content }}
