@@ -1,5 +1,5 @@
 ---
-feedKinds: [posts, shorts]
+feedKinds: [posts, shorts, all]
 pagination:
   data: feedKinds
   size: 1
@@ -15,10 +15,11 @@ eleventyExcludeFromCollections: true
   <subtitle>{{ feed_subtitle | escape }}</subtitle>
   <link href="{{ page.url | absoluteUrl | escape }}" rel="self"/>
   <link href="{{ site.url | escape }}"/>
-  {% if entries.size > 0 %}<updated>{{ entries[0].publishedAt | dateToRfc3339 }}</updated>{% endif %}
-  <id>{{ site.url | escape }}</id>
+  {% if kind == 'all' %}{% assign latest = entries[0].entry %}{% else %}{% assign latest = entries[0] %}{% endif %}
+  {% if entries.size > 0 %}<updated>{{ latest.publishedAt | dateToRfc3339 }}</updated>{% endif %}
+  <id>{% if kind == 'all' %}{{ page.url | absoluteUrl | escape }}{% else %}{{ site.url | escape }}{% endif %}</id>
   <author><name>Timo Mämecke</name></author>
-  {% for entry in entries %}
+  {% for item in entries %}
     {% include 'feed-entry.liquid' %}
     <entry>
       <title>{{ entry_title | escape }}</title>

@@ -1,5 +1,5 @@
 ---
-feedKinds: [posts, shorts]
+feedKinds: [posts, shorts, all]
 pagination:
   data: feedKinds
   size: 1
@@ -18,7 +18,7 @@ eleventyExcludeFromCollections: true
   "description": {{ feed_subtitle | json }},
   "authors": [{ "name": "Timo Mämecke" }],
   "items": [
-    {% for entry in entries %}
+    {% for item in entries %}
       {% include 'feed-entry.liquid' %}
       {% assign tracked_url = entry_url | append: '?utm_source=rss' %}
       {% unless forloop.first %},{% endunless %}

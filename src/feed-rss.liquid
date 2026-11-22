@@ -1,5 +1,5 @@
 ---
-feedKinds: [posts, shorts]
+feedKinds: [posts, shorts, all]
 pagination:
   data: feedKinds
   size: 1
@@ -17,7 +17,7 @@ eleventyExcludeFromCollections: true
     <atom:link href="{{ page.url | absoluteUrl | escape }}" rel="self" type="application/rss+xml"/>
     <description>{{ feed_subtitle | escape }}</description>
     <language>en</language>
-    {% for entry in entries %}
+    {% for item in entries %}
       {% include 'feed-entry.liquid' %}
       <item>
         <title>{{ entry_title | escape }}</title>

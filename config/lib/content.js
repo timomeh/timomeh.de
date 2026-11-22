@@ -41,6 +41,9 @@ async function loadContentData() {
     categories,
     years,
     timeline,
+    feedAll: timeline.flatMap((item) => item.type === "shorts-group"
+      ? item.items.map((entry) => ({ kind: "shorts", entry }))
+      : [{ kind: "posts", entry: item }]),
     kickers: (settings.kickers || []).filter(Boolean),
   };
 }
