@@ -37,12 +37,6 @@
     <link rel="stylesheet" href="{{ 'src/css/base.css' | cssUrl }}">
     <link rel="stylesheet" href="{{ 'src/css/utilities.css' | cssUrl }}">
     {% getBundle "componentStyles" %}
-    <link rel="modulepreload" href="{{ 'src/js/shaders.mjs' | jsUrl }}">
-    <script defer src="{{ 'src/js/vendor/fancybox.umd.js' | jsUrl }}"></script>
-    <script defer src="{{ 'src/js/vendor/swup.umd.js' | jsUrl }}"></script>
-    <script defer src="{{ 'src/js/vendor/swup-head-plugin.umd.js' | jsUrl }}"></script>
-    <script defer src="{{ 'src/js/vendor/swup-a11y-plugin.umd.js' | jsUrl }}"></script>
-    <script defer src="{{ 'src/js/vendor/swup-parallel-plugin.umd.js' | jsUrl }}"></script>
     <script type="importmap">
     {
       "imports": {
@@ -51,6 +45,12 @@
       }
     }
     </script>
+    <link rel="modulepreload" href="{{ 'src/js/shaders.mjs' | jsUrl }}">
+    <script defer src="{{ 'src/js/vendor/fancybox.umd.js' | jsUrl }}"></script>
+    <script defer src="{{ 'src/js/vendor/swup.umd.js' | jsUrl }}"></script>
+    <script defer src="{{ 'src/js/vendor/swup-head-plugin.umd.js' | jsUrl }}"></script>
+    <script defer src="{{ 'src/js/vendor/swup-a11y-plugin.umd.js' | jsUrl }}"></script>
+    <script defer src="{{ 'src/js/vendor/swup-parallel-plugin.umd.js' | jsUrl }}"></script>
     <script type="module" src="{{ 'src/js/swup.mjs' | jsUrl }}"></script>
     <script type="module" src="{{ 'src/js/page-transitions.mjs' | jsUrl }}"></script>
     <script type="module" src="{{ 'src/js/lightbox.mjs' | jsUrl }}"></script>
