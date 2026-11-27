@@ -31,12 +31,11 @@
         filter: blur(8px);
         opacity: 0.2;
         pointer-events: none;
-
-        :root[data-color-scheme="dark"] & {
-          background-image: var(--image-placeholder-dark, var(--image-placeholder));
-        }
       }
 
+      :root[data-color-scheme="dark"] &::before {
+        background-image: var(--image-placeholder-dark, var(--image-placeholder));
+      }
     }
 
     picture {
